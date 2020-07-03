@@ -35,9 +35,11 @@ export class SessionResolver {
         assert(user.confirmed, "user not yet confirmed");
         assert(user.active, "account disabled");
 
-        const verify = pbkdf2.validate(user.password, password, user.salt);
+        console.log(user);
+        const verify = await pbkdf2.validate(user.password, password, user.salt);
         assert(verify, "invalid password");
 
+        console.log(verify);
         const session = v4();
         const key = `${redis.keys.session}:${session}`;
 

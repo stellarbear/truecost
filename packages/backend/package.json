@@ -17,18 +17,18 @@
     "private": true,
     "license": "MIT",
     "dependencies": {
-        "apollo-server-express": "^2.15.0",
+        "apollo-server-express": "^2.15.1",
         "connect-redis": "^4.0.4",
         "express": "^4.17.1",
         "express-session": "^1.17.1",
-        "graphql": "^15.1.0",
+        "graphql": "^15.2.0",
         "graphql-upload": "^11.0.0",
         "ioredis": "^4.17.3",
         "mikro-orm": "^3.6.15",
         "mongodb": "^3.5.9",
         "reflect-metadata": "^0.1.13",
         "tsc-watch": "^4.2.8",
-        "type-graphql": "^1.0.0-rc.2",
+        "type-graphql": "^1.0.0-rc.3",
         "uuid": "^8.1.0"
     },
     "devDependencies": {

@@ -1,4 +1,6 @@
 .idea/
+packages/**/dist
+packages/**/build
 node_modules/
 coverage/
 dist/

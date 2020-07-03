@@ -1,0 +1,15 @@
+html {
+    background: #FAFAFA;
+    overflow-x: hidden;
+}
+
+.content {
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    position: absolute;
+    overflow-x: visible;
+}
