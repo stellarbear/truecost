@@ -1,0 +1,30 @@
+version: "3.6"
+
+services:
+  backend:
+    build: 
+      context: .
+      network: host
+      dockerfile: dockerfile.backend
+    links:
+      - mongo
+      - redis
+    volumes:
+      - ./packages/backend:/usr/app/packages/backend:z
+      - ./packages/shared:/usr/app/packages/shared:z
+    ports: ["127.0.0.1:7000:7000"]
+
+  mongo:
+    image: library/mongo:bionic
+    restart: always
+    ports: ["127.0.0.1:27017:27017"]
+    volumes: ["mongo:/data/db"]
+  redis:
+    image: bitnami/redis
+    restart: always
+    ports: ["127.0.0.1:6379:6379"]
+    environment: 
+      ALLOW_EMPTY_PASSWORD: "yes"
+
+volumes:
+  mongo:

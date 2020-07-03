@@ -1,0 +1,11 @@
+.idea/
+
+bin/
+dist/
+/config/
+node_modules/
+docker-compose.*
+/.*
+!.eslintrc
+
+packages/**/node_modules

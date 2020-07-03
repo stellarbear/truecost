@@ -1,0 +1,11 @@
+.idea/
+node_modules/
+coverage/
+dist/
+db/
+yarn-*.log
+lerna-*.log
+npm-*.log
+.DS_Store
+tsconfig.tsbuildinfo
+.env.local

@@ -1,0 +1,28 @@
+{
+  "name": "truecost",
+  "version": "0.0.0",
+  "main": "index.js",
+  "description": "boosting website",
+  "workspaces": [
+    "packages/**"
+  ],
+  "scripts": {
+    "clean": "lerna run clean",
+    "lint": "eslint 'packages/*/{src,test}/**/*.{ts,tsx}'",
+    "build": "yarn && yarn run clean && tsc -b packages",
+    "build:watch": "tsc -b packages -w"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "@types/node": "^14.0.13",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.2.0",
+    "eslint-plugin-react": "^7.20.0",
+    "husky": "^4.2.5",
+    "lerna": "^3.22.1",
+    "typescript": "^3.9.5"
+  },
+  "private": true,
+  "license": "MIT"
+}
