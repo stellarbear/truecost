@@ -1,5 +1,5 @@
 import {BaseService} from "../base/base.service";
-import {DI} from "../../..";
+import {DI} from "../../../orm";
 import {CategoryEntity} from "./category.entity";
 
 export class CategoryService extends BaseService<CategoryEntity> {

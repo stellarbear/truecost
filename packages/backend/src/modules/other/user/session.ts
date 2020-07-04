@@ -1,10 +1,11 @@
 import {Arg, Ctx, Mutation, Query, Resolver} from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
-import {Context, DI, sessionCookieName} from "../../..";
+import {Context, sessionCookieName} from "../../../server";
 import {assert} from "../../../helpers/assert";
 import {pbkdf2} from "../../../helpers/pbkdf2";
 import {v4} from "uuid";
 import {redis} from "../../../redis";
+import {DI} from "../../../orm";
 
 const destroySession = (ctx: Context) => {
     return new Promise((res, rej) =>
@@ -35,11 +36,9 @@ export class SessionResolver {
         assert(user.confirmed, "user not yet confirmed");
         assert(user.active, "account disabled");
 
-        console.log(user);
         const verify = await pbkdf2.validate(user.password, password, user.salt);
         assert(verify, "invalid password");
 
-        console.log(verify);
         const session = v4();
         const key = `${redis.keys.session}:${session}`;
 

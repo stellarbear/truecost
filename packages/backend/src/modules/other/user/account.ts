@@ -1,6 +1,6 @@
 import {Arg, Mutation, Resolver} from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
-import {DI} from "../../..";
+import {DI} from "../../../orm";
 import {v4} from "uuid";
 import {assert} from "../../../helpers/assert";
 import {wrap} from "mikro-orm";

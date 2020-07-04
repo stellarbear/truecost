@@ -6,6 +6,7 @@ import {
     CardContent,
     CircularProgress,
     Container,
+    Grid,
     TextField,
     Typography,
 } from "@material-ui/core";
@@ -45,7 +46,7 @@ const Login: React.FC<LoginProps> = ({history}) => {
     const {store: {user: {updateUser}}} = React.useContext(DataContext);
     const [loginMutation, {data, error, loading}] = useMutation(LOGIN);
 
-    const {register, handleSubmit, errors, setError, watch} = useForm<LogInSubmit>({reValidateMode: "onBlur"});
+    const {register, handleSubmit, errors} = useForm<LogInSubmit>({reValidateMode: "onBlur"});
 
     const logInSubmit = useCallback(
         (data: LogInSubmit) => {
@@ -102,12 +103,17 @@ const Login: React.FC<LoginProps> = ({history}) => {
                             />
                         </CardContent>
                         <CardActions>
-                            <Button component={Link} to="/user/forget" style={{marginRight: 8}}>
-                                forgot password?
-                            </Button>
-                            <Button variant="contained" type="submit">
-                                {loading ? <CircularProgress size={24}/> : "LOGIN"}
-                            </Button>
+                            <Grid
+                                container
+                                justify="space-between"
+                            >
+                                <Button component={Link} to="/user/forget">
+                                    forgot password?
+                                </Button>
+                                <Button variant="contained" type="submit">
+                                    {loading ? <CircularProgress size={24}/> : "LOGIN"}
+                                </Button>
+                            </Grid>
                         </CardActions>
                     </Card>
                     <Box mt={2}>

@@ -1,6 +1,6 @@
 import {Query, Resolver} from "type-graphql";
-import {DI} from "../../..";
 import {GameEntity} from "../../crud/game/game.entity";
+import {DI} from "../../../orm";
 
 @Resolver(() => GameEntity)
 export class GameResolver {

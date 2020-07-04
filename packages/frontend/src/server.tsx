@@ -3,9 +3,6 @@ import {StaticRouter} from "react-router-dom";
 import {renderToString} from "react-dom/server";
 import Helmet, {HelmetData, HelmetDatum} from "react-helmet";
 import {StaticRouterContext} from "react-router";
-
-import fs from "fs";
-import path from "path";
 import express from "express";
 
 import App from "./app";
@@ -77,7 +74,7 @@ const template = ({helmet, markup, assets, ssrCss, customCss, initialState}: ITe
 	<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
 	<script defer src="auxiliary/blotter.min.js"></script>
 </head>
-<body>
+<body style="margin: 0">
 	<div class="desktop">
 	</div>
 

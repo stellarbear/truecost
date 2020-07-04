@@ -1,7 +1,7 @@
 import {MiddlewareFn} from "type-graphql";
-import {Context} from "..";
 import {assert} from "../helpers/assert";
 import {RoleType} from "@truecost/shared";
+import {Context} from "../server";
 
 const UseAuth: (roles?: RoleType[]) => MiddlewareFn<Context> =
     (roles?: RoleType[]) => async ({context: {user}}, next) => {

@@ -1,4 +1,6 @@
 import * as Redis from "ioredis";
+import * as session from "express-session";
+import * as connectRedis from "connect-redis";
 
 const client = new Redis({host: 'redis'});
 
@@ -16,4 +18,8 @@ const duration = {
 
 const redis = {client, keys, duration};
 
-export {redis};
+const init = () => {
+    return connectRedis(session);
+};
+
+export {redis, init};

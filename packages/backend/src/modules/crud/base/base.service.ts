@@ -1,6 +1,6 @@
 import {EntityRepository, wrap} from "mikro-orm";
 import {assert} from "../../../helpers/assert";
-import {DI} from "../../..";
+import {DI} from "../../../orm";
 import {UploadType} from "../../../scalars";
 import {FileUpload} from "graphql-upload";
 import {Media} from "../../../helpers/media";
@@ -58,13 +58,13 @@ export abstract class BaseService<T> {
     }
 
     async get({
-        skip = 0,
-        take = 1,
-        set = {},
-        like = {},
-        between = {},
-        filter = {},
-    }) {
+                  skip = 0,
+                  take = 1,
+                  set = {},
+                  like = {},
+                  between = {},
+                  filter = {},
+              }) {
         const sub = [
             ...convert(set, "set"),
             ...convert(like, "like"),

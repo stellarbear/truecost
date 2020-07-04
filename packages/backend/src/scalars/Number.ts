@@ -1,10 +1,9 @@
 import {GraphQLScalarType} from "graphql";
 
-export type RangeType = {
+export type NumberType = {
     from: number;
     to: number;
-};
-export type NumberType = RangeType | number;
+} | number;
 
 export const NumberScalar = new GraphQLScalarType({
     name: "NumberScalar",

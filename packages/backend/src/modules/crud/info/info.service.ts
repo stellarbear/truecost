@@ -1,6 +1,6 @@
 import {InfoEntity} from "./info.entity";
 import {BaseService} from "../base/base.service";
-import {DI} from "../../..";
+import {DI} from "../../../orm";
 
 export class InfoService extends BaseService<InfoEntity> {
     constructor() {

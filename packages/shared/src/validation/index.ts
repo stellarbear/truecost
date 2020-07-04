@@ -22,4 +22,4 @@ const validate = (type: keyof typeof regexRegistry) => {
     });
 };
 
-export {validate}
+export {validate};

@@ -27,6 +27,7 @@ export class UserCRUDResolver extends BaseResolver
         upsert: {
             notEmpty: [],
         },
+        restrictPublic: false,
     },
 )
 {
