@@ -14,12 +14,12 @@ import {InputField} from "components";
 import {CSSProperties} from "@material-ui/core/styles/withStyles";
 
 const EMAIL_VERIFY = gql`
-    query($email: String!) {
+    query emailVerify($email: String!) {
         emailVerify(email: $email)
     }
 `;
 const CODE_VERIFY = gql`
-    query($email: String!, $code: String!) {
+    query codeVerify($email: String!, $code: String!) {
         codeVerify(email: $email, code: $code)
     }
 `;

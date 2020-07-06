@@ -19,16 +19,17 @@ export class Media {
         const uploadPath = path.resolve(dir, path.join(...id));
         await mkdir(uploadPath, {recursive: true});
 
-        const {createReadStream, filename} = await upload;
+        const {createReadStream, filename} = await (upload as any).promise;
         const stream = createReadStream();
 
         const name = 'u' + filename.slice(filename.lastIndexOf('.'));
         try {
+            console.log('treying')
             const result = await new Promise((resolve, reject) =>
                 stream
-                    .on("error", error => reject(error))
+                    .on("error", (error: any) => reject(error))
                     .pipe(fs.createWriteStream(path.resolve(uploadPath, name)))
-                    .on("error", error => reject(error))
+                    .on("error", (error: any) => reject(error))
                     .on("finish", () => resolve(name)));
 
             return result;

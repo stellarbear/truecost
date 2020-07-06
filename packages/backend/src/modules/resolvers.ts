@@ -1,5 +1,4 @@
 import {BlogCRUDResolver} from "./crud/blog/blog.resolver";
-import {GameResolver} from "./other/game/game";
 import {UserCRUDResolver} from "./crud/user/user.resolver";
 import {BookingCRUDResolver} from "./crud/booking/booking.resolver";
 import {AccountResolver} from "./other/user/account";
@@ -13,7 +12,6 @@ import {InfoCRUDResolver} from "./crud/info/info.resolver";
 
 const resolvers = [
     BlogCRUDResolver,
-    GameResolver,
     UserCRUDResolver, BookingCRUDResolver,
     AccountResolver, SessionResolver,
     TagCRUDResolver, GameCRUDResolver, ItemCRUDResolver,

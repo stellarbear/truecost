@@ -14,7 +14,7 @@ interface IForgetProps {
 }
 
 const ForgetRequest = gql`
-    mutation ($email: String!) {
+    mutation userForget ($email: String!) {
         userForget(email: $email)
     }
 `;

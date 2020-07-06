@@ -1,7 +1,7 @@
 import {ItemEntity} from "./item.entity";
 import {PaginatedResponse} from "../../../helpers/pagination";
 import {ObjectType, Resolver} from "type-graphql";
-import {BaseResolver} from "../base/base.resolver";
+import {BaseResolver, MetaResolver} from "../base/base.resolver";
 import {ItemService} from "./item.service";
 import {ItemInput} from "./item.input";
 
@@ -11,7 +11,7 @@ class ItemResponse extends PaginatedResponse(ItemEntity) {
 }
 
 @Resolver(() => ItemEntity)
-export class ItemCRUDResolver extends BaseResolver
+export class ItemCRUDResolver extends MetaResolver
     <typeof ItemEntity, typeof ItemInput, typeof ItemResponse, ItemInput>
 
 (
@@ -21,14 +21,14 @@ export class ItemCRUDResolver extends BaseResolver
         classRef: ItemEntity,
         resultRef: ItemResponse,
         get: {
-            set: ["active", "topOffer"],
-            like: ["name", "url", "obtain", "requirements", "link"],
+            set: ["topOffer"],
+            like: ["obtain", "requirements", "link"],
             between: ["price", "discount", "limit"],
             filter: ["game", "tag", "option", "category", "item"],
         },
         upsert: {
-            notEmpty: ["active", "name", "url", "images", "price", "game"],
-            unique: ["name", "url"],
+            notEmpty: [ "images", "price", "game"],
+            unique: [],
             images: ["images"],
         },
         restrictPublic: false,

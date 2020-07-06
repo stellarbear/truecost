@@ -47,7 +47,7 @@ interface IOrderProps {
 }
 
 const GET_ORDER = gql`
-    query($id: String!, $email: String!) {
+    query orderGetById($id: String!, $email: String!) {
         orderGetById (id: $id, email: $email) {
             id
             name

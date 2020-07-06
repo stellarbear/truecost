@@ -13,7 +13,7 @@ interface IMatchProps {
 type IConfirmProps = RouteComponentProps<IMatchProps>;
 
 const ConfirmUser = gql`
-    mutation ($id: String!, $confirm: String!) {
+    mutation userConfirm ($id: String!, $confirm: String!) {
         userConfirm(id: $id, confirm: $confirm)
     }
 `;

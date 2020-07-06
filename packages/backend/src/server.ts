@@ -1,12 +1,22 @@
 import * as express from 'express';
 import {GraphQLSchema} from "graphql";
-import {ApolloServer} from "apollo-server-express";
 import {DI} from "./orm";
 import * as path from 'path';
-import * as session from "express-session";
+import * as cors from "fastify-cors";
 import {redis} from "./redis";
 import {RedisStore} from 'connect-redis';
 import {UserEntity} from './modules/crud/user/user.entity';
+import {graphqlUploadExpress} from 'graphql-upload';
+
+
+import * as fastifygqlupload from 'fastify-gql-upload';
+import * as fastifileupload from 'fastify-file-upload';
+import * as fastifymultipart from 'fastify-multipart';
+import * as fastify from 'fastify';
+import * as fastifystatic from 'fastify-static';
+import * as fastifysession from 'fastify-session';
+import * as fastifycookie from 'fastify-cookie';
+import * as gql from "fastify-gql";
 
 export interface Context {
     req: express.Request;
@@ -14,16 +24,56 @@ export interface Context {
     user?: UserEntity;
 }
 
+//TODO: fastify-rate-limit
+//https://github.com/dougg0k/nodejs_graphql_typescript_starter/blob/master/src/index.ts
+
 export const sessionCookieName = 'sid';
 
 const init = async (schema: GraphQLSchema, store: RedisStore) => {
-    const app = express();
+    const app = fastify({logger: true});
 
-    const apolloServer = new ApolloServer({
+    app.register(cors, {
+        credentials: true,
+        origin: true,
+    });
+    app.register(fastifystatic, {
+        root: path.join(__dirname, '/../static')
+    })
+
+    app.register(fastifygqlupload, {
+        limits: {fileSize: 6 * 1024 * 1024},
+    })
+    app.register(fastifycookie);
+    app.register(fastifysession, {
+        store: new store({client: redis.client}),
+        cookieName: sessionCookieName,
+        secret: "aslkdfjoiq12312aslkdfjoiq12312aslkdfjoiq12312aslkdfjoiq12312",
+        //resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 1000 * 60 * 60 * 24 * 7 * 365,
+        },
+    });
+
+    app.register(gql, {
         schema,
-        context: async ({req, res}): Promise<Context> => {
+        jit: 1,
+        graphiql: true,
+        allowBatchedQueries: true,
+        queryDepth: 10,
+        /*errorHandler: (error: fastify.FastifyError, req: any, reply: any) => {
+            console.log(error.message, error.name);
+            console.log(error.statusCode, error.stack);
+            //console.log(req)
+            return error;
+        },*/
+        context: async (req: any, res: any) => {
+            console.log('context');
             DI.em.clear();
-            const sid = (req as any).session.sid;
+            const sid = req.session.sid;
+            console.log('sid');
 
             if (!sid) {
                 return ({req, res});
@@ -43,39 +93,8 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
             }
 
             return ({req, res, user});
-        },
-        introspection: true,
-        playground: true,
-    });
-
-
-    app.use(express.static(path.join(__dirname, '/../static')));
-    app.use(
-        session({
-            store: new store({client: redis.client}),
-            name: sessionCookieName,
-            secret: "aslkdfjoiq12312",
-            resave: false,
-            saveUninitialized: false,
-            cookie: {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                maxAge: 1000 * 60 * 60 * 24 * 7 * 365,
-            },
-        }),
-    );
-
-    apolloServer.applyMiddleware({
-        app,
-        cors: {
-            credentials: true,
-            origin: true,
-        },
-        bodyParserConfig: {
-            limit: '6mb',
-        },
-        path: `/graphql`,
-    });
+        }
+    })
 
     return app;
 };

@@ -14,28 +14,27 @@ class CategoryResponse extends PaginatedResponse(CategoryEntity) {
 export class CategoryCRUDResolver extends BaseResolver
     <typeof CategoryEntity, typeof CategoryInput, typeof CategoryResponse, CategoryInput>
 
-(
-    {
+    (
+        {
 
-        inputRef: CategoryInput,
-        classRef: CategoryEntity,
-        resultRef: CategoryResponse,
-        get: {
-            set: ["active"],
-            between: ["order"],
-            like: ["name"],
-            filter: ["game"],
+            inputRef: CategoryInput,
+            classRef: CategoryEntity,
+            resultRef: CategoryResponse,
+            get: {
+                set: [],
+                between: [],
+                like: [],
+                filter: ["game"],
+            },
+            upsert: {
+                notEmpty: ["game"],
+                unique: [],
+            },
+            restrictPublic: false,
         },
-        upsert: {
-            notEmpty: ["active", "name", "game"],
-            unique: ["name"],
-        },
-        restrictPublic: false,
-    },
-)
+    )
 {
-    constructor()
-    {
+    constructor() {
         super(new CategoryService());
     }
 }

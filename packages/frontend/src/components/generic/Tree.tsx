@@ -11,7 +11,7 @@ interface ITreeProps {
 }
 
 const buildQuery = (tree: string) => gql`
-    query {
+    query ${tree} {
         ${tree} {
         id
         name

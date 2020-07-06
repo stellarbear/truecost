@@ -12,7 +12,7 @@ import CodeDialog from "./CodeDialog";
 import {IUser} from "pages/Base/DataWrapper";
 
 const CHECKOUT_SESSION = gql`
-    query($json: String!) {
+    query createCheckoutSession($json: String!) {
         createCheckoutSession(json: $json)
     }
 `;

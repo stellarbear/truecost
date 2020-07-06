@@ -1,6 +1,7 @@
 import {PrimaryKey, Property, SerializedPrimaryKey, Unique} from "mikro-orm";
 import {ObjectId} from "mongodb";
 import {Field, Int, ObjectType} from "type-graphql";
+import {DictionaryScalar, DictionaryType} from "../../../scalars";
 
 @ObjectType({isAbstract: true})
 export abstract class BaseEntity {
@@ -38,4 +39,8 @@ export abstract class MetaEntity extends BaseEntity {
     @Unique()
     @Property()
     url!: string;
+    
+    @Field(() => DictionaryScalar)
+    @Property()
+    meta!: DictionaryType;
 }

@@ -58,13 +58,13 @@ export abstract class BaseService<T> {
     }
 
     async get({
-                  skip = 0,
-                  take = 1,
-                  set = {},
-                  like = {},
-                  between = {},
-                  filter = {},
-              }) {
+        skip = 0,
+        take = 1,
+        set = {},
+        like = {},
+        between = {},
+        filter = {},
+    }) {
         const sub = [
             ...convert(set, "set"),
             ...convert(like, "like"),
@@ -116,10 +116,14 @@ export abstract class BaseService<T> {
         const item = await this.item(input.id);
         assert(item, "id not found");
 
-        await this.upload(item, input, images);
+        try {
+            await this.upload(item, input, images);
 
-        wrap(item).assign(input, {em: DI.em});
-        await this.repository.persistAndFlush(item);
+            wrap(item).assign(input, {em: DI.em});
+            await this.repository.persistAndFlush(item);
+        } catch {
+
+        }
 
         return item;
     }

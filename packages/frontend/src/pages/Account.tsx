@@ -38,7 +38,7 @@ interface IAccountProps {
 }
 
 const GET_ORDERS = gql`
-    query {
+    query userGetOrders {
         userGetOrders{
             id
             name

@@ -55,12 +55,12 @@ export class CImageList extends ABase implements IImageList {
 
                             return (
                                 <div key={`imageList-${Component[type]}-${id}-${index}-list`}
-                                     style={{padding: "16px 8px"}}>
+                                    style={{padding: "16px 8px"}}>
                                     <Badge
                                         badgeContent={
                                             <RemoveCircle
                                                 onClick={() => onChange([...overrideListValue.filter(v => v != val)])}
-                                                style={{width: 16, height: 16, marginLeft: -4, marginRight: -4}}/>
+                                                style={{width: 16, height: 16, marginLeft: -4, marginRight: -4}} />
                                         }
                                         anchorOrigin={{horizontal: "right", vertical: "bottom"}}
                                         style={{cursor: "pointer "}}
@@ -71,13 +71,13 @@ export class CImageList extends ABase implements IImageList {
                                             <SelectImage
                                                 ext={ext}
                                                 size={size}
-                                                id={`imageList-${Component[type]}-${id}-${index}`}
+                                                id={`imageList-${Component[type]}-${id}-${label}-${index}`}
                                                 src={imageSrc}
                                                 onChangeEvent={(value: any) => {
                                                     const newList = [...overrideListValue];
                                                     newList[index] = value;
                                                     onChange(newList);
-                                                }}/>
+                                                }} />
                                         </Zoom>
                                     </Badge>
                                 </div>
@@ -90,15 +90,15 @@ export class CImageList extends ABase implements IImageList {
                                 ext={ext}
                                 size={size}
                                 src={null}
-                                mock={<AddBox/>}
+                                mock={<AddBox />}
                                 width={dimension}
                                 height={dimension}
-                                id={`imageList-${Component[type]}-${id}-new`}
+                                id={`imageList-${Component[type]}-${id}-${label}-new`}
                                 onChangeEvent={(value: any) => {
                                     if (value) {
                                         onChange([...overrideListValue, value]);
                                     }
-                                }}/>
+                                }} />
                         </div>
                     )}
                 </div>

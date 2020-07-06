@@ -51,7 +51,7 @@ const base = {
 	`,
 };
 export const BULK_QUERY = gql`
-    {
+    query DataAll  {
         UserWhoAmI {
             id
             name
@@ -150,7 +150,7 @@ const Data: React.FC<DataProps> = ({children, staticContext}): JSX.Element => {
         ? gamesUrls[gameUrl].id
         : gamesIds[0];
 
-    if (data?.GameAll.length !== 0 && current == null) {
+    if (data?.GameAll.length !== 0 && current == null && currentGame != null) {
         setCurrent(currentGame);
     }
 

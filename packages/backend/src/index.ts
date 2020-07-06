@@ -10,5 +10,5 @@ import {init as redisInit} from './redis';
     const schema = await schemaInit();
     const server = await serverInit(schema, redis);
 
-    server.listen(7000, () => console.log(`> Server is running on 7000`));
+    server.listen(7000, '0.0.0.0');
 })();

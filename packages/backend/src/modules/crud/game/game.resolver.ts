@@ -1,7 +1,7 @@
 import {GameEntity} from "./game.entity";
 import {PaginatedResponse} from "../../../helpers/pagination";
 import {ObjectType, Resolver} from "type-graphql";
-import {BaseResolver} from "../base/base.resolver";
+import {BaseResolver, MetaResolver} from "../base/base.resolver";
 import {GameService} from "./game.service";
 import {GameInput} from "./game.input";
 
@@ -11,30 +11,25 @@ class GameResponse extends PaginatedResponse(GameEntity) {
 }
 
 @Resolver(() => GameEntity)
-export class GameCRUDResolver extends BaseResolver
+export class GameCRUDResolver extends MetaResolver
     <typeof GameEntity, typeof GameInput, typeof GameResponse, GameInput>
 
-(
-    {
-        inputRef: GameInput,
-        classRef: GameEntity,
-        resultRef: GameResponse,
-        get: {
-            set: ["active"],
-            between: ["order"],
-            like: ["name", "url"],
+    (
+        {
+            inputRef: GameInput,
+            classRef: GameEntity,
+            resultRef: GameResponse,
+            get: {},
+            upsert: {
+                notEmpty: ["twitter", "background", "assistant"],
+                unique: ["twitter"],
+                images: ["background", "assistant"],
+            },
+            restrictPublic: false,
         },
-        upsert: {
-            notEmpty: ["active", "name", "url", "twitter", "background", "assistant"],
-            unique: ["name", "url", "twitter"],
-            images: ["background", "assistant"],
-        },
-        restrictPublic: false,
-    },
-)
+    )
 {
-    constructor()
-    {
+    constructor() {
         super(new GameService());
     }
 }

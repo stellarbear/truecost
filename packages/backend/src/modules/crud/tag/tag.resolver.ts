@@ -14,27 +14,26 @@ class TagResponse extends PaginatedResponse(TagEntity) {
 export class TagCRUDResolver extends BaseResolver
     <typeof TagEntity, typeof TagInput, typeof TagResponse, TagInput>
 
-(
-    {
+    (
+        {
 
-        inputRef: TagInput,
-        classRef: TagEntity,
-        resultRef: TagResponse,
-        get: {
-            set: ["active"],
-            like: ["name"],
-            filter: ["game", "item"],
+            inputRef: TagInput,
+            classRef: TagEntity,
+            resultRef: TagResponse,
+            get: {
+                set: [],
+                like: [],
+                filter: ["game", "item"],
+            },
+            upsert: {
+                notEmpty: ["game"],
+                unique: [],
+            },
+            restrictPublic: false,
         },
-        upsert: {
-            notEmpty: ["active", "name", "game"],
-            unique: ["name"],
-        },
-        restrictPublic: false,
-    },
-)
+    )
 {
-    constructor()
-    {
+    constructor() {
         super(new TagService());
     }
 }

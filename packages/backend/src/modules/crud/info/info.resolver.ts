@@ -20,13 +20,8 @@ export class InfoCRUDResolver extends BaseResolver
         inputRef: InfoInput,
         classRef: InfoEntity,
         resultRef: InfoResponse,
-        get: {
-            set: ["active"],
-            like: ["name"],
-        },
-        upsert: {
-            notEmpty: [],
-        },
+        get: {},
+        upsert: {},
     },
 )
 {

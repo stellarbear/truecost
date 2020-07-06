@@ -21,13 +21,12 @@ export class UserCRUDResolver extends BaseResolver
         classRef: UserEntity,
         resultRef: UserResponse,
         get: {
-            set: ["active"],
-            like: ["name"],
+            set: [],
+            like: [],
         },
         upsert: {
             notEmpty: [],
         },
-        restrictPublic: false,
     },
 )
 {

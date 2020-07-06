@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const buildQuery = (query: IQuery) => gql`
-    query {
+    query ${query.name} {
         ${query.name} {
         id
         name

@@ -25,7 +25,7 @@ import {theme} from "theme";
 
 
 const LOGIN = gql`
-    mutation($email: String!, $password: String!) {
+    mutation UserLogin($email: String!, $password: String!) {
         UserLogin(email:$email, password:$password) {
             name
             role

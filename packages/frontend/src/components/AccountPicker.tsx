@@ -9,7 +9,7 @@ import {DataContext} from "pages/Base/DataWrapper";
 import {admin} from "pages/Admin/routes";
 
 const LOGOUT = gql`
-    mutation {
+    mutation UserLogout {
         UserLogout
     }
 `;

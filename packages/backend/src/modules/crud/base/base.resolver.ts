@@ -1,8 +1,8 @@
 import {Arg, ClassType, Int, Mutation, Query, Resolver, UseMiddleware} from "type-graphql";
 import {BaseService} from "./base.service";
 import {assert} from "../../../helpers/assert";
-import {BaseEntity} from "./base.entity";
-import {BaseInput} from "./base.input";
+import {BaseEntity, MetaEntity} from "./base.entity";
+import {BaseInput, MetaInput} from "./base.input";
 import {UseAuth} from "../../../middleware/auth";
 import {isArray, isString} from "../../../helpers/is";
 import {RoleType} from "@truecost/shared";
@@ -22,50 +22,110 @@ const filterInput = <V>(input: V, array: Array<keyof V>) => {
     return result;
 };
 
-interface IBaseResolver<T, I, R, V> {
+interface ICRUDGet<V> {
+    set?: Array<keyof V>;
+    like?: Array<keyof V>;
+    between?: Array<keyof V>;
+    filter?: Array<keyof V>;
+};
+interface ICRUDUpsert<V> {
+    notEmpty?: Array<keyof V>;
+    unique?: Array<keyof V>;
+    images?: Array<keyof V>;
+};
+interface ICRUDResolver<T, I, R, V> {
     classRef: T;
     inputRef: I;
     resultRef: R;
-    get: {
-        set?: Array<keyof V>;
-        like?: Array<keyof V>;
-        between?: Array<keyof V>;
-        filter?: Array<keyof V>;
-    };
-    upsert: {
-        notEmpty: Array<keyof V>;
-        unique?: Array<keyof V>;
-        images?: Array<keyof V>;
-    };
+    get: ICRUDGet<V>;
+    upsert: ICRUDUpsert<V>;
     restrictPublic?: boolean;
     prefix?: string;
+}
+
+const merge = <T, U extends T>(src: {[K in keyof T]: T[K][]}, dst: {[K in keyof U]: U[K][]}) => {
+    for (let key in src) {
+        if (key in dst) {
+            src[key].push(...(dst[key] || []));
+        }
+    }
+
+    return src;
 }
 
 export function BaseResolver<T extends typeof BaseEntity,
     I extends typeof BaseInput,
     R extends ClassType<unknown>,
-    V extends { id?: string }>(
-    {
-        inputRef,
-        classRef,
-        resultRef,
-        get: {
-            set = [],
-            like = [],
-            filter = [],
-            between = [],
-        },
-        upsert: {
-            notEmpty,
-            unique = [],
-            images = [],
-        },
-        restrictPublic = true,
-        prefix = classRef.name.replace('Entity', ""),
-    }: IBaseResolver<T, I, R, V>): any {
+    V extends BaseInput>({get, upsert, ...rest}: ICRUDResolver<T, I, R, Omit<V, keyof BaseInput>>): any {
+
+    const baseGet: Required<ICRUDGet<BaseInput>> = {
+        set: ["active"],
+        between: ["order"],
+        like: ["name"],
+        filter: [],
+    };
+    const baseUpsert: Required<ICRUDUpsert<BaseInput>> = {
+        notEmpty: ["active", "name"],
+        unique: ["name"],
+        images: [],
+    };
+
+    return CRUDResolver<T, I, R, V>({
+        ...rest,
+        get: merge(baseGet, get as any),
+        upsert: merge(baseUpsert, upsert as any),
+    })
+}
+
+export function MetaResolver<T extends typeof MetaEntity,
+    I extends typeof MetaInput,
+    R extends ClassType<unknown>,
+    V extends MetaInput>({get, upsert, ...rest}: ICRUDResolver<T, I, R, Omit<V, keyof MetaInput>>): any {
+
+    const baseGet: Required<ICRUDGet<Omit<MetaInput, keyof BaseInput>>> = {
+        set: ["url"],
+        between: [],
+        like: ["url"],
+        filter: [],
+    };
+    const baseUpsert: Required<ICRUDUpsert<Omit<MetaInput, keyof BaseInput>>> = {
+        notEmpty: ["url"],
+        unique: ["url"],
+        images: [],
+    };
+
+    return BaseResolver<T, I, R, V>({
+        ...rest,
+        get: merge(baseGet, get as any) as any,
+        upsert: merge(baseUpsert, upsert as any) as any,
+    })
+}
+
+export function CRUDResolver<T extends typeof BaseEntity,
+    I extends typeof BaseInput,
+    R extends ClassType<unknown>,
+    V extends {id?: string}>(
+        {
+            inputRef,
+            classRef,
+            resultRef,
+            get: {
+                set = [],
+                like = [],
+                filter = [],
+                between = [],
+            },
+            upsert: {
+                notEmpty = [],
+                unique = [],
+                images = [],
+            },
+            restrictPublic = true,
+            prefix = classRef.name.replace('Entity', ""),
+        }: ICRUDResolver<T, I, R, V>): any {
 
     @Resolver(() => resultRef, {isAbstract: true})
-    abstract class BaseResolverClass {
+    abstract class CRUDResolverClass {
         constructor(protected readonly service: BaseService<T>) {
         }
 
@@ -77,11 +137,11 @@ export function BaseResolver<T extends typeof BaseEntity,
             @Arg('input', () => inputRef) input: V,
         ): Promise<R> {
             const result = await this.service.get({
-                skip, take,
-                set: filterInput(input, set),
+                skip, take, ...input
+                /*set: filterInput(input, set),
                 like: filterInput(input, like),
                 between: filterInput(input, between),
-                filter: filterInput(input, filter),
+                filter: filterInput(input, filter),*/
             });
             return result as any;
         }
@@ -97,10 +157,11 @@ export function BaseResolver<T extends typeof BaseEntity,
         @UseMiddleware(UseAuth([RoleType.ADMIN]))
         @Mutation(() => classRef, {name: `${prefix}Upsert`})
         async upsert(@Arg('input', () => inputRef) input: V): Promise<T> {
+            console.log('upsert arrived')
             const emptyValues = notEmpty.filter(key =>
                 (isArray(input[key]) || isString(input[key])) ? (input[key] as any).length == 0
                     : input[key] == undefined);
-            assert(emptyValues.length === 0, "must not be empty", emptyValues);
+            assert(emptyValues.length === 0, "must not be empty " + emptyValues, emptyValues);
 
             const nonUniqueValues = await this.service.unique(input, unique as string[]);
             assert(nonUniqueValues.length === 0, "must be unique", nonUniqueValues);
@@ -122,5 +183,5 @@ export function BaseResolver<T extends typeof BaseEntity,
         }
     }
 
-    return BaseResolverClass;
+    return CRUDResolverClass;
 }

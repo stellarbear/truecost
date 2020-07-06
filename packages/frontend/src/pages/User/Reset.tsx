@@ -15,7 +15,7 @@ interface IMatchProps {
 type IConfirmProps = RouteComponentProps<IMatchProps>;
 
 const ResetUser = gql`
-    mutation ($id: String!, $reset: String!, $password: String!) {
+    mutation userReset ($id: String!, $reset: String!, $password: String!) {
         userReset(id: $id, reset: $reset, password:$password)
     }
 `;

@@ -9,7 +9,9 @@ interface IApolloClient {
 }
 
 const errorLink = onError(({graphQLErrors}) => {
-    if (graphQLErrors) graphQLErrors.map(({message}) => console.log(message));
+    if (graphQLErrors) {
+        graphQLErrors.map(({message}) => console.log(message));
+    }
 });
 
 const httpLink = (cookie?: string) => createUploadLink({

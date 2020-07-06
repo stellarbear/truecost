@@ -21,8 +21,8 @@ export class BookingCRUDResolver extends BaseResolver
         classRef: BookingEntity,
         resultRef: BookingResponse,
         get: {
-            set: ["active"],
-            like: ["name"],
+            set: [],
+            like: [],
         },
         upsert: {
             notEmpty: [],

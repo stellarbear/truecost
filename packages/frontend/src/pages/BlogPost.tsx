@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const GET_POST = gql`
-    query($id: String!) {
+    query blogGetPost($id: String!) {
         blogGetPost(id: $id)
     }
 `;

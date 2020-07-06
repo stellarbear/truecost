@@ -14,7 +14,7 @@ import {Link, withRouter} from "react-router-dom";
 import Meta from "pages/Base/Meta";
 
 const REGISTER = gql`
-    mutation($name: String!, $password: String!, $email: String!) {
+    mutation userCreate($name: String!, $password: String!, $email: String!) {
         userCreate(name:$name, password:$password, email:$email)
     }
 `;

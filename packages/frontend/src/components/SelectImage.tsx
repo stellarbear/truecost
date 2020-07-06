@@ -58,16 +58,16 @@ const SelectImage: React.FC<ISelectImageProps> = ({
                     if (event.target.files) {
                         const file = event.target.files[0];
                         if (!file) {
-                            onChangeEvent(null);
+                            return
                         }
                         if (file.size > size) {
-                            onChangeEvent(null);
                             notify(`size limit exceeded - ${size}`);
+                            return
                         } else if (!ext || file.name.endsWith('.' + ext)) {
                             onChangeEvent(file);
                         } else {
-                            onChangeEvent(null);
                             notify(`only ${ext} allowed`);
+                            return
                         }
                     }
                 }}/>

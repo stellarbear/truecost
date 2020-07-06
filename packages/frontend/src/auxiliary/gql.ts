@@ -35,7 +35,7 @@ class CRUDgql {
     get get() {
         const {items, name} = this;
         return gql`
-            query ($take: Int!, $skip: Int!, $input: ${name}Input!){
+            query ${name}Get ($take: Int!, $skip: Int!, $input: ${name}Input!){
             ${name}Get(take: $take, skip: $skip, input: $input) {
             items{
             id
@@ -50,7 +50,7 @@ class CRUDgql {
     get delete() {
         const {name} = this;
         return gql`
-            mutation($input: ${name}Input!) {
+            mutation ${name}Delete ($input: ${name}Input!) {
             ${name}Delete(input: $input)
             }
         `;
@@ -59,7 +59,7 @@ class CRUDgql {
     get upsert() {
         const {name} = this;
         return gql`
-            mutation($input: ${name}Input!) {
+            mutation ${name}Upsert ($input: ${name}Input!) {
             ${name}Upsert(input: $input) {
             id
             }

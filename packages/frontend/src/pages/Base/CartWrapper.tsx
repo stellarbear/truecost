@@ -6,7 +6,7 @@ import {SafeJSON} from "auxiliary/json";
 import {sortByOrder} from "auxiliary/sort";
 
 const GET_SHOP = gql`
-    query {
+    query getShop {
         getShop
     }
 `;
