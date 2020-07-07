@@ -9,7 +9,7 @@ import {CartContext} from "pages/Base/CartWrapper";
 import {InputField} from "components";
 import PriceTypo from "pages/Base/PriceTypo";
 import CodeDialog from "./CodeDialog";
-import {IUser} from "pages/Base/DataWrapper";
+import {IUser} from "pages/Data/Wrapper";
 
 const CHECKOUT_SESSION = gql`
     query createCheckoutSession($json: String!) {

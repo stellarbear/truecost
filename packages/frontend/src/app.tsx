@@ -15,18 +15,19 @@ import Policy from "pages/Policy";
 import About from "pages/About";
 import TOS from "pages/TOS";
 import Contact from "pages/Contact";
-import {DataContext, DataWrapper} from "pages/Base/DataWrapper";
+import {DataContext, DataWrapper} from "pages/Data/Wrapper";
 import {admin} from "pages/Admin/routes";
+import Shop from "pages/Shop/Shop";
 
 
-const App = (): JSX.Element => {
+const App = () => {
     return (
         <MuiPickersUtilsProvider utils={DayJSUtils}>
             <NotifyWrapper>
                 <DataWrapper>
                     <DataContext.Consumer>
                         {({store: {game}}) => {
-                            const urls = Object.keys(game.data).map((key: string) => game.data[key].url);
+                            const urls = Object.values(game.data.id).map(value => value.url);
 
                             return (
                                 <NavigationWrapper>
@@ -48,6 +49,7 @@ const App = (): JSX.Element => {
                                     <AuthRoute exact path={`/register`} component={Register} unauthorized/>
                                     <AuthRoute exact path={`/login`} component={Login} unauthorized/>
 
+                                    <Route exact path={`/shop`} component={Shop}/>
                                     <Route exact path={`/contact`} component={Contact}/>
                                     <Route exact path={`/policy`} component={Policy}/>
                                     <Route exact path={`/about`} component={About}/>

@@ -8,12 +8,20 @@ interface EditorPostProps {
     onChangeEvent?: ((value: string) => void);
 }
 
-const EditorPost: React.FC<EditorPostProps> = ({
-                                                   value = "",
-                                                   label = "post",
-                                                   onChangeEvent = () => {
-                                                   },
-                                               }) => {
+
+const preview = (value: string, limit = 1600) =>
+    value.length > limit
+        ? value.slice(0, limit) + "..."
+        : value
+
+
+const EditorPost: React.FC<EditorPostProps> = (props) => {
+    const {
+        value = "",
+        label = "post",
+        onChangeEvent = () => {
+        },
+    } = props;
     const [text, setText] = useState("");
     const [open, setOpen] = useState(false);
 
@@ -44,7 +52,7 @@ const EditorPost: React.FC<EditorPostProps> = ({
                 fullWidth={true}
                 onClose={() => setOpen(false)}
             >
-                <DialogTitle>{"Verification code"}</DialogTitle>
+                <DialogTitle>{label}</DialogTitle>
                 <DialogContent style={{maxHeight: "75vh"}}>
                     <div style={{display: "flex"}}>
                         <div style={{width: "50%", margin: 8}}>{renderEditor()}</div>
@@ -69,33 +77,18 @@ const EditorPost: React.FC<EditorPostProps> = ({
         );
     };
 
-
     return (
         <React.Fragment>
             <div style={{display: 'flex', alignItems: 'center'}}>
                 <TextField
-                    label={label}
                     style={{minWidth: 300}}
+                    label={label}
+                    fullWidth
                     variant="filled"
-                    value={text.slice(0, 1600) + "..."}
+                    value={preview(text)}
                     multiline
                     rowsMax={4}
-                    onClick={() => setOpen(true)}
-                    InputProps={{
-                        endAdornment: (
-                            <Button
-                                color="primary"
-                                onClick={() => setOpen(true)}
-                                style={{
-                                    whiteSpace: "nowrap", position: "absolute",
-                                    right: 36,
-                                    bottom: 8,
-                                }}>
-                                Edit
-                            </Button>
-                        ),
-                        readOnly: true,
-                    }}/>
+                    onClick={() => setOpen(true)} />
             </div>
             {renderDialog()}
         </React.Fragment>

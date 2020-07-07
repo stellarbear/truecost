@@ -4,15 +4,8 @@
 	"license": "MIT",
 	"scripts": {
 		"prod": "cross-env RAZZLE_APP_ENV=production",
-		"game:d2": "cross-env RAZZLE_APP_GAME=d2",
-		"port:d2": "cross-env RAZZLE_APP_PORT=13001",
-		"devl:d2": "yarn game:d2",
-		"prod:d2": "yarn game:d2 yarn port:d2 yarn prod",
-		"start": "yarn devl:d2 yarn start:all",
-		"build:d2": "yarn prod:d2 razzle build",
-		"clear:server:d2": "pm2 delete -s d2.truecost.gg || :",
-		"deploy:local:d2": "yarn prod:d2 yarn start",
-		"deploy:server:d2": "yarn prod:d2 pm2 start build/server.js --name \"d2.truecost.gg\"",
+		"start": "yarn start:all",
+		"build": "yarn prod razzle build",
 		"start:all": "yarn clear:local && razzle start",
 		"clear:local": "rimraf build"
 	},

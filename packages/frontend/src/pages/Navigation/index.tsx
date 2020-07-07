@@ -1,5 +1,5 @@
 import {AppBar, Container, Hidden, Toolbar} from "@material-ui/core";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import Mobile from "./Mobile";
 import Desktop from "./Desktop";
 import ElevationScroll from "components/ElevationScroll";
@@ -9,6 +9,7 @@ import {RouteComponentProps} from "react-router-dom";
 import "css/router-animation.css";
 import Footer from "pages/Base/Footer";
 import window from 'global';
+import {DataContext} from "pages/Data/Wrapper";
 
 interface INavigationProps extends RouteComponentProps {
     rtl?: boolean;
@@ -16,15 +17,15 @@ interface INavigationProps extends RouteComponentProps {
 }
 
 const NavigationWrapper: React.FC<INavigationProps> = ({
-                                                           history,
-                                                           location,
-                                                           children,
-                                                           rtl = false,
-                                                           height = 200,
-                                                       }) => {
-
-    const calcState = () => window.pageYOffset < height;
-    /*&& history.location.pathname === "/"*/
+    history,
+    location,
+    children,
+    rtl = false,
+    height = 200,
+}) => {
+    const {current: {game}} = useContext(DataContext);
+    const calcState = () => window.pageYOffset < height
+        && history.location.pathname === ("/" + game?.url + "/" || "/");
     const [isOnTop, setIsOnTop] = useState(true);
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const NavigationWrapper: React.FC<INavigationProps> = ({
     useEffect(() => setIsOnTop(calcState()), [history.location.pathname]);
 
     const headerColorChange = () => setIsOnTop(calcState());
-    const logo = isOnTop ? "logo-white.png" : "logo-black.png";
+    const logo = isOnTop ? "/logo-white.png" : "/logo-black.png";
 
     return (
         <React.Fragment>
@@ -52,6 +53,7 @@ const NavigationWrapper: React.FC<INavigationProps> = ({
                         <div>
                             <ElevationScroll>
                                 <AppBar style={{
+                                    backgroundColor: isOnTop ? "transparent" : "white",
                                     transition: "all 250ms ease 0s",
                                     color: isOnTop ? 'white' : 'black',
                                 }}>
@@ -59,15 +61,15 @@ const NavigationWrapper: React.FC<INavigationProps> = ({
                                         width: "100vw", padding: 0,
                                     }}>
                                         <Hidden mdUp>
-                                            <Mobile rtl={rtl} logo={logo}/>
+                                            <Mobile rtl={rtl} logo={logo} />
                                         </Hidden>
                                         <Hidden smDown>
-                                            <Desktop logo={logo}/>
+                                            <Desktop logo={logo} />
                                         </Hidden>
                                     </Toolbar>
                                 </AppBar>
                             </ElevationScroll>
-                            <Toolbar style={{margin: 8}}/>
+                            <Toolbar style={{margin: 8}} />
                             <Container maxWidth="xl">
                                 <Switch location={location}>
                                     {children}
@@ -75,7 +77,7 @@ const NavigationWrapper: React.FC<INavigationProps> = ({
                             </Container>
                         </div>
                         <Container maxWidth="xl">
-                            <Footer/>
+                            <Footer />
                         </Container>
                     </section>
                 </CSSTransition>

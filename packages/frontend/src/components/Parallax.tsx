@@ -19,10 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const Parallax: React.FC<ParallaxProps> = ({
-                                               children,
-                                               image,
-                                           }) => {
+const Parallax: React.FC<ParallaxProps> = (props) => {
+    const {
+        children,
+        image,
+    } = props;
     const classes = useStyles();
     const [transform, setTransform] = React.useState(
         "translate3d(0," + (window.pageYOffset / 3) + "px,0)",
@@ -53,6 +54,8 @@ const Parallax: React.FC<ParallaxProps> = ({
         <div
             className={classes.height}
             style={{
+                zIndex: -10,
+                top: 0, left: 0, right: 0,
                 width: "100vw",
                 maxHeight: "1000px",
                 overflow: "hidden",

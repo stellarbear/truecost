@@ -121,8 +121,8 @@ export abstract class BaseService<T> {
 
             wrap(item).assign(input, {em: DI.em});
             await this.repository.persistAndFlush(item);
-        } catch {
-
+        } catch (e) {
+            console.log(e)
         }
 
         return item;
@@ -130,7 +130,7 @@ export abstract class BaseService<T> {
 
     private async item(id: string) {
         if (id) {
-            return await this.repository.findOne({id} as any);
+            return await this.repository.findOne({id} as any, true);
         } else {
             const dummy = this.repository.create({});
             await this.repository.persistAndFlush(dummy);

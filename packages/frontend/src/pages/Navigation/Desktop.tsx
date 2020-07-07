@@ -4,17 +4,17 @@ import {AccountPicker} from "components";
 import {Link} from 'react-router-dom';
 import TrustBox from "pages/Base/TrustBox";
 import GamePicker from "./GamePicker";
-import {DataContext} from "pages/Base/DataWrapper";
+import {DataContext} from "pages/Data/Wrapper";
 
 
 interface IDesktop {
     logo: string;
 }
 
-const Desktop: React.FC<IDesktop> = ({
-                                         logo,
-                                     }) => {
-    const {store: {game: {url}}} = useContext(DataContext);
+const Desktop: React.FC<IDesktop> = (props) => {
+    const {logo, } = props;
+    const {current: {game}} = useContext(DataContext);
+    const url = '/' + game!.url
 
     const renderNavigation = (): JSX.Element => (
         <div style={{
@@ -27,19 +27,19 @@ const Desktop: React.FC<IDesktop> = ({
         }}>
             <div style={{display: "flex"}}>
                 <div style={{minWidth: 220, maxWidth: 220}}>
-                    <TrustBox size="small"/>
+                    <TrustBox size="small" />
                 </div>
             </div>
             <div style={{display: "flex", flexDirection: "row"}}>
-                <Button component={Link} to={url() + '/shop'} color="inherit">
+                <Button component={Link} to={url + '/shop'} color="inherit">
                     <Typography variant="h6">SHOP</Typography>
                 </Button>
                 <Button component={Link} to={'/track'} color="inherit">
                     <Typography variant="h6">TRACK</Typography>
                 </Button>
-                <Button component={Link} to={url() + '/'} style={{padding: 0}}>
+                <Button component={Link} to={url + '/'} style={{padding: 0}}>
                     <img height={100} width={100} src={logo}
-                         style={{cursor: "pointer", marginTop: -20, marginBottom: -20}}/>
+                        style={{cursor: "pointer", marginTop: -20, marginBottom: -20}} />
                 </Button>
                 <Button component={Link} color="inherit" to={'/blog'}>
                     <Typography variant="h6">BLOG</Typography>
@@ -55,8 +55,8 @@ const Desktop: React.FC<IDesktop> = ({
                 justifyContent: "flex-end",
                 alignItems: "center",
             }}>
-                <GamePicker/>
-                <AccountPicker/>
+                <GamePicker />
+                <AccountPicker />
                 {/*(user?.total ?? 0) > 0 && <Chip color="secondary" label={`${user?.total} %`} style={{ marginRight: 4 }} />*/}
             </div>
         </div>

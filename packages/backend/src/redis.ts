@@ -23,3 +23,4 @@ const init = () => {
 };
 
 export {redis, init};
+

@@ -9,6 +9,7 @@ import {
     makeStyles,
     Theme,
     Typography,
+    Card,
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import TrustBox from "./Base/TrustBox";
@@ -18,54 +19,34 @@ import {Chat, Loyalty, RateReview, SportsEsports, Star} from "@material-ui/icons
 import Row from "./Base/Row";
 import {TwitterTimelineEmbed} from 'react-twitter-embed';
 import Meta from "./Base/Meta";
-import {DataContext} from "./Base/DataWrapper";
+import {DataContext} from "./Data/Wrapper";
+import Parallax from "components/Parallax";
+import {baseUri} from "auxiliary/route";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        margin: {
-            position: "relative",
-            zIndex: 5,
-            maxWidth: 1600,
-            boxShadow:
-                "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)",
-            [theme.breakpoints.down(658)]: {
-                width: "calc(100% - 20px)",
-                margin: "10px 10px 0px",
-            },
-            [theme.breakpoints.up(658)]: {
-                width: "calc(100% - 60px)",
-                margin: "30px 30px 0px",
-            },
-            [theme.breakpoints.up(1660)]: {
-                margin: "30px auto 0px",
-            },
-        },
-    }),
-);
 
 interface IHomeProps {
 }
 
 const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
-    const {store: {game: {data: games, current}}} = useContext(DataContext);
-    const currentGame = games[current!];
-    const classes = useStyles();
+    const {current: {game}} = useContext(DataContext);
+    const current = game!;
+    const image = `${baseUri}/${current.id}/${current.background}/u.jpg`
     //const { store: { itemList, adList, categoryList, tagList, passList }, math: { collectDiscounts } } = React.useContext(CartContext);
 
     //const maxDiscount = collectDiscounts(Object.keys(passList), []).discount;
 
     const renderIntro = (style: CSSProperties = {}) => {
         return (
-            <div style={style}>
-                <Typography variant="h4">{`${currentGame.name} premium service`}</Typography>
+            <Card style={style}>
+                <Typography variant="h4">{`${current.name} premium service`}</Typography>
                 <Typography variant="body1">boosting, coaching, carry</Typography>
-            </div>
+            </Card>
         );
     };
 
     const renderDiscount = (style: CSSProperties = {}) => {
         return (
-            <div style={style}>
+            <Card style={style}>
                 <Typography variant="h4" component="p" color="inherit">Get your personal up&nbsp;to</Typography>
                 <Button
                     component={Link}
@@ -76,7 +57,7 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
                     <Typography variant="h6" color="inherit">{`SOME % discount `}</Typography>
                 </Button>
                 <Typography variant="body1" color="inherit" style={{marginTop: 6}}>{`on everything`}</Typography>
-            </div>
+            </Card>
         );
     };
 
@@ -158,7 +139,7 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
     const renderTwitter = (style: CSSProperties = {}) => {
         return (
             <Hidden smDown>
-                <div className={classes.margin} style={{
+                <div style={{
                     ...style,
                     display: 'grid',
                     borderRadius: "6px",
@@ -171,8 +152,8 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
                         noHeader
                         noBoarders
                         sourceType="profile"
-                        screenName={currentGame.twitter}
-                        options={{height: 420, marginRight: -18}}/>
+                        screenName={current.twitter}
+                        options={{height: 420, marginRight: -18}} />
                 </div>
             </Hidden>
         );
@@ -180,7 +161,7 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
 
     const renderTrustBox = (style: CSSProperties = {}) => {
         return (
-            <div className={classes.margin} style={{
+            <Card style={{
                 ...style,
                 display: 'grid',
                 borderRadius: "6px",
@@ -189,9 +170,9 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
                 minHeight: 90,
             }}>
                 <ButtonBase>
-                    <TrustBox size="big"/>
+                    <TrustBox size="big" />
                 </ButtonBase>
-            </div>
+            </Card>
         );
     };
 
@@ -237,27 +218,23 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
 
     const renderHowTo = (style: CSSProperties = {}) => {
         const data = [{
-            icon: <SportsEsports/>,
+            icon: <SportsEsports />,
             text: "Choose the items or the service you need at the shop",
         }, {
-            icon: <Loyalty/>,
+            icon: <Loyalty />,
             text: "Select your discount plan at the checkout (optional)",
         }, {
-            icon: <Chat/>,
+            icon: <Chat />,
             text: "We set up a convenient interaction between you and your player",
         }, {
-            icon: <Star/>,
+            icon: <Star />,
             text: "Get what you want!",
         }, {
-            icon: <RateReview/>,
+            icon: <RateReview />,
             text: "Leave an honest review in order to support us!",
         }];
         return (
-            <div className={classes.margin} style={{
-                ...style,
-                borderRadius: "6px",
-                background: "#FFFFFF",
-            }}>
+            <Card style={style}>
                 <Row id={"how-it-works"}>
                     {data.map(({icon, text}, i) => (
                         <div key={`how-to-${i}`}>
@@ -279,7 +256,7 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
                         </div>
                     ))}
                 </Row>
-            </div>
+            </Card>
         );
     };
 
@@ -290,7 +267,7 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
                 style={{...style, backgroundColor: "#fff"}
                 }
                 onClick={() => window.scrollBy({top: 400, behavior: "smooth"})}>
-                <ArrowDown/>
+                <ArrowDown />
             </IconButton>
         );
     };
@@ -298,18 +275,18 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
     const renderDesktop = () => {
         return (
             <React.Fragment>
-                {/*<Parallax image={`/${baseGame}/home.jpg`} />*/}
-                <Grid container className={classes.margin} style={{
+                <Parallax image={image} />
+                <Grid container style={{
                     boxShadow: "none",
                     marginTop: "25vh",
                 }}>
-                    <Grid item xs={12} sm={4} md={6}/>
+                    <Grid item xs={12} sm={4} md={6} />
                     <Grid item xs={12} sm={8} md={6} style={{color: "#fff"}}>
                         {renderIntro()}
                         {renderDiscount({marginTop: 32})}
                     </Grid>
                 </Grid>
-                <div style={{marginTop: "25vh", display: "flex", boxShadow: "none"}} className={classes.margin}>
+                <div style={{marginTop: "25vh", display: "flex", boxShadow: "none"}} >
                     <div style={{maxWidth: 'calc(100% - 430px)'}}>
                         {renderTrustBox({maxWidth: 1170, marginLeft: 0, marginRight: 0, width: "100%"})}
                         {/*renderCarousel({ maxWidth: 1170, marginLeft: 0, marginRight: 0, width: "100%" })*/}
@@ -326,8 +303,8 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
     const renderMobile = () => {
         return (
             <React.Fragment>
-                {/*<Parallax image={`/${baseGame}/home.jpg`} />*/}
-                <div className={classes.margin} style={{
+                <Parallax image={image} />
+                <div style={{
                     color: "#fff",
                     textAlign: "center",
                     boxShadow: "none",
@@ -348,7 +325,6 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
 
     return (
         <React.Fragment>
-            <Meta page="home"/>
             <Hidden xsDown>
                 {renderDesktop()}
             </Hidden>

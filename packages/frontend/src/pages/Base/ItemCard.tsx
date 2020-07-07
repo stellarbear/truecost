@@ -18,6 +18,7 @@ import DefaultImage from "components/DefaultImage";
 import PriceTypo from "./PriceTypo";
 import colors from "theme/colors";
 import {CartContext} from "./CartWrapper";
+import {DataContext, IShop} from "pages/Data/Wrapper";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -72,34 +73,42 @@ interface IItemCardProps extends RouteComponentProps<{}> {
     adapt?: boolean;
 }
 
-const ItemCard: React.FC<IItemCardProps> = ({
-                                                id,
-                                                history,
-                                                adapt = false,
-                                            }) => {
+const ItemCard: React.FC<IItemCardProps> = (props) => {
+    const {
+        id,
+        adapt = false,
+    } = props;
     const classes = adapt ? useStyles() : mockStyles();
     const {notify} = useContext(NotificationContext);
-
+/*
     const {
         cart: {addItem},
         store: {itemList, optionList, tagList},
         math: {stringifyPrice, calculateAt, getItemPrice, getItemPriceWithDiscount},
     } = React.useContext(CartContext);
+*/
+    const {
+        store: {
+            shop: {current}
+        }
+    } = useContext(DataContext);
+    const {tag: {id: tags}, option: {local: options}, item: {id: items}, category: {id: categories}}: IShop = current()!;
 
     if (id === undefined) {
         return null;
     }
 
-    const {option, price, items, tag, name, range} = itemList[id];
+    const itemId = id;
+    const item = items[id];
 
-    const [totalPrice, setTotalPrice] = React.useState(price);
+    const [totalPrice, setTotalPrice] = React.useState(item.price);
     const [raised, setRaised] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
     const [selected, setSelected] = React.useState("");
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
 
     useEffect(() => {
-        setTotalPrice(calculateAt(price, selectedOptions));
+        //setTotalPrice(calculateAt(price, selectedOptions));
     }, [selectedOptions]);
 
     const toggleSelected = (id: string) =>
@@ -110,13 +119,13 @@ const ItemCard: React.FC<IItemCardProps> = ({
             <Button
                 component={Link}
                 style={{padding: 20}}
-                to={`item/${itemList[id].url}`}
+                to={`item/${item.url}`}
             >
                 Open item page
             </Button>
             <div style={{overflowY: "auto"}}>
-                {option.map(o =>
-                    <div key={`${id}-option-${o}`}>
+                {item.option.map(({id: optionId}) =>
+                    <div key={`${itemId}-option-${optionId}`}>
                         <div
                             style={{
                                 display: "flex",
@@ -124,19 +133,19 @@ const ItemCard: React.FC<IItemCardProps> = ({
                                 padding: 8,
                                 alignItems: "center",
                                 justifyContent: "space-between",
-                                backgroundColor: o === selected ? "rgba(0, 0, 0, 0.15)" : "transparent",
+                                backgroundColor: optionId === selected ? "rgba(0, 0, 0, 0.15)" : "transparent",
                                 transition: "all 0.3s",
                             }}
-                            onMouseEnter={() => setSelected(o)}
+                            onMouseEnter={() => setSelected(optionId)}
                             onMouseLeave={() => setSelected("")}
-                            onClick={() => toggleSelected(o)}>
+                            onClick={() => toggleSelected(optionId)}>
                             <div style={{display: "flex", alignItems: "center"}}>
                                 <Checkbox
-                                    checked={selectedOptions.includes(o)}
+                                    checked={selectedOptions.includes(optionId)}
                                 />
                                 <Typography
                                     className={classes.font} variant="body2"
-                                    style={{userSelect: "none"}}>{optionList[o].name}</Typography>
+                                    style={{userSelect: "none"}}>{options[optionId].name}</Typography>
                             </div>
                             <Typography
                                 className={classes.font} variant="h6"
@@ -144,7 +153,7 @@ const ItemCard: React.FC<IItemCardProps> = ({
                                     userSelect: "none",
                                     whiteSpace: "nowrap",
                                     textAlign: "center",
-                                }}>{stringifyPrice(o, id)}</Typography>
+                                }}>{/*stringifyPrice(o, id)*/}</Typography>
                         </div>
                         <Divider style={{paddingLeft: 8}}/>
                     </div>,
@@ -161,7 +170,7 @@ const ItemCard: React.FC<IItemCardProps> = ({
                     color="primary"
                     variant="contained"
                     onClick={() => {
-                        addItem(id, [], 1, selectedOptions);
+                        //addItem(id, [], 1, selectedOptions);
                         notify(`${name} was added to your cart!`);
                     }}
                 >
@@ -176,12 +185,12 @@ const ItemCard: React.FC<IItemCardProps> = ({
     );
 
     const renderMock = () => (
-        <ButtonBase component={Link} to={`item/${itemList[id].url}`} style={{height: "100%"}}>
+        <ButtonBase component={Link} to={`item/${item.url}`} style={{height: "100%"}}>
             < div style={{display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between"}}>
                 <Button
                     component={Link}
                     style={{padding: 20}}
-                    to={`item/${itemList[id].url}`}
+                    to={`item/${item.url}`}
                 >
                     Open item page
                 </Button>
@@ -214,7 +223,7 @@ const ItemCard: React.FC<IItemCardProps> = ({
                         }}>
                             <Typography variant="caption">starting from </Typography>
                             <Typography className={classes.font}
-                                        variant="h5">{`${range?.[0]?.price ?? price} $`}</Typography>
+                                        variant="h5">{/*`${range?.[0]?.price ?? price} $`*/}</Typography>
                         </div>
                     </Button>
                 </div>
@@ -223,7 +232,7 @@ const ItemCard: React.FC<IItemCardProps> = ({
     );
 
     const renderOverlay = () => {
-        const canBeSimplified = range.length === 0;
+        const canBeSimplified = /*range.length ===*/0;
 
         return (
             <div
@@ -246,7 +255,7 @@ const ItemCard: React.FC<IItemCardProps> = ({
 
     const renderCard = () => {
         return (
-            <ButtonBase component={Link} to={`/item/${itemList[id].url}`}
+            <ButtonBase component={Link} to={`/item/${item.url}`}
                         style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
                 <div style={{
                     display: "flex",
@@ -255,19 +264,14 @@ const ItemCard: React.FC<IItemCardProps> = ({
                     filter: hovered ? "blur(5px)" : "none",
                     transition: "all .3s",
                 }}>
-                    <div style={{margin: "0p 8px", marginBottom: -(28 * tag.length), zIndex: 20}}>
-                        {tag.map(t => t in tagList ? (
-                            <div key={`item-${id}-tag-${t}`} style={{padding: "4px 0px 0px 4px"}}>
+                    <div style={{margin: "0p 8px", marginBottom: -(28 * item.tag.length), zIndex: 20}}>
+                        {item.tag.map(({id: tagId}) => tagId in tags && (
+                            <div key={`item-${itemId}-tag-${tagId}`} style={{padding: "4px 0px 0px 4px"}}>
                                 <Chip
-                                    avatar={tagList[t].discount > 0
-                                        ? <Chip color="secondary"
-                                                style={{width: "fit-content", backgroundColor: colors.accentColor}}
-                                                label={`${tagList[t].discount} % sale`}/>
-                                        : undefined}
-                                    label={tagList[t].name}
+                                    label={tags[tagId].name}
                                     color="primary" size="small"/>
                             </div>
-                        ) : null)}
+                        ))}
                     </div>
                     <DefaultImage className={classes.size} key={`${id}-image`}
                                   src={imageUri("item", id)}
@@ -299,8 +303,7 @@ const ItemCard: React.FC<IItemCardProps> = ({
                                 color="primary"
                                 variant="outlined"
                             >
-                                <PriceTypo price={getItemPrice(id, [])}
-                                           priceWithDiscount={getItemPriceWithDiscount(id, [])}/>
+                                {`PRICE HERE`}
                             </Button>
                         </div>
                     </div>
@@ -329,3 +332,9 @@ const ItemCard: React.FC<IItemCardProps> = ({
 };
 
 export default withRouter(ItemCard);
+
+
+/*
+<PriceTypo price={getItemPrice(id, [])}
+priceWithDiscount={getItemPriceWithDiscount(id, [])}/>
+*/

@@ -8,7 +8,7 @@ import OrderPanel, {Order} from "./Base/OrderPanel";
 import {Redirect} from "react-router-dom";
 import {IUser} from "./Base/UserWrapper";
 import Meta from "./Base/Meta";
-import {DataContext} from "./Base/DataWrapper";
+import {DataContext} from "./Data/Wrapper";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

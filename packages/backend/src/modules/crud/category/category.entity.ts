@@ -14,12 +14,4 @@ export class CategoryEntity extends BaseEntity {
     @Field(() => CategoryEntity, {nullable: true})
     @ManyToOne(() => CategoryEntity)
     parent!: CategoryEntity;
-
-    @Field(() => [CategoryEntity], {nullable: true})
-    @OneToMany(() => CategoryEntity, category => category.parent, {default: []})
-    children: Collection<CategoryEntity> = new Collection<CategoryEntity>(this);
-
-    @Field(() => [ItemEntity])
-    @ManyToMany(() => ItemEntity, item => item.category, {default: []})
-    item = new Collection<ItemEntity>(this);
 }

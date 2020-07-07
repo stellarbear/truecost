@@ -14,21 +14,7 @@ const AdminTag: React.FC<TagProps> = (): JSX.Element => {
         items: `
 			${base.fragment}
 			${game.fragment}
-
-			item { id name game { id } }
 		`,
-    });
-
-
-    const item = new CLink({
-        key: "item",
-        label: "item",
-        query: {
-            name: "ItemAll",
-            field: "game",
-        },
-        multiple: true,
-        propName: "name",
     });
     return (
         <CRUD
@@ -39,7 +25,7 @@ const AdminTag: React.FC<TagProps> = (): JSX.Element => {
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
             propsAdd={[...base.fields, ...game.fields]}
-            propsList={[...base.fields, ...game.fields, item]}
+            propsList={[...base.fields, ...game.fields]}
             propsFilter={[...base.fields, ...game.fields]}
         />
     );

@@ -22,10 +22,11 @@ interface IMobile {
     rtl?: boolean;
 }
 
-const Mobile: React.FC<IMobile> = ({
-                                       logo,
-                                       rtl = false,
-                                   }) => {
+const Mobile: React.FC<IMobile> = (props) => {
+    const {
+        logo,
+        rtl = false,
+    } = props;
     const classes = useStyles();
     //const { store: { user } } = useContext(UserContext);
     const [open, setOpen] = React.useState<boolean>(false);
@@ -57,7 +58,7 @@ const Mobile: React.FC<IMobile> = ({
                 aria-label="Open drawer"
                 onClick={toggleDrawer}
             >
-                <Menu/>
+                <Menu />
             </IconButton>
         );
     };
@@ -81,14 +82,14 @@ const Mobile: React.FC<IMobile> = ({
                         alignItems: "center",
                     }}>
                     <Button component={Link} to="/" onClick={() => closeDrawer()}>
-                        <img height={48} width={48} src={logo}/>
+                        <img height={48} width={48} src={logo} />
                     </Button>
                 </div>
                 <div style={{
                     display: "flex", flexDirection: "row", alignItems: "center",
                     marginRight: 32,
                 }}>
-                    <AccountPicker/>
+                    <AccountPicker />
                     {/*(user?.total ?? 0) > 0 && <Chip size="small" color="secondary" label={`${user?.total} %`} style={{ marginRight: 4 }} />*/}
                 </div>
             </div>
@@ -114,18 +115,18 @@ const Mobile: React.FC<IMobile> = ({
                 }}>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                     <IconButton onClick={toggleDrawer} style={{margin: "8px"}}>
-                        <Clear/>
+                        <Clear />
                     </IconButton>
-                    <Quick/>
+                    <Quick />
                 </div>
-                <Divider/>
+                <Divider />
                 {renderNavigation()}
                 <img className="float" style={{
                     position: "absolute",
                     bottom: -60,
                     left: -60,
                     width: 200, height: 200, objectFit: "cover", margin: 8, marginLeft: 0,
-                }} src={`/${baseGame}/pass.png`}/>
+                }} src={`/${baseGame}/pass.png`} />
             </div>
         </Drawer>
 

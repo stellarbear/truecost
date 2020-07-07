@@ -2,7 +2,7 @@ import SelectField from "./SelectField";
 import CheckBoxField from "./CheckBoxField";
 import InputField from "./InputField";
 import SwitchField from "./SwitchField";
-import AccountPicker from "./AccountPicker";
+import AccountPicker from "../pages/Navigation/AccountPicker";
 import ErrorLabel from "./ErrorLabel";
 import TimeoutButton from "./TimeoutButton";
 import NumericField from "./NumericField";

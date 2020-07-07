@@ -3,6 +3,9 @@ import {ApolloError} from "apollo-boost";
 const parseQlErrors = (error: ApolloError) => {
     const {message, graphQLErrors} = error;
     let objResult = {};
+    if (message) {
+        return message;
+    }
 
     if (message == "GraphQL error: Argument Validation Error") {
         objResult = graphQLErrors

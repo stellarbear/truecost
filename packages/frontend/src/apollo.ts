@@ -46,8 +46,13 @@ const createApolloClient = ({browser}: IApolloClient, cookie?: string) => {
     const client = new ApolloClient({
         cache: browser ? new InMemoryCache().restore(window.apolloState) : new InMemoryCache(),
         ssrForceFetchDelay: browser ? 100 : undefined,
+        defaultOptions: {
+          query: {
+            fetchPolicy: 'cache-first',
+          },
+        },
         connectToDevTools: browser,
-        ssrMode: !browser,
+        ssrMode: true,
         link: link(cookie),
     });
 

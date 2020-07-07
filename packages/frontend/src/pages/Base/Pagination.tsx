@@ -51,10 +51,11 @@ export const defaultPaginationState: IState = {
 };
 
 export const storagePaginationKey = ["shop", "pagination"];
-const Pagination: React.FC<IPaginationProps> = ({
-                                                    ids,
-                                                    deps = [],
-                                                }): JSX.Element => {
+const Pagination: React.FC<IPaginationProps> = (props) => {
+    const {
+        ids,
+        deps = [],
+    } = props;
     const classes = useStyles();
 
     let mounted = false;

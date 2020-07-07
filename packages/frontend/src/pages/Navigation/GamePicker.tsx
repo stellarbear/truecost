@@ -3,7 +3,7 @@ import {Button, Menu, MenuItem, Typography} from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {dictSort} from 'auxiliary/sort';
 import {useHistory} from 'react-router';
-import {DataContext} from 'pages/Base/DataWrapper';
+import {DataContext} from 'pages/Data/Wrapper';
 
 export interface IGameContext {
     game?: string;
@@ -18,7 +18,7 @@ interface GamePickerProps {
 const GamePicker: React.FC<GamePickerProps> = () => {
     const history = useHistory();
     const {location: {pathname}} = history;
-    const {store: {game: {data, current, setCurrent}}} = useContext(DataContext);
+    const {store: {game: {data}}, current: {game}, update: {setGame}} = useContext(DataContext);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -29,20 +29,23 @@ const GamePicker: React.FC<GamePickerProps> = () => {
         setAnchorEl(null);
     };
 
-    const games = dictSort(data);
+    const current = game;
+    const games = dictSort(data.id);
 
     if (games.length === 0 || !current) {
         return null;
     }
+
+    //  TODO: change url
 
     return (
         <div style={{display: 'flex'}}>
             <Button color="inherit" aria-controls="GamePicker-nav" aria-haspopup="true" onClick={handleClick}>
                 <div style={{display: 'flex'}}>
                     <Typography style={{whiteSpace: "nowrap"}}>
-                        {data[current].name}
+                        {data.id[current.id].name}
                     </Typography>
-                    <ArrowDropDownIcon/>
+                    <ArrowDropDownIcon />
                 </div>
             </Button>
             <Menu
@@ -63,14 +66,13 @@ const GamePicker: React.FC<GamePickerProps> = () => {
                             const valid = Object.keys(data).map(key => data[key].url);
                             const to = valid.includes(gameUrl) ? '/' + data[game].url + pathname.slice(gameIndex) : pathname;
 
-                            setCurrent(game);
+                            setGame(game);
                             history.push(to);
                         }}
                         value={game}
                         color="inherit"
-                        key={game}
-                        disabled={!data[game].active}>
-                        {data[game].name}
+                        key={game}>
+                        {data.id[game].name}
                     </MenuItem>
                 ))}
             </Menu>

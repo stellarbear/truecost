@@ -1,6 +1,6 @@
 import React from "react";
 import {Redirect, Route, RouteProps} from "react-router";
-import {DataContext} from "pages/Base/DataWrapper";
+import {DataContext} from "pages/Data/Wrapper";
 
 interface AuthRouteProps extends RouteProps {
     unauthorized?: boolean;

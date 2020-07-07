@@ -23,7 +23,7 @@ export class TagCRUDResolver extends BaseResolver
             get: {
                 set: [],
                 like: [],
-                filter: ["game", "item"],
+                filter: ["game"],
             },
             upsert: {
                 notEmpty: ["game"],

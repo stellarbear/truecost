@@ -5,10 +5,7 @@ import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";
 import {game} from "./Base/Game";
 
-interface CategoryProps {
-}
-
-const AdminCategory: React.FC<CategoryProps> = (): JSX.Element => {
+const AdminCategory: React.FC = () => {
     const crud = new CRUDgql({
         name: "Category",
         items: `
@@ -16,10 +13,8 @@ const AdminCategory: React.FC<CategoryProps> = (): JSX.Element => {
 		${game.fragment}
 
 		parent { id name game { id } }
-		children { id name game { id } }
 		`,
     });
-
 
     const parent = new CLink({
         key: "parent",
@@ -32,27 +27,6 @@ const AdminCategory: React.FC<CategoryProps> = (): JSX.Element => {
         propName: "name",
     });
 
-    const children = new CLink({
-        key: "children",
-        label: "children",
-        query: {
-            name: "CategoryAll",
-            field: "game",
-        },
-        multiple: true,
-        propName: "name",
-    });
-    /*
-        const item = new CLink({
-            key: "item",
-            label: "item",
-            queryName: "categoryGetPossibleItems",
-            multiple: true,
-            propName: "name",
-        });
-    */
-    //	Item - parent filters do not work
-    //	TODO: should make different queries on add / filter,
     return (
         <CRUD
             pack="input"
@@ -63,8 +37,8 @@ const AdminCategory: React.FC<CategoryProps> = (): JSX.Element => {
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
             propsAdd={[...base.fields, ...game.fields, parent]}
-            propsList={[...base.fields, ...game.fields, parent, children]}
-            propsFilter={[...base.fields, ...game.fields]}
+            propsList={[...base.fields, ...game.fields, parent]}
+            propsFilter={[...base.fields, ...game.fields, parent]}
         />
     );
 };

@@ -17,7 +17,7 @@ import gql from "graphql-tag";
 import {Link, withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import Meta from "pages/Base/Meta";
-import {DataContext} from "pages/Base/DataWrapper";
+import {DataContext} from "pages/Data/Wrapper";
 import Alert from "@material-ui/lab/Alert";
 import {useForm} from "react-hook-form";
 import {validate} from "@truecost/shared";
@@ -43,7 +43,7 @@ interface LogInSubmit {
 type LoginProps = RouteComponentProps;
 
 const Login: React.FC<LoginProps> = ({history}) => {
-    const {store: {user: {updateUser}}} = React.useContext(DataContext);
+    const {update: {setUser}} = React.useContext(DataContext);
     const [loginMutation, {data, error, loading}] = useMutation(LOGIN);
 
     const {register, handleSubmit, errors} = useForm<LogInSubmit>({reValidateMode: "onBlur"});
@@ -57,7 +57,7 @@ const Login: React.FC<LoginProps> = ({history}) => {
 
     useEffect(() => {
         if (data?.UserLogin) {
-            updateUser(data.UserLogin);
+            setUser(data.UserLogin);
             history.push(`/`);
         }
     }, [data?.UserLogin]);
@@ -65,7 +65,7 @@ const Login: React.FC<LoginProps> = ({history}) => {
 
     return (
         <>
-            <Meta page="login"/>
+            <Meta page="login" />
             <Container maxWidth="xs">
                 <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(logInSubmit)}>
                     <Typography variant="h5" gutterBottom>Log in</Typography>
@@ -111,7 +111,7 @@ const Login: React.FC<LoginProps> = ({history}) => {
                                     forgot password?
                                 </Button>
                                 <Button variant="contained" type="submit">
-                                    {loading ? <CircularProgress size={24}/> : "LOGIN"}
+                                    {loading ? <CircularProgress size={24} /> : "LOGIN"}
                                 </Button>
                             </Grid>
                         </CardActions>

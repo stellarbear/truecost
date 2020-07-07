@@ -20,7 +20,7 @@ import {AccountCircle, Refresh} from "@material-ui/icons";
 import {DistortionText} from "captcha";
 import {parseQLErrors} from "auxiliary";
 import Meta from "./Base/Meta";
-import {DataContext, IUser} from "./Base/DataWrapper";
+import {DataContext, IUser} from "./Data/Wrapper";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

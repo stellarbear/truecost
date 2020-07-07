@@ -20,9 +20,6 @@ const AdminOption: React.FC<OptionProps> = (): JSX.Element => {
 
 			type
 			area
-			filter
-
-			item { id name game { id } }
 		`,
     });
 
@@ -57,26 +54,8 @@ const AdminOption: React.FC<OptionProps> = (): JSX.Element => {
         values: areas,
         preRenderMap: areas.reduce((acc, cur) => ({...acc, [cur]: cur}), {}),
     });
-    const filters = ["awaiting for contact", "in progress", "paused", "done", "refund"];
-    const filter = new CSelect({
-        multiple: false,
-        key: "filter",
-        label: "filter",
-        values: filters,
-        preRenderMap: filters.reduce((acc, cur) => ({...acc, [cur]: cur}), {}),
-    });
-    const item = new CLink({
-        key: "item",
-        label: "item",
-        query: {
-            name: "ItemAll",
-            field: "game",
-        },
-        multiple: true,
-        propName: "name",
-    });
 
-    const fields = [price, free, type, area, filter];
+    const fields = [price, free, type, area];
 
     return (
         <CRUD
@@ -87,7 +66,7 @@ const AdminOption: React.FC<OptionProps> = (): JSX.Element => {
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
             propsAdd={[...base.fields, ...game.fields, ...fields]}
-            propsList={[...base.fields, ...game.fields, ...fields, item]}
+            propsList={[...base.fields, ...game.fields, ...fields]}
             propsFilter={[...base.fields, ...game.fields, ...fields]}
         />
     );

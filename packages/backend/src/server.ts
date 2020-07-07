@@ -30,7 +30,7 @@ export interface Context {
 export const sessionCookieName = 'sid';
 
 const init = async (schema: GraphQLSchema, store: RedisStore) => {
-    const app = fastify({logger: true});
+    const app = fastify({logger: false});
 
     app.register(cors, {
         credentials: true,
@@ -62,7 +62,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         jit: 1,
         graphiql: true,
         allowBatchedQueries: true,
-        queryDepth: 10,
+        //queryDepth: 10,
         /*errorHandler: (error: fastify.FastifyError, req: any, reply: any) => {
             console.log(error.message, error.name);
             console.log(error.statusCode, error.stack);
@@ -70,6 +70,12 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
             return error;
         },*/
         context: async (req: any, res: any) => {
+            //TODO: 
+            /*
+            session: HSET : { user: id, validate: id }
+            user: SET: {session[]}
+            */
+
             console.log('context');
             DI.em.clear();
             const sid = req.session.sid;

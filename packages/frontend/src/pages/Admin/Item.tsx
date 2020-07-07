@@ -44,7 +44,7 @@ const AdminItem: React.FC<ItemProps> = (): JSX.Element => {
     const images = new CImageList({
         key: "images",
         label: "image",
-        ext: "bmp",
+        ext: "png",
         limit: 1,
     });
 

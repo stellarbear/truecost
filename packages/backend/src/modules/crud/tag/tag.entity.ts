@@ -10,8 +10,4 @@ export class TagEntity extends BaseEntity {
     @Field(() => GameEntity)
     @ManyToOne(() => GameEntity)
     game!: GameEntity;
-
-    @Field(() => [ItemEntity])
-    @ManyToMany(() => ItemEntity, item => item.tag, {default: []})
-    item = new Collection<ItemEntity>(this);
 }

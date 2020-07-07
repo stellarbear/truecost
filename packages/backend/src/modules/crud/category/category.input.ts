@@ -10,7 +10,4 @@ export class CategoryInput extends BaseInput {
     parent?: string;
     @Field(() => [String], {nullable: true})
     children?: string[];
-
-    @Field(() => [String], {nullable: true})
-    items?: string[];
 }

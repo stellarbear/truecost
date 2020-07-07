@@ -117,14 +117,14 @@ const deepEqual = (x: any, y: any): boolean => {
     }
 
     return (x && y && tx === "object" && tx === ty
-            ? (ok(x).length === ok(y).length && ok(x).every(key => deepEqual(x[key], y[key])))
-            : (x === y)
+        ? (ok(x).length === ok(y).length && ok(x).every(key => deepEqual(x[key], y[key])))
+        : (x === y)
     );
 };
 
 const flat = (data: Record<string, any>) => {
     for (const key in data) {
-        if (data[key].id) {
+        if (data[key]?.id) {
             data[key] = data[key].id;
         } else if (Array.isArray(data[key])
             && data[key].length > 0
@@ -141,15 +141,15 @@ interface UserError {
 }
 
 const List: React.FC<UserListProps> = ({
-                                           pack,
-                                           title,
-                                           props,
-                                           actionsGlobal = [],
-                                           actionsLocal = [],
-                                           updateMutation,
-                                           deleteMutation,
-                                           visibleKeys = props.map((prop: ItemProp) => prop.key),
-                                       }): JSX.Element => {
+    pack,
+    title,
+    props,
+    actionsGlobal = [],
+    actionsLocal = [],
+    updateMutation,
+    deleteMutation,
+    visibleKeys = props.map((prop: ItemProp) => prop.key),
+}) => {
     const classes = useStyles();
 
     const storageBaseKey = ["admin", "list", "columns", "list", title.toLowerCase().replace(/\s/, "_")];
@@ -219,7 +219,7 @@ const List: React.FC<UserListProps> = ({
     const onUpdate = async (item: IItem) => {
         try {
             const {__typename, ...rest} = item;
-            const mutationData = {...flat(rest), id: item.id};
+            const mutationData = {...flat(rest)};
             const mutationVariables = pack == undefined ? mutationData : {[pack]: mutationData};
             console.log("mutation sent", mutationVariables);
             const response = await updateItemMutation({variables: mutationVariables});
@@ -268,25 +268,25 @@ const List: React.FC<UserListProps> = ({
                     )}
                     <Tooltip title="Save changes">
                         <IconButton component="div"
-                                    disabled={similar}
-                                    onClick={() => onUpdate(item)}
+                            disabled={similar}
+                            onClick={() => onUpdate(item)}
                         >
-                            <Save/>
+                            <Save />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Cancel changes">
                         <IconButton component="div"
-                                    disabled={similar}
-                                    onClick={() => onCancelChanges(item, change)}
+                            disabled={similar}
+                            onClick={() => onCancelChanges(item, change)}
                         >
-                            <Cancel/>
+                            <Cancel />
                         </IconButton>
                     </Tooltip>
 
                     <TimeoutButton
                         timeout={3}
                         tooltip="Delete"
-                        icon={<Delete/>}
+                        icon={<Delete />}
                         onClickEvent={() => onDelete(item)}
                     />
                 </div>
@@ -362,7 +362,7 @@ const List: React.FC<UserListProps> = ({
                     <IconButton
                         onClick={(event) => setFilterAnchorEl(event.currentTarget)}
                         aria-label="filter list">
-                        <FilterList/>
+                        <FilterList />
                     </IconButton>
                 </Tooltip>
                 <Menu
@@ -425,7 +425,7 @@ const List: React.FC<UserListProps> = ({
                         {title}
                     </Typography>
                 </div>
-                <div className={classes.spacer}/>
+                <div className={classes.spacer} />
                 {actionsGlobal.map((action, index) =>
                     <div className={classes.actions} title="create new user" key={`action-global-${index}`}>
                         {action()}

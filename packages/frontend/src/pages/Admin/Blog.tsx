@@ -26,7 +26,7 @@ const AdminBlog: React.FC<BlogProps> = (): JSX.Element => {
     const image = new CImageList({
         key: "images",
         label: "image",
-        ext: "bmp",
+        ext: "jpg",
         limit: 1,
     });
 

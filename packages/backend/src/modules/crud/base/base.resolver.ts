@@ -137,11 +137,11 @@ export function CRUDResolver<T extends typeof BaseEntity,
             @Arg('input', () => inputRef) input: V,
         ): Promise<R> {
             const result = await this.service.get({
-                skip, take, ...input
-                /*set: filterInput(input, set),
+                skip, take, 
+                set: filterInput(input, set),
                 like: filterInput(input, like),
                 between: filterInput(input, between),
-                filter: filterInput(input, filter),*/
+                filter: filterInput(input, filter),
             });
             return result as any;
         }
