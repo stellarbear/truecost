@@ -1,7 +1,7 @@
 import React, {useEffect, useContext} from "react";
 import {Button, Typography} from "@material-ui/core";
 import {RouteComponentProps} from "react-router";
-import {baseGame} from "auxiliary/route";
+import {baseGame, baseUri} from "auxiliary/route";
 import {Link, withRouter} from "react-router-dom";
 import Meta from "./Base/Meta";
 import {DataContext} from "./Data/Wrapper";
@@ -9,7 +9,11 @@ import {DataContext} from "./Data/Wrapper";
 type NotFoundProps = RouteComponentProps;
 
 const NotFound: React.FC<NotFoundProps> = ({staticContext}): JSX.Element => {
-    const {} = useContext(DataContext)
+
+    //TODO: better handling with failure recovery
+    const {current: {game}} = useContext(DataContext);
+    const current = game!;
+    const image = `${baseUri}/${current.id}/${current.assistant}/u.png`;
     if (staticContext) {
         staticContext.statusCode = 404;
     }
@@ -29,7 +33,7 @@ const NotFound: React.FC<NotFoundProps> = ({staticContext}): JSX.Element => {
             <img className="float" style={{
                 minWidth: 80,
                 width: 80, height: 80, objectFit: "cover", margin: 8, marginLeft: 0,
-            }} src={`/${baseGame}/pass.png`}/>
+            }} src={image}/>
             <div style={{marginLeft: 8}}>
                 <Typography>Unfortunately, page is not found</Typography>
                 <Typography>Try next time, may be you will find something interesting!</Typography>

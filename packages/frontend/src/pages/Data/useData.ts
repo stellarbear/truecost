@@ -4,6 +4,7 @@ import {BULK_QUERY} from './query';
 import {useEffect, useState} from 'react';
 import {ITag, IOption, IItem, ICategory, IGame, IUser, IBlog} from './interfaces';
 import {OptionArea} from '@truecost/shared';
+import {SafeJSON} from 'auxiliary/json';
 
 type Dict<T> = Record<string, T>;
 
@@ -133,6 +134,7 @@ export function useData() {
 
 	for (let item of ItemAll) {
 		let {game: {id: gameId}, id, active, url} = item;
+		item.range = SafeJSON.parse(item.range, [])
 		if (active && gameId in shopDict.data) {
 			shopDict.data[gameId].item.url[url] = id;
 			shopDict.data[gameId].item.id[id] = item;

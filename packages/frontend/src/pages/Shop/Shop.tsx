@@ -2,8 +2,9 @@ import React, {CSSProperties, useContext, useEffect, useState} from "react";
 
 import {Storage} from "auxiliary/storage";
 import {NotificationContext} from "components/wrappers";
-import {IShop, DataContext} from "pages/Data/Wrapper";
+import {DataContext} from "pages/Data/Wrapper";
 import Pagination from "pages/Base/Pagination";
+import {IShop} from "pages/Data/useData";
 
 
 export interface ShopState {
@@ -27,15 +28,11 @@ export const defaultState: ShopState = {
 };
 
 const Shop: React.FC = () => {
-    const {
-        store: {
-            shop: {current}
-        },
-    } = useContext(DataContext);
+    const {current: {shop}} = useContext(DataContext);
     const {notify} = React.useContext(NotificationContext);
 
 
-    const {tag, option, item: {id: items}, category}: IShop = current();
+    const {tag, option, item: {id: items}, category}: IShop = shop()!;
     const [state, setState] = useState<ShopState>(defaultState);
     //const [scroll, setScroll] = useState<number>(Storage.getItem(storageScrollPersistKey, 0));
 

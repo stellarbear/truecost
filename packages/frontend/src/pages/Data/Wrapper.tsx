@@ -34,7 +34,6 @@ const Data: React.FC<DataProps> = ({children}) => {
         return <span>Loading</span>;
     }
 
-
     return (
         <DataContext.Provider value={{
             store,

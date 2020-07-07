@@ -12,61 +12,14 @@ import {
     Typography,
 } from "@material-ui/core";
 import {NotificationContext} from "../../components/wrappers";
-import {imageUri} from "auxiliary/route";
+import {imageUri, baseUri} from "auxiliary/route";
 import {Link, RouteComponentProps, withRouter} from "react-router-dom";
 import DefaultImage from "components/DefaultImage";
 import PriceTypo from "./PriceTypo";
 import colors from "theme/colors";
 import {CartContext} from "./CartWrapper";
-import {DataContext, IShop} from "pages/Data/Wrapper";
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        size: {
-            [theme.breakpoints.up(658)]: {
-                width: 300,
-                minHeight: 300,
-            },
-            [theme.breakpoints.down(658)]: {
-                width: 200,
-                minHeight: 200,
-            },
-        },
-        font: {
-            [theme.breakpoints.up(658)]: {
-                //width: "100%",
-                minWidth: 80,
-            },
-            [theme.breakpoints.down(658)]: {
-                fontSize: "0.8rem",
-                minWidth: 40,
-            },
-        },
-        display: {
-            [theme.breakpoints.up(658)]: {
-                flexDirection: "row",
-            },
-            [theme.breakpoints.down(658)]: {
-                flexDirection: "column",
-            },
-        },
-    }),
-);
-
-const mockStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        size: {
-            width: 300,
-            minHeight: 300,
-        },
-        font: {
-            minWidth: 80,
-        },
-        display: {
-            flexDirection: "row",
-        },
-    }),
-);
+import {DataContext} from "pages/Data/Wrapper";
+import {IShop} from "pages/Data/useData";
 
 interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
@@ -78,23 +31,23 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         id,
         adapt = false,
     } = props;
-    const classes = adapt ? useStyles() : mockStyles();
     const {notify} = useContext(NotificationContext);
-/*
+    /*
+        const {
+            cart: {addItem},
+            store: {itemList, optionList, tagList},
+            math: {stringifyPrice, calculateAt, getItemPrice, getItemPriceWithDiscount},
+        } = React.useContext(CartContext);
+    */
+    const {current: {shop}} = useContext(DataContext);
     const {
-        cart: {addItem},
-        store: {itemList, optionList, tagList},
-        math: {stringifyPrice, calculateAt, getItemPrice, getItemPriceWithDiscount},
-    } = React.useContext(CartContext);
-*/
-    const {
-        store: {
-            shop: {current}
-        }
-    } = useContext(DataContext);
-    const {tag: {id: tags}, option: {local: options}, item: {id: items}, category: {id: categories}}: IShop = current()!;
+        tag: {id: tags},
+        item: {id: items},
+        option: {local: options},
+        category: {id: categories}
+    }: IShop = shop()!;
 
-    if (id === undefined) {
+    if (id === undefined || !(id in items)) {
         return null;
     }
 
@@ -124,7 +77,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                 Open item page
             </Button>
             <div style={{overflowY: "auto"}}>
-                {item.option.map(({id: optionId}) =>
+                {item.option.length > 0 ? item.option.map(({id: optionId}) =>
                     <div key={`${itemId}-option-${optionId}`}>
                         <div
                             style={{
@@ -143,21 +96,21 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                                 <Checkbox
                                     checked={selectedOptions.includes(optionId)}
                                 />
-                                <Typography
-                                    className={classes.font} variant="body2"
+                                <Typography variant="body2"
                                     style={{userSelect: "none"}}>{options[optionId].name}</Typography>
                             </div>
-                            <Typography
-                                className={classes.font} variant="h6"
+                            <Typography variant="h6"
                                 style={{
                                     userSelect: "none",
                                     whiteSpace: "nowrap",
                                     textAlign: "center",
                                 }}>{/*stringifyPrice(o, id)*/}</Typography>
                         </div>
-                        <Divider style={{paddingLeft: 8}}/>
+                        <Divider style={{paddingLeft: 8}} />
                     </div>,
-                )}
+                ) : (
+                        <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
+                    )}
             </div>
             <div style={{display: 'flex', justifyContent: "center"}}>
                 <Button
@@ -222,8 +175,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                             width: "100%",
                         }}>
                             <Typography variant="caption">starting from </Typography>
-                            <Typography className={classes.font}
-                                        variant="h5">{/*`${range?.[0]?.price ?? price} $`*/}</Typography>
+                            <Typography variant="h5">{/*`${range?.[0]?.price ?? price} $`*/}</Typography>
                         </div>
                     </Button>
                 </div>
@@ -232,7 +184,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     );
 
     const renderOverlay = () => {
-        const canBeSimplified = /*range.length ===*/0;
+        const canBeSimplified = item.range.length === 0;
 
         return (
             <div
@@ -254,9 +206,10 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     };
 
     const renderCard = () => {
+        const image = `${baseUri}/${item.id}/${item.images[0]}/u.png`;
         return (
             <ButtonBase component={Link} to={`/item/${item.url}`}
-                        style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
+                style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
                 <div style={{
                     display: "flex",
                     flexDirection: "column",
@@ -269,28 +222,22 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                             <div key={`item-${itemId}-tag-${tagId}`} style={{padding: "4px 0px 0px 4px"}}>
                                 <Chip
                                     label={tags[tagId].name}
-                                    color="primary" size="small"/>
+                                    color="primary" size="small" />
                             </div>
                         ))}
                     </div>
-                    <DefaultImage className={classes.size} key={`${id}-image`}
-                                  src={imageUri("item", id)}
-                                  srcSet={`${imageUri("item", id, "img-200w")} 200w,
-                            ${imageUri("item", id, "img-300w")} 300w`}
-                                  sizes={`(max-width: 658px) 200px,
-                            300px`}
-                                  style={{objectFit: "contain"}}/>
-                    <Divider style={{margin: 4}}/>
-                    <div className={classes.display} style={{
+                    <img src={image} style={{objectFit: "contain", width: 300, minHeight: 300, }} />
+                    <Divider style={{margin: 4}} />
+                    <div style={{
                         display: "flex",
                         alignItems: "center",
                         height: "100%",
                         justifyContent: "space-evenly",
                     }}>
-                        <Typography className={classes.font} variant="body1" style={{
+                        <Typography variant="body1" style={{
                             textAlign: "center", margin: 8,
                             width: "100%",
-                        }}>{name}</Typography>
+                        }}>{item.name}</Typography>
                         <div style={{display: "flex", whiteSpace: "nowrap", alignItems: "center"}}>
                             <Button
                                 style={{
@@ -315,15 +262,12 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     return (
         <Card
             style={{
-                //margin: "8px auto",
-                height: "100%",
                 position: "relative",
                 cursor: "pointer",
-                minWidth: "fit-content",
             }}
             onMouseOver={() => setRaised(true)}
             onMouseOut={() => setRaised(false)}
-            onMouseLeave={() => setHovered(false)}
+            //onMouseLeave={() => setHovered(false)}
             raised={raised}>
             {renderOverlay()}
             {renderCard()}

@@ -39,7 +39,7 @@ export abstract class MetaEntity extends BaseEntity {
     @Property()
     url!: string;
 
-    @Field({nullable: true})
+    @Field()
     @Property()
-    metatag?: string = "{}";
+    metatag: string = "{}";
 }

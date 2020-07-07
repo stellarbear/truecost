@@ -1,11 +1,12 @@
 import React from "react";
 import CRUD from "components/generic/CRUD";
-import {CBoolean, CLink, CString} from "components/generic/types";
+import {CBoolean, CLink, CString, CStringCustom} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {CImageList} from "components/generic/types/CImageList";
 import {CNumber} from "components/generic/types/CNumber";
 import {meta} from "./Base/Meta";
 import {game} from "./Base/Game";
+import EditorRange from "components/EditorRange";
 
 interface ItemProps {
 }
@@ -19,7 +20,8 @@ const AdminItem: React.FC<ItemProps> = (): JSX.Element => {
 			link
 			images
 
-			price
+            price
+            range
 			discount
 			limit
 
@@ -133,31 +135,13 @@ const AdminItem: React.FC<ItemProps> = (): JSX.Element => {
         propName: "name",
     });
 
-
-    /*
-        const range = new CString({
-            key: "range",
-            label: "range",
-            component: <EditorRange />,
-        });
-
-        const mark = new CString({
-            key: "mark",
-            label: "mark",
-            component: <EditorMark />,
-        });
-    */
-
-    /*
-
-    const ad = new CLink({
-        key: "ad",
-        label: "ad",
-        queryName: "itemGetPossibleAd",
-        multiple: true,
-        propName: "name",
-    });*/
-    const fields = [link, images, price, discount, limit, obtain, requirements, isTopOffer, item, tag, option, category];
+    const range = new CStringCustom({
+        key: "range",
+        label: "range",
+        component: <EditorRange/>,
+    });
+    
+    const fields = [link, images, price, range, discount, limit, obtain, requirements, isTopOffer, item, tag, option, category];
 
     return (
         <CRUD

@@ -23,6 +23,10 @@ export class ItemEntity extends MetaEntity {
     @Property()
     price: number = 1;
 
+    @Field({defaultValue: "[]"})
+    @Property()
+    range: string = "[]";
+
     @Field(() => Int)
     @Property()
     discount: number = 0;

@@ -38,10 +38,17 @@ export interface IGame extends IBase {
     assistant: string[];
 }
 
+export interface IRange {
+    at: number
+    price: number
+    mark: string
+}
+
 export interface IItem extends IMeta {
     link: string;
     images: string[];
     price: number;
+    range: IRange[];
     discount: number;
     limit: number;
     topOffer: boolean

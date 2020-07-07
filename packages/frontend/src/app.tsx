@@ -21,55 +21,55 @@ import Shop from "pages/Shop/Shop";
 
 
 const App = () => {
-    return (
-        <MuiPickersUtilsProvider utils={DayJSUtils}>
-            <NotifyWrapper>
-                <DataWrapper>
-                    <DataContext.Consumer>
-                        {({store: {game}}) => {
-                            const urls = Object.values(game.data.id).map(value => value.url);
+	return (
+		<MuiPickersUtilsProvider utils={DayJSUtils}>
+			<NotifyWrapper>
+				<DataWrapper>
+					<DataContext.Consumer>
+						{({store: {game}}) => {
+							const urls = Object.values(game.data.id).map(value => value.url);
 
-                            return (
-                                <NavigationWrapper>
-                                    <Route exact path={urls.map(u => '/' + u)} component={Home}/>
+							return (
+								<NavigationWrapper>
+									<Route exact path={urls.map(u => '/' + u)} component={Home} />
+									<Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
 
-                                    <Route exact path={`/user/forget`} component={Forget}/>
-                                    <Route exact path={`/user/reset/:session`} component={Reset}/>
-                                    <Route exact path={`/user/confirm/:session`} component={Confirm}/>
+									<Route exact path={`/user/forget`} component={Forget} />
+									<Route exact path={`/user/reset/:session`} component={Reset} />
+									<Route exact path={`/user/confirm/:session`} component={Confirm} />
 
-                                    {
-                                        admin.routes.map(({url, component}) =>
-                                            <AuthRoute exact
-                                                       key={url}
-                                                       path={`/admin/${url}`}
-                                                       component={component}/>)
-                                    }
+									{
+										admin.routes.map(({url, component}) =>
+											<AuthRoute exact
+												key={url}
+												path={`/admin/${url}`}
+												component={component} />)
+									}
 
-                                    <AuthRoute exact path={`/account`} component={Account}/>
-                                    <AuthRoute exact path={`/register`} component={Register} unauthorized/>
-                                    <AuthRoute exact path={`/login`} component={Login} unauthorized/>
+									<AuthRoute exact path={`/account`} component={Account} />
+									<AuthRoute exact path={`/register`} component={Register} unauthorized />
+									<AuthRoute exact path={`/login`} component={Login} unauthorized />
 
-                                    <Route exact path={`/shop`} component={Shop}/>
-                                    <Route exact path={`/contact`} component={Contact}/>
-                                    <Route exact path={`/policy`} component={Policy}/>
-                                    <Route exact path={`/about`} component={About}/>
-                                    <Route exact path={`/tos`} component={TOS}/>
-                                    <Route
-                                        render={({staticContext}) => {
-                                            if (staticContext) {
-                                                staticContext.statusCode = 404;
-                                            }
-                                            return <NotFound/>;
-                                        }}
-                                    />
-                                </NavigationWrapper>
-                            );
-                        }}
-                    </DataContext.Consumer>
-                </DataWrapper>
-            </NotifyWrapper>
-        </MuiPickersUtilsProvider>
-    );
+									<Route exact path={`/contact`} component={Contact} />
+									<Route exact path={`/policy`} component={Policy} />
+									<Route exact path={`/about`} component={About} />
+									<Route exact path={`/tos`} component={TOS} />
+									<Route
+										render={({staticContext}) => {
+											if (staticContext) {
+												staticContext.statusCode = 404;
+											}
+											return <NotFound />;
+										}}
+									/>
+								</NavigationWrapper>
+							);
+						}}
+					</DataContext.Consumer>
+				</DataWrapper>
+			</NotifyWrapper>
+		</MuiPickersUtilsProvider>
+	);
 };
 
 export default App;

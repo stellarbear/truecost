@@ -11,6 +11,8 @@ export class ItemInput extends MetaInput {
 
     @Field(() => NumberScalar, {nullable: true})
     price?: NumberType;
+    @Field({nullable: true})
+    range?: string;
     @Field(() => NumberScalar, {nullable: true})
     discount?: NumberType;
     @Field(() => NumberScalar, {nullable: true})

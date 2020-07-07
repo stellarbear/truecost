@@ -8,7 +8,7 @@ exports.modules = {
 /*! exports provided: client, , default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"client\":{\"js\":\"http://localhost:3001/static/js/bundle.js\"},\"\":{\"json\":\"http://localhost:3001/d4e7807b055c7eabb9c5.hot-update.json\"}}");
+module.exports = JSON.parse("{\"client\":{\"js\":\"http://localhost:3001/static/js/bundle.js\"},\"\":{\"json\":\"http://localhost:3001/../chunks.json\"}}");
 
 /***/ })
 
