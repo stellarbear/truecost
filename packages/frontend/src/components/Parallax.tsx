@@ -56,7 +56,6 @@ const Parallax: React.FC<ParallaxProps> = (props) => {
             style={{
                 zIndex: -10,
                 top: 0, left: 0, right: 0,
-                width: "100vw",
                 maxHeight: "1000px",
                 overflow: "hidden",
                 position: "absolute",
