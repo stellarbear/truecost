@@ -1,9 +1,9 @@
 import {Field, InputType} from "type-graphql";
-import {MetaInput} from "../base/base.input";
+import {BaseMetaInput} from "../base/base.input";
 import {UploadScalar, UploadType} from "../../../scalars";
 
 @InputType()
-export class GameInput extends MetaInput {
+export class GameInput extends BaseMetaInput {
 
     @Field(() => [UploadScalar], {nullable: true})
     background: UploadType[] = [];

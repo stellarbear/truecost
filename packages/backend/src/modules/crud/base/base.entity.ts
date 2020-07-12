@@ -1,9 +1,10 @@
 import {PrimaryKey, Property, SerializedPrimaryKey, Unique} from "mikro-orm";
 import {ObjectId} from "mongodb";
 import {Field, Int, ObjectType} from "type-graphql";
+import {IBase, IBaseMeta} from "@truecost/shared";
 
 @ObjectType({isAbstract: true})
-export abstract class BaseEntity {
+export abstract class BaseEntity implements IBase {
     @Unique()
     @PrimaryKey()
     _id!: ObjectId;
@@ -33,7 +34,7 @@ export abstract class BaseEntity {
 }
 
 @ObjectType({isAbstract: true})
-export abstract class MetaEntity extends BaseEntity {
+export abstract class BaseMetaEntity extends BaseEntity implements IBaseMeta {
     @Field()
     @Unique()
     @Property()

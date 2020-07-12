@@ -5,7 +5,7 @@ import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";
 import {game} from "./Base/Game";
 
-const AdminCategory: React.FC = () => {
+export const AdminCategory: React.FC = () => {
     const crud = new CRUDgql({
         name: "Category",
         items: `
@@ -42,5 +42,3 @@ const AdminCategory: React.FC = () => {
         />
     );
 };
-
-export default AdminCategory;

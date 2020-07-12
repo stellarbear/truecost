@@ -1,10 +1,11 @@
-import {MetaEntity} from "../base/base.entity";
+import {BaseMetaEntity} from "../base/base.entity";
 import {Field, ObjectType} from "type-graphql";
 import {Entity, Property} from "mikro-orm";
+import {IGame} from "@truecost/shared";
 
 @Entity()
 @ObjectType()
-export class GameEntity extends MetaEntity {
+export class GameEntity extends BaseMetaEntity implements IGame {
 
     @Field(() => [String])
     @Property()

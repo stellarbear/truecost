@@ -5,7 +5,6 @@ import {ABase, Component, IBase, IRender} from "./ABase";
 export interface ISelect extends IBase {
     values: any[];
     multiple?: boolean;
-    preRenderMap?: Record<string, any>;
 }
 
 export class CSelect extends ABase {
@@ -13,11 +12,11 @@ export class CSelect extends ABase {
     multiple: boolean;
     preRenderMap?: Record<string, any>;
 
-    constructor({values, multiple = false, preRenderMap, ...rest}: ISelect) {
+    constructor({values, multiple = false, ...rest}: ISelect) {
         super(rest);
         this.values = values;
         this.multiple = multiple;
-        this.preRenderMap = preRenderMap;
+        this.preRenderMap = values.reduce((acc, cur) => ({...acc, [cur]: cur}), {});
     }
 
     renderAddComponent = (params: IRender, type: Component): JSX.Element => this.asMultiSelect({...params});

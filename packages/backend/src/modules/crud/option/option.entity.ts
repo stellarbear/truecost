@@ -3,11 +3,11 @@ import {Collection, Entity, Enum, ManyToMany, ManyToOne, Property} from "mikro-o
 import {ItemEntity} from "../item/item.entity";
 import {GameEntity} from "../game/game.entity";
 import {BaseEntity} from "../base/base.entity";
-import {OptionArea, OptionType} from "@truecost/shared";
+import {OptionArea, OptionType, IOption} from "@truecost/shared";
 
 @Entity()
 @ObjectType()
-export class OptionEntity extends BaseEntity {
+export class OptionEntity extends BaseEntity implements IOption {
     @Field()
     @Property()
     price: number = 1;

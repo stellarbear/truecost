@@ -3,11 +3,11 @@ import {Field, ObjectType} from "type-graphql";
 import {Collection, Entity, Enum, OneToMany, Property, Unique} from "mikro-orm";
 import {BookingEntity} from "../booking/booking.entity";
 import {v4} from "uuid";
-import {RoleType} from "@truecost/shared";
+import {RoleType, IUser} from "@truecost/shared";
 
 @Entity()
 @ObjectType()
-export class UserEntity extends BaseEntity {
+export class UserEntity extends BaseEntity implements IUser {
     @Field()
     @Enum(() => RoleType)
     role: RoleType = RoleType.ANON;

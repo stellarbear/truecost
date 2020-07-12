@@ -4,7 +4,6 @@ import {ObjectType, Resolver} from "type-graphql";
 import {MetaResolver} from "../base/base.resolver";
 import {BlogService} from "./blog.service";
 import {BlogInput} from "./blog.input";
-import {BaseInput, MetaInput} from "../base/base.input";
 
 
 @ObjectType()

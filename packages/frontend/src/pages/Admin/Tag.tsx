@@ -1,14 +1,10 @@
 import React from "react";
 import CRUD from "components/generic/CRUD";
-import {CLink} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";
 import {game} from "./Base/Game";
 
-interface TagProps {
-}
-
-const AdminTag: React.FC<TagProps> = (): JSX.Element => {
+export const AdminTag: React.FC = () => {
     const crud = new CRUDgql({
         name: "Tag",
         items: `
@@ -30,5 +26,3 @@ const AdminTag: React.FC<TagProps> = (): JSX.Element => {
         />
     );
 };
-
-export default AdminTag;

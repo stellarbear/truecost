@@ -13,27 +13,7 @@ import {
 import {ChevronLeft, ChevronRight, FirstPage, LastPage} from "@material-ui/icons";
 import {Storage} from "auxiliary/storage";
 import ItemCard from "./ItemCard";
-import PassCard from "./PassCard";
 import {baseGame} from "auxiliary/route";
-
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        margin: {
-            boxShadow:
-                "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)",
-            [theme.breakpoints.down(658)]: {
-                margin: "10px 10px 0px",
-            },
-            [theme.breakpoints.up(658)]: {
-                margin: "30px 30px 0px",
-            },
-            [theme.breakpoints.up(1600)]: {
-                margin: "30px auto",
-            },
-        },
-    }),
-);
 
 interface IPaginationProps {
     ids: string[];
@@ -56,7 +36,6 @@ const Pagination: React.FC<IPaginationProps> = (props) => {
         ids,
         deps = [],
     } = props;
-    const classes = useStyles();
 
     let mounted = false;
     const count = ids.length;
@@ -204,7 +183,6 @@ const Pagination: React.FC<IPaginationProps> = (props) => {
     const renderItems = (ids: string[]) => {
         return (
             <div
-                //className={classes.margin}
                 style={{
                     padding: 8,
                     justifyContent: "center",
@@ -250,7 +228,7 @@ const Pagination: React.FC<IPaginationProps> = (props) => {
         return (
             <React.Fragment>
                 {renderItems(prefix)}
-                {prefix.length >= 6 && <PassCard/>}
+                {/*prefix.length >= 6 && <PassCard/>*/}
                 {renderItems(suffix)}
             </React.Fragment>
         );

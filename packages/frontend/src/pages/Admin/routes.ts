@@ -1,7 +1,4 @@
-import AdminBlog from "./Blog";
-import AdminGame from "./Game";
-import AdminCategory from "./Category";
-import {AdminItem, AdminOption, AdminTag} from ".";
+import {AdminBlog, AdminGame, AdminCategory, AdminOption, AdminItem, AdminTag} from ".";
 
 const routes = [
     {

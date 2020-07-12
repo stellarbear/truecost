@@ -1,16 +1,11 @@
 import React from "react";
-import {Account, Home, NotFound} from "pages";
+import {Home, NotFound} from "pages";
 import {Route} from "react-router-dom";
 import {NotifyWrapper} from "components/wrappers";
 import NavigationWrapper from "pages/Navigation";
 import AuthRoute from "pages/Admin/AuthRoute";
 import DayJSUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
-import Confirm from "pages/User/Confirm";
-import Reset from "pages/User/Reset";
-import Register from "pages/User/Register";
-import Login from "pages/User/Login";
-import Forget from "pages/User/Forget";
 import Policy from "pages/Policy";
 import About from "pages/About";
 import TOS from "pages/TOS";
@@ -18,6 +13,7 @@ import Contact from "pages/Contact";
 import {DataContext, DataWrapper} from "pages/Data/Wrapper";
 import {admin} from "pages/Admin/routes";
 import Shop from "pages/Shop/Shop";
+import {Login} from "pages/User";
 
 
 const App = () => {
@@ -34,10 +30,6 @@ const App = () => {
 									<Route exact path={urls.map(u => '/' + u)} component={Home} />
 									<Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
 
-									<Route exact path={`/user/forget`} component={Forget} />
-									<Route exact path={`/user/reset/:session`} component={Reset} />
-									<Route exact path={`/user/confirm/:session`} component={Confirm} />
-
 									{
 										admin.routes.map(({url, component}) =>
 											<AuthRoute exact
@@ -46,8 +38,6 @@ const App = () => {
 												component={component} />)
 									}
 
-									<AuthRoute exact path={`/account`} component={Account} />
-									<AuthRoute exact path={`/register`} component={Register} unauthorized />
 									<AuthRoute exact path={`/login`} component={Login} unauthorized />
 
 									<Route exact path={`/contact`} component={Contact} />

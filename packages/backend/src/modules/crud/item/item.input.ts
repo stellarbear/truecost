@@ -1,9 +1,9 @@
-import {MetaInput} from "../base/base.input";
+import {BaseMetaInput} from "../base/base.input";
 import {NumberScalar, NumberType, UploadScalar, UploadType} from "../../../scalars";
 import {Field, InputType} from "type-graphql";
 
 @InputType()
-export class ItemInput extends MetaInput {
+export class ItemInput extends BaseMetaInput {
     @Field({nullable: true})
     link?: string;
     @Field(() => [UploadScalar], {nullable: true})

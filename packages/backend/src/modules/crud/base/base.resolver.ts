@@ -1,8 +1,8 @@
 import {Arg, ClassType, Int, Mutation, Query, Resolver, UseMiddleware} from "type-graphql";
 import {BaseService} from "./base.service";
 import {assert} from "../../../helpers/assert";
-import {BaseEntity, MetaEntity} from "./base.entity";
-import {BaseInput, MetaInput} from "./base.input";
+import {BaseEntity, BaseMetaEntity} from "./base.entity";
+import {BaseInput, BaseMetaInput} from "./base.input";
 import {UseAuth} from "../../../middleware/auth";
 import {isArray, isString} from "../../../helpers/is";
 import {RoleType} from "@truecost/shared";
@@ -77,18 +77,18 @@ export function BaseResolver<T extends typeof BaseEntity,
     })
 }
 
-export function MetaResolver<T extends typeof MetaEntity,
-    I extends typeof MetaInput,
+export function MetaResolver<T extends typeof BaseMetaEntity,
+    I extends typeof BaseMetaInput,
     R extends ClassType<unknown>,
-    V extends MetaInput>({get, upsert, ...rest}: ICRUDResolver<T, I, R, Omit<V, keyof MetaInput>>): any {
+    V extends BaseMetaInput>({get, upsert, ...rest}: ICRUDResolver<T, I, R, Omit<V, keyof BaseMetaInput>>): any {
 
-    const baseGet: Required<ICRUDGet<Omit<MetaInput, keyof BaseInput>>> = {
+    const baseGet: Required<ICRUDGet<Omit<BaseMetaInput, keyof BaseInput>>> = {
         set: ["url"],
         between: [],
         like: ["url"],
         filter: [],
     };
-    const baseUpsert: Required<ICRUDUpsert<Omit<MetaInput, keyof BaseInput>>> = {
+    const baseUpsert: Required<ICRUDUpsert<Omit<BaseMetaInput, keyof BaseInput>>> = {
         notEmpty: ["url"],
         unique: ["url"],
         images: [],

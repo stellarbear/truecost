@@ -15,7 +15,7 @@ import React, {useCallback, useEffect} from "react";
 
 import gql from "graphql-tag";
 import {Link, withRouter} from "react-router-dom";
-import {RouteComponentProps} from "react-router";
+import {RouteComponentProps, useHistory} from "react-router";
 import Meta from "pages/Base/Meta";
 import {DataContext} from "pages/Data/Wrapper";
 import Alert from "@material-ui/lab/Alert";
@@ -40,9 +40,8 @@ interface LogInSubmit {
     password: string;
 }
 
-type LoginProps = RouteComponentProps;
-
-const Login: React.FC<LoginProps> = ({history}) => {
+export const Login: React.FC = () => {
+    const history = useHistory();
     const {update: {setUser}} = React.useContext(DataContext);
     const [loginMutation, {data, error, loading}] = useMutation(LOGIN);
 
@@ -125,5 +124,3 @@ const Login: React.FC<LoginProps> = ({history}) => {
 
     );
 };
-
-export default withRouter(Login);

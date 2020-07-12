@@ -5,11 +5,9 @@ import {CRUDgql} from "auxiliary";
 import {CNumber} from "components/generic/types/CNumber";
 import {base} from "./Base/Base";
 import {game} from "./Base/Game";
+import {enumValues, OptionType, OptionArea} from "@truecost/shared"
 
-interface OptionProps {
-}
-
-const AdminOption: React.FC<OptionProps> = (): JSX.Element => {
+export const AdminOption: React.FC = () => {
     const crud = new CRUDgql({
         name: "Option",
         items: `
@@ -38,21 +36,18 @@ const AdminOption: React.FC<OptionProps> = (): JSX.Element => {
         max: 1000,
     });
 
-    const types = ["awaiting for contact", "in progress", "paused", "done", "refund"];
     const type = new CSelect({
         multiple: false,
         key: "type",
         label: "type",
-        values: types,
-        preRenderMap: types.reduce((acc, cur) => ({...acc, [cur]: cur}), {}),
+        values: enumValues(OptionType),
     });
-    const areas = ["awaiting for contact", "in progress", "paused", "done", "refund"];
+    
     const area = new CSelect({
         multiple: false,
         key: "area",
         label: "area",
-        values: areas,
-        preRenderMap: areas.reduce((acc, cur) => ({...acc, [cur]: cur}), {}),
+        values: enumValues(OptionArea),
     });
 
     const fields = [price, free, type, area];
@@ -71,5 +66,3 @@ const AdminOption: React.FC<OptionProps> = (): JSX.Element => {
         />
     );
 };
-
-export default AdminOption;

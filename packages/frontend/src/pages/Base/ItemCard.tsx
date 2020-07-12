@@ -14,12 +14,10 @@ import {
 import {NotificationContext} from "../../components/wrappers";
 import {imageUri, baseUri} from "auxiliary/route";
 import {Link, RouteComponentProps, withRouter} from "react-router-dom";
-import DefaultImage from "components/DefaultImage";
 import PriceTypo from "./PriceTypo";
-import colors from "theme/colors";
-import {CartContext} from "./CartWrapper";
 import {DataContext} from "pages/Data/Wrapper";
 import {IShop} from "pages/Data/useData";
+import {Price} from '@truecost/shared';
 
 interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
@@ -32,13 +30,6 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         adapt = false,
     } = props;
     const {notify} = useContext(NotificationContext);
-    /*
-        const {
-            cart: {addItem},
-            store: {itemList, optionList, tagList},
-            math: {stringifyPrice, calculateAt, getItemPrice, getItemPriceWithDiscount},
-        } = React.useContext(CartContext);
-    */
     const {current: {shop}} = useContext(DataContext);
     const {
         tag: {id: tags},
@@ -53,16 +44,14 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
 
     const itemId = id;
     const item = items[id];
+    const price = Price.fromItem(item);
 
-    const [totalPrice, setTotalPrice] = React.useState(item.price);
     const [raised, setRaised] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
     const [selected, setSelected] = React.useState("");
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
 
-    useEffect(() => {
-        //setTotalPrice(calculateAt(price, selectedOptions));
-    }, [selectedOptions]);
+    const totalPrice = price.withOption(selectedOptions.map(id => options[id]));
 
     const toggleSelected = (id: string) =>
         setSelectedOptions(selectedOptions.includes(id) ? selectedOptions.filter(t => t !== id) : [...selectedOptions, id]);
@@ -104,7 +93,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                                     userSelect: "none",
                                     whiteSpace: "nowrap",
                                     textAlign: "center",
-                                }}>{/*stringifyPrice(o, id)*/}</Typography>
+                                }}>{price.getOption(options[optionId]).toString}</Typography>
                         </div>
                         <Divider style={{paddingLeft: 8}} />
                     </div>,
@@ -130,7 +119,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                     <div
                         style={{display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%"}}>
                         <Typography variant="caption">add to cart</Typography>
-                        <Typography variant="h5">{`${totalPrice} $`}</Typography>
+                        <Typography variant="h5">{totalPrice.toString}</Typography>
                     </div>
                 </Button>
             </div>
@@ -175,7 +164,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                             width: "100%",
                         }}>
                             <Typography variant="caption">starting from </Typography>
-                            <Typography variant="h5">{/*`${range?.[0]?.price ?? price} $`*/}</Typography>
+                            <Typography variant="h5">{price.toString}</Typography>
                         </div>
                     </Button>
                 </div>

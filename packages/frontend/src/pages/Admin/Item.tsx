@@ -8,10 +8,7 @@ import {meta} from "./Base/Meta";
 import {game} from "./Base/Game";
 import EditorRange from "components/EditorRange";
 
-interface ItemProps {
-}
-
-const AdminItem: React.FC<ItemProps> = (): JSX.Element => {
+export const AdminItem: React.FC=  () => {
     const crud = new CRUDgql({
         name: "Item",
         items: `
@@ -157,5 +154,3 @@ const AdminItem: React.FC<ItemProps> = (): JSX.Element => {
         />
     );
 };
-
-export default AdminItem;

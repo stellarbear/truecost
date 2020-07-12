@@ -5,10 +5,7 @@ import {CRUDgql} from "auxiliary";
 import EditorPost from "components/EditorPost";
 import {meta} from "./Base/Meta";
 
-interface BlogProps {
-}
-
-const AdminBlog: React.FC<BlogProps> = (): JSX.Element => {
+export const AdminBlog: React.FC = () => {
     const crud = new CRUDgql({
         name: "Blog",
         items: `
@@ -61,5 +58,3 @@ const AdminBlog: React.FC<BlogProps> = (): JSX.Element => {
         />
     );
 };
-
-export default AdminBlog;

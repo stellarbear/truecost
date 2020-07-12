@@ -1,9 +1,9 @@
 import {Field, InputType} from "type-graphql";
-import {MetaInput} from "../base/base.input";
+import {BaseMetaInput} from "../base/base.input";
 import {NumberScalar, NumberType, UploadScalar, UploadType} from "../../../scalars";
 
 @InputType()
-export class BlogInput extends MetaInput {
+export class BlogInput extends BaseMetaInput {
     @Field(() => NumberScalar, {nullable: true})
     date?: NumberType;
 

@@ -17,7 +17,7 @@ export abstract class BaseInput {
 }
 
 @InputType({isAbstract: true})
-export abstract class MetaInput extends BaseInput {
+export abstract class BaseMetaInput extends BaseInput {
     @Field({nullable: true})
     url?: string;
 

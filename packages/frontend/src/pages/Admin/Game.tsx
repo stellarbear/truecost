@@ -4,10 +4,7 @@ import {CImageList, CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {meta} from "./Base/Meta";
 
-interface GameProps {
-}
-
-const AdminGame: React.FC<GameProps> = (): JSX.Element => {
+export const AdminGame: React.FC = () => {
     const crud = new CRUDgql({
         name: "Game",
         items: `
@@ -53,5 +50,3 @@ const AdminGame: React.FC<GameProps> = (): JSX.Element => {
         />
     );
 };
-
-export default AdminGame;
