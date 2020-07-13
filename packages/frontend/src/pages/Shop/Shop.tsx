@@ -5,26 +5,26 @@ import {NotificationContext} from "components/wrappers";
 import {DataContext} from "pages/Data/Wrapper";
 import Pagination from "pages/Base/Pagination";
 import {IShop} from "pages/Data/useData";
+import {Chip, Grid, TextField} from "@material-ui/core";
+import {dictSort, dictSortMap} from "auxiliary/sort";
+import {Autocomplete} from "@material-ui/lab";
 
+const empty = "default";
 
-export interface ShopState {
+export interface IShopState {
     category: string;
     items: string[];
     tags: string[];
-    sort: {
-        field: string;
-        order: "asc" | "desc";
-    };
+    sort: string;
+    order: "asc" | "desc";
 }
 
-export const defaultState: ShopState = {
-    category: "",
+export const defaultState: IShopState = {
+    category: empty,
     items: [],
     tags: [],
-    sort: {
-        field: "default",
-        order: "asc",
-    },
+    sort: empty,
+    order: "asc",
 };
 
 const Shop: React.FC = () => {
@@ -33,7 +33,16 @@ const Shop: React.FC = () => {
 
 
     const {tag, option, item: {id: items}, category}: IShop = shop()!;
-    const [state, setState] = useState<ShopState>(defaultState);
+    const [state, setState] = useState<IShopState>(defaultState);
+
+    const onStateChange = (field: keyof IShopState, id: string) => {
+        if (typeof state[field] == "string") {
+            setState({...state, [field]: state[field] === id ? empty : id})
+        } else if (state[field] instanceof Array) {
+            const filtered = (state[field] as string[]).filter(e => e !== id);
+            setState({...state, [field]: filtered.length == state[field].length ? [...filtered, id] : filtered})
+        }
+    }
     //const [scroll, setScroll] = useState<number>(Storage.getItem(storageScrollPersistKey, 0));
 
     /*
@@ -45,8 +54,44 @@ const Shop: React.FC = () => {
         return <Pagination ids={Object.keys(items)} />
     }
 
+    const renderTags = () => {
+        const tags = dictSortMap(tag.id);
+
+        if (tags.length === 0) {
+            return null
+        }
+
+        return (
+            <Autocomplete
+                id="tags"
+                options={tags}
+                getOptionLabel={(tag) => tag.name}
+                //style={{width: 300}}
+                renderInput={(params) => <TextField {...params} label="Tag list" variant="outlined" />}
+            />
+		)
+    }
+    const renderCategory = () => {
+        const categories = dictSortMap(category.id);
+/*
+        if (tags.length === 0) {
+            return null
+        }
+
+        return (
+            <Autocomplete
+                id="tags"
+                options={tags}
+                getOptionLabel={(tag) => tag.name}
+                //style={{width: 300}}
+                renderInput={(params) => <TextField {...params} label="Tag list" variant="outlined" />}
+            />
+		)*/
+    }
+
     return (
         <React.Fragment>
+            {renderTags()}
             {renderItems()}
         </React.Fragment>
     );

@@ -1,15 +1,15 @@
 {
     "name": "@truecost/shared",
     "version": "0.1.0",
-    "main": "dist/index.js",
+    "main": "build/index.js",
     "files": [
-        "dist/"
+        "build/"
     ],
     "scripts": {
         "clean": "yarn build:clean",
         "watch": "yarn build:watch",
         "build": "yarn build:clean && tsc",
-        "build:clean": "rimraf dist tsconfig.tsbuildinfo",
+        "build:clean": "rimraf build tsconfig.tsbuildinfo",
         "build:watch": "yarn build --watch"
     },
     "private": true,

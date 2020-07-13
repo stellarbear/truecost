@@ -1,7 +1,7 @@
 import React, {createContext, useState} from "react";
 import {useQuery} from "react-apollo";
 import gql from "graphql-tag";
-import {arrayToDict, dictSort} from "auxiliary/sort";
+import {dictSort} from "auxiliary/sort";
 import {RouteComponentProps, useHistory, withRouter} from "react-router";
 import {OptionType, OptionArea} from "@truecost/shared";
 import {useData, IStoreContext, IShop} from "./useData";
@@ -33,6 +33,8 @@ const Data: React.FC<DataProps> = ({children}) => {
     if (loading || !store) {
         return <span>Loading</span>;
     }
+
+    console.log(store);
 
     return (
         <DataContext.Provider value={{

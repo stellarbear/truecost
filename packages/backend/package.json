@@ -1,18 +1,18 @@
 {
     "name": "@truecost/backend",
     "version": "0.0.0",
-    "main": "dist/index.js",
+    "main": "build/index.js",
     "files": [
-        "dist/"
+        "build/"
     ],
     "scripts": {
         "clean": "yarn build:clean",
         "watch": "yarn build:watch",
         "build": "yarn build:clean && tsc",
-        "build:clean": "rimraf dist tsconfig.tsbuildinfo",
+        "build:clean": "rimraf build tsconfig.tsbuildinfo",
         "build:watch": "yarn build --watch",
-        "start": "node dist/index",
-        "start:watch": "nodemon dist/index"
+        "start": "node build/index",
+        "start:watch": "nodemon build/index"
     },
     "private": true,
     "license": "MIT",

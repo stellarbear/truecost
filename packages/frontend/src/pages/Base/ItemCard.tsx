@@ -14,21 +14,18 @@ import {
 import {NotificationContext} from "../../components/wrappers";
 import {imageUri, baseUri} from "auxiliary/route";
 import {Link, RouteComponentProps, withRouter} from "react-router-dom";
-import PriceTypo from "./PriceTypo";
 import {DataContext} from "pages/Data/Wrapper";
 import {IShop} from "pages/Data/useData";
 import {Price} from '@truecost/shared';
+import {PriceTypography} from "./PriceTypography";
 
 interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
-    adapt?: boolean;
 }
 
 const ItemCard: React.FC<IItemCardProps> = (props) => {
-    const {
-        id,
-        adapt = false,
-    } = props;
+    const {id} = props;
+
     const {notify} = useContext(NotificationContext);
     const {current: {shop}} = useContext(DataContext);
     const {
@@ -239,7 +236,8 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                                 color="primary"
                                 variant="outlined"
                             >
-                                {`PRICE HERE`}
+                                <PriceTypography price={price.toValue}
+                                    discount={item.discount} />
                             </Button>
                         </div>
                     </div>
@@ -256,7 +254,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
             }}
             onMouseOver={() => setRaised(true)}
             onMouseOut={() => setRaised(false)}
-            //onMouseLeave={() => setHovered(false)}
+            onMouseLeave={() => setHovered(false)}
             raised={raised}>
             {renderOverlay()}
             {renderCard()}
@@ -265,9 +263,3 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
 };
 
 export default withRouter(ItemCard);
-
-
-/*
-<PriceTypo price={getItemPrice(id, [])}
-priceWithDiscount={getItemPriceWithDiscount(id, [])}/>
-*/

@@ -24,20 +24,9 @@ const dictSort = <T extends { id: string; name: string; order: number }>(handle:
     return keys;
 };
 
-const arrayToDict = (data?: any[], key = "id") => {
-    const result = {};
-
-    if (!Array.isArray(data)) {
-        return result;
-    }
-
-    for (const entry of data) {
-        if (entry.active) {
-            result[entry[key]] = entry;
-        }
-    }
-
-    return result;
+const dictSortMap = <T extends { id: string; name: string; order: number }>(handle: Record<string, T>): T[] => {
+    const keys = dictSort(handle);
+    
+    return keys.map(key => handle[key]);
 };
-
-export {sortByOrder, arrayToDict, dictSort};
+export {sortByOrder, dictSortMap, dictSort};

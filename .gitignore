@@ -4,6 +4,7 @@ packages/**/build
 node_modules/
 coverage/
 dist/
+build/
 db/
 yarn-*.log
 lerna-*.log

@@ -20,7 +20,7 @@ const ItemRow: React.FC<ItemRowProps> = ({
             {
                 items.map(id => (
                     <div key={id} style={{margin: "0px 8px"}}>
-                        <ItemCard id={id} adapt/>
+                        <ItemCard id={id}/>
                     </div>
                 ))
             }

@@ -10,7 +10,8 @@
     "clean": "lerna run clean",
     "lint": "eslint 'packages/*/{src,test}/**/*.{ts,tsx}'",
     "build": "yarn && yarn run clean && tsc -b packages",
-    "build:watch": "tsc -b packages -w"
+    "build:watch": "tsc -b packages -w",
+    "web-razzle": "yarn workspace @truecost/frontend start"
   },
   "devDependencies": {
     "@types/node": "^14.0.13",

@@ -24,7 +24,8 @@ export interface IShop {
 	category: {
 		url: Dict<string>,
 		id: Dict<ICategory>,
-		hierarchy: Dict<Set<string>>
+		direct: Dict<Set<string>>
+		children: Dict<Set<string>>
 	}
 }
 export interface IShopContext {
@@ -109,7 +110,7 @@ export function useData() {
 			tag: {id: {}, url: {}},
 			option: {local: {}, global: {}},
 			item: {url: {}, id: {}},
-			category: {id: {}, hierarchy: {}, url: {}}
+			category: {id: {}, direct: {}, children: {}, url: {}}
 		}
 	}
 
@@ -146,12 +147,15 @@ export function useData() {
 		if (active && gameId in shopDict.data) {
 			shopDict.data[gameId].category.url[name] = id;
 			shopDict.data[gameId].category.id[id] = category;
-			shopDict.data[gameId].category.hierarchy[id] = new Set([id]);
+			shopDict.data[gameId].category.direct[id] = new Set();
+			shopDict.data[gameId].category.children[id] = new Set([id]);
 		}
 	}
 
-	for (let gameId in shopDict.data.id) {
+	console.log(gameDict.data.id, 'shopDict.data.id');
+	for (let gameId in gameDict.data.id) {
 		let nodes = new Set(Object.keys(shopDict.data[gameId].category.id));
+		console.log(nodes, 'nodesnodesnodes')
 		for (let nodeId in shopDict.data[gameId].category.id) {
 			let node = shopDict.data[gameId].category.id[nodeId];
 			if (node.parent) {
@@ -162,15 +166,16 @@ export function useData() {
 		}
 
 		let stack = [...nodes];
+		console.log(stack, 'staccccck')
 		while (stack.length > 0) {
 			let nodeId = stack.pop();
 			while (nodeId) {
 				let node = shopDict.data[gameId].category.id[nodeId];
 				let parent = node.parent;
 				if (parent) {
-					let childSet = shopDict.data[gameId].category.hierarchy[nodeId];
+					/*let childSet = shopDict.data[gameId].category.hierarchy[nodeId];
 					let parentSet = shopDict.data[gameId].category.hierarchy[parent.id];
-					shopDict.data[gameId].category.hierarchy[parent.id] = new Set([...childSet, ...parentSet]);
+					shopDict.data[gameId].category.hierarchy[parent.id] = new Set([...childSet, ...parentSet]);*/
 				}
 
 				nodeId = parent?.id;
@@ -178,7 +183,6 @@ export function useData() {
 		}
 	}
 
-	console.log('result calculated')
 	return ({
 		loading,
 		state: {
