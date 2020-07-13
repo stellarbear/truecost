@@ -95,7 +95,60 @@ const ItemBase: React.FC<IItemBaseProps> = ({
                             </div>
                         </React.Fragment>
                     )}
+                    {item.items.length > 0 && (
+                        <React.Fragment>
+                            <Divider style={{ margin: 8 }} />
+                            {item.items.map(i => i in itemList && (
+                                <ButtonBase
+                                    component={Link} to={`/item/${itemList[i].url}`}
+                                    key={`item-${id}-item-${i}`}
+                                    style={{ display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "flex-start" }}>
+                                    <IconButton size="small">
+                                        <LinkIcon />
+                                    </IconButton>
+                                    <Typography
+                                        key={`${id}-items-${i}`}
+                                        variant="body1"
+                                        style={{ whiteSpace: "nowrap", cursor: "pointer" }}>{itemList[i].name}</Typography>
+                                </ButtonBase>
+                            ))}
+                        </React.Fragment>
+                    )}
 
+                    {item.tag.length > 0 && (
+                        <React.Fragment>
+                            <Divider style={{ margin: 8 }} />
+                            {item.tag.map(t => t in tagList ? (
+                                <div key={`item-${id}-tag-${t}`} style={{ padding: 4 }}>
+                                    <Chip label={tagList[t].name} color="primary" size="small" />
+                                </div>
+                            ) : null)}
+                        </React.Fragment>
+                    )}
+
+                    {item.obtain.length > 0 && (
+                        <React.Fragment>
+                            <Divider style={{ margin: 8 }} />
+                            <Typography variant="body1">You will obtain:</Typography>
+                            {item.obtain.split('\n').map((o, i) => (
+                                <Markdown key={`item-${id}-obtain-${i}`} >
+                                    {`• ${o}`}
+                                </Markdown>
+                            ))}
+                        </React.Fragment>
+                    )}
+
+                    {item.requirements.length > 0 && (
+                        <React.Fragment>
+                            <Divider style={{ margin: 8 }} />
+                            <Typography variant="body1">Requirements:</Typography>
+                            {item.requirements.split('\n').map((r, i) => (
+                                <Markdown key={`item-${id}-obtain-${i}`} >
+                                    {`• ${r}`}
+                                </Markdown>
+                            ))}
+                        </React.Fragment>
+                    )}
 
                     {range.length > 0 && (
                         <React.Fragment>

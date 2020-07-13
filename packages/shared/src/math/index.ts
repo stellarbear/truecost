@@ -34,9 +34,9 @@ export class Price {
         return (rangeTo(item, chunk[1]) - rangeTo(item, chunk[0])) || item.range[0].price
     }
 
-    static fromItem(item: IItem, chunk?: [number, number]) {
+    static fromItem(item: IItem, chunk: [number, number] = [0, 0]) {
         const {price} = item;
-        if (chunk) {
+        if (item.range.length > 0) {
             return new Price(Price.applyRange(item, chunk));
         } else {
             return new Price(price);
