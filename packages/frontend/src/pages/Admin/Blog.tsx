@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import CRUD from "components/generic/CRUD";
 import {CDate, CImageList, CString, CStringCustom} from "components/generic/types";
 import {CRUDgql} from "auxiliary";

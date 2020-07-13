@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Badge, Typography} from "@material-ui/core";
 import {ABase, Component, IBase, IRender} from "./ABase";
 import {AddBox, RemoveCircle} from "@material-ui/icons";

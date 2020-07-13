@@ -4,6 +4,8 @@ class Storage {
             return defaultValue;
         }
 
+        
+
         if (Array.isArray(key)) {
             const storageValue = localStorage.getItem(key[0]);
 

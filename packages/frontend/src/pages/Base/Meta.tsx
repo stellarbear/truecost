@@ -65,7 +65,7 @@ const title = {
 const Meta: React.FC<HelmetProps> = ({page, props = {}}) => {
     return (
         <Helmet>
-            <title>{title[page](props)}</title>
+            <title>Yo wassup</title>
         </Helmet>
     );
 };

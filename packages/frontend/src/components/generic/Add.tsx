@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {
     Button,
     Dialog,
@@ -28,7 +28,7 @@ interface AddProps {
     pack?: string;
 }
 
-const normalize = (item: {}): {} =>
+const normalize = (item: any): {} =>
     Object.keys(item).reduce((acc, cur) =>
         Array.isArray(item[cur])
             ? ({...acc, [cur]: item[cur].map((e: any) => e.id || e)})

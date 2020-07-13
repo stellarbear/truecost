@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {DateTimePicker, DateTimePickerProps} from "@material-ui/pickers";
 
 interface IDateTimeFieldProps extends Partial<DateTimePickerProps> {

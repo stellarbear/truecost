@@ -63,8 +63,8 @@ const GamePicker: React.FC<GamePickerProps> = () => {
                                 ? pathname.slice(1)
                                 : pathname.slice(1, gameIndex);
 
-                            const valid = Object.keys(data).map(key => data[key].url);
-                            const to = valid.includes(gameUrl) ? '/' + data[game].url + pathname.slice(gameIndex) : pathname;
+                            const valid = Object.keys(data.id).map(key => data.id[key].url);
+                            const to = valid.includes(gameUrl) ? '/' + data.id[game].url + pathname.slice(gameIndex) : pathname;
 
                             setGame(game);
                             history.push(to);

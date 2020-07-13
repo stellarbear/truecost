@@ -1,5 +1,5 @@
 import {Chip, createStyles, FormControl, InputLabel, makeStyles, MenuItem, Select, Theme} from "@material-ui/core";
-import React from "react";
+import * as React from "react";
 import {SelectProps} from "@material-ui/core/Select";
 
 const MenuProps = {

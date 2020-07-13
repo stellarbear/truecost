@@ -3,17 +3,16 @@ import {useQuery} from "react-apollo";
 import gql from "graphql-tag";
 import {dictSort} from "auxiliary/sort";
 import {RouteComponentProps, useHistory, withRouter} from "react-router";
-import {OptionType, OptionArea} from "@truecost/shared";
+import {OptionType, OptionArea, IUser, IGame} from "@truecost/shared";
 import {useData, IStoreContext, IShop} from "./useData";
-import {IGame, IUser} from "./interfaces";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 
 export interface IDataContext extends IStoreContext {
     current: {
         user: IUser | null
-        game: IGame | null,
-        shop(): IShop | null
+        game: IGame,
+        shop(): IShop
     }
     update: {
         setUser(user: IUser | null): void,
@@ -42,7 +41,7 @@ const Data: React.FC<DataProps> = ({children}) => {
             current: {
                 user: user,
                 game: game,
-                shop: () => game ? store.shop.data[game.id] : null
+                shop: () => store.shop.data[game.id]
             },
             update: {
                 setUser: (user: IUser | null) => setUser(user),

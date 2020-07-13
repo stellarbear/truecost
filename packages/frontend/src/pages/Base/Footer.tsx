@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Button, createStyles, Divider, IconButton, makeStyles, Theme, Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {social} from "auxiliary/social";

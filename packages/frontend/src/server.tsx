@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {StaticRouter} from "react-router-dom";
 import ReactDOMServer, {renderToString} from "react-dom/server";
 import Helmet, {HelmetData, HelmetDatum} from "react-helmet";

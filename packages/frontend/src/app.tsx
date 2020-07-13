@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Home, NotFound} from "pages";
 import {Route} from "react-router-dom";
 import {NotifyWrapper} from "components/wrappers";
@@ -14,6 +14,7 @@ import {DataContext, DataWrapper} from "pages/Data/Wrapper";
 import {admin} from "pages/Admin/routes";
 import Shop from "pages/Shop/Shop";
 import {Login} from "pages/User";
+import {Item} from "pages/Item/Item";
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
 								<NavigationWrapper>
 									<Route exact path={urls.map(u => '/' + u)} component={Home} />
 									<Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
+									<Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
 									{
 										admin.routes.map(({url, component}) =>
@@ -65,7 +67,7 @@ const App = () => {
 export default App;
 
 /*
-import React from "react";
+import * as React from "react";
 import {Home, NotFound, Account} from "pages";
 import {Route} from "react-router-dom";
 import AnimatedSwitch from "components/AnimatedSwitch";

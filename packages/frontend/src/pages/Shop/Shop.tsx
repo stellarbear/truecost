@@ -3,7 +3,7 @@ import React, {CSSProperties, useContext, useEffect, useState} from "react";
 import {Storage} from "auxiliary/storage";
 import {NotificationContext} from "components/wrappers";
 import {DataContext} from "pages/Data/Wrapper";
-import Pagination from "pages/Base/Pagination";
+import Pagination from "./Pagination";
 import {IShop} from "pages/Data/useData";
 import {Chip, Grid, TextField} from "@material-ui/core";
 import {dictSort, dictSortMap} from "auxiliary/sort";
@@ -32,7 +32,7 @@ const Shop: React.FC = () => {
     const {notify} = React.useContext(NotificationContext);
 
 
-    const {tag, option, item: {id: items}, category}: IShop = shop()!;
+    const {tags, options, items, categories}: IShop = shop()!;
     const [state, setState] = useState<IShopState>(defaultState);
 
     const onStateChange = (field: keyof IShopState, id: string) => {
@@ -51,11 +51,11 @@ const Shop: React.FC = () => {
         .filter(key => itemList[key].only.length === 0);
 */
     const renderItems = () => {
-        return <Pagination ids={Object.keys(items)} />
+        return <Pagination ids={Object.keys(items.id)} />
     }
 
     const renderTags = () => {
-        const tags = dictSortMap(tag.id);
+        /*const tags = dictSortMap(tags.id);
 
         if (tags.length === 0) {
             return null
@@ -69,10 +69,10 @@ const Shop: React.FC = () => {
                 //style={{width: 300}}
                 renderInput={(params) => <TextField {...params} label="Tag list" variant="outlined" />}
             />
-		)
+		)*/
     }
     const renderCategory = () => {
-        const categories = dictSortMap(category.id);
+        //const categories = dictSortMap(category.id);
 /*
         if (tags.length === 0) {
             return null

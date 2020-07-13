@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {makeStyles} from "@material-ui/styles";
 import {Backdrop, Badge, createStyles, Fade, Modal, Paper, Theme} from "@material-ui/core";
 import {ZoomOutMap} from "@material-ui/icons";

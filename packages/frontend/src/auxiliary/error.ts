@@ -17,7 +17,7 @@ const parseQlErrors = (error: ApolloError) => {
             }, {});
     } else {
         objResult = graphQLErrors
-            .reduce((obj, curr) => {
+            .reduce((obj: any, curr) => {
                 if (curr.extensions && curr.message && curr.extensions.exception) {
                     (curr.extensions.exception.field || []).forEach((f: string) => obj[f] = (obj[f] || []).concat(curr.message));
                 }

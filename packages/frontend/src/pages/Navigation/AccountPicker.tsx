@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Divider, IconButton, Menu, MenuItem} from "@material-ui/core";
 import gql from "graphql-tag";
 import {useMutation} from "react-apollo";

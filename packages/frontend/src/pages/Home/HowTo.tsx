@@ -13,20 +13,23 @@ interface IProps {
 }
 
 export const HowTo: React.FC<IProps> = ({style = {}}) => {
+    const props = {
+        
+    }
     const data = [{
-        icon: <SportsEsports />,
+        icon: <SportsEsports fontSize="large" />,
         text: "Choose the items or the service you need at the shop",
     }, {
-        icon: <Loyalty />,
+        icon: <Loyalty fontSize="large" />,
         text: "Select your discount plan at the checkout (optional)",
     }, {
-        icon: <Chat />,
+        icon: <Chat fontSize="large" />,
         text: "We set up a convenient interaction between you and your player",
     }, {
-        icon: <Star />,
+        icon: <Star fontSize="large" />,
         text: "Get what you want!",
     }, {
-        icon: <RateReview />,
+        icon: <RateReview fontSize="large" />,
         text: "Leave an honest review in order to support us!",
     }];
     return (
@@ -40,11 +43,7 @@ export const HowTo: React.FC<IProps> = ({style = {}}) => {
                             alignItems: "center",
                             display: 'flex', flexDirection: 'column',
                         }}>
-                            {React.cloneElement(icon, {
-                                style: {
-                                    transform: "scale(2.7)", margin: 32,
-                                },
-                            })}
+                            {icon}
                             <Typography style={{textAlign: 'center'}}>
                                 {`${i + 1}. ${text}`}
                             </Typography>

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {SelectField} from "components";
 import {ABase, Component, IBase, IRender} from "./ABase";
 

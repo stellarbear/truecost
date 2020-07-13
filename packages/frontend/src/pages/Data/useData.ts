@@ -2,32 +2,35 @@ import * as React from 'react';
 import {useQuery} from 'react-apollo';
 import {BULK_QUERY} from './query';
 import {useEffect, useState} from 'react';
-import {ITag, IOption, IItem, ICategory, IGame, IUser, IBlog} from './interfaces';
-import {OptionArea} from '@truecost/shared';
+import {OptionArea, ITag, IOption, IItem, ICategory, IBlog, IUser, IGame} from '@truecost/shared';
 import {SafeJSON} from 'auxiliary/json';
+import {ICartContext, defaultCart} from './cart';
 
-type Dict<T> = Record<string, T>;
+export type Dict<T> = Record<string, T>;
 
 export interface IShop {
-	tag: {
+	tags: {
 		url: Dict<string>,
 		id: Dict<ITag>
 	}
-	option: {
+	options: {
 		local: Dict<IOption>,
 		global: Dict<IOption>
 	}
-	item: {
+	items: {
 		url: Dict<string>,
 		id: Dict<IItem>
 	},
-	category: {
+	categories: {
 		url: Dict<string>,
 		id: Dict<ICategory>,
 		direct: Dict<Set<string>>
 		children: Dict<Set<string>>
-	}
+	},
+	cart: ICartContext
 }
+
+
 export interface IShopContext {
 	data: Dict<IShop>
 }
@@ -62,7 +65,7 @@ const defaultState: IStore = {
 		data: undefined,
 	},
 	shop: {
-		data: {}
+		data: {},
 	},
 	game: {
 		data: {
@@ -107,10 +110,11 @@ export function useData() {
 	const shopDict: IShopContext = {data: {}};
 	for (let gameId in gameDict.data.id) {
 		shopDict.data[gameId] = {
-			tag: {id: {}, url: {}},
-			option: {local: {}, global: {}},
-			item: {url: {}, id: {}},
-			category: {id: {}, direct: {}, children: {}, url: {}}
+			tags: {id: {}, url: {}},
+			options: {local: {}, global: {}},
+			items: {url: {}, id: {}},
+			categories: {id: {}, direct: {}, children: {}, url: {}}, 
+			cart: defaultCart(gameId)
 		}
 	}
 
@@ -118,9 +122,9 @@ export function useData() {
 		let {game: {id: gameId}, area, id, active} = option;
 		if (active && gameId in shopDict.data) {
 			if (area === OptionArea.GLOBAL) {
-				shopDict.data[gameId].option.global[id] = option;
+				shopDict.data[gameId].options.global[id] = option;
 			} else if (area === OptionArea.LOCAL) {
-				shopDict.data[gameId].option.local[id] = option;
+				shopDict.data[gameId].options.local[id] = option;
 			}
 		}
 	}
@@ -128,8 +132,8 @@ export function useData() {
 	for (let tag of TagAll) {
 		let {game: {id: gameId}, id, active, name} = tag;
 		if (active && gameId in shopDict.data) {
-			shopDict.data[gameId].tag.id[id] = tag;
-			shopDict.data[gameId].tag.url[name] = id;
+			shopDict.data[gameId].tags.id[id] = tag;
+			shopDict.data[gameId].tags.url[name] = id;
 		}
 	}
 
@@ -137,27 +141,27 @@ export function useData() {
 		let {game: {id: gameId}, id, active, url} = item;
 		item.range = SafeJSON.parse(item.range, [])
 		if (active && gameId in shopDict.data) {
-			shopDict.data[gameId].item.url[url] = id;
-			shopDict.data[gameId].item.id[id] = item;
+			shopDict.data[gameId].items.url[url] = id;
+			shopDict.data[gameId].items.id[id] = item;
 		}
 	}
 
 	for (let category of CategoryAll) {
 		let {game: {id: gameId}, id, active, name} = category;
 		if (active && gameId in shopDict.data) {
-			shopDict.data[gameId].category.url[name] = id;
-			shopDict.data[gameId].category.id[id] = category;
-			shopDict.data[gameId].category.direct[id] = new Set();
-			shopDict.data[gameId].category.children[id] = new Set([id]);
+			shopDict.data[gameId].categories.url[name] = id;
+			shopDict.data[gameId].categories.id[id] = category;
+			shopDict.data[gameId].categories.direct[id] = new Set();
+			shopDict.data[gameId].categories.children[id] = new Set([id]);
 		}
 	}
 
-	console.log(gameDict.data.id, 'shopDict.data.id');
+	//console.log(gameDict.data.id, 'shopDict.data.id');
 	for (let gameId in gameDict.data.id) {
-		let nodes = new Set(Object.keys(shopDict.data[gameId].category.id));
+		let nodes = new Set(Object.keys(shopDict.data[gameId].categories.id));
 		console.log(nodes, 'nodesnodesnodes')
-		for (let nodeId in shopDict.data[gameId].category.id) {
-			let node = shopDict.data[gameId].category.id[nodeId];
+		for (let nodeId in shopDict.data[gameId].categories.id) {
+			let node = shopDict.data[gameId].categories.id[nodeId];
 			if (node.parent) {
 				nodes.delete(node.parent.id);
 			} else {
@@ -166,11 +170,11 @@ export function useData() {
 		}
 
 		let stack = [...nodes];
-		console.log(stack, 'staccccck')
+		//console.log(stack, 'staccccck')
 		while (stack.length > 0) {
 			let nodeId = stack.pop();
 			while (nodeId) {
-				let node = shopDict.data[gameId].category.id[nodeId];
+				let node = shopDict.data[gameId].categories.id[nodeId];
 				let parent = node.parent;
 				if (parent) {
 					/*let childSet = shopDict.data[gameId].category.hierarchy[nodeId];

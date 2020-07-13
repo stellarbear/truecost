@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Discord, Skype, Twitch} from "mdi-material-ui";
 import {Email, Facebook, Instagram, Telegram, WhatsApp} from "@material-ui/icons";
 

@@ -1,4 +1,4 @@
-/*import React from "react";
+/*import * as React from "react";
 import { getLanguageMeta, getLanguages } from "i18n";
 import { MenuItem, Select, Input, createStyles, Theme } from "@material-ui/core";
 import { useTranslation } from "react-i18next";

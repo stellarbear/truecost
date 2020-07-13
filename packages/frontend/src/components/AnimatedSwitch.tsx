@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {Switch, withRouter} from "react-router";
 import {RouteComponentProps} from "react-router-dom";

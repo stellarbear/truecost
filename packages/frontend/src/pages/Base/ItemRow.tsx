@@ -1,6 +1,6 @@
-import React from "react";
-import ItemCard from "./ItemCard";
+import * as React from "react";
 import Row from "./Row";
+import ItemCard from "pages/Shop/ItemCard";
 
 interface ItemRowProps {
     id: string;

@@ -13,11 +13,11 @@ import {
 } from "@material-ui/core";
 import {NotificationContext} from "../../components/wrappers";
 import {imageUri, baseUri} from "auxiliary/route";
-import {Link, RouteComponentProps, withRouter} from "react-router-dom";
+import {Link, RouteComponentProps, withRouter, Redirect} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
 import {IShop} from "pages/Data/useData";
 import {Price} from '@truecost/shared';
-import {PriceTypography} from "./PriceTypography";
+import {PriceTypography} from "../Base/PriceTypography";
 
 interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
@@ -27,28 +27,30 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     const {id} = props;
 
     const {notify} = useContext(NotificationContext);
-    const {current: {shop}} = useContext(DataContext);
+    const {current: {shop, game: {url}}} = useContext(DataContext);
     const {
-        tag: {id: tags},
-        item: {id: items},
-        option: {local: options},
-        category: {id: categories}
-    }: IShop = shop()!;
+        tags,
+        items,
+        options,
+        categories,
+        cart
+    } = shop();
 
-    if (id === undefined || !(id in items)) {
+    if (id === undefined || !(id in items.id)) {
         return null;
     }
 
     const itemId = id;
-    const item = items[id];
+    const item = items.id[id];
     const price = Price.fromItem(item);
+    const redirect = `/${url}/item/${item.url}`;
 
     const [raised, setRaised] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
     const [selected, setSelected] = React.useState("");
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
 
-    const totalPrice = price.withOption(selectedOptions.map(id => options[id]));
+    const totalPrice = price.withOption(selectedOptions.map(id => options.local[id]));
 
     const toggleSelected = (id: string) =>
         setSelectedOptions(selectedOptions.includes(id) ? selectedOptions.filter(t => t !== id) : [...selectedOptions, id]);
@@ -58,7 +60,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
             <Button
                 component={Link}
                 style={{padding: 20}}
-                to={`item/${item.url}`}
+                to={redirect}
             >
                 Open item page
             </Button>
@@ -83,14 +85,14 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                                     checked={selectedOptions.includes(optionId)}
                                 />
                                 <Typography variant="body2"
-                                    style={{userSelect: "none"}}>{options[optionId].name}</Typography>
+                                    style={{userSelect: "none"}}>{options.local[optionId].name}</Typography>
                             </div>
                             <Typography variant="h6"
                                 style={{
                                     userSelect: "none",
                                     whiteSpace: "nowrap",
                                     textAlign: "center",
-                                }}>{price.getOption(options[optionId]).toString}</Typography>
+                                }}>{price.getOption(options.local[optionId]).toString}</Typography>
                         </div>
                         <Divider style={{paddingLeft: 8}} />
                     </div>,
@@ -109,7 +111,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                     color="primary"
                     variant="contained"
                     onClick={() => {
-                        //addItem(id, [], 1, selectedOptions);
+                        cart.add({id, options: selectedOptions});
                         notify(`${name} was added to your cart!`);
                     }}
                 >
@@ -124,12 +126,10 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     );
 
     const renderMock = () => (
-        <ButtonBase component={Link} to={`item/${item.url}`} style={{height: "100%"}}>
+        <ButtonBase component={Link} to={redirect} style={{height: "100%"}}>
             < div style={{display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between"}}>
                 <Button
-                    component={Link}
                     style={{padding: 20}}
-                    to={`item/${item.url}`}
                 >
                     Open item page
                 </Button>
@@ -194,7 +194,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     const renderCard = () => {
         const image = `${baseUri}/${item.id}/${item.images[0]}/u.png`;
         return (
-            <ButtonBase component={Link} to={`/item/${item.url}`}
+            <ButtonBase component={Link} to={redirect}
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
                 <div style={{
                     display: "flex",
@@ -204,10 +204,10 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                     transition: "all .3s",
                 }}>
                     <div style={{margin: "0p 8px", marginBottom: -(28 * item.tag.length), zIndex: 20}}>
-                        {item.tag.map(({id: tagId}) => tagId in tags && (
+                        {item.tag.map(({id: tagId}) => tagId in tags.id && (
                             <div key={`item-${itemId}-tag-${tagId}`} style={{padding: "4px 0px 0px 4px"}}>
                                 <Chip
-                                    label={tags[tagId].name}
+                                    label={tags.id[tagId].name}
                                     color="primary" size="small" />
                             </div>
                         ))}

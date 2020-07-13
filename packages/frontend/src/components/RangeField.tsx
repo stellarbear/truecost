@@ -174,7 +174,7 @@ const RangeField = ({
                 max={max}
                 value={state}
                 step={step}
-                onChange={(event, value) => onBothInputChange([value[0], value[1]])}
+                onChange={(event, value) => Array.isArray(value) && onBothInputChange([value[0], value[1]])}
                 marks={showMarks ? (marks.filter(({value, label}) => value >= min && value <= max)) : []}
             />
         </div>

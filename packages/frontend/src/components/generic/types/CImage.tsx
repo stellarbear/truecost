@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {SelectImage, Zoom} from "components";
 import {ABase, Component, IBase, IRender} from "./ABase";
 import {baseGame, baseUri} from "auxiliary/route";

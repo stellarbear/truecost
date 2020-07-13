@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {useQuery} from "react-apollo";
 import {gql} from "apollo-boost";
 import {AccountTree, ChevronRight, ExpandMore, MoreHoriz} from "@material-ui/icons";

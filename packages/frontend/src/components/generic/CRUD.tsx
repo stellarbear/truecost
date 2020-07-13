@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import {ItemProp} from "components/generic/types";
 import Pagination from "components/generic/Pagination";

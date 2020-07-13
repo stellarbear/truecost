@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Redirect, Route, RouteProps} from "react-router";
 import {DataContext} from "pages/Data/Wrapper";
 

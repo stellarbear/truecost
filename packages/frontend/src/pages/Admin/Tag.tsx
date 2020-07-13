@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import CRUD from "components/generic/CRUD";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";

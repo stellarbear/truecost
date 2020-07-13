@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {CircularProgress, createStyles, IconButton, makeStyles, Theme, Tooltip} from "@material-ui/core";
 import {IconButtonProps} from "@material-ui/core/IconButton";
 

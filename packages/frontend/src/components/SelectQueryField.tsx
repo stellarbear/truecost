@@ -9,7 +9,7 @@ import {
     Select,
     Theme,
 } from "@material-ui/core";
-import React from "react";
+import * as React from "react";
 import {SelectProps} from "@material-ui/core/Select";
 import {useLazyQuery} from "react-apollo";
 import gql from "graphql-tag";

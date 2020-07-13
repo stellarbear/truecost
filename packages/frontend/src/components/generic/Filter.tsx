@@ -37,7 +37,7 @@ const Filter: React.FC<UserListProps> = ({
 
     const {updateQueryParams} = React.useContext(PaginationContext);
     const defaultState = props.reduce((obj, prop) => Object.assign(obj, {[prop.key]: undefined}), {});
-    const [state, setState] = React.useState(defaultState);
+    const [state, setState] = React.useState<any>(defaultState);
     const [debounceTimerID, setDebounceTimerID] = React.useState<NodeJS.Timeout>();
 
     const [drawer, setDrawer] = React.useState(false);

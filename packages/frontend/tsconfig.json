@@ -1,53 +1,28 @@
 {
-	"compilerOptions": {
-		"allowJs": true,
-		"allowUnreachableCode": false,
-		"noFallthroughCasesInSwitch": true,
-		"allowSyntheticDefaultImports": true,
-		"downlevelIteration": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"jsx": "react",
-		"lib": [
-			"esnext",
-			"es6",
-			"es2015",
-			"es2017",
-			"es2018",
-			"dom"
-		],
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
 		"module": "esnext",
 		"moduleResolution": "node",
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"noImplicitThis": true,
-		"noUnusedLocals": false,
-		"sourceMap": true,
-		"strictNullChecks": true,
-		"strict": true,
-		"pretty": true,
-		"suppressImplicitAnyIndexErrors": true,
-		"target": "es2016",
+		"lib": [
+			"esnext",
+			"es2015",
+			"dom"
+		],
+		"jsx": "react",
 		"baseUrl": "src",
-		"outDir": ""
-	},
-	"paths": {
-		"*": [
-			"*",
-			"src/*"
-		]
-	},
-	"include": [
-		"src"
-	],
-	"exclude": [
-		"node_modules",
-		"build",
-		"razzle.config.js"
-	],
-	"types": [
-		"typePatches",
-		"node",
-		"webpack-env"
-	]
+        "rootDir": "src",
+        "outDir": "build",
+		"composite": false,
+		"incremental": false,
+		"esModuleInterop": true,
+        "experimentalDecorators": true
+    },
+    "references": [
+        {
+            "path": "../shared"
+        }
+    ],
+    "include": [
+        "src"
+    ]
 }

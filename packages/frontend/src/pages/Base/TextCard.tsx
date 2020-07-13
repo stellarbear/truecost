@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {createStyles, Divider, makeStyles, Theme, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,5 +1,5 @@
 import {ErrorLabel} from "components";
-import React from "react";
+import * as React from "react";
 
 export enum Component { Add, Filter, List }
 

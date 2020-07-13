@@ -138,7 +138,7 @@ const EditorMetaTag: React.FC<EditorMarkProps> = (props) => {
                     </IconButton>
                     <Button
                         onClick={() => {
-                            const data = state.reduce((acc, {name, content}) => {
+                            const data = state.reduce((acc: any, {name, content}) => {
                                 acc[name] = content;
                                 return acc;
                             }, {});

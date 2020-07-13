@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {ABase, Component, IBase, IRender} from "./ABase";
 import {SelectQueryField} from "components";
 import {IQuery} from "components/SelectQueryField";

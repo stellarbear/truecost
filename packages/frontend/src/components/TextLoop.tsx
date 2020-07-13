@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Typography, TypographyProps} from "@material-ui/core";
 import Loop from "react-text-loop";
 

@@ -1,6 +1,6 @@
 import {Checkbox, FormControlLabel} from "@material-ui/core";
 import {CheckboxProps} from "@material-ui/core/Checkbox";
-import React from "react";
+import * as React from "react";
 
 interface ICheckBoxFieldProps extends CheckboxProps {
     label?: string;

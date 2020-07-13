@@ -52,6 +52,9 @@ export const BULK_QUERY = gql`
             limit
             range
             topOffer
+
+            obtain
+            requirements
             
             tag  { id }
             option  { id }

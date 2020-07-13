@@ -31,7 +31,7 @@ export interface IBlog extends IBaseMeta {
     text?: string;
 }
 
-export interface IGame extends IBase {
+export interface IGame extends IBaseMeta {
     twitter: string;
     background: string[];
     assistant: string[];
