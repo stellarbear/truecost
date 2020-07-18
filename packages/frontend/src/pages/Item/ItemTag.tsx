@@ -16,7 +16,7 @@ export const ItemTag: React.FC<IProps> = (props) => {
     return (
         <>
             {
-                item.tag.map(({id: tagId}) => (tagId in tags.id) && (
+                item.tag.map((tagId) => (tagId in tags.id) && (
                     <div key={`${itemId}-${tagId}`} style={{padding: 4}}>
                         <Chip label={tags.id[tagId].name} color="primary" size="small" />
                     </div>

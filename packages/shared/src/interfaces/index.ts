@@ -55,9 +55,9 @@ export interface IItem extends IBaseMeta {
     obtain?: string;
     requirements?: string;
 
-    tag: {id: string}[]
-    option: {id: string}[]
-    item: {id: string}[]
+    tag: string[]
+    option: string[]
+    item: string[]
 }
 
 export interface IOption extends IBase, IBaseGame {

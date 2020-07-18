@@ -23,7 +23,7 @@ export const ItemChildren: React.FC<IProps> = (props) => {
     return (
         <>
             {
-                item.item.map(({id: childId}) => (childId in items.id) && (
+                item.item.map((childId) => (childId in items.id) && (
                     <ButtonBase
                         component={Link} 
                         key={`${itemId}-${childId}`}

@@ -45,7 +45,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                 Open item page
             </Button>
             <div style={{overflowY: "auto"}}>
-                {item.option.length > 0 ? item.option.map(({id: optionId}) => (optionId in options.local) &&
+                {item.option.length > 0 ? item.option.map((optionId) => (optionId in options.local) &&
                     <div key={`${itemId}-option-${optionId}`}>
                         <div
                             style={{

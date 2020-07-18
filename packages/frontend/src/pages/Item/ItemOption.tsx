@@ -36,7 +36,7 @@ export const ItemOption: React.FC<IProps> = (props) => {
     return (
         <>
             {
-                item.option.map(({id: optionId}) => (optionId in options.local) && (
+                item.option.map((optionId) => (optionId in options.local) && (
                     <div key={`${itemId}-${optionId}`}
                         onMouseEnter={() => setHovered(optionId)}
                         onMouseLeave={() => setHovered("")}

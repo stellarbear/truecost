@@ -20,7 +20,7 @@ export const ItemImage: React.FC<IProps> = (props) => {
     return (
         <Carousel arrows={false} >
             <img style={{objectFit: "cover", }} src={image(item)} />
-            {item.item.map(({id}) => (id in items.id) && (
+            {item.item.map((id) => (id in items.id) && (
                 <img key={`${itemId}-${id}`} style={{objectFit: "cover", }} src={image(items.id[id])} />
             ))}
         </Carousel>

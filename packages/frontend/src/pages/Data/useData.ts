@@ -133,6 +133,11 @@ export function useData() {
 		for (let item of ItemAll) {
 			let {game: {id: gameId}, id, active, url} = item;
 			item.range = SafeJSON.parse(item.range, [])
+
+			item.tag = item.tag.map((t: any) => t.id);
+			item.item = item.item.map((i: any) => i.id);
+			item.option = item.option.map((o: any) => o.id);
+			
 			if (active && gameId in shopDict.data) {
 				shopDict.data[gameId].items.url[url] = id;
 				shopDict.data[gameId].items.id[id] = item;

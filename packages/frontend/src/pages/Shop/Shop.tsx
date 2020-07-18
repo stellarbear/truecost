@@ -52,9 +52,11 @@ const Shop: React.FC = () => {
     }
 
     const filterItems = () => Object.keys(items.id)
-        .filter(itemId => state.names.length === 0 ? true : state.names.includes(itemId))
+        .filter(itemId =>
+            state.names.length === 0 ? true
+                : state.names.includes(itemId) || (items.id[itemId].item.length > 0 && items.id[itemId].item.some(i => state.names.includes(i))))
         .filter(itemId => state.tags.length === 0 ? true :
-            items.id[itemId].tag.map(t => t.id).some(t => state.tags.includes(t)));
+            items.id[itemId].tag.some(t => state.tags.includes(t)));
 
 
     const renderItems = () => {
