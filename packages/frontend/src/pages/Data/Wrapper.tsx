@@ -7,7 +7,11 @@ import {OptionType, OptionArea, IUser, IGame} from "@truecost/shared";
 import {useData, IStoreContext, IShop} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
+import {BULK_QUERY} from "./query";
 
+interface IRawContext {
+    raw: any
+}
 
 export interface IDataContext extends IStoreContext {
     current: {
@@ -21,28 +25,30 @@ export interface IDataContext extends IStoreContext {
     }
 }
 
+const RawContext = createContext<IRawContext>({} as IRawContext);
 const DataContext = createContext<IDataContext>({} as IDataContext);
-const StoreContext = createContext<IStoreContext>({} as IDataContext);
 
-const Store: React.FC = ({children}) => {
-    const {state: store, loading} = useData();
-    if (loading || !store || Object.keys(store.game.data.id).length === 0) {
+const Raw: React.FC = ({children}) => {
+    const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true});
+    
+    if (loading) {
         return <span>Loading</span>;
     }
 
     return (
-        <StoreContext.Provider value={{
-            store,
+        <RawContext.Provider value={{
+            raw: data,
         }}>
             <Data>
                 {children}
             </Data>
-        </StoreContext.Provider>
+        </RawContext.Provider>
     );
 }
 
 const Data: React.FC = ({children}) => {
-    const {store} = useContext(StoreContext);
+    const {raw} = useContext(RawContext);
+    const [store] = useState(useData(raw));
     const {state: user, setState: setUser} = useUser(store.user);
     const {state: game, setState: setGame} = useGame(store.game);
 
@@ -64,6 +70,6 @@ const Data: React.FC = ({children}) => {
     );
 };
 
-const DataWrapper = Store;
+const DataWrapper = Raw;
 
 export {DataWrapper, DataContext};
