@@ -6,13 +6,12 @@ import {BlogEntity} from "./crud/blog/blog.entity";
 import {GameEntity} from "./crud/game/game.entity";
 import {TagEntity} from "./crud/tag/tag.entity";
 import {OptionEntity} from "./crud/option/option.entity";
-import {CategoryEntity} from "./crud/category/category.entity";
 import {InfoEntity} from "./crud/info/info.entity";
 
 const entities = [
     BaseEntity, BaseMetaEntity,
     UserEntity, BookingEntity,
-    ItemEntity, BlogEntity, GameEntity, TagEntity, OptionEntity, CategoryEntity, InfoEntity,
+    ItemEntity, BlogEntity, GameEntity, TagEntity, OptionEntity, InfoEntity,
 ];
 
 export {entities};

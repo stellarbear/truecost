@@ -1,7 +1,7 @@
 export enum StatusType {
-    AWAITING_FOR_CONTACT = 'awaiting',
-    IN_PROGRESS = 'inprogress',
-    PAUSED = 'paused',
-    DONE = 'done',
-    CLOSED = 'closed'
+    AWAITING_FOR_CONTACT = 'AWAITING_FOR_CONTACT',
+    IN_PROGRESS = 'IN_PROGRESS',
+    PAUSED = 'PAUSED',
+    DONE = 'DONE',
+    CLOSED = 'CLOSED'
 }

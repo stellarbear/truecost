@@ -2,7 +2,6 @@ import {BaseMetaEntity} from "../base/base.entity";
 import {Collection, Entity, ManyToMany, ManyToOne, Property} from "mikro-orm";
 import {TagEntity} from "../tag/tag.entity";
 import {OptionEntity} from "../option/option.entity";
-import {CategoryEntity} from "../category/category.entity";
 import {GameEntity} from "../game/game.entity";
 import {Field, Int, ObjectType} from "type-graphql";
 import {IItem} from "@truecost/shared";
@@ -65,10 +64,6 @@ export class ItemEntity extends BaseMetaEntity /*implements IItem */{
     @Field(() => [OptionEntity])
     @ManyToMany(() => OptionEntity)
     option: Collection<OptionEntity> = new Collection<OptionEntity>(this);
-
-    @Field(() => [CategoryEntity])
-    @ManyToMany(() => CategoryEntity)
-    category: Collection<CategoryEntity> = new Collection<CategoryEntity>(this);
 
     @Field(() => [ItemEntity])
     @ManyToMany(() => ItemEntity)

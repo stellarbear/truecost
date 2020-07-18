@@ -9,8 +9,6 @@ export class InfoInput extends BaseInput {
     @Field({nullable: true})
     redirect?: string;
 
-    @Field({nullable: true})
-    category?: string;
     @Field(() => [String], {nullable: true})
     tag?: string[];
     @Field(() => [String], {nullable: true})

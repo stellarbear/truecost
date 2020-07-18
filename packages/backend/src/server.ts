@@ -97,6 +97,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
             if (!user || user.session !== sessionId) {
                 return ({req, res});
             }
+            console.log(user.role);
 
             return ({req, res, user});
         }

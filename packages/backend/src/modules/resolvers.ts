@@ -7,7 +7,6 @@ import {TagCRUDResolver} from "./crud/tag/tag.resolver";
 import {GameCRUDResolver} from "./crud/game/game.resolver";
 import {ItemCRUDResolver} from "./crud/item/item.resolver";
 import {OptionCRUDResolver} from "./crud/option/option.resolver";
-import {CategoryCRUDResolver} from "./crud/category/category.resolver";
 import {InfoCRUDResolver} from "./crud/info/info.resolver";
 
 const resolvers = [
@@ -15,7 +14,7 @@ const resolvers = [
     UserCRUDResolver, BookingCRUDResolver,
     AccountResolver, SessionResolver,
     TagCRUDResolver, GameCRUDResolver, ItemCRUDResolver,
-    OptionCRUDResolver, CategoryCRUDResolver, InfoCRUDResolver,
+    OptionCRUDResolver, InfoCRUDResolver,
 ];
 
 export {resolvers};

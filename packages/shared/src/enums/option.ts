@@ -1,9 +1,9 @@
 export enum OptionType {
-    NOMINAL = 'nominal',    //  $
-    RELATIVE = 'relative',  //  %
+    NOMINAL = 'NOMINAL',    //  $
+    RELATIVE = 'RELATIVE',  //  %
 }
 
 export enum OptionArea {
-    GLOBAL = 'global',      //  applied to order
-    LOCAL = 'local',        //  applied to item
+    GLOBAL = 'GLOBAL',      //  applied to order
+    LOCAL = 'LOCAL',        //  applied to item
 }

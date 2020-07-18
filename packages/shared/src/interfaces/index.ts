@@ -57,14 +57,9 @@ export interface IItem extends IBaseMeta {
 
     tag: {id: string}[]
     option: {id: string}[]
-    category: {id: string}[]
     item: {id: string}[]
 }
 
-
-export interface ICategory extends IBase, IBaseGame {
-    parent: {id: string};
-}
 export interface IOption extends IBase, IBaseGame {
     price: number
     free: number

@@ -33,7 +33,5 @@ export class ItemInput extends BaseMetaInput {
     @Field(() => [String], {nullable: true})
     option?: string[];
     @Field(() => [String], {nullable: true})
-    category?: string[];
-    @Field(() => [String], {nullable: true})
     item?: string[];
 }
