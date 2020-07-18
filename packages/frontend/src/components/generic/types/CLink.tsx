@@ -49,8 +49,8 @@ export class CLink extends ABase {
 
         return (
             <SelectQueryField
-                style={{width: 200}}
                 label={label}
+                style={{minWidth: 200}}
                 multiple={multiple}
                 record={data!}
                 disabled={type === Component.List ? readOnly : false}

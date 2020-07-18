@@ -75,7 +75,7 @@ const Shop: React.FC = () => {
         />
     )
 
-    const filterTags = () => (
+    const filterTags = () => Object.keys(tags.id).length > 0 && (
         <Paper>
             <Row start p={8} s={8}>
                 {Object.keys(tags.id).map(tagId => (

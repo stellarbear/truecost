@@ -23,15 +23,17 @@ export const ItemRange: React.FC<IProps> = (props) => {
     const data = item.range.sort((a, b) => a.at - b.at);
 
     return (
-        <RangeField
-            value={chunk}
-            label={"⟵ adjust ⟶"}
-            labelLeft={'current'}
-            labelRight={'desired'}
-            min={data.first().at}
-            max={data.last().at}
-            marks={data.map(({at, mark}) => ({label: mark, value: at}))}
-            onChangeEvent={onChange}
-        />
+        <Col fullWidth>
+            <RangeField
+                value={chunk}
+                label={"⟵ adjust ⟶"}
+                labelLeft={'current'}
+                labelRight={'desired'}
+                min={data.first().at}
+                max={data.last().at}
+                marks={data.map(({at, mark}) => ({label: mark, value: at}))}
+                onChangeEvent={onChange}
+            />
+        </Col>
     )
 }

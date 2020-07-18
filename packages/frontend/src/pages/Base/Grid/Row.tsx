@@ -51,7 +51,7 @@ export const Row: React.FC<IProps> = (props) => {
         }
 
         return (React.Children.map(children, child => React.isValidElement(child) && (
-            <div style={{width: fullWidth ? "100%" : "auto"}}>
+            <div>
                 {React.cloneElement(child, {style: {...child.props.style, marginRight: s}})}
             </div>
         )))
@@ -62,6 +62,7 @@ export const Row: React.FC<IProps> = (props) => {
             //spacing={spacing}
             style={{
                 ...style,
+                width: fullWidth ? "100%" : "auto",
                 display: "flex",
                 flexWrap: wrap ? "wrap" : "nowrap",
                 alignItems: "center",

@@ -77,75 +77,78 @@ const defaultState: IStore = {
 
 export function useData() {
 	const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true});
-	if (!data) {
-		return ({loading, state: defaultState});
-	}
+	const [state, setState] = useState<IStore>(defaultState);
 
-	console.log('calculating')
-	const {GameAll, ItemAll, TagAll, OptionAll, BlogAll, UserWhoAmI} = data;
 
-	const gameDict: IGameContext = {data: {id: {}, url: {}}};
-	for (let game of GameAll) {
-		let {id: gameId, active, url} = game;
-		if (active) {
-			gameDict.data.id[gameId] = game;
-			gameDict.data.url[url] = gameId;
-		}
-	}
-	const blogDict: IBlogContext = {data: {id: {}, url: {}}};
-	for (let blog of BlogAll) {
-		let {id, active, url} = blog;
-		if (active) {
-			blogDict.data.id[id] = blog;
-			blogDict.data.url[url] = id;
-		}
-	}
+	useEffect(() => {
+		const {GameAll, ItemAll, TagAll, OptionAll, BlogAll, UserWhoAmI} = data;
+		console.log('calculating')
 
-	const shopDict: IShopContext = {data: {}};
-	for (let gameId in gameDict.data.id) {
-		shopDict.data[gameId] = {
-			tags: {id: {}, url: {}},
-			options: {local: {}, global: {}},
-			items: {url: {}, id: {}},
-			cart: defaultCart(gameId)
-		}
-	}
-
-	for (let option of OptionAll) {
-		let {game: {id: gameId}, area, id, active} = option;
-		if (active && gameId in shopDict.data) {
-			if (area === OptionArea.GLOBAL) {
-				shopDict.data[gameId].options.global[id] = option;
-			} else if (area === OptionArea.LOCAL) {
-				shopDict.data[gameId].options.local[id] = option;
+		const gameDict: IGameContext = {data: {id: {}, url: {}}};
+		for (let game of GameAll) {
+			let {id: gameId, active, url} = game;
+			if (active) {
+				gameDict.data.id[gameId] = game;
+				gameDict.data.url[url] = gameId;
 			}
 		}
-	}
-
-	for (let tag of TagAll) {
-		let {game: {id: gameId}, id, active, name} = tag;
-		if (active && gameId in shopDict.data) {
-			shopDict.data[gameId].tags.id[id] = tag;
-			shopDict.data[gameId].tags.url[name] = id;
+		const blogDict: IBlogContext = {data: {id: {}, url: {}}};
+		for (let blog of BlogAll) {
+			let {id, active, url} = blog;
+			if (active) {
+				blogDict.data.id[id] = blog;
+				blogDict.data.url[url] = id;
+			}
 		}
-	}
 
-	for (let item of ItemAll) {
-		let {game: {id: gameId}, id, active, url} = item;
-		item.range = SafeJSON.parse(item.range, [])
-		if (active && gameId in shopDict.data) {
-			shopDict.data[gameId].items.url[url] = id;
-			shopDict.data[gameId].items.id[id] = item;
+		const shopDict: IShopContext = {data: {}};
+		for (let gameId in gameDict.data.id) {
+			shopDict.data[gameId] = {
+				tags: {id: {}, url: {}},
+				options: {local: {}, global: {}},
+				items: {url: {}, id: {}},
+				cart: defaultCart(gameId)
+			}
 		}
-	}
 
-	return ({
-		loading,
-		state: {
+		for (let option of OptionAll) {
+			let {game: {id: gameId}, area, id, active} = option;
+			if (active && gameId in shopDict.data) {
+				if (area === OptionArea.GLOBAL) {
+					shopDict.data[gameId].options.global[id] = option;
+				} else if (area === OptionArea.LOCAL) {
+					shopDict.data[gameId].options.local[id] = option;
+				}
+			}
+		}
+
+		for (let tag of TagAll) {
+			let {game: {id: gameId}, id, active, name} = tag;
+			if (active && gameId in shopDict.data) {
+				shopDict.data[gameId].tags.id[id] = tag;
+				shopDict.data[gameId].tags.url[name] = id;
+			}
+		}
+
+		for (let item of ItemAll) {
+			let {game: {id: gameId}, id, active, url} = item;
+			item.range = SafeJSON.parse(item.range, [])
+			if (active && gameId in shopDict.data) {
+				shopDict.data[gameId].items.url[url] = id;
+				shopDict.data[gameId].items.id[id] = item;
+			}
+		}
+
+		setState({
 			user: {data: UserWhoAmI},
 			shop: shopDict,
 			game: gameDict,
 			blog: blogDict,
-		}
+		})
+	}, [data])
+
+	return ({
+		loading,
+		state
 	})
 }

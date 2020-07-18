@@ -7,6 +7,7 @@ import {PaginationContext} from "./Pagination";
 import {Component} from "./types/ABase";
 import {Storage} from "auxiliary/storage";
 import {ReactSortable} from "react-sortablejs";
+import {Col} from "pages/Base/Grid";
 
 interface IItem {
     id: string;
@@ -166,12 +167,8 @@ const Filter: React.FC<UserListProps> = ({
                 {buildVisibleFilter()}
             </Card>
             <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
-                <Grid
-                    style={{maxWidth: 300, minWidth: 300, padding: 16}}
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center">
+                <Col s={16} fullWidth p={16}
+                    style={{minWidth: 400}} >
                     <Divider style={{minWidth: "330px", marginBottom: 16}} />
                     {sortedProps
                         .filter((prop: ItemProp) => visibleColumns.includes(prop.key))
@@ -180,7 +177,7 @@ const Filter: React.FC<UserListProps> = ({
                                 {buildFilter(prop)}
                             </Grid>,
                         )}
-                </Grid>
+                </Col>
             </Drawer>
         </React.Fragment>
     );

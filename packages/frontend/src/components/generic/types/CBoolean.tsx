@@ -28,7 +28,6 @@ export class CBoolean extends ABase {
         return (
             <SelectField
                 label={label}
-                style={{width: 200}}
                 values={[-1, 0, 1]}
                 value={overrideBooleanValue}
                 baseValue={-1}

@@ -28,8 +28,8 @@ export class CSelect extends ABase {
         const overrideSelectValue = value == null ? [] : value;
         return (
             <SelectField
-                style={{width: 200}}
                 label={label}
+                style={{minWidth: 200}}
                 values={values}
                 multiple={multiple}
                 preRenderMap={preRenderMap}

@@ -93,7 +93,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                     notify(`${name} was added to your cart!`);
                 }}
             >
-                <Row between>
+                <Row between fullWidth>
                     <Typography variant="caption">add to cart</Typography>
                     <Typography variant="h5">{totalPrice.toString}</Typography>
                 </Row>

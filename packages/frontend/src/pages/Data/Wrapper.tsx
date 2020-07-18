@@ -1,4 +1,4 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useState, useEffect, useContext} from "react";
 import {useQuery} from "react-apollo";
 import gql from "graphql-tag";
 import {dictSort} from "auxiliary/sort";
@@ -7,6 +7,7 @@ import {OptionType, OptionArea, IUser, IGame} from "@truecost/shared";
 import {useData, IStoreContext, IShop} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
+
 
 export interface IDataContext extends IStoreContext {
     current: {
@@ -21,19 +22,29 @@ export interface IDataContext extends IStoreContext {
 }
 
 const DataContext = createContext<IDataContext>({} as IDataContext);
+const StoreContext = createContext<IStoreContext>({} as IDataContext);
 
-type DataProps = RouteComponentProps;
-
-const Data: React.FC<DataProps> = ({children}) => {
+const Store: React.FC = ({children}) => {
     const {state: store, loading} = useData();
-    const {state: user, setState: setUser} = useUser(store.user);
-    const {state: game, setState: setGame} = useGame(store.game);
-
-    if (loading || !store) {
+    if (loading || !store || Object.keys(store.game.data.id).length === 0) {
         return <span>Loading</span>;
     }
 
-    console.log(store);
+    return (
+        <StoreContext.Provider value={{
+            store,
+        }}>
+            <Data>
+                {children}
+            </Data>
+        </StoreContext.Provider>
+    );
+}
+
+const Data: React.FC = ({children}) => {
+    const {store} = useContext(StoreContext);
+    const {state: user, setState: setUser} = useUser(store.user);
+    const {state: game, setState: setGame} = useGame(store.game);
 
     return (
         <DataContext.Provider value={{
@@ -48,13 +59,11 @@ const Data: React.FC<DataProps> = ({children}) => {
                 setGame: (id: string) => {id in store.game.data.id && setGame(store.game.data.id[id])}
             }
         }}>
-            <React.Fragment>
-                {children}
-            </React.Fragment>
+            {children}
         </DataContext.Provider>
     );
 };
 
-const DataWrapper = withRouter(Data)
+const DataWrapper = Store;
 
 export {DataWrapper, DataContext};

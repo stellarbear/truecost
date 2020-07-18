@@ -21,7 +21,7 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
     const {notify} = useContext(NotificationContext)
 
     const {current: {shop, game: {url}}} = useContext(DataContext);
-    const { cart } = shop();
+    const {cart} = shop();
 
     return (
         <Button
@@ -35,7 +35,7 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
                 notify(`${item.name} has been added to your cart!`)
             }}
         >
-            <Row between>
+            <Row fullWidth between>
                 <Typography variant="caption">add to cart</Typography>
                 <PriceTypography price={price.toValue}
                     discount={item.discount} />

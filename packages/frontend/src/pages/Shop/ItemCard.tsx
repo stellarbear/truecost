@@ -66,6 +66,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
             style={{position: "absolute", top: 0, left: 0}}>
             {item.tag.map(({id: tagId}) => tagId in tags.id && (
                 <Chip
+                    key={tagId}
                     label={tags.id[tagId].name}
                     color="primary" size="small" />
             ))}

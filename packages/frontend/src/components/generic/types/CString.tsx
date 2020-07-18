@@ -28,16 +28,16 @@ export class CString extends ABase implements IString {
 
         return (
             <InputField
+                style={{minWidth: 200}}
                 multiline={multiline}
                 rowsMax={multiline ? "4" : "1"}
-                inputStyle={{minWidth: 200, marginTop: 0}}
                 editable={type === Component.Filter ? true : editable}
                 label={label}
                 value={overrideStringValue}
                 onChangeEvent={(eventValue: string) => {
                     //const stateValue = eventValue == "" ? null : eventValue;
                     onChange(eventValue);
-                }}/>
+                }} />
         );
     }
 }

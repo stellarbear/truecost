@@ -28,34 +28,35 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
     const {current: {game}} = useContext(DataContext);
     const current = game!;
     const image = `${baseUri}/${current.id}/${current.background}/u.jpg`
-    
+
     return (
         <React.Fragment>
             <Parallax image={image} />
-            <Grid container style={{
-                color: "#fff",
-            }}>
-                    <Grid item xs={12} sm={4} md={6} />
-            <Grid item xs={12} sm={8} md={6}>
-                <Intro style={{marginTop: "15vh", textAlign: "center"}} />
+            <Grid container spacing={2}
+                style={{
+                    color: "#fff",
+                }}>
+                <Grid item xs={12} sm={4} md={6} />
+                <Grid item xs={12} sm={8} md={6}>
+                    <Intro style={{marginTop: "15vh", textAlign: "center"}} />
+                </Grid>
+                <Grid container spacing={2}
+                    style={{marginTop: "15vh", marginBottom: 16}}>
+                    <Grid item xs={12} sm={8}>
+                        {}
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <Twitter />
+                    </Grid>
+                    <Grid item xs={12} sm={8}>
+                        <HowTo />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <TrustPilot />
+                    </Grid>
+                </Grid>
             </Grid>
-            <Grid container 
-                style={{marginTop: "15vh", marginBottom: 16}}>
-                <Grid item xs={12} sm={8}>
-                    {}
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <Twitter />
-                </Grid>
-                <Grid item xs={12} sm={8}>
-                    <HowTo />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <TrustPilot />
-                </Grid>
-            </Grid>
-            </Grid>
-        </React.Fragment>
+        </React.Fragment >
     );
 };
 

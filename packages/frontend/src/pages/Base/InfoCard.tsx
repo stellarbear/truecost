@@ -21,8 +21,8 @@ export const InfoCard: React.FC<IProps> = ({text, actions = []}) => {
                     width: 80, height: 80, objectFit: "cover", margin: 8, marginLeft: 0,
                 }} src={image} />
                 <Col>
-                    {text.map(sentence => <Typography>{sentence}</Typography>)}
-                    <Row>
+                    {text.map((sentence, index) => <Typography key={index}>{sentence}</Typography>)}
+                    <Row s={8} m={8}>
                         {actions}
                     </Row>
                 </Col>

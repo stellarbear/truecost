@@ -34,17 +34,17 @@ interface ISelectFieldProps extends SelectProps {
 }
 
 const SelectField: React.FC<ISelectFieldProps> = ({
-                                                      label,
-                                                      values,
-                                                      onChangeEvent,
-                                                      multiple = false,
-                                                      baseValue = undefined,
-                                                      preRenderMap = values.reduce((val, cur) => ({
-                                                          ...cur,
-                                                          [val]: val,
-                                                      }), {}),
-                                                      ...rest
-                                                  }) => {
+    label,
+    values,
+    onChangeEvent,
+    multiple = false,
+    baseValue = undefined,
+    preRenderMap = values.reduce((val, cur) => ({
+        ...cur,
+        [val]: val,
+    }), {}),
+    ...rest
+}) => {
     const classes = useStyles();
     const renderMap = {...preRenderMap};
 
@@ -64,7 +64,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
             onDelete={
                 ((multiple) || (!multiple && baseValue != undefined && baseValue != selected))
                     ? () => onDelete(selected)
-                    : undefined}/>
+                    : undefined} />
     );
 
     return (
@@ -72,6 +72,7 @@ const SelectField: React.FC<ISelectFieldProps> = ({
             className={classes.outer}>
             {label ? <InputLabel>{label}</InputLabel> : null}
             <Select
+                fullWidth
                 {...rest}
                 multiple={multiple}
                 MenuProps={MenuProps}

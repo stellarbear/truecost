@@ -90,16 +90,16 @@ const filter = (array: Record<string, any>[], query: IQuery, record: Record<stri
 
 
 const SelectQueryField: React.FC<ISelectQueryFieldProps> = ({
-                                                                label,
-                                                                query,
-                                                                record,
-                                                                disabled = false,
-                                                                preRenderMap,
-                                                                onChangeEvent,
-                                                                multiple = false,
-                                                                propName = "name",
-                                                                ...rest
-                                                            }) => {
+    label,
+    query,
+    record,
+    disabled = false,
+    preRenderMap,
+    onChangeEvent,
+    multiple = false,
+    propName = "name",
+    ...rest
+}) => {
     const classes = useStyles();
     const [lazy, {called, data, loading}] = useLazyQuery(buildQuery(query));
     const renderMap = data == undefined
@@ -117,7 +117,7 @@ const SelectQueryField: React.FC<ISelectQueryFieldProps> = ({
             key={selected}
             className={classes.chip}
             label={renderMap[selected]}
-            //onDelete={() => onDelete(selected)}
+        //onDelete={() => onDelete(selected)}
         />
     );
     const {value} = rest;
@@ -129,6 +129,7 @@ const SelectQueryField: React.FC<ISelectQueryFieldProps> = ({
             {label ? <InputLabel
                 onClick={() => console.log('ck')}>{count ? `${label}: ${count}` : label}</InputLabel> : null}
             <Select
+                fullWidth
                 disabled={disabled}
                 multiple
                 value={value}
@@ -150,7 +151,6 @@ const SelectQueryField: React.FC<ISelectQueryFieldProps> = ({
                         onChangeEvent(newState.filter(e => !prevState.includes(e as string)));
                     }
                 }}
-                style={{minHeight: 45, width: 200}}
                 renderValue={(selected: any) => (
                     <div className={classes.inner}>
                         {
@@ -162,7 +162,7 @@ const SelectQueryField: React.FC<ISelectQueryFieldProps> = ({
                 )}
             >
                 {loading || !called
-                    ? <CircularProgress/>
+                    ? <CircularProgress />
                     : data[query.name].length == 0
                         ? <ListSubheader style={{outline: "none"}}>No options</ListSubheader>
                         : filtered.length > 0
