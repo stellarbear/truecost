@@ -1,4 +1,4 @@
-import {AdminBlog, AdminGame, AdminCategory, AdminOption, AdminItem, AdminTag} from ".";
+import {AdminBlog, AdminGame, AdminOption, AdminItem, AdminTag} from ".";
 
 const routes = [
     {
@@ -8,10 +8,6 @@ const routes = [
     {
         url: "game",
         component: AdminGame,
-    },
-    {
-        url: "category",
-        component: AdminCategory,
     },
     {
         url: "option",

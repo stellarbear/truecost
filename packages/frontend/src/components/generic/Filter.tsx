@@ -21,10 +21,10 @@ interface UserListProps {
 }
 
 const Filter: React.FC<UserListProps> = ({
-                                             title,
-                                             props,
-                                             updateTimeout = 1500,
-                                         }): JSX.Element => {
+    title,
+    props,
+    updateTimeout = 500,
+}): JSX.Element => {
     const storageBaseKey = ["admin", "list", "columns", "filter", title.toLowerCase().replace(/\s/, "_")];
     const storageVisibleKey = [...storageBaseKey, "visibility"];
     const storageOrderKey = [...storageBaseKey, "order"];
@@ -83,7 +83,7 @@ const Filter: React.FC<UserListProps> = ({
                             event.stopPropagation();
                         }}
                         aria-label="filter list">
-                        <FilterList/>
+                        <FilterList />
                     </IconButton>
                 </Tooltip>
                 <Menu
@@ -154,24 +154,25 @@ const Filter: React.FC<UserListProps> = ({
     return (
         <React.Fragment>
             <Card onClick={() => setDrawer(true)}
-                  style={{
-                      display: "flex",
-                      padding: "8px 0px 8px 16px",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      alignSelf: "flex-end",
-                  }}>
+                style={{
+                    display: "flex",
+                    padding: "8px 0px 8px 16px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    alignSelf: "flex-end",
+                }}>
                 <Typography>Filter records</Typography>
                 {buildVisibleFilter()}
             </Card>
             <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
                 <Grid
+                    style={{maxWidth: 300, minWidth: 300, padding: 16}}
                     container
                     direction="column"
                     justify="center"
                     alignItems="center">
-                    <Divider style={{minWidth: "330px", marginBottom: 16}}/>
+                    <Divider style={{minWidth: "330px", marginBottom: 16}} />
                     {sortedProps
                         .filter((prop: ItemProp) => visibleColumns.includes(prop.key))
                         .map((prop: ItemProp) =>

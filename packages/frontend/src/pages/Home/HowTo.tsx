@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import {DataContext} from 'pages/Data/Wrapper';
 import {SportsEsports, Loyalty, RateReview} from '@material-ui/icons';
 import {Chat, Star} from 'mdi-material-ui';
-import Row from 'pages/Base/Row';
+import {SlideRow} from '../Base/SlideRow'
 
 interface IProps {
     style?: CSSProperties
@@ -34,7 +34,7 @@ export const HowTo: React.FC<IProps> = ({style = {}}) => {
     }];
     return (
         <Card style={style}>
-            <Row id={"how-it-works"}>
+            <SlideRow id={"how-it-works"}>
                 {data.map(({icon, text}, i) => (
                     <div key={`how-to-${i}`}>
                         <div style={{
@@ -50,7 +50,7 @@ export const HowTo: React.FC<IProps> = ({style = {}}) => {
                         </div>
                     </div>
                 ))}
-            </Row>
+            </SlideRow>
         </Card>
     );
 }

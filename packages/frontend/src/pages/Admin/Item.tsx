@@ -28,7 +28,6 @@ export const AdminItem: React.FC=  () => {
 
 			tag { id name game { id } }
 			option { id name game { id } }
-			category { id name game { id } }
 			item { id name game { id } }
 		`,
     });
@@ -121,24 +120,13 @@ export const AdminItem: React.FC=  () => {
         propName: "name",
     });
 
-    const category = new CLink({
-        key: "category",
-        label: "category",
-        query: {
-            name: "CategoryAll",
-            field: "game",
-        },
-        multiple: true,
-        propName: "name",
-    });
-
     const range = new CStringCustom({
         key: "range",
         label: "range",
         component: <EditorRange/>,
     });
     
-    const fields = [link, images, price, range, discount, limit, obtain, requirements, isTopOffer, item, tag, option, category];
+    const fields = [link, images, price, range, discount, limit, obtain, requirements, isTopOffer, item, tag, option];
 
     return (
         <CRUD

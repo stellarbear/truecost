@@ -31,7 +31,7 @@ const CRUD: React.FC<ICRUD> = ({
                                    propsAdd,
                                    propsList,
                                    propsFilter,
-                               }): JSX.Element => {
+                               }) => {
     const buildTree = () => {
         if (!tree) {
             return <div></div>;

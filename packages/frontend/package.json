@@ -1,20 +1,20 @@
 {
 	"name": "@truecost/frontend",
-    "version": "0.0.0",
-    "main": "build/index.js",
-    "files": [
-        "build/"
-    ],
+	"version": "0.0.0",
+	"main": "build/index.js",
+	"files": [
+		"build/"
+	],
 	"scripts": {
 		"clean": "yarn build:clean",
-        "build": "yarn build:clean && yarn build:razle razzle build",
+		"build": "yarn build:clean && yarn build:razle razzle build",
 		"build:razle": "cross-env RAZZLE_APP_ENV=production",
-        "build:clean": "rimraf build tsconfig.tsbuildinfo",
-        "build:watch": "yarn start",
+		"build:clean": "rimraf build tsconfig.tsbuildinfo",
+		"build:watch": "yarn start",
 		"start": "yarn build:clean && razzle start"
 	},
-    "private": true,
-    "license": "MIT",
+	"private": true,
+	"license": "MIT",
 	"dependencies": {
 		"@apollo/react-hooks": "^3.1.3",
 		"@apollo/react-ssr": "^3.1.3",
@@ -56,6 +56,7 @@
 		"react-twitter-embed": "^3.0.3",
 		"react-use-gesture": "^7.0.4",
 		"react-yandex-maps": "^4.2.0",
+		"url-loader": "^4.1.0",
 		"uuid": "^8.2.0",
 		"window": "^4.2.6"
 	},

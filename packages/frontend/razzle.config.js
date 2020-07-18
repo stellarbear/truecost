@@ -19,7 +19,7 @@ module.exports = {
 		},
 	],
 
-	modify(config, { target, dev }, webpack) {
+	modify(config, {target, dev}, webpack) {
 		const appConfig = config
 
 		//	resolve absolute paths
@@ -34,10 +34,15 @@ module.exports = {
 				});*/
 
 		//	import fonts
-		appConfig.module.rules.push({
-			test: /\.(woff|woff2|eot|ttf|svg)$/,
-			loader: 'file-loader'
-		});
+		appConfig.module.rules.push(
+			{
+				test: /\.(gif|jpe?g|png|ico)$/,
+				loader: 'url-loader?limit=10000',
+			},
+			{
+				test: /\.(otf|eot|svg|ttf|woff|woff2).*$/,
+				loader: 'url-loader?limit=10000',
+			});
 		return appConfig;
 	}
 };

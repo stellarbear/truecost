@@ -58,15 +58,9 @@ export const BULK_QUERY = gql`
             
             tag  { id }
             option  { id }
-            category  { id }
             item  { id }
         }
 
-        CategoryAll {
-            ${base.fragment}
-            ${game.fragment}
-            parent { id }
-        }
         OptionAll {
             ${base.fragment}
             ${game.fragment}

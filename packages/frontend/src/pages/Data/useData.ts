@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useQuery} from 'react-apollo';
 import {BULK_QUERY} from './query';
 import {useEffect, useState} from 'react';
-import {OptionArea, ITag, IOption, IItem, ICategory, IBlog, IUser, IGame} from '@truecost/shared';
+import {OptionArea, ITag, IOption, IItem, IBlog, IUser, IGame} from '@truecost/shared';
 import {SafeJSON} from 'auxiliary/json';
 import {ICartContext, defaultCart} from './cart';
 
@@ -20,12 +20,6 @@ export interface IShop {
 	items: {
 		url: Dict<string>,
 		id: Dict<IItem>
-	},
-	categories: {
-		url: Dict<string>,
-		id: Dict<ICategory>,
-		direct: Dict<Set<string>>
-		children: Dict<Set<string>>
 	},
 	cart: ICartContext
 }
@@ -88,7 +82,7 @@ export function useData() {
 	}
 
 	console.log('calculating')
-	const {GameAll, ItemAll, TagAll, OptionAll, CategoryAll, BlogAll, UserWhoAmI} = data;
+	const {GameAll, ItemAll, TagAll, OptionAll, BlogAll, UserWhoAmI} = data;
 
 	const gameDict: IGameContext = {data: {id: {}, url: {}}};
 	for (let game of GameAll) {
@@ -113,7 +107,6 @@ export function useData() {
 			tags: {id: {}, url: {}},
 			options: {local: {}, global: {}},
 			items: {url: {}, id: {}},
-			categories: {id: {}, direct: {}, children: {}, url: {}}, 
 			cart: defaultCart(gameId)
 		}
 	}
@@ -143,47 +136,6 @@ export function useData() {
 		if (active && gameId in shopDict.data) {
 			shopDict.data[gameId].items.url[url] = id;
 			shopDict.data[gameId].items.id[id] = item;
-		}
-	}
-
-	for (let category of CategoryAll) {
-		let {game: {id: gameId}, id, active, name} = category;
-		if (active && gameId in shopDict.data) {
-			shopDict.data[gameId].categories.url[name] = id;
-			shopDict.data[gameId].categories.id[id] = category;
-			shopDict.data[gameId].categories.direct[id] = new Set();
-			shopDict.data[gameId].categories.children[id] = new Set([id]);
-		}
-	}
-
-	//console.log(gameDict.data.id, 'shopDict.data.id');
-	for (let gameId in gameDict.data.id) {
-		let nodes = new Set(Object.keys(shopDict.data[gameId].categories.id));
-		console.log(nodes, 'nodesnodesnodes')
-		for (let nodeId in shopDict.data[gameId].categories.id) {
-			let node = shopDict.data[gameId].categories.id[nodeId];
-			if (node.parent) {
-				nodes.delete(node.parent.id);
-			} else {
-				nodes.delete(nodeId)
-			}
-		}
-
-		let stack = [...nodes];
-		//console.log(stack, 'staccccck')
-		while (stack.length > 0) {
-			let nodeId = stack.pop();
-			while (nodeId) {
-				let node = shopDict.data[gameId].categories.id[nodeId];
-				let parent = node.parent;
-				if (parent) {
-					/*let childSet = shopDict.data[gameId].category.hierarchy[nodeId];
-					let parentSet = shopDict.data[gameId].category.hierarchy[parent.id];
-					shopDict.data[gameId].category.hierarchy[parent.id] = new Set([...childSet, ...parentSet]);*/
-				}
-
-				nodeId = parent?.id;
-			}
 		}
 	}
 

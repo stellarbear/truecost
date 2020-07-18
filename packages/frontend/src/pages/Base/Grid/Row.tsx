@@ -1,8 +1,13 @@
 import * as React from 'react';
 import {Grid} from '@material-ui/core';
+import {CSSProperties} from 'react';
 
 interface IBase {
     spacing?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+    fullWidth?: boolean
+    style?: CSSProperties
+    padding?: number
+    margin?: number
 }
 
 interface IStart extends IBase {
@@ -30,14 +35,15 @@ const isEven = (object: IProps): object is IEven => 'even' in object;
 const isAround = (object: IProps): object is IAround => 'around' in object;
 const isBetween = (object: IProps): object is IBetween => 'between' in object;
 
-export const Row: React.FC<IProps> = ({children, spacing = 2, ...rest}) => {
+export const Row: React.FC<IProps> = (props) => {
+    const {children, padding = 0, margin = 0, spacing = 0, fullWidth = false, style = {}, ...rest} = props;
     const renderChildren = () => {
         if (!children) {
             return null;
         }
 
-        return (React.Children.map(children, child => (
-            <Grid item>
+        return (React.Children.map(children, child => React.isValidElement(child) && (
+            <Grid item style={{width: fullWidth ? "100%" : "auto"}}>
                 {child}
             </Grid>
         )))
@@ -48,8 +54,10 @@ export const Row: React.FC<IProps> = ({children, spacing = 2, ...rest}) => {
             container
             spacing={spacing}
             style={{
+                ...style,
                 display: "flex",
                 alignItems: "center",
+                padding, margin,
                 justifyContent:
                     isStart(rest) ? "flex-start"
                         : isEnd(rest) ? "flex-end"

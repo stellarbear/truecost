@@ -1,99 +1,102 @@
 import React, {CSSProperties, useContext, useEffect, useState} from "react";
 
-import {Storage} from "auxiliary/storage";
 import {NotificationContext} from "components/wrappers";
 import {DataContext} from "pages/Data/Wrapper";
-import Pagination from "./Pagination";
 import {IShop} from "pages/Data/useData";
-import {Chip, Grid, TextField} from "@material-ui/core";
+import {Chip, Grid, TextField, Paper} from "@material-ui/core";
 import {dictSort, dictSortMap} from "auxiliary/sort";
 import {Autocomplete} from "@material-ui/lab";
+import {SafeJSON} from "auxiliary/json";
+import {useStorage} from "pages/Data/useStorage";
+import {Col, Row} from "pages/Base/Grid";
+import {ItemList} from "./ItemList";
 
 const empty = "default";
 
 export interface IShopState {
-    category: string;
-    items: string[];
+    names: string[];
     tags: string[];
     sort: string;
     order: "asc" | "desc";
 }
 
 export const defaultState: IShopState = {
-    category: empty,
-    items: [],
+    names: [],
     tags: [],
     sort: empty,
     order: "asc",
 };
 
+const key = "shop"
 const Shop: React.FC = () => {
     const {current: {shop}} = useContext(DataContext);
     const {notify} = React.useContext(NotificationContext);
 
 
-    const {tags, options, items, categories}: IShop = shop()!;
-    const [state, setState] = useState<IShopState>(defaultState);
+    const {tags, options, items}: IShop = shop()!;
+    const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => ({...defaultState, ...state}));
 
-    const onStateChange = (field: keyof IShopState, id: string) => {
-        if (typeof state[field] == "string") {
-            setState({...state, [field]: state[field] === id ? empty : id})
-        } else if (state[field] instanceof Array) {
+
+    const onStateChange = (field: keyof IShopState, id: string | string[]) => {
+        let value = state[field];
+        if (typeof state[field] == "string" && typeof id === "string") {
+            value = state[field] === id ? empty : id;
+        } else if (state[field] instanceof Array && typeof id === "string") {
             const filtered = (state[field] as string[]).filter(e => e !== id);
-            setState({...state, [field]: filtered.length == state[field].length ? [...filtered, id] : filtered})
+            value = filtered.length === state[field].length ? [...filtered, id] : filtered
+        } else if (state[field] instanceof Array && id instanceof Array) {
+            value = id;
         }
-    }
-    //const [scroll, setScroll] = useState<number>(Storage.getItem(storageScrollPersistKey, 0));
 
-    /*
-    const filteredItems = Object.keys(itemList)
-        .filter(key => itemList[key].isActive)
-        .filter(key => itemList[key].only.length === 0);
-*/
+        setState({...state, [field]: value});
+    }
+
+    const filterItems = () => Object.keys(items.id)
+        .filter(itemId => state.names.length === 0 ? true : state.names.includes(itemId))
+        .filter(itemId => state.tags.length === 0 ? true :
+            items.id[itemId].tag.map(t => t.id).some(t => state.tags.includes(t)));
+
+
     const renderItems = () => {
-        return <Pagination ids={Object.keys(items.id)} />
+        return <ItemList ids={filterItems()} />
     }
 
-    const renderTags = () => {
-        /*const tags = dictSortMap(tags.id);
+    const filterNames = () => (
+        <Autocomplete
+            multiple
 
-        if (tags.length === 0) {
-            return null
-        }
+            value={state.names}
+            onChange={(_: any, names: string[]) => onStateChange('names', names)}
 
-        return (
-            <Autocomplete
-                id="tags"
-                options={tags}
-                getOptionLabel={(tag) => tag.name}
-                //style={{width: 300}}
-                renderInput={(params) => <TextField {...params} label="Tag list" variant="outlined" />}
-            />
-		)*/
-    }
-    const renderCategory = () => {
-        //const categories = dictSortMap(category.id);
-/*
-        if (tags.length === 0) {
-            return null
-        }
+            options={Object.keys(items.id)}
+            groupBy={(option) => option.charAt(0)}
+            getOptionLabel={(itemId) => items.id[itemId].name}
+            renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined" />}
+        />
+    )
 
-        return (
-            <Autocomplete
-                id="tags"
-                options={tags}
-                getOptionLabel={(tag) => tag.name}
-                //style={{width: 300}}
-                renderInput={(params) => <TextField {...params} label="Tag list" variant="outlined" />}
-            />
-		)*/
-    }
+    const filterTags = () => (
+        <Paper>
+            <Row start padding={8}>
+                {Object.keys(tags.id).map(tagId => (
+                    <Chip
+                        key={tagId}
+                        label={tags.id[tagId].name}
+                        clickable
+                        onClick={() => onStateChange('tags', tagId)}
+                        color={state.tags.includes(tagId) ? "primary" : undefined}
+                    />
+                ))}
+            </Row>
+        </Paper>
+    )
 
     return (
-        <React.Fragment>
-            {renderTags()}
+        <Col spacing={2} fullWidth>
+            {filterNames()}
+            {filterTags()}
             {renderItems()}
-        </React.Fragment>
+        </Col>
     );
 };
 

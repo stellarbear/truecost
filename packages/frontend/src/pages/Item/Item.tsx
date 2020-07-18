@@ -3,7 +3,7 @@ import {Typography, Chip, Button, Divider, Card, TextField, Hidden, createStyles
 import {ArrowBack, ArrowLeft, ArrowRight, ArrowForward, Info} from "@material-ui/icons";
 import {useParams, Redirect} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
-import {ItemCard} from "./ItemCard";
+import {ItemLanding} from "./ItemLanding";
 
 export const Item: React.FC = () => {
     const {url: itemUrl} = useParams();
@@ -17,5 +17,5 @@ export const Item: React.FC = () => {
     const itemId = items.url[itemUrl];
     const item = items.id[itemId];
     
-    return <ItemCard item={item} />
+    return <ItemLanding item={item} />
 }

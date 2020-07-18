@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {createStyles, makeStyles, Slider, Theme, Typography} from "@material-ui/core";
 import TextField, {BaseTextFieldProps} from "@material-ui/core/TextField";
-import {Row} from "pages/Base/Grid";
+import {Row} from "../pages/Base/Grid";
 
 interface IProps extends BaseTextFieldProps {
     min?: number;

@@ -70,7 +70,7 @@ const AccountPicker: React.FC<IAccountPickerProps> = ({history}): JSX.Element =>
         return ([
             <MenuItem component={Link} to="/account" key={`menu-myaccount`}>Account</MenuItem>,
             //<Divider />,
-            user.role.includes('admin')
+            user.role.includes('ADMIN')
                 ? admin.routes.map(({url}) => buildMenuItem(url))
                 : null,
             //	? [null, "user", "pass", "order", null, "ad", "blog", "category", "item", "option", "tag", null].map(route => buildMenuItem(route))

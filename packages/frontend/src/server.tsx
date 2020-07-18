@@ -48,7 +48,6 @@ function Html({assets, css, content, state}: {assets: IAssets, css: string, cont
                 <style id="jss-server-side">${css}</style>
                 <script src={assets.client.js} defer></script>
                 {assets.client.css && <link rel="stylesheet" href={assets.client.css} />}
-
                 <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet" />
                 <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
                 {//<script defer src="auxiliary/blotter.min.js"></script>
