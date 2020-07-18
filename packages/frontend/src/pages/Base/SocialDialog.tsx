@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import {copyToClipboard} from "auxiliary";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
-import {Close} from "@material-ui/icons";
+import Close from "@material-ui/icons/Close";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement<any, any> },

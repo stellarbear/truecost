@@ -10,7 +10,7 @@ import {
     ListItem,
     Tooltip,
 } from "@material-ui/core";
-import {AddCircle} from "@material-ui/icons";
+import AddCircle from "@material-ui/icons/AddCircle";
 import {useMutation} from "react-apollo";
 import {ItemProp} from "./types";
 

@@ -45,7 +45,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                 Open item page
             </Button>
             <div style={{overflowY: "auto"}}>
-                {item.option.length > 0 ? item.option.map(({id: optionId}) => (optionId in options.local) && 
+                {item.option.length > 0 ? item.option.map(({id: optionId}) => (optionId in options.local) &&
                     <div key={`${itemId}-option-${optionId}`}>
                         <div
                             style={{
@@ -85,6 +85,9 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                 size="large"
                 color="primary"
                 variant="contained"
+                style={{
+                    height: 60,
+                }}
                 onClick={() => {
                     cart.add({id: itemId, options: selectedOptions});
                     notify(`${name} was added to your cart!`);

@@ -3,11 +3,12 @@ import {Grid} from '@material-ui/core';
 import {CSSProperties} from 'react';
 
 interface IBase {
-    spacing?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+    s?: number
     fullWidth?: boolean
+    wrap?: boolean
     style?: CSSProperties
-    padding?: number
-    margin?: number
+    p?: number | [number, number]
+    m?: number | [number, number]
 }
 
 interface IStart extends IBase {
@@ -36,28 +37,36 @@ const isAround = (object: IProps): object is IAround => 'around' in object;
 const isBetween = (object: IProps): object is IBetween => 'between' in object;
 
 export const Row: React.FC<IProps> = (props) => {
-    const {children, padding = 0, margin = 0, spacing = 0, fullWidth = false, style = {}, ...rest} = props;
+    const {
+        p = 0, m = 0, s = 0,
+        wrap = false,
+        fullWidth = false,
+        style = {},
+        children, ...rest
+    } = props;
+
     const renderChildren = () => {
         if (!children) {
             return null;
         }
 
         return (React.Children.map(children, child => React.isValidElement(child) && (
-            <Grid item style={{width: fullWidth ? "100%" : "auto"}}>
-                {child}
-            </Grid>
+            <div style={{width: fullWidth ? "100%" : "auto"}}>
+                {React.cloneElement(child, {style: {...child.props.style, marginRight: s}})}
+            </div>
         )))
     }
 
     return (
-        <Grid
-            container
-            spacing={spacing}
+        <div
+            //spacing={spacing}
             style={{
                 ...style,
                 display: "flex",
+                flexWrap: wrap ? "wrap" : "nowrap",
                 alignItems: "center",
-                padding, margin,
+                margin: Array.isArray(m) ? `${m[0]}px ${m[1]}px` : m,
+                padding: Array.isArray(p) ? `${p[0]}px ${p[1]}px` : p,
                 justifyContent:
                     isStart(rest) ? "flex-start"
                         : isEnd(rest) ? "flex-end"
@@ -67,6 +76,6 @@ export const Row: React.FC<IProps> = (props) => {
                                         : "center"
             }}>
             {renderChildren()}
-        </Grid>
+        </div>
     )
 }

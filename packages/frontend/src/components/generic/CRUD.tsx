@@ -5,7 +5,6 @@ import Pagination from "components/generic/Pagination";
 import Filter from "components/generic/Filter";
 import List from "components/generic/List";
 import Add from "components/generic/Add";
-import Tree from "components/generic/Tree";
 
 interface ICRUD {
     title: string;
@@ -32,12 +31,6 @@ const CRUD: React.FC<ICRUD> = ({
                                    propsList,
                                    propsFilter,
                                }) => {
-    const buildTree = () => {
-        if (!tree) {
-            return <div></div>;
-        }
-        return <Tree title={title} tree={tree}/>;
-    };
 
     const buildAdd = () => {
         return (
@@ -84,7 +77,7 @@ const CRUD: React.FC<ICRUD> = ({
                 pack={pack}
                 title={title}
                 visibleKeys={visibleKeys}
-                actionsGlobal={[buildTree, buildAdd]}
+                actionsGlobal={[buildAdd]}
                 actionsLocal={[buildClone]}
                 props={propsList}
                 updateMutation={mutationUpsert}

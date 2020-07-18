@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Copyright() {
     return (
-        <Grid container spacing={3}>
+        <Grid container>
             <Grid item xs={12} sm={6}>
                 <TextField
                     required

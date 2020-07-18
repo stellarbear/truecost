@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import {useMutation} from "react-apollo";
 import {Link, withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
-import {AccountCircle} from "@material-ui/icons";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import {DataContext} from "pages/Data/Wrapper";
 import {admin} from "pages/Admin/routes";
 

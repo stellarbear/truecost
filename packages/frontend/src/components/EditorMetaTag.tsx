@@ -17,7 +17,8 @@ import {
     withStyles,
 } from "@material-ui/core";
 import {SafeJSON} from "auxiliary/json";
-import {AddCircle, Delete} from "@material-ui/icons";
+import AddCircle from "@material-ui/icons/AddCircle";
+import Delete from "@material-ui/icons/Delete";
 
 interface IState {
     name: string;

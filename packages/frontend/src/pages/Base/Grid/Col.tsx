@@ -3,11 +3,11 @@ import {Grid} from '@material-ui/core';
 import {CSSProperties} from '@material-ui/core/styles/withStyles';
 
 interface IBase {
-    spacing?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+    s?: number
     fullWidth?: boolean
     style?: CSSProperties
-    padding?: number
-    margin?: number
+    p?: number | [number, number]
+    m?: number | [number, number]
 }
 
 interface ILeft extends IBase {
@@ -24,11 +24,12 @@ const isLeft = (object: IProps): object is ILeft => 'left' in object;
 const isRight = (object: IProps): object is IRight => 'right' in object;
 
 export const Col: React.FC<IProps> = (props) => {
-    const {children,
-        padding = 0, margin = 0, spacing = 0,
+    const {
+        p = 0, m = 0, s = 0,
         fullWidth = false,
         style = {},
-        ...rest} = props;
+        children, ...rest
+    } = props;
 
     const renderChildren = () => {
         if (!children) {
@@ -36,22 +37,20 @@ export const Col: React.FC<IProps> = (props) => {
         }
 
         return (React.Children.map(children, child => React.isValidElement(child) && (
-            <Grid item style={{
-                width: fullWidth ? "100%" : "auto",
-            }}>
-                {child}
-            </Grid>
+            <div style={{ width: fullWidth ? "100%" : "auto", }}>
+                {React.cloneElement(child, {style: {...child.props.style, marginBottom: s}})}
+            </div>
         )))
     }
 
     return (
-        <Grid
-            container
-            spacing={spacing}
+        <div
+            //spacing={spacing}
             style={{
                 ...style,
                 display: "flex",
-                padding, margin,
+                margin: Array.isArray(m) ? `${m[0]}px ${m[1]}px` : m,
+                padding: Array.isArray(p) ? `${p[0]}px ${p[1]}px` : p,
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: isLeft(rest)
@@ -60,6 +59,6 @@ export const Col: React.FC<IProps> = (props) => {
                         "flex-Right" : "center"
             }}>
             {renderChildren()}
-        </Grid>
+        </div>
     )
 }

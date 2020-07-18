@@ -1,13 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Fab} from "@material-ui/core";
-import {Navigation} from "@material-ui/icons";
+import Navigation from "@material-ui/icons/Navigation";
 
-interface IBackTopTopProps {
-}
-
-const BackTopTop: React.FC<IBackTopTopProps> = ({
-                                                    children,
-                                                }): JSX.Element => {
+const BackTopTop: React.FC = ({children, }) => {
     useEffect(() => {
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
@@ -29,8 +24,8 @@ const BackTopTop: React.FC<IBackTopTopProps> = ({
                     width: 60, height: 60,
                     borderRadius: 30,
                 }} variant="extended" color="primary"
-                     onClick={() => window.scroll({top: 0, left: 0, behavior: "smooth"})}>
-                    <Navigation/>
+                    onClick={() => window.scroll({top: 0, left: 0, behavior: "smooth"})}>
+                    <Navigation />
                 </Fab>
             )}
         </React.Fragment>

@@ -62,7 +62,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     );
 
     const chip = () => (
-        <Col spacing={1} left margin={4}
+        <Col left m={4} s={4}
             style={{position: "absolute", top: 0, left: 0}}>
             {item.tag.map(({id: tagId}) => tagId in tags.id && (
                 <Chip
@@ -77,17 +77,13 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         return (
             <ButtonBase component={Link} to={redirect}
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
-                <Col fullWidth spacing={1}>
+                <Col fullWidth>
                     {chip()}
                     <img src={image} style={{objectFit: "contain", width: 300, minHeight: 300, }} />
                     <Divider />
-                    <Row between padding={4}>
+                    <Row between p={8}>
                         <Typography variant="body1" >{item.name}</Typography>
                         <Button
-                            style={{
-                                minWidth: 100,
-                                whiteSpace: "nowrap",
-                            }}
                             onMouseEnter={() => setHovered(true)}
                             size="large"
                             color="primary"
@@ -110,8 +106,8 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                 cursor: "pointer",
             }}
             onMouseOver={() => setRaised(true)}
-            //onMouseOut={() => setRaised(false)}
-            //onMouseLeave={() => setHovered(false)}
+            onMouseOut={() => setRaised(false)}
+            onMouseLeave={() => setHovered(false)}
             raised={raised}>
             {overlay()}
             {card()}

@@ -37,18 +37,20 @@ export const ItemList: React.FC<IProps> = ({ids}) => {
     )
 
     const items = () =>
-        ids.length > 0 ? (
-            <Row start>
-                {ids.map(id => (
-                    <ItemCard key={id} id={id} />
-                ))}
-            </Row>
-        ) : (
-                <InfoCard text={[
-                    'Unfortunately, nothing was found',
-                    'Try next time or change some filters'
-                ]} />
-            )
+        <Row start wrap>
+            {ids.map(id => (
+                <ItemCard key={id} id={id} />
+            ))}
+        </Row>
+
+    if (items.length === 0) {
+        return (
+            <InfoCard text={[
+                'Unfortunately, nothing was found',
+                'Try next time or change some filters'
+            ]} />
+        )
+    }
 
     return (
         <Col fullWidth>

@@ -2,7 +2,7 @@ import {Card, createStyles, makeStyles, Theme} from "@material-ui/core";
 import React, {useEffect} from "react";
 import Map from "pigeon-maps";
 import Overlay from "pigeon-overlay";
-import {Place} from "@material-ui/icons";
+import Place from "@material-ui/icons/Place";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {Card, Divider, Drawer, Grid, IconButton, Menu, MenuItem, Tooltip, Typography} from "@material-ui/core";
-import {FilterList} from "@material-ui/icons";
+import FilterList from "@material-ui/icons/FilterList";
 
 import {ItemProp} from "./types";
 import {PaginationContext} from "./Pagination";

@@ -1,7 +1,10 @@
 import React, {createContext, useEffect} from "react";
 import {useQuery} from "react-apollo";
 import {Grid, IconButton, MenuItem, Select, Typography} from "@material-ui/core";
-import {ChevronLeft, ChevronRight, FirstPage, LastPage} from "@material-ui/icons";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import FirstPage from "@material-ui/icons/FirstPage";
+import LastPage from "@material-ui/icons/LastPage";
 import {getResolverName} from "auxiliary";
 import {Storage} from "auxiliary/storage";
 
@@ -34,13 +37,13 @@ export const PaginationContext = createContext<PaginationChildProps>({
 //	There is a problem when we add or delete an item => cache is not updating
 //	https://github.com/apollographql/apollo-feature-requests/issues/4#issuecomment-431119231
 const Pagination: React.FC<PaginationProps> = ({
-                                                   body,
-                                                   query,
-                                                   pack,
-                                                   head = null,
-                                                   noCache = false,
-                                                   recordCount = 0,
-                                               }): JSX.Element => {
+    body,
+    query,
+    pack,
+    head = null,
+    noCache = false,
+    recordCount = 0,
+}): JSX.Element => {
     const storageKey = ["admin", "pagination", "records"];
     const [items, setItems] = React.useState<any[]>([]);
     const [count, setCount] = React.useState<number>(0);
@@ -136,23 +139,23 @@ const Pagination: React.FC<PaginationProps> = ({
                     disableUnderline
                     value={take}
                     renderValue={val => `${val} items`}
-                    onChange={(event: React.ChangeEvent<{ name?: string; value: any }>) => updateNumberOfRecords(event.target.value as number)}
+                    onChange={(event: React.ChangeEvent<{name?: string; value: any}>) => updateNumberOfRecords(event.target.value as number)}
                 >
                     {[4, 8, 16, 48, 128].map((num: number, index: number) => <MenuItem key={index}
-                                                                                       value={num}>{num}</MenuItem>)}
+                        value={num}>{num}</MenuItem>)}
                 </Select>
                 <IconButton onClick={() => onFirstPage()} disabled={!canFirst}>
-                    <FirstPage/>
+                    <FirstPage />
                 </IconButton>
                 <IconButton onClick={() => onPreviousPage()} disabled={!canPrevious}>
-                    <ChevronLeft/>
+                    <ChevronLeft />
                 </IconButton>
                 <Typography>{info}</Typography>
                 <IconButton onClick={() => onNextPage()} disabled={!canNext}>
-                    <ChevronRight/>
+                    <ChevronRight />
                 </IconButton>
                 <IconButton onClick={() => onLastPage()} disabled={!canLast}>
-                    <LastPage/>
+                    <LastPage />
                 </IconButton>
             </Grid>
         );

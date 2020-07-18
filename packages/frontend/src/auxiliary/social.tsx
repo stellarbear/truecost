@@ -1,53 +1,59 @@
 import * as React from "react";
-import {Discord, Skype, Twitch} from "mdi-material-ui";
-import {Email, Facebook, Instagram, Telegram, WhatsApp} from "@material-ui/icons";
+import Discord from "mdi-material-ui/Discord";
+import Skype from "mdi-material-ui/Skype";
+import Twitch from "mdi-material-ui/Twitch";
+import Email from "@material-ui/icons/Email";
+import Facebook from "@material-ui/icons/Facebook";
+import Instagram from "@material-ui/icons/Instagram";
+import Telegram from "@material-ui/icons/Telegram";
+import WhatsApp from "@material-ui/icons/WhatsApp";
 
 const social = [
     {
         valid: true,
-        icon: <Email/>,
+        icon: <Email />,
         title: "Email",
         url: "mailto:truecostgg@gmail.com",
     },
     {
         valid: true,
-        icon: <WhatsApp/>,
+        icon: <WhatsApp />,
         title: "WhatsApp",
         url: "https://wa.me/14243174366",
     },
     {
         valid: true,
-        icon: <Telegram/>,
+        icon: <Telegram />,
         title: "Telegram",
         url: "https://telegram.me/TrueCostGG",
     },
     {
         valid: true,
-        icon: <Facebook/>,
+        icon: <Facebook />,
         title: "Facebook",
         url: "http://www.facebook.com/true.cost.906",
     },
     {
         valid: true,
-        icon: <Instagram/>,
+        icon: <Instagram />,
         title: "Instagram",
         url: "https://instagram.com/_u/truecostgg/",
     },
     {
         valid: true,
-        icon: <Twitch/>,
+        icon: <Twitch />,
         title: "Twitch",
         url: "https://www.twitch.tv/truecost",
     },
     {
         valid: false,
-        icon: <Discord/>,
+        icon: <Discord />,
         title: "Discord",
         url: "truecost#3160",
     },
     {
         valid: true,
-        icon: <Skype/>,
+        icon: <Skype />,
         title: "Skype",
         url: "https://join.skype.com/invite/cxPHGgunsEyQ",
     },

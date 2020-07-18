@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Typography} from "@material-ui/core";
 import {Col} from "./Grid";
+import {CSSProperties} from "react";
 
 
 interface IPriceTypoProps {
@@ -9,19 +10,18 @@ interface IPriceTypoProps {
 }
 
 export const PriceTypography: React.FC<IPriceTypoProps> = ({price, discount}) => {
-
     const renderNormal = () => (
-        <Typography variant="h6" color="inherit">
+        <Typography variant="h6" color="inherit" noWrap>
             {`${price} $`}
         </Typography>
     )
 
     const renderWithDiscount = () => (
-        <Col margin={-8}>
-            <Typography variant="h6" color="inherit">
+        <Col m={[-8, 0]}>
+            <Typography variant="h6" color="inherit" noWrap>
                 {`${price} $`}
             </Typography>
-            <Typography color="inherit"
+            <Typography color="inherit" noWrap
                 style={{
                     textDecoration: "line-through",
                     opacity: 0.5,
@@ -33,9 +33,9 @@ export const PriceTypography: React.FC<IPriceTypoProps> = ({price, discount}) =>
         </Col >
     )
 
-    if (discount === 0) {
-        return renderNormal();
-    } else {
-        return renderWithDiscount();
-    }
+    return (
+        discount === 0
+            ? renderNormal()
+            : renderWithDiscount()
+    )
 };

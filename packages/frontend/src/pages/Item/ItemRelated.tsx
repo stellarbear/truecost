@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
 import {DataContext} from 'pages/Data/Wrapper';
-import {Chip, Typography} from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import {Col} from 'pages/Base/Grid';
 import ItemCard from 'pages/Shop/ItemCard';
 

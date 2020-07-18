@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {createStyles, makeStyles, Slider, Theme, Typography} from "@material-ui/core";
 import TextField, {BaseTextFieldProps} from "@material-ui/core/TextField";
-import {Row} from "../pages/Base/Grid";
+import {Row, Col} from "../pages/Base/Grid";
 
 interface IProps extends BaseTextFieldProps {
     min?: number;
@@ -56,7 +56,7 @@ const RangeField: React.FC<IProps> = (props) => {
     }, [value]);
 
     return (
-        <div >
+        <Col fullWidth s={8}>
             <Row>
                 <TextField
                     margin="dense"
@@ -85,7 +85,10 @@ const RangeField: React.FC<IProps> = (props) => {
                     }} />
             </Row>
             <Slider
-                style={{marginTop: 8}}
+                style={{
+                    marginLeft: 32,
+                    width: 'calc(100% - 64px)',
+                }}
                 min={min}
                 max={max}
                 value={state}
@@ -94,7 +97,7 @@ const RangeField: React.FC<IProps> = (props) => {
                 onChangeCommitted={() => onChangeEvent(state)}
                 marks={(marks.filter(({value, label}) => value >= min && value <= max))}
             />
-        </div>
+        </Col>
     );
 };
 

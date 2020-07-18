@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {IItem, Price} from "@truecost/shared";
 import {Container, Button, Grid} from '@material-ui/core';
-import {Col} from 'pages/Base/Grid';
-import {url} from 'inspector';
-import {ArrowBack} from '@material-ui/icons';
+import {Col, Row} from 'pages/Base/Grid';
 import {ItemImage} from './ItemImage';
 import {ItemDescription} from './ItemDescription';
 import {ItemDivider} from './ItemDivider';
@@ -43,52 +41,50 @@ export const ItemLanding: React.FC<IProps> = (props) => {
 
     return (
         <Container maxWidth="lg">
-            <Col spacing={2}>
-                <Button
-                    component={Link}
-                    to={`/${url}/shop`}
-                    startIcon={< ArrowBackIcon />}
-                >
-                    To the shop
+            <Button
+                component={Link}
+                to={`/${url}/shop`}
+                startIcon={< ArrowBackIcon />}
+            >
+                To the shop
                 </Button>
-                <Grid container>
-                    <Grid item xs={12} md={12} lg={6}>
-                        <ItemImage item={item} />
-                    </Grid>
-                    <Grid item xs={12} md={12} lg={6}>
-                        <ItemDescription item={item} />
-                        <ItemDivider item={item} prop="tag" />
-                        <ItemTag item={item} />
-                        <ItemDivider item={item} prop="item" />
-                        <ItemChildren item={item} />
-                        <ItemDivider item={item} prop="obtain" />
-                        <ItemObtain item={item} />
-                        <ItemDivider item={item} prop="requirements" />
-                        <ItemRequirements item={item} />
-                        <ItemDivider item={item} prop="range" />
-                        <ItemRange item={item} chunk={chunk} onChange={setChunk} />
-                        <ItemDivider />
-                        <ItemPrice price={total} item={item} />
-                        <ItemDivider />
-                        <ItemOption price={price} item={item}
-                            selected={selectedOptions}
-                            onChange={(val: string[]) => setSelectedOptions(val)} />
-                        <ItemDivider />
-                        <ItemAddToCard
-                            price={total} item={item}
-                            options={selectedOptions}
-                        />
-                    </Grid>
+            <Grid container>
+                <Grid item xs={12} lg={6}>
+                    <ItemImage item={item} />
                 </Grid>
-                <Button
-                    startIcon={< ArrowDownwardIcon />}
-                >
-                    Related goods
-            </Button>
-                <Grid container>
-                    <ItemRelated item={item} />
+                <Grid item xs={12} lg={6}>
+                    <ItemDescription item={item} />
+                    <ItemDivider item={item} prop="tag" />
+                    <ItemTag item={item} />
+                    <ItemDivider item={item} prop="item" />
+                    <ItemChildren item={item} />
+                    <ItemDivider item={item} prop="obtain" />
+                    <ItemObtain item={item} />
+                    <ItemDivider item={item} prop="requirements" />
+                    <ItemRequirements item={item} />
+                    <ItemDivider item={item} prop="range" />
+                    <ItemRange item={item} chunk={chunk} onChange={setChunk} />
+                    <ItemDivider />
+                    <ItemPrice price={total} item={item} />
+                    <ItemDivider />
+                    <ItemOption price={price} item={item}
+                        selected={selectedOptions}
+                        onChange={(val: string[]) => setSelectedOptions(val)} />
+                    <ItemDivider />
+                    <ItemAddToCard
+                        price={total} item={item}
+                        options={selectedOptions}
+                    />
                 </Grid>
-            </Col>
-        </Container>
+            </Grid>
+            <Button
+                startIcon={< ArrowDownwardIcon />}
+            >
+                Related goods
+                </Button>
+            <Row start>
+                <ItemRelated item={item} />
+            </Row>
+        </Container >
     )
 }

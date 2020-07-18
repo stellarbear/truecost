@@ -1,7 +1,8 @@
 import * as React from "react";
 import {Button, Divider, Drawer, IconButton} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import {Clear, Menu} from "@material-ui/icons";
+import Clear from "@material-ui/icons/Clear";
+import Menu from "@material-ui/icons/Menu";
 import {AccountPicker} from "components";
 import {Link} from "react-router-dom";
 import Quick from "./GamePicker";

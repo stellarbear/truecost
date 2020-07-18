@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
-import LinkIcon from '@material-ui/icons/Link';
-import {IconButton, Typography, Divider} from '@material-ui/core';
-import {render} from 'react-dom';
+import {Divider} from '@material-ui/core';
 
 interface IProps {
     item?: IItem
@@ -11,7 +9,7 @@ interface IProps {
 
 export const ItemDivider: React.FC<IProps> = (props) => {
     const {item, prop} = props;
-    const render = <Divider style={{ margin: 8 }} />;
+    const render = <Divider style={{margin: 8}} />;
 
     if (!item || !prop) {
         return render;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {IItem, Price} from "@truecost/shared";
 import {DataContext} from 'pages/Data/Wrapper';
 import {Chip, Typography, Checkbox, Button} from '@material-ui/core';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
 import {PriceTypography} from 'pages/Base/PriceTypography';
 import {Row} from 'pages/Base/Grid';
 import {NotificationContext} from 'components/wrappers';
@@ -29,7 +29,7 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
             size="large"
             color="primary"
             variant="contained"
-            startIcon={<AddShoppingCartIcon />}
+            startIcon={<AddShoppingCart />}
             onClick={() => {
                 cart.add({id: itemId, options})
                 notify(`${item.name} has been added to your cart!`)

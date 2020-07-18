@@ -3,7 +3,7 @@ import React, {CSSProperties, useContext, useEffect, useState} from "react";
 import {NotificationContext} from "components/wrappers";
 import {DataContext} from "pages/Data/Wrapper";
 import {IShop} from "pages/Data/useData";
-import {Chip, Grid, TextField, Paper} from "@material-ui/core";
+import {Chip, Grid, TextField, Paper, Container} from "@material-ui/core";
 import {dictSort, dictSortMap} from "auxiliary/sort";
 import {Autocomplete} from "@material-ui/lab";
 import {SafeJSON} from "auxiliary/json";
@@ -77,7 +77,7 @@ const Shop: React.FC = () => {
 
     const filterTags = () => (
         <Paper>
-            <Row start padding={8}>
+            <Row start p={8} s={8}>
                 {Object.keys(tags.id).map(tagId => (
                     <Chip
                         key={tagId}
@@ -92,11 +92,13 @@ const Shop: React.FC = () => {
     )
 
     return (
-        <Col spacing={2} fullWidth>
-            {filterNames()}
-            {filterTags()}
-            {renderItems()}
-        </Col>
+        <Container maxWidth="md">
+            <Col fullWidth s={16}>
+                {filterNames()}
+                {filterTags()}
+                {renderItems()}
+            </Col>
+        </Container>
     );
 };
 

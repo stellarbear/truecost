@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {IconButton} from "@material-ui/core";
-import {ChevronLeft, ChevronRight} from "@material-ui/icons";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
 import CircleIcon from '@material-ui/icons/FiberManualRecord';
 import {colors} from "theme";
 
@@ -10,10 +11,10 @@ interface ICarouselProps {
 }
 
 const Carousel: React.FC<ICarouselProps> = ({
-                                                children,
-                                                arrows = true,
-                                                infinite = false,
-                                            }) => {
+    children,
+    arrows = true,
+    infinite = false,
+}) => {
     const [data, setData] = React.useState<React.ReactNode[]>([]);
     const slide = React.useRef<HTMLDivElement | null>(null);
     const [current, setCurrent] = useState(0);
@@ -89,14 +90,14 @@ const Carousel: React.FC<ICarouselProps> = ({
                 {data.length > 1 && (
                     <React.Fragment>
                         {arrows &&
-                        <IconButton disabled={disabledLeft}
-                                    style={{
-                                        position: "absolute", left: 8, zIndex: 9,
-                                        background,
-                                    }}
-                                    onClick={() => onLeft()}>
-                            <ChevronLeft/>
-                        </IconButton>
+                            <IconButton disabled={disabledLeft}
+                                style={{
+                                    position: "absolute", left: 8, zIndex: 9,
+                                    background,
+                                }}
+                                onClick={() => onLeft()}>
+                                <ChevronLeft />
+                            </IconButton>
                         }
                     </React.Fragment>
                 )}
@@ -123,14 +124,14 @@ const Carousel: React.FC<ICarouselProps> = ({
                 {data.length > 1 && (
                     <React.Fragment>
                         {arrows &&
-                        <IconButton disabled={disabledRight}
-                                    style={{
-                                        position: "absolute", right: 8, zIndex: 9,
-                                        background,
-                                    }}
-                                    onClick={() => onRight()}>
-                            <ChevronRight/>
-                        </IconButton>
+                            <IconButton disabled={disabledRight}
+                                style={{
+                                    position: "absolute", right: 8, zIndex: 9,
+                                    background,
+                                }}
+                                onClick={() => onRight()}>
+                                <ChevronRight />
+                            </IconButton>
                         }
                         <div style={{
                             padding: 4,
@@ -152,7 +153,7 @@ const Carousel: React.FC<ICarouselProps> = ({
                                     }}
                                     fontSize="small"
                                     key={`carousel-control-${index}`}
-                                    onClick={() => onIndex(index)}/>,
+                                    onClick={() => onIndex(index)} />,
                             )}
                         </div>
                     </React.Fragment>

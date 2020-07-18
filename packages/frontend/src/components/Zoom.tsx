@@ -1,7 +1,7 @@
 import * as React from "react";
 import {makeStyles} from "@material-ui/styles";
 import {Backdrop, Badge, createStyles, Fade, Modal, Paper, Theme} from "@material-ui/core";
-import {ZoomOutMap} from "@material-ui/icons";
+import ZoomOutMap from "@material-ui/icons/ZoomOutMap";
 import {BadgeProps} from "@material-ui/core/Badge";
 
 const useStyles = makeStyles((theme: Theme) =>

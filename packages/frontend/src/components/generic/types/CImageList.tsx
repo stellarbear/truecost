@@ -1,7 +1,8 @@
 import * as React from "react";
 import {Badge, Typography} from "@material-ui/core";
 import {ABase, Component, IBase, IRender} from "./ABase";
-import {AddBox, RemoveCircle} from "@material-ui/icons";
+import AddBox from "@material-ui/icons/AddBox";
+import RemoveCircle from "@material-ui/icons/RemoveCircle";
 import {SelectImage, Zoom} from "components";
 import {baseUri} from "auxiliary/route";
 

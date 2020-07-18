@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useState} from 'react';
 import {Button, Menu, MenuItem, Typography} from '@material-ui/core';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import {dictSort} from 'auxiliary/sort';
 import {useHistory} from 'react-router';
 import {DataContext} from 'pages/Data/Wrapper';
@@ -45,7 +45,7 @@ const GamePicker: React.FC<GamePickerProps> = () => {
                     <Typography style={{whiteSpace: "nowrap"}}>
                         {data.id[current.id].name}
                     </Typography>
-                    <ArrowDropDownIcon />
+                    <ArrowDropDown />
                 </div>
             </Button>
             <Menu

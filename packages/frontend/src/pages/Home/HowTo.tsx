@@ -1,11 +1,14 @@
 import * as React from 'react';
 import ArrowDown from '@material-ui/icons/ArrowDownward'
+import SportsEsports from '@material-ui/icons/SportsEsports';
+import Loyalty from '@material-ui/icons/Loyalty';
+import RateReview from '@material-ui/icons/RateReview';
 import {Card, ButtonBase, Typography, Button, IconButton} from '@material-ui/core';
 import {CSSProperties} from 'react';
 import {Link} from 'react-router-dom';
 import {DataContext} from 'pages/Data/Wrapper';
-import {SportsEsports, Loyalty, RateReview} from '@material-ui/icons';
-import {Chat, Star} from 'mdi-material-ui';
+import Chat from 'mdi-material-ui/Chat';
+import Star from 'mdi-material-ui/Star';
 import {SlideRow} from '../Base/SlideRow'
 
 interface IProps {
@@ -14,7 +17,7 @@ interface IProps {
 
 export const HowTo: React.FC<IProps> = ({style = {}}) => {
     const props = {
-        
+
     }
     const data = [{
         icon: <SportsEsports fontSize="large" />,

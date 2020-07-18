@@ -1,6 +1,4 @@
 import React, {useEffect, useContext} from "react";
-import {Typography, Chip, Button, Divider, Card, TextField, Hidden, createStyles, FormControl, InputLabel, Select, MenuItem, IconButton, Table, TableBody, TableRow, TableCell, FormControlLabel, Checkbox, Grid, makeStyles, Theme, Slider, Container} from "@material-ui/core";
-import {ArrowBack, ArrowLeft, ArrowRight, ArrowForward, Info} from "@material-ui/icons";
 import {useParams, Redirect} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
 import {ItemLanding} from "./ItemLanding";

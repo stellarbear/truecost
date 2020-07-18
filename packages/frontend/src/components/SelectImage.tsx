@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {Avatar} from "@material-ui/core";
-import {AccountBox} from "@material-ui/icons";
+import AccountBox from "@material-ui/icons/AccountBox";
 import {NotificationContext} from "./wrappers";
 
 interface ISelectImageProps {

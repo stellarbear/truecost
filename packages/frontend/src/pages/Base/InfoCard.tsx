@@ -15,7 +15,7 @@ export const InfoCard: React.FC<IProps> = ({text, actions = []}) => {
 
     return (
         <Col>
-            <Row>
+            <Row s={8}>
                 <img className="float" style={{
                     minWidth: 80,
                     width: 80, height: 80, objectFit: "cover", margin: 8, marginLeft: 0,

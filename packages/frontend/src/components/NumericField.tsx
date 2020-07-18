@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {createStyles, IconButton, makeStyles, TextField, Theme, Typography} from "@material-ui/core";
-import {ChevronLeft, ChevronRight} from "@material-ui/icons";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
 import {BaseTextFieldProps} from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,13 +32,13 @@ interface INumericFieldProps extends BaseTextFieldProps {
 }
 
 const NumericField = ({
-                          label,
-                          value,
-                          min = -20,
-                          max = 4096,
-                          single = true,
-                          onChangeEvent,
-                      }: INumericFieldProps): JSX.Element => {
+    label,
+    value,
+    min = -20,
+    max = 4096,
+    single = true,
+    onChangeEvent,
+}: INumericFieldProps): JSX.Element => {
     const classes = useStyles();
     const [num, setNum] = useState(value);
     const [minus, setMinus] = useState(false);
@@ -149,11 +150,11 @@ const NumericField = ({
             <Typography className={classes.label}>{label}</Typography>
             <div className={classes.outer}>
                 <IconButton disabled={num == null ? true : (num > min) ? false : true}
-                            onMouseDown={() => onButtonDecrementPress()}
-                            onMouseUp={() => onButtonRelease()}
-                            onClick={() => onButtonDecrementClick()}
+                    onMouseDown={() => onButtonDecrementPress()}
+                    onMouseUp={() => onButtonRelease()}
+                    onClick={() => onButtonDecrementClick()}
                 >
-                    <ChevronLeft/>
+                    <ChevronLeft />
                 </IconButton>
                 <TextField
                     onBlur={onFocusLeave}
@@ -164,11 +165,11 @@ const NumericField = ({
                     InputProps={{style: {height: 35}}}
                 />
                 <IconButton disabled={num == null ? false : (num < max) ? false : true}
-                            onMouseDown={() => onButtonIncrementPress()}
-                            onMouseUp={() => onButtonRelease()}
-                            onClick={() => onButtonIncrementClick()}
+                    onMouseDown={() => onButtonIncrementPress()}
+                    onMouseUp={() => onButtonRelease()}
+                    onClick={() => onButtonIncrementClick()}
                 >
-                    <ChevronRight/>
+                    <ChevronRight />
                 </IconButton>
             </div>
         </div>

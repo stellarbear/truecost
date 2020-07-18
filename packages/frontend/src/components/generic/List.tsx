@@ -19,7 +19,10 @@ import {
 } from "@material-ui/core";
 import {useMutation} from "react-apollo";
 import React, {useEffect} from "react";
-import {Cancel, Delete, FilterList, Save} from "@material-ui/icons";
+import Cancel from "@material-ui/icons/Cancel";
+import Delete from "@material-ui/icons/Delete";
+import FilterList from "@material-ui/icons/FilterList";
+import Save from "@material-ui/icons/Save";
 
 import {NotificationContext} from "components/wrappers";
 import {TimeoutButton} from "components";

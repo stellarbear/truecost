@@ -1,6 +1,6 @@
 import React, {createContext, useState} from "react";
 import {createStyles, Fade, IconButton, makeStyles, Snackbar, Theme} from "@material-ui/core";
-import {Close} from "@material-ui/icons";
+import Close from "@material-ui/icons/Close";
 import {colors} from "theme";
 
 //  https://stackoverflow.com/questions/41030361/how-to-update-react-context-from-inside-a-child-component

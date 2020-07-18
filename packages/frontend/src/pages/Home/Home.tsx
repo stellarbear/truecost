@@ -11,13 +11,7 @@ import {
     Typography,
     Card,
 } from "@material-ui/core";
-import {Link} from "react-router-dom";
-import TrustBox from "../Base/TrustBox";
-import {ArrowDown} from "mdi-material-ui";
 import "css/float.css";
-import {Chat, Loyalty, RateReview, SportsEsports, Star} from "@material-ui/icons";
-import {TwitterTimelineEmbed} from 'react-twitter-embed';
-import Meta from "../Base/Meta";
 import {DataContext} from "../Data/Wrapper";
 import Parallax from "components/Parallax";
 import {baseUri} from "auxiliary/route";
@@ -45,7 +39,7 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
             <Grid item xs={12} sm={8} md={6}>
                 <Intro style={{marginTop: "15vh", textAlign: "center"}} />
             </Grid>
-            <Grid container spacing={3}
+            <Grid container 
                 style={{marginTop: "15vh", marginBottom: 16}}>
                 <Grid item xs={12} sm={8}>
                     {}
