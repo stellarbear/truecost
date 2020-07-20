@@ -30,7 +30,7 @@ export const Filter: React.FC<UserListProps> = ({
         const newState = {...state, [prop]: value};
         console.log(newState);
         setState(newState);
-        setShare({...share, vars: newState})
+        setShare({vars: newState})
     };
 
     const render = (prop: ItemProp) => {

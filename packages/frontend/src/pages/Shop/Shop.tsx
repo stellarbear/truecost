@@ -11,6 +11,7 @@ import {useStorage} from "pages/Data/useStorage";
 import {Col, Row} from "pages/Base/Grid";
 import {ArraySlice} from "components/generic/components/ArraySlice";
 import ItemCard from "./ItemCard";
+import {InfoCard} from "pages/Base/InfoCard";
 
 const empty = "default";
 
@@ -59,18 +60,31 @@ const Shop: React.FC = () => {
         .filter(itemId => state.tags.length === 0 ? true :
             items.id[itemId].tag.some(t => state.tags.includes(t)));
 
+    const renderMock = () => (
+        <InfoCard text={[
+            'Unfortunately, nothing was found',
+            'Try next time or change some filters'
+        ]} />
+    )
 
-    const renderItems = () => {
+    const renderItems = (data: string[]) => (
+        <ArraySlice data={data}>
+            {(itemIds => (
+                <Row start wrap>
+                    {itemIds.map(id => (
+                        <ItemCard key={id} id={id} />
+                    ))}
+                </Row>
+            ))}
+        </ArraySlice>
+    )
+
+    const filterData = () => {
+        const data = filterItems();
         return (
-            <ArraySlice data={filterItems()}>
-                {(itemIds => (
-                    <Row start wrap>
-                        {itemIds.map(id => (
-                            <ItemCard key={id} id={id} />
-                        ))}
-                    </Row>
-                ))}
-            </ArraySlice>
+            (data.length === 0)
+                ? renderMock()
+                : renderItems(data)
         )
     }
 
@@ -109,7 +123,7 @@ const Shop: React.FC = () => {
             <Col fullWidth s={16}>
                 {filterNames()}
                 {filterTags()}
-                {renderItems()}
+                {filterData()}
             </Col>
         </Container>
     );

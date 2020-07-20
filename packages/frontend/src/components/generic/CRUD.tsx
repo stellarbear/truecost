@@ -24,7 +24,6 @@ interface ICRUD {
 export type IShared = [ISharedData, React.Dispatch<React.SetStateAction<ISharedData>>]
 export interface ISharedData {
     vars: any
-    fetch?: () => Promise<ApolloQueryResult<any>>
 }
 const SharedContext = createContext({} as IShared);
 export const useShared = () => React.useContext(SharedContext)

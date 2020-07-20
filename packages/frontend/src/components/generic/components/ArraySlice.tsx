@@ -39,17 +39,6 @@ export const ArraySlice: React.FC<IProps> = (props) => {
             onChange={(_, value) => setPage(value)} />
     )
 
-    
-
-    if (data.length === 0) {
-        return (
-            <InfoCard text={[
-                'Unfortunately, nothing was found',
-                'Try next time or change some filters'
-            ]} />
-        )
-    }
-
     return (
         <Col fullWidth s={16}>
             <Row start s={16}>

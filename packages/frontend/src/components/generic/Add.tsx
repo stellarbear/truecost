@@ -30,6 +30,7 @@ import {IBase} from "@truecost/shared";
 import {normalize} from "./normalize";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {useLoading} from "components/wrappers/LoadingWrapper";
+import {useShared} from "./CRUD";
 
 interface AddProps {
     props: ItemProp[];
@@ -66,8 +67,6 @@ export const Add: React.FC<AddProps> = ({
     const onAdd = async () => {
         try {
             setLoading(true);
-            const t = state;
-            debugger;
             console.log('trying create', normalize(state))
             const response = await create({variables: {input: normalize(state)}});
             const resolverName = getResolverName(mutation);

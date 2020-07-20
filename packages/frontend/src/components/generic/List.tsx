@@ -16,6 +16,7 @@ import {
     Tooltip,
     Typography,
     withStyles,
+    CircularProgress,
 } from "@material-ui/core";
 import {useMutation, useQuery} from "react-apollo";
 import React, {useEffect, CSSProperties} from "react";
@@ -37,10 +38,11 @@ import {DocumentNode} from "graphql";
 import {arrayToDict} from "auxiliary/sort";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {normalize} from "./normalize";
-import {Row} from "pages/Base/Grid";
+import {Row, Col} from "pages/Base/Grid";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 import {ArraySlice} from "./components/ArraySlice";
 import {IShared, useShared} from "./CRUD";
+import {InfoCard} from "pages/Base/InfoCard";
 
 const stickyStyle: CSSProperties = {
     position: "sticky",
@@ -66,9 +68,9 @@ export const List: React.FC<UserListProps> = ({
     updateMutation,
     removeMutation,
 }) => {
+    const [share] = useShared();
     const {setLoading} = useLoading();
     const {notify} = useNotification();
-    const [share, setShare] = useShared();
     const [remove] = useMutation(removeMutation);
     const [update] = useMutation(updateMutation);
     const [count, setCount] = React.useState<number>(0);
@@ -76,14 +78,10 @@ export const List: React.FC<UserListProps> = ({
     const [clones, setClones] = React.useState<IItems>({})
     const [errors, setErrors] = React.useState<IError>({});
 
-    const {data, refetch} = useQuery(listQuery, {
+    const {data, refetch, loading} = useQuery(listQuery, {
         variables: {take: 0, skip: 0, input: normalize(share.vars)},
         fetchPolicy: "network-only",
     });
-
-    useEffect(() => {
-        setShare({...share, fetch: () => refetch({take: 0, skip: 0, input: share.vars})})
-    }, [])
 
     useEffect(() => {
         const listResponse = getResolverName(listQuery);
@@ -181,6 +179,20 @@ export const List: React.FC<UserListProps> = ({
                 </IconButton>
                 <TimeoutButton timeout={3} icon={<Delete />} onClickEvent={() => onDelete(id)} />
             </Row>
+        )
+    }
+
+    if (loading) {
+        return (
+            <InfoCard
+                style={{height: "50vh"}}
+                text={[
+                    'Loading',
+                    'Please, wait'
+                ]}
+                actions={[
+                    <CircularProgress color="inherit" size={40} />
+                ]} />
         )
     }
 
