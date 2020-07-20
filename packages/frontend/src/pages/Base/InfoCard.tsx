@@ -2,8 +2,8 @@ import * as React from 'react'
 import {Col, Row} from './Grid'
 import {Typography, Card} from '@material-ui/core'
 import {DataContext} from 'pages/Data/Wrapper';
-import {baseUri, baseGame} from 'auxiliary/route';
 import {CSSProperties} from '@material-ui/core/styles/withStyles';
+import {baseUri} from 'auxiliary/route';
 
 interface IProps {
     text: string[]

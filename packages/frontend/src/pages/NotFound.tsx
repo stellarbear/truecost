@@ -1,7 +1,6 @@
 import React, {useEffect, useContext} from "react";
 import {Button, Typography} from "@material-ui/core";
 import {RouteComponentProps} from "react-router";
-import {baseGame, baseUri} from "auxiliary/route";
 import {Link, withRouter} from "react-router-dom";
 import Meta from "./Base/Meta";
 import {DataContext} from "./Data/Wrapper";

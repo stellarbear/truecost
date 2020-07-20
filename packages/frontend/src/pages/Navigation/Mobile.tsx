@@ -6,7 +6,6 @@ import Menu from "@material-ui/icons/Menu";
 import {AccountPicker} from "components";
 import {Link} from "react-router-dom";
 import Quick from "./GamePicker";
-import {baseGame} from "auxiliary/route";
 
 declare let Tawk_API: any;
 
@@ -127,7 +126,7 @@ const Mobile: React.FC<IMobile> = (props) => {
                     bottom: -60,
                     left: -60,
                     width: 200, height: 200, objectFit: "cover", margin: 8, marginLeft: 0,
-                }} src={`/${baseGame}/pass.png`} />
+                }} src={`/pass.png`} />
             </div>
         </Drawer>
 

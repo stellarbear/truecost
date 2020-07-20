@@ -1,6 +1,5 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
-import {currentGame} from 'auxiliary/route';
 
 interface HelmetProps {
     page: string;
@@ -37,9 +36,6 @@ interface HelmetProps {
 //404
 const title = {
     "item": (p: any) => `${p.name}`,
-    "home": (p: any) => `${currentGame.name} premium boosting service!`,
-    "shop": (p: any) => `Buy ${currentGame.name} service`,
-    "track": (p: any) => `Track your ${currentGame.name} order`,
     "success": (p: any) => `You order is in progress`,
     "account": (p: any) => `Account`,
     "discount": (p: any) => `Discount`,
@@ -52,8 +48,6 @@ const title = {
     "forget": (p: any) => `Forget`,
     "register": (p: any) => `Registration`,
     "reset": (p: any) => `Reset password`,
-
-    "checkout": (p: any) => `${currentGame.name} checkout`,
 
     "contact": (p: any) => `Contact us`,
     "policy": (p: any) => `Privacy policy`,

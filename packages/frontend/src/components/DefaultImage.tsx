@@ -1,5 +1,4 @@
 import React, {ImgHTMLAttributes, useState} from "react";
-import {baseGame} from "auxiliary/route";
 
 //import LazyLoad from "react-lazyload";
 
@@ -8,7 +7,7 @@ interface DefaultImageProps extends ImgHTMLAttributes<{}> {
 }
 
 const DefaultImage: React.FC<DefaultImageProps> = ({
-                                                       fallback = `${baseGame}/pass.png`,
+                                                       fallback = `/pass.png`,
                                                        src, srcSet,
                                                        ...rest
                                                    }) => {

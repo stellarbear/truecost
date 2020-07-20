@@ -8,7 +8,7 @@ import {
     Typography,
 } from "@material-ui/core";
 import {NotificationContext} from "../../components/wrappers";
-import {imageUri, baseUri} from "auxiliary/route";
+import {baseUri} from "auxiliary/route";
 import {Link, RouteComponentProps, withRouter, Redirect} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
 import {Price} from '@truecost/shared';
