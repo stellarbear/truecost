@@ -11,7 +11,7 @@
 		"build:razle": "cross-env RAZZLE_APP_ENV=production",
 		"build:clean": "rimraf build tsconfig.tsbuildinfo",
 		"build:watch": "yarn start",
-		"start": "yarn build:clean && razzle start"
+		"start": "node build/server"
 	},
 	"private": true,
 	"license": "MIT",

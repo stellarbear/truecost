@@ -17,6 +17,6 @@ RUN yarn
 COPY lerna.json .
 RUN lerna bootstrap
 
-EXPOSE 3000 7000
+EXPOSE 8000
 
 CMD yarn workspace @truecost/frontend start

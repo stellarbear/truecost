@@ -9,10 +9,16 @@
   "scripts": {
     "clean": "lerna run clean",
     "lint": "eslint 'packages/*/{src,test}/**/*.{ts,tsx}'",
-    "build:frontend": "yarn workspace @truecost/frontend build:watch",
-    "build:backend": "yarn workspace @truecost/backend build:watch",
-    "build:shared": "yarn workspace @truecost/shared build:watch",
-    "build": "yarn && yarn run clean && tsc -b packages",
+
+    "watch:frontend": "yarn workspace @truecost/frontend build:watch",
+    "watch:backend": "yarn workspace @truecost/backend build:watch",
+    "watch:shared": "yarn workspace @truecost/shared build:watch",
+    "build:frontend": "yarn workspace @truecost/frontend build",
+    "build:backend": "yarn workspace @truecost/backend build",
+    "build:shared": "yarn workspace @truecost/shared build",
+
+    "build": "yarn && yarn run clean && yarn build:shared && yarn build:backend && yarn build:frontend",
+    "build:old": "yarn && yarn run clean && tsc -b packages",
     "build:watch": "tsc -b packages -w",
     "web-razzle": "yarn workspace @truecost/frontend build"
   },
