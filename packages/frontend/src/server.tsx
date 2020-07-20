@@ -7,7 +7,7 @@ import express from "express";
 
 import App from "./app";
 
-
+import * as path from 'path';
 import {theme} from "theme";
 import {ServerStyleSheets, ThemeProvider} from "@material-ui/styles";
 
@@ -16,6 +16,7 @@ import {NormalizedCacheObject} from "apollo-boost";
 import {ApolloProvider} from "@apollo/react-hooks";
 import {getDataFromTree, renderToStringWithData} from "@apollo/react-ssr";
 import createApolloClient from "apollo";
+import {environment} from "auxiliary/route";
 
 
 interface IAsset {
@@ -66,7 +67,7 @@ function Html({assets, css, content, state}: {assets: IAssets, css: string, cont
 
 server
     .disable("x-powered-by")
-    .use(express.static(process.env.RAZZLE_PUBLIC_DIR as string))
+    .use(express.static(environment == "developement" ? process.env.RAZZLE_PUBLIC_DIR! : path.join(__dirname, '../build/public')))
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
         const sheets: ServerStyleSheets = new ServerStyleSheets();
@@ -84,9 +85,9 @@ server
         );
 
         console.log('cookies', req.header('Cookie'));
-        const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST as string);
+        const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST!);
 
-        console.log('assets passed');
+        console.log('assets passed', assets.client.css, assets.client.js);
         renderToStringWithData(sheets.collect(app)).then((content) => {
             const initialState = client.extract();
             const html = <Html assets={assets} css={sheets.toString()} content={content} state={initialState} />;
