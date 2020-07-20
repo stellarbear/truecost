@@ -1,5 +1,5 @@
 import * as React from "react";
-import CRUD from "components/generic/CRUD";
+import {CRUD} from "components/generic/CRUD";
 import {CBoolean, CString, CNumber, CImage} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 //import {meta} from "./Base/Meta";
@@ -97,7 +97,6 @@ export const AdminItem: React.FC = () => {
             fields: ["game"],
         },
         multiple: true,
-        propName: "name",
     });
     const tag = new CLink({
         key: "tag",
@@ -107,7 +106,6 @@ export const AdminItem: React.FC = () => {
             fields: ["game"],
         },
         multiple: true,
-        propName: "name",
     });
     const option = new CLink({
         key: "option",
@@ -117,7 +115,6 @@ export const AdminItem: React.FC = () => {
             fields: ["game"],
         },
         multiple: true,
-        propName: "name",
     });
 
     const range = new CCustom({

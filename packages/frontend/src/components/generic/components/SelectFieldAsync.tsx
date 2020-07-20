@@ -80,12 +80,14 @@ export const SelectFieldAsync: React.FC<IProps> = (props) => {
     const filtered = filter(record, data, query);
     return (
         <Autocomplete
+            disableCloseOnSelect={multiple}
+            size="small"
+            loading={loading}
+            style={{minWidth: 300}}
             onFocus={() => data || lazy()}
             multiple={multiple}
             value={state}
-            onChange={(_, newValue) => {
-                setAndBubbleState(newValue as any);
-            }}
+            onChange={(_, newValue: any) => setAndBubbleState(newValue)}
             getOptionSelected={(option, value) => option.id === value.id}
             options={filtered}
             getOptionLabel={(option: IOption) => option.name}

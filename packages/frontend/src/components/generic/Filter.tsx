@@ -7,6 +7,8 @@ import {PaginationContext} from "./Pagination";
 import {Storage} from "auxiliary/storage";
 import {ReactSortable} from "react-sortablejs";
 import {Col} from "pages/Base/Grid";
+import {IShared, useShared} from "./CRUD";
+import {normalize} from "./normalize";
 
 interface UserListProps {
     props: ItemProp[];
@@ -18,6 +20,7 @@ const defaultState = (props: ItemProp[]) =>
 export const Filter: React.FC<UserListProps> = ({
     props,
 }) => {
+    const [share, setShare] = useShared();
     const [state, setState] = React.useState<any>(defaultState(props));
 
     const [drawer, setDrawer] = React.useState(false);
@@ -27,6 +30,7 @@ export const Filter: React.FC<UserListProps> = ({
         const newState = {...state, [prop]: value};
         console.log(newState);
         setState(newState);
+        setShare({...share, vars: newState})
     };
 
     const render = (prop: ItemProp) => {

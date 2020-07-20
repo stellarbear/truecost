@@ -24,13 +24,13 @@ const convert = (src: Record<string, any>, type: "set" | "like" | "between" | "f
             }));
         case "between":
             return Object.keys(src).map(key => {
-                const to = "to" in src[key] ? {$lte: src[key].to} : {};
-                const from = "from" in src[key] ? {$gte: src[key].from} : {};
+                const from = +src[key][0]; 
+                const to = +src[key][1]; 
 
                 return ({
                     [key]: {
-                        ...from,
-                        ...to,
+                        ...(to != undefined ? {$lte: to} : {}),
+                        ...(from != undefined ? {$gte: from} : {}),
                     },
                 });
             });
@@ -72,7 +72,7 @@ export abstract class BaseService<T> {
             ...convert(between, "between"),
         ];
         const query: any = sub.length > 0 ? {$and: sub} : {};
-        //console.log(JSON.stringify(query));
+        console.log(JSON.stringify(query));
 
         const [items, count] = await this.repository.findAndCount(query, {limit: take || undefined, offset: skip, populate: true});
         return {items, count};

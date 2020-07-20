@@ -29,6 +29,7 @@ import {Col} from "pages/Base/Grid";
 import {IBase} from "@truecost/shared";
 import {normalize} from "./normalize";
 import {useNotification} from "components/wrappers/NotifyWrapper";
+import {useLoading} from "components/wrappers/LoadingWrapper";
 
 interface AddProps {
     props: ItemProp[];
@@ -44,6 +45,7 @@ export const Add: React.FC<AddProps> = ({
     props,
     mutation,
 }) => {
+    const {setLoading} = useLoading();
     const [create] = useMutation(mutation);
     const {notify} = useNotification();
 
@@ -57,26 +59,32 @@ export const Add: React.FC<AddProps> = ({
     }
 
     const onChange = (key: string, value: any) => {
+        console.log('yoooo', {...state, [key]: value})
         onStateChange({...state, [key]: value})
     };
 
     const onAdd = async () => {
         try {
+            setLoading(true);
+            const t = state;
+            debugger;
+            console.log('trying create', normalize(state))
             const response = await create({variables: {input: normalize(state)}});
             const resolverName = getResolverName(mutation);
             if (response?.data?.[resolverName]) {
                 onStateChange(defaultState(props));
                 notify(`entry created`);
                 setDrawer(false);
-
-                //TODO: refetch
             } else {
                 notify("server not responded or data corrupted");
             }
         } catch (e) {
+            debugger;
             const fail = parseQLErrors(e)
             setError({...fail});
             notify(`constrains failed`, fail);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -111,14 +119,15 @@ export const Add: React.FC<AddProps> = ({
             </Button>
             <Drawer anchor={'right'} open={drawer} onClose={() => setDrawer(false)}>
                 <Col s={16} fullWidth p={16}
-                    style={{minWidth: 400}} >
-                    <Divider />
-                    {table()}
+                    style={{minWidth: 400, overflow: "hidden"}} >
+                    <div style={{height: "90vh", overflow: "auto"}}>
+                        {table()}
+                    </div>
                     <Button variant="contained"
                         fullWidth color="primary"
                         onClick={() => onAdd()}>
                         Add record
-                        </Button>
+                    </Button>
                 </Col>
             </Drawer>
         </React.Fragment>

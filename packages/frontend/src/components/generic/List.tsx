@@ -40,6 +40,7 @@ import {normalize} from "./normalize";
 import {Row} from "pages/Base/Grid";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 import {ArraySlice} from "./components/ArraySlice";
+import {IShared, useShared} from "./CRUD";
 
 const stickyStyle: CSSProperties = {
     position: "sticky",
@@ -67,6 +68,7 @@ export const List: React.FC<UserListProps> = ({
 }) => {
     const {setLoading} = useLoading();
     const {notify} = useNotification();
+    const [share, setShare] = useShared();
     const [remove] = useMutation(removeMutation);
     const [update] = useMutation(updateMutation);
     const [count, setCount] = React.useState<number>(0);
@@ -75,16 +77,20 @@ export const List: React.FC<UserListProps> = ({
     const [errors, setErrors] = React.useState<IError>({});
 
     const {data, refetch} = useQuery(listQuery, {
-        variables: {take: 0, skip: 0, input: {}},
+        variables: {take: 0, skip: 0, input: normalize(share.vars)},
         fetchPolicy: "network-only",
     });
+
+    useEffect(() => {
+        setShare({...share, fetch: () => refetch({take: 0, skip: 0, input: share.vars})})
+    }, [])
 
     useEffect(() => {
         const listResponse = getResolverName(listQuery);
         if (data?.[listResponse]?.items) {
             const {items, count} = data[listResponse];
 
-            console.log("query sent"/*, {take, skip, ...queryVariables}*/);
+            console.log("query sent", normalize(share.vars));
             console.log("response received", items);
 
             const dict = arrayToDict<IItem>(items);
@@ -103,6 +109,7 @@ export const List: React.FC<UserListProps> = ({
                 notify("server not responded or data corrupted");
             }
         } catch (e) {
+            debugger;
             const fail = parseQLErrors(e)
             setErrors({id: {...fail}});
             notify(`constrains failed`, fail);
@@ -127,6 +134,7 @@ export const List: React.FC<UserListProps> = ({
 
     const onUpdate = async (id: string) => {
         await onTry(async () => {
+            console.log('trying sent', normalize(items[id]))
             const response = await update({variables: {input: normalize(items[id])}});
             const name = getResolverName(updateMutation);
 

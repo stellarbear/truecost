@@ -6,7 +6,6 @@ const link = new CLink({
     query: {name: "GameAll"},
     multiple: false,
     readOnly: true,
-    propName: "name",
 });
 
 const fields = [link];

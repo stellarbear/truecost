@@ -24,25 +24,25 @@ export class CBoolean extends ABase<boolean> {
     renderListlementation = this.asSwitch;
 
     asSelect({value, onChange}: IRender<boolean>) {
-        const {label, base} = this.data;
+        const {label} = this.data;
         const {textTrue, textFalse} = this;
 
         return (
             <BooleanSelectField
                 label={label}
-                value={value || base!}
+                value={value}
                 onChangeEvent={onChange}
             />
         );
     }
 
     asSwitch({value, onChange}: IRender<boolean>) {
-        const {label, base} = this.data;
+        const {label} = this.data;
         const {textTrue, textFalse} = this;
 
         return (
             <SwitchField
-                value={value || base!}
+                value={value}
                 prefix={textFalse}
                 suffix={textTrue}
                 onChangeEvent={onChange}

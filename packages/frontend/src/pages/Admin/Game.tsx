@@ -1,5 +1,5 @@
 import * as React from "react";
-import CRUD from "components/generic/CRUD";
+import {CRUD} from "components/generic/CRUD";
 import {CImage, CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {meta} from "./Base/Meta";

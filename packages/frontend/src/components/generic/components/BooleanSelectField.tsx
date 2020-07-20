@@ -9,11 +9,13 @@ interface IProps extends SelectProps {
     onChangeEvent: (value: any) => void;
 }
 
+const undef = -1;
+
 export const BooleanSelectField: React.FC<IProps> = ({
     label,
     onChangeEvent,
     base,
-    value,
+    value = undef,
     ...rest
 }) => {
     const {state, setAndBubbleState} = useEventState(value, onChangeEvent);
@@ -22,16 +24,16 @@ export const BooleanSelectField: React.FC<IProps> = ({
         <FormControl fullWidth>
             {label ? <InputLabel>{label}</InputLabel> : null}
             <Select
-                value={(state == undefined ? -1 : +(state as boolean))}
+                value={(state == undefined ? undef : +(state as boolean))}
                 {...rest}
                 onChange={(event) => {
                     const {value} = event.target;
-                    setAndBubbleState(value == -1
+                    setAndBubbleState(value == undef
                         ? undefined
                         : !!value)
                 }}
             >
-                <MenuItem value={-1}>Any</MenuItem>
+                <MenuItem value={undef}>Any</MenuItem>
                 <MenuItem value={0}>False</MenuItem>
                 <MenuItem value={1}>True</MenuItem>
             </Select>

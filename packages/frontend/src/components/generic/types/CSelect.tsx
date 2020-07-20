@@ -8,7 +8,6 @@ import {SelectField, IOption} from "../components/SelectField";
 export interface ISelect extends ICtor<any> {
     multiple: boolean;
     options: IOption;
-    base: string;
 }
 export class CSelect extends ABase<any>  {
     options: IOption;
@@ -25,7 +24,7 @@ export class CSelect extends ABase<any>  {
     renderListlementation = this.SelectField;
 
     SelectField({value, onChange}: IRender<any | any[]>) {
-        const {label, base} = this.data;
+        const {label} = this.data;
         const {multiple, options} = this;
 
         return (
@@ -33,7 +32,7 @@ export class CSelect extends ABase<any>  {
                 label={label}
                 options={options}
                 multiple={multiple}
-                value={value || base}
+                value={value || (multiple ? [] : null)}
                 onChangeEvent={onChange}
             />
         );

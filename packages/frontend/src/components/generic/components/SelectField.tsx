@@ -10,8 +10,8 @@ interface IProps extends SelectProps {
     multiple: boolean
     options: IOption
     label?: string;
-    value: string | string[];
-    onChangeEvent: (value: string | string[]) => void;
+    value: (string | null) | string[];
+    onChangeEvent: (value: (string | null) | string[]) => void;
 }
 
 export const SelectField: React.FC<IProps> = (props) => {
@@ -27,13 +27,13 @@ export const SelectField: React.FC<IProps> = (props) => {
 
     return (
         <Autocomplete
+            size="small"
+            style={{minWidth: 300}}
             multiple={multiple}
             value={state}
-            onChange={(_, newValue: any) => {
-                setAndBubbleState(newValue.id);
-            }}
+            onChange={(_, newValue: any) => setAndBubbleState(newValue)}
             options={Object.keys(options)}
-            getOptionLabel={(option: string) => options[option]}
+            getOptionLabel={(option: string) => option in options ? options[option] : 'Any'}
             fullWidth
             renderInput={(params) => <TextField {...params} variant="outlined" />}
         />

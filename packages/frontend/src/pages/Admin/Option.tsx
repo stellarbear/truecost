@@ -1,5 +1,5 @@
 import * as React from "react";
-import CRUD from "components/generic/CRUD";
+import {CRUD} from "components/generic/CRUD";
 import {CLink, CSelect} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {CNumber} from "components/generic/types/CNumber";
@@ -40,7 +40,6 @@ export const AdminOption: React.FC = () => {
         multiple: false,
         key: "type",
         label: "type",
-        base: OptionType.NOMINAL,
         options: {
             [OptionType.NOMINAL]:"$",
             [OptionType.RELATIVE]:"%"
@@ -51,7 +50,6 @@ export const AdminOption: React.FC = () => {
         multiple: false,
         key: "area",
         label: "area",
-        base: OptionArea.LOCAL,
         options: {
             [OptionArea.LOCAL]:"local",
             [OptionArea.GLOBAL]:"global"

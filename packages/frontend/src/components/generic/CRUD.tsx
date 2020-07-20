@@ -5,6 +5,8 @@ import {Filter} from "components/generic/Filter";
 import {List} from "components/generic/List";
 import {Add} from "components/generic/Add";
 import {Row, Col} from "pages/Base/Grid";
+import {ApolloQueryResult, NetworkStatus} from "apollo-boost";
+import {createContext} from "react";
 
 interface ICRUD {
     title: string;
@@ -19,7 +21,15 @@ interface ICRUD {
     propsFilter: ItemProp[];
 }
 
-const CRUD: React.FC<ICRUD> = ({
+export type IShared = [ISharedData, React.Dispatch<React.SetStateAction<ISharedData>>]
+export interface ISharedData {
+    vars: any
+    fetch?: () => Promise<ApolloQueryResult<any>>
+}
+const SharedContext = createContext({} as IShared);
+export const useShared = () => React.useContext(SharedContext)
+
+export const CRUD: React.FC<ICRUD> = ({
     pack,
     tree,
     title,
@@ -31,25 +41,27 @@ const CRUD: React.FC<ICRUD> = ({
     propsList,
     propsFilter,
 }) => {
+    const shared = React.useState<ISharedData>({vars: {}})
+
     return (
-        <Col s={8} fullWidth>
-            <Row s={8}>
-                <Filter
-                    props={propsFilter}
+        <SharedContext.Provider value={shared}>
+            <Col s={8} fullWidth>
+                <Row s={8}>
+                    <Filter
+                        props={propsFilter}
+                    />
+                    <Add
+                        mutation={mutationUpsert}
+                        props={propsAdd}
+                    />
+                </Row>
+                <List
+                    props={propsList}
+                    listQuery={queryGet}
+                    updateMutation={mutationUpsert}
+                    removeMutation={mutationDelete}
                 />
-                <Add
-                    mutation={mutationUpsert}
-                    props={propsAdd}
-                />
-            </Row>
-            <List
-                props={propsList}
-                listQuery={queryGet}
-                updateMutation={mutationUpsert}
-                removeMutation={mutationDelete}
-            />
-        </Col>
+            </Col>
+        </SharedContext.Provider>
     );
 };
-
-export default CRUD;

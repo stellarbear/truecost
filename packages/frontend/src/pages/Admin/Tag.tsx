@@ -1,5 +1,5 @@
 import * as React from "react";
-import CRUD from "components/generic/CRUD";
+import {CRUD} from "components/generic/CRUD";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";
 import {game} from "./Base/Game";

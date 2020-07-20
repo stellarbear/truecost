@@ -1,5 +1,5 @@
 import * as React from "react";
-import CRUD from "components/generic/CRUD";
+import {CRUD} from "components/generic/CRUD";
 import {CDate, CImage, CString, CCustom} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import EditorPost from "components/EditorPost";

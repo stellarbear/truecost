@@ -6,22 +6,19 @@ export interface ILink extends ICtor<any> {
     query: IQuery;
     readOnly?: boolean;
     multiple?: boolean;
-    propName?: string;
 }
 
 export class CLink extends ABase<any> {
     query: IQuery;
     readOnly: boolean;
     multiple: boolean;
-    propName: string;
 
     constructor({
-        propName = "name", query, 
+        query, 
         multiple = false, readOnly = false, ...rest}: ILink) {
         super(rest);
         this.query = query;
         this.readOnly = readOnly;
-        this.propName = propName;
         this.multiple = multiple;
     }
 
@@ -31,7 +28,7 @@ export class CLink extends ABase<any> {
 
     SelectQueryField({value, onChange, id, state}: IRender<any>) {
         const {label, base} = this.data;
-        const {multiple, query, propName, readOnly} = this;
+        const {multiple, query, readOnly} = this;
 
         return (
             <SelectFieldAsync

@@ -157,7 +157,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
         @UseMiddleware(UseAuth([RoleType.ADMIN]))
         @Mutation(() => classRef, {name: `${prefix}Upsert`})
         async upsert(@Arg('input', () => inputRef) input: V): Promise<T> {
-            console.log('upsert arrived')
+            console.log('upsert arrived-----------------------------', input)
             const emptyValues = notEmpty.filter(key =>
                 (isArray(input[key]) || isString(input[key])) ? (input[key] as any).length == 0
                     : input[key] == undefined);
