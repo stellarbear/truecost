@@ -15,11 +15,12 @@ import {admin} from "pages/Admin/routes";
 import Shop from "pages/Shop/Shop";
 import {Login} from "pages/User";
 import {Item} from "pages/Item/Item";
+import {LoadingWrapper} from "components/wrappers/LoadingWrapper";
 
 
 const App = () => {
 	return (
-		<MuiPickersUtilsProvider utils={DayJSUtils}>
+		<LoadingWrapper>
 			<NotifyWrapper>
 				<DataWrapper>
 					<DataContext.Consumer>
@@ -60,7 +61,7 @@ const App = () => {
 					</DataContext.Consumer>
 				</DataWrapper>
 			</NotifyWrapper>
-		</MuiPickersUtilsProvider>
+		</LoadingWrapper>
 	);
 };
 

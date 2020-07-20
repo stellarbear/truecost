@@ -3,7 +3,6 @@ import {CBoolean, CString} from "components/generic/types";
 import {CNumber} from "components/generic/types/CNumber";
 
 const active = new CBoolean({
-    def: false,
     key: "active",
     label: "active",
     textTrue: "active",
@@ -16,9 +15,10 @@ const name = new CString({
 });
 
 const order = new CNumber({
+    base: 0,
     key: "order",
     label: "order",
-    min: -10,
+    min: -100,
     max: 100,
 });
 

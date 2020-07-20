@@ -1,20 +1,22 @@
 import * as React from "react";
 import CRUD from "components/generic/CRUD";
-import {CBoolean, CLink, CString, CStringCustom} from "components/generic/types";
+import {CBoolean, CString, CNumber, CImage} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
-import {CImageList} from "components/generic/types/CImageList";
-import {CNumber} from "components/generic/types/CNumber";
+//import {meta} from "./Base/Meta";
+//import {game} from "./Base/Game";
 import {meta} from "./Base/Meta";
 import {game} from "./Base/Game";
 import EditorRange from "components/EditorRange";
+import {CCustom} from "components/generic/types/CCustom";
+import {CLink} from "components/generic/types/CLink";
 
-export const AdminItem: React.FC=  () => {
+export const AdminItem: React.FC = () => {
     const crud = new CRUDgql({
         name: "Item",
         items: `
-			${meta.fragment}
-			${game.fragment}
-			link
+        ${meta.fragment}
+        ${game.fragment}			
+            link
 			images
 
             price
@@ -32,19 +34,18 @@ export const AdminItem: React.FC=  () => {
 		`,
     });
 
-
     const link = new CString({
         key: "link",
         label: "link",
     });
 
-
-    const images = new CImageList({
+    const images = new CImage({
         key: "images",
         label: "image",
         ext: "png",
         limit: 1,
     });
+
 
     const price = new CNumber({
         key: "price",
@@ -81,20 +82,19 @@ export const AdminItem: React.FC=  () => {
 
 
     const isTopOffer = new CBoolean({
-        def: false,
         key: "topOffer",
         label: "offer",
         textTrue: "top",
         textFalse: "usual",
     });
 
-
+    
     const item = new CLink({
         key: "item",
         label: "item",
         query: {
             name: "ItemAll",
-            field: "game",
+            fields: ["game"],
         },
         multiple: true,
         propName: "name",
@@ -104,7 +104,7 @@ export const AdminItem: React.FC=  () => {
         label: "tag",
         query: {
             name: "TagAll",
-            field: "game",
+            fields: ["game"],
         },
         multiple: true,
         propName: "name",
@@ -114,16 +114,17 @@ export const AdminItem: React.FC=  () => {
         label: "option",
         query: {
             name: "OptionAll",
-            field: "game",
+            fields: ["game"],
         },
         multiple: true,
         propName: "name",
     });
 
-    const range = new CStringCustom({
+    const range = new CCustom({
+        base: "[]",
         key: "range",
         label: "range",
-        component: <EditorRange/>,
+        component: <EditorRange />,
     });
     
     const fields = [link, images, price, range, discount, limit, obtain, requirements, isTopOffer, item, tag, option];

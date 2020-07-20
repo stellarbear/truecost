@@ -1,69 +1,50 @@
 import {ErrorLabel} from "components";
 import * as React from "react";
+import {Typography} from "@material-ui/core";
 
-export enum Component { Add, Filter, List }
-
-export interface IBase {
-    key: string;
-    def?: any;
-    label: string;
-    prepare?: (value: any | any[]) => any | any[];
+export interface ICtor<T = any> {
+    key: string,
+    label: string,
+    base?: T,
 }
 
-
-export interface IRender {
-    id: any;
-    value: any;
-    data: Record<string, any>;
-    onChange: (value: any) => void;
+export interface IRender<T = any> {
+    id?: string;
+    value: T;
+    error?: string
+    state: Record<string, any>;
+    onChange: (value?: T) => void;
 }
 
-export interface IARender extends IRender {
-    errors: string[];
-    component: Component;
-}
+export abstract class ABase<T = any> {
+    constructor(
+        public readonly data: ICtor<T>,
+    ) {}
 
-export abstract class ABase implements IBase {
-    def: any;
-    id: string;
-    key: string;
-    label: string;
-    prepare: (value: any | any[]) => any | any[];
+    private renderError = (props: IRender<T>, implementation: (props: IRender<T>) => React.ReactNode) => (
+        <ErrorLabel error={props.error}>
+            {implementation(props)}
+        </ErrorLabel>
+    )
 
-    constructor({label, key, def = undefined, prepare = (value) => value}: IBase) {
-        this.id = key;
-        this.key = key;
-        this.def = def;
-        this.label = label;
-        this.prepare = prepare;
-    }
+    renderList = (props: IRender<T>) => (
+        <ErrorLabel error={props.error}>
+            {this.renderListlementation(props)}
+        </ErrorLabel>
+    )
+    renderAdd = (props: IRender<T>) => (
+        <ErrorLabel error={props.error}>
+            {this.renderAddImplementation(props)}
+        </ErrorLabel>
+    )
+    renderFilter = (props: IRender<T>) => (
+        <ErrorLabel error={props.error}>
+            {this.renderFilterlementation(props)}
+        </ErrorLabel>
+    )
 
-    render({component, errors, ...rest}: IARender) {
-        const error = errors.join(",");
-
-        const renderComponent = () => {
-            switch (component) {
-                case Component.Add:
-                    return this.renderAddComponent({...rest}, component);
-                case Component.List:
-                    return this.renderListComponent({...rest}, component);
-                case Component.Filter:
-                    return this.renderFilterComponent({...rest}, component);
-                default:
-                    return null;
-            }
-        };
-
-        return (
-            <ErrorLabel error={error}>
-                {renderComponent()}
-            </ErrorLabel>
-        );
-    }
-
-    abstract renderAddComponent(params: IRender, type: Component): JSX.Element;
-
-    abstract renderListComponent(params: IRender, type: Component): JSX.Element;
-
-    abstract renderFilterComponent(params: IRender, type: Component): JSX.Element;
+    abstract renderAddImplementation(props: IRender<any>): React.ReactNode;
+    abstract renderFilterlementation(props: IRender<any>): React.ReactNode;
+    abstract renderListlementation(props: IRender<any>): React.ReactNode;
+    protected NoControl = () => (<Typography>No control</Typography>)
 }

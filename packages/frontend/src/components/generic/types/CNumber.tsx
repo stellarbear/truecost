@@ -1,23 +1,23 @@
 import * as React from "react";
-import {ABase, Component, IBase, IRender} from "./ABase";
-import NumericField from "components/NumericField";
-import RangeField from "components/RangeField";
+import {ABase, IRender, ICtor} from "./ABase";
+import {NumericField} from "../components/NumericField";
+import RangeField from "../components/RangeField";
 
-export interface INumber extends IBase {
+export interface INumber extends ICtor<number> {
     min?: number;
     max?: number;
     step?: number;
     single?: boolean;
 }
 
-export class CNumber extends ABase implements INumber {
+export class CNumber extends ABase<number> {
     min: number;
     max: number;
     step: number;
     single: boolean;
 
-    constructor({min = 0, step = 10, single = true, max = Number.MAX_SAFE_INTEGER, ...rest}: INumber) {
-        super(rest);
+    constructor({min = 0, step = 10, single = true, max = Number.MAX_SAFE_INTEGER, base = min, ...rest}: INumber) {
+        super({...rest, base});
 
         this.min = min;
         this.max = max;
@@ -25,51 +25,37 @@ export class CNumber extends ABase implements INumber {
         this.single = single;
     }
 
-    renderAddComponent = (params: IRender, type: Component): JSX.Element => this.asNumber({...params});
-    renderListComponent = (params: IRender, type: Component): JSX.Element => this.asNumber({...params});
-    renderFilterComponent = (params: IRender, type: Component): JSX.Element => this.asRange({...params});
+    renderAddImplementation = this.NumericField;
+    renderFilterlementation = this.RangeField;
+    renderListlementation = this.NumericField;
 
-    asRange({value, onChange}: IRender): JSX.Element {
-        const {label, min, max, step, single} = this;
-
-        if (value == undefined || Number.isInteger(value)) {
-            value = {from: min, to: max};
-        }
-
-        return (
-            <RangeField
-                min={min}
-                max={max}
-                step={step}
-                label={label}
-                single={single}
-                value={[value.from, value.to]}
-                onChangeEvent={(eventValue: number[]) => {
-                    if (eventValue.length == 2) {
-                        onChange({
-                            from: eventValue[0],
-                            to: eventValue[1],
-                        });
-                    }
-                }}
-            />
-        );
-    }
-
-    asNumber({value, onChange}: IRender): JSX.Element {
-        const {label, min, max, single} = this;
-        const overrideValue = value == null ? null : value;
+    NumericField({value, onChange}: IRender<number>) {
+        const {label, base} = this.data;
+        const {min, max, single} = this;
 
         return (
             <NumericField
                 min={min}
                 max={max}
-                single={single}
-                label={label}
-                value={overrideValue}
-                onChangeEvent={(eventValue: number) => {
-                    onChange(eventValue);
-                }}
+                value={value || base!}
+                onChangeEvent={onChange}
+            />
+        );
+    }
+
+    RangeField({value, onChange}: IRender<[number, number]>) {
+        const {label, base} = this.data;
+        const {min, max, single} = this;
+
+        return (
+            <RangeField
+                value={value || [min, max]}
+                label={"⟵ adjust ⟶"}
+                labelLeft={'current'}
+                labelRight={'desired'}
+                min={min}
+                max={max}
+                onChangeEvent={onChange}
             />
         );
     }

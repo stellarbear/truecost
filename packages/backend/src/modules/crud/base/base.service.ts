@@ -74,7 +74,7 @@ export abstract class BaseService<T> {
         const query: any = sub.length > 0 ? {$and: sub} : {};
         //console.log(JSON.stringify(query));
 
-        const [items, count] = await this.repository.findAndCount(query, {limit: take, offset: skip, populate: true});
+        const [items, count] = await this.repository.findAndCount(query, {limit: take || undefined, offset: skip, populate: true});
         return {items, count};
     }
 

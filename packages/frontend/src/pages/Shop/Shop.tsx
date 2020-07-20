@@ -9,7 +9,8 @@ import {Autocomplete} from "@material-ui/lab";
 import {SafeJSON} from "auxiliary/json";
 import {useStorage} from "pages/Data/useStorage";
 import {Col, Row} from "pages/Base/Grid";
-import {ItemList} from "./ItemList";
+import {ArraySlice} from "components/generic/components/ArraySlice";
+import ItemCard from "./ItemCard";
 
 const empty = "default";
 
@@ -60,7 +61,17 @@ const Shop: React.FC = () => {
 
 
     const renderItems = () => {
-        return <ItemList ids={filterItems()} />
+        return (
+            <ArraySlice data={filterItems()}>
+                {(itemIds => (
+                    <Row start wrap>
+                        {itemIds.map(id => (
+                            <ItemCard key={id} id={id} />
+                        ))}
+                    </Row>
+                ))}
+            </ArraySlice>
+        )
     }
 
     const filterNames = () => (

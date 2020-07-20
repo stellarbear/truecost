@@ -1,6 +1,6 @@
 import * as React from "react";
 import CRUD from "components/generic/CRUD";
-import {CImageList, CString} from "components/generic/types";
+import {CImage, CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {meta} from "./Base/Meta";
 
@@ -23,13 +23,13 @@ export const AdminGame: React.FC = () => {
     });
 
 
-    const assistant = new CImageList({
+    const assistant = new CImage({
         key: "assistant",
         label: "assistant",
         ext: "png",
         limit: 1,
     });
-    const background = new CImageList({
+    const background = new CImage({
         key: "background",
         label: "background",
         ext: "jpg",

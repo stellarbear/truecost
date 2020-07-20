@@ -2,37 +2,20 @@ import * as React from "react";
 import {CircularProgress, createStyles, IconButton, makeStyles, Theme, Tooltip} from "@material-ui/core";
 import {IconButtonProps} from "@material-ui/core/IconButton";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {},
-        outer: {
-            height: 40,
-            padding: 4,
-            position: "relative",
-        },
-        inner: {
-            top: 0,
-            left: 0,
-            position: "absolute",
-        },
-    }),
-);
-
 interface Props extends IconButtonProps {
-    tooltip?: string;
     timeout?: number;
-    onClickEvent: (() => void);
-    icon: JSX.Element;
+    onClickEvent: () => void;
+    icon: React.ReactNode;
 }
 
-const TimeoutButton: React.FC<Props> = ({
-                                            icon,
-                                            timeout = 5,
-                                            tooltip = undefined,
-                                            onClickEvent,
-                                            ...rest
-                                        }) => {
-    const classes = useStyles();
+const TimeoutButton: React.FC<Props> = (props) => {
+    const {
+        icon,
+        timeout = 5,
+        onClickEvent,
+        ...rest
+    } = props;
+
     const [progress, setProgress] = React.useState<number>(0);
     const [incrementTimerID, setIncrementTimerID] = React.useState<NodeJS.Timeout>();
     const [decrementTimerID, setDecrementTimerID] = React.useState<NodeJS.Timeout>();
@@ -87,19 +70,23 @@ const TimeoutButton: React.FC<Props> = ({
     };
 
     return (
-        <div className={classes.outer}>
-            <CircularProgress variant="static" value={progress * 100 / timeout}/>
-            <div className={classes.inner}>
-                {tooltip && (
-                    <Tooltip title={tooltip}>
-                        <IconButton
-                            {...rest}
-                            onMouseDown={() => increment()}
-                            onMouseUp={() => decrement()}>
-                            {icon}
-                        </IconButton>
-                    </Tooltip>
-                )}
+        <div style={{
+            height: 40,
+            padding: 4,
+            position: "relative",
+        }}>
+            <CircularProgress variant="static" value={progress * 100 / timeout} />
+            <div style={{
+                top: 0,
+                left: 0,
+                position: "absolute",
+            }}>
+                <IconButton
+                    {...rest}
+                    onMouseDown={() => increment()}
+                    onMouseUp={() => decrement()}>
+                    {icon}
+                </IconButton>
             </div>
         </div>
     );

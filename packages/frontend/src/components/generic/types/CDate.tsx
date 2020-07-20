@@ -1,56 +1,44 @@
 import * as React from "react";
-import {ABase, Component, IBase, IRender} from "./ABase";
-import DateTimeField from "../../DateTimeField";
-import {InputField} from "../../../components";
+import {ABase, IRender, ICtor} from "./ABase";
+import {isUndefined} from "@truecost/shared";
+import {BooleanSelectField} from "../components/BooleanSelectField";
+import SwitchField from "../components/SwitchField";
+import DateTimeField, {IDateTimePickerType} from "../components/DateTimeField";
 
-export interface IDate extends IBase {
-    maxDate?: Date;
-    minDate?: Date;
+export interface IDate extends ICtor<Date> {
+    max?: Date;
+    min?: Date;
+    type: IDateTimePickerType
 }
 
-export class CDate extends ABase implements IDate {
-    minDate: Date;
-    maxDate: Date;
+export class CDate extends ABase<Date> {
+    min: Date;
+    max: Date;
+    type: IDateTimePickerType
 
-    constructor({minDate = new Date(), maxDate = new Date("2022-01-01"), ...rest}: IDate) {
+    constructor({type, min = new Date(), max = new Date("2022-01-01"), ...rest}: IDate) {
         super(rest);
 
-        this.minDate = minDate;
-        this.maxDate = maxDate;
+        this.min = min;
+        this.max = max;
+        this.type = type;
     }
 
-    renderAddComponent = (params: IRender, type: Component): JSX.Element => this.asDateTimePicker({...params});
-    renderListComponent = (params: IRender, type: Component): JSX.Element => this.asDateTimePicker({...params});
-    renderFilterComponent = (params: IRender, type: Component): JSX.Element => this.asDateTimePicker({...params});
+    renderAddImplementation = this.DateTimeField;
+    renderFilterlementation = this.DateTimeField;
+    renderListlementation = this.DateTimeField;
 
-    asDateTimePicker({value, onChange}: IRender) {
-        const {label, minDate, maxDate} = this;
+    DateTimeField({value, onChange}: IRender<Date>) {
+        const {label, base} = this.data;
+        const {min, max, type} = this;
         const overrideDateValue = value == null ? null : value;
 
         return (
             <DateTimeField
-                style={{minWidth: 300}}
+                type={type}
                 label={label}
-                value={overrideDateValue}
-                onChangeEvent={(eventValue: number | null) => {
-                    const stateValue = eventValue == null ? null : eventValue;
-                    onChange(stateValue);
-                }}/>
-        );
-    }
-
-    asTextField({value, onChange}: IRender) {
-        const {label, minDate, maxDate} = this;
-        const overrideStringValue = value == null ? "" : new Date(value).toISOString();
-
-        return (
-            <InputField
-                style={{minWidth: 300, marginTop: 0}}
-                editable={false}
-                label={label}
-                value={overrideStringValue}
-                onChangeEvent={(eventValue: string) => {
-                }}/>
+                value={value || min}
+                onChangeEvent={onChange} />
         );
     }
 }

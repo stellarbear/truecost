@@ -50,9 +50,9 @@ export const Row: React.FC<IProps> = (props) => {
             return null;
         }
 
-        return (React.Children.map(children, child => React.isValidElement(child) && (
-            <div>
-                {React.cloneElement(child, {style: {...child.props.style, marginRight: s}})}
+        return (React.Children.map(children, (child, index) => React.isValidElement(child) && (
+            <div key={index} style={{marginRight: s}}>
+                {child}
             </div>
         )))
     }

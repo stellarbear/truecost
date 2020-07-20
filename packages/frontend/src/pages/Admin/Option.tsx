@@ -40,14 +40,22 @@ export const AdminOption: React.FC = () => {
         multiple: false,
         key: "type",
         label: "type",
-        values: enumValues(OptionType),
+        base: OptionType.NOMINAL,
+        options: {
+            [OptionType.NOMINAL]:"$",
+            [OptionType.RELATIVE]:"%"
+        }
     });
-    
+
     const area = new CSelect({
         multiple: false,
         key: "area",
         label: "area",
-        values: enumValues(OptionArea),
+        base: OptionArea.LOCAL,
+        options: {
+            [OptionArea.LOCAL]:"local",
+            [OptionArea.GLOBAL]:"global"
+        }
     });
 
     const fields = [price, free, type, area];

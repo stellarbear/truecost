@@ -1,40 +1,36 @@
-import {CImageList} from "./CImageList";
+
 import {CBoolean} from "./CBoolean";
 import {CString} from "./CString";
-import {CSelect} from "./CSelect";
 import {CNumber} from "./CNumber";
 import {CImage} from "./CImage";
+import {CCustom} from "./CCustom";
 import {CLink} from "./CLink";
-import {CGeo} from "./CGeo";
 import {CDate} from "./CDate";
-import {CStringMask} from "./CStringMask";
-import {CStringPassword} from "./CStringPassword";
-import {CStringCustom} from "./CStringCustom";
+import {CSelect} from "./CSelect";
 
-type ItemProp =
-    CString
-    | CBoolean
-    | CSelect
-    | CImage
-    | CLink
-    | CImageList
-    | CNumber
-    | CGeo
-    | CDate
-    | CStringMask
-    | CStringPassword
-    | CStringCustom;
+type ItemProp = CBoolean
+	| CString | CNumber | CImage | CCustom | CLink | CDate | CSelect;
+/*  CString
+  | CBoolean
+  | CSelect
+  | CImage
+  | CLink
+  | CImageList
+  | CNumber
+  | CGeo
+  | CDate
+  | CStringMask
+  | CStringPassword
+  | CStringCustom;*/
 
 export {
-    ItemProp,
-    CImage,
-    CSelect,
-    CBoolean,
-    CString,
-    CLink,
-    CImageList,
-    CDate,
-    CStringMask,
-    CStringPassword,
-    CStringCustom,
+	CImage,
+	CDate,
+	CSelect,
+	CLink,
+	CCustom,
+	ItemProp,
+	CBoolean,
+	CNumber,
+	CString
 };

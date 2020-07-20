@@ -133,7 +133,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
         @Query(() => resultRef, {name: `${prefix}Get`})
         async get(
             @Arg('skip', () => Int, {defaultValue: 0}) skip: number,
-            @Arg('take', () => Int, {defaultValue: 1}) take: number,
+            @Arg('take', () => Int, {defaultValue: 0}) take: number,
             @Arg('input', () => inputRef) input: V,
         ): Promise<R> {
             const result = await this.service.get({
@@ -161,7 +161,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
             const emptyValues = notEmpty.filter(key =>
                 (isArray(input[key]) || isString(input[key])) ? (input[key] as any).length == 0
                     : input[key] == undefined);
-            assert(emptyValues.length === 0, "must not be empty " + emptyValues, emptyValues);
+            assert(emptyValues.length === 0, "must not be empty", emptyValues);
 
             const nonUniqueValues = await this.service.unique(input, unique as string[]);
             assert(nonUniqueValues.length === 0, "must be unique", nonUniqueValues);

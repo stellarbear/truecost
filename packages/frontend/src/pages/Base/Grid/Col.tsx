@@ -37,8 +37,8 @@ export const Col: React.FC<IProps> = (props) => {
         }
 
         return (React.Children.map(children, child => React.isValidElement(child) && (
-            <div style={{ width: fullWidth ? "100%" : "auto", }}>
-                {React.cloneElement(child, {style: {...child.props.style, marginBottom: s}})}
+            <div style={{ width: fullWidth ? "100%" : "auto", marginBottom: s }}>
+                {child}
             </div>
         )))
     }

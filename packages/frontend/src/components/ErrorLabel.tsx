@@ -1,44 +1,40 @@
 import {createStyles, makeStyles, Theme, Typography} from "@material-ui/core";
 import * as React from "react";
+import {Row, Col} from "pages/Base/Grid";
+import {useState} from "react";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        outer: {
-            width: "100%",
-            textAlign: "center",
-        },
-        error: {
-            whiteSpace: "nowrap",
-            textAlign: "left",
-            paddingLeft: 8,
-            minHeight: 20,
-            color: "red",
-        },
-    }),
-);
-
-interface IErrorLabelProps {
+interface IProps {
     error?: string;
 }
 
-const ErrorLabel: React.FC<IErrorLabelProps> = ({
-                                                    error = "",
-                                                    children,
-                                                }) => {
-    const classes = useStyles();
+const ErrorLabel: React.FC<IProps> = (props) => {
+    const {error, children, } = props;
+    const [show, setShow] = useState(true)
 
     return (
-        <div className={classes.outer}>
-            <div>
-                {children}
-            </div>
-            <Typography
+        <div style={{position: 'relative'}}
+            onMouseEnter={() => setShow(false)}
+            onMouseLeave={() => setShow(true)}
+        >
+            {children}
+            {error && (<Typography
+                style={{
+                    visibility: show ? "visible" : 'hidden',
+                    animation: "all 0.2s",
+                    position: 'absolute', width: '100%', height: '100%',
+                    left: 0, top: 0,
+                    color: "red",
+                    backgroundColor: " #FFFFFFDD",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
                 component="div"
-                className={classes.error}
                 variant="caption">
                 {error}
             </Typography>
-        </div>
+            )}
+        </div >
     );
 };
 

@@ -4,7 +4,7 @@ import {DataContext} from 'pages/Data/Wrapper';
 import {Chip, Typography, Checkbox} from '@material-ui/core';
 import Markdown from 'components/Markdown';
 import {useState} from 'react';
-import RangeField from 'components/RangeField';
+import RangeField from 'components/generic/components/RangeField';
 import {Row, Col} from 'pages/Base/Grid';
 
 interface IProps {

@@ -1,45 +1,40 @@
 import * as React from "react";
-import {SelectField} from "components";
-import {ABase, Component, IBase, IRender} from "./ABase";
+import {ABase, IRender, ICtor} from "./ABase";
+import {BooleanSelectField} from "../components/BooleanSelectField";
+import SwitchField from "../components/SwitchField";
+import DateTimeField, {IDateTimePickerType} from "../components/DateTimeField";
+import {SelectField, IOption} from "../components/SelectField";
 
-export interface ISelect extends IBase {
-    values: any[];
-    multiple?: boolean;
-}
-
-export class CSelect extends ABase {
-    values: any[];
+export interface ISelect extends ICtor<any> {
     multiple: boolean;
-    preRenderMap?: Record<string, any>;
+    options: IOption;
+    base: string;
+}
+export class CSelect extends ABase<any>  {
+    options: IOption;
+    multiple: boolean;
 
-    constructor({values, multiple = false, ...rest}: ISelect) {
+    constructor({options, multiple, ...rest}: ISelect) {
         super(rest);
-        this.values = values;
+        this.options = options;
         this.multiple = multiple;
-        this.preRenderMap = values.reduce((acc, cur) => ({...acc, [cur]: cur}), {});
     }
 
-    renderAddComponent = (params: IRender, type: Component): JSX.Element => this.asMultiSelect({...params});
-    renderListComponent = (params: IRender, type: Component): JSX.Element => this.asMultiSelect({...params});
-    renderFilterComponent = (params: IRender, type: Component): JSX.Element => this.asMultiSelect({...params});
+    renderAddImplementation = this.SelectField;
+    renderFilterlementation = this.SelectField;
+    renderListlementation = this.SelectField;
 
-    asMultiSelect({value, onChange}: IRender): JSX.Element {
-        const {multiple, values, preRenderMap, label} = this;
-        const overrideSelectValue = value == null ? [] : value;
+    SelectField({value, onChange}: IRender<any | any[]>) {
+        const {label, base} = this.data;
+        const {multiple, options} = this;
+
         return (
             <SelectField
                 label={label}
-                style={{minWidth: 200}}
-                values={values}
+                options={options}
                 multiple={multiple}
-                preRenderMap={preRenderMap}
-                value={overrideSelectValue}
-                onChangeEvent={(value: any) => {
-                    const stateValue = Array.isArray(value)
-                        ? value.length > 0 ? value : null
-                        : value;
-                    onChange(stateValue);
-                }}
+                value={value || base}
+                onChangeEvent={onChange}
             />
         );
     }

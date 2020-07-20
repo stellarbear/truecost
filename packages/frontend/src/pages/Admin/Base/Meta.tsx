@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {CString, CStringCustom} from "components/generic/types";
+import {CString, CCustom} from "components/generic/types";
 import {base} from "./Base";
 import EditorMetaTag from "components/EditorMetaTag";
 
@@ -8,7 +8,8 @@ const url = new CString({
     label: "url",
 });
 
-const metatag = new CStringCustom({
+const metatag = new CCustom({
+    base: "[]",
     key: "metatag",
     label: "metatag",
     component: <EditorMetaTag/>,

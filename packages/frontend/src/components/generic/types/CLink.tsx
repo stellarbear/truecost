@@ -1,22 +1,23 @@
 import * as React from "react";
-import {ABase, Component, IBase, IRender} from "./ABase";
-import {SelectQueryField} from "components";
-import {IQuery} from "components/SelectQueryField";
+import {ABase, IRender, ICtor} from "./ABase";
+import {SelectFieldAsync, IQuery} from "../components/SelectFieldAsync";
 
-export interface ILink extends IBase {
+export interface ILink extends ICtor<any> {
     query: IQuery;
     readOnly?: boolean;
     multiple?: boolean;
-    propName: string;
+    propName?: string;
 }
 
-export class CLink extends ABase {
+export class CLink extends ABase<any> {
     query: IQuery;
     readOnly: boolean;
     multiple: boolean;
     propName: string;
 
-    constructor({propName, query, multiple = false, readOnly = false, ...rest}: ILink) {
+    constructor({
+        propName = "name", query, 
+        multiple = false, readOnly = false, ...rest}: ILink) {
         super(rest);
         this.query = query;
         this.readOnly = readOnly;
@@ -24,46 +25,23 @@ export class CLink extends ABase {
         this.multiple = multiple;
     }
 
-    renderAddComponent = (params: IRender, type: Component): JSX.Element => this.asMultiSelect({...params}, type);
-    renderListComponent = (params: IRender, type: Component): JSX.Element => this.asMultiSelect({...params}, type);
-    renderFilterComponent = (params: IRender, type: Component): JSX.Element => this.asMultiSelect({...params}, type);
+    renderAddImplementation = this.SelectQueryField;
+    renderFilterlementation = this.SelectQueryField;
+    renderListlementation = this.SelectQueryField;
 
-    asMultiSelect({value, onChange, id, data}: IRender, type: Component): JSX.Element {
-        const {multiple, query, label, propName, readOnly} = this;
-
-        //	The cost of backend simplification
-        //	flatMap only if data is received from backend, default behavior onChange
-        let preRenderMap = {};
-        const valueArray = Array.isArray(value) ? value : [value].filter(v => v);
-        const fromBackend = !valueArray.some(v => v.id == undefined || v[propName] == undefined);
-        if (fromBackend) {
-            preRenderMap = valueArray.reduce((obj, cur) => ({...obj, [cur.id]: cur[propName]}), {});
-            value = valueArray.map(v => v.id);
-        }
-
-        const overrideSelectValue = value == null
-            ? []
-            : Array.isArray(value)
-                ? value
-                : [value];
+    SelectQueryField({value, onChange, id, state}: IRender<any>) {
+        const {label, base} = this.data;
+        const {multiple, query, propName, readOnly} = this;
 
         return (
-            <SelectQueryField
+            <SelectFieldAsync
                 label={label}
-                style={{minWidth: 200}}
                 multiple={multiple}
-                record={data!}
-                disabled={type === Component.List ? readOnly : false}
+                record={state}
+                disabled={readOnly}
                 query={query}
-                propName={propName}
-                preRenderMap={preRenderMap}
-                value={overrideSelectValue}
-                onChangeEvent={(value: string[]) => {
-                    const stateValue = multiple
-                        ? value.length > 0 ? value : null
-                        : value[0] ?? null;
-                    onChange(stateValue);
-                }}
+                value={value || (multiple ? [] : null)}
+                onChangeEvent={onChange}
             />
         );
     }

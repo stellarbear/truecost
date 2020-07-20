@@ -1,12 +1,10 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useState, useContext} from "react";
 import {createStyles, Fade, IconButton, makeStyles, Snackbar, Theme} from "@material-ui/core";
 import Close from "@material-ui/icons/Close";
 import {colors} from "theme";
 
-//  https://stackoverflow.com/questions/41030361/how-to-update-react-context-from-inside-a-child-component
 const NotificationContext = createContext({
-    message: "",
-    notify: (_: string): void => {
+    notify: (data: string, meta?: Record<string, any>): void => {
     },
 });
 
@@ -28,8 +26,8 @@ const NotifyWrapper: React.FC<NotifyProps> = ({children, timeout = 4096}): JSX.E
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
 
-    const notify = (message: string): void => {
-        setMessage(message);
+    const notify = (message: string, meta: Record<string, any> = {}): void => {
+        setMessage(message + Object.keys(meta).map(key => `\n[${key}]: ${meta[key]}`));
         setOpen(true);
     };
 
@@ -40,14 +38,14 @@ const NotifyWrapper: React.FC<NotifyProps> = ({children, timeout = 4096}): JSX.E
     const renderSnackBar = (): JSX.Element => {
         return (
             <Snackbar
-                style={{marginTop: 80, backgroundColor: colors.primaryColor}}
+                style={{marginTop: 80, backgroundColor: colors.primaryColor, whiteSpace: "pre-wrap"}}
                 ContentProps={{
                     classes: {
                         root: classes.root,
                     },
                 }}
                 autoHideDuration={timeout}
-                anchorOrigin={{vertical: "top", horizontal: "right"}}
+                anchorOrigin={{vertical: "top", horizontal: "center"}}
                 open={open}
                 message={message}
                 onClose={handleClose}
@@ -59,7 +57,7 @@ const NotifyWrapper: React.FC<NotifyProps> = ({children, timeout = 4096}): JSX.E
                         color='inherit'
                         onClick={handleClose}
                     >
-                        <Close/>
+                        <Close />
                     </IconButton>
                 )}
             />
@@ -67,7 +65,7 @@ const NotifyWrapper: React.FC<NotifyProps> = ({children, timeout = 4096}): JSX.E
     };
 
     return (
-        <NotificationContext.Provider value={{message, notify}}>
+        <NotificationContext.Provider value={{notify}}>
             <React.Fragment>
                 {children}
                 {renderSnackBar()}
@@ -75,5 +73,7 @@ const NotifyWrapper: React.FC<NotifyProps> = ({children, timeout = 4096}): JSX.E
         </NotificationContext.Provider>
     );
 };
+
+export const useNotification = () => useContext(NotificationContext);
 
 export {NotifyWrapper, NotificationContext};

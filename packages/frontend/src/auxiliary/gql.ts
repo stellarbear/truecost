@@ -9,6 +9,7 @@ const getResolverName = (input: any) => {
             .name
             .value;
     } catch {
+        debugger;
         const text: string = input.loc.source.body;
         const start = text.indexOf("{");
         const end = text.indexOf("(", start);

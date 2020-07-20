@@ -1,186 +1,65 @@
 import React, {useEffect} from "react";
-import {Card, Divider, Drawer, Grid, IconButton, Menu, MenuItem, Tooltip, Typography} from "@material-ui/core";
+import {Card, Divider, Drawer, Grid, IconButton, Menu, MenuItem, Tooltip, Typography, Button, TableRow, TableCell, Table, TableBody} from "@material-ui/core";
 import FilterList from "@material-ui/icons/FilterList";
 
 import {ItemProp} from "./types";
 import {PaginationContext} from "./Pagination";
-import {Component} from "./types/ABase";
 import {Storage} from "auxiliary/storage";
 import {ReactSortable} from "react-sortablejs";
 import {Col} from "pages/Base/Grid";
 
-interface IItem {
-    id: string;
-
-    [key: string]: any;
-}
-
 interface UserListProps {
-    title: string;
     props: ItemProp[];
-    updateTimeout?: number;
 }
 
-const Filter: React.FC<UserListProps> = ({
-    title,
+const defaultState = (props: ItemProp[]) =>
+    props.reduce((acc, cur) => Object.assign(acc, {[cur.data.key]: undefined}), {});
+
+export const Filter: React.FC<UserListProps> = ({
     props,
-    updateTimeout = 500,
-}): JSX.Element => {
-    const storageBaseKey = ["admin", "list", "columns", "filter", title.toLowerCase().replace(/\s/, "_")];
-    const storageVisibleKey = [...storageBaseKey, "visibility"];
-    const storageOrderKey = [...storageBaseKey, "order"];
-
-    const visibleKeys = props.map((prop: ItemProp) => prop.key);
-    const [orderColumns, setOrderColumns] = React.useState<string[]>(props.map((prop: ItemProp) => prop.key));
-    const [visibleColumns, setVisibleColumns] = React.useState<string[]>(visibleKeys);
-    const sortedProps = (orderColumns || []).map(o => props.find(p => p.key === o)!);
-    const [filterAnchorEl, setFilterAnchorEl] = React.useState<null | HTMLElement>(null);
-
-    const {updateQueryParams} = React.useContext(PaginationContext);
-    const defaultState = props.reduce((obj, prop) => Object.assign(obj, {[prop.key]: undefined}), {});
-    const [state, setState] = React.useState<any>(defaultState);
-    const [debounceTimerID, setDebounceTimerID] = React.useState<NodeJS.Timeout>();
+}) => {
+    const [state, setState] = React.useState<any>(defaultState(props));
 
     const [drawer, setDrawer] = React.useState(false);
 
-    useEffect(() => {
-        setOrderColumns(Storage.getItem(storageOrderKey, orderColumns)
-            .filter((e: string) => visibleKeys.includes(e)));
-        setVisibleColumns(Storage.getItem(storageVisibleKey, visibleKeys)
-            .filter((e: string) => visibleKeys.includes(e)));
-    }, []);
-
-    const onVisibleChange = (columns: string[]) => {
-        if (columns.length > 0) {
-            setVisibleColumns(columns);
-            Storage.setItem(storageVisibleKey, columns);
-        }
-    };
-
     const onChange = (prop: string, value: any) => {
-        if (debounceTimerID) {
-            clearTimeout(debounceTimerID);
-        }
-
+        console.log(prop, value)
         const newState = {...state, [prop]: value};
+        console.log(newState);
         setState(newState);
-
-        const timer = setTimeout(() => {
-            const params = {...newState};
-            Object.keys(params).forEach(key => params[key] == undefined && delete params[key]);
-            console.log(params);
-            updateQueryParams({...params});
-        }, updateTimeout);
-        setDebounceTimerID(timer);
     };
 
-    const buildVisibleFilter = () => {
-        return (
-            <React.Fragment>
-                <Tooltip title="Select columns" placement="top" style={{marginRight: 8}}>
-                    <IconButton
-                        onClick={(event) => {
-                            setFilterAnchorEl(event.currentTarget);
-                            event.stopPropagation();
-                        }}
-                        aria-label="filter list">
-                        <FilterList />
-                    </IconButton>
-                </Tooltip>
-                <Menu
-                    onClick={(e) => e.stopPropagation()}
-                    keepMounted
-                    disableScrollLock
-                    anchorEl={filterAnchorEl}
-                    onClose={() => setFilterAnchorEl(null)}
-                    open={Boolean(filterAnchorEl)}
-                >
-                    <ReactSortable
-                        list={sortedProps}
-                        setList={state => {
-                            if (sortedProps.length != state.length) {
-                                return;
-                            }
+    const render = (prop: ItemProp) => {
+        const {data: {key}} = prop;
 
-                            const cid = sortedProps.map(c => c.id);
-                            const sid = state.map(s => s.id);
-                            const hasChanges = cid.join() !== sid.join();
-                            if (hasChanges) {
-                                const order = state.map(s => s.key);
-                                setOrderColumns(order);
-                                Storage.setItem(storageOrderKey, order);
-                            }
-                        }}>
-                        {
-                            sortedProps
-                                .map((prop) =>
-                                    <MenuItem
-                                        value={prop.key}
-                                        key={`selected-filter-prop-${prop.key}`}
-                                        selected={visibleColumns.includes(prop.id)}
-                                        onClick={(event) => {
-                                            event.stopPropagation();
-                                            const selected = visibleColumns.includes(prop.id);
-                                            const newColumns = selected
-                                                ? visibleColumns.filter(c => c !== prop.id)
-                                                : [...visibleColumns, prop.id];
-                                            onVisibleChange(newColumns);
-                                        }}
-                                    >
-                                        {prop.key}
-                                    </MenuItem>)
-
-                        }
-                    </ReactSortable>
-                </Menu>
-            </React.Fragment>
-        );
-    };
-
-    const buildFilter = (prop: ItemProp) => {
-        const {key} = prop;
-        const value = state[key];
-        const id = "filter";
-
-        return prop.render({
-            id,
-            data: state,
-            value,
-            errors: [],
-            component: Component.Filter,
-            onChange: (event: any) => onChange(key, event),
-        });
+        return prop.renderFilter({
+            value: state[key],
+            state,
+            onChange: (value: any) => onChange(key, value),
+        } as any);
     };
 
     return (
         <React.Fragment>
-            <Card onClick={() => setDrawer(true)}
-                style={{
-                    display: "flex",
-                    padding: "8px 0px 8px 16px",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    alignSelf: "flex-end",
-                }}>
+            <Button variant="contained" onClick={() => setDrawer(true)}>
                 <Typography>Filter records</Typography>
-                {buildVisibleFilter()}
-            </Card>
+            </Button>
             <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
                 <Col s={16} fullWidth p={16}
                     style={{minWidth: 400}} >
-                    <Divider style={{minWidth: "330px", marginBottom: 16}} />
-                    {sortedProps
-                        .filter((prop: ItemProp) => visibleColumns.includes(prop.key))
-                        .map((prop: ItemProp) =>
-                            <Grid item key={`filter-${prop.key}`}>
-                                {buildFilter(prop)}
-                            </Grid>,
-                        )}
+                    <Divider  />
+                    <Table size="small" style={{width: 'auto'}}>
+                        <TableBody>
+                            {props.map((prop, index) =>
+                                <TableRow key={`${prop.data.key}-${index}`}>
+                                    <TableCell align="right" style={{width: '100%'}}>{render(prop)}</TableCell>
+                                    <TableCell align="left">{prop.data.label}</TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
                 </Col>
             </Drawer>
         </React.Fragment>
     );
 };
-
-export default Filter;

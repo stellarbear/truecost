@@ -1,6 +1,6 @@
 import * as React from "react";
 import CRUD from "components/generic/CRUD";
-import {CDate, CImageList, CString, CStringCustom} from "components/generic/types";
+import {CDate, CImage, CString, CCustom} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import EditorPost from "components/EditorPost";
 import {meta} from "./Base/Meta";
@@ -20,7 +20,7 @@ export const AdminBlog: React.FC = () => {
     });
 
 
-    const image = new CImageList({
+    const image = new CImage({
         key: "images",
         label: "image",
         ext: "jpg",
@@ -28,14 +28,16 @@ export const AdminBlog: React.FC = () => {
     });
 
     const date = new CDate({
+        type: "datetime-local",
         key: "date",
         label: "date",
     });
 
-    const text = new CStringCustom({
+    const text = new CCustom({
+        base: "",
         key: "text",
         label: "text",
-        component: <EditorPost/>,
+        component: <EditorPost />,
     });
 
     const preview = new CString({
