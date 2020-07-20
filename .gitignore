@@ -2,6 +2,9 @@
 packages/**/dist
 packages/**/build
 packages/backend/static/*
+packages/shared/build/
+packages/backend/build/
+packages/frontend/build/
 node_modules/
 coverage/
 dist/

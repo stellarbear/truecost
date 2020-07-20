@@ -15,6 +15,7 @@ const AuthRoute: React.FC<AuthRouteProps> = ({
     const {store: {user: {data: user}}} = React.useContext(DataContext);
 
     const buildRoute = () => {
+        /*
         if (user == undefined && !unauthorized) {
             console.log("redirect 1", user);
             return <Redirect to={"/"}/>;
@@ -23,7 +24,7 @@ const AuthRoute: React.FC<AuthRouteProps> = ({
         if (!(role.length > 0) && user && role.includes(user.role)) {
             console.log("redirect 2");
             return <Redirect to={"/"}/>;
-        }
+        }*/
 
         return <Route {...rest} />;
     };
