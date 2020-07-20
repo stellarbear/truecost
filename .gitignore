@@ -1,6 +1,7 @@
 .idea/
 packages/**/dist
 packages/**/build
+packages/backend/static/*
 node_modules/
 coverage/
 dist/
