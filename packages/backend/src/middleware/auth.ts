@@ -2,10 +2,20 @@ import {MiddlewareFn} from "type-graphql";
 import {assert} from "../helpers/assert";
 import {RoleType} from "@truecost/shared";
 import {Context} from "../server";
+import {DI} from "../orm";
+import {redis} from "../redis";
 
 const UseAuth: (roles?: RoleType[]) => MiddlewareFn<Context> =
-    (roles?: RoleType[]) => async ({context: {user}}, next) => {
-        assert(user, "not authenticated");
+    (roles?: RoleType[]) => async ({context: {req}}, next) => {
+        assert(req.session, "session failure");
+        const {sid} = req.session;
+        assert(sid, "must be logged in");
+
+        const userId = await redis.client.get(`session-${sid}`);
+        assert(userId, "key not found");
+
+        const user = await DI.userRepo.findOne({id: userId});
+        assert(user, "user not found");
 
         if (!roles || roles.length === 0) {
             return next();

@@ -21,6 +21,7 @@ const destroySession = (ctx: Context) => {
     );
 };
 
+//TODO: session middleware
 @Resolver()
 export class SessionResolver {
     userRepo = DI.em.getRepository(UserEntity);
@@ -38,14 +39,11 @@ export class SessionResolver {
 
         const verify = await pbkdf2.validate(user.password, password, user.salt);
         assert(verify, "invalid password");
+        assert(ctx.req.session, "session failure");
 
         const session = v4();
-        const key = `${redis.keys.session}:${session}`;
-
-        await redis.client.set(key + '-user', user.id, "ex", redis.duration.month);
-        await redis.client.set(key + '-session', user.session, "ex", redis.duration.month);
-
-        assert(ctx.req.session, "session failure");
+        await redis.client.sadd(`user-${user.id}`, session);
+        await redis.client.set(`session-${session}`, user.id, "ex", redis.duration.week);
         ctx.req.session.sid = session;
 
         return user;
@@ -53,11 +51,18 @@ export class SessionResolver {
 
     @Mutation(() => Boolean)
     async UserInvalidate(@Ctx() ctx: Context) {
-        const {user} = ctx;
-        assert(user, "user not found");
+        assert(ctx.req.session, "session failure");
+        const {sid} = ctx.req.session;
+        assert(sid, "must be logged in");
 
-        user.session = v4();
-        await this.userRepo.persistAndFlush(user);
+        const userId = await redis.client.get(`session-${sid}`);
+        if (userId) {
+            return false;
+        }
+
+        const sessionIds = await redis.client.smembers(`user-${userId}`);
+        await redis.client.del(sessionIds.map(s => `session-${s}`))
+        await redis.client.del(`user-${userId}`);
 
         return destroySession(ctx);
     }
@@ -68,9 +73,11 @@ export class SessionResolver {
         const {sid} = ctx.req.session;
         assert(sid, "already logged out");
 
-        const key = `${redis.keys.session}:${sid}`;
-        await redis.client.del(key + '-user');
-        await redis.client.del(key + '-session');
+        const userId = await redis.client.get(`session-${sid}`);
+        await redis.client.del(`session-${sid}`);
+        if (userId) {
+            await redis.client.srem(userId, sid);
+        }
 
         return destroySession(ctx);
     }
@@ -78,6 +85,19 @@ export class SessionResolver {
     @Query(() => UserEntity, {nullable: true})
     async UserWhoAmI(
         @Ctx() ctx: Context) {
-        return ctx.user;
+        assert(ctx.req.session, "session failure");
+        const {sid} = ctx.req.session;
+        if (!sid) {
+            return null;
+        }
+
+        const userId = await redis.client.get(`session-${sid}`);
+        if (!userId) {
+            return null;
+        }
+
+        const user = await DI.userRepo.findOne({id: userId});
+
+        return user;
     }
 }

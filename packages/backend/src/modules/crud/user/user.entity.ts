@@ -19,8 +19,6 @@ export class UserEntity extends BaseEntity implements IUser {
     @Property()
     password: string = "";
     @Property()
-    session: string = v4();
-    @Property()
     salt: string = "";
 
     @Property()

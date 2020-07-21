@@ -21,7 +21,6 @@ import * as gql from "fastify-gql";
 export interface Context {
     req: express.Request;
     res: express.Response;
-    user?: UserEntity;
 }
 
 //TODO: fastify-rate-limit
@@ -71,37 +70,10 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
             return error;
         },*/
         context: async (req: any, res: any) => {
-            //TODO: 
-            /*
-            session: HSET : { user: id, validate: id }
-            user: SET: {session[]}
-            */
-           
             DI.em.clear();
-            const sid = req.session.sid;
+            const {sid} = req.session;
             console.log('sid', sid);
-
-            if (!sid) {
-                return ({req, res});
-            }
-
-            console.log('cookie present');
-
-            const key = `${redis.keys.session}:${sid}`;
-            const userId = await redis.client.get(key + '-user');
-            const sessionId = await redis.client.get(key + '-session');
-
-            if (!userId || !sessionId) {
-                return ({req, res});
-            }
-
-            const user = await DI.userRepo.findOne({id: userId});
-            if (!user || user.session !== sessionId) {
-                return ({req, res});
-            }
-            console.log(user.role);
-
-            return ({req, res, user});
+            return ({req, res});
         }
     })
 
