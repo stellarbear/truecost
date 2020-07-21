@@ -86,8 +86,7 @@ server
 
         console.log('cookies', req.header('Cookie'));
         const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST!);
-
-        console.log('assets passed', assets.client.css, assets.client.js);
+        
         renderToStringWithData(sheets.collect(app)).then((content) => {
             const initialState = client.extract();
             const html = <Html assets={assets} css={sheets.toString()} content={content} state={initialState} />;

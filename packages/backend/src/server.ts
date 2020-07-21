@@ -51,6 +51,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         //resave: false,
         saveUninitialized: false,
         cookie: {
+            domain: ".truecostd2.store",
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             maxAge: 1000 * 60 * 60 * 24 * 7 * 365,
@@ -75,15 +76,16 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
             session: HSET : { user: id, validate: id }
             user: SET: {session[]}
             */
-
-            console.log('context');
+           
             DI.em.clear();
             const sid = req.session.sid;
-            console.log('sid');
+            console.log('sid', sid);
 
             if (!sid) {
                 return ({req, res});
             }
+
+            console.log('cookie present');
 
             const key = `${redis.keys.session}:${sid}`;
             const userId = await redis.client.get(key + '-user');
