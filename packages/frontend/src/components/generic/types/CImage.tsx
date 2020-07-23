@@ -8,7 +8,7 @@ import {Col, Row} from "pages/Base/Grid";
 import {Badge} from "@material-ui/core";
 import SelectImage from "components/generic/components/SelectImage";
 import {Zoom} from "components";
-import {baseUri} from "auxiliary/route";
+import {serverUri} from "auxiliary/route";
 
 export interface IImage extends ICtor<any> {
     limit?: number;
@@ -52,7 +52,7 @@ export class CImage extends ABase<any> {
                         const imageSrc = (typeof val != "string")
                             ? URL.createObjectURL(val)
                             : id
-                                ? `${baseUri}/${id}/${val}/u.${ext}`
+                                ? `${serverUri}/${id}/${val}/u.${ext}`
                                 : null;
 
 

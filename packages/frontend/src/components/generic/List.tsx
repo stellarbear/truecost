@@ -29,7 +29,7 @@ import {NotificationContext} from "components/wrappers";
 import {TimeoutButton} from "components";
 import {colors} from "theme";
 import {ItemProp} from "./types";
-import {getResolverName, parseQLErrors} from "auxiliary";
+import {getResolverName} from "auxiliary";
 import {PaginationContext} from "./Pagination";
 import {Storage} from "auxiliary/storage";
 
@@ -108,9 +108,9 @@ export const List: React.FC<UserListProps> = ({
             }
         } catch (e) {
             debugger;
-            const fail = parseQLErrors(e)
-            setErrors({id: {...fail}});
-            notify(`constrains failed`, fail);
+            /*const fail = parseQLErrors(e)
+            setErrors({id: {...fail}});*/
+            //notify(`constrains failed`, fail);
         } finally {
             setLoading(false);
         }

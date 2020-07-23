@@ -22,7 +22,7 @@ export class UserEntity extends BaseEntity implements IUser {
     salt: string = "";
 
     @Property()
-    confirmed: boolean = false;
+    verified: boolean = false;
 
     @Field(() => [BookingEntity], {nullable: true})
     @OneToMany(() => BookingEntity, booking => booking.user)

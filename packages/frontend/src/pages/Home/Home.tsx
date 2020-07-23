@@ -14,7 +14,7 @@ import {
 import "css/float.css";
 import {DataContext} from "../Data/Wrapper";
 import Parallax from "components/Parallax";
-import {baseUri} from "auxiliary/route";
+import {serverUri} from "auxiliary/route";
 import {Intro} from "./Intro";
 import {TrustPilot} from "./TrustPilot";
 import {HowTo} from "./HowTo";
@@ -27,7 +27,7 @@ interface IHomeProps {
 const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
     const {current: {game}} = useContext(DataContext);
     const current = game!;
-    const image = `${baseUri}/${current.id}/${current.background}/u.jpg`
+    const image = `${serverUri}/${current.id}/${current.background}/u.jpg`
 
     return (
         <React.Fragment>

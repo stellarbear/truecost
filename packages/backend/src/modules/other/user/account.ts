@@ -6,7 +6,10 @@ import {assert} from "../../../helpers/assert";
 import {wrap} from "mikro-orm";
 import {pbkdf2} from "../../../helpers/pbkdf2";
 import {redis} from "../../../redis";
-import {RoleType} from "@truecost/shared";
+import {RoleType, validate} from "@truecost/shared";
+import {composeEmail} from "../../../mail/compose";
+import {verificationEmail} from "../../../mail/samples/verification";
+import {domain} from "../../../mail/helpers";
 
 @Resolver(() => UserEntity)
 export class AccountResolver {
@@ -19,21 +22,22 @@ export class AccountResolver {
         @Arg("password") password: string) {
         name = name.trim();
         assert(name.length < 64, "name length must be <= 64", ["name"]);
-        assert(!["root", "mod", "admin", ""].includes(name), "bad name", ["name"]);
+        assert(!["root", "mod", "admin", "truecost"].some(s => name.includes(s)), "bad name", ["name"]);
         assert(name.replace(/[a-zA-Z0-9_]/g, "").length == 0, "bad alphabet", ["name"]);
+        assert(validate("email").test(email),"Does not look like email (:", ["email"]);
 
         let user = await this.userRepo.findOne({email});
-        assert(!user || user.role === RoleType.ANON, "user already exists");
+        if (user) {
+            assert(!user.verified, "user already verified");
+        }
 
         const {hash, salt} = await pbkdf2.generate(password);
         user = user ?? this.userRepo.create({});
 
         wrap(user).assign({
             role: RoleType.USER,
-            confirmed: false,
+            verified: false,
             password: hash,
-            session: v4(),
-            active: true,
             email,
             name,
             salt,
@@ -41,43 +45,40 @@ export class AccountResolver {
 
         await this.userRepo.persistAndFlush(user);
 
-        const key = `${redis.keys.confirm}:${v4()}`;
-        await redis.client.set(key, user.id, "ex", redis.duration.day);
+        try {
+            const verify = v4();
+
+            await composeEmail({
+                to: email,
+                template: verificationEmail(verify, user.id),
+                subject: 'Account verification',
+                text: `Verification link: ${domain}/user/verify/${verify}/${user.id}`
+            })
+            await redis.client.set(`verify-${verify}`, user.id, "ex", redis.duration.day);
+        } catch (e){
+            assert(false, e);
+        }
 
         return true;
     }
 
-    @Mutation(() => Boolean)
-    async UserConfirmResend(
-        @Arg("email") email: string,
+    @Mutation(() => UserEntity)
+    async UserVerify(
+        @Arg("verify") verify: string,
+        @Arg("value") value: string,
     ) {
-        const user = await this.userRepo.findOne({email});
-        assert(user, "email not found", ["email"]);
+        const userId = await redis.client.get(`verify-${verify}`);
+        assert(userId, "key not found");
+        assert(userId === value, "key not found");
 
-        //send email
-
-        const key = `${redis.keys.confirm}:${v4()}`;
-        await redis.client.set(key, user.id, "ex", redis.duration.day);
-
-        return true;
-    }
-
-    @Mutation(() => Boolean)
-    async UserConfirm(
-        @Arg("confirm") confirm: string,
-    ) {
-        const key = `${redis.keys.confirm}:${confirm}`;
-        const id = await redis.client.get(key);
-        assert(id, "key not found");
-
-        const user = await this.userRepo.findOne({id});
+        const user = await this.userRepo.findOne({id: userId});
         assert(user, "user not found");
 
-        user.confirmed = true;
-        await redis.client.del(key);
+        user.verified = true;
         await this.userRepo.persistAndFlush(user);
+        await redis.client.del(`verify-${verify}`);
 
-        return true;
+        return user;
     }
 
     @Mutation(() => Boolean)

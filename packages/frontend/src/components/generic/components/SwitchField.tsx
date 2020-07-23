@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {createStyles, FormGroup, makeStyles, Switch, Theme, Typography} from "@material-ui/core";
 import {SwitchProps} from "@material-ui/core/Switch";
 import {Row} from "pages/Base/Grid";
-import {useEventState} from "../useEventState";
+import {useEventState} from "../../../auxiliary/useEventState";
 import {CSSProperties} from "@material-ui/core/styles/withStyles";
 
 interface IProps extends SwitchProps {

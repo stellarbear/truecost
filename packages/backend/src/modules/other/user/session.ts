@@ -34,7 +34,7 @@ export class SessionResolver {
     ) {
         const user = await this.userRepo.findOne({email});
         assert(user, "user not found");
-        assert(user.confirmed, "user not yet confirmed");
+        assert(user.verified, "user not yet verified");
         assert(user.active, "account disabled");
 
         const verify = await pbkdf2.validate(user.password, password, user.salt);

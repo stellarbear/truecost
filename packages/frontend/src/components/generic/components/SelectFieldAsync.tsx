@@ -1,7 +1,7 @@
 import {Chip, createStyles, FormControl, InputLabel, makeStyles, MenuItem, Select, Theme, TextField, CircularProgress, Typography} from "@material-ui/core";
 import * as React from "react";
 import {SelectProps} from "@material-ui/core/Select";
-import {useEventState} from "../useEventState";
+import {useEventState} from "../../../auxiliary/useEventState";
 import {Autocomplete} from "@material-ui/lab";
 import {gql} from "apollo-boost";
 import {useLazyQuery} from "react-apollo";

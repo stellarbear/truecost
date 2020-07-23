@@ -16,6 +16,9 @@ import Shop from "pages/Shop/Shop";
 import {Login} from "pages/User";
 import {Item} from "pages/Item/Item";
 import {LoadingWrapper} from "components/wrappers/LoadingWrapper";
+import {Register} from "pages/User/Register/Register";
+import {RegisterMessage} from "pages/User/Register/RegisterMessage";
+import {RegisterVerify} from "pages/User/Register/RegisterVerify";
 
 
 const App = () => {
@@ -42,6 +45,9 @@ const App = () => {
 									}
 
 									<AuthRoute exact path={`/login`} component={Login} unauthorized />
+									<AuthRoute exact path={`/register`} component={Register} unauthorized />
+									<AuthRoute exact path={`/register/verify/:verify/:value`} component={RegisterVerify} unauthorized />
+									<AuthRoute exact path={`/register/message`} component={RegisterMessage} unauthorized />
 
 									<Route exact path={`/contact`} component={Contact} />
 									<Route exact path={`/policy`} component={Policy} />

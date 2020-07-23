@@ -21,7 +21,7 @@ import AddCircle from "@material-ui/icons/AddCircle";
 import {useMutation} from "react-apollo";
 import {ItemProp} from "./types";
 
-import {getResolverName, parseQLErrors} from "auxiliary";
+import {getResolverName} from "auxiliary";
 import {PaginationContext} from "./Pagination";
 import {NotificationContext} from "components/wrappers";
 import {DocumentNode} from "graphql";
@@ -79,9 +79,9 @@ export const Add: React.FC<AddProps> = ({
             }
         } catch (e) {
             debugger;
-            const fail = parseQLErrors(e)
-            setError({...fail});
-            notify(`constrains failed`, fail);
+            /*const fail = parseQLErrors(e)
+            setError({...fail});*/
+            //notify(`constrains failed`, fail);
         } finally {
             setLoading(false);
         }

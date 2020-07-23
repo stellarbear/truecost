@@ -4,7 +4,7 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import {BaseTextFieldProps} from "@material-ui/core/TextField";
 import {Col, Row} from "pages/Base/Grid";
-import {useEventState} from "../useEventState";
+import {useEventState} from "../../../auxiliary/useEventState";
 
 interface IProps extends BaseTextFieldProps {
     min?: number;

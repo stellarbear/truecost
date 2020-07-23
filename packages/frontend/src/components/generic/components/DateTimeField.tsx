@@ -1,6 +1,6 @@
 import * as React from "react";
 import {DateTimePicker, DateTimePickerProps} from "@material-ui/pickers";
-import {useEventState} from "../useEventState";
+import {useEventState} from "../../../auxiliary/useEventState";
 import {TextField, BaseTextFieldProps} from "@material-ui/core";
 
 export type IDateTimePickerType = "datetime-local" | "date" | "time";

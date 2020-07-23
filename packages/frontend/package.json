@@ -7,12 +7,13 @@
 	],
 	"scripts": {
 		"clean": "yarn build:clean",
-		"build": "yarn build:clean && yarn build:razle razzle build",
-		"build:razle": "cross-env RAZZLE_APP_ENV=production",
+		"watch": "yarn build:watch",
+		"build": "yarn build:clean && yarn cross-env RAZZLE_APP_ENV=production razzle build",
 		"build:clean": "rimraf build tsconfig.tsbuildinfo",
-		"build:watch": "yarn start",
-		"watch": "yarn build:clean && razzle start",
-		"start": "node build/server"
+		"build:watch": "yarn -v",
+		
+		"start": "node build/server",
+		"start:watch": "razzle start"
 	},
 	"private": true,
 	"license": "MIT",

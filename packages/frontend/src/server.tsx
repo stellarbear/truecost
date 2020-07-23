@@ -67,7 +67,7 @@ function Html({assets, css, content, state}: {assets: IAssets, css: string, cont
 
 server
     .disable("x-powered-by")
-    .use(express.static(environment == "developement" ? process.env.RAZZLE_PUBLIC_DIR! : path.join(__dirname, '../build/public')))
+    .use(express.static(environment == "development" ? process.env.RAZZLE_PUBLIC_DIR! : path.join(__dirname, '../build/public')))
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
         const sheets: ServerStyleSheets = new ServerStyleSheets();

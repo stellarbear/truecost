@@ -8,7 +8,7 @@ import {
     Typography,
 } from "@material-ui/core";
 import {NotificationContext} from "../../components/wrappers";
-import {baseUri} from "auxiliary/route";
+import {serverUri} from "auxiliary/route";
 import {Link, RouteComponentProps, withRouter, Redirect} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
 import {Price} from '@truecost/shared';
@@ -74,7 +74,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     )
 
     const card = () => {
-        const image = `${baseUri}/${item.id}/${item.images[0]}/u.png`;
+        const image = `${serverUri}/${item.id}/${item.images[0]}/u.png`;
         return (
             <ButtonBase component={Link} to={redirect}
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>

@@ -1,7 +1,7 @@
 import React, {CSSProperties, useEffect, useState} from "react";
 import {IconButton, InputAdornment, TextField} from "@material-ui/core";
 import {BaseTextFieldProps} from "@material-ui/core/TextField";
-import {useEventState} from "../useEventState";
+import {useEventState} from "../../../auxiliary/useEventState";
 
 interface IProps extends BaseTextFieldProps {
     editable?: boolean;

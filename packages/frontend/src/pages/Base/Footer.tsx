@@ -52,9 +52,9 @@ const Footer: React.FC<FooterProps> =
             }}>
                 <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                     <Divider className={classes.divider}/>
-                    <Typography variant="body1" color="inherit" style={{margin: 8}}>© Truecost 2019-2020</Typography>
+                    <Typography variant="body2" color="inherit" style={{margin: 8}}>© Truecost 2019-2020</Typography>
                     <Divider className={classes.divider}/>
-                    <Typography variant="body1" color="inherit" style={{textAlign: "center", margin: 8}}>2885 Sanford
+                    <Typography variant="body2" color="inherit" style={{textAlign: "center", margin: 8}}>2885 Sanford
                         Ave SW #46305 Grandville, MI 49418</Typography>
                     <Divider className={classes.divider}/>
                     <div style={{

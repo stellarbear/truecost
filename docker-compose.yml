@@ -10,6 +10,7 @@ services:
       - mongo
       - redis
     volumes:
+      - /opt/creds:/opt/creds:z
       - ./packages/backend:/usr/app/packages/backend:z
       - ./packages/shared/build:/usr/app/packages/shared/build:z
     ports: ["127.0.0.1:7000:7000"]

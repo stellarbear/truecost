@@ -1,11 +1,23 @@
 import {ApolloError} from "apollo-boost";
 
-const parseQlErrors = (error: ApolloError) => {
-    const {message, graphQLErrors} = error;
+//  TODO: refactor this nightmare
+export const parseApolloError = (error: ApolloError): Record<string, any> => {
+    const {message, graphQLErrors, networkError} = error;
     if (!graphQLErrors) {
-        return message;
+        return {message};
     }
-    
+    /*
+        if ((networkError as any)?.result?.errors) {
+            const errors = (networkError as any)?.result?.errors;
+            debugger;
+            if (Array.isArray(errors) && errors.length > 0) {
+                debugger;
+                const prepare = errors.filter(e => e?.message && e?.extensions?.exception?.field)
+                .map(e =>( {message: e.message, field: e.extensions.exception.field}));
+                debugger;
+            }
+        }
+        */
     let objResult = {};
 
     if (message == "GraphQL error: Argument Validation Error") {
@@ -28,5 +40,3 @@ const parseQlErrors = (error: ApolloError) => {
 
     return objResult;
 };
-
-export default parseQlErrors;

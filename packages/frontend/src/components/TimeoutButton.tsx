@@ -8,7 +8,7 @@ interface Props extends IconButtonProps {
     icon: React.ReactNode;
 }
 
-const TimeoutButton: React.FC<Props> = (props) => {
+export const TimeoutButton: React.FC<Props> = (props) => {
     const {
         icon,
         timeout = 5,
@@ -91,5 +91,3 @@ const TimeoutButton: React.FC<Props> = (props) => {
         </div>
     );
 };
-
-export default TimeoutButton;

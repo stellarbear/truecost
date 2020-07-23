@@ -1,7 +1,7 @@
 import {AppBar, Container, Hidden, Toolbar} from "@material-ui/core";
 import React, {useEffect, useState, useContext} from "react";
 import Mobile from "./Mobile";
-import Desktop from "./Desktop";
+import {Desktop} from "./Desktop";
 import ElevationScroll from "components/ElevationScroll";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {Switch, withRouter} from "react-router";

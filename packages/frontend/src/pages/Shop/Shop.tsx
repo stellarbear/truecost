@@ -7,7 +7,7 @@ import {Chip, Grid, TextField, Paper, Container} from "@material-ui/core";
 import {dictSort, dictSortMap} from "auxiliary/sort";
 import {Autocomplete} from "@material-ui/lab";
 import {SafeJSON} from "auxiliary/json";
-import {useStorage} from "pages/Data/useStorage";
+import {useStorage} from "auxiliary/useStorage";
 import {Col, Row} from "pages/Base/Grid";
 import {ArraySlice} from "components/generic/components/ArraySlice";
 import ItemCard from "./ItemCard";

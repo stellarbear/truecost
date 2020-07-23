@@ -9,6 +9,7 @@ import {
     Grid,
     TextField,
     Typography,
+    Paper,
 } from "@material-ui/core";
 import {useMutation} from "react-apollo";
 import React, {useCallback, useEffect} from "react";
@@ -22,6 +23,7 @@ import Alert from "@material-ui/lab/Alert";
 import {useForm} from "react-hook-form";
 import {validate} from "@truecost/shared";
 import {theme} from "theme";
+import {Col, Row} from "pages/Base/Grid";
 
 
 const LOGIN = gql`
@@ -63,13 +65,11 @@ export const Login: React.FC = () => {
 
 
     return (
-        <>
-            <Meta page="login" />
-            <Container maxWidth="xs">
-                <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(logInSubmit)}>
-                    <Typography variant="h5" gutterBottom>Log in</Typography>
-                    <Card>
-                        <CardContent>
+        <Container maxWidth="xs">
+            <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(logInSubmit)}>
+                <Paper>
+                    <Col fullWidth p={16}> 
+                        <Col fullWidth>
                             <TextField
                                 fullWidth
                                 inputRef={register({
@@ -100,27 +100,16 @@ export const Login: React.FC = () => {
                                 helperText={errors.password?.message || " "}
                                 variant="filled"
                             />
-                        </CardContent>
-                        <CardActions>
-                            <Grid
-                                container
-                                justify="space-between"
-                            >
-                                <Button component={Link} to="/user/forget">
-                                    forgot password?
-                                </Button>
-                                <Button variant="contained" type="submit">
-                                    {loading ? <CircularProgress size={24} /> : "LOGIN"}
-                                </Button>
-                            </Grid>
-                        </CardActions>
-                    </Card>
-                    <Box mt={2}>
-                        {error && <Alert severity="error">{error.message}</Alert>}
-                    </Box>
-                </form>
-            </Container>
-        </>
-
+                            <Button fullWidth variant="contained" type="submit">
+                                {loading ? <CircularProgress size={24} /> : "LOGIN"}
+                            </Button>
+                        </Col>
+                    </Col>
+                </Paper>
+                <Box mt={2}>
+                    {error && <Alert severity="error">{error.message}</Alert>}
+                </Box>
+            </form>
+        </Container>
     );
 };

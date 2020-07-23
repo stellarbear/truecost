@@ -30,7 +30,7 @@ const DataContext = createContext<IDataContext>({} as IDataContext);
 
 const Raw: React.FC = ({children}) => {
     const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true});
-    
+
     if (loading) {
         return <span>Loading</span>;
     }
@@ -52,6 +52,10 @@ const Data: React.FC = ({children}) => {
     const {state: user, setState: setUser} = useUser(store.user);
     const {state: game, setState: setGame} = useGame(store.game);
 
+    console.log('data,', store);
+    console.log('user,', user);
+    console.log('game,', game);
+
     return (
         <DataContext.Provider value={{
             store,
@@ -71,5 +75,6 @@ const Data: React.FC = ({children}) => {
 };
 
 const DataWrapper = Raw;
+export const useStore = () => useContext(DataContext);
 
 export {DataWrapper, DataContext};
