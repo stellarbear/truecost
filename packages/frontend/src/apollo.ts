@@ -39,6 +39,7 @@ const enchancedFetch = (url, init) => {
 }*/
 
 const createApolloClient = ({browser}: IApolloClient, cookie?: string) => {
+    console.log('cookie yum yum yum', cookie)
     if (browser) {
         console.log('state', window.apolloState);
     }

@@ -85,7 +85,6 @@ server
             </ApolloProvider>
         );
 
-        console.log('cookies', req.header('Cookie'));
         const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST!);
 
         renderToStringWithData(sheets.collect(app)).then((content) => {

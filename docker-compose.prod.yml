@@ -14,6 +14,8 @@ services:
       - ./packages/backend:/usr/app/packages/backend:z
       - ./packages/shared/build:/usr/app/packages/shared/build:z
     ports: ["127.0.0.1:7000:7000"]
+    environment:
+      NODE_ENV: "production"
     command: yarn workspace @truecost/backend start
 
   frontend:
