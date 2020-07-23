@@ -157,6 +157,7 @@ export const List: React.FC<UserListProps> = ({
         const {data: {key}} = prop;
 
         return prop.renderAdd({
+            id: item.id,
             value: item[key],
             error: errors?.[item.id]?.[key],
             state: item,

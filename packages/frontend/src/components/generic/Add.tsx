@@ -1,17 +1,8 @@
 import * as React from "react";
 import {
     Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    IconButton,
-    List,
-    ListItem,
-    Tooltip,
     Typography,
     Drawer,
-    Divider,
     Table,
     TableBody,
     TableRow,
@@ -29,6 +20,7 @@ import {normalize} from "./normalize";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 import {useShared} from "./CRUD";
+import {parseApolloError} from "auxiliary/error";
 
 interface AddProps {
     props: ItemProp[];
@@ -40,10 +32,7 @@ const defaultState = (props: ItemProp[]) =>
 
 type IState = Record<string, any>
 
-export const Add: React.FC<AddProps> = ({
-                                            props,
-                                            mutation,
-                                        }) => {
+export const Add: React.FC<AddProps> = ({props, mutation}) => {
     const {setLoading} = useLoading();
     const [create] = useMutation(mutation);
     const {notify} = useNotification();
@@ -58,12 +47,12 @@ export const Add: React.FC<AddProps> = ({
     }
 
     const onChange = (key: string, value: any) => {
-        console.log('yoooo', {...state, [key]: value})
         onStateChange({...state, [key]: value})
     };
 
     const onAdd = async () => {
         try {
+            debugger;   
             setLoading(true);
             console.log('trying create', normalize(state))
             const response = await create({variables: {input: normalize(state)}});
@@ -77,9 +66,9 @@ export const Add: React.FC<AddProps> = ({
             }
         } catch (e) {
             debugger;
-            /*const fail = parseQLErrors(e)
-            setError({...fail});*/
-            //notify(`constrains failed`, fail);
+            const fail = parseApolloError(e)
+            setError({...fail});
+            notify(`constrains failed`, fail);
         } finally {
             setLoading(false);
         }
@@ -116,13 +105,13 @@ export const Add: React.FC<AddProps> = ({
             </Button>
             <Drawer anchor={'right'} open={drawer} onClose={() => setDrawer(false)}>
                 <Col s={16} fullWidth p={16}
-                     style={{minWidth: 400, overflow: "hidden"}}>
+                    style={{minWidth: 400, overflow: "hidden"}}>
                     <div style={{height: "90vh", overflow: "auto"}}>
                         {table()}
                     </div>
                     <Button variant="contained"
-                            fullWidth color="primary"
-                            onClick={() => onAdd()}>
+                        fullWidth color="primary"
+                        onClick={() => onAdd()}>
                         Add record
                     </Button>
                 </Col>

@@ -36,14 +36,15 @@ export class CImage extends ABase<any> {
     ImageList({value, onChange, id}: IRender<any>) {
         const {label, base} = this.data;
         const {limit, ext, size} = this;
-        const dimension = 128;
+        const dimension = 64;
 
         const images: File | string[] = Array.isArray(value) ? value : [];
 
         //TODO: refactor
         return (
-            <Row style={{
-                overflow: "auto",
+            <Row p={8} style={{
+                overflowX: "auto",
+                overflowY: "hidden",
                 maxWidth: 300,
                 flexWrap: "nowrap",
             }}>
@@ -87,7 +88,7 @@ export class CImage extends ABase<any> {
                     })
                 }
                 {(limit === 0 || images.length < limit) && (
-                    <div key={`${id}-new`} style={{padding: "16px 8px"}}>
+                    <div key={`${id}-new`}>
                         <SelectImage
                             ext={ext}
                             size={size}

@@ -43,7 +43,6 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         limits: {fileSize: 6 * 1024 * 1024},
     })
     app.register(fastifycookie);
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", process.env.NODE_ENV === "production")
     app.register(fastifysession, {
         store: new store({client: redis.client}),
         cookieName: sessionCookieName,
