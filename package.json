@@ -13,7 +13,7 @@
     "watch:backend": "yarn workspace @truecost/backend watch",
     "watch:frontend": "yarn workspace @truecost/frontend start:watch",
 
-    "build": "lerna run build"
+    "build": "yarn workspace @truecost/shared build && yarn workspace @truecost/backend build && yarn workspace @truecost/frontend build"
   },
   "devDependencies": {
     "@types/node": "^14.0.13",

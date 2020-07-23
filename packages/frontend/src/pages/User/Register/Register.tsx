@@ -53,10 +53,11 @@ export const Register: React.FC = () => {
                 clearErrors();
                 setLoading(true);
                 await mutation({variables: {...data}});
-                setLoading(false);
             } catch (e) {
                 const errors = parseApolloError(e);
                 Object.keys(errors).map(key => setError(key as any, errors[key]));
+            } finally {
+                setLoading(false);
             }
         },
         [],

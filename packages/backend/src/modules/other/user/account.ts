@@ -29,6 +29,7 @@ export class AccountResolver {
         let user = await this.userRepo.findOne({email});
         if (user) {
             assert(!user.verified, "user already verified");
+            assert(!user.active, "account is disabled");
         }
 
         const {hash, salt} = await pbkdf2.generate(password);
@@ -38,6 +39,7 @@ export class AccountResolver {
             role: RoleType.USER,
             verified: false,
             password: hash,
+            active: true,
             email,
             name,
             salt,
