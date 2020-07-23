@@ -10,8 +10,8 @@ export const footer = () => {
         <mj-section>
         <mj-column width="100%" padding="0">
             <mj-social font-size="15px" icon-size="30px" mode="horizontal" padding="0" align="center">
-            ${Object.keys(social).map(key => 
-                `<mj-social-element href="${key}" background-color="#A1A0A0" src="${iconUri(key)}"></mj-social-element>`)}
+            ${Object.keys(social).map(key =>
+        `<mj-social-element href="${key}" background-color="#A1A0A0" src="${iconUri(key)}"></mj-social-element>`)}
             </mj-social>
             <mj-text color="#445566" font-size="11px" align="center" line-height="16px">
             2885 Sanford Ave SW #46305 Grandville, MI 49418

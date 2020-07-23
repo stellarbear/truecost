@@ -9,7 +9,7 @@ interface IProps {
 
 export const ItemDivider: React.FC<IProps> = (props) => {
     const {item, prop} = props;
-    const render = <Divider style={{margin: 8}} />;
+    const render = <Divider style={{margin: 8}}/>;
 
     if (!item || !prop) {
         return render;

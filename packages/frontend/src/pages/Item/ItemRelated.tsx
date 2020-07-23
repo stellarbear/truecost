@@ -33,14 +33,14 @@ export const ItemRelated: React.FC<IProps> = (props) => {
     const itemId = item.id
 
     const {current: {shop, game: {url}}} = React.useContext(DataContext);
-    const {items, } = shop();
+    const {items,} = shop();
 
     const related = useRelated(items.id);
 
     return (
         <Col left>
             {related.length > 0 && (
-                related.map(id => <ItemCard key={id} id={id} />)
+                related.map(id => <ItemCard key={id} id={id}/>)
             )}
         </Col>
     )

@@ -16,23 +16,21 @@ interface IProps {
 }
 
 export const HowTo: React.FC<IProps> = ({style = {}}) => {
-    const props = {
-
-    }
+    const props = {}
     const data = [{
-        icon: <SportsEsports fontSize="large" />,
+        icon: <SportsEsports fontSize="large"/>,
         text: "Choose the items or the service you need at the shop",
     }, {
-        icon: <Loyalty fontSize="large" />,
+        icon: <Loyalty fontSize="large"/>,
         text: "Select your discount plan at the checkout (optional)",
     }, {
-        icon: <Chat fontSize="large" />,
+        icon: <Chat fontSize="large"/>,
         text: "We set up a convenient interaction between you and your player",
     }, {
-        icon: <Star fontSize="large" />,
+        icon: <Star fontSize="large"/>,
         text: "Get what you want!",
     }, {
-        icon: <RateReview fontSize="large" />,
+        icon: <RateReview fontSize="large"/>,
         text: "Leave an honest review in order to support us!",
     }];
     return (

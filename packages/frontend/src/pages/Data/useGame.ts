@@ -15,7 +15,8 @@ const defaultGame: IGame = {
     assistant: [""],
 }
 
-interface IProps extends IGameContext {}
+interface IProps extends IGameContext {
+}
 
 export function useGame(props: IProps) {
     const {location: {pathname}} = useHistory();

@@ -65,20 +65,20 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                                     checked={selectedOptions.includes(optionId)}
                                 />
                                 <Typography variant="body2"
-                                    style={{userSelect: "none"}}>{options.local[optionId].name}</Typography>
+                                            style={{userSelect: "none"}}>{options.local[optionId].name}</Typography>
                             </div>
                             <Typography variant="h6"
-                                style={{
-                                    userSelect: "none",
-                                    whiteSpace: "nowrap",
-                                    textAlign: "center",
-                                }}>{price.getOption(options.local[optionId]).toString}</Typography>
+                                        style={{
+                                            userSelect: "none",
+                                            whiteSpace: "nowrap",
+                                            textAlign: "center",
+                                        }}>{price.getOption(options.local[optionId]).toString}</Typography>
                         </div>
-                        <Divider style={{paddingLeft: 8}} />
+                        <Divider style={{paddingLeft: 8}}/>
                     </div>,
                 ) : (
-                        <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
-                    )}
+                    <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
+                )}
             </div>
             <Button
                 fullWidth

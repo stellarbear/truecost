@@ -24,7 +24,7 @@ export class AccountResolver {
         assert(name.length < 64, "name length must be <= 64", ["name"]);
         assert(!["root", "mod", "admin", "truecost"].some(s => name.includes(s)), "bad name", ["name"]);
         assert(name.replace(/[a-zA-Z0-9_]/g, "").length == 0, "bad alphabet", ["name"]);
-        assert(validate("email").test(email),"Does not look like email (:", ["email"]);
+        assert(validate("email").test(email), "Does not look like email (:", ["email"]);
 
         let user = await this.userRepo.findOne({email});
         if (user) {
@@ -57,7 +57,7 @@ export class AccountResolver {
                 text: `Verification link: ${domain}/user/verify/${verify}/${user.id}`
             })
             await redis.client.set(`verify-${verify}`, user.id, "ex", redis.duration.day);
-        } catch (e){
+        } catch (e) {
             assert(false, e);
         }
 

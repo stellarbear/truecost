@@ -11,17 +11,17 @@ interface IProps {
 export const ItemImage: React.FC<IProps> = (props) => {
     const {item} = props;
     const itemId = item.id;
-    
+
     const {current: {shop}} = React.useContext(DataContext);
-    const {items, } = shop();
+    const {items,} = shop();
 
     const image = (item: IItem) => `${serverUri}/${item.id}/${item.images[0]}/u.png`;
 
     return (
-        <Carousel arrows={false} >
-            <img style={{objectFit: "cover", }} src={image(item)} />
+        <Carousel arrows={false}>
+            <img style={{objectFit: "cover",}} src={image(item)}/>
             {item.item.map((id) => (id in items.id) && (
-                <img key={`${itemId}-${id}`} style={{objectFit: "cover", }} src={image(items.id[id])} />
+                <img key={`${itemId}-${id}`} style={{objectFit: "cover",}} src={image(items.id[id])}/>
             ))}
         </Carousel>
     )

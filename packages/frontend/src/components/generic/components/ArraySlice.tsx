@@ -27,7 +27,7 @@ export const ArraySlice: React.FC<IProps> = (props) => {
         >
             {sequence(limit, (i) => (i + 1) * chunk).map((num) =>
                 <MenuItem key={num}
-                    value={num}>{num}</MenuItem>)}
+                          value={num}>{num}</MenuItem>)}
         </Select>
     )
 
@@ -36,7 +36,7 @@ export const ArraySlice: React.FC<IProps> = (props) => {
             showLastButton
             showFirstButton
             count={Math.ceil(data.length / count)} page={page}
-            onChange={(_, value) => setPage(value)} />
+            onChange={(_, value) => setPage(value)}/>
     )
 
     return (

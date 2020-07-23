@@ -9,7 +9,8 @@ export interface IBooking {
 }
 
 export class Price {
-    private constructor(private readonly price: number = 0) {}
+    private constructor(private readonly price: number = 0) {
+    }
 
     private static applyRange(item: IItem, chunk: [number, number]) {
         const rangeChunk = (from: IRange, to: IRange, at: number) => {
@@ -44,11 +45,11 @@ export class Price {
     }
 
     static fromBooking({
-        item,
-        chunk,
-        quantity = 1,
-        options = []
-    }: IBooking) {
+                           item,
+                           chunk,
+                           quantity = 1,
+                           options = []
+                       }: IBooking) {
         const base = Price.fromItem(item, chunk);
 
         return base.multiply(quantity).add(base.withOption(options))

@@ -41,8 +41,8 @@ export const AdminOption: React.FC = () => {
         key: "type",
         label: "type",
         options: {
-            [OptionType.NOMINAL]:"$",
-            [OptionType.RELATIVE]:"%"
+            [OptionType.NOMINAL]: "$",
+            [OptionType.RELATIVE]: "%"
         }
     });
 
@@ -51,8 +51,8 @@ export const AdminOption: React.FC = () => {
         key: "area",
         label: "area",
         options: {
-            [OptionArea.LOCAL]:"local",
-            [OptionArea.GLOBAL]:"global"
+            [OptionArea.LOCAL]: "local",
+            [OptionArea.GLOBAL]: "global"
         }
     });
 

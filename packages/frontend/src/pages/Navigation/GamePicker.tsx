@@ -45,7 +45,7 @@ const GamePicker: React.FC<GamePickerProps> = () => {
                     <Typography style={{whiteSpace: "nowrap"}}>
                         {data.id[current.id].name}
                     </Typography>
-                    <ArrowDropDown />
+                    <ArrowDropDown/>
                 </div>
             </Button>
             <Menu

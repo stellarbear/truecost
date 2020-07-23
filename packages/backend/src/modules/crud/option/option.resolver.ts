@@ -14,26 +14,27 @@ class OptionResponse extends PaginatedResponse(OptionEntity) {
 export class OptionCRUDResolver extends BaseResolver
     <typeof OptionEntity, typeof OptionInput, typeof OptionResponse, OptionInput>
 
-    (
-        {
-            inputRef: OptionInput,
-            classRef: OptionEntity,
-            resultRef: OptionResponse,
-            get: {
-                set: ["type", "area"],
-                between: ["price", "free"],
-                like: [],
-                filter: ["game"],
-            },
-            upsert: {
-                notEmpty: ["price", "game"],
-                unique: [],
-            },
-            restrictPublic: false,
+(
+    {
+        inputRef: OptionInput,
+        classRef: OptionEntity,
+        resultRef: OptionResponse,
+        get: {
+            set: ["type", "area"],
+            between: ["price", "free"],
+            like: [],
+            filter: ["game"],
         },
-    )
+        upsert: {
+            notEmpty: ["price", "game"],
+            unique: [],
+        },
+        restrictPublic: false,
+    },
+)
 {
-    constructor() {
+    constructor()
+    {
         super(new OptionService());
     }
 }

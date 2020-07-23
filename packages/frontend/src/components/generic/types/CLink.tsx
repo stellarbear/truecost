@@ -14,8 +14,9 @@ export class CLink extends ABase<any> {
     multiple: boolean;
 
     constructor({
-        query, 
-        multiple = false, readOnly = false, ...rest}: ILink) {
+                    query,
+                    multiple = false, readOnly = false, ...rest
+                }: ILink) {
         super(rest);
         this.query = query;
         this.readOnly = readOnly;

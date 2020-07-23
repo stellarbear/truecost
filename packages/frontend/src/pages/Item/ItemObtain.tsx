@@ -22,7 +22,7 @@ export const ItemObtain: React.FC<IProps> = (props) => {
             <Typography variant="body1">You will obtain:</Typography>
             {
                 item.obtain.split('\n').map((o, i) => (
-                    <Markdown key={`${itemId}-obtain-${i}`} >
+                    <Markdown key={`${itemId}-obtain-${i}`}>
                         {`• ${o}`}
                     </Markdown>
                 ))

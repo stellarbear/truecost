@@ -34,7 +34,7 @@ export const Account: React.FC = () => {
         <Row>
             <Button component={Link} color="inherit" to={'/register'}>
                 Register
-        </Button>
+            </Button>
             <Button component={Link} color="inherit" to={'/login'}>
                 Login
             </Button>

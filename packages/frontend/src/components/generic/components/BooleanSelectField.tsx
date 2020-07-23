@@ -12,12 +12,12 @@ interface IProps extends SelectProps {
 const undef = -1;
 
 export const BooleanSelectField: React.FC<IProps> = ({
-    label,
-    onChangeEvent,
-    base,
-    value = undef,
-    ...rest
-}) => {
+                                                         label,
+                                                         onChangeEvent,
+                                                         base,
+                                                         value = undef,
+                                                         ...rest
+                                                     }) => {
     const {state, setAndBubbleState} = useEventState(value, onChangeEvent);
 
     return (

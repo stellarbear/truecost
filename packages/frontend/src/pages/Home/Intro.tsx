@@ -31,7 +31,7 @@ export const Intro: React.FC<IProps> = ({style = {}}) => {
             </Button>
             <Typography
                 style={{marginTop: 32}}
-                variant="body1" color="inherit" >{`on everything`}</Typography>
+                variant="body1" color="inherit">{`on everything`}</Typography>
             <IconButton
                 className="float"
                 style={{
@@ -39,7 +39,7 @@ export const Intro: React.FC<IProps> = ({style = {}}) => {
                     backgroundColor: "#fff"
                 }}
                 onClick={() => window.scrollBy({top: 400, behavior: "smooth"})}>
-                <ArrowDown />
+                <ArrowDown/>
             </IconButton>
         </div>
     )

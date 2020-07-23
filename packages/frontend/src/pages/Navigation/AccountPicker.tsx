@@ -43,7 +43,7 @@ const AccountPicker: React.FC<IAccountPickerProps> = ({history}): JSX.Element =>
 
     const buildMenuItem = (name: string | null) => {
         if (name === null) {
-            return <Divider />;
+            return <Divider/>;
         }
         return (
             <MenuItem
@@ -58,7 +58,7 @@ const AccountPicker: React.FC<IAccountPickerProps> = ({history}): JSX.Element =>
         return ([
             <MenuItem component={Link} to="/login" key={`menu-login`} onClick={() => handleClose()}>Log in</MenuItem>,
             <MenuItem component={Link} to="/register" key={`menu-register`}
-                onClick={() => handleClose()}>Register</MenuItem>,
+                      onClick={() => handleClose()}>Register</MenuItem>,
         ]);
     };
 
@@ -87,7 +87,7 @@ const AccountPicker: React.FC<IAccountPickerProps> = ({history}): JSX.Element =>
                     onClick={handleClick}
                     aria-haspopup="true"
                     aria-controls="simple-menu">
-                    <AccountCircle />
+                    <AccountCircle/>
                 </IconButton>
                 <Menu
                     keepMounted

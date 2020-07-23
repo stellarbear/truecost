@@ -57,9 +57,9 @@ const RangeField: React.FC<IProps> = (props) => {
 
     return (
         <Col fullWidth s={8}
-            style={{
-                textAlign: "center",
-            }}>
+             style={{
+                 textAlign: "center",
+             }}>
             <Row between>
                 <TextField
                     margin="dense"
@@ -71,7 +71,7 @@ const RangeField: React.FC<IProps> = (props) => {
                     onBlur={() => onChangeEvent(state)}
                     inputProps={{
                         style: {textAlign: "center", maxWidth: 80},
-                    }} />
+                    }}/>
                 <Typography gutterBottom style={{textAlign: "center", margin: 8, marginTop: 14}}>
                     {label}
                 </Typography>
@@ -85,7 +85,7 @@ const RangeField: React.FC<IProps> = (props) => {
                     onBlur={() => onChangeEvent(state)}
                     inputProps={{
                         style: {textAlign: "center", maxWidth: 80},
-                    }} />
+                    }}/>
             </Row>
             <Slider
                 style={{

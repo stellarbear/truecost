@@ -15,7 +15,7 @@ export const AdminItem: React.FC = () => {
         name: "Item",
         items: `
         ${meta.fragment}
-        ${game.fragment}			
+        ${game.fragment}
             link
 			images
 
@@ -88,7 +88,7 @@ export const AdminItem: React.FC = () => {
         textFalse: "usual",
     });
 
-    
+
     const item = new CLink({
         key: "item",
         label: "item",
@@ -121,9 +121,9 @@ export const AdminItem: React.FC = () => {
         base: "[]",
         key: "range",
         label: "range",
-        component: <EditorRange />,
+        component: <EditorRange/>,
     });
-    
+
     const fields = [link, images, price, range, discount, limit, obtain, requirements, isTopOffer, item, tag, option];
 
     return (

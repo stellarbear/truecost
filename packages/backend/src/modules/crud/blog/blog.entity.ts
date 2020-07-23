@@ -1,7 +1,7 @@
 import {BaseMetaEntity} from "../base/base.entity";
 import {Field, Float, ObjectType} from "type-graphql";
 import {Entity, Property} from "mikro-orm";
-import { IBlog } from "@truecost/shared"
+import {IBlog} from "@truecost/shared"
 
 
 @Entity()

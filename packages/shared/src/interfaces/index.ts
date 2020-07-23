@@ -1,7 +1,7 @@
 import {OptionType, OptionArea} from "..";
 
 export interface IBaseGame {
-    game: {id: string};
+    game: { id: string };
 }
 
 export interface IBase {

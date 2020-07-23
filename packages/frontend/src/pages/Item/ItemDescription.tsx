@@ -13,9 +13,9 @@ export const ItemDescription: React.FC<IProps> = (props) => {
     return (
         <div style={{display: "flex", justifyContent: "center", flexDirection: "row"}}>
             {
-                item.link && <a target="_blank" href={item.link} >
+                item.link && <a target="_blank" href={item.link}>
                     <IconButton>
-                        <LinkIcon />
+                        <LinkIcon/>
                     </IconButton>
                 </a>
             }

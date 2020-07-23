@@ -19,7 +19,8 @@ export interface IRender<T = any> {
 export abstract class ABase<T = any> {
     constructor(
         public readonly data: ICtor<T>,
-    ) {}
+    ) {
+    }
 
     private renderError = (props: IRender<T>, implementation: (props: IRender<T>) => React.ReactNode) => (
         <ErrorLabel error={props.error}>
@@ -44,7 +45,10 @@ export abstract class ABase<T = any> {
     )
 
     abstract renderAddImplementation(props: IRender<any>): React.ReactNode;
+
     abstract renderFilterlementation(props: IRender<any>): React.ReactNode;
+
     abstract renderListlementation(props: IRender<any>): React.ReactNode;
+
     protected NoControl = () => (<Typography>No control</Typography>)
 }

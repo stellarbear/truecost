@@ -22,24 +22,26 @@ interface ICRUD {
 }
 
 export type IShared = [ISharedData, React.Dispatch<React.SetStateAction<ISharedData>>]
+
 export interface ISharedData {
     vars: any
 }
+
 const SharedContext = createContext({} as IShared);
 export const useShared = () => React.useContext(SharedContext)
 
 export const CRUD: React.FC<ICRUD> = ({
-    pack,
-    tree,
-    title,
-    visibleKeys,
-    queryGet,
-    mutationDelete,
-    mutationUpsert,
-    propsAdd,
-    propsList,
-    propsFilter,
-}) => {
+                                          pack,
+                                          tree,
+                                          title,
+                                          visibleKeys,
+                                          queryGet,
+                                          mutationDelete,
+                                          mutationUpsert,
+                                          propsAdd,
+                                          propsList,
+                                          propsFilter,
+                                      }) => {
     const shared = React.useState<ISharedData>({vars: {}})
 
     return (

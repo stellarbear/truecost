@@ -15,7 +15,7 @@ export const composeEmail = async ({to, subject, text, template}: IProps) => {
     const {html} = mjml2html(template);
 
     let data = creds("email");
-    console.log('--------------------------------------------',data);
+    console.log('--------------------------------------------', data);
     assert(data.email || data.pass, "email creds corrupted")
 
     console.log('initiating transport')

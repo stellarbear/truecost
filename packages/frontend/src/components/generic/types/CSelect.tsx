@@ -9,7 +9,8 @@ export interface ISelect extends ICtor<any> {
     multiple: boolean;
     options: IOption;
 }
-export class CSelect extends ABase<any>  {
+
+export class CSelect extends ABase<any> {
     options: IOption;
     multiple: boolean;
 

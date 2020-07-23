@@ -1,4 +1,3 @@
-
 import {CBoolean} from "./CBoolean";
 import {CString} from "./CString";
 import {CNumber} from "./CNumber";
@@ -9,7 +8,7 @@ import {CDate} from "./CDate";
 import {CSelect} from "./CSelect";
 
 type ItemProp = CBoolean
-	| CString | CNumber | CImage | CCustom | CLink | CDate | CSelect;
+    | CString | CNumber | CImage | CCustom | CLink | CDate | CSelect;
 /*  CString
   | CBoolean
   | CSelect
@@ -24,13 +23,13 @@ type ItemProp = CBoolean
   | CStringCustom;*/
 
 export {
-	CImage,
-	CDate,
-	CSelect,
-	CLink,
-	CCustom,
-	ItemProp,
-	CBoolean,
-	CNumber,
-	CString
+    CImage,
+    CDate,
+    CSelect,
+    CLink,
+    CCustom,
+    ItemProp,
+    CBoolean,
+    CNumber,
+    CString
 };

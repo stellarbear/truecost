@@ -6,11 +6,13 @@ export interface ICart {
     quantity: number
     options: string[]
 }
+
 export interface ICartAdd {
     id: string,
     chunk?: [number, number]
     options: string[]
 }
+
 export interface ICartContext {
     add: (data: ICartAdd) => void,
     load: (key: string) => void,
@@ -22,10 +24,10 @@ export interface ICartContext {
 const prefix = 'cart';
 export const defaultCart = (key: string): ICartContext => ({
     add({
-        id,
-        chunk,
-        options = []
-    }: ICartAdd) {
+            id,
+            chunk,
+            options = []
+        }: ICartAdd) {
         if (id in this.data) {
             this.data[id].quantity++;
             this.data[id].chunk = chunk;

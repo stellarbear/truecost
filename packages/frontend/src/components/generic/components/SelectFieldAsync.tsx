@@ -1,4 +1,16 @@
-import {Chip, createStyles, FormControl, InputLabel, makeStyles, MenuItem, Select, Theme, TextField, CircularProgress, Typography} from "@material-ui/core";
+import {
+    Chip,
+    createStyles,
+    FormControl,
+    InputLabel,
+    makeStyles,
+    MenuItem,
+    Select,
+    Theme,
+    TextField,
+    CircularProgress,
+    Typography
+} from "@material-ui/core";
 import * as React from "react";
 import {SelectProps} from "@material-ui/core/Select";
 import {useEventState} from "../../../auxiliary/useEventState";
@@ -94,15 +106,15 @@ export const SelectFieldAsync: React.FC<IProps> = (props) => {
             fullWidth
             renderInput={(params) =>
                 <TextField {...params} variant="outlined"
-                    InputProps={{
-                        ...params.InputProps,
-                        endAdornment: (
-                            <React.Fragment>
-                                {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                                {params.InputProps.endAdornment}
-                            </React.Fragment>
-                        ),
-                    }}
+                           InputProps={{
+                               ...params.InputProps,
+                               endAdornment: (
+                                   <React.Fragment>
+                                       {loading ? <CircularProgress color="inherit" size={20}/> : null}
+                                       {params.InputProps.endAdornment}
+                                   </React.Fragment>
+                               ),
+                           }}
                 />}
         />
     );

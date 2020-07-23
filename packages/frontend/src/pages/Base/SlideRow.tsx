@@ -10,10 +10,10 @@ interface RowProps {
 }
 
 export const SlideRow: React.FC<RowProps> = ({
-    id,
-    children,
-    style = {},
-}) => {
+                                                 id,
+                                                 children,
+                                                 style = {},
+                                             }) => {
 
     return (
         <React.Fragment>
@@ -34,7 +34,7 @@ export const SlideRow: React.FC<RowProps> = ({
                             {left: element.scrollLeft - element.offsetWidth, behavior: "smooth"}
                         );
                     }}>
-                        <ArrowBack />
+                        <ArrowBack/>
                     </IconButton>
                 </Hidden>
                 <div id={id} style={{
@@ -56,7 +56,7 @@ export const SlideRow: React.FC<RowProps> = ({
                             {left: element.scrollLeft + element.offsetWidth, behavior: "smooth"}
                         );
                     }}>
-                        <ArrowForward />
+                        <ArrowForward/>
                     </IconButton>
                 </Hidden>
             </div>

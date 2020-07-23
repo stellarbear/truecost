@@ -49,7 +49,7 @@ const stickyStyle: CSSProperties = {
     zIndex: 3,
 }
 
-type IItem = {id: string;[key: string]: any}
+type IItem = { id: string; [key: string]: any }
 type IItems = Record<string, IItem>
 type IError = Record<string, Record<string, string>>
 
@@ -61,11 +61,11 @@ interface UserListProps {
 }
 
 export const List: React.FC<UserListProps> = ({
-    props,
-    listQuery,
-    updateMutation,
-    removeMutation,
-}) => {
+                                                  props,
+                                                  listQuery,
+                                                  updateMutation,
+                                                  removeMutation,
+                                              }) => {
     const [share] = useShared();
     const {setLoading} = useLoading();
     const {notify} = useNotification();
@@ -169,13 +169,13 @@ export const List: React.FC<UserListProps> = ({
 
         return (
             <Row>
-                <IconButton disabled={similar} onClick={() => onUpdate(id)} >
-                    <Save />
+                <IconButton disabled={similar} onClick={() => onUpdate(id)}>
+                    <Save/>
                 </IconButton>
-                <IconButton disabled={similar} onClick={() => onCancel(id)} >
-                    <Cancel />
+                <IconButton disabled={similar} onClick={() => onCancel(id)}>
+                    <Cancel/>
                 </IconButton>
-                <TimeoutButton timeout={3} icon={<Delete />} onClickEvent={() => onDelete(id)} />
+                <TimeoutButton timeout={3} icon={<Delete/>} onClickEvent={() => onDelete(id)}/>
             </Row>
         )
     }
@@ -189,8 +189,8 @@ export const List: React.FC<UserListProps> = ({
                     'Please, wait'
                 ]}
                 actions={[
-                    <CircularProgress color="inherit" size={40} />
-                ]} />
+                    <CircularProgress color="inherit" size={40}/>
+                ]}/>
         )
     }
 
@@ -233,6 +233,6 @@ export const List: React.FC<UserListProps> = ({
                     </Table>
                 </Paper>
             ))}
-        </ArraySlice >
+        </ArraySlice>
     )
 };

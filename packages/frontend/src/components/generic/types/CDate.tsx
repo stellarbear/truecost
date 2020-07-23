@@ -38,7 +38,7 @@ export class CDate extends ABase<Date> {
                 type={type}
                 label={label}
                 value={value || min}
-                onChangeEvent={onChange} />
+                onChangeEvent={onChange}/>
         );
     }
 }

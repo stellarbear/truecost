@@ -22,15 +22,15 @@ export const PriceTypography: React.FC<IPriceTypoProps> = ({price, discount}) =>
                 {`${price} $`}
             </Typography>
             <Typography color="inherit" noWrap
-                style={{
-                    textDecoration: "line-through",
-                    opacity: 0.5,
-                    marginTop: -4,
-                    fontSize: "0.8rem",
-                }}>
+                        style={{
+                            textDecoration: "line-through",
+                            opacity: 0.5,
+                            marginTop: -4,
+                            fontSize: "0.8rem",
+                        }}>
                 {`${price + discount} $`}
             </Typography>
-        </Col >
+        </Col>
     )
 
     return (

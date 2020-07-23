@@ -14,7 +14,7 @@ interface IProps {
 export const InfoCard: React.FC<IProps> = ({text, actions = [], style = {}}) => {
     const {current: {game}} = React.useContext(DataContext);
     const image = game.id === "truecost" ? `${clientUri}/default/assistant.png`
-    : `${serverUri}/${game.id}/${game.assistant}/u.png`;
+        : `${serverUri}/${game.id}/${game.assistant}/u.png`;
 
     return (
         <Col style={style}>
@@ -22,7 +22,7 @@ export const InfoCard: React.FC<IProps> = ({text, actions = [], style = {}}) => 
                 <img className="float" style={{
                     minWidth: 80,
                     width: 80, height: 80, objectFit: "cover", margin: 8, marginLeft: 0,
-                }} src={image} />
+                }} src={image}/>
                 <Col>
                     {text.map((sentence, index) =>
                         <Typography

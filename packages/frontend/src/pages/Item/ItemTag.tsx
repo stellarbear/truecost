@@ -11,17 +11,17 @@ export const ItemTag: React.FC<IProps> = (props) => {
     const {item} = props;
     const itemId = item.id
     const {current: {shop}} = React.useContext(DataContext);
-    const {tags, } = shop();
+    const {tags,} = shop();
 
     return (
         <>
             {
                 item.tag.map((tagId) => (tagId in tags.id) && (
                     <div key={`${itemId}-${tagId}`} style={{padding: 4}}>
-                        <Chip label={tags.id[tagId].name} color="primary" size="small" />
+                        <Chip label={tags.id[tagId].name} color="primary" size="small"/>
                     </div>
                 ))
-            }           
+            }
         </>
     )
 }

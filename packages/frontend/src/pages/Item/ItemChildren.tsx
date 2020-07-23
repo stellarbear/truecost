@@ -14,7 +14,7 @@ export const ItemChildren: React.FC<IProps> = (props) => {
     const itemId = item.id;
 
     const {current: {shop, game: {url}}} = React.useContext(DataContext);
-    const {items, } = shop();
+    const {items,} = shop();
 
     if (item.item.length === 0) {
         return null;
@@ -25,16 +25,21 @@ export const ItemChildren: React.FC<IProps> = (props) => {
             {
                 item.item.map((childId) => (childId in items.id) && (
                     <ButtonBase
-                        component={Link} 
+                        component={Link}
                         key={`${itemId}-${childId}`}
                         to={`/${url}/item/${items.id[childId].url}`}
-                        style={{ display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "flex-start" }}>
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            flexDirection: "row",
+                            justifyContent: "flex-start"
+                        }}>
                         <IconButton size="small">
-                            <LinkIcon />
+                            <LinkIcon/>
                         </IconButton>
                         <Typography
                             variant="body1"
-                            style={{ whiteSpace: "nowrap", cursor: "pointer" }}>{items.id[childId].name}</Typography>
+                            style={{whiteSpace: "nowrap", cursor: "pointer"}}>{items.id[childId].name}</Typography>
                     </ButtonBase>
                 ))
             }

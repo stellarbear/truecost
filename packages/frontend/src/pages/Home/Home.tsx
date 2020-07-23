@@ -31,32 +31,32 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
 
     return (
         <React.Fragment>
-            <Parallax image={image} />
+            <Parallax image={image}/>
             <Grid container spacing={2}
-                style={{
-                    color: "#fff",
-                }}>
-                <Grid item xs={12} sm={4} md={6} />
+                  style={{
+                      color: "#fff",
+                  }}>
+                <Grid item xs={12} sm={4} md={6}/>
                 <Grid item xs={12} sm={8} md={6}>
-                    <Intro style={{marginTop: "15vh", textAlign: "center"}} />
+                    <Intro style={{marginTop: "15vh", textAlign: "center"}}/>
                 </Grid>
                 <Grid container spacing={2}
-                    style={{marginTop: "15vh", marginBottom: 16}}>
+                      style={{marginTop: "15vh", marginBottom: 16}}>
                     <Grid item xs={12} sm={8}>
                         {}
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <Twitter />
+                        <Twitter/>
                     </Grid>
                     <Grid item xs={12} sm={8}>
-                        <HowTo />
+                        <HowTo/>
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <TrustPilot />
+                        <TrustPilot/>
                     </Grid>
                 </Grid>
             </Grid>
-        </React.Fragment >
+        </React.Fragment>
     );
 };
 

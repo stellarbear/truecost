@@ -19,7 +19,7 @@ export const ItemPrice: React.FC<IProps> = (props) => {
         <Row s={64} end p={[4, 32]}>
             <Typography variant="body1">{"Base price"}</Typography>
             <PriceTypography price={price.toValue}
-                discount={item.discount} />
+                             discount={item.discount}/>
         </Row>
     )
 }

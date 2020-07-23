@@ -11,7 +11,7 @@ interface IProps extends BaseTextFieldProps {
 }
 
 export const InputField: React.FC<IProps> = (props) => {
-    const {editable, multiline, value, onChangeEvent,...rest} = props;
+    const {editable, multiline, value, onChangeEvent, ...rest} = props;
     const {state, setState, bubbleState} = useEventState(value, onChangeEvent);
 
     return (

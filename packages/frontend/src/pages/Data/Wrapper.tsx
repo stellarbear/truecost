@@ -66,7 +66,9 @@ const Data: React.FC = ({children}) => {
             },
             update: {
                 setUser: (user: IUser | null) => setUser(user),
-                setGame: (id: string) => {id in store.game.data.id && setGame(store.game.data.id[id])}
+                setGame: (id: string) => {
+                    id in store.game.data.id && setGame(store.game.data.id[id])
+                }
             }
         }}>
             {children}

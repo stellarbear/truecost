@@ -14,22 +14,23 @@ class GameResponse extends PaginatedResponse(GameEntity) {
 export class GameCRUDResolver extends MetaResolver
     <typeof GameEntity, typeof GameInput, typeof GameResponse, GameInput>
 
-    (
-        {
-            inputRef: GameInput,
-            classRef: GameEntity,
-            resultRef: GameResponse,
-            get: {},
-            upsert: {
-                notEmpty: ["twitter", "background", "assistant"],
-                unique: ["twitter"],
-                images: ["background", "assistant"],
-            },
-            restrictPublic: false,
+(
+    {
+        inputRef: GameInput,
+        classRef: GameEntity,
+        resultRef: GameResponse,
+        get: {},
+        upsert: {
+            notEmpty: ["twitter", "background", "assistant"],
+            unique: ["twitter"],
+            images: ["background", "assistant"],
         },
-    )
+        restrictPublic: false,
+    },
+)
 {
-    constructor() {
+    constructor()
+    {
         super(new GameService());
     }
 }

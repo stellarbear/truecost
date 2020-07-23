@@ -8,7 +8,7 @@ import {IItem} from "@truecost/shared";
 
 @Entity()
 @ObjectType()
-export class ItemEntity extends BaseMetaEntity /*implements IItem */{
+export class ItemEntity extends BaseMetaEntity /*implements IItem */ {
     @Field()
     @Property()
         //  Hyperlink to light.gg

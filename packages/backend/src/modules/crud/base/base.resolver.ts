@@ -28,11 +28,13 @@ interface ICRUDGet<V> {
     between?: Array<keyof V>;
     filter?: Array<keyof V>;
 };
+
 interface ICRUDUpsert<V> {
     notEmpty?: Array<keyof V>;
     unique?: Array<keyof V>;
     images?: Array<keyof V>;
 };
+
 interface ICRUDResolver<T, I, R, V> {
     classRef: T;
     inputRef: I;
@@ -43,7 +45,7 @@ interface ICRUDResolver<T, I, R, V> {
     prefix?: string;
 }
 
-const merge = <T, U extends T>(src: {[K in keyof T]: T[K][]}, dst: {[K in keyof U]: U[K][]}) => {
+const merge = <T, U extends T>(src: { [K in keyof T]: T[K][] }, dst: { [K in keyof U]: U[K][] }) => {
     for (let key in src) {
         if (key in dst) {
             src[key].push(...(dst[key] || []));
@@ -104,25 +106,25 @@ export function MetaResolver<T extends typeof BaseMetaEntity,
 export function CRUDResolver<T extends typeof BaseEntity,
     I extends typeof BaseInput,
     R extends ClassType<unknown>,
-    V extends {id?: string}>(
-        {
-            inputRef,
-            classRef,
-            resultRef,
-            get: {
-                set = [],
-                like = [],
-                filter = [],
-                between = [],
-            },
-            upsert: {
-                notEmpty = [],
-                unique = [],
-                images = [],
-            },
-            restrictPublic = true,
-            prefix = classRef.name.replace('Entity', ""),
-        }: ICRUDResolver<T, I, R, V>): any {
+    V extends { id?: string }>(
+    {
+        inputRef,
+        classRef,
+        resultRef,
+        get: {
+            set = [],
+            like = [],
+            filter = [],
+            between = [],
+        },
+        upsert: {
+            notEmpty = [],
+            unique = [],
+            images = [],
+        },
+        restrictPublic = true,
+        prefix = classRef.name.replace('Entity', ""),
+    }: ICRUDResolver<T, I, R, V>): any {
 
     @Resolver(() => resultRef, {isAbstract: true})
     abstract class CRUDResolverClass {
@@ -137,7 +139,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
             @Arg('input', () => inputRef) input: V,
         ): Promise<R> {
             const result = await this.service.get({
-                skip, take, 
+                skip, take,
                 set: filterInput(input, set),
                 like: filterInput(input, like),
                 between: filterInput(input, between),

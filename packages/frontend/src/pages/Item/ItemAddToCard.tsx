@@ -25,11 +25,11 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
 
     return (
         <Button
-            style={{width: "100%", }}
+            style={{width: "100%",}}
             size="large"
             color="primary"
             variant="contained"
-            startIcon={<AddShoppingCart />}
+            startIcon={<AddShoppingCart/>}
             onClick={() => {
                 cart.add({id: itemId, options})
                 notify(`${item.name} has been added to your cart!`)
@@ -38,7 +38,7 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
             <Row fullWidth between>
                 <Typography variant="caption">add to cart</Typography>
                 <PriceTypography price={price.toValue}
-                    discount={item.discount} />
+                                 discount={item.discount}/>
             </Row>
         </Button>
     )

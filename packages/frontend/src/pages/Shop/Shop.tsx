@@ -64,7 +64,7 @@ const Shop: React.FC = () => {
         <InfoCard text={[
             'Unfortunately, nothing was found',
             'Try next time or change some filters'
-        ]} />
+        ]}/>
     )
 
     const renderItems = (data: string[]) => (
@@ -72,7 +72,7 @@ const Shop: React.FC = () => {
             {(itemIds => (
                 <Row start wrap>
                     {itemIds.map(id => (
-                        <ItemCard key={id} id={id} />
+                        <ItemCard key={id} id={id}/>
                     ))}
                 </Row>
             ))}
@@ -98,7 +98,7 @@ const Shop: React.FC = () => {
             options={Object.keys(items.id)}
             groupBy={(option) => option.charAt(0)}
             getOptionLabel={(itemId) => items.id[itemId].name}
-            renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined" />}
+            renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined"/>}
         />
     )
 

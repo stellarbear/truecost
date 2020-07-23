@@ -14,15 +14,19 @@ interface IBase {
 interface IStart extends IBase {
     start: boolean;
 }
+
 interface IEnd extends IBase {
     end: boolean;
 }
+
 interface IEven extends IBase {
     even: boolean;
 }
+
 interface IAround extends IBase {
     around: boolean;
 }
+
 interface IBetween extends IBase {
     between: boolean;
 }
@@ -71,10 +75,10 @@ export const Row: React.FC<IProps> = (props) => {
                 justifyContent:
                     isStart(rest) ? "flex-start"
                         : isEnd(rest) ? "flex-end"
-                            : isEven(rest) ? "space-evenly"
-                                : isAround(rest) ? "space-around"
-                                    : isBetween(rest) ? "space-between"
-                                        : "center"
+                        : isEven(rest) ? "space-evenly"
+                            : isAround(rest) ? "space-around"
+                                : isBetween(rest) ? "space-between"
+                                    : "center"
             }}>
             {renderChildren()}
         </div>

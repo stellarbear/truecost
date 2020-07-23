@@ -22,7 +22,7 @@ export const Twitter: React.FC<IProps> = ({style = {}}) => {
                 noBoarders
                 sourceType="profile"
                 screenName={current.twitter}
-                options={{height: 420, marginRight: -18}} />
+                options={{height: 420, marginRight: -18}}/>
         </Card>
     )
 }

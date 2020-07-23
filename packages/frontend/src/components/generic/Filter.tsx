@@ -1,5 +1,20 @@
 import React, {useEffect} from "react";
-import {Card, Divider, Drawer, Grid, IconButton, Menu, MenuItem, Tooltip, Typography, Button, TableRow, TableCell, Table, TableBody} from "@material-ui/core";
+import {
+    Card,
+    Divider,
+    Drawer,
+    Grid,
+    IconButton,
+    Menu,
+    MenuItem,
+    Tooltip,
+    Typography,
+    Button,
+    TableRow,
+    TableCell,
+    Table,
+    TableBody
+} from "@material-ui/core";
 import FilterList from "@material-ui/icons/FilterList";
 
 import {ItemProp} from "./types";
@@ -15,8 +30,8 @@ const defaultState = (props: ItemProp[]) =>
     props.reduce((acc, cur) => Object.assign(acc, {[cur.data.key]: undefined}), {});
 
 export const Filter: React.FC<UserListProps> = ({
-    props,
-}) => {
+                                                    props,
+                                                }) => {
     const [share, setShare] = useShared();
     const [state, setState] = React.useState<any>(defaultState(props));
 
@@ -47,8 +62,8 @@ export const Filter: React.FC<UserListProps> = ({
             </Button>
             <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
                 <Col s={16} fullWidth p={16}
-                    style={{minWidth: 400}} >
-                    <Divider  />
+                     style={{minWidth: 400}}>
+                    <Divider/>
                     <Table size="small" style={{width: 'auto'}}>
                         <TableBody>
                             {props.map((prop, index) =>

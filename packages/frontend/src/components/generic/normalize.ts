@@ -2,7 +2,7 @@ import {isNull} from "@truecost/shared";
 
 export const normalize = (data: Record<string, any>) => {
     const clone = {...data};
-    
+
     for (let key in clone) {
         if (key === "__typename") {
             delete clone[key]

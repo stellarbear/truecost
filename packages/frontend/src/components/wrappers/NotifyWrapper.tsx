@@ -57,7 +57,7 @@ const NotifyWrapper: React.FC<NotifyProps> = ({children, timeout = 4096}): JSX.E
                         color='inherit'
                         onClick={handleClose}
                     >
-                        <Close />
+                        <Close/>
                     </IconButton>
                 )}
             />

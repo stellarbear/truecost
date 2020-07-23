@@ -88,7 +88,7 @@ const EditorPost: React.FC<EditorPostProps> = (props) => {
                     value={preview(text)}
                     multiline
                     rowsMax={4}
-                    onClick={() => setOpen(true)} />
+                    onClick={() => setOpen(true)}/>
             </div>
             {renderDialog()}
         </React.Fragment>

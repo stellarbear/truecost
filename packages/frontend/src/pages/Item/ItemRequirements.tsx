@@ -22,7 +22,7 @@ export const ItemRequirements: React.FC<IProps> = (props) => {
             <Typography variant="body1">Requirements:</Typography>
             {
                 item.requirements.split('\n').map((o, i) => (
-                    <Markdown key={`${itemId}-requirements-${i}`} >
+                    <Markdown key={`${itemId}-requirements-${i}`}>
                         {`• ${o}`}
                     </Markdown>
                 ))

@@ -54,4 +54,4 @@ const verificationEmail = (verify: string, userId: string) => {
     `
 }
 
-export { verificationEmail  }
+export {verificationEmail}

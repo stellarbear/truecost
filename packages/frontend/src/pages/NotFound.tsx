@@ -24,7 +24,7 @@ const NotFound: React.FC<NotFoundProps> = ({staticContext}): JSX.Element => {
         ]} actions={[
             <Button variant="outlined" component={Link} to="/shop">To the shop!</Button>,
             <Button variant="outlined" component={Link} to="/account">To the orders!</Button>
-        ]} />
+        ]}/>
     );
 };
 

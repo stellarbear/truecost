@@ -24,8 +24,8 @@ const convert = (src: Record<string, any>, type: "set" | "like" | "between" | "f
             }));
         case "between":
             return Object.keys(src).map(key => {
-                const from = +src[key][0]; 
-                const to = +src[key][1]; 
+                const from = +src[key][0];
+                const to = +src[key][1];
 
                 return ({
                     [key]: {
@@ -58,13 +58,13 @@ export abstract class BaseService<T> {
     }
 
     async get({
-        skip = 0,
-        take = 1,
-        set = {},
-        like = {},
-        between = {},
-        filter = {},
-    }) {
+                  skip = 0,
+                  take = 1,
+                  set = {},
+                  like = {},
+                  between = {},
+                  filter = {},
+              }) {
         const sub = [
             ...convert(set, "set"),
             ...convert(like, "like"),
@@ -74,7 +74,11 @@ export abstract class BaseService<T> {
         const query: any = sub.length > 0 ? {$and: sub} : {};
         console.log(JSON.stringify(query));
 
-        const [items, count] = await this.repository.findAndCount(query, {limit: take || undefined, offset: skip, populate: true});
+        const [items, count] = await this.repository.findAndCount(query, {
+            limit: take || undefined,
+            offset: skip,
+            populate: true
+        });
         return {items, count};
     }
 

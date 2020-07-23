@@ -12,12 +12,12 @@ interface IPasswordFieldProps extends BaseTextFieldProps {
 }
 
 const PasswordField = ({
-    rtl = false,
-    onChangeEvent,
-    showInfo = true,
-    hideInput = true,
-    ...rest
-}: IPasswordFieldProps): JSX.Element => {
+                           rtl = false,
+                           onChangeEvent,
+                           showInfo = true,
+                           hideInput = true,
+                           ...rest
+                       }: IPasswordFieldProps): JSX.Element => {
     const [visibility, setVisibility] = useState(false);
 
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -42,7 +42,7 @@ const PasswordField = ({
                                 tabIndex={-1}
                                 onClick={(): void => setVisibility(!visibility)}
                             >
-                                {visibility ? <Visibility /> : <VisibilityOff />}
+                                {visibility ? <Visibility/> : <VisibilityOff/>}
                             </IconButton>
                         </InputAdornment>
                     ),

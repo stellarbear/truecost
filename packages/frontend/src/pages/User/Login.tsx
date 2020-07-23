@@ -70,7 +70,7 @@ export const Login: React.FC = () => {
         <Container maxWidth="xs">
             <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(logInSubmit)}>
                 <Paper>
-                    <Col fullWidth p={16}> 
+                    <Col fullWidth p={16}>
                         <Col fullWidth>
                             <TextField
                                 fullWidth
@@ -103,7 +103,7 @@ export const Login: React.FC = () => {
                                 variant="filled"
                             />
                             <Button fullWidth variant="contained" type="submit">
-                                {loading ? <CircularProgress size={24} /> : "LOGIN"}
+                                {loading ? <CircularProgress size={24}/> : "LOGIN"}
                             </Button>
                         </Col>
                     </Col>

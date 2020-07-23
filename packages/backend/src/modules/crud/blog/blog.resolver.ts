@@ -7,33 +7,35 @@ import {BlogInput} from "./blog.input";
 
 
 @ObjectType()
-class BlogResponse extends PaginatedResponse(BlogEntity) {}
+class BlogResponse extends PaginatedResponse(BlogEntity) {
+}
 
 
 @Resolver(() => BlogEntity)
 export class BlogCRUDResolver extends MetaResolver
     <typeof BlogEntity, typeof BlogInput, typeof BlogResponse, BlogInput>
 
-    (
-        {
+(
+    {
 
-            inputRef: BlogInput,
-            classRef: BlogEntity,
-            resultRef: BlogResponse,
-            get: {
-                set: [],
-                like: ["text", "preview"],
-            },
-            upsert: {
-                notEmpty: [],
-                unique: [],
-                images: ["images"],
-            },
-            restrictPublic: false,
+        inputRef: BlogInput,
+        classRef: BlogEntity,
+        resultRef: BlogResponse,
+        get: {
+            set: [],
+            like: ["text", "preview"],
         },
-    )
+        upsert: {
+            notEmpty: [],
+            unique: [],
+            images: ["images"],
+        },
+        restrictPublic: false,
+    },
+)
 {
-    constructor() {
+    constructor()
+    {
         super(new BlogService());
     }
 }

@@ -10,7 +10,7 @@ interface IDesktop {
 }
 
 export const Desktop: React.FC<IDesktop> = (props) => {
-    const {logo, } = props;
+    const {logo,} = props;
     const {current: {game}} = useContext(DataContext);
     const url = '/' + game!.url
 
@@ -37,8 +37,8 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             right: 16,
             top: 4,
         }}>
-            <Account />
-        </div >
+            <Account/>
+        </div>
     )
 
     const home = () => (
@@ -49,7 +49,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
         }}>
             <Button component={Link} to={url + '/'}>
                 <img height={80} width={80} src={logo}
-                    style={{marginTop: -20, marginBottom: -20}} />
+                     style={{marginTop: -20, marginBottom: -20}}/>
             </Button>
         </div>
     )

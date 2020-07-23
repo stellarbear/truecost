@@ -39,28 +39,29 @@ interface ITemplate {
 
 const server = express();
 
-function Html({assets, css, content, state}: {assets: IAssets, css: string, content: string, state: NormalizedCacheObject}) {
+function Html({assets, css, content, state}: { assets: IAssets, css: string, content: string, state: NormalizedCacheObject }) {
     return (
         <html>
-            <head>
-                <meta charSet='utf-8' />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <head>
+            <meta charSet='utf-8'/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 
-                <style id="jss-server-side">${css}</style>
-                <script src={assets.client.js} defer></script>
-                {assets.client.css && <link rel="stylesheet" href={assets.client.css} />}
-                <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet" />
-                <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-                {//<script defer src="auxiliary/blotter.min.js"></script>
-                }
-            </head>
-            <body style={{margin: 0}}>
-                <div id="root" dangerouslySetInnerHTML={{__html: content}} />
-                <div id="clipboard"></div>
-                <script dangerouslySetInnerHTML={{
-                    __html: `window.apolloState=${JSON.stringify(state).replace(/</g, '\\u003c')};`,
-                }} />
-            </body>
+            <style id="jss-server-side">${css}</style>
+            <script src={assets.client.js} defer></script>
+            {assets.client.css && <link rel="stylesheet" href={assets.client.css}/>}
+            <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet"/>
+            <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
+                    async></script>
+            {//<script defer src="auxiliary/blotter.min.js"></script>
+            }
+        </head>
+        <body style={{margin: 0}}>
+        <div id="root" dangerouslySetInnerHTML={{__html: content}}/>
+        <div id="clipboard"></div>
+        <script dangerouslySetInnerHTML={{
+            __html: `window.apolloState=${JSON.stringify(state).replace(/</g, '\\u003c')};`,
+        }}/>
+        </body>
         </html>
     );
 }
@@ -78,7 +79,7 @@ server
             <ApolloProvider client={client}>
                 <StaticRouter context={context} location={req.url}>
                     <ThemeProvider theme={theme}>
-                        <App />
+                        <App/>
                     </ThemeProvider>
                 </StaticRouter>
             </ApolloProvider>
@@ -86,10 +87,10 @@ server
 
         console.log('cookies', req.header('Cookie'));
         const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST!);
-        
+
         renderToStringWithData(sheets.collect(app)).then((content) => {
             const initialState = client.extract();
-            const html = <Html assets={assets} css={sheets.toString()} content={content} state={initialState} />;
+            const html = <Html assets={assets} css={sheets.toString()} content={content} state={initialState}/>;
 
             res.status(context.statusCode || 200)
                 .send(`<!doctype html>\n${ReactDOMServer.renderToStaticMarkup(html)}`

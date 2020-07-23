@@ -8,21 +8,21 @@ interface AuthRouteProps extends RouteProps {
 }
 
 const AuthRoute: React.FC<AuthRouteProps> = ({
-    roles = [],
-    unauthorized = false,
-    ...rest
-}) => {
+                                                 roles = [],
+                                                 unauthorized = false,
+                                                 ...rest
+                                             }) => {
     const {store: {user: {data: user}}} = React.useContext(DataContext);
 
     const buildRoute = () => {
         if (!user && !unauthorized) {
             //console.log("redirect 1", user);
-            return <Redirect to={"/"} />;
+            return <Redirect to={"/"}/>;
         }
 
         if (user && !roles.includes(user.role)) {
             //console.log("redirect 2");
-            return <Redirect to={"/"} />;
+            return <Redirect to={"/"}/>;
         }
 
         //console.log("redirect 3");

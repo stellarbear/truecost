@@ -40,7 +40,8 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
     const {
         value = "[]",
         label = "range",
-        onChangeEvent = () => {},
+        onChangeEvent = () => {
+        },
     } = props;
     const [state, setState] = useState<IState[]>([]);
     const [open, setOpen] = useState(false);
@@ -115,7 +116,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                     <IconButton
                         disabled={index !== state.length - 1}
                         onClick={() => setState([...state.slice(0, index), ...state.slice(index + 1)])}>
-                        <Delete />
+                        <Delete/>
                     </IconButton>
                 </TableCell>
             </TableRow>
@@ -158,7 +159,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                 }}>
                     <IconButton
                         onClick={() => addNewRow()}>
-                        <AddCircle color="primary" />
+                        <AddCircle color="primary"/>
                     </IconButton>
                     <Button
                         onClick={() => {
@@ -167,7 +168,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                         }}
                         color="primary" variant="contained">
                         Update
-                        </Button>
+                    </Button>
                 </DialogActions>
             </Dialog>
         );
@@ -183,7 +184,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                 value={preview(state)}
                 multiline
                 rowsMax={4}
-                onClick={() => setOpen(true)} />
+                onClick={() => setOpen(true)}/>
             {renderDialog()}
         </React.Fragment>
     );

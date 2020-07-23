@@ -41,9 +41,9 @@ const defaultState = (props: ItemProp[]) =>
 type IState = Record<string, any>
 
 export const Add: React.FC<AddProps> = ({
-    props,
-    mutation,
-}) => {
+                                            props,
+                                            mutation,
+                                        }) => {
     const {setLoading} = useLoading();
     const [create] = useMutation(mutation);
     const {notify} = useNotification();
@@ -116,13 +116,13 @@ export const Add: React.FC<AddProps> = ({
             </Button>
             <Drawer anchor={'right'} open={drawer} onClose={() => setDrawer(false)}>
                 <Col s={16} fullWidth p={16}
-                    style={{minWidth: 400, overflow: "hidden"}} >
+                     style={{minWidth: 400, overflow: "hidden"}}>
                     <div style={{height: "90vh", overflow: "auto"}}>
                         {table()}
                     </div>
                     <Button variant="contained"
-                        fullWidth color="primary"
-                        onClick={() => onAdd()}>
+                            fullWidth color="primary"
+                            onClick={() => onAdd()}>
                         Add record
                     </Button>
                 </Col>

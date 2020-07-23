@@ -122,7 +122,7 @@ export const Register: React.FC = () => {
                             />
                         </Col>
                         <Button fullWidth variant="contained" type="submit">
-                            {loading ? <CircularProgress size={24} /> : "REGISTER"}
+                            {loading ? <CircularProgress size={24}/> : "REGISTER"}
                         </Button>
                     </Col>
                 </Paper>

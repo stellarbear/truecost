@@ -3,7 +3,8 @@ import {useHistory} from "react-router";
 import {useState, useEffect} from "react";
 import {IUser} from "@truecost/shared";
 
-interface IProps extends IUserContext {}
+interface IProps extends IUserContext {
+}
 
 export function useUser(props: IProps) {
     const [state, setState] = useState<IUser | null>(

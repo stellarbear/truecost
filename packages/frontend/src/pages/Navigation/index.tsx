@@ -17,12 +17,12 @@ interface INavigationProps extends RouteComponentProps {
 }
 
 const NavigationWrapper: React.FC<INavigationProps> = ({
-    history,
-    location,
-    children,
-    rtl = false,
-    height = 200,
-}) => {
+                                                           history,
+                                                           location,
+                                                           children,
+                                                           rtl = false,
+                                                           height = 200,
+                                                       }) => {
     const {current: {game}} = useContext(DataContext);
     const calcState = () => window.pageYOffset < height
         && history.location.pathname === ("/" + game?.url + "/" || "/");
@@ -61,15 +61,15 @@ const NavigationWrapper: React.FC<INavigationProps> = ({
                                         width: "100vw", padding: 0,
                                     }}>
                                         <Hidden mdUp>
-                                            <Mobile rtl={rtl} logo={logo} />
+                                            <Mobile rtl={rtl} logo={logo}/>
                                         </Hidden>
                                         <Hidden smDown>
-                                            <Desktop logo={logo} />
+                                            <Desktop logo={logo}/>
                                         </Hidden>
                                     </Toolbar>
                                 </AppBar>
                             </ElevationScroll>
-                            <Toolbar style={{margin: 8}} />
+                            <Toolbar style={{margin: 8}}/>
                             <Container maxWidth="xl">
                                 <Switch location={location}>
                                     {children}
@@ -77,7 +77,7 @@ const NavigationWrapper: React.FC<INavigationProps> = ({
                             </Container>
                         </div>
                         <Container maxWidth="xl">
-                            <Footer />
+                            <Footer/>
                         </Container>
                     </section>
                 </CSSTransition>

@@ -44,18 +44,18 @@ export const RegisterVerify: React.FC = () => {
 
 
     if (!verify || !value) {
-        return <Redirect to="/404" />
+        return <Redirect to="/404"/>
     }
 
     if (error) {
-        return <Redirect to="/404" />
+        return <Redirect to="/404"/>
     }
 
     if (loading) {
         return (
             <Box mt={2}>
                 <CircularProgress
-                        disableShrink color="inherit" />
+                    disableShrink color="inherit"/>
             </Box>
         )
     }
@@ -67,7 +67,7 @@ export const RegisterVerify: React.FC = () => {
                 'We have automatically logged you in.'
             ]} actions={[
                 <Button variant="outlined" component={Link} to="/shop">To the shop!</Button>,
-            ]} />
+            ]}/>
         </>
     )
 }

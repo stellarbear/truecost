@@ -24,10 +24,10 @@ export class ItemCRUDResolver extends MetaResolver
             set: ["topOffer"],
             like: ["obtain", "requirements", "link"],
             between: ["price", "discount", "limit"],
-            filter: ["game", "tag", "option","item"],
+            filter: ["game", "tag", "option", "item"],
         },
         upsert: {
-            notEmpty: [ "images", "price", "game"],
+            notEmpty: ["images", "price", "game"],
             unique: [],
             images: ["images"],
         },

@@ -36,7 +36,7 @@ export class CString extends ABase<string> {
                 editable={editable}
                 label={label}
                 value={value || base!}
-                onChangeEvent={onChange} />
+                onChangeEvent={onChange}/>
         );
     }
 }

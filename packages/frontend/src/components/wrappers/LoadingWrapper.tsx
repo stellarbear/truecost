@@ -19,7 +19,7 @@ const LoadingWrapper: React.FC = ({children}) => {
                 {children}
                 <Backdrop style={{zIndex: 999}} open={loading}>
                     <CircularProgress
-                        disableShrink color="inherit" />
+                        disableShrink color="inherit"/>
                 </Backdrop>
             </>
         </LoadingContext.Provider>

@@ -9,15 +9,15 @@ import {RoleType} from '@truecost/shared';
 export const Admin = () => {
     return (
         <>
-            <Header />
+            <Header/>
             <Switch>
                 {
                     admin.routes.map(({url, component}) =>
                         <AuthRoute exact
-                            roles={[RoleType.ADMIN]}
-                            key={url}
-                            path={`/admin/${url}`}
-                            component={component} />)
+                                   roles={[RoleType.ADMIN]}
+                                   key={url}
+                                   path={`/admin/${url}`}
+                                   component={component}/>)
                 }
             </Switch>
         </>

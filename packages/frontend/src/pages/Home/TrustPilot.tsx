@@ -16,7 +16,7 @@ export const TrustPilot: React.FC<IProps> = ({style = {}}) => (
         justifyContent: "center",
     }}>
         <ButtonBase>
-            <TrustBox size="big" />
+            <TrustBox size="big"/>
         </ButtonBase>
     </Card>
 )
