@@ -3,9 +3,6 @@ import {Card, Divider, Drawer, Grid, IconButton, Menu, MenuItem, Tooltip, Typogr
 import FilterList from "@material-ui/icons/FilterList";
 
 import {ItemProp} from "./types";
-import {PaginationContext} from "./Pagination";
-import {Storage} from "auxiliary/storage";
-import {ReactSortable} from "react-sortablejs";
 import {Col} from "pages/Base/Grid";
 import {IShared, useShared} from "./CRUD";
 import {normalize} from "./normalize";

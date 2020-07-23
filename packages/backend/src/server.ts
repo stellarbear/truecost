@@ -50,7 +50,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         //resave: false,
         saveUninitialized: false,
         cookie: {
-            domain: ".truecostd2.store",
+            domain: process.env.NODE_ENV === "production" ? ".truecostd2.store" : undefined,
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             maxAge: 1000 * 60 * 60 * 24 * 7 * 365,

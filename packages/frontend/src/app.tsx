@@ -19,6 +19,8 @@ import {LoadingWrapper} from "components/wrappers/LoadingWrapper";
 import {Register} from "pages/User/Register/Register";
 import {RegisterMessage} from "pages/User/Register/RegisterMessage";
 import {RegisterVerify} from "pages/User/Register/RegisterVerify";
+import {Admin} from "pages/Admin";
+import {RoleType} from "@truecost/shared";
 
 
 const App = () => {
@@ -36,13 +38,7 @@ const App = () => {
 									<Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
 									<Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
-									{
-										admin.routes.map(({url, component}) =>
-											<AuthRoute exact
-												key={url}
-												path={`/admin/${url}`}
-												component={component} />)
-									}
+									<AuthRoute path={`/admin`} component={Admin} roles={[RoleType.ADMIN]} />
 
 									<AuthRoute exact path={`/login`} component={Login} unauthorized />
 									<AuthRoute exact path={`/register`} component={Register} unauthorized />

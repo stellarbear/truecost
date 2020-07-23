@@ -4,28 +4,28 @@ import {DataContext} from "pages/Data/Wrapper";
 
 interface AuthRouteProps extends RouteProps {
     unauthorized?: boolean;
-    role?: string[];
+    roles?: string[];
 }
 
 const AuthRoute: React.FC<AuthRouteProps> = ({
-                                                 role = [],
-                                                 unauthorized = false,
-                                                 ...rest
-                                             }): JSX.Element => {
+    roles = [],
+    unauthorized = false,
+    ...rest
+}) => {
     const {store: {user: {data: user}}} = React.useContext(DataContext);
 
     const buildRoute = () => {
-        /*
-        if (user == undefined && !unauthorized) {
-            console.log("redirect 1", user);
-            return <Redirect to={"/"}/>;
+        if (!user && !unauthorized) {
+            //console.log("redirect 1", user);
+            return <Redirect to={"/"} />;
         }
 
-        if (!(role.length > 0) && user && role.includes(user.role)) {
-            console.log("redirect 2");
-            return <Redirect to={"/"}/>;
-        }*/
+        if (user && !roles.includes(user.role)) {
+            //console.log("redirect 2");
+            return <Redirect to={"/"} />;
+        }
 
+        //console.log("redirect 3");
         return <Route {...rest} />;
     };
 

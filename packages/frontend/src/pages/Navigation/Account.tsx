@@ -6,6 +6,7 @@ import {Col, Row} from "pages/Base/Grid";
 import {useStore} from 'pages/Data/Wrapper';
 import gql from "graphql-tag";
 import {useMutation} from "react-apollo";
+import {RoleType} from "@truecost/shared";
 
 const LOGOUT = gql`
     mutation UserLogout {
@@ -42,11 +43,19 @@ export const Account: React.FC = () => {
 
     const logOut = (
         <Row>
+            <Button component={Link} color="inherit" to={'/account'} disabled>
+                account
+            </Button>
+            {user?.role === RoleType.ADMIN && (
+                <Button component={Link} color="inherit" to={'/admin'}>
+                    admin
+                </Button>
+            )}
             <Button color="inherit" onClick={onLogOut}>
                 logout
             </Button>
         </Row>
     )
 
-    return logIn
+    return !user ? logIn : logOut
 }

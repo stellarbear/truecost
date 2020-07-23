@@ -126,7 +126,6 @@ export const Register: React.FC = () => {
                         </Button>
                     </Col>
                 </Paper>
-                <Typography variant="body2" gutterBottom>We will send a verification email to the address you provided</Typography>
                 <Box mt={2}>
                     {error && <Alert severity="error">{error.message}</Alert>}
                 </Box>

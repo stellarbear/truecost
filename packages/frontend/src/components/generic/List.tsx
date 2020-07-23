@@ -30,8 +30,6 @@ import {TimeoutButton} from "components";
 import {colors} from "theme";
 import {ItemProp} from "./types";
 import {getResolverName} from "auxiliary";
-import {PaginationContext} from "./Pagination";
-import {Storage} from "auxiliary/storage";
 
 import {ReactSortable} from "react-sortablejs";
 import {DocumentNode} from "graphql";
@@ -235,6 +233,6 @@ export const List: React.FC<UserListProps> = ({
                     </Table>
                 </Paper>
             ))}
-        </ArraySlice>
+        </ArraySlice >
     )
 };

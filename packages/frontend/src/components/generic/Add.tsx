@@ -22,8 +22,6 @@ import {useMutation} from "react-apollo";
 import {ItemProp} from "./types";
 
 import {getResolverName} from "auxiliary";
-import {PaginationContext} from "./Pagination";
-import {NotificationContext} from "components/wrappers";
 import {DocumentNode} from "graphql";
 import {Col} from "pages/Base/Grid";
 import {IBase} from "@truecost/shared";
