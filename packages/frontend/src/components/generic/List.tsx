@@ -106,7 +106,6 @@ export const List: React.FC<UserListProps> = ({
                 notify("server not responded or data corrupted");
             }
         } catch (e) {
-            debugger;
             const fail = parseApolloError(e).asRecord();
             setErrors({[id]: {...fail}});
             notify(`constrains failed`, fail);

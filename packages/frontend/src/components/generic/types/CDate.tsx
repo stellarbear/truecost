@@ -5,13 +5,13 @@ import {BooleanSelectField} from "../components/BooleanSelectField";
 import SwitchField from "../components/SwitchField";
 import DateTimeField, {IDateTimePickerType} from "../components/DateTimeField";
 
-export interface IDate extends ICtor<Date> {
+export interface IDate extends ICtor<number> {
     max?: Date;
     min?: Date;
     type: IDateTimePickerType
 }
 
-export class CDate extends ABase<Date> {
+export class CDate extends ABase<number> {
     min: Date;
     max: Date;
     type: IDateTimePickerType
@@ -28,16 +28,15 @@ export class CDate extends ABase<Date> {
     renderFilterlementation = this.DateTimeField;
     renderListlementation = this.DateTimeField;
 
-    DateTimeField({value, onChange}: IRender<Date>) {
+    DateTimeField({value, onChange}: IRender<number>) {
         const {label, base} = this.data;
         const {min, max, type} = this;
-        const overrideDateValue = value == null ? null : value;
 
         return (
             <DateTimeField
                 type={type}
                 label={label}
-                value={value || min}
+                value={value || +min}
                 onChangeEvent={onChange}/>
         );
     }

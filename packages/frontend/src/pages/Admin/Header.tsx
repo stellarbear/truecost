@@ -11,7 +11,6 @@ export const Header = () => {
     const last = subRoute.slice(index + 1);
     const value = !(admin.routes.map(r => r.url).includes(last)) ? "default" : last;
     /*
-        debugger;
     
         if (!(admin.routes.map(r => r.url).includes(last))) {
             return <Redirect to={`/admin/${admin.routes[0].url}`}/>

@@ -31,7 +31,6 @@ const App = () => {
                     <DataContext.Consumer>
                         {({store: {game}}) => {
                             const urls = Object.values(game.data.id).map(value => value.url);
-                            console.log(urls, 'urllllllllllllllllllllllllllllllll')
 
                             return (
                                     <NavigationWrapper>

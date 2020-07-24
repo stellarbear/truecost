@@ -17,16 +17,16 @@ const AuthRoute: React.FC<AuthRouteProps> = (props) => {
 
     const buildRoute = () => {
         if (!user && !unauthorized) {
-            console.log("redirect 1", user);
+            //console.log("redirect 1", user);
             return <Redirect to={"/"}/>;
         }
 
         if (user && !roles.includes(user.role)) {
-            console.log("redirect 2");
+            //console.log("redirect 2");
             return <Redirect to={"/"}/>;
         }
 
-        console.log("redirect 3");
+        //console.log("redirect 3");
         return <Route {...rest} />;
     };
 

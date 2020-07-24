@@ -1,4 +1,5 @@
-import {AdminBlog, AdminGame, AdminOption, AdminItem, AdminTag} from ".";
+import {AdminGame, AdminOption, AdminItem, AdminTag} from ".";
+import {AdminBlog} from "./Blog";
 
 const routes = [
     {

@@ -8,8 +8,8 @@ export type IDateTimePickerType = "datetime-local" | "date" | "time";
 interface IProps extends BaseTextFieldProps {
     type: IDateTimePickerType
     label?: string;
-    value: Date;
-    onChangeEvent: ((value: Date) => void);
+    value: number;
+    onChangeEvent: ((value:number) => void);
 }
 
 export const DateTimeField: React.FC<IProps> = (props) => {
@@ -28,9 +28,9 @@ export const DateTimeField: React.FC<IProps> = (props) => {
             {...rest}
             type={type}
             label={label}
-            value={value}
+            value={(new Date(value)).toISOString().slice(0, 16)}
             onChange={(event) => {
-                setAndBubbleState(new Date(event.target.value));
+                setAndBubbleState(+new Date(event.target.value));
             }}
         />
     );

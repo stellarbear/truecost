@@ -37,7 +37,7 @@ export const AdminBlog: React.FC = () => {
         base: "",
         key: "text",
         label: "text",
-        component: <EditorPost/>,
+        component: <EditorPost />,
     });
 
     const preview = new CString({
@@ -48,7 +48,6 @@ export const AdminBlog: React.FC = () => {
 
     return (
         <CRUD
-            pack="input"
             title="Blog"
             queryGet={crud.get}
 

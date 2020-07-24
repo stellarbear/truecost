@@ -7,6 +7,7 @@ import {RoleType} from '@truecost/shared';
 
 
 export const Admin = () => {
+    console.log(admin.routes)
     return (
         <>
             <Header/>

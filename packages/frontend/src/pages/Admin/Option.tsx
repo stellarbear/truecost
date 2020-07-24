@@ -60,7 +60,6 @@ export const AdminOption: React.FC = () => {
 
     return (
         <CRUD
-            pack="input"
             title="Option"
             queryGet={crud.get}
 
