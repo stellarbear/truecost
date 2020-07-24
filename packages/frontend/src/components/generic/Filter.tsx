@@ -18,22 +18,27 @@ import {
 import FilterList from "@material-ui/icons/FilterList";
 
 import {ItemProp} from "./types";
-import {Col} from "pages/Base/Grid";
+import {Col, Row} from "pages/Base/Grid";
 import {IShared, useShared} from "./CRUD";
 import {normalize} from "./normalize";
+import {visible} from "./Visible";
 
 interface UserListProps {
-    props: ItemProp[];
+    propsFilter: ItemProp[];
+    title: string
 }
 
 const defaultState = (props: ItemProp[]) =>
     props.reduce((acc, cur) => Object.assign(acc, {[cur.data.key]: undefined}), {});
 
-export const Filter: React.FC<UserListProps> = ({
-                                                    props,
-                                                }) => {
+export const Filter: React.FC<UserListProps> = (props) => {
+    const {
+        title,
+        propsFilter,
+    } = props;
     const [share, setShare] = useShared();
-    const [state, setState] = React.useState<any>(defaultState(props));
+    const [state, setState] = React.useState<any>(defaultState(propsFilter));
+    const {renderVisible, propsFiltered} = visible({key: `filter-${title}`, propsArray: propsFilter});
 
     const [drawer, setDrawer] = React.useState(false);
 
@@ -57,16 +62,19 @@ export const Filter: React.FC<UserListProps> = ({
 
     return (
         <React.Fragment>
-            <Button variant="contained" onClick={() => setDrawer(true)}>
-                <Typography>Filter records</Typography>
-            </Button>
+            <Row>
+                {renderVisible()}
+                <Button variant="contained" onClick={() => setDrawer(true)}>
+                    <Typography>Filter records</Typography>
+                </Button>
+            </Row>
             <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
                 <Col s={16} fullWidth p={16}
-                     style={{minWidth: 400}}>
-                    <Divider/>
+                    style={{minWidth: 400}}>
+                    <Divider />
                     <Table size="small" style={{width: 'auto'}}>
                         <TableBody>
-                            {props.map((prop, index) =>
+                            {propsFiltered.map((prop, index) =>
                                 <TableRow key={`${prop.data.key}-${index}`}>
                                     <TableCell align="right" style={{width: '100%'}}>{render(prop)}</TableCell>
                                     <TableCell align="left">{prop.data.label}</TableCell>

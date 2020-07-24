@@ -1,8 +1,5 @@
 import * as React from "react";
 import {ABase, IRender, ICtor} from "./ABase";
-import {isUndefined} from "@truecost/shared";
-import {BooleanSelectField} from "../components/BooleanSelectField";
-import SwitchField from "../components/SwitchField";
 import DateTimeField, {IDateTimePickerType} from "../components/DateTimeField";
 
 export interface IDate extends ICtor<number> {

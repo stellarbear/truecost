@@ -24,11 +24,18 @@ const dictSort = <T extends { id: string; name: string; order: number }>(handle:
     return keys;
 };
 
-const arrayToDict = <T extends { id: string }>(src: T[]): Record<string, T> => {
+const arrayToDict = <T>(src: T[], ...keys: string[]): Record<string, T> => {
     const result: Record<string, T> = {};
     for (let entry of src) {
-        let {id} = entry;
-        result[id] = entry
+        let pointer: any = entry;
+        
+        for (let key of keys) {
+            pointer = pointer?.[key];
+        }
+
+        if (pointer) {
+            result[pointer] = entry
+        }
     }
     return result;
 }

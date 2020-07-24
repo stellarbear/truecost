@@ -10,9 +10,6 @@ import {createContext} from "react";
 
 interface ICRUD {
     title: string;
-    pack?: string;
-    tree?: string;
-    visibleKeys?: string[];
     queryGet: any;
     mutationDelete: any;
     mutationUpsert: any;
@@ -30,18 +27,16 @@ export interface ISharedData {
 const SharedContext = createContext({} as IShared);
 export const useShared = () => React.useContext(SharedContext)
 
-export const CRUD: React.FC<ICRUD> = ({
-                                          pack,
-                                          tree,
-                                          title,
-                                          visibleKeys,
-                                          queryGet,
-                                          mutationDelete,
-                                          mutationUpsert,
-                                          propsAdd,
-                                          propsList,
-                                          propsFilter,
-                                      }) => {
+export const CRUD: React.FC<ICRUD> = (props) => {
+    const {
+        title,
+        queryGet,
+        mutationDelete,
+        mutationUpsert,
+        propsAdd,
+        propsList,
+        propsFilter,
+    } = props;
     const shared = React.useState<ISharedData>({vars: {}})
 
     return (
@@ -49,15 +44,17 @@ export const CRUD: React.FC<ICRUD> = ({
             <Col s={8} fullWidth>
                 <Row s={8}>
                     <Filter
-                        props={propsFilter}
+                    title={title}
+                        propsFilter={propsFilter}
                     />
                     <Add
                         mutation={mutationUpsert}
-                        props={propsAdd}
+                        propsAdd={propsAdd}
                     />
                 </Row>
                 <List
-                    props={propsList}
+                    title={title}
+                    propsList={propsList}
                     listQuery={queryGet}
                     updateMutation={mutationUpsert}
                     removeMutation={mutationDelete}

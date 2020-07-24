@@ -130,7 +130,7 @@ export const AdminItem: React.FC = () => {
 
     return (
         <CRUD
-            pack="input"
+            
             title="Item"
             queryGet={crud.get}
 

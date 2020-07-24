@@ -7,7 +7,8 @@ export const useStorage = <T>(key: string, base: T, validate: (input: T) => T = 
     useEffect(() => {
         const json = localStorage.getItem(key);
         const data = SafeJSON.parse(json, base);
-        setStorage(validate(data));
+        const validated = validate(data);
+        setStorage(validated);
     }, [])
 
     const updateStorage = (data: T) => {

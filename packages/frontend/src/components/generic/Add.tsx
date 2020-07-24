@@ -23,7 +23,7 @@ import {useShared} from "./CRUD";
 import {parseApolloError} from "auxiliary/error";
 
 interface AddProps {
-    props: ItemProp[];
+    propsAdd: ItemProp[];
     mutation: DocumentNode;
 }
 
@@ -32,13 +32,14 @@ const defaultState = (props: ItemProp[]) =>
 
 type IState = Record<string, any>
 
-export const Add: React.FC<AddProps> = ({props, mutation}) => {
+export const Add: React.FC<AddProps> = (props) => {
+    const {propsAdd, mutation} = props;
     const {setLoading} = useLoading();
     const [create] = useMutation(mutation);
     const {notify} = useNotification();
 
     const [error, setError] = React.useState<IState>({})
-    const [state, setState] = React.useState<IState>(defaultState(props));
+    const [state, setState] = React.useState<IState>(defaultState(propsAdd));
     const [drawer, setDrawer] = React.useState(false);
 
     const onStateChange = (newState: IState) => {
@@ -57,7 +58,7 @@ export const Add: React.FC<AddProps> = ({props, mutation}) => {
             const response = await create({variables: {input: normalize(state)}});
             const resolverName = getResolverName(mutation);
             if (response?.data?.[resolverName]) {
-                onStateChange(defaultState(props));
+                onStateChange(defaultState(propsAdd));
                 notify(`entry created`);
                 setDrawer(false);
             } else {
@@ -86,7 +87,7 @@ export const Add: React.FC<AddProps> = ({props, mutation}) => {
     const table = () => (
         <Table size="small" style={{width: 'auto'}}>
             <TableBody>
-                {props.map((prop, index) =>
+                {propsAdd.map((prop, index) =>
                     <TableRow key={`${prop.data.key}-${index}`}>
                         <TableCell align="right">{prop.data.label}</TableCell>
                         <TableCell align="left" style={{width: '100%'}}>{render(prop)}</TableCell>

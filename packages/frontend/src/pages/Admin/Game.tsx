@@ -38,7 +38,7 @@ export const AdminGame: React.FC = () => {
 
     return (
         <CRUD
-            pack="input"
+            
             title="Game"
             queryGet={crud.get}
 

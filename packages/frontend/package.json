@@ -11,7 +11,6 @@
 		"build": "yarn build:clean && yarn cross-env RAZZLE_APP_ENV=production razzle build",
 		"build:clean": "rimraf build tsconfig.tsbuildinfo",
 		"build:watch": "yarn -v",
-		
 		"start": "node build/server",
 		"start:watch": "razzle start"
 	},
@@ -51,6 +50,7 @@
 		"react-lazyload": "^2.6.5",
 		"react-router-dom": "^5.1.2",
 		"react-smooth": "^1.0.5",
+		"react-smooth-dnd": "^0.11.1",
 		"react-sortablejs": "^2.0.7",
 		"react-spring": "^8.0.27",
 		"react-text-fun": "^1.0.0",

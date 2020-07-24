@@ -14,7 +14,6 @@ export const AdminTag: React.FC = () => {
     });
     return (
         <CRUD
-            pack="input"
             title="Tag"
             queryGet={crud.get}
 

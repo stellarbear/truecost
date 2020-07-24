@@ -42,6 +42,7 @@ import {IShared, useShared} from "./CRUD";
 import {InfoCard} from "pages/Base/InfoCard";
 import {parseApolloError} from "auxiliary/error";
 import {TimeoutButton} from "./components/TimeoutButton";
+import {visible} from "./Visible";
 
 const stickyStyle: CSSProperties = {
     position: "sticky",
@@ -50,32 +51,35 @@ const stickyStyle: CSSProperties = {
     zIndex: 3,
 }
 
-type IItem = { id: string; [key: string]: any }
+type IItem = {id: string;[key: string]: any}
 type IItems = Record<string, IItem>
 type IError = Record<string, Record<string, string>>
 
 interface UserListProps {
-    props: ItemProp[];
+    title: string
+    propsList: ItemProp[];
     listQuery: DocumentNode;
     updateMutation: DocumentNode;
     removeMutation: DocumentNode;
 }
 
-export const List: React.FC<UserListProps> = ({
-                                                  props,
-                                                  listQuery,
-                                                  updateMutation,
-                                                  removeMutation,
-                                              }) => {
+export const List: React.FC<UserListProps> = (props) => {
+    const {
+        title,
+        propsList,
+        listQuery,
+        updateMutation,
+        removeMutation,
+    } = props;
     const [share] = useShared();
     const {setLoading} = useLoading();
     const {notify} = useNotification();
     const [remove] = useMutation(removeMutation);
     const [update] = useMutation(updateMutation);
-    const [count, setCount] = React.useState<number>(0);
     const [items, setItems] = React.useState<IItems>({});
     const [clones, setClones] = React.useState<IItems>({})
     const [errors, setErrors] = React.useState<IError>({});
+    const {renderVisible, propsFiltered} = visible({key: `list-${title}`, propsArray: propsList});
 
     const {data, refetch, loading} = useQuery(listQuery, {
         variables: {take: 0, skip: 0, input: normalize(share.vars)},
@@ -90,10 +94,9 @@ export const List: React.FC<UserListProps> = ({
             console.log("query sent", normalize(share.vars));
             console.log("response received", items);
 
-            const dict = arrayToDict<IItem>(items);
+            const dict = arrayToDict<IItem>(items, "id");
             setItems({...dict});
             setClones({...dict});
-            setCount(count);
         }
     }, [data]);
 
@@ -171,12 +174,12 @@ export const List: React.FC<UserListProps> = ({
         return (
             <Row>
                 <IconButton disabled={similar} onClick={() => onUpdate(id)}>
-                    <Save/>
+                    <Save />
                 </IconButton>
                 <IconButton disabled={similar} onClick={() => onCancel(id)}>
-                    <Cancel/>
+                    <Cancel />
                 </IconButton>
-                <TimeoutButton timeout={3} icon={<Delete/>} onClickEvent={() => onDelete(id)}/>
+                <TimeoutButton timeout={3} icon={<Delete />} onClickEvent={() => onDelete(id)} />
             </Row>
         )
     }
@@ -190,50 +193,55 @@ export const List: React.FC<UserListProps> = ({
                     'Please, wait'
                 ]}
                 actions={[
-                    <CircularProgress color="inherit" size={40}/>
-                ]}/>
+                    <CircularProgress color="inherit" size={40} />
+                ]} />
         )
     }
 
     return (
-        <ArraySlice data={Object.keys(items)}>
-            {(itemIds => (
-                <Paper style={{overflow: "auto"}}>
-                    <Table size="small">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell style={stickyStyle}>
-                                    {"actions"}
-                                </TableCell>
-                                {props.map(({data: {label}}) => (
-                                    <TableCell
-                                        align="center"
-                                        key={`th-${label}`}>
-                                        {label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {itemIds.map(id => (
-                                <TableRow key={`tr-${id}`}>
+        <div style={{position: "relative"}}>
+            <div style={{position: "absolute", right: 0}}>
+                {renderVisible()}
+            </div>
+            <ArraySlice data={Object.keys(items)}>
+                {(itemIds => (
+                    <Paper style={{overflow: "auto"}}>
+                        <Table size="small">
+                            <TableHead>
+                                <TableRow>
                                     <TableCell style={stickyStyle}>
-                                        {actions(id)}
+                                        {"actions"}
                                     </TableCell>
-                                    {props.map((prop: ItemProp, index: number) => (
+                                    {propsFiltered.map(({data: {label}}) => (
                                         <TableCell
-                                            align="right"
-                                            style={{minWidth: 200}}
-                                            key={`tr-${id}-${prop.data.key}-${index}`}>
-                                            {render(items[id], prop)}
+                                            align="center"
+                                            key={`th-${label}`}>
+                                            {label}
                                         </TableCell>
                                     ))}
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Paper>
-            ))}
-        </ArraySlice>
+                            </TableHead>
+                            <TableBody>
+                                {itemIds.map(id => (
+                                    <TableRow key={`tr-${id}`}>
+                                        <TableCell style={stickyStyle}>
+                                            {actions(id)}
+                                        </TableCell>
+                                        {propsFiltered.map((prop: ItemProp, index: number) => (
+                                            <TableCell
+                                                align="right"
+                                                style={{minWidth: 200}}
+                                                key={`tr-${id}-${prop.data.key}-${index}`}>
+                                                {render(items[id], prop)}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </Paper>
+                ))}
+            </ArraySlice>
+        </div>
     )
 };
