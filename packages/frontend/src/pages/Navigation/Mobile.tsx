@@ -3,7 +3,6 @@ import {Button, Divider, Drawer, IconButton} from "@material-ui/core";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import Clear from "@material-ui/icons/Clear";
 import Menu from "@material-ui/icons/Menu";
-import {AccountPicker} from "components";
 import {Link} from "react-router-dom";
 
 declare let Tawk_API: any;
@@ -88,7 +87,6 @@ const Mobile: React.FC<IMobile> = (props) => {
                     display: "flex", flexDirection: "row", alignItems: "center",
                     marginRight: 32,
                 }}>
-                    <AccountPicker/>
                     {/*(user?.total ?? 0) > 0 && <Chip size="small" color="secondary" label={`${user?.total} %`} style={{ marginRight: 4 }} />*/}
                 </div>
             </div>

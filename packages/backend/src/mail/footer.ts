@@ -1,8 +1,5 @@
 import {social} from '@truecost/shared';
-
-const domain = `https://truecost.gg`;
-const linkUri = (to: string) => `${domain}/${to}`
-const iconUri = (icon: string) => `${linkUri("social")}/${icon}.png`;
+import {iconUri, linkUri} from './helpers';
 
 export const footer = () => {
     return `

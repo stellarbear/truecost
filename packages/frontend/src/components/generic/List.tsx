@@ -26,7 +26,6 @@ import Cancel from "@material-ui/icons/Cancel";
 import Delete from "@material-ui/icons/Delete";
 
 import {NotificationContext} from "components/wrappers";
-import {TimeoutButton} from "components";
 import {colors} from "theme";
 import {ItemProp} from "./types";
 import {getResolverName} from "auxiliary";
@@ -42,6 +41,7 @@ import {ArraySlice} from "./components/ArraySlice";
 import {IShared, useShared} from "./CRUD";
 import {InfoCard} from "pages/Base/InfoCard";
 import {parseApolloError} from "auxiliary/error";
+import {TimeoutButton} from "./components/TimeoutButton";
 
 const stickyStyle: CSSProperties = {
     position: "sticky",

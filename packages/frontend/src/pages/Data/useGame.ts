@@ -21,10 +21,9 @@ interface IProps extends IGameContext {
 export function useGame(props: IProps) {
     const {location: {pathname}} = useHistory();
 
-    const gameIndex = pathname.indexOf('/', 1);
-    const gameUrl = gameIndex === -1
-        ? pathname.slice(1)
-        : pathname.slice(1, gameIndex);
+    const path = (pathname + "/");
+    const index = path.indexOf('/', 1);
+    const gameUrl = path.slice(1, index)
 
     const currentGame = gameUrl in props.data.url
         ? props.data.url[gameUrl]

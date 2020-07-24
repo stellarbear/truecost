@@ -16,16 +16,17 @@ interface INavigationProps extends RouteComponentProps {
     height?: number;
 }
 
-const NavigationWrapper: React.FC<INavigationProps> = ({
-                                                           history,
-                                                           location,
-                                                           children,
-                                                           rtl = false,
-                                                           height = 200,
-                                                       }) => {
+const NavigationWrapper: React.FC<INavigationProps> = (props) => {
+    const {
+        history,
+        location,
+        children,
+        rtl = false,
+        height = 200,
+    } = props;
     const {current: {game}} = useContext(DataContext);
     const calcState = () => window.pageYOffset < height
-        && history.location.pathname === ("/" + game?.url + "/" || "/");
+        && history.location.pathname === ("/" + game?.url || "/");
     const [isOnTop, setIsOnTop] = useState(true);
 
     useEffect(() => {

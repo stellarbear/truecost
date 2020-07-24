@@ -7,8 +7,8 @@ import RangeField from "../components/RangeField";
 import {Col, Row} from "pages/Base/Grid";
 import {Badge} from "@material-ui/core";
 import SelectImage from "components/generic/components/SelectImage";
-import {Zoom} from "components";
 import {serverUri} from "auxiliary/route";
+import Zoom from "../components/Zoom";
 
 export interface IImage extends ICtor<any> {
     limit?: number;
