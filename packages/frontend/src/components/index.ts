@@ -1,6 +1,5 @@
 import CheckBoxField from "./CheckBoxField";
 import AccountPicker from "../pages/Navigation/AccountPicker";
-import ErrorLabel from "./ErrorLabel";
 import {TimeoutButton} from "./TimeoutButton";
 import PasswordField from "./PasswordField";
 import InputMaskedField from "./InputMaskedField";
@@ -14,7 +13,6 @@ export {
     Zoom,
     PasswordField,
     InputMaskedField,
-    ErrorLabel,
     CheckBoxField,
     TimeoutButton,
     AccountPicker,

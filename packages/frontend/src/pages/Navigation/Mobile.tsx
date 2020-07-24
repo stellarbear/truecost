@@ -5,7 +5,6 @@ import Clear from "@material-ui/icons/Clear";
 import Menu from "@material-ui/icons/Menu";
 import {AccountPicker} from "components";
 import {Link} from "react-router-dom";
-import Quick from "./GamePicker";
 
 declare let Tawk_API: any;
 
@@ -117,7 +116,6 @@ const Mobile: React.FC<IMobile> = (props) => {
                     <IconButton onClick={toggleDrawer} style={{margin: "8px"}}>
                         <Clear/>
                     </IconButton>
-                    <Quick/>
                 </div>
                 <Divider/>
                 {renderNavigation()}

@@ -12,10 +12,7 @@ export interface IGameContext {
 
 const GameContext = createContext<IGameContext>({} as IGameContext);
 
-interface GamePickerProps {
-}
-
-const GamePicker: React.FC<GamePickerProps> = () => {
+export const GamePicker: React.FC = () => {
     const history = useHistory();
     const {location: {pathname}} = history;
     const {store: {game: {data}}, current: {game}, update: {setGame}} = useContext(DataContext);
@@ -79,5 +76,3 @@ const GamePicker: React.FC<GamePickerProps> = () => {
         </div>
     );
 };
-
-export default GamePicker;

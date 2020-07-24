@@ -4,15 +4,16 @@ import {Link} from 'react-router-dom';
 import {DataContext} from "pages/Data/Wrapper";
 import {Col, Row} from "pages/Base/Grid";
 import {Account} from './Account';
+import {GamePicker} from "./GamePicker";
 
 interface IDesktop {
     logo: string;
 }
 
 export const Desktop: React.FC<IDesktop> = (props) => {
-    const {logo,} = props;
+    const {logo, } = props;
     const {current: {game}} = useContext(DataContext);
-    const url = '/' + game!.url
+    const url = '/' + game.url
 
     const navigation = () => (
         <Row fullWidth>
@@ -37,7 +38,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             right: 16,
             top: 4,
         }}>
-            <Account/>
+            <Account />
         </div>
     )
 
@@ -47,10 +48,13 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             left: 16,
             top: -8,
         }}>
-            <Button component={Link} to={url + '/'}>
-                <img height={80} width={80} src={logo}
-                     style={{marginTop: -20, marginBottom: -20}}/>
-            </Button>
+            <Row>
+                <Button component={Link} to={url + '/'}>
+                    <img height={80} width={80} src={logo}
+                        style={{marginTop: -20, marginBottom: -20}} />
+                </Button>
+                <GamePicker />
+            </Row>
         </div>
     )
 

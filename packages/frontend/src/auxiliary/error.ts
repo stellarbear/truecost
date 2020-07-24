@@ -1,42 +1,62 @@
 import {ApolloError} from "apollo-boost";
 
-//  TODO: refactor this nightmare
-export const parseApolloError = (error: ApolloError): Record<string, any> => {
-    const {message, graphQLErrors, networkError} = error;
-    if (!graphQLErrors) {
-        return {message};
-    }
-    /*
-        if ((networkError as any)?.result?.errors) {
-            const errors = (networkError as any)?.result?.errors;
-            debugger;
-            if (Array.isArray(errors) && errors.length > 0) {
-                debugger;
-                const prepare = errors.filter(e => e?.message && e?.extensions?.exception?.field)
-                .map(e =>( {message: e.message, field: e.extensions.exception.field}));
-                debugger;
-            }
+type StringType = string
+type RecordType = Record<string, string>
+type ArrayType = {message: string, fields: string[]}[]
+
+const extract = (error: ApolloError): ArrayType => {
+    const {graphQLErrors, networkError} = error;
+
+    const errors = (networkError as any)?.result?.errors
+        ? (networkError as any)?.result?.errors
+        : graphQLErrors
+            ? graphQLErrors
+            : null;
+
+    const prepare = errors.filter((e: any) => e?.message && e?.extensions?.exception?.field);
+    const mapped = prepare.map((e: any) => {
+        const fields = e.extensions.exception.field;
+        return ({message: e.message, fields: Array.isArray(fields) ? fields : [fields]})
+    });
+
+    return mapped;
+
+}
+
+const covertToRecord = (errors: any[]): RecordType => {
+    const result: Record<string, any> = {};
+
+    for (let error of errors) {
+        for (let field of error.fields) {
+            result[field] = field in result
+                ? result[field] + ", " + error.message
+                : error.message;
         }
-        */
-    let objResult = {};
-
-    if (message == "GraphQL error: Argument Validation Error") {
-        objResult = graphQLErrors
-            .flatMap(error => error.extensions && error.extensions.exception && error.extensions.exception.validationErrors
-                ? error.extensions.exception.validationErrors : [])
-            .reduce((obj, curr) => {
-                obj[curr.property] = (obj[curr.property] || []).concat(Object.values(curr.constraints));
-                return obj;
-            }, {});
-    } else {
-        objResult = graphQLErrors
-            .reduce((obj: any, curr) => {
-                if (curr.extensions && curr.message && curr.extensions.exception) {
-                    (curr.extensions.exception.field || []).forEach((f: string) => obj[f] = (obj[f] || []).concat(curr.message));
-                }
-                return obj;
-            }, {});
     }
 
-    return objResult;
+    return result;
+}
+
+const covertToString = (errors: any[]): StringType => {
+    const result = errors.map(({message, fields}) => fields.length > 0
+        ? fields.join(", ") + " " + message
+        : message).join("\n");
+
+    return result;
+}
+
+///export function parseApolloError(error: undefined): null
+//export function parseApolloError(error: ApolloError): any;
+export function parseApolloError(error: ApolloError): {
+    asArray: () => ArrayType,
+    asString: () => StringType,
+    asRecord: () => RecordType
+} {
+    const extracted = extract(error);
+
+    return ({
+        asArray: () => extracted,
+        asString: () => covertToString(extracted),
+        asRecord: () => covertToRecord(extracted),
+    });
 };

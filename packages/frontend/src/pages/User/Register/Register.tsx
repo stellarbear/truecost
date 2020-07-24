@@ -53,10 +53,7 @@ export const Register: React.FC = () => {
                 clearErrors();
                 setLoading(true);
                 await mutation({variables: {...data}});
-            } catch (e) {
-                const errors = parseApolloError(e);
-                Object.keys(errors).map(key => setError(key as any, errors[key]));
-            } finally {
+            } catch (e) { } finally {
                 setLoading(false);
             }
         },
@@ -127,7 +124,7 @@ export const Register: React.FC = () => {
                     </Col>
                 </Paper>
                 <Box mt={2}>
-                    {error && <Alert severity="error">{error.message}</Alert>}
+                    {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
                 </Box>
             </form>
         </Container>

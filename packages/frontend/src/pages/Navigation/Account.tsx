@@ -57,5 +57,5 @@ export const Account: React.FC = () => {
         </Row>
     )
 
-    return !user ? logIn : logOut
+    return user ? logOut : logIn;
 }

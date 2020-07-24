@@ -24,6 +24,7 @@ import {useForm} from "react-hook-form";
 import {validate} from "@truecost/shared";
 import {theme} from "theme";
 import {Col, Row} from "pages/Base/Grid";
+import {parseApolloError} from "auxiliary/error";
 
 
 const LOGIN = gql`
@@ -64,7 +65,6 @@ export const Login: React.FC = () => {
             history.push(`/`);
         }
     }, [data?.UserLogin]);
-
 
     return (
         <Container maxWidth="xs">
@@ -109,7 +109,7 @@ export const Login: React.FC = () => {
                     </Col>
                 </Paper>
                 <Box mt={2}>
-                    {error && <Alert severity="error">{error.message}</Alert>}
+                    {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
                 </Box>
             </form>
         </Container>

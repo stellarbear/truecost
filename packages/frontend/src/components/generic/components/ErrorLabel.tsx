@@ -28,6 +28,7 @@ const ErrorLabel: React.FC<IProps> = (props) => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
+                        zIndex: 2
                     }}
                     component="div"
                     variant="caption">

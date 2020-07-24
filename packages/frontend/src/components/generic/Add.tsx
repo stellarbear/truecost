@@ -52,7 +52,6 @@ export const Add: React.FC<AddProps> = ({props, mutation}) => {
 
     const onAdd = async () => {
         try {
-            debugger;   
             setLoading(true);
             console.log('trying create', normalize(state))
             const response = await create({variables: {input: normalize(state)}});
@@ -65,8 +64,7 @@ export const Add: React.FC<AddProps> = ({props, mutation}) => {
                 notify("server not responded or data corrupted");
             }
         } catch (e) {
-            debugger;
-            const fail = parseApolloError(e)
+            const fail = parseApolloError(e).asRecord();
             setError({...fail});
             notify(`constrains failed`, fail);
         } finally {

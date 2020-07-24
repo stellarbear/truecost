@@ -10,7 +10,6 @@ export const Admin = () => {
     return (
         <>
             <Header/>
-            <Switch>
                 {
                     admin.routes.map(({url, component}) =>
                         <AuthRoute exact
@@ -19,7 +18,6 @@ export const Admin = () => {
                                    path={`/admin/${url}`}
                                    component={component}/>)
                 }
-            </Switch>
         </>
     )
 }

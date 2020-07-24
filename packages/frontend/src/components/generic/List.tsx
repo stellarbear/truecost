@@ -41,6 +41,7 @@ import {useLoading} from "components/wrappers/LoadingWrapper";
 import {ArraySlice} from "./components/ArraySlice";
 import {IShared, useShared} from "./CRUD";
 import {InfoCard} from "pages/Base/InfoCard";
+import {parseApolloError} from "auxiliary/error";
 
 const stickyStyle: CSSProperties = {
     position: "sticky",
@@ -96,7 +97,7 @@ export const List: React.FC<UserListProps> = ({
         }
     }, [data]);
 
-    const onTry = async (callback: () => Promise<boolean>) => {
+    const onTry = async (id: string, callback: () => Promise<boolean>) => {
         try {
             setLoading(true);
             if (await callback()) {
@@ -106,16 +107,16 @@ export const List: React.FC<UserListProps> = ({
             }
         } catch (e) {
             debugger;
-            /*const fail = parseQLErrors(e)
-            setErrors({id: {...fail}});*/
-            //notify(`constrains failed`, fail);
+            const fail = parseApolloError(e).asRecord();
+            setErrors({[id]: {...fail}});
+            notify(`constrains failed`, fail);
         } finally {
             setLoading(false);
         }
     }
 
     const onDelete = async (id: string) => {
-        await onTry(async () => {
+        await onTry(id, async () => {
             const response = await remove({variables: {input: {id}}});
             const name = getResolverName(removeMutation);
 
@@ -129,7 +130,7 @@ export const List: React.FC<UserListProps> = ({
     }
 
     const onUpdate = async (id: string) => {
-        await onTry(async () => {
+        await onTry(id, async () => {
             console.log('trying sent', normalize(items[id]))
             const response = await update({variables: {input: normalize(items[id])}});
             const name = getResolverName(updateMutation);

@@ -1,6 +1,6 @@
-import {ErrorLabel} from "components";
 import * as React from "react";
 import {Typography} from "@material-ui/core";
+import ErrorLabel from "../components/ErrorLabel";
 
 export interface ICtor<T = any> {
     key: string,
