@@ -9,6 +9,7 @@ import {game} from "./Base/Game";
 import EditorRange from "components/EditorRange";
 import {CCustom} from "components/generic/types/CCustom";
 import {CLink} from "components/generic/types/CLink";
+import EditorPost from "components/EditorPost";
 
 export const AdminItem: React.FC = () => {
     const crud = new CRUDgql({
@@ -67,19 +68,20 @@ export const AdminItem: React.FC = () => {
         min: 0,
         max: 10,
     });
-
-    const obtain = new CString({
+    
+    const obtain = new CCustom({
+        base: "",
         key: "obtain",
         label: "obtain",
-        multiline: true,
+        component: <EditorPost/>,
     });
-
-    const requirements = new CString({
+    
+    const requirements = new CCustom({
+        base: "",
         key: "requirements",
         label: "requirements",
-        multiline: true,
+        component: <EditorPost/>,
     });
-
 
     const isTopOffer = new CBoolean({
         key: "topOffer",
