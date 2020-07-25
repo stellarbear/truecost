@@ -96,7 +96,7 @@ const Shop: React.FC = () => {
             onChange={(_: any, names: string[]) => onStateChange('names', names)}
 
             options={Object.keys(items.id)}
-            groupBy={(option) => option.charAt(0)}
+            //groupBy={(itemId) => items.id[itemId].name.charAt(0)}
             getOptionLabel={(itemId) => items.id[itemId].name}
             renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined" />}
         />
