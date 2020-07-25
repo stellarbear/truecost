@@ -119,6 +119,7 @@ export const List: React.FC<UserListProps> = (props) => {
 
     const onDelete = async (id: string) => {
         await onTry(id, async () => {
+            console.log('trying delete', id)
             const response = await remove({variables: {input: {id}}});
             const name = getResolverName(removeMutation);
 

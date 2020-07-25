@@ -81,7 +81,6 @@ const defaultState: IStore = {
 
 export function useData(data: any) {
     const {GameAll, ItemAll, TagAll, OptionAll, BlogAll, UserWhoAmI} = data;
-    console.log('calculating')
 
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
     for (let game of GameAll) {

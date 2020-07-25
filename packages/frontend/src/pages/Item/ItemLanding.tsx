@@ -38,7 +38,6 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     const price = Price.fromItem(item, chunk);
     const total = price.withOption(selectedOptions.map(o => options.local[o]));
 
-
     return (
         <Container maxWidth="lg">
             <Button
@@ -65,7 +64,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     <ItemDivider item={item} prop="range" />
                     <ItemRange item={item} chunk={chunk} onChange={setChunk} />
                     <ItemDivider />
-                    <ItemPrice price={total} item={item} />
+                    <ItemPrice price={price} item={item} />
                     <ItemDivider />
                     <ItemOption price={price} item={item}
                         selected={selectedOptions}
@@ -77,9 +76,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     />
                 </Grid>
             </Grid>
-            <Button
-                startIcon={< ArrowDownwardIcon />}
-            >
+            <Button startIcon={< ArrowDownwardIcon />} >
                 Related goods
             </Button>
             <ItemRelated item={item} />

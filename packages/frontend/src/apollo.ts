@@ -39,11 +39,6 @@ const enchancedFetch = (url, init) => {
 }*/
 
 const createApolloClient = ({browser}: IApolloClient, cookie?: string) => {
-    console.log('cookie yum yum yum', cookie)
-    if (browser) {
-        console.log('state', window.apolloState);
-    }
-
     const client = new ApolloClient({
         cache: browser ? new InMemoryCache().restore(window.apolloState) : new InMemoryCache(),
         ssrForceFetchDelay: browser ? 100 : undefined,

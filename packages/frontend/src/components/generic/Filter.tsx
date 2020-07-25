@@ -43,9 +43,8 @@ export const Filter: React.FC<UserListProps> = (props) => {
     const [drawer, setDrawer] = React.useState(false);
 
     const onChange = (prop: string, value: any) => {
-        console.log(prop, value)
         const newState = {...state, [prop]: value};
-        console.log(newState);
+        console.log('trying filter', newState)
         setState(newState);
         setShare({vars: newState})
     };

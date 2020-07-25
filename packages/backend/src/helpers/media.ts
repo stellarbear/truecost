@@ -24,7 +24,6 @@ export class Media {
 
         const name = 'u' + filename.slice(filename.lastIndexOf('.'));
         try {
-            console.log('treying')
             const result = await new Promise((resolve, reject) =>
                 stream
                     .on("error", (error: any) => reject(error))

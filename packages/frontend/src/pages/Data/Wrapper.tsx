@@ -52,9 +52,11 @@ const Data: React.FC = ({children}) => {
     const {state: user, setState: setUser} = useUser(store.user);
     const {state: game, setState: setGame} = useGame(store.game);
 
+    /*
     console.log('data,', store);
     console.log('user,', user);
     console.log('game,', game);
+    */
 
     return (
         <DataContext.Provider value={{

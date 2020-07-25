@@ -32,7 +32,7 @@ export class Price {
             return total;
         }
 
-        return (rangeTo(item, chunk[1]) - rangeTo(item, chunk[0])) || item.range[0].price
+        return Math.max((rangeTo(item, chunk[1]) - rangeTo(item, chunk[0])), item.price)
     }
 
     static fromItem(item: IItem, chunk: [number, number] = [0, 0]) {
@@ -82,7 +82,7 @@ export class Price {
         let base = this.toValue;
 
         let {price, type, free} = option;
-        if (base >= free) {
+        if (base >= free && free > 0) {
             return new Price();
         }
 

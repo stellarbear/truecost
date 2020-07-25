@@ -151,6 +151,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
         @UseMiddleware(UseAuth([RoleType.ADMIN]))
         @Mutation(() => String, {name: `${prefix}Delete`})
         async delete(@Arg('input', () => inputRef) {id}: V): Promise<string> {
+            console.log('delete arrived-----------------------------', id)
             assert(id, "id must be specified");
             await this.service.delete(id);
             return id;
