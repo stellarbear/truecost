@@ -48,6 +48,7 @@ export interface IItem extends IBaseMeta {
     images: string[];
     price: number;
     range: IRange[];
+    single: boolean;
     discount: number;
     limit: number;
     topOffer: boolean

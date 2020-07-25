@@ -22,6 +22,7 @@ export const AdminItem: React.FC = () => {
 
             price
             range
+            single
 			discount
 			limit
 
@@ -83,6 +84,13 @@ export const AdminItem: React.FC = () => {
         component: <EditorPost/>,
     });
 
+    const single = new CBoolean({
+        key: "single",
+        label: "single",
+        textTrue: "single",
+        textFalse: "double",
+    });
+
     const isTopOffer = new CBoolean({
         key: "topOffer",
         label: "offer",
@@ -126,7 +134,7 @@ export const AdminItem: React.FC = () => {
         component: <EditorRange/>,
     });
 
-    const fields = [link, images, price, range, discount, limit, obtain, requirements, isTopOffer, item, tag, option];
+    const fields = [link, images, price, range, single, discount, limit, obtain, requirements, isTopOffer, item, tag, option];
 
     return (
         <CRUD

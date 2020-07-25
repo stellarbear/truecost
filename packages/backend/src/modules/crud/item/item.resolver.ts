@@ -21,7 +21,7 @@ export class ItemCRUDResolver extends MetaResolver
         classRef: ItemEntity,
         resultRef: ItemResponse,
         get: {
-            set: ["topOffer"],
+            set: ["topOffer", "single"],
             like: ["obtain", "requirements", "link"],
             between: ["price", "discount", "limit"],
             filter: ["game", "tag", "option", "item"],

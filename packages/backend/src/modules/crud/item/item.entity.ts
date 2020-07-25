@@ -11,7 +11,7 @@ import {IItem} from "@truecost/shared";
 export class ItemEntity extends BaseMetaEntity /*implements IItem */ {
     @Field()
     @Property()
-        //  Hyperlink to light.gg
+    //  Hyperlink to light.gg
     link: string = "";
 
     @Field(() => [String])
@@ -27,29 +27,34 @@ export class ItemEntity extends BaseMetaEntity /*implements IItem */ {
     @Property()
     range: string = "[]";
 
+    @Field({defaultValue: false})
+    @Property()
+    //  Show on the first page
+    single: boolean = false;
+
     @Field(() => Int)
     @Property()
     discount: number = 0;
 
     @Field(() => Int)
     @Property()
-        //  Limit number of items for puchuase (0 for no restriction)
+    //  Limit number of items for puchuase (0 for no restriction)
     limit: number = 0;
 
 
     @Field()
     @Property()
-        //  Item description field
+    //  Item description field
     obtain: string = "";
 
     @Field()
     @Property()
-        //  Item description field
+    //  Item description field
     requirements: string = "";
 
     @Field()
     @Property()
-        //  Show on the first page
+    //  Show on the first page
     topOffer: boolean = false;
 
 

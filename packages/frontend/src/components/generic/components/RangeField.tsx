@@ -7,6 +7,7 @@ interface IProps extends BaseTextFieldProps {
     min?: number;
     max?: number;
     step?: number;
+    single?: boolean;
     marks?: {
         value: number;
         label: string;
@@ -27,6 +28,7 @@ const RangeField: React.FC<IProps> = (props) => {
         step = 1,
         marks = [],
         max = 4096,
+        single = false,
         labelLeft = "",
         labelRight = "",
         variant = "outlined",
@@ -57,11 +59,12 @@ const RangeField: React.FC<IProps> = (props) => {
 
     return (
         <Col fullWidth s={8}
-             style={{
-                 textAlign: "center",
-             }}>
+            style={{
+                textAlign: "center",
+            }}>
             <Row between>
                 <TextField
+                    disabled={single}
                     margin="dense"
                     type="number"
                     value={state[0]}
@@ -71,7 +74,7 @@ const RangeField: React.FC<IProps> = (props) => {
                     onBlur={() => onChangeEvent(state)}
                     inputProps={{
                         style: {textAlign: "center", maxWidth: 80},
-                    }}/>
+                    }} />
                 <Typography gutterBottom style={{textAlign: "center", margin: 8, marginTop: 14}}>
                     {label}
                 </Typography>
@@ -85,17 +88,20 @@ const RangeField: React.FC<IProps> = (props) => {
                     onBlur={() => onChangeEvent(state)}
                     inputProps={{
                         style: {textAlign: "center", maxWidth: 80},
-                    }}/>
+                    }} />
             </Row>
             <Slider
+                track={"normal"}
                 style={{
                     width: 'calc(100% - 64px)',
                 }}
                 min={min}
                 max={max}
-                value={state}
+                value={single ? state[1] : state}
                 step={step}
-                onChange={(_, value) => Array.isArray(value) && validate([value[0], value[1]])}
+                onChange={(_, value) =>
+                    single ? validate([state[0], value])
+                        : Array.isArray(value) && (validate([value[0], value[1]]))}
                 onChangeCommitted={() => onChangeEvent(state)}
                 marks={(marks.filter(({value, label}) => value >= min && value <= max))}
             />

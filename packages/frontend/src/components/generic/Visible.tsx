@@ -51,11 +51,18 @@ export const visible: (props: IProps) => IHidden = (props) => {
         if (removedIndex === null || addedIndex === null) {
             return
         }
-        const temp = visible[removedIndex]
-        visible[removedIndex] = visible[addedIndex];
-        visible[addedIndex] = temp;
 
-        setVisible([...visible])
+        setVisible(addedIndex < removedIndex ?[
+            ...visible.slice(0, addedIndex), 
+            visible[removedIndex], 
+            ...visible.slice(addedIndex, removedIndex), 
+            ...visible.slice(removedIndex + 1),
+        ] : [
+            ...visible.slice(0, removedIndex), 
+            ...visible.slice(removedIndex + 1, addedIndex + 1),
+            visible[removedIndex], 
+            ...visible.slice(addedIndex + 1),
+        ]);
     };
 
     const onClick = (label: string) => {

@@ -12,7 +12,8 @@
         "build:clean": "rimraf build tsconfig.tsbuildinfo",
         "build:watch": "yarn build --watch",
         "start": "node build/index",
-        "start:watch": "nodemon build/index"
+        "start:watch": "nodemon build/index",
+        "migrate": "ts-node src/migration"
     },
     "private": true,
     "license": "MIT",
@@ -48,6 +49,7 @@
         "@types/mongodb": "^3.5.23",
         "@types/nodemailer": "^6.4.0",
         "@types/uuid": "^8.0.0",
-        "nodemon": "^2.0.4"
+        "nodemon": "^2.0.4",
+        "ts-node": "^8.10.2"
     }
 }

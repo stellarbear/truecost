@@ -21,10 +21,12 @@ export const ItemRange: React.FC<IProps> = (props) => {
     }
 
     const data = item.range.sort((a, b) => a.at - b.at);
+    const single = item.single;
 
     return (
         <Col fullWidth>
             <RangeField
+                single={single}
                 value={chunk}
                 label={"⟵ adjust ⟶"}
                 labelLeft={'current'}

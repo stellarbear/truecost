@@ -13,6 +13,8 @@ export class ItemInput extends BaseMetaInput {
     price?: NumberType;
     @Field({nullable: true})
     range?: string;
+    @Field({nullable: true})
+    single?: boolean;
     @Field(() => NumberScalar, {nullable: true})
     discount?: NumberType;
     @Field(() => NumberScalar, {nullable: true})
