@@ -43,6 +43,7 @@ const Footer: React.FC<FooterProps> =
         return (
             <div className={classes.margin} style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between", flex: "0 0 auto",
+                marginTop: 16,
                 padding: 16, paddingBottom: 0,
                 borderRadius: "6px 6px 0px 0px",
                 position: "relative",

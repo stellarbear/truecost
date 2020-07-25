@@ -21,6 +21,7 @@ interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
 }
 
+//const size = 284;
 const ItemCard: React.FC<IItemCardProps> = (props) => {
     const {id} = props;
 
@@ -55,20 +56,20 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
             onClick={(event) => event.stopPropagation()}>
             {
                 item.range.length === 0
-                    ? <ItemCardBase item={item} redirect={redirect} price={price}/>
-                    : <ItemCardRange item={item} redirect={redirect} price={price}/>
+                    ? <ItemCardBase item={item} redirect={redirect} price={price} />
+                    : <ItemCardRange item={item} redirect={redirect} price={price} />
             }
         </div>
     );
 
     const chip = () => (
         <Col left m={4} s={4}
-             style={{position: "absolute", top: 0, left: 0}}>
+            style={{position: "absolute", top: 0, left: 0}}>
             {item.tag.map((tagId) => tagId in tags.id && (
                 <Chip
                     key={tagId}
                     label={tags.id[tagId].name}
-                    color="primary" size="small"/>
+                    color="primary" size="small" />
             ))}
         </Col>
     )
@@ -77,12 +78,12 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         const image = `${serverUri}/${item.id}/${item.images[0]}/u.png`;
         return (
             <ButtonBase component={Link} to={redirect}
-                        style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
+                style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
                 <Col fullWidth>
                     {chip()}
-                    <img src={image} style={{objectFit: "contain", width: 300, minHeight: 300,}}/>
-                    <Divider/>
-                    <Row between p={8}>
+                    <img src={image} style={{objectFit: "contain", width: "inherit"}} />
+                    <Divider />
+                    <Row between p={8} style={{maxHeight: 48}}>
                         <Typography variant="body1">{item.name}</Typography>
                         <Button
                             onMouseEnter={() => setHovered(true)}
@@ -91,7 +92,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                             variant="outlined"
                         >
                             <PriceTypography price={price.toValue}
-                                             discount={item.discount}/>
+                                discount={item.discount} />
                         </Button>
                     </Row>
                 </Col>
@@ -102,7 +103,6 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     return (
         <Card
             style={{
-                margin: 16,
                 position: "relative",
                 cursor: "pointer",
             }}

@@ -8,7 +8,7 @@ import {dictSort, dictSortMap} from "auxiliary/sort";
 import {Autocomplete} from "@material-ui/lab";
 import {SafeJSON} from "auxiliary/json";
 import {useStorage} from "auxiliary/useStorage";
-import {Col, Row} from "pages/Base/Grid";
+import {Col, Row, RowGrid} from "pages/Base/Grid";
 import {ArraySlice} from "components/generic/components/ArraySlice";
 import ItemCard from "./ItemCard";
 import {InfoCard} from "pages/Base/InfoCard";
@@ -64,17 +64,17 @@ const Shop: React.FC = () => {
         <InfoCard text={[
             'Unfortunately, nothing was found',
             'Try next time or change some filters'
-        ]}/>
+        ]} />
     )
 
     const renderItems = (data: string[]) => (
         <ArraySlice data={data}>
             {(itemIds => (
-                <Row start wrap>
+                <RowGrid w={250} s={16} p={16}>
                     {itemIds.map(id => (
-                        <ItemCard key={id} id={id}/>
+                        <ItemCard key={id} id={id} />
                     ))}
-                </Row>
+                </RowGrid>
             ))}
         </ArraySlice>
     )
@@ -98,7 +98,7 @@ const Shop: React.FC = () => {
             options={Object.keys(items.id)}
             groupBy={(option) => option.charAt(0)}
             getOptionLabel={(itemId) => items.id[itemId].name}
-            renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined"/>}
+            renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined" />}
         />
     )
 
@@ -119,7 +119,7 @@ const Shop: React.FC = () => {
     )
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
             <Col fullWidth s={16}>
                 {filterNames()}
                 {filterTags()}

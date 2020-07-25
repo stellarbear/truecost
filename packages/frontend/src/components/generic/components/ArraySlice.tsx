@@ -41,7 +41,7 @@ export const ArraySlice: React.FC<IProps> = (props) => {
 
     return (
         <Col fullWidth s={16}>
-            <Row start s={16}>
+            <Row start s={16} wrap>
                 {pagination()}
                 {select()}
             </Row>

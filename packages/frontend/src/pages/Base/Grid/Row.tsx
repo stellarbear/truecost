@@ -7,6 +7,7 @@ interface IBase {
     fullWidth?: boolean
     wrap?: boolean
     style?: CSSProperties
+    styleChild?: CSSProperties
     p?: number | [number, number]
     m?: number | [number, number]
 }
@@ -46,6 +47,7 @@ export const Row: React.FC<IProps> = (props) => {
         wrap = false,
         fullWidth = false,
         style = {},
+        styleChild = {},
         children, ...rest
     } = props;
 
@@ -55,7 +57,7 @@ export const Row: React.FC<IProps> = (props) => {
         }
 
         return (React.Children.map(children, (child, index) => React.isValidElement(child) && (
-            <div key={index} style={{marginRight: s}}>
+            <div key={index} style={{marginRight: s, ...styleChild}}>
                 {child}
             </div>
         )))
@@ -75,10 +77,10 @@ export const Row: React.FC<IProps> = (props) => {
                 justifyContent:
                     isStart(rest) ? "flex-start"
                         : isEnd(rest) ? "flex-end"
-                        : isEven(rest) ? "space-evenly"
-                            : isAround(rest) ? "space-around"
-                                : isBetween(rest) ? "space-between"
-                                    : "center"
+                            : isEven(rest) ? "space-evenly"
+                                : isAround(rest) ? "space-around"
+                                    : isBetween(rest) ? "space-between"
+                                        : "center"
             }}>
             {renderChildren()}
         </div>

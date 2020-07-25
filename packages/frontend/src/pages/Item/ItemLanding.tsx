@@ -29,7 +29,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     const itemId = item.id;
 
     const {current: {shop, game: {url}}} = React.useContext(DataContext);
-    const {options,} = shop();
+    const {options, } = shop();
 
     const [chunk, setChunk] = React.useState<[number, number]>(item.range.length > 0
         ? [item.range.first().at, item.range.last().at] : [0, 0])
@@ -44,33 +44,33 @@ export const ItemLanding: React.FC<IProps> = (props) => {
             <Button
                 component={Link}
                 to={`/${url}/shop`}
-                startIcon={< ArrowBackIcon/>}
+                startIcon={< ArrowBackIcon />}
             >
                 To the shop
             </Button>
             <Grid container>
                 <Grid item xs={12} lg={6}>
-                    <ItemImage item={item}/>
+                    <ItemImage item={item} />
                 </Grid>
                 <Grid item xs={12} lg={6}>
-                    <ItemDescription item={item}/>
-                    <ItemDivider item={item} prop="tag"/>
-                    <ItemTag item={item}/>
-                    <ItemDivider item={item} prop="item"/>
-                    <ItemChildren item={item}/>
-                    <ItemDivider item={item} prop="obtain"/>
-                    <ItemObtain item={item}/>
-                    <ItemDivider item={item} prop="requirements"/>
-                    <ItemRequirements item={item}/>
-                    <ItemDivider item={item} prop="range"/>
-                    <ItemRange item={item} chunk={chunk} onChange={setChunk}/>
-                    <ItemDivider/>
-                    <ItemPrice price={total} item={item}/>
-                    <ItemDivider/>
+                    <ItemDescription item={item} />
+                    <ItemDivider item={item} prop="tag" />
+                    <ItemTag item={item} />
+                    <ItemDivider item={item} prop="item" />
+                    <ItemChildren item={item} />
+                    <ItemDivider item={item} prop="obtain" />
+                    <ItemObtain item={item} />
+                    <ItemDivider item={item} prop="requirements" />
+                    <ItemRequirements item={item} />
+                    <ItemDivider item={item} prop="range" />
+                    <ItemRange item={item} chunk={chunk} onChange={setChunk} />
+                    <ItemDivider />
+                    <ItemPrice price={total} item={item} />
+                    <ItemDivider />
                     <ItemOption price={price} item={item}
-                                selected={selectedOptions}
-                                onChange={(val: string[]) => setSelectedOptions(val)}/>
-                    <ItemDivider/>
+                        selected={selectedOptions}
+                        onChange={(val: string[]) => setSelectedOptions(val)} />
+                    <ItemDivider />
                     <ItemAddToCard
                         price={total} item={item}
                         options={selectedOptions}
@@ -78,13 +78,11 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 </Grid>
             </Grid>
             <Button
-                startIcon={< ArrowDownwardIcon/>}
+                startIcon={< ArrowDownwardIcon />}
             >
                 Related goods
             </Button>
-            <Row start>
-                <ItemRelated item={item}/>
-            </Row>
+            <ItemRelated item={item} />
         </Container>
     )
 }

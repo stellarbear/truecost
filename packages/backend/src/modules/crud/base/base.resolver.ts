@@ -68,7 +68,7 @@ export function BaseResolver<T extends typeof BaseEntity,
     };
     const baseUpsert: Required<ICRUDUpsert<BaseInput>> = {
         notEmpty: ["active", "name"],
-        unique: ["name"],
+        unique: [],
         images: [],
     };
 
