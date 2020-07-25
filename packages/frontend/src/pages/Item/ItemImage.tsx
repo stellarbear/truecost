@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
-import Carousel from 'components/Carousel';
 import {serverUri} from 'auxiliary/route';
 import {DataContext} from 'pages/Data/Wrapper';
+import {Carousel} from 'components/Carousel';
 
 interface IProps {
     item: IItem
@@ -18,11 +18,11 @@ export const ItemImage: React.FC<IProps> = (props) => {
     const image = (item: IItem) => `${serverUri}/${item.id}/${item.images[0]}/u.png`;
 
     return (
-        <Carousel arrows={false}>
-            <img style={{objectFit: "cover",}} src={image(item)}/>
-            {item.item.map((id) => (id in items.id) && (
-                <img key={`${itemId}-${id}`} style={{objectFit: "cover",}} src={image(items.id[id])}/>
-            ))}
+        <Carousel>
+            {[
+                image(item),
+                ...item.item.filter((id) => (id in items.id)).map((id) => image(items.id[id]))
+            ]}
         </Carousel>
     )
 }

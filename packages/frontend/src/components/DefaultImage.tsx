@@ -1,6 +1,5 @@
 import React, {ImgHTMLAttributes, useState} from "react";
 
-//import LazyLoad from "react-lazyload";
 
 interface DefaultImageProps extends ImgHTMLAttributes<{}> {
     fallback?: string;

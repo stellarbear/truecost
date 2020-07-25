@@ -16,6 +16,7 @@ import {PriceTypography} from "../Base/PriceTypography";
 import {ItemCardBase} from "./Card/ItemCardBase";
 import {ItemCardRange} from "./Card/ItemCardRange";
 import {Col, Row} from "pages/Base/Grid";
+import {SafeImage} from "components/SafeImage";
 
 interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
@@ -81,7 +82,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
                 <Col fullWidth>
                     {chip()}
-                    <img src={image} style={{objectFit: "contain", width: "inherit"}} />
+                    <SafeImage src={image} style={{objectFit: "contain", width: "inherit"}} />
                     <Divider />
                     <Row between p={8} style={{maxHeight: 48}}>
                         <Typography variant="body1">{item.name}</Typography>

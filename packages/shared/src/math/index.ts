@@ -17,7 +17,7 @@ export class Price {
             at = Math.max(Math.min(at, to.at), from.at);
 
             const all = from.price;
-            const percentage = (at - from.at) / (to.at - from.at)
+            const percentage = (at - from.at) / (to.at - from.at);
             return Math.round(all * percentage);
         }
         const rangeTo = (item: IItem, to: number) => {
@@ -45,11 +45,11 @@ export class Price {
     }
 
     static fromBooking({
-                           item,
-                           chunk,
-                           quantity = 1,
-                           options = []
-                       }: IBooking) {
+        item,
+        chunk,
+        quantity = 1,
+        options = []
+    }: IBooking) {
         const base = Price.fromItem(item, chunk);
 
         return base.multiply(quantity).add(base.withOption(options))
