@@ -11,4 +11,8 @@ export class TagEntity extends BaseEntity implements ITag {
     @Field(() => GameEntity)
     @ManyToOne(() => GameEntity)
     game!: GameEntity;
+
+    @Field(() => [ItemEntity])
+    @ManyToMany(() => ItemEntity, item => item.tag)
+    item: Collection<ItemEntity> = new Collection<ItemEntity>(this);
 }

@@ -1,5 +1,5 @@
 import {Field, ObjectType} from "type-graphql";
-import {Collection, Entity, Enum, ManyToMany, ManyToOne, Property} from "mikro-orm";
+import {Collection, Entity, Enum, ManyToMany, ManyToOne, Property, Cascade} from "mikro-orm";
 import {ItemEntity} from "../item/item.entity";
 import {GameEntity} from "../game/game.entity";
 import {BaseEntity} from "../base/base.entity";
@@ -13,7 +13,7 @@ export class OptionEntity extends BaseEntity implements IOption {
     price: number = 1;
     @Field()
     @Property()
-        //  price from which option becomes free (0 for no limit)
+    //  price from which option becomes free (0 for no limit)
     free: number = 0;
 
 
@@ -28,4 +28,8 @@ export class OptionEntity extends BaseEntity implements IOption {
     @Field(() => GameEntity)
     @ManyToOne(() => GameEntity)
     game!: GameEntity;
+
+    @Field(() => [ItemEntity])
+    @ManyToMany(() => ItemEntity, item => item.option)
+    item: Collection<ItemEntity> = new Collection<ItemEntity>(this);
 }

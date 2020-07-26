@@ -1,5 +1,5 @@
 import {BaseMetaEntity} from "../base/base.entity";
-import {Collection, Entity, ManyToMany, ManyToOne, Property} from "mikro-orm";
+import {Collection, Entity, ManyToMany, ManyToOne, Property, Cascade} from "mikro-orm";
 import {TagEntity} from "../tag/tag.entity";
 import {OptionEntity} from "../option/option.entity";
 import {GameEntity} from "../game/game.entity";
@@ -63,11 +63,11 @@ export class ItemEntity extends BaseMetaEntity /*implements IItem */ {
     game!: GameEntity;
 
     @Field(() => [TagEntity])
-    @ManyToMany(() => TagEntity)
+    @ManyToMany(() => TagEntity, tag => tag.item, {owner: true})
     tag: Collection<TagEntity> = new Collection<TagEntity>(this);
 
     @Field(() => [OptionEntity])
-    @ManyToMany(() => OptionEntity)
+    @ManyToMany(() => OptionEntity, option => option.item, {owner: true})
     option: Collection<OptionEntity> = new Collection<OptionEntity>(this);
 
     @Field(() => [ItemEntity])

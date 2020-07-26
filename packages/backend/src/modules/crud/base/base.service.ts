@@ -86,7 +86,7 @@ export abstract class BaseService<T> {
         id: string,
     ) {
         const query: any = {id};
-        const item = await this.repository.findOne(query);
+        const item = await this.repository.findOne(query, {populate: true});
         assert(item, "id not found");
 
         await Media.removeDir(id);
