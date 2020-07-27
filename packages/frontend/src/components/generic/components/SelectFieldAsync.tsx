@@ -30,6 +30,7 @@ interface IProps extends SelectProps {
     query: IQuery;
     label?: string;
     value: IOptions;
+    readOnly?: boolean;
     record: Record<string, any>
     onChangeEvent: (value: IOptions) => void;
 }
@@ -74,6 +75,7 @@ export const SelectFieldAsync: React.FC<IProps> = (props) => {
     const {
         label,
         query,
+        readOnly = false,
         multiple = false,
         onChangeEvent,
         value,
@@ -92,6 +94,7 @@ export const SelectFieldAsync: React.FC<IProps> = (props) => {
     const filtered = filter(record, data, query);
     return (
         <Autocomplete
+            disabled={readOnly}
             disableCloseOnSelect={multiple}
             size="small"
             loading={loading}
@@ -106,15 +109,15 @@ export const SelectFieldAsync: React.FC<IProps> = (props) => {
             fullWidth
             renderInput={(params) =>
                 <TextField {...params} variant="outlined"
-                           InputProps={{
-                               ...params.InputProps,
-                               endAdornment: (
-                                   <React.Fragment>
-                                       {loading ? <CircularProgress color="inherit" size={20}/> : null}
-                                       {params.InputProps.endAdornment}
-                                   </React.Fragment>
-                               ),
-                           }}
+                    InputProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                            <React.Fragment>
+                                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                {params.InputProps.endAdornment}
+                            </React.Fragment>
+                        ),
+                    }}
                 />}
         />
     );

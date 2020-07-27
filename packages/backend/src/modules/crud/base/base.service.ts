@@ -52,19 +52,19 @@ export abstract class BaseService<T> {
     }
 
     async all() {
-        const result = await this.repository.findAll();
+        const result = await this.repository.findAll({populate: true});
 
         return result;
     }
 
     async get({
-                  skip = 0,
-                  take = 1,
-                  set = {},
-                  like = {},
-                  between = {},
-                  filter = {},
-              }) {
+        skip = 0,
+        take = 1,
+        set = {},
+        like = {},
+        between = {},
+        filter = {},
+    }) {
         const sub = [
             ...convert(set, "set"),
             ...convert(like, "like"),
@@ -123,7 +123,10 @@ export abstract class BaseService<T> {
         try {
             await this.upload(item, input, images);
 
+            console.log('input-----------------------------------', (input as any).item)
             wrap(item).assign(input, {em: DI.em});
+            console.log('wrapped-----------------------------------', (item as any).item)
+            
             await this.repository.persistAndFlush(item);
         } catch (e) {
             console.log(e)
@@ -134,7 +137,7 @@ export abstract class BaseService<T> {
 
     private async item(id: string) {
         if (id) {
-            return await this.repository.findOne({id} as any, true);
+            return await this.repository.findOne({id} as any, {populate: true});
         } else {
             const dummy = this.repository.create({});
             await this.repository.persistAndFlush(dummy);

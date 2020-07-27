@@ -63,11 +63,11 @@ export class ItemEntity extends BaseMetaEntity /*implements IItem */ {
     game!: GameEntity;
 
     @Field(() => [TagEntity])
-    @ManyToMany(() => TagEntity, tag => tag.item, {owner: true})
+    @ManyToMany(() => TagEntity, tag => tag.item)
     tag = new Collection<TagEntity>(this);
 
     @Field(() => [OptionEntity])
-    @ManyToMany(() => OptionEntity, option => option.item, {owner: true})
+    @ManyToMany(() => OptionEntity, option => option.item)
     option = new Collection<OptionEntity>(this);
 
     @Field(() => [ItemEntity])

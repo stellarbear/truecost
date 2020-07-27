@@ -3,7 +3,7 @@ import {Collection, Entity, Enum, ManyToMany, ManyToOne, Property, Cascade} from
 import {ItemEntity} from "../item/item.entity";
 import {GameEntity} from "../game/game.entity";
 import {BaseEntity} from "../base/base.entity";
-import {OptionArea, OptionType, IOption} from "@truecost/shared";
+import {OptionArea, OptionType, IOption, OptionMerge} from "@truecost/shared";
 
 @Entity()
 @ObjectType()
@@ -23,6 +23,9 @@ export class OptionEntity extends BaseEntity implements IOption {
     @Field()
     @Enum(() => OptionArea)
     area: OptionArea = OptionArea.LOCAL;
+    @Field({defaultValue: OptionMerge.INCLUDE})
+    @Enum(() => OptionMerge)
+    merge: OptionMerge = OptionMerge.INCLUDE;
 
 
     @Field(() => GameEntity)
@@ -30,6 +33,6 @@ export class OptionEntity extends BaseEntity implements IOption {
     game!: GameEntity;
 
     @Field(() => [ItemEntity])
-    @ManyToMany(() => ItemEntity, item => item.option)
+    @ManyToMany(() => ItemEntity, item => item.option, {owner: true})
     item: Collection<ItemEntity> = new Collection<ItemEntity>(this);
 }

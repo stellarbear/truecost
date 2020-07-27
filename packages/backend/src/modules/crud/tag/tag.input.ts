@@ -5,4 +5,7 @@ import {BaseInput} from "../base/base.input";
 export class TagInput extends BaseInput {
     @Field({nullable: true})
     game?: string;
+    
+    @Field(() => [String], {nullable: true})
+    item?: string[];
 }

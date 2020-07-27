@@ -20,10 +20,10 @@ export class OptionCRUDResolver extends BaseResolver
         classRef: OptionEntity,
         resultRef: OptionResponse,
         get: {
-            set: ["type", "area"],
+            set: ["type", "area", "merge"],
             between: ["price", "free"],
             like: [],
-            filter: ["game"],
+            filter: ["game", "item"],
         },
         upsert: {
             notEmpty: ["price", "game"],

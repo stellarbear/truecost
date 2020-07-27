@@ -1,4 +1,4 @@
-import {OptionType, OptionArea} from "..";
+import {OptionType, OptionArea, OptionMerge} from "..";
 
 export interface IBaseGame {
     game: { id: string };
@@ -66,6 +66,7 @@ export interface IOption extends IBase, IBaseGame {
     free: number
     type: OptionType
     area: OptionArea
+    merge: OptionMerge
 }
 
 export interface ITag extends IBase, IBaseGame {

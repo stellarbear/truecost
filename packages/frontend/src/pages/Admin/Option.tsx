@@ -5,7 +5,7 @@ import {CRUDgql} from "auxiliary";
 import {CNumber} from "components/generic/types/CNumber";
 import {base} from "./Base/Base";
 import {game} from "./Base/Game";
-import {enumValues, OptionType, OptionArea} from "@truecost/shared"
+import {enumValues, OptionType, OptionArea, OptionMerge} from "@truecost/shared"
 
 export const AdminOption: React.FC = () => {
     const crud = new CRUDgql({
@@ -17,7 +17,10 @@ export const AdminOption: React.FC = () => {
 			free
 
 			type
-			area
+            area
+            merge
+            
+			item { id name game { id } }
 		`,
     });
 
@@ -56,7 +59,27 @@ export const AdminOption: React.FC = () => {
         }
     });
 
-    const fields = [price, free, type, area];
+    const merge = new CSelect({
+        multiple: false,
+        key: "merge",
+        label: "merge",
+        options: {
+            [OptionMerge.INCLUDE]: "include",
+            [OptionMerge.EXCLUDE]: "exclude"
+        }
+    });
+    
+    const item = new CLink({
+        key: "item",
+        label: "item",
+        query: {
+            name: "ItemAll",
+            fields: ["game"],
+        },
+        multiple: true,
+    });
+
+    const fields = [item, price, free, type, area, merge];
 
     return (
         <CRUD

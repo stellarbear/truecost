@@ -116,6 +116,7 @@ export const AdminItem: React.FC = () => {
             fields: ["game"],
         },
         multiple: true,
+        readOnly: true,
     });
     const option = new CLink({
         key: "option",
@@ -125,6 +126,7 @@ export const AdminItem: React.FC = () => {
             fields: ["game"],
         },
         multiple: true,
+        readOnly: true,
     });
 
     const range = new CCustom({

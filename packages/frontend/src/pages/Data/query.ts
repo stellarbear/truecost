@@ -69,6 +69,7 @@ export const BULK_QUERY = gql`
             free    
             type    
             area    
+            merge
         }
         TagAll {
             ${base.fragment}
