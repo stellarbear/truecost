@@ -4,6 +4,7 @@ import {DataContext} from 'pages/Data/Wrapper';
 import {Chip, Typography} from '@material-ui/core';
 import Markdown from 'components/Markdown';
 import {Col} from 'pages/Base/Grid';
+import {ItemDivider} from './ItemDivider';
 
 interface IProps {
     item: IItem
@@ -18,15 +19,18 @@ export const ItemObtain: React.FC<IProps> = (props) => {
     }
 
     return (
-        <Col left>
-            <Typography variant="body1">You will obtain:</Typography>
-            {
-                item.obtain.split('\n').map((o, i) => (
-                    <Markdown key={`${itemId}-obtain-${i}`}>
-                        {`• ${o}`}
-                    </Markdown>
-                ))
-            }
-        </Col>
+        <>
+            <Col left>
+                <Typography variant="body1">You will obtain:</Typography>
+                {
+                    item.obtain.split('\n').map((o, i) => (
+                        <Markdown key={`${itemId}-obtain-${i}`}>
+                            {`• ${o}`}
+                        </Markdown>
+                    ))
+                }
+            </Col>
+            <ItemDivider condition={item.obtain.length > 0} />
+        </>
     )
 }

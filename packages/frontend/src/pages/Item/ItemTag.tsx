@@ -2,6 +2,7 @@ import * as React from 'react';
 import {IItem} from "@truecost/shared";
 import {DataContext} from 'pages/Data/Wrapper';
 import {Chip} from '@material-ui/core';
+import {ItemDivider} from './ItemDivider';
 
 interface IProps {
     item: IItem
@@ -22,6 +23,7 @@ export const ItemTag: React.FC<IProps> = (props) => {
                     </div>
                 ))
             }
+            <ItemDivider condition={item.tag.length > 0} />
         </>
     )
 }

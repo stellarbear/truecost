@@ -4,6 +4,7 @@ import {DataContext} from 'pages/Data/Wrapper';
 import {Chip, Typography, ButtonBase, IconButton} from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
 import {Link} from 'react-router-dom';
+import {ItemDivider} from './ItemDivider';
 
 interface IProps {
     item: IItem
@@ -43,6 +44,7 @@ export const ItemChildren: React.FC<IProps> = (props) => {
                     </ButtonBase>
                 ))
             }
+            <ItemDivider condition={item.item.length > 0} />
         </>
     )
 }

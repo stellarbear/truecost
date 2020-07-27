@@ -6,6 +6,7 @@ import Markdown from 'components/Markdown';
 import {useState} from 'react';
 import RangeField from 'components/generic/components/RangeField';
 import {Row, Col} from 'pages/Base/Grid';
+import {ItemDivider} from './ItemDivider';
 
 interface IProps {
     item: IItem
@@ -24,18 +25,21 @@ export const ItemRange: React.FC<IProps> = (props) => {
     const single = item.single;
 
     return (
-        <Col fullWidth>
-            <RangeField
-                single={single}
-                value={chunk}
-                label={"⟵ adjust ⟶"}
-                labelLeft={'current'}
-                labelRight={'desired'}
-                min={data.first().at}
-                max={data.last().at}
-                marks={data.map(({at, mark}) => ({label: mark, value: at}))}
-                onChangeEvent={onChange}
-            />
-        </Col>
+        <>
+            <Col fullWidth>
+                <RangeField
+                    single={single}
+                    value={chunk}
+                    label={"⟵ adjust ⟶"}
+                    labelLeft={'current'}
+                    labelRight={'desired'}
+                    min={data.first().at}
+                    max={data.last().at}
+                    marks={data.map(({at, mark}) => ({label: mark, value: at}))}
+                    onChangeEvent={onChange}
+                />
+            </Col>
+            <ItemDivider />
+        </>
     )
 }

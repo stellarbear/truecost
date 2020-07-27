@@ -53,23 +53,15 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 </Grid>
                 <Grid item xs={12} lg={6}>
                     <ItemDescription item={item} />
-                    <ItemDivider item={item} prop="tag" />
                     <ItemTag item={item} />
-                    <ItemDivider item={item} prop="item" />
                     <ItemChildren item={item} />
-                    <ItemDivider item={item} prop="obtain" />
                     <ItemObtain item={item} />
-                    <ItemDivider item={item} prop="requirements" />
                     <ItemRequirements item={item} />
-                    <ItemDivider item={item} prop="range" />
                     <ItemRange item={item} chunk={chunk} onChange={setChunk} />
-                    <ItemDivider />
                     <ItemPrice price={price} item={item} />
-                    <ItemDivider />
                     <ItemOption price={price} item={item}
                         selected={selectedOptions}
                         onChange={(val: string[]) => setSelectedOptions(val)} />
-                    <ItemDivider />
                     <ItemAddToCard
                         price={total} item={item}
                         options={selectedOptions}
