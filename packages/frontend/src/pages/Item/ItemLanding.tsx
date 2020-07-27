@@ -36,7 +36,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>([])
 
     const price = Price.fromItem(item, chunk);
-    const total = price.withOption(selectedOptions.map(o => options.local[o]));
+    const total = price.withOption(selectedOptions.map(o => options.local.id[o]));
 
     return (
         <Container maxWidth="lg">

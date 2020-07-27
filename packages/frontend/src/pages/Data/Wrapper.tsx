@@ -3,11 +3,12 @@ import {useQuery} from "react-apollo";
 import gql from "graphql-tag";
 import {dictSort} from "auxiliary/sort";
 import {RouteComponentProps, useHistory, withRouter} from "react-router";
-import {OptionType, OptionArea, IUser, IGame} from "@truecost/shared";
+import {OptionType, OptionArea, IUser, IGame, IOption} from "@truecost/shared";
 import {useData, IStoreContext, IShop} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
+import {iterateOptions} from "./iterate";
 
 interface IRawContext {
     raw: any
@@ -22,6 +23,9 @@ export interface IDataContext extends IStoreContext {
     update: {
         setUser(user: IUser | null): void,
         setGame(id: string): void
+    }
+    iterate: {
+        option(shop: IShop, itemId: string): string[]
     }
 }
 
@@ -71,6 +75,9 @@ const Data: React.FC = ({children}) => {
                 setGame: (id: string) => {
                     id in store.game.data.id && setGame(store.game.data.id[id])
                 }
+            },
+            iterate: {
+                option: iterateOptions,
             }
         }}>
             {children}

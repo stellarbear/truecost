@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IItem, Price} from "@truecost/shared";
+import {IItem, Price, OptionMerge} from "@truecost/shared";
 import {DataContext} from 'pages/Data/Wrapper';
 import {Chip, Typography, Checkbox} from '@material-ui/core';
 import Markdown from 'components/Markdown';
@@ -18,7 +18,7 @@ export const ItemOption: React.FC<IProps> = (props) => {
 
     const [hovered, setHovered] = useState<string>("")
 
-    const {current: {shop, game: {url}}} = React.useContext(DataContext);
+    const {current: {shop, game: {url}}, iterate: {option: iterateOptions}} = React.useContext(DataContext);
     const {options,} = shop();
 
     if (item.option.length === 0) {
@@ -35,8 +35,8 @@ export const ItemOption: React.FC<IProps> = (props) => {
 
     return (
         <>
-            {
-                item.option.map((optionId) => (optionId in options.local) && (
+            {iterateOptions(shop(), item.id).map((optionId) =>
+                (
                     <div key={`${itemId}-${optionId}`}
                          onMouseEnter={() => setHovered(optionId)}
                          onMouseLeave={() => setHovered("")}
@@ -49,12 +49,12 @@ export const ItemOption: React.FC<IProps> = (props) => {
                         <Typography variant="body1" style={{
                             textAlign: "right",
                             userSelect: "none"
-                        }}>{options.local[optionId].name}</Typography>
+                        }}>{options.local.id[optionId].name}</Typography>
                         <Checkbox checked={selected.includes(optionId)}/>
                         <div style={{minWidth: 100}}>
                             <Typography variant="h6" style={{
                                 whiteSpace: "nowrap", textAlign: "center", userSelect: "none"
-                            }}>{price.getOption(options.local[optionId]).toString}</Typography>
+                            }}>{price.getOption(options.local.id[optionId]).toString}</Typography>
                         </div>
                     </div>
                 ))

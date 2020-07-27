@@ -1,8 +1,4 @@
-import * as React from 'react';
-import {useQuery} from 'react-apollo';
-import {BULK_QUERY} from './query';
-import {useEffect, useState} from 'react';
-import {OptionArea, ITag, IOption, IItem, IBlog, IUser, IGame} from '@truecost/shared';
+import {OptionArea, ITag, IOption, IItem, IBlog, IUser, IGame, OptionMerge} from '@truecost/shared';
 import {SafeJSON} from 'auxiliary/json';
 import {ICartContext, defaultCart} from './cart';
 
@@ -14,8 +10,14 @@ export interface IShop {
         id: Dict<ITag>
     }
     options: {
-        local: Dict<IOption>,
-        global: Dict<IOption>
+        local: {
+            id: Dict<IOption>,
+            include: Set<string>,
+            exclude: Set<string>,
+        }
+        global: {
+            id: Dict<IOption>
+        }
     }
     items: {
         url: Dict<string>,
@@ -58,30 +60,10 @@ export interface IStoreContext {
     store: IStore;
 }
 
-const defaultState: IStore = {
-    user: {
-        data: undefined,
-    },
-    shop: {
-        data: {},
-    },
-    game: {
-        data: {
-            id: {},
-            url: {}
-        }
-    },
-    blog: {
-        data: {
-            id: {},
-            url: {}
-        },
-    },
-}
-
 export function useData(data: any) {
     const {GameAll, ItemAll, TagAll, OptionAll, BlogAll, UserWhoAmI} = data;
 
+    console.log('calculating');
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
     for (let game of GameAll) {
         let {id: gameId, active, url} = game;
@@ -103,28 +85,25 @@ export function useData(data: any) {
     for (let gameId in gameDict.data.id) {
         shopDict.data[gameId] = {
             tags: {id: {}, url: {}},
-            options: {local: {}, global: {}},
+            options: {local: {include: new Set(), exclude: new Set(), id: {}}, global: {id: {}}},
             items: {url: {}, id: {}},
             cart: defaultCart(gameId)
         }
     }
 
     for (let option of OptionAll) {
-        let {game: {id: gameId}, area, id, active} = option;
+        let {game: {id: gameId}, area, id, active, merge} = option;
         if (active && gameId in shopDict.data) {
             if (area === OptionArea.GLOBAL) {
-                shopDict.data[gameId].options.global[id] = option;
+                shopDict.data[gameId].options.global.id[id] = option;
             } else if (area === OptionArea.LOCAL) {
-                shopDict.data[gameId].options.local[id] = option;
+                shopDict.data[gameId].options.local.id[id] = option;
+                if (merge === OptionMerge.INCLUDE) {
+                    shopDict.data[gameId].options.local.include.add(id);
+                } else if (merge === OptionMerge.EXCLUDE) {
+                    shopDict.data[gameId].options.local.exclude.add(id);
+                }
             }
-        }
-    }
-
-    for (let tag of TagAll) {
-        let {game: {id: gameId}, id, active, name} = tag;
-        if (active && gameId in shopDict.data) {
-            shopDict.data[gameId].tags.id[id] = tag;
-            shopDict.data[gameId].tags.url[name] = id;
         }
     }
 
@@ -139,6 +118,14 @@ export function useData(data: any) {
         if (active && gameId in shopDict.data) {
             shopDict.data[gameId].items.url[url] = id;
             shopDict.data[gameId].items.id[id] = item;
+        }
+    }
+
+    for (let tag of TagAll) {
+        let {game: {id: gameId}, id, active, name} = tag;
+        if (active && gameId in shopDict.data) {
+            shopDict.data[gameId].tags.id[id] = tag;
+            shopDict.data[gameId].tags.url[name] = id;
         }
     }
 

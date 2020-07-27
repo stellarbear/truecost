@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {IItem, Price} from '@truecost/shared';
-import {DataContext} from 'pages/Data/Wrapper';
+import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Button, Typography, Checkbox, Divider} from '@material-ui/core';
 import {NotificationContext} from 'components/wrappers';
 import {Col, Row} from 'pages/Base/Grid';
@@ -19,7 +19,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
     const [hovered, setHovered] = React.useState("");
 
-    const {current: {shop, game: {url}}} = React.useContext(DataContext);
+    const {current: {shop, game: {url}}, iterate: {option: iterateOptions}} = useStore();
     const {notify} = React.useContext(NotificationContext);
     const {options, cart} = shop();
 
@@ -32,7 +32,8 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
             : filtered);
     }
 
-    const totalPrice = price.withOption(selectedOptions.map(id => options.local[id]));
+    const totalPrice = price.withOption(selectedOptions.map(id => options.local.id[id]));
+    const itemOptions = iterateOptions(shop(), item.id);
 
     //
     return (
@@ -45,7 +46,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                 Open item page
             </Button>
             <div style={{overflowY: "auto"}}>
-                {item.option.length > 0 ? item.option.map((optionId) => (optionId in options.local) &&
+                {itemOptions.length > 0 ? itemOptions.map((optionId) => 
                     <div key={`${itemId}-option-${optionId}`}>
                         <div
                             style={{
@@ -65,14 +66,14 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                                     checked={selectedOptions.includes(optionId)}
                                 />
                                 <Typography variant="body2"
-                                            style={{userSelect: "none"}}>{options.local[optionId].name}</Typography>
+                                            style={{userSelect: "none"}}>{options.local.id[optionId].name}</Typography>
                             </div>
                             <Typography variant="h6"
                                         style={{
                                             userSelect: "none",
                                             whiteSpace: "nowrap",
                                             textAlign: "center",
-                                        }}>{price.getOption(options.local[optionId]).toString}</Typography>
+                                        }}>{price.getOption(options.local.id[optionId]).toString}</Typography>
                         </div>
                         <Divider style={{paddingLeft: 8}}/>
                     </div>,
