@@ -39,7 +39,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     const total = price.withOption(selectedOptions.map(o => options.local.id[o]));
 
     return (
-        <Container maxWidth="lg">
+        <Container fixed>
             <Button
                 component={Link}
                 to={`/${url}/shop`}

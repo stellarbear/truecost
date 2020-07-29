@@ -117,7 +117,7 @@ const Shop: React.FC = () => {
     )
 
     return (
-        <Container maxWidth="lg">
+        <Container fixed>
             <Col fullWidth s={16}>
                 {filterNames()}
                 {filterTags()}

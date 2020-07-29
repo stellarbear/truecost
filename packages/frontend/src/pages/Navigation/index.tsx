@@ -1,6 +1,6 @@
 import {AppBar, Container, Hidden, Toolbar} from "@material-ui/core";
 import React, {useEffect, useState, useContext} from "react";
-import Mobile from "./Mobile";
+import {Mobile} from "./Mobile";
 import {Desktop} from "./Desktop";
 import ElevationScroll from "components/ElevationScroll";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
@@ -12,7 +12,6 @@ import window from 'global';
 import {DataContext} from "pages/Data/Wrapper";
 
 interface INavigationProps extends RouteComponentProps {
-    rtl?: boolean;
     height?: number;
 }
 
@@ -21,7 +20,6 @@ const NavigationWrapper: React.FC<INavigationProps> = (props) => {
         history,
         location,
         children,
-        rtl = false,
         height = 200,
     } = props;
     const {current: {game}} = useContext(DataContext);
@@ -62,7 +60,7 @@ const NavigationWrapper: React.FC<INavigationProps> = (props) => {
                                         width: "100vw", padding: 0,
                                     }}>
                                         <Hidden mdUp>
-                                            <Mobile rtl={rtl} logo={logo}/>
+                                            <Mobile logo={"/logo-black.png"}/>
                                         </Hidden>
                                         <Hidden smDown>
                                             <Desktop logo={logo}/>
@@ -71,13 +69,13 @@ const NavigationWrapper: React.FC<INavigationProps> = (props) => {
                                 </AppBar>
                             </ElevationScroll>
                             <Toolbar style={{margin: 8}}/>
-                            <Container maxWidth="xl">
+                            <Container fixed>
                                 <Switch location={location}>
                                     {children}
                                 </Switch>
                             </Container>
                         </div>
-                        <Container maxWidth="xl">
+                        <Container fixed>
                             <Footer/>
                         </Container>
                     </section>

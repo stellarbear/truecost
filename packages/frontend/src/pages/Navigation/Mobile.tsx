@@ -4,136 +4,101 @@ import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import Clear from "@material-ui/icons/Clear";
 import Menu from "@material-ui/icons/Menu";
 import {Link} from "react-router-dom";
+import {useStore} from "pages/Data/Wrapper";
+import {Row, Col} from "pages/Base/Grid";
+import {GamePicker} from "./GamePicker";
+import {CartPicker} from "./CartPicker";
+import {AccountPicker} from "./AccountPicker";
+import {clientUri, serverUri} from "auxiliary/route";
 
-declare let Tawk_API: any;
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        drawer: {
-            width: "100%",
-        },
-    }),
-);
-
-interface IMobile {
+interface IProps {
     logo: string;
-    rtl?: boolean;
 }
 
-const Mobile: React.FC<IMobile> = (props) => {
+export const Mobile: React.FC<IProps> = (props) => {
     const {
         logo,
-        rtl = false,
     } = props;
-    const classes = useStyles();
-    //const { store: { user } } = useContext(UserContext);
     const [open, setOpen] = React.useState<boolean>(false);
+    const {current: {game}} = useStore();
+    const url = '/' + game.url
 
-    const closeDrawer = (): void => {
-        setOpen(false);
-    };
-    const toggleDrawer = (): void => {
-        setOpen(!open);
-    };
+    const image = game.id === "truecost" ? `${clientUri}/default/assistant.png`
+        : `${serverUri}/${game.id}/${game.assistant}/u.png`;
 
-    const renderNavigation = (): JSX.Element => (
-        <React.Fragment>
-            <Button component={Link} to="/" onClick={() => closeDrawer()}>Home</Button>
-            <Button component={Link} to="/shop" onClick={() => closeDrawer()}>Shop</Button>
-            <Button component={Link} to="/track" onClick={() => closeDrawer()}>Track</Button>
-            <Button component={Link} to="/blog" onClick={() => closeDrawer()}>Blog</Button>
-            <Button component={Link} to="/about" onClick={() => closeDrawer()}>About</Button>
-            <Button component={Link} to="/contact" onClick={() => closeDrawer()}>Contact</Button>
-            <Button component={Link} to="/checkout" onClick={() => closeDrawer()}>Checkout</Button>
-            <Button onClick={() => Tawk_API?.maximize()}>Custom order</Button>
-        </React.Fragment>
+
+    const button = (url: string, text: string) => (
+        <Button fullWidth component={Link} to={url} onClick={() => setOpen(false)}>{text}</Button>
+    )
+
+    const navigation = () => (
+        <Col fullWidth>
+            {button(url, "Home")}
+            {button(url + '/shop', "Shop")}
+            {button(url + '/checkout', "Checkout")}
+            <Divider />
+            {button("/track", "Track")}
+            {button("/blog", "Blog")}
+            {button("/contact", "Contact")}
+            {button("/about", "About")}
+            <Divider />
+        </Col>
     );
 
-    const MenuButton = () => {
+    const appBar = () => {
         return (
-            <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={toggleDrawer}
-            >
-                <Menu/>
-            </IconButton>
+            <Row fullWidth between>
+                <Row>
+                    <IconButton
+                        color="inherit"
+                        aria-label="Open drawer"
+                        onClick={() => setOpen(!open)}
+                    >
+                        <Menu />
+                    </IconButton>
+                    <GamePicker />
+                </Row>
+                <Row>
+                    <CartPicker />
+                    <AccountPicker />
+                </Row>
+            </Row>
         );
     };
 
-    const renderAppBar = (): JSX.Element => {
-        return (
-            <div
-                style={{
-                    left: 4,
-                    position: "absolute",
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                }}>
-                {MenuButton()}
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                    }}>
-                    <Button component={Link} to="/" onClick={() => closeDrawer()}>
-                        <img height={48} width={48} src={logo}/>
-                    </Button>
-                </div>
-                <div style={{
-                    display: "flex", flexDirection: "row", alignItems: "center",
-                    marginRight: 32,
-                }}>
-                    {/*(user?.total ?? 0) > 0 && <Chip size="small" color="secondary" label={`${user?.total} %`} style={{ marginRight: 4 }} />*/}
-                </div>
-            </div>
-        );
-    };
-
-    const renderDrawer = (): JSX.Element => (
+    const drawer = () => (
         <Drawer
             variant="temporary"
             open={open}
-            onClose={closeDrawer}
-            anchor={rtl ? "right" : "left"}
-            classes={{
-                paper: classes.drawer,
-            }}
-        >
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    alignItems: "stretch",
-                }}>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <IconButton onClick={toggleDrawer} style={{margin: "8px"}}>
-                        <Clear/>
+            onClose={() => setOpen(false)}
+            anchor={"left"}>
+            <Col fullWidth style={{minWidth: 240}}>
+                <Row between>
+                    <IconButton onClick={() => setOpen(!open)} style={{margin: "8px"}}>
+                        <Clear />
                     </IconButton>
-                </div>
-                <Divider/>
-                {renderNavigation()}
+                    <Button component={Link} to={url}>
+                        <img height={48} width={48} src={logo}
+                            style={{marginTop: -20, marginBottom: -20}} />
+                    </Button>
+                </Row>
+                <Divider />
+                {navigation()}
                 <img className="float" style={{
                     position: "absolute",
                     bottom: -60,
                     left: -60,
                     width: 200, height: 200, objectFit: "cover", margin: 8, marginLeft: 0,
-                }} src={`/pass.png`}/>
-            </div>
-        </Drawer>
+                }} src={image} />
+            </Col>
+        </Drawer >
 
     );
 
     return (
-        <React.Fragment>
-            {renderAppBar()}
-            {renderDrawer()}
-        </React.Fragment>
+        <>
+            {appBar()}
+            {drawer()}
+        </>
     );
 };
-
-export default Mobile;

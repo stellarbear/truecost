@@ -65,7 +65,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                 display: "grid",
                 padding: p,
                 gridGap: s,
-                gridTemplateColumns: `epeat(auto - fill, minmax(${w}px, 1fr))`,
+                gridTemplateColumns: w,
                 gridAutoFlow: "column",
                 gridAutoColumns: `minmax(${w}px, 1fr)`,
                 overflowX: "auto",

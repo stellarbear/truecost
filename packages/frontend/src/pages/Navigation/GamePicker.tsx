@@ -5,6 +5,7 @@ import {dictSort} from 'auxiliary/sort';
 import {useHistory} from 'react-router';
 import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Link} from 'react-router-dom';
+import {Row} from 'pages/Base/Grid';
 
 export interface IGameContext {
     game?: string;
@@ -18,14 +19,6 @@ export const GamePicker: React.FC = () => {
     const {location: {pathname}} = history;
     const {store: {game: {data}}, current: {game}, update: {setGame}} = useStore()
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     const current = game;
     const games = dictSort(data.id);
@@ -41,21 +34,20 @@ export const GamePicker: React.FC = () => {
     const valid = Object.keys(data.id).map(key => data.id[key].url);
 
     return (
-        <div style={{display: 'flex'}}>
-            <Button color="inherit" aria-controls="GamePicker-nav" aria-haspopup="true" onClick={handleClick}>
-                <div style={{display: 'flex'}}>
+        <>
+            <Button color="inherit" aria-haspopup="true" onClick={(e) => setAnchorEl(e.currentTarget)}>
+                <Row>
                     <Typography style={{whiteSpace: "nowrap"}}>
                         {data.id[current.id].name}
                     </Typography>
                     <ArrowDropDown />
-                </div>
+                </Row>
             </Button>
             <Menu
-                id="GamePicker-nav"
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
-                onClose={handleClose}
+                onClose={() => setAnchorEl(null)}
             >
                 {games.map((game) => (
                     <Link to={valid.includes(gameUrl) ? ('/' + data.id[game].url + path.slice(index, -1)) : path.slice(0, -1)}
@@ -69,6 +61,6 @@ export const GamePicker: React.FC = () => {
                     </Link>
                 ))}
             </Menu>
-        </div>
+        </>
     );
 };

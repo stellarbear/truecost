@@ -18,17 +18,16 @@ export const InfoCard: React.FC<IProps> = ({text, actions = [], style = {}}) => 
 
     return (
         <Col style={style}>
-            <Row s={8}>
+            <Row s={8} wrap>
                 <img className="float" style={{
                     minWidth: 80,
                     width: 80, height: 80, objectFit: "cover", margin: 8, marginLeft: 0,
                 }} src={image}/>
                 <Col>
                     {text.map((sentence, index) =>
-                        <Typography
-                            component="pre"
+                        <Typography align="center"
                             variant="body2" key={index}>{sentence}</Typography>)}
-                    <Row s={8} m={8}>
+                    <Row s={8} m={8} wrap>
                         {React.Children.map(actions, (action, index) =>
                             <div key={index}>{action}</div>)}
                     </Row>

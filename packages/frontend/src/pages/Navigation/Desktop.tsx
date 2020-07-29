@@ -63,7 +63,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
     )
 
     return (
-        <Container maxWidth="lg" style={{position: "relative"}}>
+        <Container fixed style={{position: "relative"}}>
             {home()}
             {navigation()}
             {account()}
