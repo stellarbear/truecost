@@ -10,6 +10,7 @@ import {RoleType, validate} from "@truecost/shared";
 import {composeEmail} from "../../../mail/compose";
 import {verificationEmail} from "../../../mail/samples/verification";
 import {domain} from "../../../mail/helpers";
+import {forgetEmail} from "../../../mail/samples/forget";
 
 @Resolver(() => UserEntity)
 export class AccountResolver {
@@ -54,7 +55,7 @@ export class AccountResolver {
                 to: email,
                 template: verificationEmail(verify, user.id),
                 subject: 'Account verification',
-                text: `Verification link: ${domain}/user/verify/${verify}/${user.id}`
+                text: `Verification link: ${domain}/register/verify/${verify}/${user.id}`
             })
             await redis.client.set(`verify-${verify}`, user.id, "ex", redis.duration.day);
         } catch (e) {
@@ -84,45 +85,49 @@ export class AccountResolver {
     }
 
     @Mutation(() => Boolean)
-    async UserForget(
-        @Arg("id") id: string,
+    async PasswordForget(
+        @Arg("email") email: string,
     ) {
-        const user = await this.userRepo.findOne({id});
-        assert(user, "user not found", ["user"]);
-
-        const key = `${redis.keys.forget}:${v4()}`;
-        await redis.client.set(key, user.id, "ex", redis.duration.day);
+        const user = await this.userRepo.findOne({email});
+        assert(user, "user not found");
 
         try {
-            //email send
-            return true;
-        } catch {
-            await redis.client.del(key);
-            return false;
+            const forget = v4();
+
+            await composeEmail({
+                to: email,
+                template: forgetEmail(forget, user.id),
+                subject: 'Password reset',
+                text: `Password reset link: ${domain}/password/forget/${forget}/${user.id}`
+            })
+            await redis.client.set(`forget-${forget}`, user.id, "ex", redis.duration.hour);
+        } catch (e) {
+            assert(false, e);
         }
+
+        return true;
     }
 
-    @Mutation(() => Boolean)
-    async UserReset(
+    @Mutation(() => UserEntity)
+    async PasswordReset(
         @Arg("forget") forget: string,
+        @Arg("value") value: string,
         @Arg("password") password: string,
     ) {
-        const key = `${redis.keys.forget}:${forget}`;
-        const id = await redis.client.get(key);
-        assert(id, "key not found");
+        const userId = await redis.client.get(`forget-${forget}`);
+        assert(userId, "key not found");
+        assert(userId === value, "key not found");
 
-        const user = await this.userRepo.findOne({id});
+        const user = await this.userRepo.findOne({id: userId});
         assert(user, "user not found");
 
         const {hash, salt} = await pbkdf2.generate(password);
+        user.password = hash;
+        user.salt = salt;
 
-        wrap(user).assign({
-            password: hash,
-            session: v4(),
-            salt,
-        });
         await this.userRepo.persistAndFlush(user);
-        await redis.client.del(key);
-        return true;
+        await redis.client.del(`forget-${forget}`);
+
+        return user;
     }
 }

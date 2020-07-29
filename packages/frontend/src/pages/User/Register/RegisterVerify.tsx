@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {InfoCard} from 'pages/Base/InfoCard';
-import {useParams, Redirect} from 'react-router';
+import {useParams, Redirect, useHistory} from 'react-router';
 import {gql} from 'apollo-boost';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {useQuery, useLazyQuery, useMutation} from 'react-apollo';
@@ -22,7 +22,7 @@ const verifyMutation = gql`
 
 
 export const RegisterVerify: React.FC = () => {
-    const {update: {setUser}} = useStore()
+    const history = useHistory();
     const {verify, value} = useParams();
     const [mutation, {data, error, loading}] = useMutation(verifyMutation);
 
@@ -38,7 +38,11 @@ export const RegisterVerify: React.FC = () => {
 
     React.useEffect(() => {
         if (data?.UserVerify) {
-            setUser(data.UserVerify)
+            if (data.UserVerify) {
+                history.push(`/login`);
+            } else {
+                debugger;
+            }
         }
     }, [data?.UserVerify])
 

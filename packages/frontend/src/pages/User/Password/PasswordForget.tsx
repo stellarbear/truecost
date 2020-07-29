@@ -20,27 +20,25 @@ import {parseApolloError} from "auxiliary/error";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 
 
-const registerMutation = gql`
-    mutation UserCreate($name: String!, $email: String!, $password: String!) {
-        UserCreate(name: $name, email:$email, password:$password)
+const forgetMutation = gql`
+    mutation PasswordForget($email: String!) {
+        PasswordForget(email: $email)
     }
 `;
 
-interface RegisterSubmit {
-    name: string;
+interface ForgetSubmit {
     email: string;
-    password: string;
 }
 
-export const Register: React.FC = () => {
+export const PasswordForget: React.FC = () => {
     const history = useHistory();
     const {setLoading} = useLoading();
-    const [mutation, {data, error, loading}] = useMutation(registerMutation);
+    const [mutation, {data, error, loading}] = useMutation(forgetMutation);
 
-    const {register, handleSubmit, errors, setError, clearErrors} = useForm<RegisterSubmit>({reValidateMode: "onBlur"});
+    const {register, handleSubmit, errors, clearErrors} = useForm<ForgetSubmit>({reValidateMode: "onBlur"});
 
-    const RegisterSubmit = useCallback(
-        async (data: RegisterSubmit) => {
+    const ForgetSubmit = useCallback(
+        async (data: ForgetSubmit) => {
             try {
                 clearErrors();
                 setLoading(true);
@@ -53,32 +51,22 @@ export const Register: React.FC = () => {
     );
 
     useEffect(() => {
-        if (data?.UserCreate) {
-            if (data.UserCreate) {
-                history.push(`/login`);
+        if (data?.PasswordForget) {
+            if (data.PasswordForget) {
+                history.push(`/password/message`);
             } else {
                 debugger;
             }
         }
-    }, [data?.UserCreate]);
+    }, [data?.PasswordForget]);
 
 
     return (
         <Container maxWidth="xs">
-            <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(RegisterSubmit)}>
+            <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(ForgetSubmit)}>
                 <Paper>
                     <Col fullWidth p={16}>
                         <Col fullWidth>
-                            <TextField
-                                fullWidth
-                                inputRef={register()}
-                                name={"name"}
-                                label="Username"
-                                placeholder="not required"
-                                error={!!errors.name?.message}
-                                helperText={errors.name?.message || " "}
-                                variant="filled"
-                            />
                             <TextField
                                 fullWidth
                                 inputRef={register({
@@ -94,24 +82,9 @@ export const Register: React.FC = () => {
                                 helperText={errors.email?.message || " "}
                                 variant="filled"
                             />
-                            <TextField
-                                fullWidth
-                                inputRef={register({
-                                    required: "This field is required",
-                                    minLength: {
-                                        value: 3,
-                                        message: "At least 3 chars",
-                                    },
-                                })}
-                                name={"password"}
-                                label="Password *"
-                                error={!!errors.password?.message}
-                                helperText={errors.password?.message || " "}
-                                variant="filled"
-                            />
                         </Col>
                         <Button fullWidth variant="contained" type="submit">
-                            {loading ? <CircularProgress size={24}/> : "REGISTER"}
+                            {loading ? <CircularProgress size={24}/> : "reset password"}
                         </Button>
                     </Col>
                 </Paper>
@@ -120,6 +93,5 @@ export const Register: React.FC = () => {
                 </Box>
             </form>
         </Container>
-
     );
 };

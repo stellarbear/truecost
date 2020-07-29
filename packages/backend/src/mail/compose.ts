@@ -16,6 +16,7 @@ export const composeEmail = async ({to, subject, text, template}: IProps) => {
 
     let data = creds("email");
     assert(data.email || data.pass, "email creds corrupted")
+    console.log('creds parsed')
 
     const transport = nodemailer.createTransport({
         service: "Gmail",
@@ -24,6 +25,7 @@ export const composeEmail = async ({to, subject, text, template}: IProps) => {
             pass: data.pass
         },
     });
+    console.log('transport created', data.email, to)
 
     const info = await transport.sendMail({
         to,
@@ -32,4 +34,6 @@ export const composeEmail = async ({to, subject, text, template}: IProps) => {
         html,
         subject,
     });
+
+    console.log('email sent')
 }

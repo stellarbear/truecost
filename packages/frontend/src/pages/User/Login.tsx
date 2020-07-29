@@ -103,7 +103,7 @@ export const Login: React.FC = () => {
                                 variant="filled"
                             />
                             <Button fullWidth variant="contained" type="submit">
-                                {loading ? <CircularProgress size={24}/> : "LOGIN"}
+                                {loading ? <CircularProgress size={24} /> : "LOGIN"}
                             </Button>
                         </Col>
                     </Col>
@@ -112,6 +112,11 @@ export const Login: React.FC = () => {
                     {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
                 </Box>
             </form>
+            <Col p={[0, 16]} fullWidth>
+                <Button fullWidth component={Link} to={"/password/forget"}>
+                    Forgot password?
+            </Button>
+            </Col>
         </Container>
     );
 };

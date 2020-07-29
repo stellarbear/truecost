@@ -4,7 +4,6 @@ import {Col, Row} from 'pages/Base/Grid';
 import {Accordion, AccordionSummary, AccordionDetails, IconButton, Typography, Divider} from '@material-ui/core';
 import {Price} from '@truecost/shared';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import {PriceTypography} from 'pages/Base/PriceTypography';
 import {ItemOption} from './ItemOption';
 import {ItemHeader} from './ItemHeader';
 import {ItemCount} from './ItemCount';
