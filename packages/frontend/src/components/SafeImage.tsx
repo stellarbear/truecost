@@ -2,6 +2,7 @@ import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {clientUri, serverUri} from 'auxiliary/route';
 import {useState} from 'react';
+import LazyLoad from 'react-lazyload';
 
 interface IProps extends React.ImgHTMLAttributes<any> {
     src: string
@@ -20,13 +21,15 @@ export const SafeImage: React.FC<IProps> = ({src, ...rest}) => {
     }
 
     return (
-        <img
-            src={error ? fallback :src}
-            {...rest}
-            onError={error
-                ? supress
-                : () => setError(true)}
-        />
+        <LazyLoad>
+            <img
+                src={error ? fallback : src}
+                {...rest}
+                onError={error
+                    ? supress
+                    : () => setError(true)}
+            />
+        </LazyLoad>
     )
 
 }

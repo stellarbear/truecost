@@ -4,8 +4,6 @@ import {Route, Switch} from "react-router-dom";
 import {NotifyWrapper} from "components/wrappers";
 import NavigationWrapper from "pages/Navigation";
 import AuthRoute from "pages/Admin/AuthRoute";
-import DayJSUtils from '@date-io/dayjs';
-import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 import Policy from "pages/Policy";
 import About from "pages/About";
 import TOS from "pages/TOS";
@@ -21,6 +19,7 @@ import {RegisterMessage} from "pages/User/Register/RegisterMessage";
 import {RegisterVerify} from "pages/User/Register/RegisterVerify";
 import {Admin} from "pages/Admin";
 import {RoleType} from "@truecost/shared";
+import {Checkout} from "pages/Checkout/Checkout";
 
 
 const App = () => {
@@ -36,6 +35,7 @@ const App = () => {
                                     <NavigationWrapper>
                                         <Route exact path={urls.map(u => '/' + u)} component={Home} />
                                         <Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
+                                        <Route exact path={urls.map(u => '/' + u + '/checkout')} component={Checkout} />
                                         <Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
                                         <AuthRoute path={`/admin`} component={Admin} roles={[RoleType.ADMIN]} />

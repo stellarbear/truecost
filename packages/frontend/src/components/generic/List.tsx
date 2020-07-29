@@ -30,7 +30,6 @@ import {colors} from "theme";
 import {ItemProp} from "./types";
 import {getResolverName} from "auxiliary";
 
-import {ReactSortable} from "react-sortablejs";
 import {DocumentNode} from "graphql";
 import {arrayToDict} from "auxiliary/sort";
 import {useNotification} from "components/wrappers/NotifyWrapper";

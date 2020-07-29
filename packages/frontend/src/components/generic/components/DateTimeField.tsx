@@ -1,5 +1,4 @@
 import * as React from "react";
-import {DateTimePicker, DateTimePickerProps} from "@material-ui/pickers";
 import {useEventState} from "../../../auxiliary/useEventState";
 import {TextField, BaseTextFieldProps} from "@material-ui/core";
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
-import {DataContext} from 'pages/Data/Wrapper';
+import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Chip} from '@material-ui/core';
 import {ItemDivider} from './ItemDivider';
 
@@ -11,7 +11,7 @@ interface IProps {
 export const ItemTag: React.FC<IProps> = (props) => {
     const {item} = props;
     const itemId = item.id
-    const {current: {shop}} = React.useContext(DataContext);
+    const {current: {shop}} = useStore();
     const {tags,} = shop();
 
     return (

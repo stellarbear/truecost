@@ -3,14 +3,14 @@ import ArrowDown from '@material-ui/icons/ArrowDownward'
 import {Card, ButtonBase, Typography, Button, IconButton} from '@material-ui/core';
 import {CSSProperties} from 'react';
 import {Link} from 'react-router-dom';
-import {DataContext} from 'pages/Data/Wrapper';
+import {DataContext, useStore} from 'pages/Data/Wrapper';
 
 interface IProps {
     style?: CSSProperties
 }
 
 export const Intro: React.FC<IProps> = ({style = {}}) => {
-    const {current: {game}} = React.useContext(DataContext);
+    const {current: {game}} = useStore();
     const current = game!;
 
     return (

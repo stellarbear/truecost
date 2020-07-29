@@ -9,7 +9,24 @@ export interface IBooking {
 }
 
 export class Price {
-    private constructor(private readonly price: number = 0) {
+    private constructor(private readonly price: number = 0) {}
+    public static zero = () => new Price(0);
+    public static total(data: {
+        item: IItem,
+        chunk?: [number, number],
+        options: IOption[],
+        quantity: number
+    }[]) {
+        let result = Price.zero();
+
+        for (let {item, chunk, options, quantity} of data) {
+            const base = Price.fromItem(item, chunk);
+            const all = base.withOption(options);
+
+            result = result.add(all.multiply(quantity));
+        }
+
+        return result;
     }
 
     private static applyRange(item: IItem, chunk: [number, number]) {

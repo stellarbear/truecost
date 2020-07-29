@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
-import {DataContext} from 'pages/Data/Wrapper';
+import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Chip, Typography, ButtonBase, IconButton} from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
 import {Link} from 'react-router-dom';
@@ -14,7 +14,7 @@ export const ItemChildren: React.FC<IProps> = (props) => {
     const {item} = props;
     const itemId = item.id;
 
-    const {current: {shop, game: {url}}} = React.useContext(DataContext);
+    const {current: {shop, game: {url}}} = useStore();
     const {items,} = shop();
 
     if (item.item.length === 0) {

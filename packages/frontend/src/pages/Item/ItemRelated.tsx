@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
-import {DataContext} from 'pages/Data/Wrapper';
+import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Col, Row, RowSwipable} from 'pages/Base/Grid';
 import ItemCard from 'pages/Shop/ItemCard';
 import {useState} from 'react';
@@ -31,7 +31,7 @@ const getRelated = (items: Record<string, IItem>) => {
 
 export const ItemRelated: React.FC<IProps> = (props) => {
     //const {item} = props;
-    const {current: {shop}} = React.useContext(DataContext);
+    const {current: {shop}} = useStore();
     const {items, } = shop();
 
     const [related] = useState<string[]>(getRelated(items.id))

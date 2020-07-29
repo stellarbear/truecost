@@ -1,6 +1,6 @@
-import {OptionArea, ITag, IOption, IItem, IBlog, IUser, IGame, OptionMerge} from '@truecost/shared';
+import {OptionArea, ITag, IOption, IItem, IBlog, IUser, IGame, OptionMerge, Price} from '@truecost/shared';
 import {SafeJSON} from 'auxiliary/json';
-import {ICartContext, defaultCart} from './cart';
+import {ICartItem} from './useCart';
 
 export type Dict<T> = Record<string, T>;
 
@@ -22,8 +22,10 @@ export interface IShop {
     items: {
         url: Dict<string>,
         id: Dict<IItem>
-    },
-    cart: ICartContext
+    }
+
+    getOptions(itemId: string): string[]
+    getTotal(cart: Dict<ICartItem>): Price
 }
 
 
@@ -60,9 +62,10 @@ export interface IStoreContext {
     store: IStore;
 }
 
-export function useData(data: any) {
+export function useData(data: any): IStore {
     const {GameAll, ItemAll, TagAll, OptionAll, BlogAll, UserWhoAmI} = data;
 
+    //  TODO: reduce function calls
     console.log('calculating');
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
     for (let game of GameAll) {
@@ -87,7 +90,35 @@ export function useData(data: any) {
             tags: {id: {}, url: {}},
             options: {local: {include: new Set(), exclude: new Set(), id: {}}, global: {id: {}}},
             items: {url: {}, id: {}},
-            cart: defaultCart(gameId)
+            getOptions(itemId: string) {
+                const item = this.items.id[itemId];
+                const options = this.options.local;
+
+                const result = [];
+                options.exclude.forEach(optionId => {
+                    if (!item.option.includes(optionId)) {
+                        result.push(optionId);
+                    }
+                })
+
+                for (let optionId of item.option) {
+                    if (options.include.has(optionId)) {
+                        result.push(optionId);
+                    }
+                }
+
+                return result;
+            },
+            getTotal(cart: Dict<ICartItem>) {
+                const items = this.items.id;
+                const options = this.options.local.id;
+                return Price.total(Object.keys(cart).map(itemId => ({
+                    item: items[itemId],
+                    chunk: cart[itemId].chunk,
+                    quantity: cart[itemId].quantity,
+                    options: cart[itemId].optionIds.map(o => options[o])
+                })));
+            }
         }
     }
 

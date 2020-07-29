@@ -1,10 +1,11 @@
 import {Button, Typography, Container} from "@material-ui/core";
 import React, {useContext} from "react";
 import {Link} from 'react-router-dom';
-import {DataContext} from "pages/Data/Wrapper";
+import {DataContext, useStore} from "pages/Data/Wrapper";
 import {Col, Row} from "pages/Base/Grid";
 import {Account} from './Account';
 import {GamePicker} from "./GamePicker";
+import {CartPicker} from "./CartPicker";
 
 interface IDesktop {
     logo: string;
@@ -12,7 +13,7 @@ interface IDesktop {
 
 export const Desktop: React.FC<IDesktop> = (props) => {
     const {logo, } = props;
-    const {current: {game}} = useContext(DataContext);
+    const {current: {game}} = useStore();
     const url = '/' + game.url
 
     const navigation = () => (
@@ -36,9 +37,12 @@ export const Desktop: React.FC<IDesktop> = (props) => {
         <div style={{
             position: "absolute",
             right: 16,
-            top: 4,
+            top: 0,
         }}>
-            <Account />
+            <Row>
+                <CartPicker />
+                <Account />
+            </Row>
         </div>
     )
 

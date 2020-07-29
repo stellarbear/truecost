@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
 import {serverUri} from 'auxiliary/route';
-import {DataContext} from 'pages/Data/Wrapper';
+import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Carousel} from 'components/Carousel';
 
 interface IProps {
@@ -12,7 +12,7 @@ export const ItemImage: React.FC<IProps> = (props) => {
     const {item} = props;
     const itemId = item.id;
 
-    const {current: {shop}} = React.useContext(DataContext);
+    const {current: {shop}} = useStore();
     const {items,} = shop();
 
     const image = (item: IItem) => `${serverUri}/${item.id}/${item.images[0]}/u.png`;

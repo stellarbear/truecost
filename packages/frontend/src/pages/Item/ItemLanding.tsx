@@ -18,7 +18,7 @@ import {ItemRelated} from './ItemRelated';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
-import {DataContext} from 'pages/Data/Wrapper';
+import {DataContext, useStore} from 'pages/Data/Wrapper';
 
 interface IProps {
     item: IItem
@@ -28,7 +28,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     const {item} = props
     const itemId = item.id;
 
-    const {current: {shop, game: {url}}} = React.useContext(DataContext);
+    const {current: {shop, game: {url}}} = useStore();
     const {options, } = shop();
 
     const [chunk, setChunk] = React.useState<[number, number]>(item.range.length > 0
@@ -63,7 +63,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                         selected={selectedOptions}
                         onChange={(val: string[]) => setSelectedOptions(val)} />
                     <ItemAddToCard
-                        price={total} item={item}
+                        price={total} item={item} chunk={chunk}
                         options={selectedOptions}
                     />
                 </Grid>

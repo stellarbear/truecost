@@ -18,7 +18,7 @@ import gql from "graphql-tag";
 import {Link, withRouter} from "react-router-dom";
 import {RouteComponentProps, useHistory} from "react-router";
 import Meta from "pages/Base/Meta";
-import {DataContext} from "pages/Data/Wrapper";
+import {DataContext, useStore} from "pages/Data/Wrapper";
 import Alert from "@material-ui/lab/Alert";
 import {useForm} from "react-hook-form";
 import {validate} from "@truecost/shared";
@@ -47,7 +47,7 @@ interface LogInSubmit {
 
 export const Login: React.FC = () => {
     const history = useHistory();
-    const {update: {setUser}} = React.useContext(DataContext);
+    const {update: {setUser}} = useStore();
     const [loginMutation, {data, error, loading}] = useMutation(LOGIN);
 
     const {register, handleSubmit, errors} = useForm<LogInSubmit>({reValidateMode: "onBlur"});

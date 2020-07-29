@@ -4,23 +4,20 @@ import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Chip, Typography, Checkbox} from '@material-ui/core';
 import Markdown from 'components/Markdown';
 import {useState} from 'react';
-import {ItemDivider} from './ItemDivider';
 
 interface IProps {
-    item: IItem
-    price: Price
+    total: Price
     selected: string[]
     onChange: (data: string[]) => void
 }
 
-export const ItemOption: React.FC<IProps> = (props) => {
-    const {item, selected, onChange, price} = props;
-    const itemId = item.id;
+export const ItemExtra: React.FC<IProps> = (props) => {
+    const {selected, onChange, total} = props;
 
     const [hovered, setHovered] = useState<string>("")
 
-    const {current: {shop, game: {url}}} = useStore();
-    const {options, } = shop();
+    const {current: {shop}} = useStore();
+    const {options: {global: {id: options}}} = shop();
 
     const toggleOption = (id: string) => {
         const filtered = selected.filter(o => o != id);
@@ -30,13 +27,11 @@ export const ItemOption: React.FC<IProps> = (props) => {
             : filtered);
     }
 
-    const itemOptions = shop().getOptions(item.id);
-
     return (
         <>
-            {itemOptions.map((optionId) =>
+            {Object.keys(options).map((optionId) =>
                 (
-                    <div key={`${itemId}-${optionId}`}
+                    <div key={`${optionId}`}
                         onMouseEnter={() => setHovered(optionId)}
                         onMouseLeave={() => setHovered("")}
                         style={{
@@ -45,20 +40,19 @@ export const ItemOption: React.FC<IProps> = (props) => {
                             transition: "all 0.3s",
                         }}
                         onClick={() => toggleOption(optionId)}>
-                        <Typography variant="body1" style={{
+                        <Typography variant="caption" style={{
                             textAlign: "right",
                             userSelect: "none"
-                        }}>{options.local.id[optionId].name}</Typography>
+                        }}>{options[optionId].name}</Typography>
                         <Checkbox checked={selected.includes(optionId)} />
                         <div style={{minWidth: 100}}>
                             <Typography variant="h6" style={{
                                 whiteSpace: "nowrap", textAlign: "center", userSelect: "none"
-                            }}>{price.getOption(options.local.id[optionId]).toString}</Typography>
+                            }}>{total.getOption(options[optionId]).toString}</Typography>
                         </div>
                     </div>
                 ))
             }
-            <ItemDivider condition={itemOptions.length > 0} />
         </>
     )
 }

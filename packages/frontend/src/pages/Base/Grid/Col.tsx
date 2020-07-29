@@ -55,9 +55,9 @@ export const Col: React.FC<IProps> = (props) => {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: isLeft(rest)
-                    ? "flex-Left"
+                    ? "flex-start"
                     : isRight(rest) ?
-                        "flex-Right" : "center"
+                        "flex-end" : "center"
             }}>
             {renderChildren()}
         </div>

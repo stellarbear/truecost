@@ -8,24 +8,28 @@ import {useData, IStoreContext, IShop} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
-import {iterateOptions} from "./iterate";
+import {ICartContext, ICart, useCart, ICartUpsert, ICartRemove} from "./useCart";
 
 interface IRawContext {
     raw: any
 }
 
 export interface IDataContext extends IStoreContext {
+    cart: ICartContext,
     current: {
         user: IUser | null
         game: IGame,
-        shop(): IShop
+        shop(): IShop,
+        cart(): ICart
     }
     update: {
         setUser(user: IUser | null): void,
         setGame(id: string): void
-    }
-    iterate: {
-        option(shop: IShop, itemId: string): string[]
+        cart: {
+            upsert(data: ICartUpsert): void,
+            remove(data: ICartRemove): void,
+            wipe(): void
+        }
     }
 }
 
@@ -53,6 +57,8 @@ const Raw: React.FC = ({children}) => {
 const Data: React.FC = ({children}) => {
     const {raw} = useContext(RawContext);
     const [store] = useState(useData(raw));
+
+    const {cart, itemUpsert, itemRemove, cartWipe} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
     const {state: game, setState: setGame} = useGame(store.game);
 
@@ -64,20 +70,24 @@ const Data: React.FC = ({children}) => {
 
     return (
         <DataContext.Provider value={{
+            cart,
             store,
             current: {
                 user: user,
                 game: game,
+                cart: () => cart[game.id],
                 shop: () => store.shop.data[game.id]
             },
             update: {
                 setUser: (user: IUser | null) => setUser(user),
                 setGame: (id: string) => {
                     id in store.game.data.id && setGame(store.game.data.id[id])
+                },
+                cart: {
+                    upsert: (data) => itemUpsert(game.id, data),
+                    remove: (data) => itemRemove(game.id, data),
+                    wipe: () => cartWipe(game.id)
                 }
-            },
-            iterate: {
-                option: iterateOptions,
             }
         }}>
             {children}

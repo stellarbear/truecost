@@ -5,6 +5,7 @@ import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Button, Typography, Checkbox, Divider} from '@material-ui/core';
 import {NotificationContext} from 'components/wrappers';
 import {Col, Row} from 'pages/Base/Grid';
+import {useNotification} from 'components/wrappers/NotifyWrapper';
 
 interface IProps {
     item: IItem
@@ -19,9 +20,9 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
     const [hovered, setHovered] = React.useState("");
 
-    const {current: {shop, game: {url}}, iterate: {option: iterateOptions}} = useStore();
-    const {notify} = React.useContext(NotificationContext);
-    const {options, cart} = shop();
+    const {current: {shop}, update: {cart}} = useStore();
+    const {notify} = useNotification()
+    const {options} = shop();
 
 
     const toggleSelected = (id: string) => {
@@ -33,7 +34,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
     }
 
     const totalPrice = price.withOption(selectedOptions.map(id => options.local.id[id]));
-    const itemOptions = iterateOptions(shop(), item.id);
+    const itemOptions = shop().getOptions(item.id);
 
     //
     return (
@@ -90,7 +91,12 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                     height: 60,
                 }}
                 onClick={() => {
-                    cart.add({id: itemId, options: selectedOptions});
+                    cart.upsert({
+                        itemId,
+                        optionIds: selectedOptions,
+                        quantity: 1
+                    })
+                    
                     notify(`${name} was added to your cart!`);
                 }}
             >
