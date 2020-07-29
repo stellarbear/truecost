@@ -4,6 +4,7 @@ import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Chip, Typography, Checkbox} from '@material-ui/core';
 import Markdown from 'components/Markdown';
 import {useState} from 'react';
+import {ItemDivider} from './ItemDivider';
 
 interface IProps {
     total: Price
@@ -53,6 +54,7 @@ export const ItemExtra: React.FC<IProps> = (props) => {
                     </div>
                 ))
             }
+            <ItemDivider condition={Object.keys(options).length > 0} />
         </>
     )
 }

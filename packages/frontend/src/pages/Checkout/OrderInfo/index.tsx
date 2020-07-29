@@ -10,6 +10,7 @@ import {ItemHeader} from './ItemHeader';
 import {ItemCount} from './ItemCount';
 import {ItemExtra} from './ItemExtra';
 import {ItemTotal} from './ItemTotal';
+import {ItemDivider} from './ItemDivider';
 
 interface IProps {
     value: Record<string, any>
@@ -41,20 +42,19 @@ export const OrderInfo: React.FC<IProps> = ({value, setValue}) => {
                 <AccordionSummary
                     expandIcon={<ExpandMore />}>
                     <ItemHeader
-                            onDelete={() => update.cart.remove({...cartItem})}
+                        onDelete={() => update.cart.remove({...cartItem})}
                         item={item} total={total}
                         quantity={quantity} />
                 </AccordionSummary>
                 <AccordionDetails>
                     <Col fullWidth style={{width: "100%"}}>
-                        <Divider />
+                        <ItemDivider condition={true} />
                         <ItemCount
                             onAdd={() => upsert({...cartItem, quantity: +1})}
                             onRemove={() => upsert({...cartItem, quantity: -1})}
                             quantity={quantity}
                             item={item}
                         />
-                        <Divider />
                         <ItemOption
                             price={price} item={item}
                             selected={optionIds}
@@ -73,13 +73,12 @@ export const OrderInfo: React.FC<IProps> = ({value, setValue}) => {
     return (
         <Col s={16} fullWidth right>
             {Object.keys(cartItems).map(key => itemCard(key))}
-            <Divider />
+            <ItemDivider condition={true} />
             <ItemExtra
                 total={total}
                 selected={selected}
                 onChange={(v) => setValue(v)} />
-            <Divider />
-            <ItemTotal 
+            <ItemTotal
                 total={total}
                 selected={selected}
             />

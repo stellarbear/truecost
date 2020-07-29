@@ -4,6 +4,7 @@ import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Chip, Typography, Checkbox} from '@material-ui/core';
 import Markdown from 'components/Markdown';
 import {useState} from 'react';
+import {ItemDivider} from './ItemDivider';
 
 interface IProps {
     item: IItem
@@ -57,6 +58,7 @@ export const ItemOption: React.FC<IProps> = (props) => {
                     </div>
                 ))
             }
+            <ItemDivider condition={itemOptions.length > 0} />
         </>
     )
 }
