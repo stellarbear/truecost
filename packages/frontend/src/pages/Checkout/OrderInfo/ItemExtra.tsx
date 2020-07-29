@@ -30,6 +30,7 @@ export const ItemExtra: React.FC<IProps> = (props) => {
 
     return (
         <>
+            <ItemDivider condition={true} />
             {Object.keys(options).map((optionId) =>
                 (
                     <div key={`${optionId}`}

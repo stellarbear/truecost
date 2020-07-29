@@ -72,7 +72,6 @@ export const OrderInfo: React.FC<IProps> = ({value, setValue}) => {
     return (
         <Col s={16} fullWidth right>
             {Object.keys(cartItems).map(key => itemCard(key))}
-            <ItemDivider condition={true} />
             <ItemExtra
                 total={total}
                 selected={selected}

@@ -88,7 +88,7 @@ export const PasswordReset: React.FC = () => {
                             />
                         </Col>
                         <Button fullWidth variant="contained" type="submit">
-                            {loading ? <CircularProgress size={24} /> : "REGISTER"}
+                            {loading ? <CircularProgress size={24} /> : "update password"}
                         </Button>
                     </Col>
                 </Paper>

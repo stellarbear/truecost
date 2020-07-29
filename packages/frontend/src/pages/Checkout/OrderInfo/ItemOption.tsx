@@ -34,6 +34,7 @@ export const ItemOption: React.FC<IProps> = (props) => {
 
     return (
         <>
+            <ItemDivider condition={itemOptions.length > 0} />
             {itemOptions.map((optionId) =>
                 (
                     <div key={`${itemId}-${optionId}`}
@@ -58,7 +59,6 @@ export const ItemOption: React.FC<IProps> = (props) => {
                     </div>
                 ))
             }
-            <ItemDivider condition={itemOptions.length > 0} />
         </>
     )
 }
