@@ -14,37 +14,39 @@ export interface ICart {
 
 export const parseCart = (shop: IShop, json: any) => {
     const result: ICart = {global: [], local: {}};
-    const game = shop;
+    try {
+        const game = shop;
 
-    if (typeof json === "object" && "local" in json && "global" in json) {
-        for (let jsonItemId in json.local) {
+        if (typeof json === "object" && "local" in json && "global" in json) {
+            for (let jsonItemId in json.local) {
 
-            const {quantity, itemId, optionIds} = json.local[jsonItemId];
+                const {quantity, itemId, optionIds} = json.local[jsonItemId];
 
-            if ((quantity && quantity > 0 && Math.round(quantity) === quantity) &&
+                if ((quantity && quantity > 0 && Math.round(quantity) === quantity) &&
 
-                (itemId &&
-                    itemId === jsonItemId &&
-                    itemId in game.items.id &&
-                    game.items.id[itemId].active) &&
+                    (itemId &&
+                        itemId === jsonItemId &&
+                        itemId in game.items.id &&
+                        game.items.id[itemId].active) &&
 
-                (optionIds &&
-                    Array.isArray(optionIds) &&
-                    !optionIds.some(o => !(o in game.options.local.id)) &&
-                    !optionIds.some(o => !game.options.local.id[o].active))
-            ) {
-                result.local[itemId] = json.local[itemId];
+                    (optionIds &&
+                        Array.isArray(optionIds) &&
+                        !optionIds.some(o => !(o in game.options.local.id)) &&
+                        !optionIds.some(o => !game.options.local.id[o].active))
+                ) {
+                    result.local[itemId] = json.local[itemId];
+                }
+            }
+
+            const optionIds = json.global;
+            if (optionIds &&
+                Array.isArray(optionIds) &&
+                !optionIds.some(o => !(o in game.options.global.id)) &&
+                !optionIds.some(o => !game.options.global.id[o].active)) {
+                result.global = json.global;
             }
         }
-
-        const optionIds = json.global;
-        if (optionIds &&
-            Array.isArray(optionIds) &&
-            !optionIds.some(o => !(o in game.options.global.id)) &&
-            !optionIds.some(o => !game.options.global.id[o].active)) {
-            result.global = json.global;
-        }
-    }
+    } catch {}
 
     return result;
 }
