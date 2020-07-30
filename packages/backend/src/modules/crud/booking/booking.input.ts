@@ -10,9 +10,6 @@ export class BookingInput extends BaseInput {
 
     @Field({nullable: true})
     user?: string;
-    @Field({nullable: true})
-    game?: string;
-
     @Field(() => NumberScalar, {nullable: true})
     total?: NumberType;
     @Field({nullable: true})

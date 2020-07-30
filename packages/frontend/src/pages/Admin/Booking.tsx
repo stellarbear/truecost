@@ -11,7 +11,6 @@ export const AdminBooking: React.FC = () => {
         name: "Booking",
         items: `
 			${base.fragment}
-            ${game.fragment}
             
             status
 
@@ -84,9 +83,9 @@ export const AdminBooking: React.FC = () => {
 
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
-            propsAdd={[...base.fields, ...game.fields, ...fields]}
-            propsList={[...base.fields, ...game.fields, ...fields]}
-            propsFilter={[...base.fields, ...game.fields, ...fields]}
+            propsAdd={[...base.fields, ...fields]}
+            propsList={[...base.fields, ...fields]}
+            propsFilter={[...base.fields, ...fields]}
         />
     );
 };

@@ -92,17 +92,11 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
                     const stripe = new Stripe(data.sk, {apiVersion: '2020-03-02'});
 
                     const sig = request.headers['stripe-signature'] as string;
-                    console.log("sig", sig);
-                    console.log("data.webhook", data.webhook);
-                    console.log("request.body", request.body);
-                    console.log("request.body.raw", request.body.raw);
                     const event = stripe.webhooks.constructEvent(request.body.raw, sig, data.webhook);
-                    console.log("event", event);
 
                     if (event.type === 'checkout.session.completed') {
                         const session = event.data.object;
                         await createOrder(session);
-                        console.log(session);
                     }
                 } catch (err) {
                     console.log("err", err);

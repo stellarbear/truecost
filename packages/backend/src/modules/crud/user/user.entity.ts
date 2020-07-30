@@ -1,9 +1,8 @@
 import {BaseEntity} from "../base/base.entity";
 import {Field, ObjectType} from "type-graphql";
-import {Collection, Entity, Enum, OneToMany, Property, Unique} from "mikro-orm";
-import {BookingEntity} from "../booking/booking.entity";
-import {v4} from "uuid";
+import {Entity, Enum, Property, Unique, OneToMany, Collection} from "mikro-orm";
 import {RoleType, IUser} from "@truecost/shared";
+import {BookingEntity} from "../booking/booking.entity";
 
 @Entity()
 @ObjectType()
@@ -24,7 +23,7 @@ export class UserEntity extends BaseEntity implements IUser {
     @Property()
     verified: boolean = false;
 
-    @Field(() => [BookingEntity], {nullable: true})
-    @OneToMany(() => BookingEntity, booking => booking.user)
-    booking: Collection<BookingEntity> = new Collection<BookingEntity>(this);
+    @Field(() => [BookingEntity])
+    @OneToMany(() => BookingEntity, booking => booking.user, {orphanRemoval: true})
+    item = new Collection<BookingEntity>(this);
 }

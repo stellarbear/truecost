@@ -40,6 +40,7 @@ export class BookingResolver {
         const ItemAll = await this.itemRepo.findAll({populate: true});
         const TagAll = await this.tagRepo.findAll({populate: true});
         const OptionAll = await this.optionRepo.findAll({populate: true});
+        DI.em.clear();
 
         const {shop} = parseShop(
             GameAll, ItemAll as any, TagAll, OptionAll
@@ -51,11 +52,7 @@ export class BookingResolver {
         const optionsGlobal = store.options.global.id;
         const cart = parseCart(store, SafeJSON.parse(order, {}));
 
-        console.log(cart);
-
         const total = store.getTotal(cart.local);
-
-        console.log(total);
 
         const line_items = [];
         //  items
@@ -75,7 +72,7 @@ export class BookingResolver {
                     name,
                     quantity,
                     currency: 'usd',
-                    description: description ?? undefined,
+                    description,
                     images,
                     amount
                 }
@@ -102,8 +99,6 @@ export class BookingResolver {
             )
         }));
 
-        console.log(line_items);
-
         const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-03-02'});
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
@@ -111,7 +106,7 @@ export class BookingResolver {
             metadata: {info, game, email: userEmail},
             locale: "en",
             line_items,
-            success_url: `${frontend.uri}/success`,
+            success_url: `${frontend.uri}/${gameEntiry?.url}/checkout/success`,
             cancel_url: `${frontend.uri}/${gameEntiry?.url}/checkout`
         });
         return session.id

@@ -16,9 +16,6 @@ export class BookingEntity extends BaseEntity implements IBooking {
     @Field(() => UserEntity)
     @ManyToOne(() => UserEntity)
     user!: UserEntity;
-    @Field(() => GameEntity)
-    @ManyToOne(() => GameEntity)
-    game!: GameEntity;
     
     @Field()
     @Property()

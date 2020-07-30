@@ -77,7 +77,7 @@ export interface IOption extends IBase, IBaseGame {
 export interface ITag extends IBase, IBaseGame {
 }
 
-export interface IBooking extends IBase, IBaseGame, IBaseUser {
+export interface IBooking extends IBase, IBaseUser {
     status: StatusType
     info: string
     data: string

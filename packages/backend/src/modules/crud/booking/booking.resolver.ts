@@ -22,10 +22,10 @@ export class BookingCRUDResolver extends BaseResolver
         get: {
             set: ["total"],
             like: ["code", "pi", "info", "data"],
-            filter: ["game", "user"],
+            filter: ["user"],
         },
         upsert: {
-            notEmpty: ["game", "user"],
+            notEmpty: ["user"],
         },
     },
 )

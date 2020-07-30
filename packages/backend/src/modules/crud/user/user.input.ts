@@ -13,6 +13,6 @@ export class UserInput extends BaseInput {
     @Field({nullable: true})
     confirmed?: boolean;
 
-    @Field(() => [String], {nullable: true})
-    booking?: string[];
+    @Field({nullable: true})
+    verified?: boolean;
 }

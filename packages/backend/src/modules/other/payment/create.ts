@@ -7,6 +7,7 @@ import {UserEntity} from "../../crud/user/user.entity";
 import {pbkdf2} from "../../../helpers/pbkdf2";
 import {wrap, EntityRepository} from "mikro-orm";
 import {RoleType, StatusType} from "@truecost/shared";
+import {TagEntity} from "../../crud/tag/tag.entity";
 
 export const createOrder = async (response: Record<string, any>) => {
     const {
@@ -29,29 +30,29 @@ export const createOrder = async (response: Record<string, any>) => {
 
     const bookRepo = DI.em.getRepository(BookingEntity);
     const gameRepo = DI.em.getRepository(GameEntity);
+    const tagRepo = DI.em.getRepository(TagEntity);
     const userRepo = DI.em.getRepository(UserEntity);
 
-    const currentGame = await gameRepo.findOne({id: game});
+    const currentGame = await gameRepo.findOne({id: game}, {populate: false});
     assert(currentGame, "game not found");
 
     const currentUser = (await userRepo.findOne({email})) ?? (await createUser(userRepo, email))
 
     const currentBooking = bookRepo.create({
         active: true,
-        name: "TC" + (await bookRepo.count({})),
+        name: "TC-" + (await bookRepo.count({})),
         status: StatusType.AWAITING_FOR_CONTACT,
 
-        user: currentUser,
-        game: currentGame,
+        user: currentUser.id,
 
         total: amount_total,
         pi: payment_intent,
-        code: "TC-" + generateString({length: 6, num: true, upper: true, lower: false}),
+        code: "TC-" + generateString({length: 8, num: true, upper: true, lower: false}),
 
         info: JSON.stringify(info),
-        data: JSON.stringify(data),
-    })
-
+        data: JSON.stringify({game: currentGame.name, data}),
+    });
+    
     await bookRepo.persistAndFlush(currentBooking);
 }
 

@@ -43,7 +43,9 @@ const RawContext = createContext<IRawContext>({} as IRawContext);
 const DataContext = createContext<IDataContext>({} as IDataContext);
 
 const Raw: React.FC = ({children}) => {
+    console.log('query start-----------------------------------------')
     const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true});
+    console.log('query end-----------------------------------------')
     if (loading || !data) {
         return <span>Loading</span>;
     }

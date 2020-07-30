@@ -18,8 +18,7 @@ export const init = async () => {
         type: 'mongo',
         clientUrl: 'mongodb://mongo:27017',
         logger: console.log.bind(console),
-        debug: true,
-        cache: {enabled: false},
+        //debug: true
     });
     DI.em = DI.orm.em;
     DI.userRepo = await DI.em.getRepository(UserEntity);

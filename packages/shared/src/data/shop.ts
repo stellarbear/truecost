@@ -105,10 +105,6 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
         let {game: {id: gameId}, id, active, url} = item;
         item.range = SafeJSON.parse(item.range, [])
 
-        /*item.tag = item.tag.map((t: any) => t instanceof Object ? t.id : t);
-        item.item = item.item.map((i: any) => i instanceof Object ? i.id : i);
-        item.option = item.option.map((o: any) => o instanceof Object ? o.id : o);*/
-
         if (active && gameId in shopDict.data) {
             shopDict.data[gameId].items.url[url] = id;
             shopDict.data[gameId].items.id[id] = item;

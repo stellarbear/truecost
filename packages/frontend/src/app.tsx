@@ -23,6 +23,7 @@ import {Checkout} from "pages/Checkout/Checkout";
 import {PasswordForget} from "pages/User/Password/PasswordForget";
 import {PasswordReset} from "pages/User/Password/PasswordReset";
 import {PasswordMessage} from "pages/User/Password/PasswordMessage";
+import {CheckoutSuccess} from "pages/Checkout/CheckoutSuccess";
 
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
                                     <Route exact path={urls.map(u => '/' + u)} component={Home} />
                                     <Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
                                     <Route exact path={urls.map(u => '/' + u + '/checkout')} component={Checkout} />
+                                    <Route exact path={urls.map(u => '/' + u + '/checkout/success')} component={CheckoutSuccess} />
                                     <Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
                                     <AuthRoute path={`/admin`} component={Admin} roles={[RoleType.ADMIN]} />
