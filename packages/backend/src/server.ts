@@ -14,6 +14,10 @@ import * as fastifysession from 'fastify-session';
 import * as fastifystatic from 'fastify-static';
 import {environment, domain} from './helpers/route';
 
+import Stripe from 'stripe';
+import {creds} from './helpers/creds';
+import {Session} from 'inspector';
+
 export interface Context {
     req: express.Request;
     res: express.Response;
@@ -65,6 +69,29 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
             return ({req, res});
         }
     })
+
+    
+
+    app.post(`/webhook/payment/stripe`, (request, response) => {
+
+        try {
+            const data = creds("stripe");
+            const stripe = new Stripe(data.sk, { apiVersion: '2020-03-02' });
+
+            const sig = request.headers['stripe-signature'] as string;
+            console.log(sig);
+            const event = stripe.webhooks.constructEvent(request.body, sig, (data.webhook));
+            console.log(event);
+
+            if (event.type === 'checkout.session.completed') {
+                const session = event.data.object;
+                console.log(session);
+                //parseOrder(session)
+            }
+        } catch (err) {
+
+        }
+    });
 
     return app;
 };
