@@ -16,16 +16,16 @@ export class BookingCRUDResolver extends BaseResolver
 
 (
     {
-
         inputRef: BookingInput,
         classRef: BookingEntity,
         resultRef: BookingResponse,
         get: {
-            set: [],
-            like: [],
+            set: ["total"],
+            like: ["code", "pi", "info", "data"],
+            filter: ["game", "user"],
         },
         upsert: {
-            notEmpty: [],
+            notEmpty: ["game", "user"],
         },
     },
 )

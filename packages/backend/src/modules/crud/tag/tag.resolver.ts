@@ -16,7 +16,6 @@ export class TagCRUDResolver extends BaseResolver
 
 (
     {
-
         inputRef: TagInput,
         classRef: TagEntity,
         resultRef: TagResponse,

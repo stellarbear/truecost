@@ -1,17 +1,17 @@
 import {Arg, Ctx, Mutation, Query, Resolver} from "type-graphql";
-import {UserEntity} from "../crud/user/user.entity";
-import {Context, sessionCookieName} from "../../server";
-import {redis} from "../../redis";
-import {DI} from "../../orm";
-import {ItemEntity} from "../crud/item/item.entity";
-import {TagEntity} from "../crud/tag/tag.entity";
-import {OptionEntity} from "../crud/option/option.entity";
-import {GameEntity} from "../crud/game/game.entity";
+import {UserEntity} from "../../crud/user/user.entity";
+import {Context, sessionCookieName} from "../../../server";
+import {redis} from "../../../redis";
+import {DI} from "../../../orm";
+import {ItemEntity} from "../../crud/item/item.entity";
+import {TagEntity} from "../../crud/tag/tag.entity";
+import {OptionEntity} from "../../crud/option/option.entity";
+import {GameEntity} from "../../crud/game/game.entity";
 import {parseShop, IItem, parseCart, SafeJSON, Price} from "@truecost/shared";
-import {backend, frontend} from "../../helpers/route";
-import {creds} from "../../helpers/creds";
+import {backend, frontend} from "../../../helpers/route";
+import {creds} from "../../../helpers/creds";
 import Stripe from 'stripe';
-import {assert} from "../../helpers/assert";
+import {assert} from "../../../helpers/assert";
 
 
 //TODO: session middleware
@@ -138,25 +138,3 @@ export class BookingResolver {
     }
 
 }
-
-/*
-
-
-    private async createUser(email: string): UserEntity {
-        const user = this.userRepo.create({});
-        const {hash, salt} = await pbkdf2.generate(password);
-
-        wrap(user).assign({
-            role: RoleType.ANON,
-            verified: false,
-            password: hash,
-            active: true,
-            email,
-            name,
-            salt,
-        });
-
-        await this.userRepo.persistAndFlush(user);
-        return user;
-    }
-*/

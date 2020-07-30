@@ -1,13 +1,6 @@
 import {IItem, IRange, IOption} from "../interfaces";
 import {OptionType} from "../enums";
 
-export interface IBooking {
-    item: IItem,
-    chunk?: [number, number],
-    quantity?: number,
-    options: IOption[]
-}
-
 export class Price {
     private constructor(private readonly price: number = 0) {}
     public static zero = () => new Price(0);
@@ -59,17 +52,6 @@ export class Price {
         } else {
             return new Price(price);
         }
-    }
-
-    static fromBooking({
-        item,
-        chunk,
-        quantity = 1,
-        options = []
-    }: IBooking) {
-        const base = Price.fromItem(item, chunk);
-
-        return base.multiply(quantity).add(base.withOption(options))
     }
 
     add(price: number): Price
