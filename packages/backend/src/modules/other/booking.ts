@@ -66,7 +66,7 @@ export class BookingResolver {
             const options = optionIds.map(o => optionsLocal[o])
 
             const name = item.name + (item.range.length > 0 ? ` ${chunk?.join(' - ')}` : '');
-            const description = options.map(o => o.name).join(', ');
+            const description = options.map(o => o.name).join(', ') || " - ";
             const images = item.images.map(i => `${backend.uri}/${game}/${i}/u.png`);
             const amount = Price.fromItem(item).withOption(options).toValue * 100
 
