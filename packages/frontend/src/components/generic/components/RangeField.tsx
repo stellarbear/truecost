@@ -114,7 +114,7 @@ const RangeField: React.FC<IProps> = (props) => {
                 marks={filteredMarks}
             />
             <div className={classes.markLabel} style={{visibility: "hidden", marginTop: -30}}>
-                {filteredMarks.sort((a, b) => b.label.length - a.label.length)[0].label}
+                {filteredMarks.sort((a, b) => b.label.length - a.label.length)?.[0]?.label}
             </div>
         </Col>
     );

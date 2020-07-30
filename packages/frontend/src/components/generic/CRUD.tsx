@@ -13,9 +13,9 @@ interface ICRUD {
     queryGet: any;
     mutationDelete: any;
     mutationUpsert: any;
-    propsAdd: ItemProp[];
-    propsList: ItemProp[];
-    propsFilter: ItemProp[];
+    propsAdd?: ItemProp[];
+    propsList?: ItemProp[];
+    propsFilter?: ItemProp[];
 }
 
 export type IShared = [ISharedData, React.Dispatch<React.SetStateAction<ISharedData>>]
@@ -33,9 +33,9 @@ export const CRUD: React.FC<ICRUD> = (props) => {
         queryGet,
         mutationDelete,
         mutationUpsert,
-        propsAdd,
-        propsList,
-        propsFilter,
+        propsAdd = [],
+        propsList = [],
+        propsFilter = [],
     } = props;
     const shared = React.useState<ISharedData>({vars: {}})
 

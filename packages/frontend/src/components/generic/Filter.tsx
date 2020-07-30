@@ -63,7 +63,7 @@ export const Filter: React.FC<UserListProps> = (props) => {
         <React.Fragment>
             <Row>
                 {renderVisible()}
-                <Button variant="contained" onClick={() => setDrawer(true)}>
+                <Button variant="contained" onClick={() => setDrawer(true)} disabled={propsFilter.length === 0}>
                     <Typography>Filter records</Typography>
                 </Button>
             </Row>

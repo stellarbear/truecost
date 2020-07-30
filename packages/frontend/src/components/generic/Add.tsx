@@ -99,7 +99,7 @@ export const Add: React.FC<AddProps> = (props) => {
 
     return (
         <React.Fragment>
-            <Button variant="contained" onClick={() => setDrawer(true)}>
+            <Button variant="contained" onClick={() => setDrawer(true)} disabled={propsAdd.length === 0}>
                 <Typography>Add record</Typography>
             </Button>
             <Drawer anchor={'right'} open={drawer} onClose={() => setDrawer(false)}>

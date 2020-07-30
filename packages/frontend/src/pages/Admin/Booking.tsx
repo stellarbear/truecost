@@ -32,6 +32,7 @@ export const AdminBooking: React.FC = () => {
             name: "UserAll",
         },
         multiple: false,
+        readOnly: true,
     });
 
     const status = new CSelect({
@@ -83,7 +84,6 @@ export const AdminBooking: React.FC = () => {
 
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
-            propsAdd={[...base.fields, ...fields]}
             propsList={[...base.fields, ...fields]}
             propsFilter={[...base.fields, ...fields]}
         />
