@@ -66,8 +66,8 @@ export class BookingResolver {
             const options = optionIds.map(o => optionsLocal[o])
 
             const name = item.name + (item.range.length > 0 ? ` ${chunk?.join(' - ')}` : '');
-            const description = options.map(o => o.name).join(', ') || " - ";
-            const images = item.images.map(i => `${backend.uri}/${game}/${i}/u.png`);
+            const description = options.map(o => o.name).join(', ') || "-";
+            const images = item.images.map(i => `${backend.uri}/${item.id}/${i}/u.png`);
             const amount = Price.fromItem(item).withOption(options).toValue * 100
 
             return (
@@ -75,7 +75,7 @@ export class BookingResolver {
                     name,
                     quantity,
                     currency: 'usd',
-                    description,
+                    description: description ?? undefined,
                     images,
                     amount
                 }
@@ -87,17 +87,15 @@ export class BookingResolver {
         line_items.push(...cart.global.map(globalId => {
             const option = optionsGlobal[globalId];
 
-            const name = "<option>";
+            const name = option.name;
             const quantity = 1;
             const images: string[] = []
-            const description = option.name
             const amount = total.getOption(option).toValue * 100
             return (
                 {
                     name,
                     quantity,
                     currency: 'usd',
-                    description,
                     images,
                     amount
                 }
