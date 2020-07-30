@@ -1,22 +1,22 @@
 import {OptionType, OptionArea, OptionMerge} from "..";
 import {StatusType} from "../enums";
 
-interface IBaseUser {
+export interface IBaseUser {
     user: { id: string };
 }
 
-interface IBaseGame {
+export interface IBaseGame {
     game: { id: string };
 }
 
-interface IBase {
+export interface IBase {
     id: string;
     name: string;
     order: number;
     active: boolean;
 }
 
-interface IBaseMeta extends IBase {
+export interface IBaseMeta extends IBase {
     url: string,
     metatag: string
 }
