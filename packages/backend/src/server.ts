@@ -63,35 +63,58 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         allowBatchedQueries: true,
         context: async (req: any, res: any) => {
             DI.em.clear();
-            
+
             const {sid} = req.session;
             console.log('sid', sid);
             return ({req, res});
         }
     })
 
-    
 
-    app.post(`/webhook/payment/stripe`, (request, response) => {
 
-        try {
-            const data = creds("stripe");
-            const stripe = new Stripe(data.sk, { apiVersion: '2020-03-02' });
-
-            const sig = request.headers['stripe-signature'] as string;
-            console.log(sig);
-            const event = stripe.webhooks.constructEvent(request.body, sig, (data.webhook));
-            console.log(event);
-
-            if (event.type === 'checkout.session.completed') {
-                const session = event.data.object;
-                console.log(session);
-                //parseOrder(session)
+    app.register((fastify, opts, next) => {
+        app.addContentTypeParser('application/json', {parseAs: 'buffer'},
+            (_, body, done) => {
+                try {
+                    done(null, {raw: body})
+                } catch (error) {
+                    error.statusCode = 400
+                    done(error, undefined)
+                }
             }
-        } catch (err) {
+        )
 
-        }
+        app.post(`/webhook/payment/stripe`, {
+            handler: async (request, response) => {
+                try {
+                    const data = creds("stripe");
+                    const stripe = new Stripe(data.sk, {apiVersion: '2020-03-02'});
+
+                    const sig = request.headers['stripe-signature'] as string;
+                    console.log("sig", sig);
+                    console.log("data.webhook", data.webhook);
+                    console.log("request.body", request.body);
+                    console.log("request.body.raw", request.body.raw);
+                    const event = stripe.webhooks.constructEvent(request.body.raw, sig, data.webhook);
+                    console.log("event", event);
+
+                    if (event.type === 'checkout.session.completed') {
+                        const session = event.data.object;
+                        console.log(session);
+                        //parseOrder(session)
+                    }
+                } catch (err) {
+                    console.log("err", err);
+                    return response.code(400).send()
+                }
+
+                return response.send({received: true})
+            }
+        });
+
+        next();
     });
+
 
     return app;
 };
