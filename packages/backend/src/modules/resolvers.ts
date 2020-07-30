@@ -8,9 +8,12 @@ import {GameCRUDResolver} from "./crud/game/game.resolver";
 import {ItemCRUDResolver} from "./crud/item/item.resolver";
 import {OptionCRUDResolver} from "./crud/option/option.resolver";
 import {InfoCRUDResolver} from "./crud/info/info.resolver";
+import {BookingResolver} from "./other/booking";
+import {PaymentResolver} from "./other/payment/booking";
 
 const resolvers = [
-    BlogCRUDResolver,
+    PaymentResolver,
+    BlogCRUDResolver, BookingResolver,
     UserCRUDResolver, BookingCRUDResolver,
     AccountResolver, SessionResolver,
     TagCRUDResolver, GameCRUDResolver, ItemCRUDResolver,

@@ -8,7 +8,6 @@ import {
     Typography,
 } from "@material-ui/core";
 import {NotificationContext} from "../../components/wrappers";
-import {serverUri} from "auxiliary/route";
 import {Link, RouteComponentProps, withRouter, Redirect} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
 import {Price} from '@truecost/shared';
@@ -17,6 +16,7 @@ import {ItemCardBase} from "./Card/ItemCardBase";
 import {ItemCardRange} from "./Card/ItemCardRange";
 import {Col, Row} from "pages/Base/Grid";
 import {SafeImage} from "components/SafeImage";
+import {backend} from "auxiliary/route";
 
 interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
@@ -76,7 +76,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     )
 
     const card = () => {
-        const image = `${serverUri}/${item.id}/${item.images[0]}/u.png`;
+        const image = `${backend.uri}/${item.id}/${item.images[0]}/u.png`;
         return (
             <ButtonBase component={Link} to={redirect}
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>

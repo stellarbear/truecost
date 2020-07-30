@@ -1,8 +1,9 @@
 /* eslint-disable */
 import express from 'express';
 import app from './server';
-import {basePort} from 'auxiliary/route';
+import {frontend} from 'auxiliary/route';
 
+const basePort = frontend.port;
 
 if (module.hot) {
     module.hot.accept('./server', (): void => {

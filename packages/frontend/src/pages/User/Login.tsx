@@ -1,30 +1,25 @@
 import {
     Box,
     Button,
-    Card,
-    CardActions,
-    CardContent,
     CircularProgress,
     Container,
-    Grid,
     TextField,
-    Typography,
     Paper,
 } from "@material-ui/core";
 import {useMutation} from "react-apollo";
 import React, {useCallback, useEffect} from "react";
 
 import gql from "graphql-tag";
-import {Link, withRouter} from "react-router-dom";
-import {RouteComponentProps, useHistory} from "react-router";
-import Meta from "pages/Base/Meta";
-import {DataContext, useStore} from "pages/Data/Wrapper";
+import {Link} from "react-router-dom";
+import {useHistory} from "react-router";
 import Alert from "@material-ui/lab/Alert";
 import {useForm} from "react-hook-form";
 import {validate} from "@truecost/shared";
 import {theme} from "theme";
 import {Col, Row} from "pages/Base/Grid";
 import {parseApolloError} from "auxiliary/error";
+import {useStore} from "pages/Data/Wrapper";
+import {useLoading} from "components/wrappers/LoadingWrapper";
 
 
 const LOGIN = gql`
@@ -47,14 +42,21 @@ interface LogInSubmit {
 
 export const Login: React.FC = () => {
     const history = useHistory();
+    const {setLoading} = useLoading();
     const {update: {setUser}} = useStore();
     const [loginMutation, {data, error, loading}] = useMutation(LOGIN);
 
-    const {register, handleSubmit, errors} = useForm<LogInSubmit>({reValidateMode: "onBlur"});
+    const {register, handleSubmit, errors, clearErrors} = useForm<LogInSubmit>({reValidateMode: "onBlur"});
 
     const logInSubmit = useCallback(
-        (data: LogInSubmit) => {
-            loginMutation({variables: data});
+        async (data: LogInSubmit) => {
+            try {
+                clearErrors();
+                setLoading(true);
+                await loginMutation({variables: data});
+            } catch (e) {} finally {
+                setLoading(false);
+            }
         },
         [],
     );

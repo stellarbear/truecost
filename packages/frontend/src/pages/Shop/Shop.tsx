@@ -2,7 +2,6 @@ import React, {CSSProperties, useContext, useEffect, useState} from "react";
 
 import {NotificationContext} from "components/wrappers";
 import {DataContext, useStore} from "pages/Data/Wrapper";
-import {IShop} from "pages/Data/useData";
 import {Chip, Grid, TextField, Paper, Container} from "@material-ui/core";
 import {dictSort, dictSortMap} from "auxiliary/sort";
 import {Autocomplete} from "@material-ui/lab";
@@ -33,7 +32,7 @@ export const defaultState: IShopState = {
 const Shop: React.FC = () => {
     const {current: {shop}} = useStore();
 
-    const {tags, options, items}: IShop = shop();
+    const {tags, options, items} = shop();
     const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => ({...defaultState, ...state}));
 
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {clientUri, serverUri} from 'auxiliary/route';
 import {useState} from 'react';
 import LazyLoad from 'react-lazyload';
+import {frontend, backend} from 'auxiliary/route';
 
 interface IProps extends React.ImgHTMLAttributes<any> {
     src: string
@@ -10,8 +10,8 @@ interface IProps extends React.ImgHTMLAttributes<any> {
 
 export const SafeImage: React.FC<IProps> = ({src, ...rest}) => {
     const {current: {game}} = useStore();
-    const fallback = game.id === "truecost" ? `${clientUri}/default/assistant.png`
-        : `${serverUri}/${game.id}/${game.assistant}/u.png`;
+    const fallback = game.id === "truecost" ? `${frontend.uri}/default/assistant.png`
+        : `${backend.uri}/${game.id}/${game.assistant}/u.png`;
 
     const [error, setError] = useState(false);
 

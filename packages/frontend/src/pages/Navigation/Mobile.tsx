@@ -9,7 +9,7 @@ import {Row, Col} from "pages/Base/Grid";
 import {GamePicker} from "./GamePicker";
 import {CartPicker} from "./CartPicker";
 import {AccountPicker} from "./AccountPicker";
-import {clientUri, serverUri} from "auxiliary/route";
+import {frontend, backend} from "auxiliary/route";
 
 interface IProps {
     logo: string;
@@ -23,8 +23,8 @@ export const Mobile: React.FC<IProps> = (props) => {
     const {current: {game}} = useStore();
     const url = '/' + game.url
 
-    const image = game.id === "truecost" ? `${clientUri}/default/assistant.png`
-        : `${serverUri}/${game.id}/${game.assistant}/u.png`;
+    const image = game.id === "truecost" ? `${frontend.uri}/default/assistant.png`
+        : `${backend.uri}/${game.id}/${game.assistant}/u.png`;
 
 
     const button = (url: string, text: string) => (

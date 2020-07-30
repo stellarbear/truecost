@@ -1,7 +1,6 @@
-import {IGameContext, IShop} from "./useData";
 import {useHistory} from "react-router";
 import {useState, useEffect} from "react";
-import {IGame} from "@truecost/shared";
+import {IGame, IGameContext} from "@truecost/shared";
 
 const defaultGame: IGame = {
     id: "truecost",

@@ -3,15 +3,18 @@ import {useQuery} from "react-apollo";
 import gql from "graphql-tag";
 import {dictSort} from "auxiliary/sort";
 import {RouteComponentProps, useHistory, withRouter} from "react-router";
-import {OptionType, OptionArea, IUser, IGame, IOption} from "@truecost/shared";
-import {useData, IStoreContext, IShop, IStore} from "./useData";
+import {OptionType, OptionArea, IUser, IGame, IOption, IShop, ICart} from "@truecost/shared";
+import {useData, IStoreContext, IStore} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
-import {ICartContext, ICart, useCart, ICartUpsert, ICartRemove} from "./useCart";
+import {ICartContext,  useCart, ICartUpsert, ICartRemove} from "./useCart";
 
 interface IRawContext {
     store: IStore
+    payment: {
+        stripe: string
+    }
 }
 
 export interface IDataContext extends IStoreContext {
@@ -31,6 +34,9 @@ export interface IDataContext extends IStoreContext {
             wipe(): void
         }
     }
+    payment: {
+        stripe: string
+    }
 }
 
 const RawContext = createContext<IRawContext>({} as IRawContext);
@@ -45,6 +51,7 @@ const Raw: React.FC = ({children}) => {
     const [store] = useState(useData(data));
     return (
         <RawContext.Provider value={{
+            payment: { stripe: data.Stripe },
             store,
         }}>
             <Data>
@@ -55,7 +62,7 @@ const Raw: React.FC = ({children}) => {
 }
 
 const Data: React.FC = ({children}) => {
-    const {store} = useContext(RawContext);
+    const {store, payment} = useContext(RawContext);
     //debugger;
 
     const {cart, itemUpsert, itemRemove, cartWipe} = useCart(store.shop);
@@ -88,7 +95,8 @@ const Data: React.FC = ({children}) => {
                     remove: (data) => itemRemove(game.id, data),
                     wipe: () => cartWipe(game.id)
                 }
-            }
+            },
+            payment
         }}>
             {children}
         </DataContext.Provider>

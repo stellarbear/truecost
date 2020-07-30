@@ -3,6 +3,14 @@ import {createStyles, makeStyles, Slider, Theme, Typography} from "@material-ui/
 import TextField, {BaseTextFieldProps} from "@material-ui/core/TextField";
 import {Row, Col} from "../../../pages/Base/Grid";
 
+const useStyles = makeStyles({
+    markLabel: {
+        marginLeft: -10,
+        transform: "rotate(180deg)",
+        writingMode: "vertical-rl",
+    },
+});
+
 interface IProps extends BaseTextFieldProps {
     min?: number;
     max?: number;
@@ -21,6 +29,7 @@ interface IProps extends BaseTextFieldProps {
 }
 
 const RangeField: React.FC<IProps> = (props) => {
+    const classes = useStyles();
     const {
         label,
         value,
@@ -52,6 +61,7 @@ const RangeField: React.FC<IProps> = (props) => {
     };
 
     const [state, setState] = React.useState<[number, number]>(order(value));
+    const filteredMarks = marks.filter(({value, label}) => value >= min && value <= max)
 
     useEffect(() => {
         validate(value);
@@ -91,10 +101,8 @@ const RangeField: React.FC<IProps> = (props) => {
                     }} />
             </Row>
             <Slider
+                classes={{ markLabel: classes.markLabel,  }}
                 track={"normal"}
-                style={{
-                    width: 'calc(100% - 64px)',
-                }}
                 min={min}
                 max={max}
                 value={single ? state[1] : state}
@@ -103,8 +111,11 @@ const RangeField: React.FC<IProps> = (props) => {
                     single ? validate([state[0], value])
                         : Array.isArray(value) && (validate([value[0], value[1]]))}
                 onChangeCommitted={() => onChangeEvent(state)}
-                marks={(marks.filter(({value, label}) => value >= min && value <= max))}
+                marks={filteredMarks}
             />
+            <div className={classes.markLabel} style={{visibility: "hidden", marginTop: -30}}>
+                {filteredMarks.sort((a, b) => b.label.length - a.label.length)[0].label}
+            </div>
         </Col>
     );
 };

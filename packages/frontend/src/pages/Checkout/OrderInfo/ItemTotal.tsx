@@ -7,17 +7,16 @@ import {Row} from 'pages/Base/Grid';
 
 interface IProps {
     total: Price
-    selected: string[]
 }
 
-export const ItemTotal: React.FC<IProps> = ({total, selected}) => {
+export const ItemTotal: React.FC<IProps> = ({total}) => {
     const {current: {shop, cart}} = useStore();
 
     const cartItems = cart();
     const {options: {global: {id: global}}, items: {id: items}} = shop();
 
-    const discount = Object.keys(cartItems).reduce((acc, cur) => acc + items[cur].discount, 0);
-    const price = total.withOption(selected.map(s => global[s]));
+    const discount = Object.keys(cartItems.local).reduce((acc, cur) => acc + items[cur].discount, 0);
+    const price = total.withOption(cartItems.global.map(s => global[s]));
     return (
         <Row end s={16}>
             <Typography>subtotal:</Typography>

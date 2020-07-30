@@ -8,24 +8,26 @@ import {ItemDivider} from './ItemDivider';
 
 interface IProps {
     total: Price
-    selected: string[]
-    onChange: (data: string[]) => void
 }
 
 export const ItemExtra: React.FC<IProps> = (props) => {
-    const {selected, onChange, total} = props;
+    const {total} = props;
 
     const [hovered, setHovered] = useState<string>("")
 
-    const {current: {shop}} = useStore();
+    const {current: {shop, cart}, update} = useStore();
     const {options: {global: {id: options}}} = shop();
+    const selected = cart().global;
+    const {upsert} = update.cart;
 
     const toggleOption = (id: string) => {
         const filtered = selected.filter(o => o != id);
 
-        onChange(filtered.length === selected.length
-            ? [...selected, id]
-            : filtered);
+        upsert({
+            optionIds: (filtered.length === selected.length
+                ? [...selected, id]
+                : filtered), quantity: 0
+        });
     }
 
     return (

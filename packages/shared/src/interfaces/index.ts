@@ -43,7 +43,7 @@ export interface IRange {
     mark: string
 }
 
-export interface IItem extends IBaseMeta {
+export interface IItem extends IBaseMeta, IBaseGame {
     link: string;
     images: string[];
     price: number;

@@ -37,7 +37,7 @@ export const Register: React.FC = () => {
     const {setLoading} = useLoading();
     const [mutation, {data, error, loading}] = useMutation(registerMutation);
 
-    const {register, handleSubmit, errors, setError, clearErrors} = useForm<RegisterSubmit>({reValidateMode: "onBlur"});
+    const {register, handleSubmit, errors, clearErrors} = useForm<RegisterSubmit>({reValidateMode: "onBlur"});
 
     const RegisterSubmit = useCallback(
         async (data: RegisterSubmit) => {

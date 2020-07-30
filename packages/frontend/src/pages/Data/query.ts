@@ -22,6 +22,7 @@ const game = {
 };
 export const BULK_QUERY = gql`
     query DataAll  {
+        Stripe
         UserWhoAmI {
             id
             name

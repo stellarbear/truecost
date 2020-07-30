@@ -4,6 +4,7 @@ import {AuxInfo} from './AuxInfo';
 import {Col, Row} from 'pages/Base/Grid';
 import {useStorage} from 'auxiliary/useStorage';
 import {OrderInfo} from './OrderInfo';
+import {EmalInfo} from './EmailInfo';
 
 const steps = [{
     title: 'Check your order',
@@ -28,13 +29,13 @@ export const Checkout: React.FC = () => {
         <Col fullWidth s={16}>
             <React.Fragment>
                 <div style={{display: activeStep !== 0 ? "none" : "block"}}>
-                    <OrderInfo value={info} setValue={(v: any) => updateInfo("global", v)}/>
+                    <OrderInfo />
                 </div>
                 <div style={{display: activeStep !== 1 ? "none" : "block"}}>
                     <AuxInfo value={info} setValue={(k: string, v: any) => updateInfo(k, v)} />
                 </div>
                 <div style={{display: activeStep !== 2 ? "none" : "block"}}>
-                    <div></div>
+                    <EmalInfo info={info} />
                 </div>
             </React.Fragment>
             {activeStep < 2 && (

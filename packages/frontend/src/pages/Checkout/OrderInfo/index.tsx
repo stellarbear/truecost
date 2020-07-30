@@ -12,16 +12,13 @@ import {ItemTotal} from './ItemTotal';
 import {ItemDivider} from './ItemDivider';
 
 interface IProps {
-    value: Record<string, any>
-    setValue: (value: any) => void
 }
 
-export const OrderInfo: React.FC<IProps> = ({value, setValue}) => {
-    const selected: string[] = value.global || [];
+export const OrderInfo: React.FC<IProps> = () => {
     const {current: {shop, cart, game: {url}}, update} = useStore();
 
     const {items: {id: items}, options: {local: {id: local}, global: {id: global}}} = shop();
-    const cartItems = cart();
+    const cartItems = cart().local;
 
     const total = shop().getTotal(cartItems);
 
@@ -33,7 +30,6 @@ export const OrderInfo: React.FC<IProps> = ({value, setValue}) => {
         const price = Price.fromItem(item, chunk);
         const total = price.withOption(optionIds.map(o => local[o]));
 
-        const itemOptions = shop().getOptions(item.id);
         const upsert = update.cart.upsert;
 
         return (
@@ -73,12 +69,9 @@ export const OrderInfo: React.FC<IProps> = ({value, setValue}) => {
         <Col s={16} fullWidth right>
             {Object.keys(cartItems).map(key => itemCard(key))}
             <ItemExtra
-                total={total}
-                selected={selected}
-                onChange={(v) => setValue(v)} />
+                total={total}/>
             <ItemTotal
                 total={total}
-                selected={selected}
             />
         </Col>
     )

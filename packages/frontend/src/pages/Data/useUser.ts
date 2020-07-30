@@ -1,6 +1,5 @@
-import {IGameContext, IShop, IUserContext} from "./useData";
-import {useHistory} from "react-router";
-import {useState, useEffect} from "react";
+import {IUserContext} from "./useData";
+import {useState} from "react";
 import {IUser} from "@truecost/shared";
 
 interface IProps extends IUserContext {

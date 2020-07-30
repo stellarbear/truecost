@@ -2,7 +2,7 @@ import {ApolloClient, ApolloLink, InMemoryCache} from "apollo-boost";
 import fetch from "isomorphic-fetch";
 import {onError} from "apollo-link-error";
 import {createUploadLink} from "apollo-upload-client";
-import {serverEndpoint} from "auxiliary/route";
+import {backend} from "auxiliary/route";
 
 interface IApolloClient {
     browser: boolean;
@@ -15,7 +15,7 @@ const errorLink = onError(({graphQLErrors}) => {
 });
 
 const httpLink = (cookie?: string) => createUploadLink({
-    uri: serverEndpoint,
+    uri: backend.endpoint,
     credentials: "include",
     fetch,
     headers: {

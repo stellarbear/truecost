@@ -12,6 +12,7 @@ import * as fastifygql from "fastify-gql";
 import * as fastifygqlupload from 'fastify-gql-upload';
 import * as fastifysession from 'fastify-session';
 import * as fastifystatic from 'fastify-static';
+import {environment, domain} from './helpers/route';
 
 export interface Context {
     req: express.Request;
@@ -44,7 +45,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         secret: "aslkdfjoiq12312aslkdfjoiq12312aslkdfjoiq12312aslkdfjoiq12312",
         saveUninitialized: false,
         cookie: {
-            domain: process.env.NODE_ENV === "production" ? ".truecostd2.store" : undefined,
+            domain: environment === "production" ? `.${domain}` : undefined,
             httpOnly: true,
             secure: "auto",
             maxAge: 1000 * 60 * 60 * 24 * 7 * 365,

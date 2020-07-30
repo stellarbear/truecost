@@ -2,13 +2,11 @@ import * as React from "react";
 import {ABase, IRender, ICtor} from "./ABase";
 import RemoveCircle from '@material-ui/icons/RemoveCircle'
 import AddBox from '@material-ui/icons/AddBox'
-import {NumericField} from "../components/NumericField";
-import RangeField from "../components/RangeField";
 import {Col, Row} from "pages/Base/Grid";
 import {Badge} from "@material-ui/core";
 import SelectImage from "components/generic/components/SelectImage";
-import {serverUri} from "auxiliary/route";
 import Zoom from "../components/Zoom";
+import {backend} from "auxiliary/route";
 
 export interface IImage extends ICtor<any> {
     limit?: number;
@@ -53,7 +51,7 @@ export class CImage extends ABase<any> {
                         const imageSrc = (typeof val != "string")
                             ? URL.createObjectURL(val)
                             : id
-                                ? `${serverUri}/${id}/${val}/u.${ext}`
+                                ? `${backend.uri}/${id}/${val}/u.${ext}`
                                 : null;
 
 
