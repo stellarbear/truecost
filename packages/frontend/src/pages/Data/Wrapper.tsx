@@ -4,14 +4,14 @@ import gql from "graphql-tag";
 import {dictSort} from "auxiliary/sort";
 import {RouteComponentProps, useHistory, withRouter} from "react-router";
 import {OptionType, OptionArea, IUser, IGame, IOption} from "@truecost/shared";
-import {useData, IStoreContext, IShop} from "./useData";
+import {useData, IStoreContext, IShop, IStore} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
 import {ICartContext, ICart, useCart, ICartUpsert, ICartRemove} from "./useCart";
 
 interface IRawContext {
-    raw: any
+    store: IStore
 }
 
 export interface IDataContext extends IStoreContext {
@@ -38,14 +38,14 @@ const DataContext = createContext<IDataContext>({} as IDataContext);
 
 const Raw: React.FC = ({children}) => {
     const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true});
-
-    if (loading) {
+    if (loading || !data) {
         return <span>Loading</span>;
     }
 
+    const [store] = useState(useData(data));
     return (
         <RawContext.Provider value={{
-            raw: data,
+            store,
         }}>
             <Data>
                 {children}
@@ -55,8 +55,8 @@ const Raw: React.FC = ({children}) => {
 }
 
 const Data: React.FC = ({children}) => {
-    const {raw} = useContext(RawContext);
-    const [store] = useState(useData(raw));
+    const {store} = useContext(RawContext);
+    //debugger;
 
     const {cart, itemUpsert, itemRemove, cartWipe} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
