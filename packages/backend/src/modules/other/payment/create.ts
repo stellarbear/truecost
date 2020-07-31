@@ -8,6 +8,10 @@ import {pbkdf2} from "../../../helpers/pbkdf2";
 import {wrap, EntityRepository} from "mikro-orm";
 import {RoleType, StatusType} from "@truecost/shared";
 import {TagEntity} from "../../crud/tag/tag.entity";
+import {composeEmail} from "../../../mail/compose";
+import {accountEmail} from "../../../mail/samples/account";
+import {domain} from "../../../helpers/route";
+import {orderEmail} from "../../../mail/samples/order";
 
 export const createOrder = async (response: Record<string, any>) => {
     const {
@@ -30,7 +34,6 @@ export const createOrder = async (response: Record<string, any>) => {
 
     const bookRepo = DI.em.getRepository(BookingEntity);
     const gameRepo = DI.em.getRepository(GameEntity);
-    const tagRepo = DI.em.getRepository(TagEntity);
     const userRepo = DI.em.getRepository(UserEntity);
 
     const currentGame = await gameRepo.findOne({id: game}, {populate: false});
@@ -38,6 +41,7 @@ export const createOrder = async (response: Record<string, any>) => {
 
     const currentUser = (await userRepo.findOne({email})) ?? (await createUser(userRepo, email))
 
+    const code = "TC-" + generateString({length: 8, num: true, upper: true, lower: false});
     const currentBooking = bookRepo.create({
         active: true,
         name: "TC-" + (await bookRepo.count({})),
@@ -47,16 +51,30 @@ export const createOrder = async (response: Record<string, any>) => {
 
         total: amount_total,
         pi: payment_intent,
-        code: "TC-" + generateString({length: 8, num: true, upper: true, lower: false}),
+        code,
 
         info,
         data: JSON.stringify({game: currentGame.name, data}),
     });
-    
+
     await bookRepo.persistAndFlush(currentBooking);
+
+    try {
+        await composeEmail({
+            to: email,
+            template: orderEmail(code, {
+                ["game"]: currentGame.name,
+                ["total"]: amount_total + " $",
+            }),
+            subject: 'New account',
+            text: `New account for ${domain}`
+        })
+    } catch (e) {
+        console.log(e);
+    }
 }
 
-const createUser =  async (repo: EntityRepository<UserEntity>, email: string) => {
+const createUser = async (repo: EntityRepository<UserEntity>, email: string) => {
     const user = repo.create({});
 
     const password = generateString({length: 8});
@@ -74,5 +92,17 @@ const createUser =  async (repo: EntityRepository<UserEntity>, email: string) =>
     });
 
     await repo.persistAndFlush(user);
+
+    try {
+        await composeEmail({
+            to: email,
+            template: accountEmail(password),
+            subject: 'New account',
+            text: `New account for ${domain}`
+        })
+    } catch (e) {
+        console.log(e);
+    }
+
     return user;
 }
