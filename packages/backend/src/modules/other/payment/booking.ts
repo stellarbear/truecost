@@ -44,7 +44,7 @@ export class BookingResolver {
         @Ctx() ctx: Context,
         @Arg("game") game: string,
         @Arg("email") email: string,
-        @Arg("order") order: string,
+        @Arg("booking") booking: string,
         @Arg("info") info: string,
     ) {
         console.log("arrived <----------------------------------------")
@@ -66,7 +66,7 @@ export class BookingResolver {
         const items = store.items.id;
         const optionsLocal = store.options.local.id;
         const optionsGlobal = store.options.global.id;
-        const cart = parseCart(store, SafeJSON.parse(order, {}));
+        const cart = parseCart(store, SafeJSON.parse(booking, {}));
 
         const total = store.getTotal(cart.local);
 
