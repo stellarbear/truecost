@@ -16,6 +16,9 @@ const GET_BOOKING = gql`
             total
             info
             data
+            
+            id
+            images
         }
     }
 `

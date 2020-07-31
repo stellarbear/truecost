@@ -30,7 +30,7 @@ export const AdminBooking: React.FC = () => {
     const images = new CImage({
         key: "images",
         label: "image",
-        ext: "png",
+        ext: "jpg",
         limit: 5,
     });
 
