@@ -12,12 +12,11 @@ import {gql, ApolloError} from 'apollo-boost';
 import {BookingSubmit} from '.';
 
 interface IProps {
-    error?: ApolloError
     loading?: boolean
     onQuery: (variables: BookingSubmit) => Promise<void>
 }
 
-export const QueryForm: React.FC<IProps> = ({onQuery, error, loading = false}) => {
+export const QueryForm: React.FC<IProps> = ({onQuery, loading = false}) => {
     const {setLoading} = useLoading();
     const {current: {user}} = useStore();
 
@@ -74,9 +73,6 @@ export const QueryForm: React.FC<IProps> = ({onQuery, error, loading = false}) =
                     </Button>
                 </Col>
             </Paper>
-            <Box mt={2}>
-                {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
-            </Box>
         </form>
     )
 }

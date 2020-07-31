@@ -44,7 +44,7 @@ export const AccountPicker: React.FC = () => {
 
     const logOut = (
         [
-            <MenuItem component={Link} color="inherit" to={'/account'} disabled>
+            <MenuItem component={Link} color="inherit" to={'/account'}>
                 account
             </MenuItem>,
             user?.role === RoleType.ADMIN && (

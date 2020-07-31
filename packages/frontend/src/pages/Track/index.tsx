@@ -37,8 +37,11 @@ export const Track: React.FC = () => {
             {data?.BookingGetByCode
                 ? <ShowBookingInfo raw={data.BookingGetByCode}
                 />
-                : <QueryForm loading={loading} onQuery={onQuery} error={error} />
+                : <QueryForm loading={loading} onQuery={onQuery} />
             }
+            <Box mt={2}>
+                {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
+            </Box>
         </Container>
     )
 }

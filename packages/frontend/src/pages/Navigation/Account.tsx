@@ -43,7 +43,7 @@ export const Account: React.FC = () => {
 
     const logOut = (
         <Row>
-            <Button component={Link} color="inherit" to={'/account'} disabled>
+            <Button component={Link} color="inherit" to={'/account'}>
                 account
             </Button>
             {user?.role === RoleType.ADMIN && (

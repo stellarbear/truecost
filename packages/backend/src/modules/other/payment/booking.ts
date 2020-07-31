@@ -1,4 +1,4 @@
-import {Arg, Ctx, Mutation, Query, Resolver} from "type-graphql";
+import {Arg, Ctx, Mutation, Query, Resolver, UseMiddleware} from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
 import {Context, sessionCookieName} from "../../../server";
 import {redis} from "../../../redis";
@@ -13,6 +13,8 @@ import {creds} from "../../../helpers/creds";
 import Stripe from 'stripe';
 import {assert} from "../../../helpers/assert";
 import {BookingEntity} from "../../crud/booking/booking.entity";
+import {UseAuth} from "../../../middleware/auth";
+import {createContext} from "vm";
 
 
 //TODO: session middleware
@@ -35,6 +37,19 @@ export class BookingResolver {
 
         const booking = await this.bookRepo.findOne({code, user});
         assert(booking, "order not found", ["code"]);
+
+        return booking;
+    }
+
+    @UseMiddleware(UseAuth())
+    @Query(() => [BookingEntity])
+    async UserGetBooking(
+        @Ctx() ctx: Context
+    ) {
+        assert(ctx.req.session, "user not found");
+        const userId = await redis.client.get(`session-${ctx.req.session.sid}`);
+        assert(userId, "user not found");
+        const booking = await this.bookRepo.find({user: userId});
 
         return booking;
     }
@@ -147,5 +162,6 @@ export class BookingResolver {
         assert(user.active, "account disabled");
         return user.email;
     }
+
 
 }

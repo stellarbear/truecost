@@ -20,7 +20,7 @@ const AuthRoute: React.FC<AuthRouteProps> = (props) => {
             return <Redirect to={"/"}/>;
         }
 
-        if (user && !roles.includes(user.role)) {
+        if (user && roles.length > 0 && !roles.includes(user.role)) {
             return <Redirect to={"/"}/>;
         }
 

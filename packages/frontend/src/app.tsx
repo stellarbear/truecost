@@ -25,6 +25,7 @@ import {PasswordReset} from "pages/User/Password/PasswordReset";
 import {PasswordMessage} from "pages/User/Password/PasswordMessage";
 import {CheckoutSuccess} from "pages/Checkout/CheckoutSuccess";
 import {Track} from "pages/Track";
+import {Account} from "pages/Account";
 
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
                                     <Route exact path={urls.map(u => '/' + u + '/checkout/success')} component={CheckoutSuccess} />
                                     <Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
+                                    <AuthRoute path={`/account`} component={Account} />
                                     <AuthRoute path={`/admin`} component={Admin} roles={[RoleType.ADMIN]} />
 
                                     <AuthRoute exact path={`/login`} component={Login} unauthorized />
