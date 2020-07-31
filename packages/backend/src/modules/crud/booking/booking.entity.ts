@@ -34,4 +34,9 @@ export class BookingEntity extends BaseEntity implements IBooking {
     @Field({defaultValue: "{}"})
     @Property()
     data: string = "{}";
+
+
+    @Field(() => [String])
+    @Property()
+    images: string[] = [];
 }

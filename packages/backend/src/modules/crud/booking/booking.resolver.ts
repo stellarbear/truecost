@@ -26,6 +26,7 @@ export class BookingCRUDResolver extends BaseResolver
         },
         upsert: {
             notEmpty: ["user"],
+            images: ["images"],
         },
     },
 )

@@ -3,7 +3,7 @@ import {CRUD} from "components/generic/CRUD";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";
 import {game} from "./Base/Game";
-import {CLink, CSelect, CString, CNumber} from "components/generic/types";
+import {CLink, CSelect, CString, CNumber, CImage} from "components/generic/types";
 import {StatusType} from "@truecost/shared";
 
 export const AdminBooking: React.FC = () => {
@@ -22,7 +22,16 @@ export const AdminBooking: React.FC = () => {
 
             info
             data
+
+			images
 		`,
+    });
+
+    const images = new CImage({
+        key: "images",
+        label: "image",
+        ext: "png",
+        limit: 5,
     });
 
     const user = new CLink({
@@ -75,7 +84,7 @@ export const AdminBooking: React.FC = () => {
         editable: false,
     });
 
-    const fields = [user, status, total, code, pi, info, data];
+    const fields = [images, user, status, total, code, pi, info, data];
 
     return (
         <CRUD

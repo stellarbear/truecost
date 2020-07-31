@@ -1,7 +1,7 @@
 import {Field, InputType} from "type-graphql";
 import {BaseInput} from "../base/base.input";
 import {StatusType} from "@truecost/shared";
-import {NumberScalar, NumberType} from "../../../scalars";
+import {NumberScalar, NumberType, UploadType, UploadScalar} from "../../../scalars";
 
 @InputType()
 export class BookingInput extends BaseInput {
@@ -21,4 +21,7 @@ export class BookingInput extends BaseInput {
     info?: string;
     @Field({nullable: true})
     data?: string;
+    
+    @Field(() => [UploadScalar], {nullable: true})
+    images: UploadType[] = [];
 }

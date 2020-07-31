@@ -12,6 +12,7 @@ import {backend, frontend} from "../../../helpers/route";
 import {creds} from "../../../helpers/creds";
 import Stripe from 'stripe';
 import {assert} from "../../../helpers/assert";
+import {BookingEntity} from "../../crud/booking/booking.entity";
 
 
 //TODO: session middleware
@@ -22,9 +23,24 @@ export class BookingResolver {
     userRepo = DI.em.getRepository(UserEntity);
     itemRepo = DI.em.getRepository(ItemEntity);
     optionRepo = DI.em.getRepository(OptionEntity);
+    bookRepo = DI.em.getRepository(BookingEntity);
+
+    @Query(() => BookingEntity)
+    async BookingGetByCode(
+        @Arg("email") email: string,
+        @Arg("code") code: string,
+    ) {
+        const user = await this.userRepo.findOne({email});
+        assert(user, "order not found", ["code"]);
+
+        const booking = await this.bookRepo.findOne({code, user});
+        assert(booking, "order not found", ["code"]);
+
+        return booking;
+    }
 
     @Mutation(() => String)
-    async MakeOrder(
+    async BookingMake(
         @Ctx() ctx: Context,
         @Arg("game") game: string,
         @Arg("email") email: string,

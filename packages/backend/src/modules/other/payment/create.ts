@@ -49,7 +49,7 @@ export const createOrder = async (response: Record<string, any>) => {
         pi: payment_intent,
         code: "TC-" + generateString({length: 8, num: true, upper: true, lower: false}),
 
-        info: JSON.stringify(info),
+        info,
         data: JSON.stringify({game: currentGame.name, data}),
     });
     

@@ -24,6 +24,7 @@ import {PasswordForget} from "pages/User/Password/PasswordForget";
 import {PasswordReset} from "pages/User/Password/PasswordReset";
 import {PasswordMessage} from "pages/User/Password/PasswordMessage";
 import {CheckoutSuccess} from "pages/Checkout/CheckoutSuccess";
+import {Track} from "pages/Track";
 
 
 const App = () => {
@@ -59,6 +60,7 @@ const App = () => {
                                     <AuthRoute exact path={`/password/message`} component={PasswordMessage}
                                         unauthorized />
 
+                                    <Route exact path={`/track`} component={Track} />
                                     <Route exact path={`/contact`} component={Contact} />
                                     <Route exact path={`/policy`} component={Policy} />
                                     <Route exact path={`/about`} component={About} />

@@ -16,33 +16,33 @@ interface IProps {
     info: Record<string, any>
 }
 
-interface OrderSubmit {
+interface BookingSubmit {
     email: string;
 }
 
-const MAKE_ORDER = gql`
-    mutation MakeOrder($email: String!, $order: String!, $info: String!, $game: String!) {
-        MakeOrder(email:$email, order:$order, info: $info, game: $game) 
+const MAKE_BOOKING = gql`
+    mutation BookingMake($email: String!, $booking: String!, $info: String!, $game: String!) {
+        BookingMake(email:$email, booking:$booking, info: $info, game: $game) 
     }
 `;
 
 export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
     const {current: {user, game, cart}, payment: {stripe: stripeKey}} = useStore();
-    const [mutation, {data, error, loading}] = useMutation(MAKE_ORDER);
-    const {register, handleSubmit, errors, clearErrors} = useForm<OrderSubmit>({
+    const [mutation, {data, error, loading}] = useMutation(MAKE_BOOKING);
+    const {register, handleSubmit, errors, clearErrors} = useForm<BookingSubmit>({
         reValidateMode: "onBlur",
         defaultValues: {email: user ? user.email : ""}
     });
     const cartItems = cart();
 
-    const orderSubmit = async (data: OrderSubmit) => {
+    const bookingSubmit = async (data: BookingSubmit) => {
         try {
             clearErrors();
             setLoading(true);
             const variables = {
                 ...data,
-                order: JSON.stringify(cartItems),
+                booking: JSON.stringify(cartItems),
                 info: JSON.stringify(info),
                 game: game.id
             }
@@ -53,13 +53,12 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     }
 
     React.useEffect(() => {
-        if (data?.MakeOrder) {
-            redirectToStripe(data.MakeOrder);
+        if (data?.BookingMake) {
+            redirectToStripe(data.BookingMake);
         }
-    }, [data?.MakeOrder])
+    }, [data?.BookingMake])
 
     const redirectToStripe = async (sessionId: string) => {
-        debugger;
         const stripe = await loadStripe(stripeKey);
         if (stripe) {
             const {error} = await stripe.redirectToCheckout({sessionId});
@@ -69,7 +68,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
 
     return (
         <Col s={16} fullWidth right>
-            <form onSubmit={handleSubmit(orderSubmit)}>
+            <form onSubmit={handleSubmit(bookingSubmit)}>
                 <TextField
                     fullWidth
                     disabled={!!user}
