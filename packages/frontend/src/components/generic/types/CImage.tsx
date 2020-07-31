@@ -40,7 +40,7 @@ export class CImage extends ABase<any> {
 
         //TODO: refactor
         return (
-            <Row p={8} style={{
+            <Row p={8} s={8} style={{
                 overflowX: "auto",
                 overflowY: "hidden",
                 maxWidth: 300,
@@ -61,7 +61,7 @@ export class CImage extends ABase<any> {
                                     badgeContent={
                                         <RemoveCircle
                                             onClick={() => onChange([...images.filter(v => v != val)])}
-                                            style={{width: 16, height: 16, marginLeft: -4, marginRight: -4}}/>
+                                            style={{width: 16, height: 16, marginLeft: -4, marginRight: -4}} />
                                     }
                                     anchorOrigin={{horizontal: "right", vertical: "bottom"}}
                                     style={{cursor: "pointer "}}
@@ -78,7 +78,7 @@ export class CImage extends ABase<any> {
                                                 const newList = [...images];
                                                 newList[index] = value;
                                                 onChange(newList);
-                                            }}/>
+                                            }} />
                                     </Zoom>
                                 </Badge>
                             </div>
@@ -91,7 +91,7 @@ export class CImage extends ABase<any> {
                             ext={ext}
                             size={size}
                             src={null}
-                            mock={<AddBox/>}
+                            mock={<AddBox />}
                             width={dimension}
                             height={dimension}
                             id={`${id}-${label}-new`}
@@ -99,7 +99,7 @@ export class CImage extends ABase<any> {
                                 if (value) {
                                     onChange([...images, value]);
                                 }
-                            }}/>
+                            }} />
                     </div>
                 )}
             </Row>

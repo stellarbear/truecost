@@ -13,7 +13,7 @@ interface IProps {
 }
 
 export const BookingImages: React.FC<IProps> = ({bookingId, images}) => {
-    const image = (url: string) => `${backend.uri}/${bookingId}/${url}/u.png`;
+    const image = (url: string) => `${backend.uri}/${bookingId}/${url}/u.jpg`;
 
     return (
         images.length > 0 ? (

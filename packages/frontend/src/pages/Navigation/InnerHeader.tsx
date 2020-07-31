@@ -24,7 +24,7 @@ export const InnerHeader: React.FC<IProps> = ({prefix, routes, base}) => {
         <>
             <Col s={16}>
                 <Tabs
-                    value={last}
+                    value={value}
                     scrollButtons="auto"
                     indicatorColor="primary"
                     textColor="primary"
