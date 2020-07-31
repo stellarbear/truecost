@@ -32,6 +32,8 @@ export class SessionResolver {
         @Arg("email") email: string,
         @Arg("password") password: string,
     ) {
+        assert(ctx.req.session, "session failure");
+        
         const user = await this.userRepo.findOne({email});
         assert(user, "user not found");
         assert(user.verified, "user not yet verified");
@@ -39,7 +41,6 @@ export class SessionResolver {
 
         const verify = await pbkdf2.validate(user.password, password, user.salt);
         assert(verify, "invalid password");
-        assert(ctx.req.session, "session failure");
 
         const session = v4();
         await redis.client.sadd(`user-${user.id}`, session);

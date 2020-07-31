@@ -1,4 +1,4 @@
-import {Arg, Mutation, Resolver} from "type-graphql";
+import {Arg, Mutation, Resolver, Ctx} from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
 import {DI} from "../../../orm";
 import {v4} from "uuid";
@@ -11,6 +11,7 @@ import {composeEmail} from "../../../mail/compose";
 import {verificationEmail} from "../../../mail/samples/verification";
 import {domain} from "../../../mail/helpers";
 import {forgetEmail} from "../../../mail/samples/forget";
+import {Context} from "../../../server";
 
 @Resolver(() => UserEntity)
 export class AccountResolver {
@@ -128,6 +129,45 @@ export class AccountResolver {
         await this.userRepo.persistAndFlush(user);
         await redis.client.del(`forget-${forget}`);
 
+        return user;
+    }
+
+    @Mutation(() => UserEntity)
+    async UserUpdateInfo(
+        @Ctx() ctx: Context,
+        @Arg("oldPassword") oldPassword: string,
+        @Arg("newPassword", {nullable: true}) newPassword?: string,
+        @Arg("name", {nullable: true}) name?: string,
+    ) {
+        assert(ctx.req.session, "user not found");
+        const userId = await redis.client.get(`session-${ctx.req.session.sid}`);
+        assert(userId, "user not found");
+
+        const user = await this.userRepo.findOne({id: userId});
+        assert(user, "user not found");
+        assert(user.verified, "user not yet verified");
+        assert(user.active, "account disabled");
+
+        const verify = await pbkdf2.validate(user.password, oldPassword, user.salt);
+        assert(verify, "invalid password");
+
+        if (name) {
+            const count = await this.userRepo.count({name, id: {$ne: userId}})
+            assert(count == 0, "name already used");
+
+            user.name = name;
+        }
+
+        if (newPassword) {
+            assert(newPassword.length > 3, "at least 3 chars for password");
+
+            const {hash, salt} = await pbkdf2.generate(newPassword);
+
+            user.password = hash;
+            user.salt = salt;
+        }
+
+        await this.userRepo.persistAndFlush(user);
         return user;
     }
 }

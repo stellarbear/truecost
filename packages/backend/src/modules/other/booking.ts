@@ -1,20 +1,20 @@
 import {Arg, Ctx, Mutation, Query, Resolver, UseMiddleware} from "type-graphql";
-import {UserEntity} from "../../crud/user/user.entity";
-import {Context, sessionCookieName} from "../../../server";
-import {redis} from "../../../redis";
-import {DI} from "../../../orm";
-import {ItemEntity} from "../../crud/item/item.entity";
-import {TagEntity} from "../../crud/tag/tag.entity";
-import {OptionEntity} from "../../crud/option/option.entity";
-import {GameEntity} from "../../crud/game/game.entity";
+import {UserEntity} from "../crud/user/user.entity";
+import {Context} from "../../server";
+import {redis} from "../../redis";
+import {DI} from "../../orm";
+import {ItemEntity} from "../crud/item/item.entity";
+import {TagEntity} from "../crud/tag/tag.entity";
+import {OptionEntity} from "../crud/option/option.entity";
+import {GameEntity} from "../crud/game/game.entity";
 import {parseShop, IItem, parseCart, SafeJSON, Price} from "@truecost/shared";
-import {backend, frontend} from "../../../helpers/route";
-import {creds} from "../../../helpers/creds";
+import {backend, frontend} from "../../helpers/route";
+import {creds} from "../../helpers/creds";
 import Stripe from 'stripe';
-import {assert} from "../../../helpers/assert";
-import {BookingEntity} from "../../crud/booking/booking.entity";
-import {UseAuth} from "../../../middleware/auth";
-import {createContext} from "vm";
+import {assert} from "../../helpers/assert";
+import {BookingEntity} from "../crud/booking/booking.entity";
+import {UseAuth} from "../../middleware/auth";
+
 
 
 //TODO: session middleware
@@ -41,7 +41,6 @@ export class BookingResolver {
         return booking;
     }
 
-    @UseMiddleware(UseAuth())
     @Query(() => [BookingEntity])
     async UserGetBooking(
         @Ctx() ctx: Context

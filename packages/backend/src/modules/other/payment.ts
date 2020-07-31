@@ -1,5 +1,5 @@
 import {Query, Resolver} from "type-graphql";
-import {creds} from "../../../helpers/creds";
+import {creds} from "../../helpers/creds";
 
 @Resolver()
 export class PaymentResolver {
