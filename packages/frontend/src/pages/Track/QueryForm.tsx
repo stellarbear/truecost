@@ -3,7 +3,7 @@ import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {useStore} from 'pages/Data/Wrapper';
 import {useForm} from 'react-hook-form';
 import {Col, Row} from 'pages/Base/Grid';
-import {TextField, Button, Box, Container, Paper} from '@material-ui/core';
+import {TextField, Button, Box, Container, Paper, CircularProgress} from '@material-ui/core';
 import {Alert} from '@material-ui/lab';
 import {parseApolloError} from 'auxiliary/error';
 import {validate} from '@truecost/shared';
@@ -13,10 +13,11 @@ import {BookingSubmit} from '.';
 
 interface IProps {
     error?: ApolloError
+    loading?: boolean
     onQuery: (variables: BookingSubmit) => Promise<void>
 }
 
-export const QueryForm: React.FC<IProps> = ({onQuery, error}) => {
+export const QueryForm: React.FC<IProps> = ({onQuery, error, loading = false}) => {
     const {setLoading} = useLoading();
     const {current: {user}} = useStore();
 
@@ -68,9 +69,9 @@ export const QueryForm: React.FC<IProps> = ({onQuery, error}) => {
                         helperText={errors.code?.message || " "}
                         variant="filled"
                     />
-                    <Row end>
-                        <Button variant="contained" type="submit">Track order</Button>
-                    </Row>
+                    <Button fullWidth variant="contained" type="submit">
+                        {loading ? <CircularProgress size={24} /> : "Track order"}
+                    </Button>
                 </Col>
             </Paper>
             <Box mt={2}>

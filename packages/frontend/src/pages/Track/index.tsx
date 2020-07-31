@@ -37,7 +37,7 @@ export const Track: React.FC = () => {
             {data?.BookingGetByCode
                 ? <ShowBookingInfo raw={data.BookingGetByCode}
                 />
-                : <QueryForm onQuery={onQuery} error={error} />
+                : <QueryForm loading={loading} onQuery={onQuery} error={error} />
             }
         </Container>
     )

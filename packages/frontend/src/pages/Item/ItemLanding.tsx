@@ -15,8 +15,8 @@ import {ItemOption} from './ItemOption';
 import {ItemAddToCard} from './ItemAddToCard';
 import {ItemRelated} from './ItemRelated';
 
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 import {DataContext, useStore} from 'pages/Data/Wrapper';
 
@@ -43,7 +43,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
             <Button
                 component={Link}
                 to={`/${url}/shop`}
-                startIcon={< ArrowBackIcon />}
+                startIcon={< ArrowBack />}
             >
                 To the shop
             </Button>
@@ -68,7 +68,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     />
                 </Grid>
             </Grid>
-            <Button startIcon={< ArrowDownwardIcon />} >
+            <Button startIcon={< ArrowDownward />} >
                 Related goods
             </Button>
             <ItemRelated item={item} />

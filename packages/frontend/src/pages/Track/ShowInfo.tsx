@@ -3,7 +3,10 @@ import {Col, Row} from 'pages/Base/Grid';
 import {useHistory} from 'react-router';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {StatusType, SafeJSON, Dict} from '@truecost/shared';
-import {Table, TableBody, TableRow, TableCell, Typography, Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
+import {Table, TableBody, TableRow, TableCell, Typography, Accordion, AccordionSummary, AccordionDetails, Button} from '@material-ui/core';
+import {BookingCard} from './BookingCard';
+import {Link} from 'react-router-dom';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 
 interface IProps {
     raw: any
@@ -11,54 +14,17 @@ interface IProps {
 
 export const ShowBookingInfo: React.FC<IProps> = ({raw}) => {
     const history = useHistory();
-    debugger;
-    const {code, status, total, info, data} = raw;
-
-    const infoParsed = SafeJSON.parse<Dict<string>>(info, {});
-    const dataParsed = SafeJSON.parse<{game: string, data: any[]}>(data, {game: "-", data: []})
 
     return (
         <Col fullWidth left>
-            <Accordion>
-                <AccordionSummary
-                    expandIcon={<ExpandMore />}>
-                    {code}
-                    {status}
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>Info</Typography>
-                    <Table>
-                        <TableBody>
-                            {
-                                Object.keys(infoParsed).map(key => (
-                                    <TableRow>
-                                        <TableCell>{key}</TableCell>
-                                        <TableCell>{infoParsed[key]}</TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                    <Typography>Data</Typography>
-                    <Table>
-                        <TableBody>
-                            {
-                                dataParsed.data
-                                    .filter(d => typeof d == "object" &&
-                                                "quantity" in d &&
-                                                "amount" in d &&
-                                                "item" in d)
-                                    .map(({item, quantity, amount} )=> (
-                                        <TableRow>
-                                            <TableCell>{item}</TableCell>
-                                            <TableCell>{`${amount / 100} $ x ${quantity}}`}</TableCell>
-                                        </TableRow>
-                                    ))
-                            }
-                        </TableBody>
-                    </Table>
-                </AccordionDetails>
-            </Accordion>
+            <Button
+                component={Link}
+                to={`/track`}
+                startIcon={< ArrowBack />}
+            >
+                Back to tracking
+        </Button>
+            <BookingCard raw={raw} />
         </Col>
     )
 }

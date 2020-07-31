@@ -32,36 +32,36 @@ export const AccountPicker: React.FC = () => {
     }
 
     const logIn = (
-        <>
+        [
             <MenuItem component={Link} color="inherit" to={'/register'}>
                 Register
-            </MenuItem>
+            </MenuItem>,
             <MenuItem component={Link} color="inherit" to={'/login'}>
                 Login
             </MenuItem>
-        </>
+        ]
     )
 
     const logOut = (
-        <>
+        [
             <MenuItem component={Link} color="inherit" to={'/account'} disabled>
                 account
-            </MenuItem>
-            {user?.role === RoleType.ADMIN && (
+            </MenuItem>,
+            user?.role === RoleType.ADMIN && (
                 <MenuItem component={Link} color="inherit" to={'/admin'}>
                     admin
                 </MenuItem>
-            )}
+            ),
             <MenuItem color="inherit" onClick={onLogOut}>
                 logout
             </MenuItem>
-        </>
+        ]
     )
 
     return (
         <>
             <IconButton color="inherit" aria-haspopup="true" onClick={(e) => setAnchorEl(e.currentTarget)}>
-                <AccountCircle/>
+                <AccountCircle />
             </IconButton>
             <Menu
                 anchorEl={anchorEl}
@@ -69,7 +69,9 @@ export const AccountPicker: React.FC = () => {
                 open={Boolean(anchorEl)}
                 onClose={() => setAnchorEl(null)}
             >
-                {user ? logOut : logIn}
+                {React.Children.map(user ? logOut : logIn,
+                    (child, index) => React.isValidElement(child) &&
+                        React.cloneElement(child, {key: index}))}
             </Menu>
         </>
     )
