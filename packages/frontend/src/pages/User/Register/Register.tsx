@@ -55,7 +55,7 @@ export const Register: React.FC = () => {
     useEffect(() => {
         if (data?.UserCreate) {
             if (data.UserCreate) {
-                history.push(`/login`);
+                history.push(`/register/message`);
             } else {
                 debugger;
             }
