@@ -19,13 +19,15 @@ export class AccountResolver {
 
     @Mutation(() => Boolean)
     async UserCreate(
-        @Arg("name") name: string,
         @Arg("email") email: string,
-        @Arg("password") password: string) {
-        name = name.trim();
-        assert(name.length < 64, "name length must be <= 64", ["name"]);
-        assert(!["root", "mod", "admin", "truecost"].some(s => name.includes(s)), "bad name", ["name"]);
-        assert(name.replace(/[a-zA-Z0-9_]/g, "").length == 0, "bad alphabet", ["name"]);
+        @Arg("password") password: string,
+        @Arg("name", {nullable: true}) name?: string,
+    ) {
+        const username = (name || email).trim();
+        assert(!["root", "mod", "admin", "truecost"].some(s => username.includes(s)), "bad name", ["name"]);
+        const count = await this.userRepo.count({name: username})
+        assert(count == 0, "name already in use");
+
         assert(validate("email").test(email), "Does not look like email (:", ["email"]);
 
         let user = await this.userRepo.findOne({email});
@@ -43,7 +45,7 @@ export class AccountResolver {
             password: hash,
             active: true,
             email,
-            name,
+            name: username,
             salt,
         });
 
@@ -152,10 +154,13 @@ export class AccountResolver {
         assert(verify, "invalid password");
 
         if (name) {
-            const count = await this.userRepo.count({name, id: {$ne: userId}})
-            assert(count == 0, "name already used");
+            const username = name.trim();
+            assert(username.length > 3, "at least 3 chars for name");
+            assert(!["root", "mod", "admin", "truecost"].some(s => username.includes(s)), "bad name", ["name"]);
+            const count = await this.userRepo.count({name: username, id: {$ne: userId}})
+            assert(count == 0, "name already in use");
 
-            user.name = name;
+            user.name = username;
         }
 
         if (newPassword) {

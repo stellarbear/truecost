@@ -21,13 +21,13 @@ import {useLoading} from "components/wrappers/LoadingWrapper";
 
 
 const registerMutation = gql`
-    mutation UserCreate($name: String!, $email: String!, $password: String!) {
-        UserCreate(name: $name, email:$email, password:$password)
+    mutation UserCreate($email: String!, $password: String!, $name: String) {
+        UserCreate(email:$email, password:$password, name: $name)
     }
 `;
 
 interface RegisterSubmit {
-    name: string;
+    name?: string;
     email: string;
     password: string;
 }
