@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Home, NotFound} from "pages";
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, Redirect} from "react-router-dom";
 import {NotifyWrapper} from "components/wrappers";
 import NavigationWrapper from "pages/Navigation";
 import AuthRoute from "pages/Admin/AuthRoute";
@@ -32,7 +32,7 @@ import {tawk} from "scripts";
 
 const App = () => {
     useScript(tawk);
-    
+
     return (
         <LoadingWrapper>
             <NotifyWrapper>
@@ -43,6 +43,8 @@ const App = () => {
 
                             return (
                                 <NavigationWrapper>
+                                    <Route exact path={"/"} component={Home} />
+
                                     <Route exact path={urls.map(u => '/' + u)} component={Home} />
                                     <Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
                                     <Route exact path={urls.map(u => '/' + u + '/checkout')} component={Checkout} />
@@ -53,7 +55,7 @@ const App = () => {
                                     <AuthRoute path={`/admin`} component={Admin} roles={[RoleType.ADMIN]} />
 
                                     <AuthRoute exact path={`/login`} component={Login} unauthorized />
-                                    
+
                                     <AuthRoute exact path={`/register`} component={Register} unauthorized />
                                     <AuthRoute exact path={`/register/verify/:verify/:value`} component={RegisterVerify}
                                         unauthorized />

@@ -24,7 +24,8 @@ const NavigationWrapper: React.FC<INavigationProps> = (props) => {
     } = props;
     const {current: {game}} = useContext(DataContext);
     const calcState = () => window.pageYOffset < height
-        && history.location.pathname === ("/" + game?.url || "/");
+        && (history.location.pathname === "/" ||
+            history.location.pathname === "/" + game?.url);
     const [isOnTop, setIsOnTop] = useState(true);
 
     useEffect(() => {
@@ -60,15 +61,15 @@ const NavigationWrapper: React.FC<INavigationProps> = (props) => {
                                         width: "100vw", padding: 0,
                                     }}>
                                         <Hidden mdUp>
-                                            <Mobile logo={"/logo-black.png"}/>
+                                            <Mobile logo={"/logo-black.png"} />
                                         </Hidden>
                                         <Hidden smDown>
-                                            <Desktop logo={logo}/>
+                                            <Desktop logo={logo} />
                                         </Hidden>
                                     </Toolbar>
                                 </AppBar>
                             </ElevationScroll>
-                            <Toolbar style={{margin: 8}}/>
+                            <Toolbar style={{margin: 8}} />
                             <Container fixed>
                                 <Switch location={location}>
                                     {children}
@@ -76,7 +77,7 @@ const NavigationWrapper: React.FC<INavigationProps> = (props) => {
                             </Container>
                         </div>
                         <Container fixed>
-                            <Footer/>
+                            <Footer />
                         </Container>
                     </section>
                 </CSSTransition>
