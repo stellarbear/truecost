@@ -23,8 +23,6 @@ export const RowSwipable: React.FC<IProps> = (props) => {
 
     return (
         <div style={{
-            marginBottom: -32,
-            overflow: "hidden",
             position: "relative",
         }}>
             <div id={id} style={{
@@ -35,7 +33,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                 gridTemplateColumns: w,
                 gridAutoFlow: "column",
                 gridAutoColumns: `minmax(${w}px, 1fr)`,
-                overflowX: "scroll",
+                overflowX: "hidden",
             }}>
                 {children}
             </div >
