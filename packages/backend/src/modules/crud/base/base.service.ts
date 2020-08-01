@@ -12,7 +12,7 @@ const convert = (src: Record<string, any>, type: "set" | "like" | "between" | "f
         case "set":
             return Object.keys(src).map(key => ({[key]: {$eq: src[key]}}));
         case "like":
-            return Object.keys(src).map(key => ({[key]: {$regex: src[key]}}));
+            return Object.keys(src).map(key => ({[key]: {$regex: src[key], $options: 'i'}}));
         case "filter":
             return Object.keys(src).map(key => ({
                 [key]: {
