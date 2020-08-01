@@ -26,9 +26,13 @@ import {PasswordMessage} from "pages/User/Password/PasswordMessage";
 import {CheckoutSuccess} from "pages/Checkout/CheckoutSuccess";
 import {Track} from "pages/Track";
 import {Account} from "pages/Account";
+import {useScript} from "auxiliary/useScript";
+import {tawk} from "scripts";
 
 
 const App = () => {
+    useScript(tawk);
+    
     return (
         <LoadingWrapper>
             <NotifyWrapper>
