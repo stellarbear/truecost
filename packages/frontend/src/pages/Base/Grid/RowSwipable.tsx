@@ -23,11 +23,22 @@ export const RowSwipable: React.FC<IProps> = (props) => {
 
     return (
         <div style={{
-            height: w + 100,
+            marginBottom: -32,
             overflow: "hidden",
             position: "relative",
         }}>
-
+            <div id={id} style={{
+                ...style,
+                display: "grid",
+                padding: p,
+                gridGap: s,
+                gridTemplateColumns: w,
+                gridAutoFlow: "column",
+                gridAutoColumns: `minmax(${w}px, 1fr)`,
+                overflowX: "scroll",
+            }}>
+                {children}
+            </div >
             <IconButton
                 style={{
                     position: "absolute",
@@ -60,18 +71,6 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                 }}>
                 <ArrowForward />
             </IconButton>
-            <div id={id} style={{
-                ...style,
-                display: "grid",
-                padding: p,
-                gridGap: s,
-                gridTemplateColumns: w,
-                gridAutoFlow: "column",
-                gridAutoColumns: `minmax(${w}px, 1fr)`,
-                overflowX: "auto",
-            }}>
-                {children}
-            </div >
         </div>
     )
 }

@@ -9,49 +9,42 @@ import {Link} from 'react-router-dom';
 import {DataContext} from 'pages/Data/Wrapper';
 import Chat from 'mdi-material-ui/Chat';
 import Star from 'mdi-material-ui/Star';
-import {SlideRow} from '../Base/SlideRow'
+import {RowSwipable, Col} from 'pages/Base/Grid';
 
 interface IProps {
     style?: CSSProperties
 }
 
-export const HowTo: React.FC<IProps> = ({style = {}}) => {
+export const HomeHowTo: React.FC<IProps> = ({style = {}}) => {
     const props = {}
     const data = [{
-        icon: <SportsEsports fontSize="large"/>,
+        icon: <SportsEsports fontSize="large" />,
         text: "Choose the items or the service you need at the shop",
     }, {
-        icon: <Loyalty fontSize="large"/>,
+        icon: <Loyalty fontSize="large" />,
         text: "Select your discount plan at the checkout (optional)",
     }, {
-        icon: <Chat fontSize="large"/>,
+        icon: <Chat fontSize="large" />,
         text: "We set up a convenient interaction between you and your player",
     }, {
-        icon: <Star fontSize="large"/>,
+        icon: <Star fontSize="large" />,
         text: "Get what you want!",
     }, {
-        icon: <RateReview fontSize="large"/>,
+        icon: <RateReview fontSize="large" />,
         text: "Leave an honest review in order to support us!",
     }];
     return (
         <Card style={style}>
-            <SlideRow id={"how-it-works"}>
+            <RowSwipable s={16} p={16} w={250}>
                 {data.map(({icon, text}, i) => (
-                    <div key={`how-to-${i}`}>
-                        <div style={{
-                            width: 200,
-                            margin: "0px 8px",
-                            alignItems: "center",
-                            display: 'flex', flexDirection: 'column',
-                        }}>
-                            {icon}
-                            <Typography style={{textAlign: 'center'}}>
-                                {`${i + 1}. ${text}`}
-                            </Typography>
-                        </div>
-                    </div>
+                    <Col key={i}>
+                        {icon}
+                        <Typography style={{textAlign: 'center'}}>
+                            {`${i + 1}. ${text}`}
+                        </Typography>
+                    </Col>
                 ))}
-            </SlideRow>
+            </RowSwipable>
         </Card>
     );
 }

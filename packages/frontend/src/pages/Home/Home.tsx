@@ -14,11 +14,12 @@ import {
 import "css/float.css";
 import {DataContext} from "../Data/Wrapper";
 import Parallax from "components/Parallax";
-import {Intro} from "./Intro";
-import {TrustPilot} from "./TrustPilot";
-import {HowTo} from "./HowTo";
-import {Twitter} from "./Twitter";
+import {HomeIntro} from "./HomeIntro";
+import {HomeTrustPilot} from "./HomeTrustPilot";
+import {HomeHowTo} from "./HomeHowTo";
+import {HomeTwitter} from "./HomeTwitter";
 import {backend} from "auxiliary/route";
+import {HomeTopOffers} from "./HomeTopOffers";
 
 
 interface IHomeProps {
@@ -31,28 +32,28 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
 
     return (
         <React.Fragment>
-            <Parallax image={image}/>
+            <Parallax image={image} />
             <Grid container spacing={2}
-                  style={{
-                      color: "#fff",
-                  }}>
-                <Grid item xs={12} sm={4} md={6}/>
+                style={{
+                    color: "#fff",
+                }}>
+                <Grid item xs={12} sm={4} md={6} />
                 <Grid item xs={12} sm={8} md={6}>
-                    <Intro style={{marginTop: "15vh", textAlign: "center"}}/>
+                    <HomeIntro style={{marginTop: "15vh", textAlign: "center"}} />
                 </Grid>
                 <Grid container spacing={2}
-                      style={{marginTop: "15vh", marginBottom: 16}}>
+                    style={{marginTop: "15vh", marginBottom: 16}}>
                     <Grid item xs={12} sm={8}>
-                        {}
+                        <HomeTopOffers />
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <Twitter/>
+                        <HomeTwitter />
                     </Grid>
                     <Grid item xs={12} sm={8}>
-                        <HowTo/>
+                        <HomeHowTo />
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <TrustPilot/>
+                        <HomeTrustPilot />
                     </Grid>
                 </Grid>
             </Grid>

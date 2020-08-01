@@ -9,7 +9,7 @@ interface IProps {
     style?: CSSProperties
 }
 
-export const Intro: React.FC<IProps> = ({style = {}}) => {
+export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
     const {current: {game}} = useStore();
     const current = game!;
 

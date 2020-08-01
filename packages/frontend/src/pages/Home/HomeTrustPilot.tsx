@@ -7,7 +7,7 @@ interface IProps {
     style?: CSSProperties
 }
 
-export const TrustPilot: React.FC<IProps> = ({style = {}}) => (
+export const HomeTrustPilot: React.FC<IProps> = ({style = {}}) => (
     <Card style={{
         ...style,
         minHeight: "100%",
