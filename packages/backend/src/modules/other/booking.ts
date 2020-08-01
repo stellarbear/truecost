@@ -59,7 +59,7 @@ export class BookingResolver {
         @Arg("game") game: string,
         @Arg("email") email: string,
         @Arg("booking") booking: string,
-        @Arg("info") info: string,
+        @Arg("meta") meta: string,
     ) {
         console.log("arrived <----------------------------------------")
         const userEmail = await this.getEmail(ctx, email);
@@ -133,7 +133,7 @@ export class BookingResolver {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             customer_email: email,
-            metadata: {info, game, email: userEmail},
+            metadata: {meta, game, email: userEmail},
             locale: "en",
             line_items,
             success_url: `${frontend.uri}/${gameEntiry?.url}/checkout/success`,

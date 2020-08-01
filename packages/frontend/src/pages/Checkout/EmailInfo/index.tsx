@@ -13,7 +13,7 @@ import {parseApolloError} from 'auxiliary/error';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 
 interface IProps {
-    info: Record<string, any>
+    meta: Record<string, any>
 }
 
 interface BookingSubmit {
@@ -21,12 +21,12 @@ interface BookingSubmit {
 }
 
 const MAKE_BOOKING = gql`
-    mutation BookingMake($email: String!, $booking: String!, $info: String!, $game: String!) {
-        BookingMake(email:$email, booking:$booking, info: $info, game: $game) 
+    mutation BookingMake($email: String!, $booking: String!, $meta: String!, $game: String!) {
+        BookingMake(email:$email, booking:$booking, meta: $meta, game: $game) 
     }
 `;
 
-export const EmalInfo: React.FC<IProps> = ({info}) => {
+export const EmalInfo: React.FC<IProps> = ({meta}) => {
     const {setLoading} = useLoading();
     const {current: {user, game, cart}, payment: {stripe: stripeKey}} = useStore();
     const [mutation, {data, error, loading}] = useMutation(MAKE_BOOKING);
@@ -40,11 +40,14 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
         try {
             clearErrors();
             setLoading(true);
+
+            const {platform, info, cross, time, zone} = meta;
+
             const variables = {
                 ...data,
+                game: game.id,
                 booking: JSON.stringify(cartItems),
-                info: JSON.stringify(info),
-                game: game.id
+                meta: JSON.stringify({platform, info, cross, time, zone}),
             }
             await mutation({variables});
         } catch (e) {} finally {

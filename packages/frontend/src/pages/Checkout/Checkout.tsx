@@ -22,6 +22,7 @@ export const Checkout: React.FC = () => {
     const [activeStep, setActiveStep] = React.useState(0);
 
     const updateInfo = (key: string, value: any) => {
+        info[key] = value;  //  dirty hack
         setInfo({...info, [key]: value})
     }
 
@@ -35,7 +36,7 @@ export const Checkout: React.FC = () => {
                     <AuxInfo value={info} setValue={(k: string, v: any) => updateInfo(k, v)} />
                 </div>
                 <div style={{display: activeStep !== 2 ? "none" : "block"}}>
-                    <EmalInfo info={info} />
+                    <EmalInfo meta={info} />
                 </div>
             </React.Fragment>
             {activeStep < 2 && (

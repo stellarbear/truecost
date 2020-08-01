@@ -19,23 +19,35 @@ const platforms = [{
     label: "XBOX"
 },]
 const platformLables = platforms.map(p => p.label);
-export const validateGame = (value: any) => Array.isArray(value) ? value.filter(v => platformLables.includes(v)) : [];
+export const validatePlatform = (value: any) => Array.isArray(value) ? value.filter(v => platformLables.includes(v)) : [];
 
 interface IProps {
-    game: string[]
-    setGame: (value: string[]) => void
+    platform: string[]
+    setPlatform: (value: string[]) => void
     cross: boolean
     setCross: (Value: boolean) => void
 }
 
-export const AuxGame: React.FC<IProps> = (props) => {
-    const {game, cross,
-        setGame, setCross} = props;
+export const AuxPlatform: React.FC<IProps> = (props) => {
+    const {platform, cross,
+        setPlatform, setCross} = props;
 
-    const onGameClick = (label: string) => {
-        const filtered = game.filter(p => p !== label);
-        setGame(filtered.length === game.length
-            ? [...filtered, label] : filtered)
+    const onPlatformClick = (label: string) => {
+        if (cross) {
+            const filtered = platform.filter(p => p !== label);
+            setPlatform(filtered.length === platform.length
+                ? [...filtered, label] : filtered)
+        } else {
+            setPlatform([label]);
+        }
+    }
+
+    const onCrossClick = () => {
+        if (cross && platform.length > 1) {
+            setPlatform([platform.pop()!])
+        }
+
+        setCross(!cross);
     }
 
     return (
@@ -45,10 +57,10 @@ export const AuxGame: React.FC<IProps> = (props) => {
                 <Row>
                     {platforms.map(({icon, label}) => (
                         <Col key={label}>
-                            <IconButton onClick={() => onGameClick(label)}>
+                            <IconButton onClick={() => onPlatformClick(label)}>
                                 {React.cloneElement(icon, {
                                     style: {
-                                        color: game.includes(label) ? colors.accentColor : "black",
+                                        color: platform.includes(label) ? colors.accentColor : "black",
                                         transition: "all 0.2s linear",
                                         transform: "scale(1.5)",
                                         cursor: "pointer",
@@ -60,7 +72,7 @@ export const AuxGame: React.FC<IProps> = (props) => {
                     ))}
                 </Row>
                 <FormControlLabel
-                    control={<Checkbox checked={cross} onChange={() => setCross(!cross)} />}
+                    control={<Checkbox checked={cross} onChange={() => onCrossClick()} />}
                     label="Crossave"
                 />
             </Row>

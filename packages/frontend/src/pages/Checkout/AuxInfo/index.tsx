@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {InputField} from 'components/generic/components/InputField';
 import {Col, Row} from 'pages/Base/Grid';
 import {Typography, IconButton, Divider, FormControlLabel, Checkbox, Card, CardContent} from '@material-ui/core';
-import {AuxGame, validateGame} from './AuxGame';
+import {AuxPlatform, validatePlatform} from './AuxPlatform';
 import {AuxField} from './AuxField';
 import {AuxTime, validateTime, validateTimeZone} from './AuxTime';
 
@@ -18,17 +18,17 @@ export const AuxInfo: React.FC<IProps> = ({
     const info = value.info || "";
     const cross = !!value.cross;
     const time = validateTime(value.time);
-    const game = validateGame(value.game);
+    const platform = validatePlatform(value.platform);
     const timeZone = validateTimeZone(value.zone);
 
     return (
         <Col fullWidth s={16}>
             <Card><CardContent>
-            <AuxGame
-                game={game}
+            <AuxPlatform
                 cross={cross}
-                setGame={(v) => setValue("game", v)}
+                platform={platform}
                 setCross={(v) => setValue("cross", v)}
+                setPlatform={(v) => setValue("platform", v)}
             />
             </CardContent></Card>
             <Card><CardContent>
