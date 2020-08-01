@@ -47,7 +47,7 @@ export const Mobile: React.FC<IProps> = (props) => {
 
     const appBar = () => {
         return (
-            <Row fullWidth between>
+            <Row fullWidth between p={[0, 20]}>
                 <Row>
                     <IconButton
                         color="inherit"

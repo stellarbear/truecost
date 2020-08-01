@@ -44,7 +44,7 @@ export const useCart = (shop: IShopContext) => {
     const itemUpsert = (gameId: string, data: ICartUpsert) => {
         const gameCart = {...cart[gameId]};
         const {itemId, optionIds} = data;
-        
+
         if (itemId) {
             const {chunk, quantity} = data;
 
@@ -75,5 +75,12 @@ export const useCart = (shop: IShopContext) => {
         setCart({...cart, [gameId]: {local: {}, global: []}})
     }
 
-    return {cart, itemUpsert, itemRemove, cartWipe};
+    const cartCount = (gameId: string) => {
+        const gameCart = {...cart[gameId]}.local;
+
+        return Object.keys(gameCart)
+            .reduce((acc, cur) => acc + gameCart[cur].quantity, 0);
+    }
+
+    return {cart, itemUpsert, itemRemove, cartWipe, cartCount};
 }
