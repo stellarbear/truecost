@@ -2,15 +2,17 @@ import React, {CSSProperties, useContext, useEffect, useState} from "react";
 
 import {NotificationContext} from "components/wrappers";
 import {DataContext, useStore} from "pages/Data/Wrapper";
-import {Chip, Grid, TextField, Paper, Container} from "@material-ui/core";
+import {Chip, Grid, TextField, Paper, Container, Button} from "@material-ui/core";
 import {dictSort, dictSortMap} from "auxiliary/sort";
-import {Autocomplete} from "@material-ui/lab";
+import {Autocomplete, createFilterOptions} from "@material-ui/lab";
 import {SafeJSON} from "auxiliary/json";
 import {useStorage} from "auxiliary/useStorage";
 import {Col, Row, RowGrid} from "pages/Base/Grid";
 import {ArraySlice} from "components/generic/components/ArraySlice";
 import ItemCard from "./ItemCard";
 import {InfoCard} from "pages/Base/InfoCard";
+import {useNotification} from "components/wrappers/NotifyWrapper";
+import {AutoCompleteCustom} from "components/AutoCompleteCustom";
 
 const empty = "default";
 
@@ -28,8 +30,10 @@ export const defaultState: IShopState = {
     order: "asc",
 };
 
+declare var Tawk_API: any
 
 const Shop: React.FC = () => {
+    const {notify} = useNotification();
     const {current: {shop}} = useStore();
 
     const {tags, options, items} = shop();
@@ -86,16 +90,15 @@ const Shop: React.FC = () => {
     }
 
     const filterNames = () => (
-        <Autocomplete
-            multiple
-
-            value={state.names}
-            onChange={(_: any, names: string[]) => onStateChange('names', names)}
-
+        <AutoCompleteCustom
+            values={state.names}
             options={Object.keys(items.id)}
-            //groupBy={(itemId) => items.id[itemId].name.charAt(0)}
-            getOptionLabel={(itemId) => items.id[itemId].name}
-            renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined" />}
+            onChange={(values => onStateChange('names', values.map((v: any) => v.id)))}
+            onCustom={() => {
+                Tawk_API?.maximize()
+                notify("Ask us for the custom order, we will serve it to you!")
+            }}
+            getLabel={(itemId) => items.id[itemId].name}
         />
     )
 
