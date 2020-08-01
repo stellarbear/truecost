@@ -31,7 +31,7 @@ export const AccountOrder: React.FC = () => {
     setLoading(loading);
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="sm">
             <Col fullWidth s={16}>
                 {
                     data?.UserGetBooking &&

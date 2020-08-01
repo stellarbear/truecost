@@ -73,7 +73,7 @@ export const Checkout: React.FC = () => {
     )
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="sm">
             <Col fullWidth s={16}>
                 {renderStepper("vertical")}
                 <Divider />

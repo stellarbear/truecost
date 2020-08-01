@@ -14,7 +14,7 @@ export const AccountInfo: React.FC = () => {
     const [showUpdate, setShowUpdate] = useState(false)
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="sm">
             <Col fullWidth s={16}>
                 <Paper>
                     <Col p={16} s={8} left>

@@ -36,7 +36,7 @@ export const Track: React.FC = () => {
     }
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="sm">
             {data?.BookingGetByCode
                 ? <ShowBookingInfo raw={data.BookingGetByCode}
                 />

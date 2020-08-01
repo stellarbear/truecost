@@ -10,11 +10,9 @@ import {ItemCount} from './ItemCount';
 import {ItemExtra} from './ItemExtra';
 import {ItemTotal} from './ItemTotal';
 import {ItemDivider} from './ItemDivider';
+import {ItemRange} from './ItemRange';
 
-interface IProps {
-}
-
-export const OrderInfo: React.FC<IProps> = () => {
+export const OrderInfo: React.FC = () => {
     const {current: {shop, cart, game: {url}}, update} = useStore();
 
     const {items: {id: items}, options: {local: {id: local}, global: {id: global}}} = shop();
@@ -38,7 +36,7 @@ export const OrderInfo: React.FC<IProps> = () => {
                     expandIcon={<ExpandMore />}>
                     <ItemHeader
                         onDelete={() => update.cart.remove({...cartItem})}
-                        item={item} total={total}
+                        item={item} total={total} chunk={chunk}
                         quantity={quantity} />
                 </AccordionSummary>
                 <AccordionDetails>
@@ -49,6 +47,15 @@ export const OrderInfo: React.FC<IProps> = () => {
                             onRemove={() => upsert({...cartItem, quantity: -1})}
                             quantity={quantity}
                             item={item}
+                        />
+                        <ItemRange
+                            item={item}
+                            chunk={chunk || [0, 0]}
+                            onChange={(val: [number, number]) =>
+                                upsert({
+                                    ...cartItem,
+                                    quantity: 0, chunk: val
+                                })}
                         />
                         <ItemOption
                             price={price} item={item}
@@ -69,7 +76,7 @@ export const OrderInfo: React.FC<IProps> = () => {
         <Col s={16} fullWidth right>
             {Object.keys(cartItems).map(key => itemCard(key))}
             <ItemExtra
-                total={total}/>
+                total={total} />
             <ItemTotal
                 total={total}
             />
