@@ -84,8 +84,8 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                     {chip()}
                     <SafeImage src={image} style={{objectFit: "contain", width: "inherit"}} />
                     <Divider />
-                    <Row between p={8} s={8}>
-                        <Typography variant="body1">{item.name}</Typography>
+                    <Row between p={8} s={8} width={["100%", "auto"]}>
+                        <Typography variant="body1" align="center">{item.name}</Typography>
                         <Button
                             onMouseEnter={() => setHovered(true)}
                             size="large"

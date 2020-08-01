@@ -7,9 +7,10 @@ interface IBase {
     fullWidth?: boolean
     wrap?: boolean
     style?: CSSProperties
-    styleChild?: CSSProperties
     p?: number | [number, number]
     m?: number | [number, number]
+
+    width?: (number | string)[]
 }
 
 interface IStart extends IBase {
@@ -46,8 +47,8 @@ export const Row: React.FC<IProps> = (props) => {
         p = 0, m = 0, s = 0,
         wrap = false,
         fullWidth = false,
+        width = [],
         style = {},
-        styleChild = {},
         children, ...rest
     } = props;
 
@@ -57,7 +58,7 @@ export const Row: React.FC<IProps> = (props) => {
         }
 
         return (React.Children.map(children, (child, index) => React.isValidElement(child) && (
-            <div key={index} style={{marginRight: s, ...styleChild}}>
+            <div key={index} style={{marginRight: s, width: width[index] || "auto"}}>
                 {child}
             </div>
         )))
