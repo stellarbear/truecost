@@ -7,6 +7,7 @@ import {useStore} from 'pages/Data/Wrapper';
 import gql from "graphql-tag";
 import {useMutation} from "react-apollo";
 import {RoleType} from "@truecost/shared";
+import {account} from "pages/Account/routes";
 
 const LOGOUT = gql`
     mutation UserLogout {
@@ -43,7 +44,7 @@ export const Account: React.FC = () => {
 
     const logOut = (
         <Row>
-            <Button component={Link} color="inherit" to={'/account'}>
+            <Button component={Link} color="inherit" to={'/account/' + account.routes[0].url}>
                 account
             </Button>
             {user?.role === RoleType.ADMIN && (
