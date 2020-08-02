@@ -11,8 +11,7 @@ const sortByOrder = (ids: string[], handle: Record<string, {
     });
 };
 
-const dictSort = <T extends { id: string; name: string; order: number }>(handle: Record<string, T>) => {
-    const keys = Object.keys(handle);
+const dictSort = <T extends {id: string; name: string; order: number}>(handle: Record<string, T>, keys: string[] = Object.keys(handle)) => {
     keys.sort((a, b) => {
         if (handle[a].order !== handle[b].order) {
             return handle[a].order - handle[b].order;
@@ -28,7 +27,7 @@ const arrayToDict = <T>(src: T[], ...keys: string[]): Record<string, T> => {
     const result: Record<string, T> = {};
     for (let entry of src) {
         let pointer: any = entry;
-        
+
         for (let key of keys) {
             pointer = pointer?.[key];
         }
@@ -40,7 +39,7 @@ const arrayToDict = <T>(src: T[], ...keys: string[]): Record<string, T> => {
     return result;
 }
 
-const dictSortMap = <T extends { id: string; name: string; order: number }>(handle: Record<string, T>): T[] => {
+const dictSortMap = <T extends {id: string; name: string; order: number}>(handle: Record<string, T>): T[] => {
     const keys = dictSort(handle);
 
     return keys.map(key => handle[key]);

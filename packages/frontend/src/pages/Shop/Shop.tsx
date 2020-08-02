@@ -116,12 +116,12 @@ const Shop: React.FC = () => {
         <Paper>
             <Col fullWidth p={8}>
                 <Row start p={[2, 8]} s={8}>
-                    {tags.base.map(tagId => tag(tagId))}
+                    {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
                 </Row>
                 {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
                     <Row start p={[2, 8]} s={8} key={tagId}>
                         <Typography variant="body2">{`${tags.id[tagId].name}: `}</Typography>
-                        {tags.id[tagId].children.map(tagId => tag(tagId, index + 1))}
+                        {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
                     </Row>
                 ))}
             </Col>
