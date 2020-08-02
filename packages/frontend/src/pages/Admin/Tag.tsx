@@ -13,6 +13,7 @@ export const AdminTag: React.FC = () => {
             ${game.fragment}
             
 			item { id name game { id } }
+			children { id name game { id } }
 		`,
     });
     
@@ -26,7 +27,17 @@ export const AdminTag: React.FC = () => {
         multiple: true,
     });
 
-    const fields = [item];
+    const children = new CLink({
+        key: "children",
+        label: "children",
+        query: {
+            name: "TagAll",
+            fields: ["game"],
+        },
+        multiple: true,
+    });
+
+    const fields = [item, children];
 
     return (
         <CRUD

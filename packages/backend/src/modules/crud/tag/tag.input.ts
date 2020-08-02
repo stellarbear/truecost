@@ -8,4 +8,7 @@ export class TagInput extends BaseInput {
     
     @Field(() => [String], {nullable: true})
     item?: string[];
+
+    @Field(() => [String], {nullable: true})
+    children?: string[];
 }

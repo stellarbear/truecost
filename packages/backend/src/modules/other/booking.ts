@@ -73,7 +73,7 @@ export class BookingResolver {
         DI.em.clear();
 
         const {shop} = parseShop(
-            GameAll, ItemAll as any, TagAll, OptionAll
+            GameAll, ItemAll as any, TagAll as any, OptionAll
         );
 
         const store = shop.data[game];

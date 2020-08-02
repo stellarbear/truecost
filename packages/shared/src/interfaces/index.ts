@@ -75,6 +75,7 @@ export interface IOption extends IBase, IBaseGame {
 }
 
 export interface ITag extends IBase, IBaseGame {
+    children: string[]
 }
 
 export interface IBooking extends IBase, IBaseUser {

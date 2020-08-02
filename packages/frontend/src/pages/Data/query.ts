@@ -75,6 +75,8 @@ export const BULK_QUERY = gql`
         TagAll {
             ${base.fragment}
             ${game.fragment}
+
+            children { id }
         }
     }
 `;

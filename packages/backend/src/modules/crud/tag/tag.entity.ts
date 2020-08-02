@@ -7,7 +7,7 @@ import {ITag} from "@truecost/shared";
 
 @Entity()
 @ObjectType()
-export class TagEntity extends BaseEntity implements ITag {
+export class TagEntity extends BaseEntity /*implements ITag*/ {
     @Field(() => GameEntity)
     @ManyToOne(() => GameEntity)
     game!: GameEntity;
@@ -15,4 +15,8 @@ export class TagEntity extends BaseEntity implements ITag {
     @Field(() => [ItemEntity])
     @ManyToMany(() => ItemEntity, item => item.tag, {owner: true})
     item: Collection<ItemEntity> = new Collection<ItemEntity>(this);
+
+    @Field(() => [TagEntity], {defaultValue: []})
+    @ManyToMany(() => TagEntity)
+    children: Collection<TagEntity> = new Collection<TagEntity>(this);
 }

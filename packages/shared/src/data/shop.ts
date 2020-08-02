@@ -5,6 +5,7 @@ export type Dict<T> = Record<string, T>;
 
 export interface IShop {
     tags: {
+        base: Array<string>,
         url: Dict<string>,
         id: Dict<ITag>
     }
@@ -23,6 +24,7 @@ export interface IShop {
         id: Dict<IItem>
     }
 
+    getTagDeps(tagId: string): string[]
     getOptions(itemId: string): string[]
     getTotal(cart: Dict<ICartItem>): Price
 }
@@ -50,7 +52,7 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
     const shopDict: IShopContext = {data: {}};
     for (let gameId in gameDict.data.id) {
         shopDict.data[gameId] = {
-            tags: {id: {}, url: {}},
+            tags: {id: {}, url: {}, base: []},
             options: {local: {include: new Set(), exclude: new Set(), id: {}}, global: {id: {}}},
             items: {url: {}, id: {}},
             getOptions(itemId: string) {
@@ -81,6 +83,29 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
                     quantity: cart[itemId].quantity,
                     options: cart[itemId].optionIds.map(o => options[o])
                 })));
+            },
+            getTagDeps(tagId: string) {
+                const result = new Set([tagId]);
+                const tags = this.tags.id;
+
+                let stack = [...tags[tagId].children];
+
+                while (stack.length > 0) {
+                    const nodeId = stack.pop();
+                    if (nodeId) {
+                        result.add(nodeId);
+                        const {children} = tags[nodeId]
+
+                        for (let child of children) {
+                            if (!result.has(child)) {
+                                stack.push(child);
+                            }
+                        }
+                    }
+
+                }
+
+                return Array.from(result);
             }
         }
     }
@@ -105,6 +130,9 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
         let {game: {id: gameId}, id, active, url} = item;
         item.range = SafeJSON.parse(item.range, [])
 
+        item.tag = item.tag.map((c: any) => c.id);
+        item.item = item.item.map((c: any) => c.id);
+        item.option = item.option.map((c: any) => c.id);
         if (active && gameId in shopDict.data) {
             shopDict.data[gameId].items.url[url] = id;
             shopDict.data[gameId].items.id[id] = item;
@@ -113,10 +141,31 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
 
     for (let tag of TagAll) {
         let {game: {id: gameId}, id, active, name} = tag;
+
+        tag.children = tag.children.map((c: any) => c.id);
         if (active && gameId in shopDict.data) {
             shopDict.data[gameId].tags.id[id] = tag;
             shopDict.data[gameId].tags.url[name] = id;
         }
+    }
+
+    for (let game of GameAll) {
+        let {id: gameId} = game;
+        const store = shopDict.data[gameId].tags;
+
+        const tagBaseArray = Object.keys(store.id);
+        const tagBaseCandidates = new Set(tagBaseArray);
+
+        for (let tag of tagBaseArray) {
+            const children = shopDict.data[gameId].getTagDeps(tag);
+            for (let child of children) {
+                if (child !== tag) {
+                    tagBaseCandidates.delete(child);
+                }
+            }
+        }
+
+        store.base = Array.from(tagBaseCandidates);
     }
 
     return ({
