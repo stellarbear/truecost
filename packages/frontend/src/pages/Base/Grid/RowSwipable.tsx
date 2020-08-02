@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {CSSProperties} from 'react';
-import {IconButton} from '@material-ui/core';
+import {IconButton, makeStyles} from '@material-ui/core';
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import {useRandState} from 'auxiliary/useRandState';
@@ -12,6 +12,14 @@ interface IProps {
     style?: CSSProperties
 }
 
+const useStyles = makeStyles({
+    row: {
+        '&::-webkit-scrollbar': {
+            height: 0,
+        },
+    },
+});
+
 export const RowSwipable: React.FC<IProps> = (props) => {
     const {
         style = {},
@@ -19,13 +27,14 @@ export const RowSwipable: React.FC<IProps> = (props) => {
         children,
     } = props;
 
+    const classes = useStyles();
     const [id] = useRandState(16);
 
     return (
         <div style={{
             position: "relative",
         }}>
-            <div id={id} style={{
+            <div id={id}  className={classes.row} style={{
                 ...style,
                 display: "grid",
                 padding: p,
@@ -33,7 +42,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                 gridTemplateColumns: w,
                 gridAutoFlow: "column",
                 gridAutoColumns: `minmax(${w}px, 1fr)`,
-                overflowX: "hidden",
+                overflowX: "auto"
             }}>
                 {children}
             </div >
