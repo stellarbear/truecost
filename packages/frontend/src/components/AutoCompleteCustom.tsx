@@ -39,9 +39,7 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
                     return;
                 }
 
-                console.log("changing")
                 onChange(value.map((v: any) => v.id));
-
             }}
             filterOptions={(options, params) => {
                 const filtered = filter(options, params);
@@ -55,7 +53,7 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
 
                 return filtered;
             }}
-
+            getOptionSelected={(v) => optionsOverride.some(o => o.id === v.id)}
             value={valuesOverride}options={optionsOverride}
             getOptionLabel={({id: itemId, custom}) => !custom ? getLabel(itemId) : itemId}
             renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined" />}

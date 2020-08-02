@@ -119,7 +119,7 @@ const Shop: React.FC = () => {
                     {tags.base.map(tagId => tag(tagId))}
                 </Row>
                 {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
-                    <Row start p={[2, 8]} s={8}>
+                    <Row start p={[2, 8]} s={8} key={tagId}>
                         <Typography variant="body2">{`${tags.id[tagId].name}: `}</Typography>
                         {tags.id[tagId].children.map(tagId => tag(tagId, index + 1))}
                     </Row>

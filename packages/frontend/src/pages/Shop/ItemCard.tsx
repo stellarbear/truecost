@@ -45,8 +45,6 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     const [raised, setRaised] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
 
-    debugger;
-
     const overlay = () => (
         <div
             style={{
