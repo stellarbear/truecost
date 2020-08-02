@@ -25,7 +25,7 @@ export const ItemHeader: React.FC<IProps> = (props) => {
                     <Typography>
                         {item.name}
                     </Typography>
-                    {chunk && (
+                    {item.range.length > 0 && chunk && (
                         <Typography variant={"caption"}>
                             {`from: ${chunk[0]} to: ${chunk[1]}`}
                         </Typography>
