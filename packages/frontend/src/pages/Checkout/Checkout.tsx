@@ -5,6 +5,8 @@ import {Col, Row} from 'pages/Base/Grid';
 import {useStorage} from 'auxiliary/useStorage';
 import {OrderInfo} from './OrderInfo';
 import {EmalInfo} from './EmailInfo';
+import {useStore} from 'pages/Data/Wrapper';
+import {CheckoutEmpty} from './CheckoutEmpty';
 
 const steps = [{
     title: 'Check your order',
@@ -18,6 +20,9 @@ const steps = [{
 }];
 
 export const Checkout: React.FC = () => {
+    const {current: {cart}} = useStore();
+    const cartItems = cart().local;
+
     const [info, setInfo] = useStorage<Record<string, any>>('checkout', {});
     const [activeStep, setActiveStep] = React.useState(0);
 
@@ -26,7 +31,7 @@ export const Checkout: React.FC = () => {
         setInfo({...info, [key]: value})
     }
 
-    const renderPanels = () => (
+    const panels = () => (
         <Col fullWidth s={16}>
             <React.Fragment>
                 <div style={{display: activeStep !== 0 ? "none" : "block"}}>
@@ -55,12 +60,12 @@ export const Checkout: React.FC = () => {
         </Col>
     )
 
-    const renderStepper = (orientation: "horizontal" | "vertical") => (
+    const stepper = () => (
         <Stepper
             nonLinear
             style={{padding: 0}}
             activeStep={activeStep}
-            orientation={orientation}>
+            orientation={"vertical"}>
             {steps.map(({title, description}, index) => (
                 <Step key={title}>
                     <StepButton onClick={() => setActiveStep(index)} completed={index < activeStep}
@@ -74,12 +79,14 @@ export const Checkout: React.FC = () => {
     )
 
     return (
-        <Container maxWidth="sm">
-            <Col fullWidth s={16}>
-                {renderStepper("vertical")}
-                <Divider />
-                {renderPanels()}
-            </Col>
-        </Container>
+        Object.keys(cartItems).length === 0
+            ? <CheckoutEmpty />
+            : (<Container maxWidth="sm">
+                <Col fullWidth s={16}>
+                    {stepper()}
+                    {panels()}
+                </Col>
+            </Container>
+            )
     )
 }
