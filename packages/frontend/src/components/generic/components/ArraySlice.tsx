@@ -13,7 +13,7 @@ interface IProps {
 }
 
 export const ArraySlice: React.FC<IProps> = (props) => {
-    const {children, data, chunk = 8, limit = 8} = props;
+    const {children, data, chunk = 12, limit = 8} = props;
     const [page, setPage] = React.useState(1);
     const [count, setCount] = React.useState(chunk);
 
