@@ -81,7 +81,6 @@ const Shop: React.FC = () => {
     )
 
     const filterData = () => {
-        debugger;
         const data = filterItems();
         return (
             (data.length === 0)
