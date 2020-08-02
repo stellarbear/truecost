@@ -15,10 +15,18 @@ interface IProps {
     logo: string;
 }
 
+
+const useStyles = makeStyles({
+    paper: {
+        overflow: "hidden",
+    }
+});
+
 export const Mobile: React.FC<IProps> = (props) => {
     const {
         logo,
     } = props;
+    const classes = useStyles();
     const [open, setOpen] = React.useState<boolean>(false);
     const {current: {game}} = useStore();
     const url = '/' + game.url
@@ -68,6 +76,9 @@ export const Mobile: React.FC<IProps> = (props) => {
 
     const drawer = () => (
         <Drawer
+            classes={{
+                paper: classes.paper,
+            }}
             variant="temporary"
             open={open}
             onClose={() => setOpen(false)}

@@ -4,8 +4,10 @@ import {Select, MenuItem} from '@material-ui/core';
 import {sequence} from 'auxiliary/sequence';
 import {Row, Col} from 'pages/Base/Grid';
 import {InfoCard} from 'pages/Base/InfoCard';
+import {useStorage} from 'auxiliary/useStorage';
 
 interface IProps {
+    prefix: string
     data: any[],
     chunk?: number
     limit?: number
@@ -13,9 +15,15 @@ interface IProps {
 }
 
 export const ArraySlice: React.FC<IProps> = (props) => {
-    const {children, data, chunk = 12, limit = 8} = props;
-    const [page, setPage] = React.useState(1);
-    const [count, setCount] = React.useState(chunk);
+    const {children, data, chunk = 12, limit = 8, prefix} = props;
+    const [count, setCount] = useStorage(`${prefix}-chunk`, chunk);
+    const [page, setPage] = useStorage(`${prefix}-page`, 1, (p) => Math.ceil(data.length / count) <= p ? 1 : p);
+
+    React.useEffect(() => {
+        if (Math.ceil(data.length / count) <= page) {
+            setPage(1)
+        }
+    }, [data])
 
     const select = () => (
         <Select

@@ -203,7 +203,7 @@ export const List: React.FC<UserListProps> = (props) => {
             <div style={{position: "absolute", right: 0}}>
                 {renderVisible()}
             </div>
-            <ArraySlice data={Object.keys(items)} chunk={3}>
+            <ArraySlice data={Object.keys(items)} chunk={3} prefix="admin-pagination">
                 {(itemIds => (
                     <Paper style={{overflow: "auto"}}>
                         <Table size="small">

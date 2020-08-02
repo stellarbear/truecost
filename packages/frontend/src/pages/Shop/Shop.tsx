@@ -55,7 +55,7 @@ const Shop: React.FC = () => {
     )
 
     const renderItems = (data: string[]) => (
-        <ArraySlice data={data}>
+        <ArraySlice data={data} prefix="shop-pagination">
             {(itemIds => (
                 <RowGrid w={250} s={16} p={16}>
                     {itemIds.map(id => (
