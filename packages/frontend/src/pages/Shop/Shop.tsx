@@ -54,7 +54,7 @@ const Shop: React.FC = () => {
         setState({...state, [field]: value});
     }
 
-    const filterItems = () => Object.keys(items.id)
+    const filterItems = () => dictSort(items.id)
         .filter(itemId =>
             state.names.length === 0 ? true
                 : state.names.includes(itemId) || (items.id[itemId].item.length > 0 && items.id[itemId].item.some(i => state.names.includes(i))))
@@ -81,6 +81,7 @@ const Shop: React.FC = () => {
     )
 
     const filterData = () => {
+        debugger;
         const data = filterItems();
         return (
             (data.length === 0)
@@ -105,7 +106,7 @@ const Shop: React.FC = () => {
     const filterTags = () => Object.keys(tags.id).length > 0 && (
         <Paper>
             <Row start p={8} s={8}>
-                {Object.keys(tags.id).map(tagId => (
+                {dictSort(tags.id).map(tagId => (
                     <Chip
                         key={tagId}
                         label={tags.id[tagId].name}

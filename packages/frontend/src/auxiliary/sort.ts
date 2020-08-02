@@ -12,6 +12,7 @@ const sortByOrder = (ids: string[], handle: Record<string, {
 };
 
 const dictSort = <T extends { id: string; name: string; order: number }>(handle: Record<string, T>) => {
+    debugger;
     const keys = Object.keys(handle);
     keys.sort((a, b) => {
         if (handle[a].order !== handle[b].order) {
