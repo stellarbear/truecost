@@ -53,14 +53,14 @@ export const AdminItem: React.FC = () => {
         key: "price",
         label: "price",
         min: 1,
-        max: 1000,
+        max: 100000,
     });
 
     const discount = new CNumber({
         key: "discount",
         label: "discount",
         min: 0,
-        max: 100,
+        max: 10000,
     });
 
     const limit = new CNumber({

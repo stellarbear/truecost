@@ -18,8 +18,8 @@ const order = new CNumber({
     base: 0,
     key: "order",
     label: "order",
-    min: -100,
-    max: 100,
+    min: -1000,
+    max: 1000,
 });
 
 const fragment = `
