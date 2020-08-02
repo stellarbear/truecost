@@ -28,6 +28,7 @@ import {Track} from "pages/Track";
 import {Account} from "pages/Account";
 import {useScript} from "auxiliary/useScript";
 import {tawk} from "scripts";
+import {BackTopTop} from "components/BactToTop";
 
 
 const App = () => {
