@@ -17,10 +17,10 @@ interface IProps {
 export const ArraySlice: React.FC<IProps> = (props) => {
     const {children, data, chunk = 12, limit = 8, prefix} = props;
     const [count, setCount] = useStorage(`${prefix}-chunk`, chunk);
-    const [page, setPage] = useStorage(`${prefix}-page`, 1, (p) => Math.ceil(data.length / count) <= p ? 1 : p);
+    const [page, setPage] = useStorage(`${prefix}-page`, 1, (p) => Math.ceil(data.length / count) < p ? 1 : p);
 
     React.useEffect(() => {
-        if (Math.ceil(data.length / count) <= page) {
+        if (Math.ceil(data.length / count) < page) {
             setPage(1)
         }
     }, [data])
