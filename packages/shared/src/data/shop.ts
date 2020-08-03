@@ -88,7 +88,11 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
                 const result = new Set([tagId]);
                 const tags = this.tags.id;
 
-                let stack = [...tags[tagId]?.children || []];
+                if (!(tagId in tags)) {
+                    return [];
+                }
+
+                let stack = [...tags[tagId].children];
 
                 while (stack.length > 0) {
                     const nodeId = stack.pop();

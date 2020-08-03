@@ -19,7 +19,7 @@ export const HomeTopOffers: React.FC<IProps> = ({style = {}}) => {
         <Card style={{
             ...style,
         }}>
-            <RowSwipable s={16} p={16} w={250}>
+            <RowSwipable s={16} p={16} w={250} arrows>
                 {top.map(id => <ItemCard key={id} id={id} />)}
             </RowSwipable>
         </Card>

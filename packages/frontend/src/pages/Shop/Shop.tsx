@@ -2,7 +2,7 @@ import React, {CSSProperties, useContext, useEffect, useState} from "react";
 
 import {NotificationContext} from "components/wrappers";
 import {DataContext, useStore} from "pages/Data/Wrapper";
-import {Chip, Grid, TextField, Paper, Container, Button, Typography} from "@material-ui/core";
+import {Chip, Grid, TextField, Paper, Container, Button, Typography, Divider} from "@material-ui/core";
 import {dictSort, dictSortMap} from "auxiliary/sort";
 import {Autocomplete, createFilterOptions} from "@material-ui/lab";
 import {SafeJSON} from "auxiliary/json";
@@ -36,8 +36,17 @@ const Shop: React.FC = () => {
     const {notify} = useNotification();
     const {current: {shop}} = useStore();
 
-    const {tags, options, items} = shop();
-    const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => ({...defaultState, ...state}));
+    const {tags, items} = shop();
+    const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => {
+        const result = {...defaultState, ...state};
+        const itemIds = Object.keys(items.id)
+        const tagIds = Object.keys(tags.id)
+
+        result.tags = result.tags.filter(n => tagIds.includes(n))
+        result.names = result.names.filter(n => itemIds.includes(n))
+
+        return result;
+    });
     const tagDeps = state.tags.length > 0 ? shop().getTagDeps(state.tags[state.tags.length - 1]) : [];
 
     const filterItems = () => dictSort(items.id)
@@ -95,6 +104,7 @@ const Shop: React.FC = () => {
 
     const tag = (tagId: string, depth: number = 0) => (
         <Chip
+            style={{marginBottom: 4}}
             key={tagId}
             label={tags.id[tagId].name}
             clickable
@@ -115,14 +125,17 @@ const Shop: React.FC = () => {
     const filterTags = () => Object.keys(tags.base).length > 0 && (
         <Paper>
             <Col fullWidth p={8}>
-                <Row start p={[2, 8]} s={8}>
+                <Row start p={[2, 8]} s={8} wrap>
                     {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
                 </Row>
                 {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
-                    <Row start p={[2, 8]} s={8} key={tagId}>
+                    <Col fullWidth left s={4} p={8}>
                         <Typography variant="body2">{`${tags.id[tagId].name}: `}</Typography>
-                        {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
-                    </Row>
+                        <Divider />
+                        <Row start p={[2, 0]} s={8} key={tagId} wrap>
+                            {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
+                        </Row>
+                    </Col>
                 ))}
             </Col>
         </Paper>

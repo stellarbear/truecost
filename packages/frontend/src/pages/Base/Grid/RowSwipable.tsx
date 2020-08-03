@@ -10,6 +10,7 @@ interface IProps {
     s?: number
     p?: number
     style?: CSSProperties
+    arrows?: boolean
 }
 
 const useStyles = makeStyles({
@@ -24,6 +25,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
     const {
         style = {},
         p = 0, s = 0, w,
+        arrows = false,
         children,
     } = props;
 
@@ -34,7 +36,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
         <div style={{
             position: "relative",
         }}>
-            <div id={id}  className={classes.row} style={{
+            <div id={id} className={classes.row} style={{
                 ...style,
                 display: "grid",
                 padding: p,
@@ -46,38 +48,42 @@ export const RowSwipable: React.FC<IProps> = (props) => {
             }}>
                 {children}
             </div >
-            <IconButton
-                style={{
-                    position: "absolute",
-                    top: "40%",
-                    left: s + 4,
-                    zIndex: 2,
-                    background: "#FFFFFFDD",
-                }}
-                onClick={() => {
-                    const element = document.getElementById(id);
-                    element?.scrollTo(
-                        {left: element.scrollLeft - element.offsetWidth, behavior: "smooth"}
-                    )
-                }}>
-                <ArrowBack />
-            </IconButton>
-            <IconButton
-                style={{
-                    position: "absolute",
-                    top: "40%",
-                    right: s + 4,
-                    zIndex: 2,
-                    background: "#FFFFFFDD",
-                }}
-                onClick={() => {
-                    const element = document.getElementById(id);
-                    element?.scrollTo(
-                        {left: element.scrollLeft + element.offsetWidth, behavior: "smooth"}
-                    )
-                }}>
-                <ArrowForward />
-            </IconButton>
+            {arrows && (
+                <>
+                    <IconButton
+                        style={{
+                            position: "absolute",
+                            top: "40%",
+                            left: s + 4,
+                            zIndex: 2,
+                            background: "#FFFFFFDD",
+                        }}
+                        onClick={() => {
+                            const element = document.getElementById(id);
+                            element?.scrollTo(
+                                {left: element.scrollLeft - element.offsetWidth, behavior: "smooth"}
+                            )
+                        }}>
+                        <ArrowBack />
+                    </IconButton>
+                    <IconButton
+                        style={{
+                            position: "absolute",
+                            top: "40%",
+                            right: s + 4,
+                            zIndex: 2,
+                            background: "#FFFFFFDD",
+                        }}
+                        onClick={() => {
+                            const element = document.getElementById(id);
+                            element?.scrollTo(
+                                {left: element.scrollLeft + element.offsetWidth, behavior: "smooth"}
+                            )
+                        }}>
+                        <ArrowForward />
+                    </IconButton>
+                </>
+            )}
         </div>
     )
 }

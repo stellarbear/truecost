@@ -35,7 +35,7 @@ export const HomeHowTo: React.FC<IProps> = ({style = {}}) => {
     }];
     return (
         <Card style={style}>
-            <RowSwipable s={16} p={16} w={250}>
+            <RowSwipable s={16} p={16} w={250} arrows>
                 {data.map(({icon, text}, i) => (
                     <Col key={i}>
                         {icon}
