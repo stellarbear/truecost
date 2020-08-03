@@ -7,6 +7,7 @@ import {InfoCard} from 'pages/Base/InfoCard';
 import {useStorage} from 'auxiliary/useStorage';
 
 interface IProps {
+    scroll?: number
     prefix: string
     data: any[],
     chunk?: number
@@ -15,7 +16,7 @@ interface IProps {
 }
 
 export const ArraySlice: React.FC<IProps> = (props) => {
-    const {children, data, chunk = 12, limit = 8, prefix} = props;
+    const {children, data, chunk = 12, limit = 8, prefix, scroll = 0} = props;
     const [count, setCount] = useStorage(`${prefix}-chunk`, chunk);
     const [page, setPage] = useStorage(`${prefix}-page`, 1, (p) => Math.ceil(data.length / count) < p ? 1 : p);
 
@@ -44,7 +45,10 @@ export const ArraySlice: React.FC<IProps> = (props) => {
             showLastButton
             showFirstButton
             count={Math.ceil(data.length / count)} page={page}
-            onChange={(_, value) => setPage(value)} />
+            onChange={(_, value) => {
+                setPage(value);
+                scroll && window.scrollY > scroll && window.scroll({top: 0, left: 0, behavior: "smooth"});
+            }} />
     )
 
     return (

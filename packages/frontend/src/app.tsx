@@ -28,7 +28,7 @@ import {Track} from "pages/Track";
 import {Account} from "pages/Account";
 import {useScript} from "auxiliary/useScript";
 import {tawk} from "scripts";
-import {BackTopTop} from "components/BactToTop";
+import {BackToTop} from "components/BackToTop";
 
 
 const App = () => {
@@ -43,7 +43,7 @@ const App = () => {
                             const urls = Object.values(game.data.id).map(value => value.url);
 
                             return (
-                                <BackTopTop>
+                                <BackToTop>
                                     <NavigationWrapper>
                                         <Route exact path={"/"} component={Home} />
 
@@ -84,7 +84,7 @@ const App = () => {
                                             }}
                                         />
                                     </NavigationWrapper>
-                                </BackTopTop>
+                                </BackToTop>
                             );
                         }}
                     </DataContext.Consumer>

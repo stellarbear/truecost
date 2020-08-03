@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Fab} from "@material-ui/core";
 import Navigation from "@material-ui/icons/Navigation";
 
-export const BackTopTop: React.FC = ({children}) => {
+export const BackToTop: React.FC = ({children}) => {
     useEffect(() => {
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);

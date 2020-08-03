@@ -22,15 +22,12 @@ const client = createApolloClient({browser: true});
 
 const storageScrollKey = ["shop", "scroll"];
 const storageScrollPersistKey = ["shop", "scroll!"];
-const ScrollToTop = () => {
+
+const ScrollToTop: React.FC = () => {
     const {pathname} = useLocation();
 
     useEffect(() => {
-        if (pathname !== "/shop") {
-            const prevState = Storage.getItem(storageScrollKey, 0);
-            window.scroll({top: 0, left: 0});
-            Storage.setItem(storageScrollPersistKey, prevState);
-        }
+        window.scroll({top: 0, left: 0, behavior: "smooth"});
     }, [pathname]);
 
     return null;
@@ -51,7 +48,8 @@ const BaseApp = (): JSX.Element => {
         <ApolloProvider client={client}>
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
-                    <App/>
+                    <ScrollToTop />
+                    <App />
                 </ThemeProvider>
             </BrowserRouter>
         </ApolloProvider>
@@ -59,7 +57,7 @@ const BaseApp = (): JSX.Element => {
 };
 const renderMethod = module.hot ? render : hydrate;
 renderMethod(
-    <BaseApp/>,
+    <BaseApp />,
     document.getElementById("root"),
 );
 
