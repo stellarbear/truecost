@@ -129,10 +129,10 @@ const Shop: React.FC = () => {
                     {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
                 </Row>
                 {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
-                    <Col fullWidth left s={4} p={8}>
+                    <Col fullWidth left s={4} p={8} key={tagId} >
                         <Typography variant="body2">{`${tags.id[tagId].name}: `}</Typography>
                         <Divider />
-                        <Row start p={[2, 0]} s={8} key={tagId} wrap>
+                        <Row start p={[2, 0]} s={8} wrap>
                             {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
                         </Row>
                     </Col>

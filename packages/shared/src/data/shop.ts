@@ -39,8 +39,16 @@ export interface IShopContext {
     data: Dict<IShop>
 }
 
+const detach = <T>(src: T[]): T[] => SafeJSON.parse(JSON.stringify(src), []);
+
 export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], OptionAll: IOption[]) => {
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
+
+    TagAll = detach(TagAll)
+    GameAll = detach(GameAll)
+    ItemAll = detach(ItemAll)
+    OptionAll = detach(OptionAll)
+
     for (let game of GameAll) {
         let {id: gameId, active, url} = game;
         if (active) {
@@ -132,11 +140,12 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
 
     for (let item of ItemAll) {
         let {game: {id: gameId}, id, active, url} = item;
-        item.range = SafeJSON.parse(item.range, [])
 
+        item.range = SafeJSON.parse(item.range, [])
         item.tag = item.tag.map((c: any) => c.id);
         item.item = item.item.map((c: any) => c.id);
         item.option = item.option.map((c: any) => c.id);
+        
         if (active && gameId in shopDict.data) {
             shopDict.data[gameId].items.url[url] = id;
             shopDict.data[gameId].items.id[id] = item;
