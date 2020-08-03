@@ -64,6 +64,14 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         </div>
     );
 
+    const eta = () => (
+        <Row p={8} style={{position: "absolute", top: 0, right: 0}}>
+            <Typography variant="body2">
+                {(item.range.d.length > 0 ? "eta from: " : "eta: ") + time.stringify(item.eta)}
+            </Typography>
+        </Row>
+    )
+
     const chip = () => (
         <Col left m={4} s={4}
             style={{position: "absolute", top: 0, left: 0}}>
@@ -82,13 +90,10 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
             <ButtonBase component={Link} to={redirect}
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
                 <Col fullWidth>
+                    {eta()}
                     {chip()}
                     <SafeImage src={image} style={{objectFit: "contain", width: "inherit"}} />
-                    <Row end p={8}>
-                        <Typography variant="body2">
-                            {(item.range.d.length > 0 ? "eta from: " : "eta: ") + time.stringify(item.eta)}
-                        </Typography>
-                    </Row>
+
                     <Divider />
                     <Row between p={8} s={8} width={["100%", "auto"]}>
                         <Typography variant="body1" align="center">{item.name}</Typography>
