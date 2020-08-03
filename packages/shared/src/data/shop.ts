@@ -1,4 +1,4 @@
-import {IGame, IItem, ITag, IOption} from "../interfaces";
+import {IGame, IItem, ITag, IOption, rangeBase} from "../interfaces";
 import {Price, OptionArea, OptionMerge, SafeJSON, ICartItem} from "..";
 
 export type Dict<T> = Record<string, T>;
@@ -141,11 +141,11 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
     for (let item of ItemAll) {
         let {game: {id: gameId}, id, active, url} = item;
 
-        item.range = SafeJSON.parse(item.range, [])
+        item.range = SafeJSON.parse(item.range, rangeBase)
         item.tag = item.tag.map((c: any) => c.id);
         item.item = item.item.map((c: any) => c.id);
         item.option = item.option.map((c: any) => c.id);
-        
+
         if (active && gameId in shopDict.data) {
             shopDict.data[gameId].items.url[url] = id;
             shopDict.data[gameId].items.id[id] = item;

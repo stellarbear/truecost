@@ -2,8 +2,8 @@ import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
 import {CDate, CImage, CString, CCustom} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
-import EditorPost from "components/EditorPost";
 import {meta} from "./Base/Meta";
+import EditorPost from "components/generic/components/EditorPost";
 
 export const AdminBlog: React.FC = () => {
     const crud = new CRUDgql({

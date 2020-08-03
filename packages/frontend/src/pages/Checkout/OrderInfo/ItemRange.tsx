@@ -17,26 +17,26 @@ interface IProps {
 export const ItemRange: React.FC<IProps> = (props) => {
     const {item, chunk, onChange} = props;
 
-    if (item.range.length === 0) {
+    if (item.range.d.length === 0) {
         return null;
     }
 
-    const data = item.range.sort((a, b) => a.at - b.at);
-    const single = item.single;
+    const data = item.range.d.sort((a, b) => a.a - b.a);
 
     return (
         <>
-            <ItemDivider condition={item.range.length > 0} />
+            <ItemDivider condition={item.range.d.length > 0} />
             <Col fullWidth>
                 <RangeField
-                    single={single}
+                    step={item.range.s}
+                    single={item.range.o}
                     value={chunk}
                     label={"⟵ adjust ⟶"}
                     labelLeft={'current'}
                     labelRight={'desired'}
-                    min={data.first().at}
-                    max={data.last().at}
-                    marks={data.map(({at, mark}) => ({label: mark, value: at}))}
+                    min={data.first().a}
+                    max={data.last().a}
+                    marks={data.map(({a, m}) => ({label: m, value: a}))}
                     onChangeEvent={onChange}
                 />
             </Col>

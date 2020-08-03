@@ -1,4 +1,4 @@
-import {IItem, IRange, IOption} from "../interfaces";
+import {IItem, IOption, IRangeData} from "../interfaces";
 import {OptionType} from "../enums";
 
 export class Price {
@@ -23,20 +23,20 @@ export class Price {
     }
 
     private static applyRange(item: IItem, chunk: [number, number]) {
-        const rangeChunk = (from: IRange, to: IRange, at: number) => {
-            at = Math.max(Math.min(at, to.at), from.at);
+        const rangeChunk = (from: IRangeData, to: IRangeData, at: number) => {
+            at = Math.max(Math.min(at, to.a), from.a);
 
-            const all = from.price;
-            const percentage = (at - from.at) / (to.at - from.at);
+            const all = from.p;
+            const percentage = (at - from.a) / (to.a - from.a);
             return Math.round(all * percentage);
         }
         const rangeTo = (item: IItem, to: number) => {
             const {range} = item;
-            to = Math.min(to, range[range.length - 1].at);
+            to = Math.min(to, range.d[range.d.length - 1].a);
 
             let total = 0;
-            for (let i = 1; i < range.length; i++) {
-                total += rangeChunk(range[i - 1], range[i], to);
+            for (let i = 1; i < range.d.length; i++) {
+                total += rangeChunk(range.d[i - 1], range.d[i], to);
             }
 
             return total;
@@ -47,7 +47,8 @@ export class Price {
 
     static fromItem(item: IItem, chunk: [number, number] = [0, 0]) {
         const {price} = item;
-        if (item.range.length > 0) {
+        
+        if (item.range.d.length > 0) {
             return new Price(Price.applyRange(item, chunk));
         } else {
             return new Price(price);

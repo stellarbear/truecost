@@ -6,10 +6,11 @@ import {CRUDgql} from "auxiliary";
 //import {game} from "./Base/Game";
 import {meta} from "./Base/Meta";
 import {game} from "./Base/Game";
-import EditorRange from "components/EditorRange";
 import {CCustom} from "components/generic/types/CCustom";
 import {CLink} from "components/generic/types/CLink";
-import EditorPost from "components/EditorPost";
+import EditorPost from "components/generic/components/EditorPost";
+import EditorRange from "components/generic/components/EditorRange";
+import {rangeBase} from "@truecost/shared";
 
 export const AdminItem: React.FC = () => {
     const crud = new CRUDgql({
@@ -20,9 +21,9 @@ export const AdminItem: React.FC = () => {
             link
 			images
 
+            eta
             price
             range
-            single
 			discount
 			limit
 
@@ -48,6 +49,12 @@ export const AdminItem: React.FC = () => {
         limit: 1,
     });
 
+    const eta = new CNumber({
+        key: "eta",
+        label: "eta (min.)",
+        min: 1,
+        max: 1000,
+    });
 
     const price = new CNumber({
         key: "price",
@@ -82,13 +89,6 @@ export const AdminItem: React.FC = () => {
         key: "requirements",
         label: "requirements",
         component: <EditorPost/>,
-    });
-
-    const single = new CBoolean({
-        key: "single",
-        label: "single",
-        textTrue: "single",
-        textFalse: "double",
     });
 
     const isTopOffer = new CBoolean({
@@ -130,13 +130,13 @@ export const AdminItem: React.FC = () => {
     });
 
     const range = new CCustom({
-        base: "[]",
+        base: JSON.stringify(rangeBase),
         key: "range",
         label: "range",
         component: <EditorRange/>,
     });
 
-    const fields = [link, images, price, range, single, discount, limit, obtain, requirements, isTopOffer, item, tag, option];
+    const fields = [link, images, price, eta, range, discount, limit, obtain, requirements, isTopOffer, item, tag, option];
 
     return (
         <CRUD

@@ -9,7 +9,6 @@ import About from "pages/About";
 import TOS from "pages/TOS";
 import Contact from "pages/Contact";
 import {DataContext, DataWrapper} from "pages/Data/Wrapper";
-import {admin} from "pages/Admin/routes";
 import Shop from "pages/Shop/Shop";
 import {Login} from "pages/User";
 import {Item} from "pages/Item/Item";

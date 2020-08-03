@@ -17,6 +17,7 @@ import {ItemCardRange} from "./Card/ItemCardRange";
 import {Col, Row} from "pages/Base/Grid";
 import {SafeImage} from "components/SafeImage";
 import {backend} from "auxiliary/route";
+import {time} from "auxiliary/time";
 
 interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
@@ -56,7 +57,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
             }}
             onClick={(event) => event.stopPropagation()}>
             {
-                item.range.length === 0
+                item.range.d.length === 0
                     ? <ItemCardBase item={item} redirect={redirect} price={price} />
                     : <ItemCardRange item={item} redirect={redirect} price={price} />
             }
@@ -83,6 +84,11 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                 <Col fullWidth>
                     {chip()}
                     <SafeImage src={image} style={{objectFit: "contain", width: "inherit"}} />
+                    <Row end p={8}>
+                        <Typography variant="body2">
+                            {(item.range.d.length > 0 ? "eta from: " : "eta: ") + time.stringify(item.eta)}
+                        </Typography>
+                    </Row>
                     <Divider />
                     <Row between p={8} s={8} width={["100%", "auto"]}>
                         <Typography variant="body1" align="center">{item.name}</Typography>

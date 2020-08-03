@@ -51,10 +51,10 @@ export const BULK_QUERY = gql`
             price
             discount
             limit
-            single
             range
             topOffer
 
+            eta
             obtain
             requirements
             

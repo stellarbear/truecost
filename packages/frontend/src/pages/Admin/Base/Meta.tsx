@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {CString, CCustom} from "components/generic/types";
 import {base} from "./Base";
-import EditorMetaTag from "components/EditorMetaTag";
+import EditorMetaTag from 'components/generic/components/EditorMetaTag';
 
 const url = new CString({
     key: "url",

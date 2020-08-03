@@ -31,8 +31,8 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     const {current: {shop, game: {url}}} = useStore();
     const {options, } = shop();
 
-    const [chunk, setChunk] = React.useState<[number, number]>(item.range.length > 0
-        ? [item.range.first().at, item.range.last().at] : [0, 0])
+    const [chunk, setChunk] = React.useState<[number, number]>(item.range.d.length > 0
+        ? [item.range.d.first().a, item.range.d.last().a] : [0, 0])
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>([])
 
     const price = Price.fromItem(item, chunk);

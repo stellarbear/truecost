@@ -25,6 +25,7 @@ export const OrderInfo: React.FC = () => {
         const {itemId, optionIds, chunk, quantity} = cartItem;
         const item = items[itemId];
 
+        console.log(item);
         const price = Price.fromItem(item, chunk);
         const total = price.withOption(optionIds.map(o => local[o]));
 
