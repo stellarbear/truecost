@@ -4,6 +4,8 @@ import {TwitterTimelineEmbed} from 'react-twitter-embed';
 import {CSSProperties, useContext} from 'react';
 import {DataContext} from 'pages/Data/Wrapper';
 
+const height = 350 - 4;
+
 export const HomeTwitter: React.FC = () => {
     const {current: {game}} = useContext(DataContext);
     const current = game!;
@@ -17,7 +19,7 @@ export const HomeTwitter: React.FC = () => {
                 noBoarders
                 sourceType="profile"
                 screenName={current.twitter}
-                options={{height: 348}}
+                options={{height}}
             />
         </Paper>
     )
