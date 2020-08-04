@@ -3,7 +3,7 @@ import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {Switch, withRouter} from "react-router";
 import {RouteComponentProps} from "react-router-dom";
 import "css/router-animation.css";
-import Footer from "pages/Base/Footer";
+import Footer from "pages/Navigation/Footer";
 
 const AnimatedSwitch: React.FC<RouteComponentProps> = ({location, children}): JSX.Element => (
     <TransitionGroup component="main" className="animated-router-outer">

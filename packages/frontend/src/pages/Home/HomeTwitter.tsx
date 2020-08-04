@@ -1,21 +1,16 @@
 import * as React from 'react';
-import {Card, ButtonBase} from '@material-ui/core';
+import {Card, ButtonBase, Paper} from '@material-ui/core';
 import {TwitterTimelineEmbed} from 'react-twitter-embed';
 import {CSSProperties, useContext} from 'react';
 import {DataContext} from 'pages/Data/Wrapper';
 
-interface IProps {
-    style?: CSSProperties
-}
-
-export const HomeTwitter: React.FC<IProps> = ({style = {}}) => {
+export const HomeTwitter: React.FC = () => {
     const {current: {game}} = useContext(DataContext);
     const current = game!;
 
     return (
-        <Card style={{
+        <Paper elevation={6} style={{
             height: "100%",
-            ...style,
         }}>
             <TwitterTimelineEmbed
                 noHeader
@@ -23,7 +18,7 @@ export const HomeTwitter: React.FC<IProps> = ({style = {}}) => {
                 sourceType="profile"
                 screenName={current.twitter}
                 options={{height: 348}}
-                />
-        </Card>
+            />
+        </Paper>
     )
 }

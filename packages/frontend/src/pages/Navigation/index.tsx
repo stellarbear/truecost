@@ -7,7 +7,7 @@ import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {Switch, withRouter} from "react-router";
 import {RouteComponentProps} from "react-router-dom";
 import "css/router-animation.css";
-import Footer from "pages/Base/Footer";
+import {Footer} from ".";
 import window from 'global';
 import {DataContext} from "pages/Data/Wrapper";
 
@@ -47,36 +47,30 @@ const NavigationWrapper: React.FC<INavigationProps> = (props) => {
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "space-between",
-                        //marginLeft: "calc(100vw - 100%)"
-                        //filter: brightness(0) invert(1)
                     }}>
-                        <div>
-                            <ElevationScroll>
-                                <AppBar style={{
-                                    backgroundColor: isOnTop ? "transparent" : "white",
-                                    transition: "all 250ms ease 0s",
-                                    color: isOnTop ? 'white' : 'black',
+                        <ElevationScroll>
+                            <AppBar style={{
+                                backgroundColor: isOnTop ? "transparent" : "white",
+                                transition: "all 250ms ease 0s",
+                                color: isOnTop ? 'white' : 'black',
+                            }}>
+                                <Toolbar style={{
+                                    width: "100vw", padding: 0,
                                 }}>
-                                    <Toolbar style={{
-                                        width: "100vw", padding: 0,
-                                    }}>
-                                        <Hidden mdUp>
-                                            <Mobile logo={"/logo-black.png"} />
-                                        </Hidden>
-                                        <Hidden smDown>
-                                            <Desktop logo={logo} />
-                                        </Hidden>
-                                    </Toolbar>
-                                </AppBar>
-                            </ElevationScroll>
-                            <Toolbar style={{margin: 8}} />
-                            <Container fixed>
-                                <Switch location={location}>
-                                    {children}
-                                </Switch>
-                            </Container>
-                        </div>
+                                    <Hidden mdUp>
+                                        <Mobile logo={"/logo-black.png"} />
+                                    </Hidden>
+                                    <Hidden smDown>
+                                        <Desktop logo={logo} />
+                                    </Hidden>
+                                </Toolbar>
+                            </AppBar>
+                        </ElevationScroll>
+                        <Toolbar style={{margin: 8}} />
                         <Container fixed>
+                            <Switch location={location}>
+                                {children}
+                            </Switch>
                             <Footer />
                         </Container>
                     </section>

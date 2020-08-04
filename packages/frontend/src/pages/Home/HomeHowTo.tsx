@@ -3,7 +3,7 @@ import ArrowDown from '@material-ui/icons/ArrowDownward'
 import SportsEsports from '@material-ui/icons/SportsEsports';
 import Loyalty from '@material-ui/icons/Loyalty';
 import RateReview from '@material-ui/icons/RateReview';
-import {Card, ButtonBase, Typography, Button, IconButton} from '@material-ui/core';
+import {Card, ButtonBase, Typography, Button, IconButton, Paper} from '@material-ui/core';
 import {CSSProperties} from 'react';
 import {Link} from 'react-router-dom';
 import {DataContext} from 'pages/Data/Wrapper';
@@ -11,11 +11,7 @@ import Chat from 'mdi-material-ui/Chat';
 import Star from 'mdi-material-ui/Star';
 import {RowSwipable, Col} from 'pages/Base/Grid';
 
-interface IProps {
-    style?: CSSProperties
-}
-
-export const HomeHowTo: React.FC<IProps> = ({style = {}}) => {
+export const HomeHowTo: React.FC = () => {
     const props = {}
     const data = [{
         icon: <SportsEsports fontSize="large" />,
@@ -34,7 +30,7 @@ export const HomeHowTo: React.FC<IProps> = ({style = {}}) => {
         text: "Leave an honest review in order to support us!",
     }];
     return (
-        <Card style={style}>
+        <Paper elevation={6}>
             <RowSwipable s={16} p={16} w={250} arrows>
                 {data.map(({icon, text}, i) => (
                     <Col key={i}>
@@ -45,6 +41,6 @@ export const HomeHowTo: React.FC<IProps> = ({style = {}}) => {
                     </Col>
                 ))}
             </RowSwipable>
-        </Card>
+        </Paper>
     );
 }

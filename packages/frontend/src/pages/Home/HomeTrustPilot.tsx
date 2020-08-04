@@ -1,22 +1,17 @@
 import * as React from 'react';
-import {Card, ButtonBase} from '@material-ui/core';
+import {Card, ButtonBase, Paper} from '@material-ui/core';
 import TrustBox from 'pages/Base/TrustBox';
 import {CSSProperties} from 'react';
 
-interface IProps {
-    style?: CSSProperties
-}
-
-export const HomeTrustPilot: React.FC<IProps> = ({style = {}}) => (
-    <Card style={{
-        ...style,
+export const HomeTrustPilot: React.FC = () => (
+    <Paper elevation={6} style={{
         minHeight: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
     }}>
         <ButtonBase>
-            <TrustBox size="big"/>
+            <TrustBox size="big" />
         </ButtonBase>
-    </Card>
+    </Paper>
 )
