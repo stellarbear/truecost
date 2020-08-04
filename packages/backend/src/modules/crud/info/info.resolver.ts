@@ -14,19 +14,26 @@ class InfoResponse extends PaginatedResponse(InfoEntity) {
 export class InfoCRUDResolver extends BaseResolver
     <typeof InfoEntity, typeof InfoInput, typeof InfoResponse, InfoInput>
 
-(
-    {
+    (
+        {
 
-        inputRef: InfoInput,
-        classRef: InfoEntity,
-        resultRef: InfoResponse,
-        get: {},
-        upsert: {},
-    },
-)
+            inputRef: InfoInput,
+            classRef: InfoEntity,
+            resultRef: InfoResponse,
+            get: {
+                like: ["text", "redirect"],
+                filter: ["game", "tag", "item"],
+            },
+            upsert: {
+                notEmpty: ["images", "redirect"],
+                unique: [],
+                images: ["images"],
+            },
+            restrictPublic: false,
+        },
+    )
 {
-    constructor()
-    {
+    constructor() {
         super(new InfoService());
     }
 }

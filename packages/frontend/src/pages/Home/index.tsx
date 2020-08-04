@@ -20,6 +20,7 @@ import {HomeHowTo} from "./HomeHowTo";
 import {HomeTwitter} from "./HomeTwitter";
 import {backend} from "auxiliary/route";
 import {HomeTopOffers} from "./HomeTopOffers";
+import {HomeInfo} from "./HomeInfo";
 
 
 interface IHomeProps {
@@ -44,10 +45,13 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
                 <Grid container spacing={2}
                     style={{marginTop: "15vh", marginBottom: 16}}>
                     <Grid item xs={12} sm={8}>
-                        <HomeTopOffers />
+                        <HomeInfo />
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <HomeTwitter />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <HomeTopOffers />
                     </Grid>
                     <Grid item xs={12} sm={8}>
                         <HomeHowTo />

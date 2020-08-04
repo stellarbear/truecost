@@ -30,12 +30,6 @@ export const BULK_QUERY = gql`
             role
             email
         }
-        BlogAll {
-            ${meta.fragment}
-            preview
-            images
-            date
-        }
 
         GameAll {
             ${meta.fragment}
@@ -78,5 +72,28 @@ export const BULK_QUERY = gql`
 
             children { id }
         }
+
+        InfoAll {
+            ${base.fragment}
+            ${game.fragment}
+
+            text
+            redirect
+            images
+
+            tag  { id }
+            item  { id }
+        }
     }
 `;
+
+/*
+
+        
+        BlogAll {
+            ${meta.fragment}
+            preview
+            images
+            date
+        }
+*/

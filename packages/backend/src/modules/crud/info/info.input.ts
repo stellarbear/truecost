@@ -8,12 +8,13 @@ export class InfoInput extends BaseInput {
     text?: string;
     @Field({nullable: true})
     redirect?: string;
+    @Field(() => [UploadScalar], {nullable: true})
+    images: UploadType[] = [];
 
+    @Field({nullable: true})
+    game?: string;
     @Field(() => [String], {nullable: true})
     tag?: string[];
     @Field(() => [String], {nullable: true})
     item?: string[];
-
-    @Field(() => UploadScalar, {nullable: true})
-    image?: UploadType;
 }

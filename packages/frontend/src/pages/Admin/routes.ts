@@ -1,6 +1,7 @@
 import {AdminGame, AdminOption, AdminItem, AdminTag} from ".";
 import {AdminBlog} from "./Blog";
 import {AdminBooking} from "./Booking";
+import {AdminInfo} from "./Info";
 
 const routes = [
     {
@@ -26,6 +27,10 @@ const routes = [
     {
         url: "item",
         component: AdminItem,
+    },
+    {
+        url: "info",
+        component: AdminInfo,
     },
 ];
 

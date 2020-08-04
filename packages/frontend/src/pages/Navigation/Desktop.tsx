@@ -24,7 +24,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             <Button component={Link} to={'/track'} color="inherit">
                 <Typography variant="h6">TRACK</Typography>
             </Button>
-            <Button component={Link} color="inherit" to={'/blog'}>
+            <Button component={Link} color="inherit" to={'/blog'} disabled>
                 <Typography variant="h6">BLOG</Typography>
             </Button>
             <Button component={Link} color="inherit" to={'/contact'}>

@@ -81,6 +81,16 @@ export interface IOption extends IBase, IBaseGame {
     merge: OptionMerge
 }
 
+export interface IInfo extends IBase, IBaseGame {
+    text: string
+    redirect: string
+    images: string[];
+
+    tag: string[]
+    item: string[]
+}
+
+
 export interface ITag extends IBase, IBaseGame {
     children: string[]
 }
