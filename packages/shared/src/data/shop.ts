@@ -60,7 +60,7 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
             gameDict.data.url[url] = gameId;
         }
     }
-
+    
     for (let sub of SubscriptionAll) {
         let {id: subId, active} = sub;
         if (active) {
@@ -150,6 +150,7 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
 
     for (let item of ItemAll) {
         let {game: {id: gameId}, id, active, url} = item;
+        console.log(item);
 
         item.range = SafeJSON.parse(item.range, rangeBase)
         item.tag = item.tag.map((c: any) => c.id);

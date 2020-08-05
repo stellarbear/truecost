@@ -24,7 +24,7 @@ interface IProps {
 
 export const EmailFields: React.FC<IProps> = (props) => {
     const {error, disabled, setCurrent, register, email} = props;
-    const [query, {called, data, loading}] = useLazyQuery(GET_SUBSCRIPTION);
+    const [query, {data, loading}] = useLazyQuery(GET_SUBSCRIPTION);
 
     const {store: {shop: {subs}}, current: {user}} = useStore();
 

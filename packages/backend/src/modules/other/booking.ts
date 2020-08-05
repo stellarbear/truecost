@@ -69,11 +69,11 @@ export class BookingResolver {
         const gameEntiry = await this.gameRepo.findOne({id: game});
         assert(gameEntiry, "invalid game");
 
-        const GameAll = await this.gameRepo.findAll({populate: true});
-        const ItemAll = await this.itemRepo.findAll({populate: true});
-        const TagAll = await this.tagRepo.findAll({populate: true});
-        const OptionAll = await this.optionRepo.findAll({populate: true});
-        const SubscriptionAll = await this.subsRepo.findAll({populate: true});
+        const GameAll = await this.gameRepo.findAll({populate: []});
+        const ItemAll = await this.itemRepo.findAll({populate: ["item", "option", "tag"]});
+        const TagAll = await this.tagRepo.findAll({populate: ["children"]});
+        const OptionAll = await this.optionRepo.findAll({populate: []});
+        const SubscriptionAll = await this.subsRepo.findAll({populate: []});
         DI.em.clear();
 
         const {shop} = parseShop(
@@ -162,7 +162,7 @@ export class BookingResolver {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             customer_email: email,
-            metadata: {meta, game, email: userEmail, subscription:sub},
+            metadata: {meta, game, email: userEmail, subscription: sub},
             locale: "en",
             line_items,
             success_url: `${frontend.uri}/${gameEntiry?.url}/checkout/success`,
