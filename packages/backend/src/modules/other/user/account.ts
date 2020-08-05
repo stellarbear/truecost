@@ -1,4 +1,4 @@
-import {Arg, Mutation, Resolver, Ctx} from "type-graphql";
+import {Arg, Mutation, Resolver, Ctx, Query} from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
 import {DI} from "../../../orm";
 import {v4} from "uuid";
@@ -6,12 +6,13 @@ import {assert} from "../../../helpers/assert";
 import {wrap} from "mikro-orm";
 import {pbkdf2} from "../../../helpers/pbkdf2";
 import {redis} from "../../../redis";
-import {RoleType, validate} from "@truecost/shared";
+import {RoleType, validate, subscriptionVaildate} from "@truecost/shared";
 import {composeEmail} from "../../../mail/compose";
 import {verificationEmail} from "../../../mail/samples/verification";
 import {domain} from "../../../mail/helpers";
 import {forgetEmail} from "../../../mail/samples/forget";
 import {Context} from "../../../server";
+import {SubscriptionEntity} from "../../crud/subscription/subscription.entity";
 
 @Resolver(() => UserEntity)
 export class AccountResolver {
@@ -174,5 +175,23 @@ export class AccountResolver {
 
         await this.userRepo.persistAndFlush(user);
         return user;
+    }
+
+    @Query(() => SubscriptionEntity, {nullable: true})
+    async UserGetSubscription(
+        @Arg("email") email: string,
+    ) {
+        const user = await this.userRepo.findOne({email}, {populate: true});
+        if (!user || !user.subscription) {
+            return ;
+        }
+
+        const {subscription} = user;
+
+        if (!subscriptionVaildate(user as any, subscription)) {
+            return ;
+        }
+
+        return subscription
     }
 }

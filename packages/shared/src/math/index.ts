@@ -72,8 +72,8 @@ export class Price {
     }
 
     percentage(value: number): Price {
-        value = Math.max(Math.min(100, Math.round(value)), -100);
-        let delta = Math.round(this.toValue * value / 100);
+        value = Math.max(Math.min(100, Math.round(value)), 0);
+        let delta = Math.round(this.toValue * (value) / 100);
 
         return new Price(delta)
     }

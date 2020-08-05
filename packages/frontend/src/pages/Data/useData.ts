@@ -15,11 +15,11 @@ export interface IStoreContext {
 }
 
 export function useData(data: any): IStore {
-    const {GameAll, ItemAll, TagAll, OptionAll, UserWhoAmI} = data;
+    const {GameAll, ItemAll, TagAll, OptionAll, SubscriptionAll, UserWhoAmI} = data;
 
     console.log('calculating');
     const {shop, game} = parseShop(
-        GameAll, ItemAll, TagAll, OptionAll
+        GameAll, ItemAll, TagAll, OptionAll, SubscriptionAll
     );
 
     return ({

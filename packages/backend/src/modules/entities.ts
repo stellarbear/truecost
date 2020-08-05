@@ -7,10 +7,12 @@ import {GameEntity} from "./crud/game/game.entity";
 import {TagEntity} from "./crud/tag/tag.entity";
 import {OptionEntity} from "./crud/option/option.entity";
 import {InfoEntity} from "./crud/info/info.entity";
+import {SubscriptionEntity} from "./crud/subscription/subscription.entity";
 
 const entities = [
     BaseEntity, BaseMetaEntity,
     UserEntity, BookingEntity,
+    SubscriptionEntity,
     ItemEntity, BlogEntity, GameEntity, TagEntity, OptionEntity, InfoEntity,
 ];
 

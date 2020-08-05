@@ -12,6 +12,7 @@ import {composeEmail} from "../../mail/compose";
 import {accountEmail} from "../../mail/samples/account";
 import {domain} from "../../helpers/route";
 import {orderEmail} from "../../mail/samples/order";
+import {SubscriptionEntity} from "../crud/subscription/subscription.entity";
 
 export const createOrder = async (response: Record<string, any>) => {
     const {
@@ -21,7 +22,8 @@ export const createOrder = async (response: Record<string, any>) => {
         metadata: {
             info,
             game,
-            email
+            email,
+            subscription
         }
     } = response;
 
@@ -32,6 +34,7 @@ export const createOrder = async (response: Record<string, any>) => {
         description
     }))
 
+    const subsRepo = DI.em.getRepository(SubscriptionEntity);
     const bookRepo = DI.em.getRepository(BookingEntity);
     const gameRepo = DI.em.getRepository(GameEntity);
     const userRepo = DI.em.getRepository(UserEntity);
@@ -58,6 +61,17 @@ export const createOrder = async (response: Record<string, any>) => {
     });
 
     await bookRepo.persistAndFlush(currentBooking);
+
+    //  apply subscription if bought
+    if (subscription) {
+        const subEntity = await subsRepo.findOne({id: subscription});
+        if (subEntity) {
+            currentUser.subscription = subEntity;
+            currentUser.subscribeDate = new Date();
+        }
+
+        await userRepo.persistAndFlush(currentUser);
+    }
 
     try {
         await composeEmail({

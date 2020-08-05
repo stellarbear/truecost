@@ -48,7 +48,6 @@ export const Col: React.FC<IProps> = (props) => {
         <div
             //spacing={spacing}
             style={{
-                ...style,
                 display: "flex",
                 margin: Array.isArray(m) ? `${m[0]}px ${m[1]}px` : m,
                 padding: Array.isArray(p) ? `${p[0]}px ${p[1]}px` : p,
@@ -57,7 +56,8 @@ export const Col: React.FC<IProps> = (props) => {
                 alignItems: isLeft(rest)
                     ? "flex-start"
                     : isRight(rest) ?
-                        "flex-end" : "center"
+                        "flex-end" : "center",
+                ...style,
             }}>
             {renderChildren()}
         </div>

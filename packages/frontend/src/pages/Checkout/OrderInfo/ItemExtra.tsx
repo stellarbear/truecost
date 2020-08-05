@@ -32,6 +32,7 @@ export const ItemExtra: React.FC<IProps> = (props) => {
 
     return (
         <>
+            <Typography variant="caption">Extra options</Typography>
             <ItemDivider condition={true} />
             {Object.keys(options).map((optionId) =>
                 (

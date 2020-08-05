@@ -1,4 +1,4 @@
-import {IGame, IItem, ITag, IOption, rangeBase} from "../interfaces";
+import {IGame, IItem, ITag, IOption, rangeBase, ISubscription} from "../interfaces";
 import {Price, OptionArea, OptionMerge, SafeJSON, ICartItem} from "..";
 
 export type Dict<T> = Record<string, T>;
@@ -37,17 +37,21 @@ export interface IGameContext {
 }
 export interface IShopContext {
     data: Dict<IShop>
+    subs: Dict<ISubscription>
 }
 
 const detach = <T>(src: T[]): T[] => SafeJSON.parse(JSON.stringify(src), []);
 
-export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], OptionAll: IOption[]) => {
+export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], OptionAll: IOption[], SubscriptionAll: ISubscription[]) => {
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
 
     TagAll = detach(TagAll)
     GameAll = detach(GameAll)
     ItemAll = detach(ItemAll)
     OptionAll = detach(OptionAll)
+    SubscriptionAll = detach(SubscriptionAll);
+
+    const shopDict: IShopContext = {data: {}, subs: {}};
 
     for (let game of GameAll) {
         let {id: gameId, active, url} = game;
@@ -57,7 +61,13 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
         }
     }
 
-    const shopDict: IShopContext = {data: {}};
+    for (let sub of SubscriptionAll) {
+        let {id: subId, active} = sub;
+        if (active) {
+            shopDict.subs[subId] = sub;
+        }
+    }
+
     for (let gameId in gameDict.data.id) {
         shopDict.data[gameId] = {
             tags: {id: {}, url: {}, base: []},

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Tabs, Tab} from '@material-ui/core';
 import {useHistory, Redirect} from 'react-router';
-import {Col} from 'pages/Base/Grid';
+import {Col, Row} from 'pages/Base/Grid';
 import AuthRoute from 'pages/Admin/AuthRoute';
 
 interface IProps {
@@ -22,23 +22,25 @@ export const InnerHeader: React.FC<IProps> = ({prefix, routes, base}) => {
 
     return (
         <>
-            <Col s={16}>
-                <Tabs
-                    value={value}
-                    scrollButtons="auto"
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered
-                >
-                    <Tab value={"default"} style={{display: "none"}} />
-                    {
-                        routes.map(({url}) =>
-                            <Tab value={url} label={url} key={url} onClick={() => {
-                                history.push(`/${prefix}/${url}`)
-                            }} />
-                        )
-                    }
-                </Tabs>
+            <Col s={16} fullWidth>
+                <Row wrap width={["100%"]}>
+                    <Tabs
+                        value={value}
+                        variant="scrollable"
+                        scrollButtons="auto"
+                        indicatorColor="primary"
+                        textColor="primary"
+                    >
+                        <Tab value={"default"} style={{display: "none"}} />
+                        {
+                            routes.map(({url}) =>
+                                <Tab value={url} label={url} key={url} onClick={() => {
+                                    history.push(`/${prefix}/${url}`)
+                                }} />
+                            )
+                        }
+                    </Tabs>
+                </Row>
             </Col>
             {routes.map(({url, component}) =>
                 <AuthRoute exact

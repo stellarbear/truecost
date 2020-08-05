@@ -72,17 +72,14 @@ export const BULK_QUERY = gql`
 
             children { id }
         }
-
-        InfoAll {
+        
+        SubscriptionAll {
             ${base.fragment}
-            ${game.fragment}
+            days
+            price
+            discount
 
-            text
-            redirect
-            images
-
-            tag  { id }
-            item  { id }
+            description
         }
     }
 `;

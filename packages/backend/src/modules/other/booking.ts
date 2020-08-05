@@ -1,4 +1,4 @@
-import {Arg, Ctx, Mutation, Query, Resolver, UseMiddleware} from "type-graphql";
+import {Arg, Ctx, Mutation, Query, Resolver, UseMiddleware, Subscription} from "type-graphql";
 import {UserEntity} from "../crud/user/user.entity";
 import {Context} from "../../server";
 import {redis} from "../../redis";
@@ -7,13 +7,14 @@ import {ItemEntity} from "../crud/item/item.entity";
 import {TagEntity} from "../crud/tag/tag.entity";
 import {OptionEntity} from "../crud/option/option.entity";
 import {GameEntity} from "../crud/game/game.entity";
-import {parseShop, IItem, parseCart, SafeJSON, Price} from "@truecost/shared";
+import {parseShop, IItem, parseCart, SafeJSON, Price, subscriptionVaildate} from "@truecost/shared";
 import {backend, frontend} from "../../helpers/route";
 import {creds} from "../../helpers/creds";
 import Stripe from 'stripe';
 import {assert} from "../../helpers/assert";
 import {BookingEntity} from "../crud/booking/booking.entity";
 import {UseAuth} from "../../middleware/auth";
+import {SubscriptionEntity} from "../crud/subscription/subscription.entity";
 
 
 
@@ -26,6 +27,7 @@ export class BookingResolver {
     itemRepo = DI.em.getRepository(ItemEntity);
     optionRepo = DI.em.getRepository(OptionEntity);
     bookRepo = DI.em.getRepository(BookingEntity);
+    subsRepo = DI.em.getRepository(SubscriptionEntity);
 
     @Query(() => BookingEntity)
     async BookingGetByCode(
@@ -60,6 +62,7 @@ export class BookingResolver {
         @Arg("email") email: string,
         @Arg("booking") booking: string,
         @Arg("meta") meta: string,
+        @Arg("subscription", {nullable: true}) subscription?: string,
     ) {
         console.log("arrived <----------------------------------------")
         const userEmail = await this.getEmail(ctx, email);
@@ -70,12 +73,22 @@ export class BookingResolver {
         const ItemAll = await this.itemRepo.findAll({populate: true});
         const TagAll = await this.tagRepo.findAll({populate: true});
         const OptionAll = await this.optionRepo.findAll({populate: true});
+        const SubscriptionAll = await this.subsRepo.findAll({populate: true});
         DI.em.clear();
 
         const {shop} = parseShop(
-            GameAll, ItemAll as any, TagAll as any, OptionAll
+            GameAll, ItemAll as any, TagAll as any, OptionAll, SubscriptionAll
         );
 
+        //  get discount or subscription
+        const user = await this.userRepo.findOne({email: userEmail}, {populate: true});
+        const payed = subscriptionVaildate(user as any, user?.subscription);
+        const sub = payed ? null : (subscription || null);
+        const discount = 100 - ((payed
+            ? user?.subscription?.discount
+            : (await this.subsRepo.findOne({id: sub}))?.discount) || 0)
+
+        //
         const store = shop.data[game];
         const items = store.items.id;
         const optionsLocal = store.options.local.id;
@@ -95,7 +108,7 @@ export class BookingResolver {
             const name = item.name + (item.range.d.length > 0 ? ` ${chunk?.join(' - ')}` : '');
             const description = options.map(o => o.name).join(', ') || "-";
             const images = item.images.map(i => `${backend.uri}/${item.id}/${i}/u.png`);
-            const amount = Price.fromItem(item, chunk).withOption(options).toValue * 100
+            const amount = Price.fromItem(item, chunk).withOption(options).percentage(discount).toValue * 100
 
             return (
                 {
@@ -117,7 +130,7 @@ export class BookingResolver {
             const name = option.name;
             const quantity = 1;
             const images: string[] = []
-            const amount = total.getOption(option).toValue * 100
+            const amount = total.getOption(option).percentage(discount).toValue * 100
             return (
                 {
                     name,
@@ -129,11 +142,27 @@ export class BookingResolver {
             )
         }));
 
+        //  subscription
+        if (sub) {
+            const subEntity = await this.subsRepo.findOne({id: sub});
+            if (subEntity) {
+                const {name, price: amount} = subEntity;
+
+                line_items.push({
+                    name,
+                    quantity: 1,
+                    currency: 'usd',
+                    amount,
+                })
+            }
+
+        }
+
         const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-03-02'});
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             customer_email: email,
-            metadata: {meta, game, email: userEmail},
+            metadata: {meta, game, email: userEmail, subscription:sub},
             locale: "en",
             line_items,
             success_url: `${frontend.uri}/${gameEntiry?.url}/checkout/success`,

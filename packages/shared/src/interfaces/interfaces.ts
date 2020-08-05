@@ -26,6 +26,9 @@ export interface IUser {
     email: string;
     name: string;
     id: string;
+
+    subscription?: string
+    subscribeDate?: Date
 }
 
 export interface IBlog extends IBaseMeta {
@@ -99,4 +102,11 @@ export interface IBooking extends IBase, IBaseUser {
     status: StatusType
     info: string
     data: string
+}
+
+export interface ISubscription extends IBase {
+    days: number
+    price: number
+    discount: number
+    description: string
 }

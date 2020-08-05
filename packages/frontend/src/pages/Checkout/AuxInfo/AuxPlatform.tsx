@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {InputField} from 'components/generic/components/InputField';
 import {Col, Row} from 'pages/Base/Grid';
-import {Typography, IconButton, Divider, FormControlLabel, Checkbox} from '@material-ui/core';
+import {Typography, IconButton, Divider, FormControlLabel, Checkbox, Paper} from '@material-ui/core';
 
 import Xbox from "mdi-material-ui/MicrosoftXbox";
 import Windows from "mdi-material-ui/MicrosoftWindows";
@@ -51,31 +51,33 @@ export const AuxPlatform: React.FC<IProps> = (props) => {
     }
 
     return (
-        <Col left fullWidth>
-            <Typography variant="caption" >Choose platform</Typography>
-            <Row between wrap>
-                <Row>
-                    {platforms.map(({icon, label}) => (
-                        <Col key={label}>
-                            <IconButton onClick={() => onPlatformClick(label)}>
-                                {React.cloneElement(icon, {
-                                    style: {
-                                        color: platform.includes(label) ? colors.accentColor : "black",
-                                        transition: "all 0.2s linear",
-                                        transform: "scale(1.5)",
-                                        cursor: "pointer",
-                                    }
-                                })}
-                            </IconButton>
-                            <Typography variant="caption">{label}</Typography>
-                        </Col>
-                    ))}
+        <Paper elevation={3}>
+            <Col left fullWidth p={8} >
+                <Typography variant="caption" >Choose platform</Typography>
+                <Row between wrap>
+                    <Row>
+                        {platforms.map(({icon, label}) => (
+                            <Col key={label}>
+                                <IconButton onClick={() => onPlatformClick(label)}>
+                                    {React.cloneElement(icon, {
+                                        style: {
+                                            color: platform.includes(label) ? colors.accentColor : "black",
+                                            transition: "all 0.2s linear",
+                                            transform: "scale(1.5)",
+                                            cursor: "pointer",
+                                        }
+                                    })}
+                                </IconButton>
+                                <Typography variant="caption">{label}</Typography>
+                            </Col>
+                        ))}
+                    </Row>
+                    <FormControlLabel
+                        control={<Checkbox checked={cross} onChange={() => onCrossClick()} />}
+                        label="Crossave"
+                    />
                 </Row>
-                <FormControlLabel
-                    control={<Checkbox checked={cross} onChange={() => onCrossClick()} />}
-                    label="Crossave"
-                />
-            </Row>
-        </Col>
+            </Col>
+        </Paper>
     )
 }

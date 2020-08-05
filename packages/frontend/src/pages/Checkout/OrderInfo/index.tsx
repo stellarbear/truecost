@@ -32,7 +32,7 @@ export const OrderInfo: React.FC = () => {
         const upsert = update.cart.upsert;
 
         return (
-            <Accordion key={key}>
+            <Accordion key={key} elevation={3}>
                 <AccordionSummary
                     expandIcon={<ExpandMore />}>
                     <ItemHeader
@@ -74,7 +74,8 @@ export const OrderInfo: React.FC = () => {
     }
 
     return (
-        <Col s={16} fullWidth right>
+        <Col s={8} fullWidth right>
+            <Typography variant="caption">Items</Typography>
             {Object.keys(cartItems).map(key => itemCard(key))}
             <ItemExtra
                 total={total} />
