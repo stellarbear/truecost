@@ -46,13 +46,13 @@ export interface IGame extends IBaseMeta {
 }
 
 export interface IRangeData {
+    e?: number      //eta
     a: number       //at
     p: number       //price
     m: string       //mark
 }
 
 export interface IRange {
-    e: number           //eta
     s: number           //step
     o: boolean          //single
     d: IRangeData[]     //data

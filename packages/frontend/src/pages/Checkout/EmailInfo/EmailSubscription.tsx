@@ -18,8 +18,6 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
 
     const subsSorted = dictSort(subs);
     const payed = !!current;
-    debugger;
-
 
     const mock = () => (
         <Typography variant="caption">Unfortunaltely, no plans available</Typography>

@@ -3,7 +3,7 @@ import {Row, Col} from 'pages/Base/Grid';
 import {IconButton, Typography} from '@material-ui/core';
 import {PriceTypography} from 'pages/Base/PriceTypography';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {IItem, Price} from '@truecost/shared';
+import {IItem, Price, Time} from '@truecost/shared';
 
 interface IProps {
     item: IItem
@@ -25,14 +25,19 @@ export const ItemHeader: React.FC<IProps> = (props) => {
                     <Typography>
                         {item.name}
                     </Typography>
-                    {item.range.d.length > 0 && chunk && (
+                    <Col s={-6} left>
+                        {item.range.d.length > 0 && chunk && (
+                            <Typography variant={"caption"}>
+                                {`from: ${chunk[0]} to: ${chunk[1]}`}
+                            </Typography>
+                        )}
                         <Typography variant={"caption"}>
-                            {`from: ${chunk[0]} to: ${chunk[1]}`}
+                            {`eta: ${Time.fromItem(item, chunk).multiply(quantity).toString}`}
                         </Typography>
-                    )}
-                    <Typography variant={"caption"}>
-                        {`count: ${quantity}`}
-                    </Typography>
+                        <Typography variant={"caption"}>
+                            {`count: ${quantity}`}
+                        </Typography>
+                    </Col>
                 </Col>
             </Row>
             <Col>

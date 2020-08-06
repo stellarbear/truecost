@@ -35,9 +35,8 @@ interface EditorMarkProps {
 const preview = (data: IRange) => data.d.length > 0 ? (
     "mode: " + (data.o ? "single" : "double") + "\n" +
     "step: " + data.s + "\n" +
-    "eta: " + data.e + "\n" +
     "-----------" + "\n" +
-    data.d.map(({a: at, p: price, m: mark}) => `${at}: ${price} - ${mark}`).join('\n')
+    data.d.map(({a: at, p: price, m: mark, e: eta}) => `${at}: ${price} - ${mark} (${eta || 0})`).join('\n')
 ) : "-";
 
 const EditorRange: React.FC<EditorMarkProps> = (props) => {
@@ -62,11 +61,12 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
     const addNewRow = () => updateData([...state.d, {
         a: 0,
         p: 0,
+        e: 0,
         m: "mark"
     }])
 
     const renderRow = (index: number) => {
-        const {a: at, p: price, m: mark} = state.d[index];
+        const {a: at, p: price, m: mark, e: eta} = state.d[index];
 
         return (
             <Col fullWidth key={index}>
@@ -122,6 +122,20 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                         />
                     </TableCell>
                     <TableCell>
+                        <TextField
+                            label="eta"
+                            value={eta || 0}
+                            fullWidth
+                            variant="filled"
+                            onChange={(event) => {
+                                const currValue = state.d[index];
+                                currValue.e = parseInt(event.target.value, 10) || 0;
+
+                                updateData([...state.d.slice(0, index), currValue, ...state.d.slice(index + 1)]);
+                            }}
+                        />
+                    </TableCell>
+                    <TableCell>
                         <IconButton
                             disabled={index !== state.d.length - 1}
                             onClick={() => updateData([...state.d.slice(0, index), ...state.d.slice(index + 1)])}>
@@ -162,16 +176,6 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                 <DialogContent
                     style={{minWidth: 550, maxHeight: 500}}>
                     <Col fullWidth left s={8}>
-                        <Row start s={8}>
-                            <Typography>ETA: </Typography>
-                            <NumericField
-                                min={1}
-                                max={60 * 60 * 60}
-                                value={state.e}
-                                onChangeEvent={(e) => setState({...state, e})}
-                            />
-                        </Row>
-                        <Divider />
                         <Row start s={8}>
                             <Typography>Step: </Typography>
                             <NumericField

@@ -53,7 +53,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 </Grid>
                 <Grid item xs={12} lg={6}>
                     <ItemDescription item={item} />
-                    <ItemTag item={item} />
+                    <ItemTag item={item} chunk={chunk}/>
                     <ItemChildren item={item} />
                     <ItemObtain item={item} />
                     <ItemRequirements item={item} />

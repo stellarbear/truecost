@@ -19,7 +19,7 @@ export const orderEmail = (code: string, data: Record<string, string>) => {
                     <mj-text color="#212b35" font-weight="bold" font-size="20px">
                     Order receipt:
                     </mj-text>
-                    <mj-text color="#637381" font-size="50px" padding-top="20px">
+                    <mj-text color="#637381" font-size="35px" padding-top="20px">
                     <strong>${code}</strong>
                     </mj-text>
                     <ul>

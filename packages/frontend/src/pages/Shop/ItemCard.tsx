@@ -10,14 +10,13 @@ import {
 import {NotificationContext} from "../../components/wrappers";
 import {Link, RouteComponentProps, withRouter, Redirect} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
-import {Price} from '@truecost/shared';
+import {Price, Time} from '@truecost/shared';
 import {PriceTypography} from "../Base/PriceTypography";
 import {ItemCardBase} from "./Card/ItemCardBase";
 import {ItemCardRange} from "./Card/ItemCardRange";
 import {Col, Row} from "pages/Base/Grid";
 import {SafeImage} from "components/SafeImage";
 import {backend} from "auxiliary/route";
-import {time} from "auxiliary/time";
 
 interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
@@ -67,7 +66,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     const eta = () => (
         <Row p={8} style={{position: "absolute", top: 0, right: 0}}>
             <Typography variant="body2">
-                {(item.range.d.length > 0 ? "eta from: " : "eta: ") + time.stringify(item.eta)}
+                {(item.range.d.length > 0 ? "eta from: " : "eta: ") + Time.fromItem(item).toString}
             </Typography>
         </Row>
     )
