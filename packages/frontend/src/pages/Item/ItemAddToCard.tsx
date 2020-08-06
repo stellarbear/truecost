@@ -3,6 +3,7 @@ import {IItem, Price} from "@truecost/shared";
 import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Chip, Typography, Checkbox, Button} from '@material-ui/core';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 import {PriceTypography} from 'pages/Base/PriceTypography';
 import {Row} from 'pages/Base/Grid';
 import {NotificationContext} from 'components/wrappers';
@@ -23,26 +24,28 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
     const {notify} = useNotification()
     const {update: {cart}} = useStore();
 
+    const noLimit = cart.limit({itemId: item.id}) < item.limit;
+
     return (
         <Button
             fullWidth
             size="large"
-            color="primary"
+            color={noLimit ? "primary" : "default"}
             variant="contained"
-            startIcon={<AddShoppingCart />}
-            onClick={() => {
+            startIcon={noLimit ? <AddShoppingCart /> : <CheckCircle/>}
+            onClick={noLimit ? () => {
                 cart.upsert({
                     itemId,
                     optionIds: options,
                     chunk,
                     quantity: 1
                 })
-                
+
                 notify(`${item.name} has been added to your cart!`)
-            }}
+            } : undefined}
         >
             <Row fullWidth between>
-                <Typography variant="caption">add to cart</Typography>
+                <Typography variant="caption">{noLimit ? "add to cart" : "item in your cart"}</Typography>
                 <PriceTypography price={price.toValue}
                     discount={item.discount} />
             </Row>

@@ -9,6 +9,7 @@ import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
 import {ICartContext, useCart, ICartUpsert, ICartRemove} from "./useCart";
+import {ItemCount} from "pages/Checkout/OrderInfo/ItemCount";
 
 interface IRawContext {
     store: IStore
@@ -34,6 +35,7 @@ export interface IDataContext {
         cart: {
             upsert(data: ICartUpsert): void,
             remove(data: ICartRemove): void,
+            limit(data: ICartRemove): number,
             count(): number
             wipe(): void
         }
@@ -70,7 +72,7 @@ const Raw: React.FC = ({children}) => {
 const Data: React.FC = ({children}) => {
     const {store, payment} = useContext(RawContext);
 
-    const {cart, itemUpsert, itemRemove, cartWipe, cartCount} = useCart(store.shop);
+    const {cart, itemUpsert, itemRemove, cartWipe, cartCount, itemCount} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
     const {state: game, setState: setGame} = useGame(store.game);
 
@@ -95,6 +97,7 @@ const Data: React.FC = ({children}) => {
                 cart: {
                     upsert: (data) => itemUpsert(game.id, data),
                     remove: (data) => itemRemove(game.id, data),
+                    limit: (data) => itemCount(game.id, data),
                     count: () => cartCount(game.id),
                     wipe: () => cartWipe(game.id),
                 }

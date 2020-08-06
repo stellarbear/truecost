@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {IItem, Price} from '@truecost/shared';
 import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Button, Typography, Checkbox, Divider} from '@material-ui/core';
-import {NotificationContext} from 'components/wrappers';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 import {Col, Row} from 'pages/Base/Grid';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
 
@@ -36,6 +36,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
     const totalPrice = price.withOption(selectedOptions.map(id => options.local.id[id]));
     const itemOptions = shop().getOptions(item.id);
 
+    const noLimit = cart.limit({itemId: item.id}) < item.limit;
     //
     return (
         <div style={{display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between"}}>
@@ -47,7 +48,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                 Open item page
             </Button>
             <div style={{overflowY: "auto"}}>
-                {itemOptions.length > 0 ? itemOptions.map((optionId) => 
+                {itemOptions.length > 0 ? itemOptions.map((optionId) =>
                     <div key={`${itemId}-option-${optionId}`}>
                         <div
                             style={{
@@ -67,42 +68,47 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                                     checked={selectedOptions.includes(optionId)}
                                 />
                                 <Typography variant="body2"
-                                            style={{userSelect: "none"}}>{options.local.id[optionId].name}</Typography>
+                                    style={{userSelect: "none"}}>{options.local.id[optionId].name}</Typography>
                             </div>
                             <Typography variant="h6"
-                                        style={{
-                                            userSelect: "none",
-                                            whiteSpace: "nowrap",
-                                            textAlign: "center",
-                                        }}>{price.getOption(options.local.id[optionId]).toString}</Typography>
+                                style={{
+                                    userSelect: "none",
+                                    whiteSpace: "nowrap",
+                                    textAlign: "center",
+                                }}>{price.getOption(options.local.id[optionId]).toString}</Typography>
                         </div>
-                        <Divider style={{paddingLeft: 8}}/>
+                        <Divider style={{paddingLeft: 8}} />
                     </div>,
                 ) : (
-                    <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
-                )}
+                        <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
+                    )}
             </div>
             <Button
                 fullWidth
                 size="large"
-                color="primary"
+                color={noLimit ? "primary" : "default"}
                 variant="contained"
                 style={{
                     height: 60,
                 }}
-                onClick={() => {
+                onClick={noLimit ? () => {
                     cart.upsert({
                         itemId,
                         optionIds: selectedOptions,
                         quantity: 1
                     })
-                    
+
                     notify(`${name} was added to your cart!`);
-                }}
+                } : undefined}
             >
                 <Row between fullWidth>
-                    <Typography variant="caption">add to cart</Typography>
-                    <Typography variant="h5">{totalPrice.toString}</Typography>
+                    <Typography variant="caption">{noLimit ? "add to cart" : "item in your cart"}</Typography>
+                    {
+                        noLimit
+                            ? <Typography variant="h5">{totalPrice.toString}</Typography>
+                            : <CheckCircle />
+                    }
+
                 </Row>
             </Button>
         </div>

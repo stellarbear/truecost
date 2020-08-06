@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {IItem, Price} from '@truecost/shared';
-import {DataContext} from 'pages/Data/Wrapper';
+import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Button, Typography, Checkbox, Divider, ButtonBase} from '@material-ui/core';
 import {NotificationContext} from 'components/wrappers';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 
 interface IProps {
     item: IItem
@@ -14,6 +15,9 @@ interface IProps {
 export const ItemCardRange: React.FC<IProps> = (props) => {
     const {item, redirect, price} = props;
     const itemId = item.id;
+
+    const {update: {cart}} = useStore();
+    const noLimit = cart.limit({itemId: item.id}) < item.limit;
 
     return (
         <ButtonBase component={Link} to={redirect} style={{height: "100%"}}>
@@ -41,7 +45,7 @@ export const ItemCardRange: React.FC<IProps> = (props) => {
                             height: 60,
                         }}
                         size="large"
-                        color="primary"
+                        color={noLimit ? "primary" : "default"}
                         variant="contained"
                     >
                         <div style={{
@@ -50,8 +54,12 @@ export const ItemCardRange: React.FC<IProps> = (props) => {
                             justifyContent: "space-between",
                             width: "100%",
                         }}>
-                            <Typography variant="caption">starting from </Typography>
-                            <Typography variant="h5">{price.toString}</Typography>
+                            <Typography variant="caption">{noLimit ? "starting from" : "item in your cart"}</Typography>
+                            {
+                                noLimit
+                                    ? <Typography variant="h5">{price.toString}</Typography>
+                                    : <CheckCircle />
+                            }
                         </div>
                     </Button>
                 </div>

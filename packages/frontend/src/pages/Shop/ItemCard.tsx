@@ -17,6 +17,7 @@ import {ItemCardRange} from "./Card/ItemCardRange";
 import {Col, Row} from "pages/Base/Grid";
 import {SafeImage} from "components/SafeImage";
 import {backend} from "auxiliary/route";
+import CheckCircle from '@material-ui/icons/CheckCircle';
 
 interface IItemCardProps extends RouteComponentProps<{}> {
     id: string;
@@ -27,7 +28,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     const {id} = props;
 
     const {notify} = useContext(NotificationContext);
-    const {current: {shop, game: {url}}} = useContext(DataContext);
+    const {current: {shop, game: {url}}, update: {cart}} = useContext(DataContext);
     const {
         tags,
         items,
@@ -44,6 +45,8 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
 
     const [raised, setRaised] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
+
+    const inYourCart = cart.limit({itemId: item.id}) > 0;
 
     const overlay = () => (
         <div
@@ -64,10 +67,16 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     );
 
     const eta = () => (
-        <Row p={8} style={{position: "absolute", top: 0, right: 0}}>
+        <Row p={8} s={8} style={{
+            position: "absolute", top: 0, right: 0,
+            background: "linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(255,255,255,0.5) 25%, rgba(255,255,255,0.5) 100%)"
+        }}>
             <Typography variant="body2">
                 {(item.range.d.length > 0 ? "eta from: " : "eta: ") + Time.fromItem(item).toString}
             </Typography>
+            {inYourCart && (
+                <CheckCircle color="primary" />
+            )}
         </Row>
     )
 

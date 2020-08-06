@@ -82,5 +82,9 @@ export const useCart = (shop: IShopContext) => {
             .reduce((acc, cur) => acc + gameCart[cur].quantity, 0);
     }
 
-    return {cart, itemUpsert, itemRemove, cartWipe, cartCount};
+    const itemCount = (gameId: string, {itemId}: ICartRemove) => {
+        return cart[gameId]?.local?.[itemId]?.quantity || 0
+    }
+
+    return {cart, itemUpsert, itemRemove, cartWipe, cartCount, itemCount};
 }
