@@ -155,7 +155,6 @@ export class BookingResolver {
                     amount: price * 100,
                 })
             }
-
         }
 
         const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-03-02'});

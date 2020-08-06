@@ -189,6 +189,8 @@ export class AccountResolver {
         const {subscription} = user;
 
         if (!subscriptionVaildate(user as any, subscription)) {
+            user.subscription = undefined;
+            await this.userRepo.persistAndFlush(user);
             return ;
         }
 
