@@ -13,15 +13,19 @@ export const ItemTotal: React.FC<IProps> = ({total}) => {
     const {current: {shop, cart}} = useStore();
 
     const cartItems = cart();
-    const {options: {global: {id: global}}, items: {id: items}} = shop();
+    const {items: {id: items}} = shop();
+
+    const base = shop().getTotal(cartItems.local);
+    const extra = shop().getExtra(base, cartItems.global);
+    const subtotal = base.add(extra);
 
     const discount = Object.keys(cartItems.local).reduce((acc, cur) => acc + items[cur].discount, 0);
-    const price = total.withOption(cartItems.global.map(s => global[s]));
+
     return (
         <Row end s={16}>
             <Typography>subtotal:</Typography>
             <PriceTypography
-                price={price.toValue}
+                price={subtotal.toValue}
                 discount={discount}
             />
         </Row>

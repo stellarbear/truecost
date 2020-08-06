@@ -4,23 +4,6 @@ import {OptionType} from "../enums";
 export class Price {
     private constructor(private readonly price: number = 0) {}
     public static zero = () => new Price(0);
-    public static total(data: {
-        item: IItem,
-        chunk?: [number, number],
-        options: IOption[],
-        quantity: number
-    }[]) {
-        let result = Price.zero();
-
-        for (let {item, chunk, options, quantity} of data) {
-            const base = Price.fromItem(item, chunk);
-            const all = base.withOption(options);
-
-            result = result.add(all.multiply(quantity));
-        }
-
-        return result;
-    }
 
     private static applyRange(item: IItem, chunk: [number, number]) {
         const rangeChunk = (from: IRangeData, to: IRangeData, at: number) => {
@@ -59,42 +42,42 @@ export class Price {
     add(price: Price): Price
     add(price: Price | number): Price {
         if (typeof price == "number") {
-            return new Price(this.toValue + price)
+            return new Price(this.toValueClear + price)
         } else if (price instanceof Price) {
-            return new Price(this.toValue + price.toValue)
+            return new Price(this.toValueClear + price.toValueClear)
         }
 
         return this;
     }
 
     multiply(value: number): Price {
-        return new Price(this.toValue * value)
+        return new Price(this.toValueClear * value)
     }
 
     percentage(value: number): Price {
         value = Math.max(Math.min(100, Math.round(value)), 0);
-        let delta = Math.round(this.toValue * (value) / 100);
+        let delta = Math.round(this.toValueClear * (value) / 100);
 
         return new Price(delta)
     }
 
     getOption(option: IOption): Price {
-        let base = this.toValue;
+        let base = this.toValueClear;
 
         let {price, type, free} = option;
         if (base >= free && free > 0) {
-            return new Price();
+            return new Price(1);
         }
 
         return type === OptionType.NOMINAL ? new Price(price)
             : type === OptionType.RELATIVE ? this.percentage(price)
-                : new Price();
+                : new Price(1);
     }
 
     withOption(input: IOption[] | IOption): Price {
         const options = Array.isArray(input) ? input : [input];
         let base = this;
-        let result = new Price(this.toValue);
+        let result = new Price(this.toValueClear);
 
         for (let option of options) {
             result = result.add(base.getOption(option));
@@ -103,8 +86,12 @@ export class Price {
         return result;
     }
 
+    private get toValueClear() {
+        return this.price;
+    }
+
     get toValue() {
-        return this.price > 0 ? Math.ceil(this.price) : 1;
+        return this.price > 0 ? Math.round(this.price) : 1;
     }
 
     get toString() {

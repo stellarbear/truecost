@@ -69,11 +69,11 @@ export class BookingResolver {
         const gameEntiry = await this.gameRepo.findOne({id: game});
         assert(gameEntiry, "invalid game");
 
-        const GameAll = await this.gameRepo.findAll({populate: []});
-        const ItemAll = await this.itemRepo.findAll({populate: ["item", "option", "tag"]});
-        const TagAll = await this.tagRepo.findAll({populate: ["children"]});
-        const OptionAll = await this.optionRepo.findAll({populate: []});
-        const SubscriptionAll = await this.subsRepo.findAll({populate: []});
+        const GameAll = await this.gameRepo.findAll();
+        const ItemAll = await this.itemRepo.findAll({populate: true});
+        const TagAll = await this.tagRepo.findAll();
+        const OptionAll = await this.optionRepo.findAll();
+        const SubscriptionAll = await this.subsRepo.findAll();
         DI.em.clear();
 
         const {shop} = parseShop(
@@ -146,13 +146,13 @@ export class BookingResolver {
         if (sub) {
             const subEntity = await this.subsRepo.findOne({id: sub});
             if (subEntity) {
-                const {name, price: amount} = subEntity;
+                const {name, price} = subEntity;
 
                 line_items.push({
                     name,
                     quantity: 1,
                     currency: 'usd',
-                    amount,
+                    amount: price * 100,
                 })
             }
 

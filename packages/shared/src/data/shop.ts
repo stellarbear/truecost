@@ -26,7 +26,8 @@ export interface IShop {
 
     getTagDeps(tagId: string): string[]
     getOptions(itemId: string): string[]
-    getTotal(cart: Dict<ICartItem>): Price
+    getTotal(cart: Dict<ICartItem>, discount?: number): Price
+    getExtra(price: Price, options: string[], discount?: number): Price
 }
 
 export interface IGameContext {
@@ -40,17 +41,10 @@ export interface IShopContext {
     subs: Dict<ISubscription>
 }
 
-const detach = <T>(src: T[]): T[] => SafeJSON.parse(JSON.stringify(src), []);
+const map = (src: any) => src.getIdentifiers ? src.getIdentifiers() : src.map((s: any) => s.id)
 
 export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], OptionAll: IOption[], SubscriptionAll: ISubscription[]) => {
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
-
-    TagAll = detach(TagAll)
-    GameAll = detach(GameAll)
-    ItemAll = detach(ItemAll)
-    OptionAll = detach(OptionAll)
-    SubscriptionAll = detach(SubscriptionAll);
-
     const shopDict: IShopContext = {data: {}, subs: {}};
 
     for (let game of GameAll) {
@@ -60,7 +54,7 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
             gameDict.data.url[url] = gameId;
         }
     }
-    
+
     for (let sub of SubscriptionAll) {
         let {id: subId, active} = sub;
         if (active) {
@@ -92,15 +86,35 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
 
                 return result;
             },
-            getTotal(cart: Dict<ICartItem>) {
+            getTotal(cart: Dict<ICartItem>, discount = 0) {
                 const items = this.items.id;
                 const options = this.options.local.id;
-                return Price.total(Object.keys(cart).map(itemId => ({
-                    item: items[itemId],
-                    chunk: cart[itemId].chunk,
-                    quantity: cart[itemId].quantity,
-                    options: cart[itemId].optionIds.map(o => options[o])
-                })));
+
+                let result = Price.zero();
+
+                for (let itemId in cart) {
+                    const amount = Price
+                        .fromItem(items[itemId], cart[itemId].chunk)
+                        .withOption(cart[itemId].optionIds.map(o => options[o]))
+                        .percentage(100 - discount)
+
+                    result = result.add(amount)
+                }
+
+                return result;
+            },
+            getExtra(price: Price, options: string[], discount = 0) {
+                const global = this.options.global.id;
+                const optionsMapped = (options.map(s => global[s]));
+
+                let result = Price.zero();
+                for (let option of optionsMapped) {
+                    const amount = price.getOption(option).percentage(100 - discount)
+
+                    result = result.add(amount);
+                }
+
+                return result;
             },
             getTagDeps(tagId: string) {
                 const result = new Set([tagId]);
@@ -150,12 +164,11 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
 
     for (let item of ItemAll) {
         let {game: {id: gameId}, id, active, url} = item;
-        console.log(item);
 
         item.range = SafeJSON.parse(item.range, rangeBase)
-        item.tag = item.tag.map((c: any) => c.id);
-        item.item = item.item.map((c: any) => c.id);
-        item.option = item.option.map((c: any) => c.id);
+        item.tag = map(item.tag)
+        item.item = map(item.item)
+        item.option = map(item.option)
 
         if (active && gameId in shopDict.data) {
             shopDict.data[gameId].items.url[url] = id;
@@ -166,7 +179,7 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
     for (let tag of TagAll) {
         let {game: {id: gameId}, id, active, name} = tag;
 
-        tag.children = tag.children.map((c: any) => c.id);
+        tag.children = map(tag.children);
         if (active && gameId in shopDict.data) {
             shopDict.data[gameId].tags.id[id] = tag;
             shopDict.data[gameId].tags.url[name] = id;

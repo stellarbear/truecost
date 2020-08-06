@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
-import {Accordion, AccordionSummary, AccordionDetails, IconButton, Typography, Divider} from '@material-ui/core';
+import {Accordion, AccordionSummary, AccordionDetails, Typography, Divider} from '@material-ui/core';
 import {Price} from '@truecost/shared';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {ItemOption} from './ItemOption';
@@ -25,7 +25,6 @@ export const OrderInfo: React.FC = () => {
         const {itemId, optionIds, chunk, quantity} = cartItem;
         const item = items[itemId];
 
-        console.log(item);
         const price = Price.fromItem(item, chunk);
         const total = price.withOption(optionIds.map(o => local[o]));
 

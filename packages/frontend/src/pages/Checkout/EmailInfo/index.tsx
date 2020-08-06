@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
-import {Accordion, AccordionSummary, AccordionDetails, IconButton, Typography, Divider, TextField, Button, Box, Paper} from '@material-ui/core';
-import {Price, validate} from '@truecost/shared';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import {Button, Box, Paper, Typography, Divider} from '@material-ui/core';
 import {useForm} from 'react-hook-form';
 import {loadStripe} from '@stripe/stripe-js';
 import {useMutation} from 'react-apollo';
@@ -14,6 +12,7 @@ import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {useState} from 'react';
 import {EmailSubscription} from './EmailSubscription';
 import {EmailFields} from './EmailFields';
+import {EmailPrice} from './EmailPrice';
 
 interface IProps {
     meta: Record<string, any>
@@ -31,10 +30,10 @@ const MAKE_BOOKING = gql`
 
 export const EmalInfo: React.FC<IProps> = ({meta}) => {
     const {setLoading} = useLoading();
-    const {current: {user, game, cart}, payment: {stripe: stripeKey}} = useStore();
+    const {store: {shop: {subs}}, current: {user, game, cart, shop}, payment: {stripe: stripeKey}} = useStore();
     const [mutation, {data, error, loading}] = useMutation(MAKE_BOOKING);
 
-    const [subscription, setSubscription] = useState<string | undefined>();
+    const [selectedSubscription, setSelectedSubscription] = useState<string | undefined>();
     const [currentSubscription, setCurrentSubscription] = useState<string | undefined>();
 
     const {register, handleSubmit, errors, clearErrors, watch} = useForm<BookingSubmit>({
@@ -53,8 +52,8 @@ export const EmalInfo: React.FC<IProps> = ({meta}) => {
 
             const variables = {
                 ...data,
-                subscription,
                 game: game.id,
+                subscription: selectedSubscription,
                 booking: JSON.stringify(cartItems),
                 meta: JSON.stringify({platform, info, cross, time, zone}),
             }
@@ -91,12 +90,13 @@ export const EmalInfo: React.FC<IProps> = ({meta}) => {
                     />
                     <EmailSubscription
                         current={currentSubscription}
-                        selected={subscription}
-                        setSelected={setSubscription}
+                        selected={selectedSubscription}
+                        setSelected={setSelectedSubscription}
                     />
-                    <Row end>
-                        <Button variant="contained" type="submit">Pay</Button>
-                    </Row>
+                    <EmailPrice
+                        current={currentSubscription}
+                        selected={selectedSubscription}
+                    />
                     <Box mt={2}>
                         {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
                     </Box>

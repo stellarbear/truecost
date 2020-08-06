@@ -66,17 +66,10 @@ const Raw: React.FC = ({children}) => {
 
 const Data: React.FC = ({children}) => {
     const {store, payment} = useContext(RawContext);
-    //debugger;
 
     const {cart, itemUpsert, itemRemove, cartWipe, cartCount} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
     const {state: game, setState: setGame} = useGame(store.game);
-
-    /*
-    console.log('data,', store);
-    console.log('user,', user);
-    console.log('game,', game);
-    */
 
     return (
         <DataContext.Provider value={{
