@@ -1,4 +1,4 @@
-import {Button, Typography, Container, IconButton, Menu, MenuItem} from "@material-ui/core";
+import {Button, Typography, Container, IconButton, Menu, MenuItem, Badge} from "@material-ui/core";
 import React, {useContext, useState} from "react";
 import {Link, useHistory} from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -16,7 +16,7 @@ const LOGOUT = gql`
 `;
 
 export const AccountPicker: React.FC = () => {
-    const {current: {user}, update: {setUser}} = useStore();
+    const {current: {user, discount}, update: {setUser}} = useStore();
     const [logoutMutation] = useMutation(LOGOUT);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const history = useHistory();
@@ -62,7 +62,9 @@ export const AccountPicker: React.FC = () => {
     return (
         <>
             <IconButton color="inherit" aria-haspopup="true" onClick={(e) => setAnchorEl(e.currentTarget)}>
-                <AccountCircle />
+                <Badge badgeContent={discount > 0 ? `${discount}\u00A0%` : 0} color="secondary">
+                    <AccountCircle />
+                </Badge>
             </IconButton>
             <Menu
                 anchorEl={anchorEl}

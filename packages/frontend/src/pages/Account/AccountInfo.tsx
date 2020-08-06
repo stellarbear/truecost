@@ -2,16 +2,23 @@ import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Container, Box, Button, Typography, Paper} from '@material-ui/core';
 import {Col} from 'pages/Base/Grid';
-import {gql} from 'apollo-boost';
-import {error} from 'console';
-import {Alert} from '@material-ui/lab';
-import {parseApolloError} from 'auxiliary/error';
 import {useState} from 'react';
 import {AccountUpdate} from './AccountUpdate';
+import {subscription} from '@truecost/shared';
 
 export const AccountInfo: React.FC = () => {
-    const {current: {user}} = useStore();
+    const {current: {user, discount}} = useStore();
     const [showUpdate, setShowUpdate] = useState(false)
+
+    const subscriptionInfo = () => (
+        discount > 0 && (
+            <Col left>
+                <Typography variant="caption">Discount:</Typography>
+                <Typography>{`${discount} %`}</Typography>
+                <Typography>{`${subscription.timeLeft(user)} day(s) left`}</Typography>
+            </Col>
+        )
+    )
 
     return (
         <Container maxWidth="sm">
@@ -26,6 +33,7 @@ export const AccountInfo: React.FC = () => {
                             <Typography variant="caption">Username:</Typography>
                             <Typography>{user!.name}</Typography>
                         </Col>
+                        {subscriptionInfo()}
                     </Col>
                 </Paper>
                 <Button fullWidth

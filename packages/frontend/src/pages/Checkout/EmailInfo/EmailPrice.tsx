@@ -10,17 +10,16 @@ interface IProps {
 
 export const EmailPrice: React.FC<IProps> = (props) => {
     const {current, selected} = props;
-    const {store: {shop: {subs}}, current: {cart, shop}} = useStore();
+    const {subs, current: {cart, shop}} = useStore();
 
     const cartItems = cart();
 
     const [subscriptionPrice, subscriptionDiscount] = current
-        ? [subs[current].price, subs[current].discount]
+        ? [0, subs[current].discount]
         : selected
             ? [subs[selected].price, subs[selected].discount]
             : [0, 0];
 
-    debugger;
     const base = shop().getTotal(cartItems.local);
     const discount = shop().getTotal(cartItems.local, subscriptionDiscount);
 

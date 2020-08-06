@@ -7,7 +7,7 @@ import {ItemEntity} from "../crud/item/item.entity";
 import {TagEntity} from "../crud/tag/tag.entity";
 import {OptionEntity} from "../crud/option/option.entity";
 import {GameEntity} from "../crud/game/game.entity";
-import {parseShop, IItem, parseCart, SafeJSON, Price, subscriptionVaildate} from "@truecost/shared";
+import {parseShop, IItem, parseCart, SafeJSON, Price, subscription as subscrMath} from "@truecost/shared";
 import {backend, frontend} from "../../helpers/route";
 import {creds} from "../../helpers/creds";
 import Stripe from 'stripe';
@@ -82,11 +82,12 @@ export class BookingResolver {
 
         //  get discount or subscription
         const user = await this.userRepo.findOne({email: userEmail}, {populate: true});
-        const payed = subscriptionVaildate(user as any, user?.subscription);
-        const sub = payed ? null : (subscription || null);
-        const discount = 100 - ((payed
-            ? user?.subscription?.discount
-            : (await this.subsRepo.findOne({id: sub}))?.discount) || 0)
+        const subscriptionDiscount = subscrMath.validate(user as any);
+        const sub = subscriptionDiscount ? null : (subscription || null);
+        const discount = 100 - ((
+            !!subscriptionDiscount
+                ? subscriptionDiscount
+                : (await this.subsRepo.findOne({id: sub}))?.discount) || 0)
 
         //
         const store = shop.data[game];

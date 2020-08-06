@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {gql} from 'apollo-boost';
-import {validate, subscriptionVaildate} from '@truecost/shared';
+import {validate, subscription} from '@truecost/shared';
 import {TextField, Typography, Paper, Button, CircularProgress} from '@material-ui/core';
 import {Col, Row} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
@@ -26,14 +26,16 @@ export const EmailFields: React.FC<IProps> = (props) => {
     const {error, disabled, setCurrent, register, email} = props;
     const [query, {data, loading}] = useLazyQuery(GET_SUBSCRIPTION);
 
-    const {store: {shop: {subs}}, current: {user}} = useStore();
+    const {current: {user}} = useStore();
 
     React.useEffect(() => {
-        const payed = subscriptionVaildate(user as any, subs[user?.subscription || "0"]) &&
-            user?.subscription!;
+        if (user) {
+            const payed = subscription.validate(user as any) &&
+                user?.subscription!;
 
-        if (payed) {
-            setCurrent(payed);
+            if (payed) {
+                setCurrent(user?.subscription?.id);
+            }
         }
     }, [user])
 

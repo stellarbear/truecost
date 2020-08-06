@@ -27,7 +27,7 @@ export interface IUser {
     name: string;
     id: string;
 
-    subscription?: string
+    subscription?: ISubscription
     subscribeDate?: Date
 }
 

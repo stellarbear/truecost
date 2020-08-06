@@ -29,6 +29,9 @@ export const BULK_QUERY = gql`
 
             role
             email
+
+            subscription { id discount days }
+            subscribeDate
         }
 
         GameAll {

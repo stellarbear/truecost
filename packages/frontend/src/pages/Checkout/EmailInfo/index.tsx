@@ -30,11 +30,11 @@ const MAKE_BOOKING = gql`
 
 export const EmalInfo: React.FC<IProps> = ({meta}) => {
     const {setLoading} = useLoading();
-    const {store: {shop: {subs}}, current: {user, game, cart, shop}, payment: {stripe: stripeKey}} = useStore();
+    const {current: {user, game, cart}, payment: {stripe: stripeKey}} = useStore();
     const [mutation, {data, error, loading}] = useMutation(MAKE_BOOKING);
 
     const [selectedSubscription, setSelectedSubscription] = useState<string | undefined>();
-    const [currentSubscription, setCurrentSubscription] = useState<string | undefined>();
+    const [currentSubscription, setCurrentSubscription] = useState<string | undefined>(user?.subscription?.id);
 
     const {register, handleSubmit, errors, clearErrors, watch} = useForm<BookingSubmit>({
         reValidateMode: "onBlur",

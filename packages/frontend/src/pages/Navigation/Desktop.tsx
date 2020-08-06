@@ -1,4 +1,4 @@
-import {Button, Typography, Container} from "@material-ui/core";
+import {Button, Typography, Container, Chip} from "@material-ui/core";
 import React, {useContext} from "react";
 import {Link} from 'react-router-dom';
 import {DataContext, useStore} from "pages/Data/Wrapper";
@@ -12,8 +12,8 @@ interface IDesktop {
 }
 
 export const Desktop: React.FC<IDesktop> = (props) => {
-    const {logo, } = props;
-    const {current: {game}} = useStore();
+    const {logo} = props;
+    const {current: {game, discount}} = useStore();
     const url = '/' + game.url
 
     const navigation = () => (
@@ -33,6 +33,16 @@ export const Desktop: React.FC<IDesktop> = (props) => {
         </Row>
     );
 
+    const subscription = () => (
+        discount > 0 && (
+            <Chip
+                size="small"
+                color="secondary"
+                label={`${discount} % active`}
+            />
+        )
+    )
+
     const account = () => (
         <div style={{
             position: "absolute",
@@ -40,6 +50,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             top: 0,
         }}>
             <Row>
+                {subscription()}
                 <CartPicker />
                 <Account />
             </Row>

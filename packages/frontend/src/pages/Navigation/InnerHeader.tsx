@@ -5,6 +5,7 @@ import {Col, Row} from 'pages/Base/Grid';
 import AuthRoute from 'pages/Admin/AuthRoute';
 
 interface IProps {
+    scroll?: boolean
     prefix: string
     routes: {
         url: string;
@@ -13,7 +14,7 @@ interface IProps {
     base: string
 }
 
-export const InnerHeader: React.FC<IProps> = ({prefix, routes, base}) => {
+export const InnerHeader: React.FC<IProps> = ({prefix, routes, base, scroll = false}) => {
     const history = useHistory();
     const subRoute = history.location.pathname
     const index = subRoute.lastIndexOf('/');
@@ -26,7 +27,8 @@ export const InnerHeader: React.FC<IProps> = ({prefix, routes, base}) => {
                 <Row wrap width={["100%"]}>
                     <Tabs
                         value={value}
-                        variant="scrollable"
+                        variant={scroll ? "scrollable" : "standard"}
+                        centered={!scroll}
                         scrollButtons="auto"
                         indicatorColor="primary"
                         textColor="primary"

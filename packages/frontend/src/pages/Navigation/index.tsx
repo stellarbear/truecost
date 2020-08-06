@@ -59,10 +59,10 @@ const NavigationWrapper: React.FC<INavigationProps> = (props) => {
                                     <Toolbar style={{
                                         width: "100vw", padding: 0,
                                     }}>
-                                        <Hidden mdUp>
+                                        <Hidden lgUp>
                                             <Mobile logo={"/logo-black.png"} />
                                         </Hidden>
-                                        <Hidden smDown>
+                                        <Hidden mdDown>
                                             <Desktop logo={logo} />
                                         </Hidden>
                                     </Toolbar>

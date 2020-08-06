@@ -3,7 +3,7 @@ import {useQuery} from "react-apollo";
 import gql from "graphql-tag";
 import {dictSort} from "auxiliary/sort";
 import {RouteComponentProps, useHistory, withRouter} from "react-router";
-import {OptionType, OptionArea, IUser, IGame, IOption, IShop, ICart} from "@truecost/shared";
+import {OptionType, OptionArea, IUser, IGame, IOption, IShop, ICart, subscription, ISubscription, Dict, IGameContext} from "@truecost/shared";
 import {useData, IStoreContext, IStore} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
@@ -17,9 +17,12 @@ interface IRawContext {
     }
 }
 
-export interface IDataContext extends IStoreContext {
-    cart: ICartContext,
+export interface IDataContext {
+    games: IGameContext["data"],
+    subs: Dict<ISubscription>
+    //cart: ICartContext,
     current: {
+        discount: number
         user: IUser | null
         game: IGame,
         shop(): IShop,
@@ -73,9 +76,12 @@ const Data: React.FC = ({children}) => {
 
     return (
         <DataContext.Provider value={{
-            cart,
-            store,
+            //cart,
+            //store,
+            subs: store.shop.subs,
+            games: store.game.data,
             current: {
+                discount: subscription.validate(user),
                 user: user,
                 game: game,
                 cart: () => cart[game.id],

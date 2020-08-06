@@ -38,8 +38,8 @@ const App = () => {
             <NotifyWrapper>
                 <DataWrapper>
                     <DataContext.Consumer>
-                        {({store: {game}}) => {
-                            const urls = Object.values(game.data.id).map(value => value.url);
+                        {({games}) => {
+                            const urls = Object.values(games.id).map(value => value.url);
 
                             return (
                                 <BackToTop>

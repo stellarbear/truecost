@@ -68,7 +68,6 @@ export const Row: React.FC<IProps> = (props) => {
         <div
             //spacing={spacing}
             style={{
-                ...style,
                 width: fullWidth ? "100%" : "auto",
                 display: "flex",
                 flexWrap: wrap ? "wrap" : "nowrap",
@@ -81,7 +80,9 @@ export const Row: React.FC<IProps> = (props) => {
                             : isEven(rest) ? "space-evenly"
                                 : isAround(rest) ? "space-around"
                                     : isBetween(rest) ? "space-between"
-                                        : "center"
+                                        : "center",
+
+                ...style,
             }}>
             {renderChildren()}
         </div>

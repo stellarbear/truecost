@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
-    const {current: {game}, store: {shop: {subs}}} = useStore();
+    const {current: {game}, subs} = useStore();
     const current = game!;
     const max = Math.max(...Object.values(subs).map(s => s.discount));
 

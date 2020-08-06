@@ -6,7 +6,7 @@ import {assert} from "../../../helpers/assert";
 import {wrap} from "mikro-orm";
 import {pbkdf2} from "../../../helpers/pbkdf2";
 import {redis} from "../../../redis";
-import {RoleType, validate, subscriptionVaildate} from "@truecost/shared";
+import {RoleType, validate, subscription} from "@truecost/shared";
 import {composeEmail} from "../../../mail/compose";
 import {verificationEmail} from "../../../mail/samples/verification";
 import {domain} from "../../../mail/helpers";
@@ -186,14 +186,12 @@ export class AccountResolver {
             return ;
         }
 
-        const {subscription} = user;
-
-        if (!subscriptionVaildate(user as any, subscription)) {
+        if (!subscription.validate(user as any)) {
             user.subscription = undefined;
             await this.userRepo.persistAndFlush(user);
             return ;
         }
 
-        return subscription
+        return user.subscription
     }
 }

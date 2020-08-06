@@ -4,6 +4,7 @@ import {InnerHeader} from 'pages/Navigation/InnerHeader';
 
 export const Admin = () => (
     <InnerHeader
+        scroll
         prefix="admin"
         routes={admin.routes}
         base={admin.routes[0].url}
