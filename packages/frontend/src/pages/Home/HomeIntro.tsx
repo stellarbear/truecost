@@ -10,14 +10,12 @@ interface IProps {
 }
 
 export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
-    const {current: {game}} = useStore();
+    const {current: {game}, store: {shop: {subs}}} = useStore();
     const current = game!;
+    const max = Math.max(...Object.values(subs).map(s => s.discount));
 
-    return (
-        <div style={style}>
-            <Typography variant="h4">{`${current.name} premium service`}</Typography>
-            <Typography variant="body1">boosting, coaching, carry</Typography>
-
+    const discount = () => (
+        <>
             <Typography
                 style={{marginTop: 32}}
                 variant="h4" component="p" color="inherit">Get your personal up&nbsp;to</Typography>
@@ -27,11 +25,19 @@ export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
                 style={{marginTop: 8}}
                 variant="contained"
                 color="secondary">
-                <Typography variant="h6" color="inherit">{`SOME % discount `}</Typography>
+                <Typography variant="h6" color="inherit">{`${max} % discount `}</Typography>
             </Button>
             <Typography
-                style={{marginTop: 32}}
+                style={{marginTop: 8}}
                 variant="body1" color="inherit">{`on everything`}</Typography>
+        </>
+    )
+
+    return (
+        <div style={style}>
+            <Typography variant="h4">{`${current.name} premium service`}</Typography>
+            <Typography variant="body1">boosting, coaching, carry</Typography>
+            {max > 0 && discount()}
             <IconButton
                 className="float"
                 style={{
@@ -39,7 +45,7 @@ export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
                     backgroundColor: "#fff"
                 }}
                 onClick={() => window.scrollBy({top: 400, behavior: "smooth"})}>
-                <ArrowDown/>
+                <ArrowDown />
             </IconButton>
         </div>
     )
