@@ -30,6 +30,7 @@ export class ItemCRUDResolver extends MetaResolver
             notEmpty: ["images", "price", "game"],
             unique: [],
             images: ["images"],
+            propagate: ["option", "tag"]
         },
         restrictPublic: false,
     },

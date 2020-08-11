@@ -1,11 +1,15 @@
 import {EntityManager, EntityRepository, MikroORM} from "mikro-orm";
 import {UserEntity} from "./modules/crud/user/user.entity";
 import {entities} from './modules';
+import {Dict} from "@truecost/shared";
+import {BaseEntity} from "./modules/crud/base/base.entity";
+import {OptionEntity} from "./modules/crud/option/option.entity";
+import {TagEntity} from "./modules/crud/tag/tag.entity";
 
 export const DI = {} as {
     orm: MikroORM;
     em: EntityManager;
-    userRepo: EntityRepository<UserEntity>;
+    map: Dict<typeof BaseEntity>
 };
 
 export const init = async () => {
@@ -21,5 +25,10 @@ export const init = async () => {
         //debug: true
     });
     DI.em = DI.orm.em;
-    DI.userRepo = await DI.em.getRepository(UserEntity);
+
+    DI.map = {
+        "option": OptionEntity,
+        "tag": TagEntity,
+        "user": UserEntity,
+    }
 };

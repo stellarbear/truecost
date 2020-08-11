@@ -33,6 +33,7 @@ interface ICRUDUpsert<V> {
     notEmpty?: Array<keyof V>;
     unique?: Array<keyof V>;
     images?: Array<keyof V>;
+    propagate?: Array<keyof V>;
 };
 
 interface ICRUDResolver<T, I, R, V> {
@@ -45,7 +46,7 @@ interface ICRUDResolver<T, I, R, V> {
     prefix?: string;
 }
 
-const merge = <T, U extends T>(src: { [K in keyof T]: T[K][] }, dst: { [K in keyof U]: U[K][] }) => {
+const merge = <T, U extends T>(src: {[K in keyof T]: T[K][]}, dst: {[K in keyof U]: U[K][]}) => {
     for (let key in src) {
         if (key in dst) {
             src[key].push(...(dst[key] || []));
@@ -70,6 +71,7 @@ export function BaseResolver<T extends typeof BaseEntity,
         notEmpty: ["active", "name"],
         unique: [],
         images: [],
+        propagate: []
     };
 
     return CRUDResolver<T, I, R, V>({
@@ -94,6 +96,7 @@ export function MetaResolver<T extends typeof BaseMetaEntity,
         notEmpty: ["url"],
         unique: ["url"],
         images: [],
+        propagate: []
     };
 
     return BaseResolver<T, I, R, V>({
@@ -106,25 +109,26 @@ export function MetaResolver<T extends typeof BaseMetaEntity,
 export function CRUDResolver<T extends typeof BaseEntity,
     I extends typeof BaseInput,
     R extends ClassType<unknown>,
-    V extends { id?: string }>(
-    {
-        inputRef,
-        classRef,
-        resultRef,
-        get: {
-            set = [],
-            like = [],
-            filter = [],
-            between = [],
-        },
-        upsert: {
-            notEmpty = [],
-            unique = [],
-            images = [],
-        },
-        restrictPublic = true,
-        prefix = classRef.name.replace('Entity', ""),
-    }: ICRUDResolver<T, I, R, V>): any {
+    V extends {id?: string}>(
+        {
+            inputRef,
+            classRef,
+            resultRef,
+            get: {
+                set = [],
+                like = [],
+                filter = [],
+                between = [],
+            },
+            upsert: {
+                notEmpty = [],
+                unique = [],
+                images = [],
+                propagate = []
+            },
+            restrictPublic = true,
+            prefix = classRef.name.replace('Entity', ""),
+        }: ICRUDResolver<T, I, R, V>): any {
 
     @Resolver(() => resultRef, {isAbstract: true})
     abstract class CRUDResolverClass {
@@ -169,7 +173,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
             const nonUniqueValues = await this.service.unique(input, unique as string[]);
             assert(nonUniqueValues.length === 0, "must be unique", nonUniqueValues);
 
-            const item = await this.service.upsert(input, images as string[]);
+            const item = await this.service.upsert(input, images as string[], propagate as string[]);
             return item;
         }
 

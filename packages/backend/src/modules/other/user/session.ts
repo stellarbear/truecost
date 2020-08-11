@@ -33,7 +33,7 @@ export class SessionResolver {
         @Arg("password") password: string,
     ) {
         assert(ctx.req.session, "session failure");
-        
+
         const user = await this.userRepo.findOne({email});
         assert(user, "user not found");
         assert(user.verified, "user not yet verified");
@@ -97,7 +97,7 @@ export class SessionResolver {
             return null;
         }
 
-        const user = await DI.userRepo.findOne({id: userId});
+        const user = await DI.em.findOne(DI.map.user, {id: userId});
 
         return user;
     }

@@ -182,7 +182,7 @@ export class BookingResolver {
             return email
         }
 
-        const user = await DI.userRepo.findOne({id: userId});
+        const user: any = await DI.em.findOne(DI.map.user,{id: userId});
         if (!user) {
             return email;
         }

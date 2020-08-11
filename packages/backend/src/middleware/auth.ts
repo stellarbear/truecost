@@ -14,7 +14,7 @@ const UseAuth: (roles?: RoleType[]) => MiddlewareFn<Context> =
         const userId = await redis.client.get(`session-${sid}`);
         assert(userId, "key not found");
 
-        const user = await DI.userRepo.findOne({id: userId});
+        const user: any = await DI.em.findOne(DI.map.user, {id: userId});
         assert(user, "user not found");
 
         if (!roles || roles.length === 0) {

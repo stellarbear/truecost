@@ -1,4 +1,4 @@
-import {EntityRepository, wrap} from "mikro-orm";
+import {EntityRepository, wrap, Collection} from "mikro-orm";
 import {assert} from "../../../helpers/assert";
 import {DI} from "../../../orm";
 import {UploadType} from "../../../scalars";
@@ -116,6 +116,7 @@ export abstract class BaseService<T> {
     async upsert(
         input: Record<string, any>,
         images: string[] = [],
+        relations: string[]
     ) {
         const item = await this.item(input.id);
         assert(item, "id not found");
@@ -123,10 +124,16 @@ export abstract class BaseService<T> {
         try {
             await this.upload(item, input, images);
 
-            console.log('input-----------------------------------', (input as any).item)
+            //  M:N propagation cheat
+            for (let relation of relations) {
+                if (relation in item && relation in input) {
+                    const relatives = await DI.em.find(DI.map[relation], {id: {$in: input[relation] || []}});
+                    ((item as any)[relation] as Collection<any>).set(relatives);
+                }
+            }
+
             wrap(item).assign(input, {em: DI.em});
-            console.log('wrapped-----------------------------------', (item as any).item)
-            
+
             await this.repository.persistAndFlush(item);
         } catch (e) {
             console.log(e)

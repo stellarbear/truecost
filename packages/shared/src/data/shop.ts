@@ -41,7 +41,7 @@ export interface IShopContext {
     subs: Dict<ISubscription>
 }
 
-const map = (src: any) => src.getIdentifiers ? src.getIdentifiers() : src.map((s: any) => s.id)
+const map = (src: any) => src.getIdentifiers ? src.getIdentifiers() : Array.isArray(src) ? src.map((s: any) => s?.id) : []
 
 export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], OptionAll: IOption[], SubscriptionAll: ISubscription[]) => {
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
@@ -166,6 +166,7 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
         let {game: {id: gameId}, id, active, url} = item;
 
         item.range = SafeJSON.parse(item.range, rangeBase)
+
         item.tag = map(item.tag)
         item.item = map(item.item)
         item.option = map(item.option)
