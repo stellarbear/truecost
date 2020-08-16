@@ -1,6 +1,7 @@
-import {domain, linkUri} from "../helpers";
+import {linkUri} from "../helpers";
 import {header} from "../header";
 import {footer} from "../footer";
+import {domain} from "../../helpers/route";
 
 export const accountEmail = (password:string) => {
     const logo = linkUri('/default/logo.png');
