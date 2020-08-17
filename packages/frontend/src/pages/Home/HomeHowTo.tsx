@@ -31,7 +31,7 @@ export const HomeHowTo: React.FC = () => {
     }];
     return (
         <Paper elevation={6}>
-            <RowSwipable s={16} p={16} w={250} arrows>
+            <RowSwipable id="how-to" s={16} p={16} w={250} arrows>
                 {data.map(({icon, text}, i) => (
                     <Col key={i}>
                         {icon}

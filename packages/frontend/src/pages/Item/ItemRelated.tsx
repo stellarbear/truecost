@@ -37,7 +37,7 @@ export const ItemRelated: React.FC<IProps> = (props) => {
     const [related] = useState<string[]>(getRelated(items.id))
 
     return (
-        <RowSwipable s={16} p={16} w={250} arrows>
+        <RowSwipable id="related-items" s={16} p={16} w={250} arrows>
             {related.map(id => <ItemCard key={id} id={id} />)}
         </RowSwipable>
     )

@@ -6,6 +6,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import {useRandState} from 'auxiliary/useRandState';
 
 interface IProps {
+    id: string
     w: number
     s?: number
     p?: number
@@ -23,6 +24,7 @@ const useStyles = makeStyles({
 
 export const RowSwipable: React.FC<IProps> = (props) => {
     const {
+        id,
         style = {},
         p = 0, s = 0, w,
         arrows = false,
@@ -30,7 +32,6 @@ export const RowSwipable: React.FC<IProps> = (props) => {
     } = props;
 
     const classes = useStyles();
-    const [id] = useRandState(16);
 
     return (
         <div style={{

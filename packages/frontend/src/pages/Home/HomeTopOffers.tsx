@@ -13,7 +13,7 @@ export const HomeTopOffers: React.FC = () => {
 
     return (
         <Paper elevation={6}>
-            <RowSwipable s={16} p={16} w={250} arrows>
+            <RowSwipable id="top-offers" s={16} p={16} w={250} arrows>
                 {top.map(id => <ItemCard key={id} id={id} />)}
             </RowSwipable>
         </Paper>
