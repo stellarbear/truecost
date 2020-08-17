@@ -91,6 +91,7 @@ const Shop: React.FC = () => {
             onChange={names =>
                 setState({
                     ...state,
+                    tags: [],
                     names
                 })
             }

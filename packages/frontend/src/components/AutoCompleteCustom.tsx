@@ -31,6 +31,7 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
     return (
         <Autocomplete
             multiple
+            openOnFocus={false}
             onChange={(_, value) => {
                 const newItem: IFilter = (Array.isArray(value) ? value[value.length - 1] : value);
 
