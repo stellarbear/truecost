@@ -39,7 +39,7 @@ export class SessionResolver {
         assert(user, "user not found");
         assert(user.verified, "user not yet verified");
         assert(user.active, "account disabled");
-        assert(user.salt, "you have to reset your password")
+        assert(user.salt, "you need to do a password recovery. Please, click the button below (forgot password) and follow the instructions")
 
         const verify = await pbkdf2.validate(user.password, password, user.salt);
         assert(verify, "invalid password");
