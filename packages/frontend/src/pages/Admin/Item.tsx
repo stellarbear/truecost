@@ -53,7 +53,7 @@ export const AdminItem: React.FC = () => {
         key: "eta",
         label: "eta (min.)",
         min: 1,
-        max: 1000,
+        max: 1000000,
     });
 
     const price = new CNumber({

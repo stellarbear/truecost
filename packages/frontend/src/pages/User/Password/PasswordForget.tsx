@@ -5,6 +5,7 @@ import {
     Container,
     TextField,
     Paper,
+    Typography,
 } from "@material-ui/core";
 import {useMutation} from "react-apollo";
 import React, {useCallback, useEffect} from "react";
@@ -67,6 +68,7 @@ export const PasswordForget: React.FC = () => {
                 <Paper>
                     <Col fullWidth p={16}>
                         <Col fullWidth>
+                            <Typography variant="caption">Reset link will be sent to your email</Typography>
                             <TextField
                                 fullWidth
                                 inputRef={register({

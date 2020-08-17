@@ -32,7 +32,10 @@ export const ArraySlice: React.FC<IProps> = (props) => {
             disableUnderline
             renderValue={val => `${val} items`}
             MenuProps={{disableScrollLock: true}}
-            onChange={(event) => setCount(event.target.value as number || 6)}
+            onChange={(event) => {
+                setCount(event.target.value as number || chunk)
+                setPage(1);
+            }}
         >
             {sequence(limit, (i) => (i + 1) * chunk).map((num) =>
                 <MenuItem key={num}
