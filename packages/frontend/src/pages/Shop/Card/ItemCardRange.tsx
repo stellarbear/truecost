@@ -17,7 +17,7 @@ export const ItemCardRange: React.FC<IProps> = (props) => {
     const itemId = item.id;
 
     const {update: {cart}} = useStore();
-    const noLimit = cart.limit({itemId: item.id}) < item.limit;
+    const noLimit = cart.count({itemId: item.id}) < (item.limit || Infinity);
 
     return (
         <ButtonBase component={Link} to={redirect} style={{height: "100%"}}>

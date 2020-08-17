@@ -35,8 +35,8 @@ export interface IDataContext {
         cart: {
             upsert(data: ICartUpsert): void,
             remove(data: ICartRemove): void,
-            limit(data: ICartRemove): number,
-            count(): number
+            count(data: ICartRemove): number,
+            total(): number
             wipe(): void
         }
     }
@@ -97,8 +97,8 @@ const Data: React.FC = ({children}) => {
                 cart: {
                     upsert: (data) => itemUpsert(game.id, data),
                     remove: (data) => itemRemove(game.id, data),
-                    limit: (data) => itemCount(game.id, data),
-                    count: () => cartCount(game.id),
+                    count: (data) => itemCount(game.id, data),
+                    total: () => cartCount(game.id),
                     wipe: () => cartWipe(game.id),
                 }
             },

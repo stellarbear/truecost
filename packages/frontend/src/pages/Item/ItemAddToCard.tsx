@@ -24,7 +24,7 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
     const {notify} = useNotification()
     const {update: {cart}} = useStore();
 
-    const noLimit = cart.limit({itemId: item.id}) < item.limit;
+    const noLimit = cart.count({itemId: item.id}) < (item.limit || Infinity);
 
     return (
         <Button

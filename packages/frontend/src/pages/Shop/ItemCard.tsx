@@ -46,7 +46,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     const [raised, setRaised] = React.useState(false);
     const [hovered, setHovered] = React.useState(false);
 
-    const inYourCart = cart.limit({itemId: item.id}) > 0;
+    const inYourCart = cart.count({itemId: item.id}) > 0;
 
     const overlay = () => (
         <div

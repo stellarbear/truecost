@@ -36,7 +36,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
     const totalPrice = price.withOption(selectedOptions.map(id => options.local.id[id]));
     const itemOptions = shop().getOptions(item.id);
 
-    const noLimit = cart.limit({itemId: item.id}) < item.limit;
+    const noLimit = cart.count({itemId: item.id}) < (item.limit || Infinity);
     //
     return (
         <div style={{display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between"}}>
