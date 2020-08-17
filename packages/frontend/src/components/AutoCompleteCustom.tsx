@@ -53,8 +53,9 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
 
                 return filtered;
             }}
-            getOptionSelected={(v) => optionsOverride.some(o => o.id === v.id)}
-            value={valuesOverride}options={optionsOverride}
+            getOptionSelected={(v) => valuesOverride.some(o => o.id === v.id)}
+            value={valuesOverride}
+            options={optionsOverride}
             getOptionLabel={({id: itemId, custom}) => !custom ? getLabel(itemId) : itemId}
             renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined" />}
         />
