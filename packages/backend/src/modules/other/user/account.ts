@@ -9,10 +9,10 @@ import {redis} from "../../../redis";
 import {RoleType, validate, subscription} from "@truecost/shared";
 import {composeEmail} from "../../../mail/compose";
 import {verificationEmail} from "../../../mail/samples/verification";
-import {domain} from "../../../mail/helpers";
 import {forgetEmail} from "../../../mail/samples/forget";
 import {Context} from "../../../server";
 import {SubscriptionEntity} from "../../crud/subscription/subscription.entity";
+import {domain} from "../../../helpers/route";
 
 @Resolver(() => UserEntity)
 export class AccountResolver {

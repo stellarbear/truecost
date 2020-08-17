@@ -1,5 +1,5 @@
 export const getRoutes = (environment = 'development') => {
-    const domain = 'truecostd2.store';
+    const domain = 'truecost.gg';
     const endpoint = "graphql";
     const clientPort = 8000;
     const serverPort = 7000;
