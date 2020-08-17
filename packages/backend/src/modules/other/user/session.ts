@@ -32,6 +32,7 @@ export class SessionResolver {
         @Arg("email") email: string,
         @Arg("password") password: string,
     ) {
+        email = email.toLocaleLowerCase().trim();
         assert(ctx.req.session, "session failure");
 
         const user = await this.userRepo.findOne({email});

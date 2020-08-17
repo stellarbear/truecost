@@ -24,6 +24,7 @@ export class AccountResolver {
         @Arg("password") password: string,
         @Arg("name", {nullable: true}) name?: string,
     ) {
+        email = email.toLocaleLowerCase().trim();
         const username = (name || email).trim();
         assert(!["root", "mod", "admin", "truecost"].some(s => username.includes(s)), "bad name", ["name"]);
         const count = await this.userRepo.count({name: username})
@@ -92,6 +93,7 @@ export class AccountResolver {
     async PasswordForget(
         @Arg("email") email: string,
     ) {
+        email = email.toLocaleLowerCase().trim();
         const user = await this.userRepo.findOne({email});
         assert(user, "user not found");
 
@@ -181,6 +183,7 @@ export class AccountResolver {
     async UserGetSubscription(
         @Arg("email") email: string,
     ) {
+        email = email.toLocaleLowerCase().trim();
         const user = await this.userRepo.findOne({email}, {populate: true});
         if (!user || !user.subscription) {
             return ;
