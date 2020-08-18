@@ -38,7 +38,6 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         return null;
     }
 
-    const itemId = id;
     const item = items.id[id];
     const price = Price.fromItem(item);
     const redirect = `/${url}/item/${item.url}`;
@@ -66,16 +65,30 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         </div>
     );
 
-    const chip = () => (
-        <Col left m={4} s={4}
-            style={{position: "absolute", top: 0, left: 0}}>
-            {item.tag.map((tagId) => tagId in tags.id && (
-                <Chip
-                    key={tagId}
-                    label={tags.id[tagId].name}
-                    color="primary" size="small" />
-            ))}
-        </Col>
+    const chip = () => {
+        const filtered = item.tag.filter(t => t in tags.id);
+
+        return (
+            <Col left m={4} s={4}
+                style={{position: "absolute", top: 0, left: 0}}>
+                {filtered.length > 0 && (
+                    <Chip
+                        key={filtered[0]}
+                        label={tags.id[filtered[0]].name}
+                        color="primary" size="small" />
+                )}
+            </Col>
+        )
+    }
+
+    const eta = () => (
+        <Row p={8} s={8} style={{
+            position: "absolute", top: 0, right: 0,
+        }}>
+            {inYourCart && (
+                <CheckCircle color="primary" />
+            )}
+        </Row>
     )
 
     const card = () => {
@@ -85,6 +98,7 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
                 <Col fullWidth>
                     {chip()}
+                    {eta()}
                     <SafeImage src={image} style={{objectFit: "contain", width: "inherit"}} />
 
                     <Divider />
