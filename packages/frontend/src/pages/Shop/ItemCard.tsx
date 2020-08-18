@@ -96,11 +96,11 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         return (
             <ButtonBase component={Link} to={redirect}
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%", width: "100%"}}>
-                <Col fullWidth style={{width: "100%", minHeight: 300}}>
+                <Col fullWidth style={{width: "100%"}}>
                     {chip()}
                     {eta()}
                     <SafeImage
-
+                        height={300}
                         src={image} style={{objectFit: "contain", width: "inherit"}} />
 
                     <Divider />

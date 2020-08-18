@@ -7,9 +7,10 @@ import {Skeleton} from '@material-ui/lab';
 
 interface IProps extends React.ImgHTMLAttributes<any> {
     src: string
+    height?: number
 }
 
-export const SafeImage: React.FC<IProps> = ({src, style, ...rest}) => {
+export const SafeImage: React.FC<IProps> = ({src, style, height, ...rest}) => {
     const {current: {game}} = useStore();
     const fallback = game.id === "truecost" ? `${frontend.uri}/default/assistant.png`
         : `${backend.uri}/${game.id}/${game.assistant}/u.png`;
@@ -23,8 +24,9 @@ export const SafeImage: React.FC<IProps> = ({src, style, ...rest}) => {
 
     return (
         <LazyLoad
+            height={height}
             once debounce
-            placeholder={<Skeleton variant="rect" width={"100%"} height={300} />}
+            placeholder={<Skeleton variant="rect" width={"100%"} height={height} />}
         >
             <img
                 src={error ? fallback : src}
