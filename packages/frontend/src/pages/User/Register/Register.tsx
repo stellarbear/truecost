@@ -18,6 +18,7 @@ import {theme} from "theme";
 import {Col} from "pages/Base/Grid";
 import {parseApolloError} from "auxiliary/error";
 import {useLoading} from "components/wrappers/LoadingWrapper";
+import {PasswordField} from "components/PasswordField";
 
 
 const registerMutation = gql`
@@ -94,7 +95,7 @@ export const Register: React.FC = () => {
                                 helperText={errors.email?.message || " "}
                                 variant="filled"
                             />
-                            <TextField
+                            <PasswordField
                                 fullWidth
                                 inputRef={register({
                                     required: "This field is required",

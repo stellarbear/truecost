@@ -5,13 +5,9 @@ import {
     Container,
     TextField,
     Paper,
-    InputAdornment,
-    IconButton,
 } from "@material-ui/core";
 import {useMutation} from "react-apollo";
 import React, {useCallback, useEffect, useState} from "react";
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import gql from "graphql-tag";
 import {Link} from "react-router-dom";
@@ -24,6 +20,7 @@ import {Col, Row} from "pages/Base/Grid";
 import {parseApolloError} from "auxiliary/error";
 import {useStore} from "pages/Data/Wrapper";
 import {useLoading} from "components/wrappers/LoadingWrapper";
+import {PasswordField} from "components/PasswordField";
 
 
 const LOGIN = gql`
@@ -52,7 +49,6 @@ export const Login: React.FC = () => {
     const history = useHistory();
     const {setLoading} = useLoading();
     const {update: {setUser}} = useStore();
-    const [showPass, setShowPass] = useState(false);
     const [loginMutation, {data, error, loading}] = useMutation(LOGIN);
 
     const {register, handleSubmit, errors, clearErrors} = useForm<LogInSubmit>({reValidateMode: "onBlur"});
@@ -98,7 +94,7 @@ export const Login: React.FC = () => {
                                 helperText={errors.email?.message || " "}
                                 variant="filled"
                             />
-                            <TextField
+                            <PasswordField
                                 fullWidth
                                 inputRef={register({
                                     required: "This field is required",
@@ -107,21 +103,11 @@ export const Login: React.FC = () => {
                                         message: "At least 3 chars",
                                     },
                                 })}
-                                type={showPass ? "default" : "password"}
                                 name={"password"}
                                 label="Password *"
                                 error={!!errors.password?.message}
                                 helperText={errors.password?.message || " "}
                                 variant="filled"
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton onClick={() => setShowPass(!showPass)}>
-                                                {showPass ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
                             />
                             <Button fullWidth variant="contained" type="submit">
                                 {loading ? <CircularProgress size={24} /> : "LOGIN"}

@@ -7,19 +7,19 @@ import {ISubscription} from "@truecost/shared"
 @Entity()
 @ObjectType()
 export class SubscriptionEntity extends BaseEntity implements ISubscription {
-    @Field(() => Int)
+    @Field(() => Int, {nullable: true})
     @Property()
     days: number = 0;
 
-    @Field(() => Int)
+    @Field(() => Int, {nullable: true})
     @Property()
     discount: number = 0;
 
-    @Field(() => Int)
+    @Field(() => Int, {nullable: true})
     @Property()
     price: number = 0;
 
-    @Field()
+    @Field({nullable: true})
     @Property()
     description: string = "";
 }
