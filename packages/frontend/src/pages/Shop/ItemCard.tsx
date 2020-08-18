@@ -95,11 +95,13 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         const image = `${backend.uri}/${item.id}/${item.images[0]}/u.png`;
         return (
             <ButtonBase component={Link} to={redirect}
-                style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
-                <Col fullWidth>
+                style={{backgroundColor: 'transparent', padding: 0, height: "100%", width: "100%"}}>
+                <Col fullWidth style={{width: "100%", minHeight: 300}}>
                     {chip()}
                     {eta()}
-                    <SafeImage src={image} style={{objectFit: "contain", width: "inherit"}} />
+                    <SafeImage
+
+                        src={image} style={{objectFit: "contain", width: "inherit"}} />
 
                     <Divider />
                     <Row between p={8} s={8} width={["100%", "auto"]} style={{height: 60}}>

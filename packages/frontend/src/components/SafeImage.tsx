@@ -3,6 +3,7 @@ import {useStore} from 'pages/Data/Wrapper';
 import {useState} from 'react';
 import LazyLoad from 'react-lazyload';
 import {frontend, backend} from 'auxiliary/route';
+import {Skeleton} from '@material-ui/lab';
 
 interface IProps extends React.ImgHTMLAttributes<any> {
     src: string
@@ -21,12 +22,15 @@ export const SafeImage: React.FC<IProps> = ({src, style, ...rest}) => {
     }
 
     return (
-        <LazyLoad>
+        <LazyLoad
+            once debounce
+            placeholder={<Skeleton variant="rect" width={"100%"} height={300} />}
+        >
             <img
                 src={error ? fallback : src}
                 style={{
                     display: "block",
-                    ...style, 
+                    ...style,
                 }}
                 {...rest}
                 onError={error
