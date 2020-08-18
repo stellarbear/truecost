@@ -3,7 +3,7 @@ import {Price} from '@truecost/shared'
 import {Typography} from '@material-ui/core';
 import {useStore} from 'pages/Data/Wrapper';
 import {PriceTypography} from 'pages/Base/PriceTypography';
-import {Row} from 'pages/Base/Grid';
+import {Row, Col} from 'pages/Base/Grid';
 
 interface IProps {
     total: Price
@@ -22,12 +22,15 @@ export const ItemTotal: React.FC<IProps> = ({total}) => {
     const discount = Object.keys(cartItems.local).reduce((acc, cur) => acc + items[cur].discount, 0);
 
     return (
-        <Row end s={16}>
-            <Typography>subtotal:</Typography>
-            <PriceTypography
-                price={subtotal.toValue}
-                discount={discount}
-            />
-        </Row>
+        <>
+            <Typography variant="caption">Price with final discount at step #3</Typography>
+            <Row end s={16}>
+                <Typography>subtotal:</Typography>
+                <PriceTypography
+                    price={subtotal.toValue}
+                    discount={discount}
+                />
+            </Row>
+        </>
     )
 }

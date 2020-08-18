@@ -96,8 +96,8 @@ const createUser = async (repo: EntityRepository<UserEntity>, email: string) => 
     const {hash, salt} = await pbkdf2.generate(password);
 
     wrap(user).assign({
-        role: RoleType.ANON,
-        verified: false,
+        role: RoleType.USER,
+        verified: true,
         password: hash,
         active: true,
         email,
