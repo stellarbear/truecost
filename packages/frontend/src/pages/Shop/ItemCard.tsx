@@ -66,20 +66,6 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
         </div>
     );
 
-    const eta = () => (
-        <Row p={8} s={8} style={{
-            position: "absolute", top: 0, right: 0,
-            background: "linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(255,255,255,0.5) 25%, rgba(255,255,255,0.5) 100%)"
-        }}>
-            <Typography variant="body2">
-                {(item.range.d.length > 0 ? "eta from: " : "eta: ") + Time.fromItem(item).toString}
-            </Typography>
-            {inYourCart && (
-                <CheckCircle color="primary" />
-            )}
-        </Row>
-    )
-
     const chip = () => (
         <Col left m={4} s={4}
             style={{position: "absolute", top: 0, left: 0}}>
@@ -98,7 +84,6 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
             <ButtonBase component={Link} to={redirect}
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%"}}>
                 <Col fullWidth>
-                    {eta()}
                     {chip()}
                     <SafeImage src={image} style={{objectFit: "contain", width: "inherit"}} />
 

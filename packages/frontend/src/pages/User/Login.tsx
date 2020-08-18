@@ -29,10 +29,14 @@ import {useLoading} from "components/wrappers/LoadingWrapper";
 const LOGIN = gql`
     mutation UserLogin($email: String!, $password: String!) {
         UserLogin(email:$email, password:$password) {
+            id
             name
+
             role
             email
-            id
+
+            subscription { id discount days }
+            subscribeDate
         }
     }
 `;
