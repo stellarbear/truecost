@@ -7,6 +7,7 @@ export const orderEmail = (code: string, data: Record<string, string>) => {
     const logo = linkUri('/default/logo.png');
     const assistant = linkUri('/default/assistant.png');
     const trackUrl = `${domain}/track`;
+    console.log(data);
 
     return `
     <mjml>
@@ -23,9 +24,12 @@ export const orderEmail = (code: string, data: Record<string, string>) => {
                     <mj-text color="#637381" font-size="35px" padding-top="20px">
                     <strong>${code}</strong>
                     </mj-text>
-                    <ul>
-                    ${Object.keys(data).map(key => `<li style="padding-bottom: 20px"><strong>${key}:</strong> ${data[key]}`)}
-                    </ul>
+                    <mj-text color="#637381" font-size="16px">
+                        <ul>
+                            ${Object.keys(data).map(key =>
+                                `<li style="padding-bottom: 20px"><strong>${key}:</strong> ${data[key]}`)}
+                        </ul>
+                    </mj-text>
                 </mj-column>
             </mj-section>
             <mj-wrapper padding-top="0" padding-bottom="0" css-class="body-section">

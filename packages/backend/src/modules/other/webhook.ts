@@ -74,14 +74,15 @@ export const createOrder = async (response: Record<string, any>) => {
     }
 
     try {
+        console.log('sending order receipt')
         await composeEmail({
             to: email,
             template: orderEmail(code, {
                 ["game"]: currentGame.name,
                 ["total"]: amount_total + " $",
             }),
-            subject: 'New account',
-            text: `New account for ${domain}`
+            subject: 'Order receipt',
+            text: `Order receipt for ${domain}`
         })
     } catch (e) {
         console.log(e);
@@ -108,6 +109,7 @@ const createUser = async (repo: EntityRepository<UserEntity>, email: string) => 
     await repo.persistAndFlush(user);
 
     try {
+        console.log('sending account info')
         await composeEmail({
             to: email,
             template: accountEmail(password),
