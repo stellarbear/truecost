@@ -27,7 +27,7 @@ export const orderEmail = (code: string, data: Record<string, string>) => {
                     <mj-text color="#637381" font-size="16px">
                         <ul>
                             ${Object.keys(data).map(key =>
-                                `<li style="padding-bottom: 20px"><strong>${key}:</strong> ${data[key]}`)}
+                                `<li style="padding-bottom: 8px"><strong>${key}:</strong> ${data[key]}`)}
                         </ul>
                     </mj-text>
                 </mj-column>

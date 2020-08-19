@@ -24,7 +24,7 @@ export const accountEmail = (password:string) => {
                     <mj-text color="#212b35" font-weight="bold" font-size="20px">
                     Account password
                     </mj-text>
-                    <mj-text color="#637381" font-size="50px" padding-top="20px">
+                    <mj-text color="#637381" font-size="35px" padding-top="20px">
                     <strong>${password}</strong>
                     </mj-text>
                 </mj-column>

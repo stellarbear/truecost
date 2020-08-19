@@ -18,7 +18,8 @@ export const CheckoutSuccess: React.FC = () => {
                 "The purchase was successful!",
                 "Further instructions are sent to your email.",
                 " ",
-                "Note: do not forget to check SPAM folder"
+                "Note: do not forget to check SPAM folder",
+                "Note 2: if you are a new user, we have sent password to your email",
             ]} actions={[
                 <Button variant="outlined" component={Link} to={url + '/shop'}>To the shop!</Button>,
             ]} />

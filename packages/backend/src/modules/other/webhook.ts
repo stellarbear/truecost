@@ -78,8 +78,9 @@ export const createOrder = async (response: Record<string, any>) => {
         await composeEmail({
             to: email,
             template: orderEmail(code, {
-                ["game"]: currentGame.name,
-                ["total"]: amount_total + " $",
+                game: currentGame.name,
+                total: Math.round(amount_total / 100) + " $",
+                pi: payment_intent,
             }),
             subject: 'Order receipt',
             text: `Order receipt for ${domain}`
