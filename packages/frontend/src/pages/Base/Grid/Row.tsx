@@ -28,7 +28,7 @@ interface IEven extends IBase {
 interface IAround extends IBase {
     around: boolean;
 }
-
+ 
 interface IBetween extends IBase {
     between: boolean;
 }

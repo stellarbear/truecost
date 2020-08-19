@@ -98,7 +98,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                         quantity: 1
                     })
 
-                    notify(`${name} was added to your cart!`);
+                    notify(`${item.name} was added to your cart!`);
                 } : undefined}
             >
                 <Row between fullWidth>
