@@ -63,25 +63,16 @@ export const createOrder = async (response: Record<string, any>) => {
 
     await bookRepo.persistAndFlush(currentBooking);
 
-    const orderData = data.reduce((acc: Dict<string>, {name, quantity, amount}: any) => ({
-        ...acc,
-        [name]: `${amount / 100} $ x ${quantity}`,
-    }), {});
-    console.log(orderData);
-
     //  apply subscription if bought
     if (subscription) {
         const subEntity = await subsRepo.findOne({id: subscription});
         if (subEntity) {
             currentUser.subscription = subEntity;
             currentUser.subscribeDate = new Date();
-
-            orderData.subscription = subEntity.name + " " + subEntity.price + " $"
         }
 
         await userRepo.persistAndFlush(currentUser);
     }
-    console.log(orderData);
 
     try {
         console.log('sending order receipt')
@@ -89,9 +80,12 @@ export const createOrder = async (response: Record<string, any>) => {
             to: email,
             template: orderEmail(code, {
                 game: currentGame.name,
-                total: Math.round(amount_total / 100) + " $",
                 pi: payment_intent,
-                ...orderData
+                ...data.reduce((acc: Dict<string>, {name, quantity, amount}: any) => ({
+                    ...acc,
+                    [name]: `${amount / 100} $ x ${quantity}`,
+                }), {}),
+                total: Math.round(amount_total / 100) + " $",
             }),
             subject: 'Order receipt',
             text: `Order receipt for ${domain}`
