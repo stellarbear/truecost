@@ -6,7 +6,7 @@ import {assert} from "../../helpers/assert";
 import {UserEntity} from "../crud/user/user.entity";
 import {pbkdf2} from "../../helpers/pbkdf2";
 import {wrap, EntityRepository} from "mikro-orm";
-import {RoleType, StatusType} from "@truecost/shared";
+import {RoleType, StatusType, Dict} from "@truecost/shared";
 import {TagEntity} from "../crud/tag/tag.entity";
 import {composeEmail} from "../../mail/compose";
 import {accountEmail} from "../../mail/samples/account";
@@ -81,6 +81,10 @@ export const createOrder = async (response: Record<string, any>) => {
                 game: currentGame.name,
                 total: Math.round(amount_total / 100) + " $",
                 pi: payment_intent,
+                ...display_items.reduce((acc: Dict<string>, {name, quantity, amount}: any) => ({
+                    ...acc,
+                    [name]: `${amount / 100} $ x ${quantity}`,
+                }), {})
             }),
             subject: 'Order receipt',
             text: `Order receipt for ${domain}`
