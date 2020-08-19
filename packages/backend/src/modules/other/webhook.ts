@@ -81,7 +81,7 @@ export const createOrder = async (response: Record<string, any>) => {
                 game: currentGame.name,
                 total: Math.round(amount_total / 100) + " $",
                 pi: payment_intent,
-                ...display_items.reduce((acc: Dict<string>, {name, quantity, amount}: any) => ({
+                ...data.reduce((acc: Dict<string>, {name, quantity, amount}: any) => ({
                     ...acc,
                     [name]: `${amount / 100} $ x ${quantity}`,
                 }), {})
