@@ -160,9 +160,10 @@ export class BookingResolver {
         }
 
         slack([
-            " [purchuase attempt] ",
+            "... [purchuase attempt] ...",
+            email,
             ...line_items.map(({name, quantity, amount}, index) =>
-                `${index}• ${name} x ${quantity}\n  price: ${amount / 100} $\n`)
+                `• ${name} x ${quantity}\n  price: ${amount / 100} $`)
         ])
 
         const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-03-02'});

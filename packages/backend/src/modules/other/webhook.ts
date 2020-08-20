@@ -81,7 +81,7 @@ export const createOrder = async (response: Record<string, any>) => {
         email,
         `total: ${amount_total / 100} $`,
         ...data.map(({name, quantity, amount}: any, index: number) =>
-            `${index}• ${name} x ${quantity}\n  price: ${amount / 100} $\n`)
+            `• ${name} x ${quantity}\n  price: ${amount / 100} $`)
     ])
 
     try {
@@ -90,7 +90,7 @@ export const createOrder = async (response: Record<string, any>) => {
             to: email,
             template: orderEmail(code, {
                 game: currentGame.name,
-                pi: payment_intent,
+                //pi: payment_intent,
                 ...data.reduce((acc: Dict<string>, {name, quantity, amount}: any) => ({
                     ...acc,
                     [name]: `${amount / 100} $ x ${quantity}`,

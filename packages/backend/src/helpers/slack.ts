@@ -10,7 +10,7 @@ export const slack = (input: string | string[]) => {
         for (let {a, b, c} of chats) {
             const slackUrl = `https://hooks.slack.com/services/${a}/${b}/${c}`
             const pretext = Array.isArray(input) ? input : [input];
-            const text = pretext.join("/n")
+            const text = pretext.join("\n")
 
             request.post(
                 {
