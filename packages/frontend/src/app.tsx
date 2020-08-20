@@ -26,12 +26,14 @@ import {CheckoutSuccess} from "pages/Checkout/CheckoutSuccess";
 import {Track} from "pages/Track";
 import {Account} from "pages/Account";
 import {useScript} from "auxiliary/useScript";
-import {tawk} from "scripts";
+import {tawk, yandex, google} from "scripts";
 import {BackToTop} from "components/BackToTop";
 
 
 const App = () => {
     useScript(tawk);
+    useScript(yandex);
+    useScript(google);
 
     return (
         <LoadingWrapper>
