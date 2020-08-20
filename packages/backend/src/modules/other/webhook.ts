@@ -13,6 +13,7 @@ import {accountEmail} from "../../mail/samples/account";
 import {domain} from "../../helpers/route";
 import {orderEmail} from "../../mail/samples/order";
 import {SubscriptionEntity} from "../crud/subscription/subscription.entity";
+import {slack} from "../../helpers/slack";
 
 export const createOrder = async (response: Record<string, any>) => {
     const {
@@ -73,6 +74,15 @@ export const createOrder = async (response: Record<string, any>) => {
 
         await userRepo.persistAndFlush(currentUser);
     }
+
+
+    slack([
+        "<<< [PURCHUASE SUCCESS] >>>",
+        email,
+        `total: ${amount_total / 100} $`,
+        ...data.map(({name, quantity, amount}: any, index: number) =>
+            `${index}• ${name} x ${quantity}\n  price: ${amount / 100} $\n`)
+    ])
 
     try {
         console.log('sending order receipt')

@@ -15,6 +15,7 @@ import {assert} from "../../helpers/assert";
 import {BookingEntity} from "../crud/booking/booking.entity";
 import {UseAuth} from "../../middleware/auth";
 import {SubscriptionEntity} from "../crud/subscription/subscription.entity";
+import {slack} from "../../helpers/slack";
 
 
 
@@ -158,6 +159,12 @@ export class BookingResolver {
             }
         }
 
+        slack([
+            " [purchuase attempt] ",
+            ...line_items.map(({name, quantity, amount}, index) =>
+                `${index}• ${name} x ${quantity}\n  price: ${amount / 100} $\n`)
+        ])
+
         const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-03-02'});
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
@@ -182,7 +189,7 @@ export class BookingResolver {
             return email
         }
 
-        const user: any = await DI.em.findOne(DI.map.user,{id: userId});
+        const user: any = await DI.em.findOne(DI.map.user, {id: userId});
         if (!user) {
             return email;
         }

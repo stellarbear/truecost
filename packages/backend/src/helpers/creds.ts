@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-type Creds = "email" | "stripe";
+type Creds = "email" | "stripe" | "slack";
 export const creds = (path: Creds): Record<string, any> => {
     let result = {};
     try {
