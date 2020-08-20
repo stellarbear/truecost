@@ -37,6 +37,7 @@ export const Html: React.FC<IProps> = ({assets, css, content, state}) => (
             <script dangerouslySetInnerHTML={{
                 __html: `window.apolloState=${JSON.stringify(state).replace(/</g, '\\u003c')};`,
             }} />
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160874000-1"></script>
         </body>
     </html>
 );
