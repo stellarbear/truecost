@@ -13,7 +13,7 @@ interface IProps {
 
 
 export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, current}) => {
-    const {current: {discount}, subs} = useStore();
+    const {subs} = useStore();
     const [hovered, setHovered] = useState<string>("")
 
     const subsSorted = dictSort(subs);

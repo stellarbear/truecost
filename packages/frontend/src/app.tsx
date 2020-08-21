@@ -11,6 +11,7 @@ import Contact from "pages/Contact";
 import {DataContext, DataWrapper} from "pages/Data/Wrapper";
 import Shop from "pages/Shop/Shop";
 import {Login} from "pages/User";
+import {Discount} from "pages/Discount";
 import {Item} from "pages/Item/Item";
 import {LoadingWrapper} from "components/wrappers/LoadingWrapper";
 import {Register} from "pages/User/Register/Register";
@@ -50,7 +51,7 @@ const App = () => {
 
                                         <Route exact path={urls.map(u => '/' + u)} component={Home} />
                                         <Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
-                                        <Route exact path={urls.map(u => '/' + u + '/checkout')} component={Checkout} />
+                                        <Route exact path={urls.map(u => '/' + u + '/checkout/:step?')} component={Checkout} />
                                         <Route exact path={urls.map(u => '/' + u + '/checkout/success')} component={CheckoutSuccess} />
                                         <Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
@@ -72,6 +73,7 @@ const App = () => {
                                             unauthorized />
 
                                         <Route exact path={`/track`} component={Track} />
+                                        <Route exact path={`/discount`} component={Discount} />
                                         <Route exact path={`/contact`} component={Contact} />
                                         <Route exact path={`/policy`} component={Policy} />
                                         <Route exact path={`/about`} component={About} />
