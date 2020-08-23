@@ -72,17 +72,18 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
                 const options = this.options.local;
 
                 const result = [];
-                options.exclude.forEach(optionId => {
-                    if (!item.option.includes(optionId)) {
-                        result.push(optionId);
-                    }
-                })
 
                 for (let optionId of item.option) {
                     if (options.include.has(optionId)) {
                         result.push(optionId);
                     }
                 }
+                
+                options.exclude.forEach(optionId => {
+                    if (!item.option.includes(optionId)) {
+                        result.push(optionId);
+                    }
+                })
 
                 return result;
             },

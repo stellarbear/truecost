@@ -77,11 +77,11 @@ export const createOrder = async (response: Record<string, any>) => {
 
 
     slack([
-        "<<< [PURCHUASE SUCCESS] >>>",
+        " ʕノ•ᴥ•ʔノ [PURCHUASE SUCCESS]  \\(•ᴥ• \\)́",
         email,
         `total: ${amount_total / 100} $`,
-        ...data.map(({name, quantity, amount}: any, index: number) =>
-            `• ${name} x ${quantity}\n  price: ${amount / 100} $`)
+        ...data.map(({name, quantity, description, amount}: any) =>
+            `• ${name} x ${quantity}\n  price: ${amount / 100} $\n info: ${description}`)
     ])
 
     try {
@@ -91,9 +91,9 @@ export const createOrder = async (response: Record<string, any>) => {
             template: orderEmail(code, {
                 game: currentGame.name,
                 //pi: payment_intent,
-                ...data.reduce((acc: Dict<string>, {name, quantity, amount}: any) => ({
+                ...data.reduce((acc: Dict<string>, {name, quantity, description, amount}: any) => ({
                     ...acc,
-                    [name]: `${amount / 100} $ x ${quantity}`,
+                    [`${name} (${description})`]: `${amount / 100} $ x ${quantity}`,
                 }), {}),
                 total: Math.round(amount_total / 100) + " $",
             }),
@@ -109,7 +109,6 @@ const createUser = async (repo: EntityRepository<UserEntity>, email: string) => 
     const user = repo.create({});
 
     const password = generateString({length: 8});
-    //TODO: send password
     const {hash, salt} = await pbkdf2.generate(password);
 
     wrap(user).assign({

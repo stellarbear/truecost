@@ -33,34 +33,34 @@ export const Checkout: React.FC = () => {
         setInfo({...info, [key]: value})
     }
 
-    const panels = () =>  (
-            <Col fullWidth s={16}>
-                <React.Fragment>
-                    <div style={{display: activeStep !== 0 ? "none" : "block"}}>
-                        <OrderInfo />
-                    </div>
-                    <div style={{display: activeStep !== 1 ? "none" : "block"}}>
-                        <AuxInfo value={info} setValue={(k: string, v: any) => updateInfo(k, v)} />
-                    </div>
-                    <div style={{display: activeStep !== 2 ? "none" : "block"}}>
-                        <EmalInfo meta={info} />
-                    </div>
-                </React.Fragment>
-                {activeStep < 2 && (
-                    <Row end s={8}>
-                        <Button
-                            disabled={activeStep === 0}
-                            onClick={() => setActiveStep(activeStep - 1)} >
-                            Back
+    const panels = () => (
+        <Col fullWidth s={16}>
+            <React.Fragment>
+                <div style={{display: activeStep !== 0 ? "none" : "block"}}>
+                    <OrderInfo />
+                </div>
+                <div style={{display: activeStep !== 1 ? "none" : "block"}}>
+                    <AuxInfo value={info} setValue={(k: string, v: any) => updateInfo(k, v)} />
+                </div>
+                <div style={{display: activeStep !== 2 ? "none" : "block"}}>
+                    <EmalInfo meta={info} />
+                </div>
+            </React.Fragment>
+            {activeStep < 2 && (
+                <Row end s={8}>
+                    <Button
+                        disabled={activeStep === 0}
+                        onClick={() => setActiveStep(activeStep - 1)} >
+                        Back
                     </Button>
-                        <Button variant="contained" color="primary"
-                            onClick={() => setActiveStep(activeStep + 1)}>
-                            Next
+                    <Button variant="contained" color="primary"
+                        onClick={() => setActiveStep(activeStep + 1)}>
+                        Next
                     </Button>
-                    </Row>
-                )}
-            </Col>
-        )
+                </Row>
+            )}
+        </Col>
+    )
 
     const stepper = () => (
         <Stepper
@@ -80,15 +80,11 @@ export const Checkout: React.FC = () => {
         </Stepper>
     )
 
-    return (
-        Object.keys(cartItems).length === 0
-            ? <CheckoutEmpty />
-            : (<Container maxWidth="sm">
-                <Col fullWidth s={16}>
-                    {stepper()}
-                    {panels()}
-                </Col>
-            </Container>
-            )
+    return (<Container maxWidth="sm">
+        <Col fullWidth s={16}>
+            {stepper()}
+            {panels()}
+        </Col>
+    </Container>
     )
 }

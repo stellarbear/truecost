@@ -11,6 +11,7 @@ import {ItemExtra} from './ItemExtra';
 import {ItemTotal} from './ItemTotal';
 import {ItemDivider} from './ItemDivider';
 import {ItemRange} from './ItemRange';
+import {CheckoutEmpty} from '../CheckoutEmpty';
 
 export const OrderInfo: React.FC = () => {
     const {current: {shop, cart, game: {url}}, update} = useStore();
@@ -75,7 +76,9 @@ export const OrderInfo: React.FC = () => {
     return (
         <Col s={8} fullWidth right>
             <Typography variant="caption">Items</Typography>
-            {Object.keys(cartItems).map(key => itemCard(key))}
+            {Object.keys(cartItems).length > 0 ?
+                Object.keys(cartItems).map(key => itemCard(key))
+                : <CheckoutEmpty />}
             <ItemExtra
                 total={total} />
             <ItemTotal

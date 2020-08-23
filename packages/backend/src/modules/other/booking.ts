@@ -138,6 +138,7 @@ export class BookingResolver {
                     name,
                     quantity,
                     currency: 'usd',
+                    description: '-',
                     images,
                     amount
                 }
@@ -154,16 +155,17 @@ export class BookingResolver {
                     name,
                     quantity: 1,
                     currency: 'usd',
+                    description: 'discount plan',
                     amount: price * 100,
                 })
             }
         }
 
         slack([
-            "... [purchuase attempt] ...",
+            " (╯°□°)╯ [purchuase attempt] ...",
             email,
-            ...line_items.map(({name, quantity, amount}, index) =>
-                `• ${name} x ${quantity}\n  price: ${amount / 100} $`)
+            ...line_items.map(({name, quantity, amount, description}) =>
+                `• ${name} x ${quantity}\n  price: ${amount / 100} $\n info: ${description}`)
         ])
 
         const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-03-02'});

@@ -51,8 +51,8 @@ const App = () => {
 
                                         <Route exact path={urls.map(u => '/' + u)} component={Home} />
                                         <Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
-                                        <Route exact path={urls.map(u => '/' + u + '/checkout/:step?')} component={Checkout} />
                                         <Route exact path={urls.map(u => '/' + u + '/checkout/success')} component={CheckoutSuccess} />
+                                        <Route exact path={urls.map(u => '/' + u + '/checkout/:step?')} component={Checkout} />
                                         <Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
                                         <AuthRoute path={`/account`} component={Account} />

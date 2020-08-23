@@ -25,9 +25,14 @@ export const BookingGoods: React.FC<IProps> = ({goods}) => {
                                 "quantity" in d &&
                                 "amount" in d &&
                                 "name" in d)
-                            .map(({name, quantity, amount}) => (
+                            .map(({name, quantity, description, amount}) => (
                                 <TableRow key={name}>
-                                    <TableCell>{name}</TableCell>
+                                    <TableCell>
+                                        <Col left>
+                                            <Typography>{name}</Typography>
+                                            <Typography variant="caption">{description || "-"}</Typography>
+                                        </Col>
+                                    </TableCell>
                                     <TableCell style={{whiteSpace: "nowrap"}}>{`${amount / 100} $ x ${quantity}`}</TableCell>
                                 </TableRow>
                             ))
