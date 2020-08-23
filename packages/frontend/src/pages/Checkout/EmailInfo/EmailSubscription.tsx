@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {dictSort} from 'auxiliary/sort';
+import {dictSort} from '@truecost/shared';
 import {useState} from 'react';
 import {Typography, Checkbox, Divider} from '@material-ui/core';
 import {Col, Row} from 'pages/Base/Grid';

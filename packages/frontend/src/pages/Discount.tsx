@@ -6,7 +6,7 @@ import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Loyalty from '@material-ui/icons/Loyalty';
 import {Col, Row} from './Base/Grid';
 import {useStore} from './Data/Wrapper';
-import {dictSort} from 'auxiliary/sort';
+import {dictSort} from '@truecost/shared';
 import {Link} from 'react-router-dom';
 
 export const Discount: React.FC = () => {

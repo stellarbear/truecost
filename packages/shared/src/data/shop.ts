@@ -1,5 +1,5 @@
 import {IGame, IItem, ITag, IOption, rangeBase, ISubscription} from "../interfaces";
-import {Price, OptionArea, OptionMerge, SafeJSON, ICartItem} from "..";
+import {Price, OptionArea, OptionMerge, SafeJSON, ICartItem, dictSortMap, arrayToDict} from "..";
 
 export type Dict<T> = Record<string, T>;
 
@@ -146,7 +146,8 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
         }
     }
 
-    for (let option of OptionAll) {
+    const sortedOptions = dictSortMap(arrayToDict(OptionAll, "id"));
+    for (let option of sortedOptions) {
         let {game: {id: gameId}, area, id, active, merge} = option;
         if (active && gameId in shopDict.data) {
             if (area === OptionArea.GLOBAL) {

@@ -1,7 +1,7 @@
 import React, {createContext, useState, useEffect, useContext} from "react";
 import {useQuery} from "react-apollo";
 import gql from "graphql-tag";
-import {dictSort} from "auxiliary/sort";
+import {dictSort} from "@truecost/shared";
 import {RouteComponentProps, useHistory, withRouter} from "react-router";
 import {OptionType, OptionArea, IUser, IGame, IOption, IShop, ICart, subscription, ISubscription, Dict, IGameContext} from "@truecost/shared";
 import {useData, IStoreContext, IStore} from "./useData";

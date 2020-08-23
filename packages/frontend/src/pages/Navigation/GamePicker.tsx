@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useState} from 'react';
 import {Button, Menu, MenuItem, Typography} from '@material-ui/core';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import {dictSort} from 'auxiliary/sort';
+import {dictSort} from '@truecost/shared';
 import {useHistory} from 'react-router';
 import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Link} from 'react-router-dom';

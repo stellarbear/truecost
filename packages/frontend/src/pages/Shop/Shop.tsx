@@ -3,7 +3,7 @@ import React, {CSSProperties, useContext, useEffect, useState} from "react";
 import {NotificationContext} from "components/wrappers";
 import {DataContext, useStore} from "pages/Data/Wrapper";
 import {Chip, Grid, TextField, Paper, Container, Button, Typography, Divider} from "@material-ui/core";
-import {dictSort, dictSortMap} from "auxiliary/sort";
+import {dictSort, dictSortMap} from "@truecost/shared";
 import {Autocomplete, createFilterOptions} from "@material-ui/lab";
 import {SafeJSON} from "auxiliary/json";
 import {useStorage} from "auxiliary/useStorage";

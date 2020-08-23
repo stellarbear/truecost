@@ -3,7 +3,7 @@ import {useStorage} from 'auxiliary/useStorage';
 import {Container, Draggable, DropResult} from "react-smooth-dnd";
 import {ItemProp} from './types';
 import {Button, Menu, MenuItem, ListItem, ListItemText, ListItemSecondaryAction, ListItemIcon, Typography, IconButton} from '@material-ui/core';
-import {arrayToDict} from 'auxiliary/sort';
+import {arrayToDict} from '@truecost/shared';
 import DragHandle from "@material-ui/icons/DragHandle";
 import FilterList from "@material-ui/icons/FilterList";
 import {Row} from 'pages/Base/Grid';

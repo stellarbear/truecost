@@ -31,7 +31,6 @@ import {ItemProp} from "./types";
 import {getResolverName} from "auxiliary";
 
 import {DocumentNode} from "graphql";
-import {arrayToDict} from "auxiliary/sort";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {normalize} from "./normalize";
 import {Row, Col} from "pages/Base/Grid";
@@ -42,6 +41,7 @@ import {InfoCard} from "pages/Base/InfoCard";
 import {parseApolloError} from "auxiliary/error";
 import {TimeoutButton} from "./components/TimeoutButton";
 import {visible} from "./Visible";
+import {arrayToDict} from "@truecost/shared";
 
 const stickyStyle: CSSProperties = {
     position: "sticky",
