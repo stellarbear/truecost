@@ -37,10 +37,11 @@ const Shop: React.FC = () => {
     const {current: {shop}} = useStore();
 
     const {tags, items} = shop();
+    const itemIds = dictSort(items.id).filter(t => !items.id[t].direct);
+    const tagIds = Object.keys(tags.id)
+
     const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => {
         const result = {...defaultState, ...state};
-        const itemIds = Object.keys(items.id)
-        const tagIds = Object.keys(tags.id)
 
         result.tags = result.tags.filter(n => tagIds.includes(n))
         result.names = result.names.filter(n => itemIds.includes(n))
@@ -49,7 +50,7 @@ const Shop: React.FC = () => {
     });
     const tagDeps = state.tags.length > 0 ? shop().getTagDeps(state.tags[state.tags.length - 1]) : [];
 
-    const filterItems = () => dictSort(items.id)
+    const filterItems = () => itemIds
         .filter(itemId =>
             state.names.length === 0 ? true
                 : state.names.includes(itemId) || (items.id[itemId].item.length > 0 && items.id[itemId].item.some(i => state.names.includes(i))))
@@ -87,7 +88,7 @@ const Shop: React.FC = () => {
     const filterNames = () => (
         <AutoCompleteCustom
             values={state.names}
-            options={Object.keys(items.id)}
+            options={itemIds}
             onChange={names =>
                 setState({
                     ...state,

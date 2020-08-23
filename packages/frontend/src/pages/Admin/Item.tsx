@@ -29,7 +29,8 @@ export const AdminItem: React.FC = () => {
 
 			obtain
 			requirements
-			topOffer
+            topOffer
+            direct
 
 			tag { id name game { id } }
 			option { id name game { id } }
@@ -97,6 +98,12 @@ export const AdminItem: React.FC = () => {
         textTrue: "top",
         textFalse: "usual",
     });
+    const direct = new CBoolean({
+        key: "direct",
+        label: "direct",
+        textTrue: "direct",
+        textFalse: "default",
+    });
 
 
     const item = new CLink({
@@ -134,7 +141,7 @@ export const AdminItem: React.FC = () => {
         component: <EditorRange/>,
     });
 
-    const fields = [link, images, price, eta, range, discount, limit, obtain, requirements, isTopOffer, item, tag, option];
+    const fields = [link, images, price, eta, range, discount, limit, obtain, requirements, direct, isTopOffer, item, tag, option];
 
     return (
         <CRUD

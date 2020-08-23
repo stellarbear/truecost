@@ -67,6 +67,7 @@ export interface IItem extends IBaseMeta, IBaseGame {
     discount: number;
     limit: number;
     topOffer: boolean
+    direct: boolean
 
     obtain?: string;
     requirements?: string;

@@ -49,6 +49,9 @@ export class ItemEntity extends BaseMetaEntity /*implements IItem */ {
     @Field()
     @Property()
     topOffer: boolean = false;
+    @Field({defaultValue: false})
+    @Property()
+    direct: boolean = false;
 
 
     @Field(() => GameEntity)

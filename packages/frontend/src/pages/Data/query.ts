@@ -50,6 +50,7 @@ export const BULK_QUERY = gql`
             limit
             range
             topOffer
+            direct
 
             eta
             obtain

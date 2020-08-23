@@ -26,6 +26,8 @@ export class ItemInput extends BaseMetaInput {
     requirements?: string;
     @Field({nullable: true})
     topOffer?: boolean;
+    @Field({nullable: true})
+    direct?: boolean;
 
 
     @Field({nullable: true})
