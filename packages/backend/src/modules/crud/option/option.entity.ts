@@ -33,6 +33,6 @@ export class OptionEntity extends BaseEntity implements IOption {
     game!: GameEntity;
 
     @Field(() => [ItemEntity])
-    @ManyToMany(() => ItemEntity, item => item.option, {owner: true})
+    @ManyToMany(() => ItemEntity, item => item.option)
     item: Collection<ItemEntity> = new Collection<ItemEntity>(this);
 }

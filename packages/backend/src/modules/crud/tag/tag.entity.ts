@@ -12,7 +12,7 @@ export class TagEntity extends BaseEntity /*implements ITag*/ {
     game!: GameEntity;
 
     @Field(() => [ItemEntity])
-    @ManyToMany(() => ItemEntity, item => item.tag, {owner: true})
+    @ManyToMany(() => ItemEntity, item => item.tag)
     item: Collection<ItemEntity> = new Collection<ItemEntity>(this);
     
     @Field(() => [TagEntity], {defaultValue: []})

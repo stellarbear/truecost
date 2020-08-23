@@ -5,6 +5,7 @@ import {Dict} from "@truecost/shared";
 import {BaseEntity} from "./modules/crud/base/base.entity";
 import {OptionEntity} from "./modules/crud/option/option.entity";
 import {TagEntity} from "./modules/crud/tag/tag.entity";
+import {ItemEntity} from "./modules/crud/item/item.entity";
 
 export const DI = {} as {
     orm: MikroORM;
@@ -28,6 +29,7 @@ export const init = async () => {
 
     DI.map = {
         "option": OptionEntity,
+        "item": ItemEntity,
         "tag": TagEntity,
         "user": UserEntity,
     }

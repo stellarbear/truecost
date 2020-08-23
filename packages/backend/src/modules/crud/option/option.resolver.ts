@@ -28,6 +28,7 @@ export class OptionCRUDResolver extends BaseResolver
         upsert: {
             notEmpty: ["price", "game"],
             unique: [],
+            propagate: ["item"]
         },
         restrictPublic: false,
     },

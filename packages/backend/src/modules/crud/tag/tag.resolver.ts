@@ -27,6 +27,7 @@ export class TagCRUDResolver extends BaseResolver
         upsert: {
             notEmpty: ["game"],
             unique: [],
+            propagate: ["item"]
         },
         restrictPublic: false,
     },
