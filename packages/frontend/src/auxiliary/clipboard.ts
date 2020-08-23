@@ -6,6 +6,7 @@ const copyToClipboard = (text: string): void => {
     if (copyTo != null) {
         copyTo.appendChild(copyFrom);
 
+        copyFrom.focus();
         copyFrom.select();
         document.execCommand("copy");
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {
     Button,
     Dialog,
@@ -14,7 +14,7 @@ import {TransitionProps} from "@material-ui/core/transitions/transition";
 import Close from "@material-ui/icons/Close";
 
 const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & { children?: React.ReactElement<any, any> },
+    props: TransitionProps & {children?: React.ReactElement<any, any>},
     ref: React.Ref<unknown>,
 ) {
     return <Grow in ref={ref} {...props} />;
@@ -28,14 +28,24 @@ interface ISocialDialogProps {
     valid: boolean;
 }
 
-const SocialDialog: React.FC<ISocialDialogProps> = ({
-                                                        button,
-                                                        valid,
-                                                        title,
-                                                        icon,
-                                                        url,
-                                                    }): JSX.Element => {
+const SocialDialog: React.FC<ISocialDialogProps> = (props) => {
+    const {
+        button,
+        valid,
+        title,
+        icon,
+        url,
+    } = props;
     const [open, setOpen] = useState(false);
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+    const onCopy = (e: any) => {
+        if (textAreaRef?.current) {
+            textAreaRef.current.select();
+            document.execCommand('copy');
+            //setOpen(false);
+        }
+    }
 
     return (
         <div>
@@ -54,7 +64,7 @@ const SocialDialog: React.FC<ISocialDialogProps> = ({
                             {title}
                         </div>
                         <IconButton onClick={() => setOpen(false)} style={{marginLeft: 32}}>
-                            <Close/>
+                            <Close />
                         </IconButton>
                     </div>
                 </DialogTitle>
@@ -62,9 +72,19 @@ const SocialDialog: React.FC<ISocialDialogProps> = ({
                     <Typography style={{minWidth: 160, textAlign: "center"}}>{url}</Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => copyToClipboard(url)} color="primary">
-                        Copy
-                    </Button>
+                    <textarea
+                        style={{opacity: 0}}
+                        readOnly
+                        ref={textAreaRef}
+                        value={url}
+                    />
+                    {
+                        typeof window !== 'undefined' && document.queryCommandSupported('copy') && (
+                            <Button color="primary" onClick={onCopy} style={{marginLeft: 32}}>
+                                Copy
+                            </Button>
+                        )
+                    }
                     {valid && (
                         <a href={url} target="_blank" style={{
                             textDecoration: "none",
