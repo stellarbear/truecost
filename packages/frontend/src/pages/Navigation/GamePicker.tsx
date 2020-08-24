@@ -27,12 +27,6 @@ export const GamePicker: React.FC = () => {
         return null;
     }
 
-    //  TODO: change url
-    const path = (pathname + "/");
-    const index = path.indexOf('/', 1);
-    const gameUrl = path.slice(1, index);
-    const valid = gamesSorted.map(key => games.id[key].url);
-
     return (
         <>
             <Button color="inherit" aria-haspopup="true" onClick={(e) => setAnchorEl(e.currentTarget)}>

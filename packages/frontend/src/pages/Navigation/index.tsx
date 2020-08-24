@@ -23,6 +23,7 @@ const NavigationWrapper: React.FC<INavigationProps> = (props) => {
         height = 200,
     } = props;
     const {current: {game}} = useContext(DataContext);
+    console.log(history.location.pathname)
     const calcState = () => window.pageYOffset < height
         && (history.location.pathname === "/" ||
             history.location.pathname === "/" + game?.url);

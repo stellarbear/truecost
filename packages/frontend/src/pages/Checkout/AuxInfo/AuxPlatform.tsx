@@ -74,7 +74,7 @@ export const AuxPlatform: React.FC<IProps> = (props) => {
                     </Row>
                     <FormControlLabel
                         control={<Checkbox checked={cross} onChange={() => onCrossClick()} />}
-                        label="Crossave"
+                        label="Cross save"
                     />
                 </Row>
             </Col>

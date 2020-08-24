@@ -22,7 +22,7 @@ export const EmailAgree: React.FC<IProps> = ({agree, toggleAgree}) => {
                     {`I agree to\u00A0`}
                 </Typography>
                 <Typography component={Link} to="/tos">
-                    TOS
+                    Terms of use
                 </Typography>
             </Row>
         </div>

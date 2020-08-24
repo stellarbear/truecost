@@ -18,7 +18,8 @@ interface IProps extends IGameContext {
 }
 
 export function useGame(props: IProps) {
-    const {location: {pathname}} = useHistory();
+    const history = useHistory();
+    const {location: {pathname}} = history;
 
     const path = (pathname + "/");
     const index = path.indexOf('/', 1);
@@ -32,6 +33,10 @@ export function useGame(props: IProps) {
         currentGame && currentGame in props.data.id
             ? props.data.id[currentGame]
             : defaultGame);
+
+    useEffect(() => {
+        history.push('/' + state.url)
+    }, [state])
 
     return {state, setState};
 }
