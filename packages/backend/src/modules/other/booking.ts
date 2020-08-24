@@ -168,7 +168,7 @@ export class BookingResolver {
             ...line_items.map(({name, quantity, amount, description}) =>
                 `• ${name} x ${quantity}\n  price: ${amount / 100} $\n opts: ${description}`),
             '--------',
-            `${Object.keys(information).map(key => `${key}: ${information[key]}`).join('\n')}`
+            `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`
         ])
 
         const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-03-02'});

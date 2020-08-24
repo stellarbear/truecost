@@ -7,7 +7,7 @@ import {OrderInfo} from './OrderInfo';
 import {EmalInfo} from './EmailInfo';
 import {useStore} from 'pages/Data/Wrapper';
 import {CheckoutEmpty} from './CheckoutEmpty';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 
 const steps = [{
     title: 'Check your order',
@@ -22,7 +22,7 @@ const steps = [{
 
 export const Checkout: React.FC = () => {
     const {step} = useParams();
-    const {current: {cart}} = useStore();
+    const history = useHistory();
 
     const [info, setInfo] = useStorage<Record<string, any>>('checkout', {
         cross: false,
@@ -30,7 +30,19 @@ export const Checkout: React.FC = () => {
         time: [12, "am", 12, "pm"],
         text: ""
     });
-    const [activeStep, setActiveStep] = React.useState(Math.min(Math.max((+step || 0), 0), 2));
+    const [activeStep, setActiveSteppp] = React.useState(Math.min(Math.max((+step || 0), 0), 2));
+
+    const setActiveStep = (step: number) => {
+        step = Math.min(Math.max((+step || 0), 0), 2);
+
+        debugger;
+        const path = history.location.pathname;
+        history.push(path.slice(-2, -1) === "/"
+            ? path.slice(0, -1) + step
+            : path + "/" + step
+        )
+
+    }
 
     const updateInfo = (key: string, value: any) => {
         info[key] = value;  //  dirty hack

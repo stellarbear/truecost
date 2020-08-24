@@ -2,14 +2,17 @@ import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
 import {Typography, Divider, Button} from '@material-ui/core';
+import {useNotification} from 'components/wrappers/NotifyWrapper';
 
 interface IProps {
     selected?: string
     current?: string
+    agree: boolean
 }
 
 export const EmailPrice: React.FC<IProps> = (props) => {
-    const {current, selected} = props;
+    const {notify} = useNotification()
+    const {current, selected, agree} = props;
     const {subs, current: {cart, shop}} = useStore();
 
     const cartItems = cart();
@@ -37,7 +40,12 @@ export const EmailPrice: React.FC<IProps> = (props) => {
             </Col>
             <Divider />
             <Row end>
-                <Button variant="contained" type="submit">{`Total: ${total.toValue} $`}</Button>
+                <div
+                    onClick={() => !agree && notify("Agree to TOS first")}>
+                    <Button
+                        disabled={!agree} variant="contained" type="submit"
+                    >{`Total: ${total.toValue} $`}</Button>
+                </div>
             </Row>
         </Col>
     )

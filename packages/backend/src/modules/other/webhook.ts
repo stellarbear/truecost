@@ -84,7 +84,7 @@ export const createOrder = async (response: Record<string, any>) => {
         ...data.map(({name, quantity, description, amount}: any) =>
             `• ${name} x ${quantity}\n  price: ${amount / 100} $\n opts: ${description}`),
         '--------',
-        `${Object.keys(information).map(key => `${key}: ${information[key]}`).join('\n')}`
+        `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`
     ])
 
     try {
