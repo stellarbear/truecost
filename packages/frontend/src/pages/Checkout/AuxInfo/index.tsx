@@ -15,7 +15,7 @@ export const AuxInfo: React.FC<IProps> = ({
     value,
     setValue
 }) => {
-    const info = value.info || "";
+    const text = value.text || "";
     const cross = !!value.cross;
     const time = validateTime(value.time);
     const platform = validatePlatform(value.platform);
@@ -36,8 +36,8 @@ export const AuxInfo: React.FC<IProps> = ({
                 setTime={(v) => setValue("time", v)}
             />
             <AuxField
-                info={info}
-                setInfo={(v) => setValue("info", v)}
+                text={text}
+                setText={(v) => setValue("text", v)}
             />
         </Col>
     )

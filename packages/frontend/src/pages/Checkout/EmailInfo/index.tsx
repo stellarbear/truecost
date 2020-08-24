@@ -15,7 +15,7 @@ import {EmailFields} from './EmailFields';
 import {EmailPrice} from './EmailPrice';
 
 interface IProps {
-    meta: Record<string, any>
+    info: Record<string, any>
 }
 
 interface BookingSubmit {
@@ -23,12 +23,12 @@ interface BookingSubmit {
 }
 
 const MAKE_BOOKING = gql`
-    mutation BookingMake($email: String!, $booking: String!, $meta: String!, $game: String!, $subscription: String) {
-        BookingMake(email:$email, booking:$booking, meta: $meta, game: $game, subscription:$subscription) 
+    mutation BookingMake($email: String!, $booking: String!, $info: String!, $game: String!, $subscription: String) {
+        BookingMake(email:$email, booking:$booking, info: $info, game: $game, subscription:$subscription) 
     }
 `;
 
-export const EmalInfo: React.FC<IProps> = ({meta}) => {
+export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
     const {current: {user, game, cart}, payment: {stripe: stripeKey}} = useStore();
     const [mutation, {data, error, loading}] = useMutation(MAKE_BOOKING);
@@ -48,14 +48,14 @@ export const EmalInfo: React.FC<IProps> = ({meta}) => {
             clearErrors();
             setLoading(true);
 
-            const {platform, info, cross, time, zone} = meta;
+            const {platform, text, cross, time, zone} = info;
 
             const variables = {
                 ...data,
                 game: game.id,
                 subscription: selectedSubscription,
                 booking: JSON.stringify(cartItems),
-                meta: JSON.stringify({platform, info, cross, time, zone}),
+                info: JSON.stringify({platform, text, cross, time, zone}),
             }
             await mutation({variables});
         } catch (e) {} finally {

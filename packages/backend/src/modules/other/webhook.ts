@@ -6,7 +6,7 @@ import {assert} from "../../helpers/assert";
 import {UserEntity} from "../crud/user/user.entity";
 import {pbkdf2} from "../../helpers/pbkdf2";
 import {wrap, EntityRepository} from "mikro-orm";
-import {RoleType, StatusType, Dict} from "@truecost/shared";
+import {RoleType, StatusType, Dict, SafeJSON} from "@truecost/shared";
 import {TagEntity} from "../crud/tag/tag.entity";
 import {composeEmail} from "../../mail/compose";
 import {accountEmail} from "../../mail/samples/account";
@@ -76,12 +76,15 @@ export const createOrder = async (response: Record<string, any>) => {
     }
 
 
+    const information: Record<string, any> = SafeJSON.parse(info, {})
     slack([
         " ʕノ•ᴥ•ʔノ [PURCHUASE SUCCESS]  \\(•ᴥ• \\)́",
         email,
         `total: ${amount_total / 100} $`,
         ...data.map(({name, quantity, description, amount}: any) =>
-            `• ${name} x ${quantity}\n  price: ${amount / 100} $\n info: ${description}`)
+            `• ${name} x ${quantity}\n  price: ${amount / 100} $\n opts: ${description}`),
+        '--------',
+        `${Object.keys(information).map(key => `${key}: ${information[key]}`).join('\n')}`
     ])
 
     try {

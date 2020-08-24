@@ -62,7 +62,7 @@ export class BookingResolver {
         @Arg("game") game: string,
         @Arg("email") email: string,
         @Arg("booking") booking: string,
-        @Arg("meta") meta: string,
+        @Arg("info") info: string,
         @Arg("subscription", {nullable: true}) subscription?: string,
     ) {
         console.log("arrived <----------------------------------------")
@@ -161,18 +161,21 @@ export class BookingResolver {
             }
         }
 
+        const information: Record<string, any> = SafeJSON.parse(info, {})
         slack([
             " (╯°□°)╯ [purchuase attempt] ...",
             email,
             ...line_items.map(({name, quantity, amount, description}) =>
-                `• ${name} x ${quantity}\n  price: ${amount / 100} $\n info: ${description}`)
+                `• ${name} x ${quantity}\n  price: ${amount / 100} $\n opts: ${description}`),
+            '--------',
+            `${Object.keys(information).map(key => `${key}: ${information[key]}`).join('\n')}`
         ])
 
         const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-03-02'});
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             customer_email: email,
-            metadata: {meta, game, email: userEmail, subscription: sub},
+            metadata: {info, game, email: userEmail, subscription: sub},
             locale: "en",
             line_items,
             success_url: `${frontend.uri}/${gameEntiry?.url}/checkout/success`,

@@ -4,11 +4,11 @@ import {InputField} from 'components/generic/components/InputField';
 import {Typography, Paper} from '@material-ui/core';
 
 interface IProps {
-    info: string
-    setInfo: (value: string) => void
+    text: string
+    setText: (value: string) => void
 }
 
-export const AuxField: React.FC<IProps> = ({info, setInfo}) => (
+export const AuxField: React.FC<IProps> = ({text, setText}) => (
     <Col fullWidth right>
         <Paper elevation={3}>
             <Col fullWidth p={8}>
@@ -18,8 +18,8 @@ export const AuxField: React.FC<IProps> = ({info, setInfo}) => (
                     multiline={true}
                     rowsMax={4}
                     label={"Info"}
-                    value={info}
-                    onChangeEvent={(v) => setInfo(v)} />
+                    value={text}
+                    onChangeEvent={(v) => setText(v)} />
             </Col>
         </Paper>
     </Col>

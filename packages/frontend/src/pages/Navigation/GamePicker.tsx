@@ -50,7 +50,7 @@ export const GamePicker: React.FC = () => {
                 onClose={() => setAnchorEl(null)}
             >
                 {gamesSorted.map((game) => (
-                    <Link to={valid.includes(gameUrl) ? ('/' + games.id[game].url + path.slice(index, -1)) : path.slice(0, -1)}
+                    <Link to={'/' + games.id[game].url}
                         style={{textDecoration: 'none', outline: "none"}}
                         key={game}
                     >

@@ -23,9 +23,13 @@ const steps = [{
 export const Checkout: React.FC = () => {
     const {step} = useParams();
     const {current: {cart}} = useStore();
-    const cartItems = cart().local;
 
-    const [info, setInfo] = useStorage<Record<string, any>>('checkout', {});
+    const [info, setInfo] = useStorage<Record<string, any>>('checkout', {
+        cross: false,
+        platform: [],
+        time: [12, "am", 12, "pm"],
+        text: ""
+    });
     const [activeStep, setActiveStep] = React.useState(Math.min(Math.max((+step || 0), 0), 2));
 
     const updateInfo = (key: string, value: any) => {
@@ -43,7 +47,7 @@ export const Checkout: React.FC = () => {
                     <AuxInfo value={info} setValue={(k: string, v: any) => updateInfo(k, v)} />
                 </div>
                 <div style={{display: activeStep !== 2 ? "none" : "block"}}>
-                    <EmalInfo meta={info} />
+                    <EmalInfo info={info} />
                 </div>
             </React.Fragment>
             {activeStep < 2 && (
