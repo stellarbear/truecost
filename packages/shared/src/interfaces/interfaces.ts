@@ -16,11 +16,6 @@ export interface IBase {
     active: boolean;
 }
 
-export interface IBaseMeta extends IBase {
-    url: string,
-    metatag: string
-}
-
 export interface IUser {
     role: string;
     email: string;
@@ -31,7 +26,8 @@ export interface IUser {
     subscribeDate?: Date
 }
 
-export interface IBlog extends IBaseMeta {
+export interface IBlog extends IBase {
+    url: string;
     preview: string;
     images: string[];
     date: number;
@@ -39,7 +35,8 @@ export interface IBlog extends IBaseMeta {
     text?: string;
 }
 
-export interface IGame extends IBaseMeta {
+export interface IGame extends IBase {
+    url: string;
     twitter: string;
     background: string[];
     assistant: string[];
@@ -58,7 +55,8 @@ export interface IRange {
     d: IRangeData[]     //data
 }
 
-export interface IItem extends IBaseMeta, IBaseGame {
+export interface IItem extends IBase, IBaseGame {
+    url: string;
     link: string;
     images: string[];
     eta: number;

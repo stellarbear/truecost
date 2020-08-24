@@ -8,13 +8,6 @@ const base = {
 		active
 	`,
 };
-const meta = {
-    fragment: `
-        ${base.fragment}
-        url
-        metatag
-	`,
-};
 const game = {
     fragment: `
         game { id }
@@ -35,14 +28,16 @@ export const BULK_QUERY = gql`
         }
 
         GameAll {
-            ${meta.fragment}
+            ${base.fragment}
+            url
             twitter
             background
             assistant
         }
         ItemAll {
-            ${meta.fragment}
+            ${base.fragment}
             ${game.fragment}
+            url
             link
             images
             price
@@ -87,14 +82,3 @@ export const BULK_QUERY = gql`
         }
     }
 `;
-
-/*
-
-        
-        BlogAll {
-            ${meta.fragment}
-            preview
-            images
-            date
-        }
-*/

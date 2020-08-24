@@ -2,14 +2,15 @@ import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
 import {CDate, CImage, CString, CCustom} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
-import {meta} from "./Base/Meta";
+import {base} from "./Base";
 import EditorPost from "components/generic/components/EditorPost";
 
 export const AdminBlog: React.FC = () => {
     const crud = new CRUDgql({
         name: "Blog",
         items: `
-			${meta.fragment}
+            ${base.fragment}
+            url
 
 			date
 			preview
@@ -17,6 +18,12 @@ export const AdminBlog: React.FC = () => {
 
 			images
 		`,
+    });
+
+
+    const url = new CString({
+        key: "url",
+        label: "url",
     });
 
 
@@ -46,6 +53,8 @@ export const AdminBlog: React.FC = () => {
         multiline: true,
     });
 
+    const fields = [url, text, date, preview]
+
     return (
         <CRUD
             title="Blog"
@@ -53,9 +62,9 @@ export const AdminBlog: React.FC = () => {
 
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
-            propsAdd={[...meta.fields, text, date, preview, image]}
-            propsList={[...meta.fields, text, date, preview, image]}
-            propsFilter={[...meta.fields, text, date, preview]}
+            propsAdd={[...base.fields, ...fields, image]}
+            propsList={[...base.fields, ...fields, image]}
+            propsFilter={[...base.fields, ...fields]}
         />
     );
 };

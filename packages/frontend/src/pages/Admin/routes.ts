@@ -3,6 +3,7 @@ import {AdminBlog} from "./Blog";
 import {AdminBooking} from "./Booking";
 import {AdminInfo} from "./Info";
 import {AdminSubscription} from "./Subscription";
+import {AdminMeta} from "./Meta";
 
 const routes = [
     {
@@ -32,6 +33,10 @@ const routes = [
     {
         url: "info",
         component: AdminInfo,
+    },
+    {
+        url: "meta",
+        component: AdminMeta,
     },
     {
         url: "subscription",

@@ -6,7 +6,6 @@ const defaultGame: IGame = {
     id: "truecost",
     url: "",
     order: 0,
-    metatag: "",
     name: "truecost",
     active: false,
     twitter: "truecost",

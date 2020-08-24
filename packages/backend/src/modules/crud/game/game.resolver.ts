@@ -1,7 +1,7 @@
 import {GameEntity} from "./game.entity";
 import {PaginatedResponse} from "../../../helpers/pagination";
 import {ObjectType, Resolver} from "type-graphql";
-import {BaseResolver, MetaResolver} from "../base/base.resolver";
+import {BaseResolver} from "../base/base.resolver";
 import {GameService} from "./game.service";
 import {GameInput} from "./game.input";
 
@@ -11,7 +11,7 @@ class GameResponse extends PaginatedResponse(GameEntity) {
 }
 
 @Resolver(() => GameEntity)
-export class GameCRUDResolver extends MetaResolver
+export class GameCRUDResolver extends BaseResolver
     <typeof GameEntity, typeof GameInput, typeof GameResponse, GameInput>
 
 (
@@ -19,10 +19,12 @@ export class GameCRUDResolver extends MetaResolver
         inputRef: GameInput,
         classRef: GameEntity,
         resultRef: GameResponse,
-        get: {},
+        get: {
+            like: ["url"]
+        },
         upsert: {
-            notEmpty: ["twitter", "background", "assistant"],
-            unique: ["twitter"],
+            notEmpty: ["twitter", "background", "assistant", "url"],
+            unique: ["twitter", "url"],
             images: ["background", "assistant"],
         },
         restrictPublic: false,

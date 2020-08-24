@@ -2,13 +2,14 @@ import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
 import {CImage, CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
-import {meta} from "./Base/Meta";
+import {base} from "./Base";
 
 export const AdminGame: React.FC = () => {
     const crud = new CRUDgql({
         name: "Game",
         items: `
-			${meta.fragment}
+            ${base.fragment}
+            url
 			twitter
 
 			assistant
@@ -16,6 +17,10 @@ export const AdminGame: React.FC = () => {
 		`,
     });
 
+    const url = new CString({
+        key: "url",
+        label: "url",
+    });
 
     const twitter = new CString({
         key: "twitter",
@@ -36,6 +41,8 @@ export const AdminGame: React.FC = () => {
         limit: 1,
     });
 
+    const fields = [url, twitter, assistant, background]
+
     return (
         <CRUD
             
@@ -44,9 +51,9 @@ export const AdminGame: React.FC = () => {
 
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
-            propsAdd={[...meta.fields, twitter, assistant, background]}
-            propsList={[...meta.fields, twitter, assistant, background]}
-            propsFilter={[...meta.fields]}
+            propsAdd={[...base.fields, ...fields]}
+            propsList={[...base.fields, ...fields]}
+            propsFilter={[...base.fields]}
         />
     );
 };

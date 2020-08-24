@@ -1,5 +1,5 @@
-import {BaseMetaEntity} from "../base/base.entity";
-import {Collection, Entity, ManyToMany, ManyToOne, Property, Cascade} from "mikro-orm";
+import {BaseEntity} from "../base/base.entity";
+import {Collection, Entity, ManyToMany, ManyToOne, Property, Cascade, Unique} from "mikro-orm";
 import {TagEntity} from "../tag/tag.entity";
 import {OptionEntity} from "../option/option.entity";
 import {GameEntity} from "../game/game.entity";
@@ -10,7 +10,11 @@ const rangeBaseJson = JSON.stringify(rangeBase)
 
 @Entity()
 @ObjectType()
-export class ItemEntity extends BaseMetaEntity /*implements IItem */ {
+export class ItemEntity extends BaseEntity /*implements IItem */ {
+    @Field()
+    @Unique()
+    @Property()
+    url!: string;
     @Field()
     @Property()
     link: string = "";

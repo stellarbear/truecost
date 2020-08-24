@@ -2,9 +2,7 @@ import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
 import {CBoolean, CString, CNumber, CImage} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
-//import {meta} from "./Base/Meta";
-//import {game} from "./Base/Game";
-import {meta} from "./Base/Meta";
+import {base} from "./Base";
 import {game} from "./Base/Game";
 import {CCustom} from "components/generic/types/CCustom";
 import {CLink} from "components/generic/types/CLink";
@@ -16,8 +14,9 @@ export const AdminItem: React.FC = () => {
     const crud = new CRUDgql({
         name: "Item",
         items: `
-        ${meta.fragment}
+        ${base.fragment}
         ${game.fragment}
+        url
             link
 			images
 
@@ -36,6 +35,11 @@ export const AdminItem: React.FC = () => {
 			option { id name game { id } }
 			item { id name game { id } }
 		`,
+    });
+
+    const url = new CString({
+        key: "url",
+        label: "url",
     });
 
     const link = new CString({
@@ -141,7 +145,7 @@ export const AdminItem: React.FC = () => {
         component: <EditorRange/>,
     });
 
-    const fields = [link, images, price, eta, range, discount, limit, obtain, requirements, direct, isTopOffer, item, tag, option];
+    const fields = [url, link, images, price, eta, range, discount, limit, obtain, requirements, direct, isTopOffer, item, tag, option];
 
     return (
         <CRUD
@@ -151,9 +155,9 @@ export const AdminItem: React.FC = () => {
 
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
-            propsAdd={[...meta.fields, ...game.fields, ...fields]}
-            propsList={[...meta.fields, ...game.fields, ...fields]}
-            propsFilter={[...meta.fields, ...game.fields, ...fields]}
+            propsAdd={[...base.fields, ...game.fields, ...fields]}
+            propsList={[...base.fields, ...game.fields, ...fields]}
+            propsFilter={[...base.fields, ...game.fields, ...fields]}
         />
     );
 };

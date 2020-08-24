@@ -1,7 +1,7 @@
 import {PrimaryKey, Property, SerializedPrimaryKey, Unique} from "mikro-orm";
 import {ObjectId} from "mongodb";
 import {Field, Int, ObjectType} from "type-graphql";
-import {IBase, IBaseMeta} from "@truecost/shared";
+import {IBase} from "@truecost/shared";
 
 @ObjectType({isAbstract: true})
 export abstract class BaseEntity implements IBase {
@@ -31,16 +31,4 @@ export abstract class BaseEntity implements IBase {
     @Field(() => Int)
     @Property()
     order: number = 0;
-}
-
-@ObjectType({isAbstract: true})
-export abstract class BaseMetaEntity extends BaseEntity implements IBaseMeta {
-    @Field()
-    @Unique()
-    @Property()
-    url!: string;
-
-    @Field()
-    @Property()
-    metatag: string = "{}";
 }

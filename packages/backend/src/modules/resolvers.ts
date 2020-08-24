@@ -11,9 +11,11 @@ import {SubscriptionCRUDResolver} from "./crud/subscription/subscription.resolve
 import {InfoCRUDResolver} from "./crud/info/info.resolver";
 import {BookingResolver} from "./other/booking";
 import {PaymentResolver} from "./other/payment";
+import {MetaCRUDResolver} from "./crud/meta/meta.resolver";
 
 const resolvers = [
     PaymentResolver,
+    MetaCRUDResolver,
     BlogCRUDResolver, BookingResolver,
     SubscriptionCRUDResolver, 
     UserCRUDResolver, BookingCRUDResolver,

@@ -73,7 +73,7 @@ export const AdminInfo: React.FC = () => {
     return (
         <CRUD
             
-            title="Item"
+            title="Info"
             queryGet={crud.get}
 
             mutationDelete={crud.delete}

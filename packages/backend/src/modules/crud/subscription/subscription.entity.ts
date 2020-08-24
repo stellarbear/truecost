@@ -1,4 +1,4 @@
-import {BaseMetaEntity, BaseEntity} from "../base/base.entity";
+import {BaseEntity} from "../base/base.entity";
 import {Field, Float, ObjectType, Int} from "type-graphql";
 import {Entity, Property} from "mikro-orm";
 import {ISubscription} from "@truecost/shared"

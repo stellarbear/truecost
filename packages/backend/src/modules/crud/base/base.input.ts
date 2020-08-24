@@ -15,12 +15,3 @@ export abstract class BaseInput {
     @Field(() => NumberScalar, {nullable: true})
     order?: NumberType;
 }
-
-@InputType({isAbstract: true})
-export abstract class BaseMetaInput extends BaseInput {
-    @Field({nullable: true})
-    url?: string;
-
-    @Field({nullable: true})
-    metatag?: string;
-}

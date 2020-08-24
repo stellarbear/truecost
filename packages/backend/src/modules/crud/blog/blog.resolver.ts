@@ -1,9 +1,9 @@
 import {BlogEntity} from "./blog.entity";
 import {PaginatedResponse} from "../../../helpers/pagination";
 import {ObjectType, Resolver} from "type-graphql";
-import {MetaResolver} from "../base/base.resolver";
 import {BlogService} from "./blog.service";
 import {BlogInput} from "./blog.input";
+import {BaseResolver} from "../base/base.resolver";
 
 
 @ObjectType()
@@ -12,7 +12,7 @@ class BlogResponse extends PaginatedResponse(BlogEntity) {
 
 
 @Resolver(() => BlogEntity)
-export class BlogCRUDResolver extends MetaResolver
+export class BlogCRUDResolver extends BaseResolver
     <typeof BlogEntity, typeof BlogInput, typeof BlogResponse, BlogInput>
 
 (
@@ -23,11 +23,11 @@ export class BlogCRUDResolver extends MetaResolver
         resultRef: BlogResponse,
         get: {
             set: [],
-            like: ["text", "preview"],
+            like: ["text", "preview", "url"],
         },
         upsert: {
-            notEmpty: [],
-            unique: [],
+            notEmpty: ["url"],
+            unique: ["url"],
             images: ["images"],
         },
         restrictPublic: false,

@@ -1,6 +1,6 @@
-import {BaseMetaEntity} from "../base/base.entity";
+import {BaseEntity} from "../base/base.entity";
 import {Field, ObjectType} from "type-graphql";
-import {Entity, Property, OneToMany, Collection} from "mikro-orm";
+import {Entity, Property, OneToMany, Collection, Unique} from "mikro-orm";
 import {IGame} from "@truecost/shared";
 import {ItemEntity} from "../item/item.entity";
 import {OptionEntity} from "../option/option.entity";
@@ -8,7 +8,11 @@ import {TagEntity} from "../tag/tag.entity";
 
 @Entity()
 @ObjectType()
-export class GameEntity extends BaseMetaEntity implements IGame {
+export class GameEntity extends BaseEntity implements IGame {
+    @Field()
+    @Unique()
+    @Property()
+    url!: string;
 
     @Field(() => [String])
     @Property()

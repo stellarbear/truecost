@@ -1,12 +1,17 @@
-import {BaseMetaEntity} from "../base/base.entity";
+import {BaseEntity} from "../base/base.entity";
 import {Field, Float, ObjectType} from "type-graphql";
-import {Entity, Property} from "mikro-orm";
+import {Entity, Property, Unique} from "mikro-orm";
 import {IBlog} from "@truecost/shared"
 
 
 @Entity()
 @ObjectType()
-export class BlogEntity extends BaseMetaEntity implements IBlog {
+export class BlogEntity extends BaseEntity implements IBlog {
+    @Field()
+    @Unique()
+    @Property()
+    url!: string;
+    
     @Field(() => Float)
     @Property()
     date: number = new Date().getTime();
