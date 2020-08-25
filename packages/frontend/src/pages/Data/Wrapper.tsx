@@ -1,15 +1,12 @@
 import React, {createContext, useState, useEffect, useContext} from "react";
 import {useQuery} from "react-apollo";
-import gql from "graphql-tag";
-import {dictSort} from "@truecost/shared";
-import {RouteComponentProps, useHistory, withRouter} from "react-router";
 import {OptionType, OptionArea, IUser, IGame, IOption, IShop, ICart, subscription, ISubscription, Dict, IGameContext} from "@truecost/shared";
 import {useData, IStoreContext, IStore} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
 import {ICartContext, useCart, ICartUpsert, ICartRemove} from "./useCart";
-import {ItemCount} from "pages/Checkout/OrderInfo/ItemCount";
+import {useHistory} from "react-router";
 
 interface IRawContext {
     store: IStore
@@ -21,7 +18,6 @@ interface IRawContext {
 export interface IDataContext {
     games: IGameContext["data"],
     subs: Dict<ISubscription>
-    //cart: ICartContext,
     current: {
         discount: number
         user: IUser | null
@@ -49,13 +45,14 @@ const RawContext = createContext<IRawContext>({} as IRawContext);
 const DataContext = createContext<IDataContext>({} as IDataContext);
 
 const Raw: React.FC = ({children}) => {
-    console.log('query start-----------------------------------------')
-    const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true});
-    console.log('query end-----------------------------------------')
+    const {location: {pathname: url}} = useHistory();
+    console.log('query start')
+    const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true, variables: {url}});
     if (loading || !data) {
         return <span>Loading</span>;
     }
 
+    console.log(data.MetaCurrent);
     const [store] = useState(useData(data));
     return (
         <RawContext.Provider value={{

@@ -14,7 +14,9 @@ const game = {
 	`,
 };
 export const BULK_QUERY = gql`
-    query DataAll  {
+    query DataAll ($url: String!) {
+        MetaCurrent (url: $url)
+
         Stripe
         UserWhoAmI {
             id
