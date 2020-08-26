@@ -56,7 +56,6 @@ export const PasswordForget: React.FC = () => {
             if (data.PasswordForget) {
                 history.push(`/password/message`);
             } else {
-                debugger;
             }
         }
     }, [data?.PasswordForget]);

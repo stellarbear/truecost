@@ -75,7 +75,6 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
         const stripe = await loadStripe(stripeKey);
         if (stripe) {
             const {error} = await stripe.redirectToCheckout({sessionId});
-            debugger;
         }
     }
 

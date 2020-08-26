@@ -3,6 +3,7 @@ import {IItem, Time} from "@truecost/shared";
 import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {Chip} from '@material-ui/core';
 import {ItemDivider} from './ItemDivider';
+import {Row} from 'pages/Base/Grid';
 
 interface IProps {
     item: IItem
@@ -10,21 +11,22 @@ interface IProps {
 }
 
 export const ItemTag: React.FC<IProps> = (props) => {
-    const {item, chunk} = props;
+    const {item} = props;
     const itemId = item.id
     const {current: {shop}} = useStore();
     const {tags, } = shop();
 
     return (
         <>
-            <Chip label={"eta: " + Time.fromItem(item, chunk).toString} color="secondary" size="small" />
-            {
-                item.tag.map((tagId) => (tagId in tags.id) && (
-                    <div key={`${itemId}-${tagId}`} style={{padding: 4}}>
-                        <Chip label={tags.id[tagId].name} color="primary" size="small" />
-                    </div>
-                ))
-            }
+            <Row start s={4}>
+                {
+                    item.tag.map((tagId) => (tagId in tags.id) && (
+                        <Chip
+                            key={`${itemId}-${tagId}`}
+                            label={tags.id[tagId].name} color="primary" size="small" />
+                    ))
+                }
+            </Row>
             <ItemDivider condition={true} />
         </>
     )

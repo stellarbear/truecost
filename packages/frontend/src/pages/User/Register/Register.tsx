@@ -58,7 +58,6 @@ export const Register: React.FC = () => {
             if (data.UserCreate) {
                 history.push(`/register/message`);
             } else {
-                debugger;
             }
         }
     }, [data?.UserCreate]);

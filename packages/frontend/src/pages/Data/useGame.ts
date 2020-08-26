@@ -28,14 +28,16 @@ export function useGame(props: IProps) {
         ? props.data.url[gameUrl]
         : Object.keys(props.data.id)[0] || null
 
-    const [state, _] = useState<IGame>(
+    const [first, setFirst] = useState(false)
+    const [state, setState] = useState<IGame>(
         currentGame && currentGame in props.data.id
             ? props.data.id[currentGame]
             : defaultGame);
 
-    const updateState = (game: IGame) => {
-        Object.assign(document.createElement('a'), {/*target: '_blank',*/ href: '/' + game.url}).click();
-    }
+    useEffect(() => {
+        first && history.push(`/${state.url}`);
+        !first && setFirst(true);
+    }, [state])
 
-    return {state, updateState};
+    return {state, setState};
 }

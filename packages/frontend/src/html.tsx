@@ -27,7 +27,7 @@ export const Html: React.FC<IProps> = ({assets, css, content, state}) => (
             <style id="jss-server-side">${css}</style>
             <script src={assets.client.js} defer></script>
             {assets.client.css && <link rel="stylesheet" href={assets.client.css} />}
-            <link href="https://fonts.googleapis.com/css?family=Russo+One&display=swap" rel="stylesheet" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
             <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
                 async></script>
         </head>

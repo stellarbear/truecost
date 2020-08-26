@@ -55,7 +55,6 @@ export const PasswordReset: React.FC = () => {
             if (data.PasswordReset) {
                 history.push(`/login`);
             } else {
-                debugger;
             }
         }
     }, [data?.PasswordReset])

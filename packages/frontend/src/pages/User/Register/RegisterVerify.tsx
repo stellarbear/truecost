@@ -41,7 +41,6 @@ export const RegisterVerify: React.FC = () => {
             if (data.UserVerify) {
                 history.push(`/login`);
             } else {
-                debugger;
             }
         }
     }, [data?.UserVerify])

@@ -19,6 +19,7 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 import {DataContext, useStore} from 'pages/Data/Wrapper';
+import {ItemEta} from './ItemEta';
 
 interface IProps {
     item: IItem
@@ -53,7 +54,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 </Grid>
                 <Grid item xs={12} lg={6}>
                     <ItemDescription item={item} />
-                    <ItemTag item={item} chunk={chunk}/>
+                    <ItemTag item={item} chunk={chunk} />
                     <ItemChildren item={item} />
                     <ItemObtain item={item} />
                     <ItemRequirements item={item} />
@@ -62,6 +63,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     <ItemOption price={price} item={item}
                         selected={selectedOptions}
                         onChange={(val: string[]) => setSelectedOptions(val)} />
+                    <ItemEta item={item} chunk={chunk} />
                     <ItemAddToCard
                         price={total} item={item} chunk={chunk}
                         options={selectedOptions}

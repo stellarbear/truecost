@@ -71,7 +71,7 @@ const Data: React.FC = ({children}) => {
 
     const {cart, itemUpsert, itemRemove, cartWipe, cartCount, itemCount} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
-    const {state: game, updateState: setGame} = useGame(store.game);
+    const {state: game, setState: setGame} = useGame(store.game);
 
     return (
         <DataContext.Provider value={{

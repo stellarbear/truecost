@@ -35,7 +35,6 @@ export const Checkout: React.FC = () => {
     const setActiveStep = (step: number) => {
         step = Math.min(Math.max((+step || 0), 0), 2);
 
-        debugger;
         const path = history.location.pathname;
         history.push(path.slice(-2, -1) === "/"
             ? path.slice(0, -1) + step
@@ -96,11 +95,12 @@ export const Checkout: React.FC = () => {
         </Stepper>
     )
 
-    return (<Container maxWidth="sm">
-        <Col fullWidth s={16}>
-            {stepper()}
-            {panels()}
-        </Col>
-    </Container>
+    return (
+        <Container maxWidth="sm" style={{padding: 0}}>
+            <Col fullWidth s={16}>
+                {stepper()}
+                {panels()}
+            </Col>
+        </Container>
     )
 }

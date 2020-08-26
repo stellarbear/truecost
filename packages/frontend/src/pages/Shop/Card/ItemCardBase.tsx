@@ -106,7 +106,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                     {
                         noLimit
                             ? <Typography variant="h5">{totalPrice.toString}</Typography>
-                            : <CheckCircle />
+                            : <CheckCircle style={{marginTop: 8}} />
                     }
 
                 </Row>

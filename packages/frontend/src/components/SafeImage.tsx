@@ -29,6 +29,7 @@ export const SafeImage: React.FC<IProps> = ({src, style, height, ...rest}) => {
             placeholder={<Skeleton variant="rect" width={"100%"} height={height} />}
         >
             <img
+                height={height}
                 src={error ? fallback : src}
                 style={{
                     display: "block",

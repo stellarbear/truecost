@@ -41,7 +41,6 @@ export const EmailFields: React.FC<IProps> = (props) => {
 
     React.useEffect(() => {
         if (data?.UserGetSubscription) {
-            debugger;
             setCurrent(data?.UserGetSubscription.id)
         }
     }, [data?.UserGetSubscription])

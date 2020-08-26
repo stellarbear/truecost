@@ -43,7 +43,6 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
                 onChange(value.map((v: any) => v.id));
             }}
             filterOptions={(options, params) => {
-                debugger;
                 const filtered = filter(options, params);
 
                 if (params.inputValue !== '') {
