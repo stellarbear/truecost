@@ -21,12 +21,13 @@ interface IProps {
     email: string
     error?: string
     disabled: boolean
+    clearErrors: () => void
     setCurrent: (value?: string) => void
     setError: (name: "email", error: ErrorOption) => void
 }
 
 export const EmailFields: React.FC<IProps> = (props) => {
-    const {error, disabled, setCurrent, register, email, setError} = props;
+    const {error, disabled, setCurrent, register, email, setError, clearErrors} = props;
     const [query, {data, loading}] = useLazyQuery(GET_SUBSCRIPTION);
     const {notify} = useNotification();
 
@@ -84,6 +85,7 @@ export const EmailFields: React.FC<IProps> = (props) => {
                         error={!!error}
                         helperText={error}
                         variant="filled"
+                        onChange={() => clearErrors()}
                     />
                     <Button onClick={() => onClick()}>
                         {

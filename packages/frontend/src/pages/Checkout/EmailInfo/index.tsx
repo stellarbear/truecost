@@ -87,6 +87,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                         register={register}
                         email={watch("email")}
                         setError={setError}
+                        clearErrors={clearErrors}
                         setCurrent={setCurrentSubscription}
                         error={errors.email?.message}
                     />
