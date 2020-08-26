@@ -2,8 +2,6 @@ import {useState, useEffect} from "react";
 
 type Event<T> = (value: T) => void
 
-export enum state {local, }
-
 export const useEventState = <T>(value: T, event: Event<T>) => {
     const [state, setState] = useState(value);
     useEffect(() => setState(value), [value]);

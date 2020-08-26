@@ -40,7 +40,7 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
                                 transition: "all 0.3s", cursor: "pointer"
                             }}
                             onClick={() => !payed && setSelected(selected === subId ? undefined : subId)}>
-                            <Col fullWidth p={8}>
+                            <Col fullWidth>
                                 <Typography style={{
                                     textAlign: "right",
                                     userSelect: "none"
@@ -51,7 +51,7 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
                                 }}>{subs[subId].description}</Typography>
                             </Col>
                             <Checkbox checked={current === subId || selected === subId} disabled={payed} />
-                            <div style={{minWidth: 100}}>
+                            <div style={{minWidth: 60}}>
                                 <Typography variant="h6" style={{
                                     whiteSpace: "nowrap", textAlign: "center", userSelect: "none"
                                 }}>{`${subs[subId].price} $`}</Typography>

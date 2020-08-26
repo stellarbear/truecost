@@ -19,7 +19,7 @@ export const AuxField: React.FC<IProps> = ({text, setText}) => (
                     rowsMax={4}
                     label={"Info"}
                     value={text}
-                    onChangeEvent={(v) => setText(v)} />
+                    onChangeEvent={(v) => setText(v.slice(0, 128))} />
             </Col>
         </Paper>
     </Col>

@@ -9,7 +9,6 @@ import {
     IconButton,
     Typography,
 } from "@material-ui/core";
-import {copyToClipboard} from "auxiliary";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 import Close from "@material-ui/icons/Close";
 

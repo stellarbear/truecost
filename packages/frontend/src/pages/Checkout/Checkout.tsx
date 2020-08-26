@@ -5,8 +5,6 @@ import {Col, Row} from 'pages/Base/Grid';
 import {useStorage} from 'auxiliary/useStorage';
 import {OrderInfo} from './OrderInfo';
 import {EmalInfo} from './EmailInfo';
-import {useStore} from 'pages/Data/Wrapper';
-import {CheckoutEmpty} from './CheckoutEmpty';
 import {useParams, useHistory} from 'react-router-dom';
 
 const steps = [{
@@ -30,7 +28,7 @@ export const Checkout: React.FC = () => {
         time: [12, "am", 12, "pm"],
         text: ""
     });
-    const [activeStep, setActiveSteppp] = React.useState(Math.min(Math.max((+step || 0), 0), 2));
+    const [activeStep, _] = React.useState(Math.min(Math.max((+step || 0), 0), 2));
 
     const setActiveStep = (step: number) => {
         step = Math.min(Math.max((+step || 0), 0), 2);

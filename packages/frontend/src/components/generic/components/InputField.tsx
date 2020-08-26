@@ -2,6 +2,7 @@ import React, {CSSProperties, useEffect, useState} from "react";
 import {IconButton, InputAdornment, TextField} from "@material-ui/core";
 import {BaseTextFieldProps} from "@material-ui/core/TextField";
 import {useEventState} from "../../../auxiliary/useEventState";
+import {useDebounceState} from "auxiliary/useDebounceState";
 
 interface IProps extends BaseTextFieldProps {
     editable?: boolean;
@@ -12,7 +13,8 @@ interface IProps extends BaseTextFieldProps {
 
 export const InputField: React.FC<IProps> = (props) => {
     const {editable, multiline, value, onChangeEvent, ...rest} = props;
-    const {state, setState, bubbleState} = useEventState(value, onChangeEvent);
+    //const {state, setState, bubbleState} = useEventState(value, onChangeEvent);
+    const {state, bubbleState} = useDebounceState(value, onChangeEvent)
 
     return (
         <TextField
@@ -22,8 +24,8 @@ export const InputField: React.FC<IProps> = (props) => {
             type="text"
             value={state}
             variant="filled"
-            onChange={(event) => setState(event.target.value)}
-            onBlur={() => bubbleState()}
+            onChange={(event) => bubbleState(event.target.value)}
+            //onBlur={() => bubbleState()}
         />
     );
 };

@@ -2,6 +2,8 @@ import * as React from 'react';
 import {Checkbox, Typography} from '@material-ui/core';
 import {Row} from 'pages/Base/Grid';
 import {Link} from 'react-router-dom';
+import {ModalDialog} from 'components/ModalDialog';
+import {TOS} from 'pages/TOS';
 
 interface IProps {
     agree: boolean
@@ -21,9 +23,18 @@ export const EmailAgree: React.FC<IProps> = ({agree, toggleAgree}) => {
                 <Typography>
                     {`I agree to\u00A0`}
                 </Typography>
-                <Typography component={Link} to="/tos">
-                    Terms of use
-                </Typography>
+                <ModalDialog
+                    button={
+                        <Typography style={{textDecoration: "underline"}}>
+                            Terms of use
+                        </Typography>
+                    }
+                    content={
+                        [
+                            <TOS />
+                        ]
+                    }
+                />
             </Row>
         </div>
     )
