@@ -9,34 +9,29 @@ interface IProps {
     item: IItem
 }
 
-const getRelated = (items: Record<string, IItem>, ban: string) => {
-    const all = Object.keys(items).filter(e => e != ban);
+const shuffle = (array: string[]) => {
+    let counter = array.length;
 
-    const related: string[] = [];
+    while (counter > 0) {
+        let index = Math.floor(Math.random() * counter);
+        counter--;
 
-    const limit = Math.min(all.length - 1, 8)
-
-    if (limit <= 8) {
-        return all;
+        let temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
     }
 
-    for (let i = 0; i < Math.min(limit, 8); i++) {
-        const index = Math.round(Math.random() * (limit - 1));
-
-        const newItem = all[index];
-
-        if (related.includes(newItem)) {
-            i--;
-        } else {
-            related.push(newItem)
-        }
-    }
-
-    return related;
+    return array;
 }
 
-export const ItemRelated: React.FC<IProps> = ({item: {id}}) => {
-    //const {item} = props;
+const getRelated = (items: Record<string, IItem>, ban: string) => {
+    const all = shuffle(Object.keys(items).filter(e => e != ban));
+
+    return all.slice(0, Math.min(all.length - 1, 8))
+}
+
+export const ItemRelated: React.FC<IProps> = (props) => {
+    const {item: {id}} = props;
     const {current: {shop}} = useStore();
     const {items, } = shop();
 
