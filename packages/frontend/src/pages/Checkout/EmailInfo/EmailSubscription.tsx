@@ -31,32 +31,32 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
             }}>
                 {subsSorted.length > 0 ?
                     subsSorted.map(subId => (
-                        <div key={`${subId}`}
+                        <Row fullWidth end s={8}
+                            key={`${subId}`}
                             onMouseEnter={() => setHovered(subId)}
                             onMouseLeave={() => setHovered("")}
                             style={{
-                                display: "flex", alignItems: "center", justifyContent: "flex-end", cursor: "pointer",
                                 backgroundColor: subId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
-                                transition: "all 0.3s",
+                                transition: "all 0.3s", cursor: "pointer"
                             }}
                             onClick={() => !payed && setSelected(selected === subId ? undefined : subId)}>
-                            <Row fullWidth between p={8}>
+                            <Col fullWidth p={8}>
                                 <Typography style={{
                                     textAlign: "right",
                                     userSelect: "none"
                                 }}>{subs[subId].name}</Typography>
-                                <Typography variant="caption" style={{
+                                <Typography variant="caption" component="p" style={{
                                     textAlign: "right",
                                     userSelect: "none"
                                 }}>{subs[subId].description}</Typography>
-                            </Row>
+                            </Col>
                             <Checkbox checked={current === subId || selected === subId} disabled={payed} />
                             <div style={{minWidth: 100}}>
                                 <Typography variant="h6" style={{
                                     whiteSpace: "nowrap", textAlign: "center", userSelect: "none"
                                 }}>{`${subs[subId].price} $`}</Typography>
                             </div>
-                        </div>
+                        </Row>
                     )) : mock()}
             </Col>
             {subsSorted.length > 0 && <Divider />}

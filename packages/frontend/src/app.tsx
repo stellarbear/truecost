@@ -1,13 +1,8 @@
 import * as React from "react";
-import {Home, NotFound} from "pages";
 import {Route, Switch, Redirect} from "react-router-dom";
 import {NotifyWrapper} from "components/wrappers";
 import NavigationWrapper from "pages/Navigation";
 import AuthRoute from "pages/Admin/AuthRoute";
-import Policy from "pages/Policy";
-import About from "pages/About";
-import TOS from "pages/TOS";
-import Contact from "pages/Contact";
 import {DataContext, DataWrapper} from "pages/Data/Wrapper";
 import Shop from "pages/Shop/Shop";
 import {Login} from "pages/User";
@@ -29,6 +24,9 @@ import {Account} from "pages/Account";
 import {useScript} from "auxiliary/useScript";
 import {tawk, yandex, google} from "scripts";
 import {BackToTop} from "components/BackToTop";
+import Home from "pages/Home";
+import {Contact, Policy, About, TOS} from "pages";
+import NotFound from "pages/NotFound";
 
 
 const App = () => {

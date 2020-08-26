@@ -8,6 +8,10 @@ interface IBase {
     style?: CSSProperties
     p?: number | [number, number]
     m?: number | [number, number]
+
+    onClick?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
+    onMouseEnter?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
+    onMouseLeave?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
 }
 
 interface ILeft extends IBase {
@@ -29,7 +33,11 @@ export const Col: React.FC<IProps> = (props) => {
         p = 0, m = 0, s = 0,
         fullWidth = false,
         style = {},
-        children, ...rest
+        children,
+        onMouseEnter,
+        onMouseLeave,
+        onClick,
+        ...rest
     } = props;
 
     const renderChildren = () => {
@@ -46,7 +54,9 @@ export const Col: React.FC<IProps> = (props) => {
 
     return (
         <div
-            //spacing={spacing}
+        onClick={onClick}
+        onMouseLeave={onMouseLeave}
+        onMouseEnter={onMouseEnter}
             style={{
                 display: "flex",
                 margin: Array.isArray(m) ? `${m[0]}px ${m[1]}px` : m,

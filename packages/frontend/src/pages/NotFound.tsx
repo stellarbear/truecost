@@ -6,9 +6,9 @@ import Meta from "./Base/Meta";
 import {DataContext, useStore} from "./Data/Wrapper";
 import {InfoCard} from "./Base/InfoCard";
 
-type NotFoundProps = RouteComponentProps;
+type IProps = RouteComponentProps;
 
-const NotFound: React.FC<NotFoundProps> = ({staticContext}): JSX.Element => {
+const NotFound: React.FC<IProps> = ({staticContext}) => {
     const {current: {game}} = useStore();
     const url = '/' + game.url
     
