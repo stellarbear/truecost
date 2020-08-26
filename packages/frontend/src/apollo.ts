@@ -27,16 +27,6 @@ const link = (cookie?: string) => ApolloLink.from([
     errorLink,
     httpLink(cookie),
 ]);
-/*
-const enchancedFetch = (url, init) => {
-	return fetch(url, {
-		...init,
-		headers: {
-			...init.headers,
-			"Cookie": cookie
-		}
-	}).then(response => response)
-}*/
 
 const createApolloClient = ({browser}: IApolloClient, cookie?: string) => {
     const client = new ApolloClient({

@@ -7,6 +7,7 @@ import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
 import {ICartContext, useCart, ICartUpsert, ICartRemove} from "./useCart";
 import {useHistory} from "react-router";
+import {hydrate} from "react-dom";
 
 interface IRawContext {
     store: IStore
@@ -44,12 +45,44 @@ export interface IDataContext {
 const RawContext = createContext<IRawContext>({} as IRawContext);
 const DataContext = createContext<IDataContext>({} as IDataContext);
 
+const Mock: React.FC = () => {
+    const [hydrated, setHydrated] = useState(false);
+
+    useEffect(() => {
+        !hydrated && setHydrated(true);
+    }, [])
+
+    return (
+        <div style={{
+            transition: "all 0.5s",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: hydrated ? -9000 : 9000,
+            opacity: hydrated ? 0.0 : 1.0,
+            backgroundColor: "#fff",
+        }}>
+            <img
+                style={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                }}
+                width={16} height={16}
+                src={`/preloader.gif`} />
+        </div>
+    )
+}
+
 const Raw: React.FC = ({children}) => {
     const {location: {pathname: url}} = useHistory();
     console.log('query start')
     const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true, variables: {url}});
     if (loading || !data) {
-        return <span>Loading</span>;
+        return <Mock />
     }
 
     console.log(data.MetaCurrent);
@@ -59,6 +92,7 @@ const Raw: React.FC = ({children}) => {
             payment: {stripe: data.Stripe},
             store,
         }}>
+            <Mock />
             <Data>
                 {children}
             </Data>

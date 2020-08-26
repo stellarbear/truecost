@@ -1,6 +1,6 @@
 import * as React from "react";
 import {StaticRouter} from "react-router-dom";
-import ReactDOMServer, {renderToString} from "react-dom/server";
+import ReactDOMServer from "react-dom/server";
 import Helmet, {HelmetData, HelmetDatum} from "react-helmet";
 import {StaticRouterContext} from "react-router";
 import express from "express";
@@ -11,9 +11,8 @@ import * as path from 'path';
 import {theme} from "theme";
 import {ServerStyleSheets, ThemeProvider} from "@material-ui/styles";
 
-import {NormalizedCacheObject} from "apollo-boost";
 import {ApolloProvider} from "@apollo/react-hooks";
-import {getDataFromTree, renderToStringWithData} from "@apollo/react-ssr";
+import {renderToStringWithData} from "@apollo/react-ssr";
 import createApolloClient from "apollo";
 import {environment} from "auxiliary/route";
 import {Html, IAssets} from "html";

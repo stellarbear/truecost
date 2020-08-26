@@ -1,9 +1,8 @@
 import {hydrate, render} from "react-dom";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter, useLocation} from "react-router-dom";
 import {NormalizedCacheObject} from "apollo-boost";
 import {ApolloProvider} from "@apollo/react-hooks";
-import {Storage} from "auxiliary/storage";
 
 
 import App from "app";
@@ -20,9 +19,6 @@ declare global {
 
 const client = createApolloClient({browser: true});
 
-const storageScrollKey = ["shop", "scroll"];
-const storageScrollPersistKey = ["shop", "scroll!"];
-
 const ScrollToTop: React.FC = () => {
     const {pathname} = useLocation();
 
@@ -33,7 +29,7 @@ const ScrollToTop: React.FC = () => {
     return null;
 };
 
-const BaseApp = (): JSX.Element => {
+const BaseApp: React.FC = () => {
 
     React.useEffect((): void => {
         const jssStyles = document.querySelector("#jss-server-side");
@@ -55,6 +51,7 @@ const BaseApp = (): JSX.Element => {
         </ApolloProvider>
     );
 };
+
 const renderMethod = module.hot ? render : hydrate;
 renderMethod(
     <BaseApp />,
