@@ -10,9 +10,9 @@ const About: React.FC<IAboutProps> = ({}): JSX.Element => {
 
     return (
         <React.Fragment>
-            <Meta page="about"/>
+            <Meta page="about" />
             <TextCard title="About us"
-                      data={Object.keys(text.about).map(key => ({title: key, text: (text as any).about[key]}))}/>
+                data={Object.keys(text.about).map(key => ({title: key, text: (text as any).about[key]}))} />
         </React.Fragment>
     );
 };

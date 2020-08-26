@@ -29,7 +29,7 @@ const GET_INFO = gql`
     }
 `
 
-const height = 350;
+const height = 250;
 
 const image = (infoId: string, imageId: string) => `${backend.uri}/${infoId}/${imageId}/u.jpg`;
 

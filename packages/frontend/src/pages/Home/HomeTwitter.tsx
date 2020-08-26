@@ -4,7 +4,7 @@ import {TwitterTimelineEmbed} from 'react-twitter-embed';
 import {CSSProperties, useContext} from 'react';
 import {DataContext} from 'pages/Data/Wrapper';
 
-const height = 350 - 4;
+const height = 250 - 4;
 
 export const HomeTwitter: React.FC = () => {
     const {current: {game}} = useContext(DataContext);
