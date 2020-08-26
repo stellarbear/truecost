@@ -11,6 +11,10 @@ interface IBase {
     m?: number | [number, number]
 
     width?: (number | string)[]
+
+    onClick?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
+    onMouseEnter?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
+    onMouseLeave?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
 }
 
 interface IStart extends IBase {
@@ -28,7 +32,7 @@ interface IEven extends IBase {
 interface IAround extends IBase {
     around: boolean;
 }
- 
+
 interface IBetween extends IBase {
     between: boolean;
 }
@@ -49,7 +53,11 @@ export const Row: React.FC<IProps> = (props) => {
         fullWidth = false,
         width = [],
         style = {},
-        children, ...rest
+        children,
+        onMouseEnter,
+        onMouseLeave,
+        onClick,
+        ...rest
     } = props;
 
     const renderChildren = () => {
@@ -66,7 +74,9 @@ export const Row: React.FC<IProps> = (props) => {
 
     return (
         <div
-            //spacing={spacing}
+            onClick={onClick}
+            onMouseLeave={onMouseLeave}
+            onMouseEnter={onMouseEnter}
             style={{
                 width: fullWidth ? "100%" : "auto",
                 display: "flex",

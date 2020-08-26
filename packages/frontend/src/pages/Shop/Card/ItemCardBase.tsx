@@ -50,33 +50,27 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
             <div style={{overflowY: "auto"}}>
                 {itemOptions.length > 0 ? itemOptions.map((optionId) =>
                     <div key={`${itemId}-option-${optionId}`}>
-                        <div
+                        <Row
+                            s={8}
+                            p={8}
+                            onMouseEnter={() => setHovered(optionId)}
+                            onMouseLeave={() => setHovered("")}
+                            onClick={() => toggleSelected(optionId)}
                             style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                padding: 8,
-                                alignItems: "center",
-                                justifyContent: "space-between",
                                 backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
                                 transition: "all 0.3s",
                             }}
-                            onMouseEnter={() => setHovered(optionId)}
-                            onMouseLeave={() => setHovered("")}
-                            onClick={() => toggleSelected(optionId)}>
-                            <div style={{display: "flex", alignItems: "center"}}>
-                                <Checkbox
-                                    checked={selectedOptions.includes(optionId)}
-                                />
-                                <Typography variant="body2"
-                                    style={{userSelect: "none"}}>{options.local.id[optionId].name}</Typography>
-                            </div>
-                            <Typography variant="h6"
-                                style={{
-                                    userSelect: "none",
-                                    whiteSpace: "nowrap",
-                                    textAlign: "center",
-                                }}>{price.getOption(options.local.id[optionId]).toString}</Typography>
-                        </div>
+                        >
+                            <Checkbox
+                                checked={selectedOptions.includes(optionId)}
+                            />
+                            <Typography variant="body2"
+                                style={{userSelect: "none"}}>{options.local.id[optionId].name}
+                            </Typography>
+                            <Typography variant="h6" align="center" noWrap>
+                                {price.getOption(options.local.id[optionId]).toString}
+                            </Typography>
+                        </Row>
                         <Divider style={{paddingLeft: 8}} />
                     </div>,
                 ) : (
