@@ -19,15 +19,14 @@ import {SafeImage} from "components/SafeImage";
 import {backend} from "auxiliary/route";
 import CheckCircle from '@material-ui/icons/CheckCircle';
 
-interface IItemCardProps extends RouteComponentProps<{}> {
+interface IProps {
     id: string;
 }
 
 //const size = 284;
-const ItemCard: React.FC<IItemCardProps> = (props) => {
+const ItemCard: React.FC<IProps> = (props) => {
     const {id} = props;
 
-    const {notify} = useContext(NotificationContext);
     const {current: {shop, game: {url}}, update: {cart}} = useContext(DataContext);
     const {
         tags,
@@ -137,4 +136,4 @@ const ItemCard: React.FC<IItemCardProps> = (props) => {
     );
 };
 
-export default withRouter(ItemCard);
+export default ItemCard;
