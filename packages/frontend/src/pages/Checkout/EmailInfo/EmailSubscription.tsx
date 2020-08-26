@@ -11,7 +11,6 @@ interface IProps {
     setSelected: (value?: string) => void
 }
 
-
 export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, current}) => {
     const {subs} = useStore();
     const [hovered, setHovered] = useState<string>("")

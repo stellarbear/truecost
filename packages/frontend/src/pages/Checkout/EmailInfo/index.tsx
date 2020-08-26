@@ -38,7 +38,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     const [selectedSubscription, setSelectedSubscription] = useState<string | undefined>();
     const [currentSubscription, setCurrentSubscription] = useState<string | undefined>(user?.subscription?.id);
 
-    const {register, handleSubmit, errors, clearErrors, watch} = useForm<BookingSubmit>({
+    const {register, handleSubmit, errors, clearErrors, watch, setError} = useForm<BookingSubmit>({
         reValidateMode: "onBlur",
         defaultValues: {email: user ? user.email : ""}
     });
@@ -86,6 +86,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                         disabled={!!user}
                         register={register}
                         email={watch("email")}
+                        setError={setError}
                         setCurrent={setCurrentSubscription}
                         error={errors.email?.message}
                     />

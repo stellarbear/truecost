@@ -5,6 +5,8 @@ import {TextField, Typography, Paper, Button, CircularProgress} from '@material-
 import {Col, Row} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
 import {useLazyQuery} from 'react-apollo';
+import {ErrorOption} from 'react-hook-form/dist/types/form';
+import {useNotification} from 'components/wrappers/NotifyWrapper';
 
 const GET_SUBSCRIPTION = gql`
     query UserGetSubscription($email: String!) {
@@ -20,11 +22,13 @@ interface IProps {
     error?: string
     disabled: boolean
     setCurrent: (value?: string) => void
+    setError: (name: "email", error: ErrorOption) => void
 }
 
 export const EmailFields: React.FC<IProps> = (props) => {
-    const {error, disabled, setCurrent, register, email} = props;
+    const {error, disabled, setCurrent, register, email, setError} = props;
     const [query, {data, loading}] = useLazyQuery(GET_SUBSCRIPTION);
+    const {notify} = useNotification();
 
     const {current: {user}} = useStore();
 
@@ -40,10 +44,25 @@ export const EmailFields: React.FC<IProps> = (props) => {
     }, [user])
 
     React.useEffect(() => {
-        if (data?.UserGetSubscription) {
-            setCurrent(data?.UserGetSubscription.id)
+        if (data) {
+            if (data?.UserGetSubscription) {
+                setCurrent(data?.UserGetSubscription.id)
+                notify("Subscription applied")
+            } else {
+                notify("No active subscription on this email")
+            }
         }
     }, [data?.UserGetSubscription])
+
+    const onClick = () => {
+        if (email.length === 0) {
+            setError("email", {type: "error", message: "This field is required"})
+        } else if (!validate("email").test(email)) {
+            setError("email", {type: "error", message: "Does not look like email (:"})
+        } else {
+            query({variables: {email}});
+        }
+    }
 
     return (
         <Paper elevation={3}>
@@ -66,7 +85,7 @@ export const EmailFields: React.FC<IProps> = (props) => {
                         helperText={error}
                         variant="filled"
                     />
-                    <Button onClick={() => query({variables: {email}})}>
+                    <Button onClick={() => onClick()}>
                         {
                             loading
                                 ? <CircularProgress size={24} />
@@ -75,6 +94,6 @@ export const EmailFields: React.FC<IProps> = (props) => {
                     </Button>
                 </Row>
             </Col>
-        </Paper>
+        </Paper >
     )
 }
