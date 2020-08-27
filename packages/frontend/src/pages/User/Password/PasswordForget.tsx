@@ -7,10 +7,8 @@ import {
     Paper,
     Typography,
 } from "@material-ui/core";
-import {useMutation} from "react-apollo";
 import React, {useCallback, useEffect} from "react";
 
-import gql from "graphql-tag";
 import {useHistory} from "react-router";
 import Alert from "@material-ui/lab/Alert";
 import {useForm} from "react-hook-form";
@@ -20,6 +18,7 @@ import {Col} from "pages/Base/Grid";
 import {parseApolloError} from "auxiliary/error";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 import {Meta} from "pages/Base/Meta";
+import {gql, useMutation} from "@apollo/client";
 
 
 const forgetMutation = gql`

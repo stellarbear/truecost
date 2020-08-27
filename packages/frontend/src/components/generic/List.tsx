@@ -18,8 +18,7 @@ import {
     withStyles,
     CircularProgress,
 } from "@material-ui/core";
-import {useMutation, useQuery} from "react-apollo";
-import React, {useEffect, CSSProperties} from "react";
+import React, {useEffect} from "react";
 import FilterList from "@material-ui/icons/FilterList";
 import Save from "@material-ui/icons/Save";
 import Cancel from "@material-ui/icons/Cancel";
@@ -42,6 +41,8 @@ import {parseApolloError} from "auxiliary/error";
 import {TimeoutButton} from "./components/TimeoutButton";
 import {visible} from "./Visible";
 import {arrayToDict} from "@truecost/shared";
+import {useMutation, useQuery} from "@apollo/client";
+import {CSSProperties} from "@material-ui/core/styles/withStyles";
 
 const stickyStyle: CSSProperties = {
     position: "sticky",

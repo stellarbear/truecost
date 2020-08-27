@@ -4,8 +4,6 @@ import {Col, Row} from 'pages/Base/Grid';
 import {Button, Box, Paper, Typography, Divider} from '@material-ui/core';
 import {useForm} from 'react-hook-form';
 import {loadStripe} from '@stripe/stripe-js';
-import {useMutation} from 'react-apollo';
-import {gql} from 'apollo-boost';
 import {Alert} from '@material-ui/lab';
 import {parseApolloError} from 'auxiliary/error';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
@@ -14,6 +12,7 @@ import {EmailSubscription} from './EmailSubscription';
 import {EmailFields} from './EmailFields';
 import {EmailPrice} from './EmailPrice';
 import {EmailAgree} from './EmailAgree';
+import {gql, useMutation} from '@apollo/client';
 
 interface IProps {
     info: Record<string, any>
@@ -53,7 +52,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
             const {platform, text, cross, time, zone} = info;
 
             const variables = {
-                ...data,
+                email: watch("email"),  //  hack cause var is undefined
                 game: game.id,
                 subscription: selectedSubscription,
                 booking: JSON.stringify(cartItems),

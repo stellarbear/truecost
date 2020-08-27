@@ -4,10 +4,9 @@ import {Link, useHistory} from 'react-router-dom';
 import {DataContext} from "pages/Data/Wrapper";
 import {Col, Row} from "pages/Base/Grid";
 import {useStore} from 'pages/Data/Wrapper';
-import gql from "graphql-tag";
-import {useMutation} from "react-apollo";
 import {RoleType} from "@truecost/shared";
 import {account} from "pages/Account/routes";
+import {useMutation, gql} from "@apollo/client";
 
 const LOGOUT = gql`
     mutation UserLogout {

@@ -15,8 +15,7 @@ import * as React from "react";
 import {SelectProps} from "@material-ui/core/Select";
 import {useEventState} from "../../../auxiliary/useEventState";
 import {Autocomplete} from "@material-ui/lab";
-import {gql} from "apollo-boost";
-import {useLazyQuery} from "react-apollo";
+import {gql, useLazyQuery} from "@apollo/client";
 
 export interface IOption {
     id: string

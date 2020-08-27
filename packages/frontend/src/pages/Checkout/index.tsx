@@ -21,7 +21,7 @@ const steps = [{
 }];
 
 export const Checkout: React.FC = () => {
-    const {step} = useParams();
+    const {step} = useParams<{step: string}>();
     const history = useHistory();
     const {current: {game}} = useStore();
 
@@ -31,11 +31,12 @@ export const Checkout: React.FC = () => {
         time: [12, "am", 12, "pm"],
         text: ""
     });
-    const [activeStep, _] = React.useState(Math.min(Math.max((+step || 0), 0), 2));
+    const [activeStep, setStep] = React.useState(Math.min(Math.max((+step || 0), 0), 2));
 
     const setActiveStep = (step: number) => {
         step = Math.min(Math.max((+step || 0), 0), 2);
 
+        setStep(step);
         const path = history.location.pathname;
         history.push(path.slice(-2, -1) === "/"
             ? path.slice(0, -1) + step

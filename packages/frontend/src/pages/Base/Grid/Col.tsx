@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Grid} from '@material-ui/core';
-import {CSSProperties} from '@material-ui/core/styles/withStyles';
+import {CSSProperties} from 'react';
 
 interface IBase {
     s?: number

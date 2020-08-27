@@ -1,14 +1,10 @@
 import * as React from 'react';
 import {InfoCard} from 'pages/Base/InfoCard';
 import {useParams, Redirect, useHistory} from 'react-router';
-import {gql} from 'apollo-boost';
-import {useLoading} from 'components/wrappers/LoadingWrapper';
-import {useQuery, useLazyQuery, useMutation} from 'react-apollo';
 import {Button, Box, CircularProgress} from '@material-ui/core';
-import {useStore} from 'pages/Data/Wrapper';
-import {Alert} from '@material-ui/lab';
 import {Link} from 'react-router-dom';
 import {Meta} from 'pages/Base/Meta';
+import {gql, useMutation} from '@apollo/client';
 
 const verifyMutation = gql`
     mutation UserVerify($verify: String!, $value: String!) {
@@ -24,7 +20,7 @@ const verifyMutation = gql`
 
 export const RegisterVerify: React.FC = () => {
     const history = useHistory();
-    const {verify, value} = useParams();
+    const {verify, value} = useParams<{verify: string, value: string}>();
     const [mutation, {data, error, loading}] = useMutation(verifyMutation);
 
     React.useEffect(() => {

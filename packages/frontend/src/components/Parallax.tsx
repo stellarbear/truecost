@@ -1,5 +1,4 @@
 import * as React from "react";
-import window from 'global';
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
 
 interface ParallaxProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -26,7 +25,9 @@ const Parallax: React.FC<ParallaxProps> = (props) => {
     } = props;
     const classes = useStyles();
     const [transform, setTransform] = React.useState(
-        "translate3d(0," + (window.pageYOffset / 3) + "px,0)",
+        "translate3d(0," +
+        ((typeof window === 'undefined') ? 0 : (window.pageYOffset / 3))
+        + "px,0)",
     );
 
     React.useEffect(() => {

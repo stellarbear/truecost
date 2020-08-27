@@ -1,6 +1,5 @@
 import * as React from 'react';
-import {NormalizedCacheObject} from 'apollo-boost';
-import {useScript} from 'auxiliary/useScript';
+import {NormalizedCacheObject} from '@apollo/client';
 
 export interface IAsset {
     js: string;

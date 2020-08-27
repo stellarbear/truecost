@@ -6,10 +6,9 @@ import {
     TextField,
     Paper,
 } from "@material-ui/core";
-import {useMutation} from "react-apollo";
 import React, {useCallback, useEffect} from "react";
 
-import gql from "graphql-tag";
+import {gql, useMutation} from "@apollo/client";
 import {useHistory} from "react-router";
 import Alert from "@material-ui/lab/Alert";
 import {useForm} from "react-hook-form";

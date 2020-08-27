@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {CSSProperties} from 'react';
 import {IconButton, makeStyles} from '@material-ui/core';
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import ArrowForward from "@material-ui/icons/ArrowForward";
-import {useRandState} from 'auxiliary/useRandState';
+import {CSSProperties} from 'react';
 
 interface IProps {
     id: string

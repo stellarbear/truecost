@@ -2,7 +2,7 @@ import * as React from 'react'
 import {Col, Row} from './Grid'
 import {Typography, Card} from '@material-ui/core'
 import {DataContext, useStore} from 'pages/Data/Wrapper';
-import {CSSProperties} from '@material-ui/core/styles/withStyles';
+import {CSSProperties} from 'react';
 import {frontend, backend} from 'auxiliary/route';
 
 interface IProps {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {StaticRouter} from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
-import Helmet, {HelmetData, HelmetDatum} from "react-helmet";
+import {renderToStringWithData} from "@apollo/client/react/ssr";
 import {StaticRouterContext} from "react-router";
 import express from "express";
 
@@ -11,11 +11,10 @@ import * as path from 'path';
 import {theme} from "theme";
 import {ServerStyleSheets, ThemeProvider} from "@material-ui/styles";
 
-import {ApolloProvider} from "@apollo/react-hooks";
-import {renderToStringWithData} from "@apollo/react-ssr";
 import createApolloClient from "apollo";
 import {environment} from "auxiliary/route";
 import {Html, IAssets} from "html";
+import {ApolloProvider} from "@apollo/client";
 
 const server = express();
 

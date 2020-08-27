@@ -9,7 +9,6 @@ import {
     TableCell,
 } from "@material-ui/core";
 import AddCircle from "@material-ui/icons/AddCircle";
-import {useMutation} from "react-apollo";
 import {ItemProp} from "./types";
 
 import {getResolverName} from "auxiliary";
@@ -21,6 +20,7 @@ import {useNotification} from "components/wrappers/NotifyWrapper";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 import {useShared} from "./CRUD";
 import {parseApolloError} from "auxiliary/error";
+import {useMutation} from "@apollo/client";
 
 interface AddProps {
     propsAdd: ItemProp[];

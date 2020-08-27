@@ -6,10 +6,7 @@ import {
     TextField,
     Paper,
 } from "@material-ui/core";
-import {useMutation} from "react-apollo";
 import React, {useCallback, useEffect, useState} from "react";
-
-import gql from "graphql-tag";
 import {Link} from "react-router-dom";
 import {useHistory} from "react-router";
 import Alert from "@material-ui/lab/Alert";
@@ -22,6 +19,7 @@ import {useStore} from "pages/Data/Wrapper";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 import {PasswordField} from "components/PasswordField";
 import {Meta} from "pages/Base/Meta";
+import {gql, useMutation} from "@apollo/client";
 
 
 const LOGIN = gql`

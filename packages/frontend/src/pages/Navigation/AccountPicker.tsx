@@ -4,8 +4,7 @@ import {Link, useHistory} from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import {Col, Row} from "pages/Base/Grid";
 import {useStore} from 'pages/Data/Wrapper';
-import gql from "graphql-tag";
-import {useMutation} from "react-apollo";
+import {gql, useMutation} from '@apollo/client';
 import {RoleType} from "@truecost/shared";
 import {account} from "pages/Account/routes";
 

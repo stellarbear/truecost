@@ -1,4 +1,4 @@
-import React, {CSSProperties, useContext, useEffect, useState} from "react";
+import React from "react";
 
 import {NotificationContext} from "components/wrappers";
 import {DataContext, useStore} from "pages/Data/Wrapper";

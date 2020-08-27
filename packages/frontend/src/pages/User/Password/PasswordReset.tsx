@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {InfoCard} from 'pages/Base/InfoCard';
 import {useParams, Redirect, useHistory} from 'react-router';
-import {gql} from 'apollo-boost';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
-import {useQuery, useLazyQuery, useMutation} from 'react-apollo';
 import {Button, Box, CircularProgress, Container, Paper, TextField} from '@material-ui/core';
 import {useStore} from 'pages/Data/Wrapper';
 import {Alert} from '@material-ui/lab';
@@ -14,6 +12,7 @@ import {Col} from 'pages/Base/Grid';
 import {parseApolloError} from 'auxiliary/error';
 import {useCallback} from 'react';
 import {Meta} from 'pages/Base/Meta';
+import {gql, useMutation} from '@apollo/client';
 
 const verifyMutation = gql`
     mutation PasswordReset($forget: String!, $value: String!, $password: String!) {
@@ -33,7 +32,7 @@ interface ResetSubmit {
 export const PasswordReset: React.FC = () => {
     const history = useHistory();
     const {setLoading} = useLoading();
-    const {forget, value} = useParams();
+    const {forget, value} = useParams<{forget: string, value: string}>();
     const [mutation, {data, error, loading}] = useMutation(verifyMutation);
 
     const {register, handleSubmit, errors, clearErrors} = useForm<ResetSubmit>({reValidateMode: "onBlur"});

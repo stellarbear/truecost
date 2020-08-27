@@ -5,7 +5,6 @@ import {Filter} from "components/generic/Filter";
 import {List} from "components/generic/List";
 import {Add} from "components/generic/Add";
 import {Row, Col} from "pages/Base/Grid";
-import {ApolloQueryResult, NetworkStatus} from "apollo-boost";
 import {createContext} from "react";
 
 interface ICRUD {

@@ -1,21 +1,12 @@
 import {hydrate, render} from "react-dom";
 import React, {useEffect, useState} from "react";
 import {BrowserRouter, useLocation} from "react-router-dom";
-import {NormalizedCacheObject} from "apollo-boost";
-import {ApolloProvider} from "@apollo/react-hooks";
-
 
 import App from "app";
-
 import {theme} from "theme";
 import {ThemeProvider} from "@material-ui/styles";
 import createApolloClient from "apollo";
-
-declare global {
-    interface Window {
-        apolloState: NormalizedCacheObject;
-    }
-}
+import {ApolloProvider} from "@apollo/client";
 
 const client = createApolloClient({browser: true});
 

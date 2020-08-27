@@ -7,8 +7,6 @@ import {TextField, Button, Box, Container, Paper, CircularProgress} from '@mater
 import {Alert} from '@material-ui/lab';
 import {parseApolloError} from 'auxiliary/error';
 import {validate} from '@truecost/shared';
-import {useQuery, useLazyQuery} from 'react-apollo';
-import {gql, ApolloError} from 'apollo-boost';
 import {BookingSubmit} from '.';
 
 interface IProps {

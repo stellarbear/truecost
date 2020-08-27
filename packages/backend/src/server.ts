@@ -1,23 +1,22 @@
 import * as express from 'express';
-import {GraphQLSchema} from "graphql";
 import {DI} from "./orm";
 import * as path from 'path';
 import {redis} from "./redis";
 import {RedisStore} from 'connect-redis';
 
-import * as fastify from 'fastify';
-import * as fastifycookie from 'fastify-cookie';
-import * as fastifycors from "fastify-cors";
-import * as fastifygql from "fastify-gql";
+import fastify from 'fastify';
+import fastifycookie from 'fastify-cookie';
+import fastifycors from "fastify-cors";
+import fastifygql from "fastify-gql";
 import * as fastifygqlupload from 'fastify-gql-upload';
-import * as fastifysession from 'fastify-session';
-import * as fastifystatic from 'fastify-static';
+import fastifysession from 'fastify-session';
+import fastifystatic from 'fastify-static';
 import {environment, domain} from './helpers/route';
 
 import Stripe from 'stripe';
 import {creds} from './helpers/creds';
-import {Session} from 'inspector';
 import {createOrder} from './modules/other/webhook';
+import {GraphQLSchema} from 'graphql';
 
 export interface Context {
     req: express.Request;
@@ -58,6 +57,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
     });
 
     app.register(fastifygql, {
+        cache: true,
         schema,
         jit: 1,
         graphiql: true,
@@ -89,7 +89,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
                     const stripe = new Stripe(data.sk, {apiVersion: '2020-03-02'});
 
                     const sig = request.headers['stripe-signature'] as string;
-                    const event = stripe.webhooks.constructEvent(request.body.raw, sig, data.webhook);
+                    const event = stripe.webhooks.constructEvent((request.body as any).raw, sig, data.webhook);
 
                     if (event.type === 'checkout.session.completed') {
                         const session = event.data.object;

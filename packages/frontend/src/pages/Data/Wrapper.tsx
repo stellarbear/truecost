@@ -1,5 +1,4 @@
 import React, {createContext, useState, useEffect, useContext} from "react";
-import {useQuery} from "react-apollo";
 import {OptionType, OptionArea, IUser, IGame, IOption, IShop, ICart, subscription, ISubscription, Dict, IGameContext, SafeJSON, arrayToDict} from "@truecost/shared";
 import {useData, IStoreContext, IStore} from "./useData";
 import {useGame} from "./useGame";
@@ -8,6 +7,7 @@ import {BULK_QUERY} from "./query";
 import {useCart, ICartUpsert, ICartRemove} from "./useCart";
 import {Mock} from "./Mock";
 import {useMeta, IMeta} from "./useMeta";
+import {useQuery} from "@apollo/client";
 
 interface IRawContext {
     meta: Dict<IMeta>

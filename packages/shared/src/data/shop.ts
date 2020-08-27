@@ -167,25 +167,27 @@ export const parseShop = (GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], Op
     for (let item of ItemAll) {
         let {game: {id: gameId}, id, active, url} = item;
 
-        item.range = SafeJSON.parse(item.range, rangeBase)
-
-        item.tag = map(item.tag)
-        item.item = map(item.item)
-        item.option = map(item.option)
-
         if (active && gameId in shopDict.data) {
             shopDict.data[gameId].items.url[url] = id;
-            shopDict.data[gameId].items.id[id] = item;
+            shopDict.data[gameId].items.id[id] = {
+                ...item,
+                tag: map(item.tag),
+                item: map(item.item), 
+                option: map(item.option),
+                range: SafeJSON.parse(item.range, rangeBase)
+            };
         }
     }
 
     for (let tag of TagAll) {
         let {game: {id: gameId}, id, active, name} = tag;
 
-        tag.children = map(tag.children);
         if (active && gameId in shopDict.data) {
-            shopDict.data[gameId].tags.id[id] = tag;
             shopDict.data[gameId].tags.url[name] = id;
+            shopDict.data[gameId].tags.id[id] =  {
+                ...tag,
+                children: map(tag.children)
+            };
         }
     }
 

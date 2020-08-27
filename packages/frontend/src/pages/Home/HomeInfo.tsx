@@ -1,7 +1,6 @@
 import * as React from 'react';
-import {gql} from 'apollo-boost';
+import {gql, useQuery} from '@apollo/client';
 import {useStore} from 'pages/Data/Wrapper';
-import {useQuery} from 'react-apollo';
 import {Paper, CircularProgress, Typography} from '@material-ui/core';
 import {IInfo, SafeJSON} from '@truecost/shared';
 import {CarouselPure} from 'components/CarouselPure';

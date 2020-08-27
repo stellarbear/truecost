@@ -1,9 +1,9 @@
 import * as React from 'react';
 import ArrowDown from '@material-ui/icons/ArrowDownward'
 import {Card, ButtonBase, Typography, Button, IconButton} from '@material-ui/core';
-import {CSSProperties} from 'react';
 import {Link} from 'react-router-dom';
 import {DataContext, useStore} from 'pages/Data/Wrapper';
+import {CSSProperties} from 'react';
 
 interface IProps {
     style?: CSSProperties

@@ -1,12 +1,11 @@
 import * as React from 'react';
-import {gql} from 'apollo-boost';
 import {validate, subscription} from '@truecost/shared';
 import {TextField, Typography, Paper, Button, CircularProgress} from '@material-ui/core';
 import {Col, Row} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
-import {useLazyQuery} from 'react-apollo';
 import {ErrorOption} from 'react-hook-form/dist/types/form';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
+import {gql, useLazyQuery} from '@apollo/client';
 
 const GET_SUBSCRIPTION = gql`
     query UserGetSubscription($email: String!) {

@@ -10,7 +10,7 @@ interface IProps extends React.ImgHTMLAttributes<any> {
     height?: number
 }
 
-export const SafeImage: React.FC<IProps> = ({src, style, height, ...rest}) => {
+export const SafeImage: React.FC<IProps> = ({src, style = {}, height, ...rest}) => {
     const {current: {game}} = useStore();
     const fallback = game.id === "truecost" ? `${frontend.uri}/default/assistant.png`
         : `${backend.uri}/${game.id}/${game.assistant}/u.png`;

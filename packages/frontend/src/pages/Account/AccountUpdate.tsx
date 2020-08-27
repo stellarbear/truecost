@@ -2,16 +2,15 @@ import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Container, Box, Button, CircularProgress, TextField, Paper} from '@material-ui/core';
 import {Col} from 'pages/Base/Grid';
-import {gql} from 'apollo-boost';
 import {error} from 'console';
 import {Alert} from '@material-ui/lab';
 import {parseApolloError} from 'auxiliary/error';
 import {useState} from 'react';
-import {useMutation} from 'react-apollo';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {useForm} from 'react-hook-form';
 import {Dict} from '@truecost/shared';
+import {gql, useMutation} from '@apollo/client';
 
 const USER_UPDATE_INFO = gql`
     mutation UserUpdateInfo ($oldPassword: String!, $newPassword: String, $name: String) {

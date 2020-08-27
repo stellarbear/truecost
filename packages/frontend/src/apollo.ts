@@ -1,8 +1,8 @@
-import {ApolloClient, ApolloLink, InMemoryCache} from "apollo-boost";
 import fetch from "isomorphic-fetch";
-import {onError} from "apollo-link-error";
+import {onError} from "@apollo/client/link/error";
 import {createUploadLink} from "apollo-upload-client";
 import {backend} from "auxiliary/route";
+import {ApolloLink, ApolloClient, InMemoryCache} from "@apollo/client";
 
 interface IApolloClient {
     browser: boolean;
@@ -30,7 +30,7 @@ const link = (cookie?: string) => ApolloLink.from([
 
 const createApolloClient = ({browser}: IApolloClient, cookie?: string) => {
     const client = new ApolloClient({
-        cache: browser ? new InMemoryCache().restore(window.apolloState) : new InMemoryCache(),
+        cache: browser ? new InMemoryCache().restore((window as any).apolloState) : new InMemoryCache(),
         ssrForceFetchDelay: browser ? 100 : undefined,
         defaultOptions: {
             query: {

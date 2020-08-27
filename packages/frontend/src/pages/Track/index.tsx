@@ -2,12 +2,10 @@ import * as React from 'react';
 import {TextField, Button, Box, Container, Paper} from '@material-ui/core';
 import {Alert} from '@material-ui/lab';
 import {parseApolloError} from 'auxiliary/error';
-import {validate} from '@truecost/shared';
-import {useQuery, useLazyQuery} from 'react-apollo';
-import {gql} from 'apollo-boost';
 import {QueryForm} from './QueryForm';
 import {ShowBookingInfo} from './ShowInfo';
 import {Meta} from 'pages/Base/Meta';
+import {gql, useLazyQuery} from '@apollo/client';
 
 const GET_BOOKING = gql`
     query BookingGetByCode($email: String!, $code: String!) {

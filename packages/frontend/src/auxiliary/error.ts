@@ -1,4 +1,4 @@
-import {ApolloError} from "apollo-boost";
+import {ApolloError} from "@apollo/client";
 
 type StringType = string
 type RecordType = Record<string, string>

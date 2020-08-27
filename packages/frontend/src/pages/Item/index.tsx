@@ -5,7 +5,7 @@ import {ItemLanding} from "./ItemLanding";
 import {Meta} from "pages/Base/Meta";
 
 export const Item: React.FC = () => {
-    const {url: itemUrl} = useParams();
+    const {url: itemUrl} = useParams<{url: string}>();
     const {current: {shop, game: {url}}} = useContext(DataContext);
     const {items, } = shop();
 
