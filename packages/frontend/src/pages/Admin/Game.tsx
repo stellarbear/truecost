@@ -37,7 +37,7 @@ export const AdminGame: React.FC = () => {
     const background = new CImage({
         key: "background",
         label: "background",
-        ext: "gif",
+        ext: "jpg",
         limit: 1,
     });
 

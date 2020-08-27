@@ -30,7 +30,7 @@ interface IHomeProps {
 const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
     const {current: {game}} = useContext(DataContext);
     const current = game!;
-    const image = `${backend.uri}/${current.id}/${current.background}/u.gif`
+    const image = `${backend.uri}/${current.id}/${current.background}/u.jpg`
 
     return (
         <React.Fragment>
