@@ -22,7 +22,7 @@ const NotFound: React.FC<IProps> = ({staticContext}) => {
 
     return (
         <>
-            <Meta path={404}/>
+            <Meta path={"/404"}/>
             <InfoCard text={[
                 'Unfortunately, page is not found',
                 'Try next time, may be you will find something interesting!'
