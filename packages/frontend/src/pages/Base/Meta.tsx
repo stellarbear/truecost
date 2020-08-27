@@ -14,7 +14,6 @@ const parse = (src: string, entity: Dict<any>): string => {
     let result = src;
 
     while (true) {
-        console.log(result);
         const start = result.indexOf('{');
         const end = result.indexOf('}');
 
@@ -71,8 +70,6 @@ export const Meta: React.FC<IProps> = (props) => {
     } = props;
 
     const tags = getMetaTags(meta, path);
-
-    console.log(tags);
     const data = Object.keys(tags).map(key => ({
         path: key,
         value: parse(tags[key], entity)

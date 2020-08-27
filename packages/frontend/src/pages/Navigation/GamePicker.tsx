@@ -51,7 +51,10 @@ export const GamePicker: React.FC = () => {
                         <MenuItem
                             value={game}
                             style={{color: "black"}}
-                            onClick={() => setGame(game)}>{games.id[game].name}</MenuItem>
+                            onClick={() => {
+                                setAnchorEl(null)
+                                setGame(game)
+                            }}>{games.id[game].name}</MenuItem>
                     </Link>
                 ))}
             </Menu>

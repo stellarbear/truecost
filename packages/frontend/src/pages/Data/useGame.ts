@@ -28,16 +28,10 @@ export function useGame(props: IProps) {
         ? props.data.url[gameUrl]
         : Object.keys(props.data.id)[0] || null
 
-    const [first, setFirst] = useState(false)
     const [state, setState] = useState<IGame>(
         currentGame && currentGame in props.data.id
             ? props.data.id[currentGame]
             : defaultGame);
-
-    useEffect(() => {
-        first && history.push(`/${state.url}`);
-        !first && setFirst(true);
-    }, [state])
 
     return {state, setState};
 }

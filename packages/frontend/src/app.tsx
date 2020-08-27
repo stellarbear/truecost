@@ -1,7 +1,6 @@
 import * as React from "react";
 import {Route, Switch, Redirect} from "react-router-dom";
 import {NotifyWrapper} from "components/wrappers";
-import NavigationWrapper from "pages/Navigation";
 import AuthRoute from "pages/Admin/AuthRoute";
 import {DataContext, DataWrapper} from "pages/Data/Wrapper";
 import Shop from "pages/Shop/Shop";
@@ -27,6 +26,7 @@ import {BackToTop} from "components/BackToTop";
 import Home from "pages/Home";
 import {Contact, Policy, About, TOS} from "pages";
 import NotFound from "pages/NotFound";
+import {NavigationWrapper} from "pages/Navigation";
 
 
 const App = () => {
@@ -41,7 +41,7 @@ const App = () => {
                     <DataContext.Consumer>
                         {({games}) => {
                             const urls = Object.values(games.id).map(value => value.url);
-
+                            
                             return (
                                 <BackToTop>
                                     <NavigationWrapper>

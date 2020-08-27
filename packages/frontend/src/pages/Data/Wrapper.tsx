@@ -76,8 +76,6 @@ const Raw: React.FC = ({children}) => {
 
 const Data: React.FC = ({children}) => {
     const {store, payment, meta} = useContext(RawContext);
-    console.log(meta);
-    //TODO: inpect 2 rerenders
 
     const {cart, itemUpsert, itemRemove, cartWipe, cartCount, itemCount} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
