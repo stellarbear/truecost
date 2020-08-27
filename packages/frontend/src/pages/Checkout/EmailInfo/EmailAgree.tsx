@@ -31,7 +31,7 @@ export const EmailAgree: React.FC<IProps> = ({agree, toggleAgree}) => {
                     }
                     content={
                         [
-                            <TOS />
+                            <TOS key={0}/>
                         ]
                     }
                 />

@@ -7,5 +7,5 @@ export class MetaInput extends BaseInput {
     url?: string;
 
     @Field({nullable: true})
-    metatag?: string;
+    tags?: string;
 }

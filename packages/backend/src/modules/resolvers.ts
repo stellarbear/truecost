@@ -12,12 +12,10 @@ import {InfoCRUDResolver} from "./crud/info/info.resolver";
 import {BookingResolver} from "./other/booking";
 import {PaymentResolver} from "./other/payment";
 import {MetaCRUDResolver} from "./crud/meta/meta.resolver";
-import {MetaResolver} from "./other/meta";
 
 const resolvers = [
     PaymentResolver,
     MetaCRUDResolver,
-    MetaResolver,
     BlogCRUDResolver, BookingResolver,
     SubscriptionCRUDResolver, 
     UserCRUDResolver, BookingCRUDResolver,

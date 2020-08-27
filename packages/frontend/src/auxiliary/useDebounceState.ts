@@ -11,11 +11,11 @@ export const useDebounceState = <T>(value: T, event: Event<T>, lag = 1000) => {
         setState(value);
 
         if (timerID) {
-            global.clearInterval(timerID);
+            global.clearTimeout(timerID);
             setTimerID(undefined);
         }
 
-        const timer = global.setInterval(() => {
+        const timer = global.setTimeout(() => {
             event(value);
         }, lag);
         setTimerID(timer);

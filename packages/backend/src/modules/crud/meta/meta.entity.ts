@@ -11,5 +11,5 @@ export class MetaEntity extends BaseEntity {
     
     @Field()
     @Property()
-    metatag: string = "{}";
+    tags: string = "{}";
 }

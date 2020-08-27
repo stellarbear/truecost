@@ -8,6 +8,7 @@ import {Button, Box, CircularProgress} from '@material-ui/core';
 import {useStore} from 'pages/Data/Wrapper';
 import {Alert} from '@material-ui/lab';
 import {Link} from 'react-router-dom';
+import {Meta} from 'pages/Base/Meta';
 
 const verifyMutation = gql`
     mutation UserVerify($verify: String!, $value: String!) {
@@ -47,30 +48,31 @@ export const RegisterVerify: React.FC = () => {
 
 
     if (!verify || !value) {
-        return <Redirect to="/404"/>
+        return <Redirect to="/404" />
     }
 
     if (error) {
-        return <Redirect to="/404"/>
+        return <Redirect to="/404" />
     }
 
     if (loading) {
         return (
             <Box mt={2}>
                 <CircularProgress
-                    disableShrink color="inherit"/>
+                    disableShrink color="inherit" />
             </Box>
         )
     }
 
     return (
         <>
+            <Meta />
             <InfoCard text={[
                 'You account is verified!',
                 'We have automatically logged you in.'
             ]} actions={[
                 <Button variant="outlined" component={Link} to="/shop">To the shop!</Button>,
-            ]}/>
+            ]} />
         </>
     )
 }

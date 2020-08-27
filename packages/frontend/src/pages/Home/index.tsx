@@ -21,6 +21,7 @@ import {HomeTwitter} from "./HomeTwitter";
 import {backend} from "auxiliary/route";
 import {HomeTopOffers} from "./HomeTopOffers";
 import {HomeInfo} from "./HomeInfo";
+import {Meta} from "pages/Base/Meta";
 
 
 interface IHomeProps {
@@ -33,6 +34,7 @@ const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
 
     return (
         <React.Fragment>
+            <Meta entity={game} />
             <Parallax image={image} />
             <Grid container spacing={2}
                 style={{

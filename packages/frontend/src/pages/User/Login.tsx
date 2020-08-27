@@ -21,6 +21,7 @@ import {parseApolloError} from "auxiliary/error";
 import {useStore} from "pages/Data/Wrapper";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 import {PasswordField} from "components/PasswordField";
+import {Meta} from "pages/Base/Meta";
 
 
 const LOGIN = gql`
@@ -74,56 +75,59 @@ export const Login: React.FC = () => {
     }, [data?.UserLogin]);
 
     return (
-        <Container maxWidth="xs">
-            <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(logInSubmit)}>
-                <Paper>
-                    <Col fullWidth p={16}>
-                        <Col fullWidth>
-                            <TextField
-                                fullWidth
-                                inputRef={register({
-                                    required: "This field is required",
-                                    pattern: {
-                                        value: validate("email").regex,
-                                        message: "Does not look like email (:",
-                                    },
-                                })}
-                                name={"email"}
-                                label="Email *"
-                                error={!!errors.email?.message}
-                                helperText={errors.email?.message || " "}
-                                variant="filled"
-                            />
-                            <PasswordField
-                                fullWidth
-                                inputRef={register({
-                                    required: "This field is required",
-                                    minLength: {
-                                        value: 3,
-                                        message: "At least 3 chars",
-                                    },
-                                })}
-                                name={"password"}
-                                label="Password *"
-                                error={!!errors.password?.message}
-                                helperText={errors.password?.message || " "}
-                                variant="filled"
-                            />
-                            <Button fullWidth variant="contained" type="submit">
-                                {loading ? <CircularProgress size={24} /> : "LOGIN"}
-                            </Button>
+        <>
+            <Meta />
+            <Container maxWidth="xs">
+                <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(logInSubmit)}>
+                    <Paper>
+                        <Col fullWidth p={16}>
+                            <Col fullWidth>
+                                <TextField
+                                    fullWidth
+                                    inputRef={register({
+                                        required: "This field is required",
+                                        pattern: {
+                                            value: validate("email").regex,
+                                            message: "Does not look like email (:",
+                                        },
+                                    })}
+                                    name={"email"}
+                                    label="Email *"
+                                    error={!!errors.email?.message}
+                                    helperText={errors.email?.message || " "}
+                                    variant="filled"
+                                />
+                                <PasswordField
+                                    fullWidth
+                                    inputRef={register({
+                                        required: "This field is required",
+                                        minLength: {
+                                            value: 3,
+                                            message: "At least 3 chars",
+                                        },
+                                    })}
+                                    name={"password"}
+                                    label="Password *"
+                                    error={!!errors.password?.message}
+                                    helperText={errors.password?.message || " "}
+                                    variant="filled"
+                                />
+                                <Button fullWidth variant="contained" type="submit">
+                                    {loading ? <CircularProgress size={24} /> : "LOGIN"}
+                                </Button>
+                            </Col>
                         </Col>
-                    </Col>
-                </Paper>
-                <Box mt={2}>
-                    {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
-                </Box>
-            </form>
-            <Col p={[0, 16]} fullWidth>
-                <Button fullWidth component={Link} to={"/password/forget"}>
-                    Forgot password?
+                    </Paper>
+                    <Box mt={2}>
+                        {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
+                    </Box>
+                </form>
+                <Col p={[0, 16]} fullWidth>
+                    <Button fullWidth component={Link} to={"/password/forget"}>
+                        Forgot password?
             </Button>
-            </Col>
-        </Container>
+                </Col>
+            </Container>
+        </>
     );
 };

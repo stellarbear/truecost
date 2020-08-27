@@ -6,6 +6,8 @@ import {useStorage} from 'auxiliary/useStorage';
 import {OrderInfo} from './OrderInfo';
 import {EmalInfo} from './EmailInfo';
 import {useParams, useHistory} from 'react-router-dom';
+import {Meta} from 'pages/Base/Meta';
+import {useStore} from 'pages/Data/Wrapper';
 
 const steps = [{
     title: 'Check your order',
@@ -21,6 +23,7 @@ const steps = [{
 export const Checkout: React.FC = () => {
     const {step} = useParams();
     const history = useHistory();
+    const {current: {game}} = useStore();
 
     const [info, setInfo] = useStorage<Record<string, any>>('checkout', {
         cross: false,
@@ -94,11 +97,14 @@ export const Checkout: React.FC = () => {
     )
 
     return (
-        <Container maxWidth="sm" style={{padding: 0}}>
-            <Col fullWidth s={16}>
-                {stepper()}
-                {panels()}
-            </Col>
-        </Container>
+        <>
+            <Meta entity={game} />
+            <Container maxWidth="sm" style={{padding: 0}}>
+                <Col fullWidth s={16}>
+                    {stepper()}
+                    {panels()}
+                </Col>
+            </Container>
+        </>
     )
 }

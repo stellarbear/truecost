@@ -64,9 +64,6 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         allowBatchedQueries: true,
         context: async (req: any, res: any) => {
             DI.em.clear();
-
-            const {sid} = req.session;
-            console.log('sid', sid);
             return ({req, res});
         }
     })

@@ -7,20 +7,6 @@ import {v4} from "uuid";
 import {redis} from "../../../redis";
 import {DI} from "../../../orm";
 
-const destroySession = (ctx: Context) => {
-    return new Promise((res, rej) =>
-        ctx.req.session &&
-        ctx.req.session.destroy(err => {
-            if (err) {
-                return rej(false);
-            }
-
-            ctx.res.clearCookie(sessionCookieName);
-            return res(true);
-        }),
-    );
-};
-
 //TODO: session middleware
 @Resolver()
 export class SessionResolver {
@@ -67,7 +53,7 @@ export class SessionResolver {
         await redis.client.del(sessionIds.map(s => `session-${s}`))
         await redis.client.del(`user-${userId}`);
 
-        return destroySession(ctx);
+        return true;
     }
 
     @Mutation(() => Boolean)
@@ -82,7 +68,7 @@ export class SessionResolver {
             await redis.client.srem(userId, sid);
         }
 
-        return destroySession(ctx);
+        return true;
     }
 
     @Query(() => UserEntity, {nullable: true})

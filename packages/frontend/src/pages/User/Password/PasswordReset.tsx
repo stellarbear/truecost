@@ -13,6 +13,7 @@ import {theme} from 'theme';
 import {Col} from 'pages/Base/Grid';
 import {parseApolloError} from 'auxiliary/error';
 import {useCallback} from 'react';
+import {Meta} from 'pages/Base/Meta';
 
 const verifyMutation = gql`
     mutation PasswordReset($forget: String!, $value: String!, $password: String!) {
@@ -65,36 +66,39 @@ export const PasswordReset: React.FC = () => {
     }
 
     return (
-        <Container maxWidth="xs">
-            <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(ResetSubmit)}>
-                <Paper>
-                    <Col fullWidth p={16}>
-                        <Col fullWidth>
-                            <TextField
-                                fullWidth
-                                inputRef={register({
-                                    required: "This field is required",
-                                    minLength: {
-                                        value: 3,
-                                        message: "At least 3 chars",
-                                    },
-                                })}
-                                name={"password"}
-                                label="Password *"
-                                error={!!errors.password?.message}
-                                helperText={errors.password?.message || " "}
-                                variant="filled"
-                            />
+        <>
+            <Meta />
+            <Container maxWidth="xs">
+                <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(ResetSubmit)}>
+                    <Paper>
+                        <Col fullWidth p={16}>
+                            <Col fullWidth>
+                                <TextField
+                                    fullWidth
+                                    inputRef={register({
+                                        required: "This field is required",
+                                        minLength: {
+                                            value: 3,
+                                            message: "At least 3 chars",
+                                        },
+                                    })}
+                                    name={"password"}
+                                    label="Password *"
+                                    error={!!errors.password?.message}
+                                    helperText={errors.password?.message || " "}
+                                    variant="filled"
+                                />
+                            </Col>
+                            <Button fullWidth variant="contained" type="submit">
+                                {loading ? <CircularProgress size={24} /> : "update password"}
+                            </Button>
                         </Col>
-                        <Button fullWidth variant="contained" type="submit">
-                            {loading ? <CircularProgress size={24} /> : "update password"}
-                        </Button>
-                    </Col>
-                </Paper>
-                <Box mt={2}>
-                    {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
-                </Box>
-            </form>
-        </Container>
+                    </Paper>
+                    <Box mt={2}>
+                        {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
+                    </Box>
+                </form>
+            </Container>
+        </>
     )
 }

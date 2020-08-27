@@ -19,6 +19,7 @@ import {Col} from "pages/Base/Grid";
 import {parseApolloError} from "auxiliary/error";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 import {PasswordField} from "components/PasswordField";
+import {Meta} from "pages/Base/Meta";
 
 
 const registerMutation = gql`
@@ -46,7 +47,7 @@ export const Register: React.FC = () => {
                 clearErrors();
                 setLoading(true);
                 await mutation({variables: {...data}});
-            } catch (e) { } finally {
+            } catch (e) {} finally {
                 setLoading(false);
             }
         },
@@ -64,62 +65,64 @@ export const Register: React.FC = () => {
 
 
     return (
-        <Container maxWidth="xs">
-            <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(RegisterSubmit)}>
-                <Paper>
-                    <Col fullWidth p={16}>
-                        <Col fullWidth>
-                            <TextField
-                                fullWidth
-                                inputRef={register()}
-                                name={"name"}
-                                label="Username"
-                                placeholder="not required"
-                                error={!!errors.name?.message}
-                                helperText={errors.name?.message || " "}
-                                variant="filled"
-                            />
-                            <TextField
-                                fullWidth
-                                inputRef={register({
-                                    required: "This field is required",
-                                    pattern: {
-                                        value: validate("email").regex,
-                                        message: "Does not look like email (:",
-                                    },
-                                })}
-                                name={"email"}
-                                label="Email *"
-                                error={!!errors.email?.message}
-                                helperText={errors.email?.message || " "}
-                                variant="filled"
-                            />
-                            <PasswordField
-                                fullWidth
-                                inputRef={register({
-                                    required: "This field is required",
-                                    minLength: {
-                                        value: 3,
-                                        message: "At least 3 chars",
-                                    },
-                                })}
-                                name={"password"}
-                                label="Password *"
-                                error={!!errors.password?.message}
-                                helperText={errors.password?.message || " "}
-                                variant="filled"
-                            />
+        <>
+            <Meta />
+            <Container maxWidth="xs">
+                <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(RegisterSubmit)}>
+                    <Paper>
+                        <Col fullWidth p={16}>
+                            <Col fullWidth>
+                                <TextField
+                                    fullWidth
+                                    inputRef={register()}
+                                    name={"name"}
+                                    label="Username"
+                                    placeholder="not required"
+                                    error={!!errors.name?.message}
+                                    helperText={errors.name?.message || " "}
+                                    variant="filled"
+                                />
+                                <TextField
+                                    fullWidth
+                                    inputRef={register({
+                                        required: "This field is required",
+                                        pattern: {
+                                            value: validate("email").regex,
+                                            message: "Does not look like email (:",
+                                        },
+                                    })}
+                                    name={"email"}
+                                    label="Email *"
+                                    error={!!errors.email?.message}
+                                    helperText={errors.email?.message || " "}
+                                    variant="filled"
+                                />
+                                <PasswordField
+                                    fullWidth
+                                    inputRef={register({
+                                        required: "This field is required",
+                                        minLength: {
+                                            value: 3,
+                                            message: "At least 3 chars",
+                                        },
+                                    })}
+                                    name={"password"}
+                                    label="Password *"
+                                    error={!!errors.password?.message}
+                                    helperText={errors.password?.message || " "}
+                                    variant="filled"
+                                />
+                            </Col>
+                            <Button fullWidth variant="contained" type="submit">
+                                {loading ? <CircularProgress size={24} /> : "REGISTER"}
+                            </Button>
                         </Col>
-                        <Button fullWidth variant="contained" type="submit">
-                            {loading ? <CircularProgress size={24}/> : "REGISTER"}
-                        </Button>
-                    </Col>
-                </Paper>
-                <Box mt={2}>
-                    {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
-                </Box>
-            </form>
-        </Container>
-
+                    </Paper>
+                    <Box mt={2}>
+                        {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
+                    </Box>
+                </form>
+            </Container>
+        </>
     );
 };

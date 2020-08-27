@@ -7,6 +7,7 @@ import {useQuery, useLazyQuery} from 'react-apollo';
 import {gql} from 'apollo-boost';
 import {QueryForm} from './QueryForm';
 import {ShowBookingInfo} from './ShowInfo';
+import {Meta} from 'pages/Base/Meta';
 
 const GET_BOOKING = gql`
     query BookingGetByCode($email: String!, $code: String!) {
@@ -36,15 +37,18 @@ export const Track: React.FC = () => {
     }
 
     return (
-        <Container maxWidth="sm">
-            {data?.BookingGetByCode
-                ? <ShowBookingInfo raw={data.BookingGetByCode}
-                />
-                : <QueryForm loading={loading} onQuery={onQuery} />
-            }
-            <Box mt={2}>
-                {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
-            </Box>
-        </Container>
+        <>
+            <Meta />
+            <Container maxWidth="sm">
+                {data?.BookingGetByCode
+                    ? <ShowBookingInfo raw={data.BookingGetByCode}
+                    />
+                    : <QueryForm loading={loading} onQuery={onQuery} />
+                }
+                <Box mt={2}>
+                    {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
+                </Box>
+            </Container>
+        </>
     )
 }

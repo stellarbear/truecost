@@ -55,9 +55,7 @@ export const ModalDialog: React.FC<IProps> = (props) => {
                     </DialogTitle>
                 )}
                 <DialogContent>
-                    {
-                        content
-                    }
+                    {content}
                 </DialogContent>
                 {actions.length > 0 && (
                     <DialogActions>

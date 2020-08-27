@@ -1,67 +1,92 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
+import {Dict} from '@truecost/shared';
+import {useStore} from 'pages/Data/Wrapper';
+import {useHistory} from 'react-router';
+import {IMeta} from 'pages/Data/useMeta';
 
-interface HelmetProps {
-    page: string;
-    props?: Record<string, string>;
+interface IProps {
+    path?: string
+    entity?: Dict<any>
 }
 
-//item
-//home
-//shop
-//track
-//success
-//policy
-//account
-//register
-//discount
-//login
+const parse = (src: string, entity: Dict<any>): string => {
+    let result = src;
 
-//blog
-//post
-//account
+    while (true) {
+        console.log(result);
+        const start = result.indexOf('{');
+        const end = result.indexOf('}');
 
-//login
-//confirm
-//forget
-//register
-//reset
+        if (start === -1 || end === -1 || start > end) {
+            return result;
+        }
 
-//checkout
+        const prop = result.slice(start + 1, end);
+        result = result.slice(0, start) + (entity[prop] || "") + result.slice(end + 1)
+    }
+}
 
-//contact
-//policy
-//about
-//tos
-//404
-const title = {
-    "item": (p: any) => `${p.name}`,
-    "success": (p: any) => `You order is in progress`,
-    "account": (p: any) => `Account`,
-    "discount": (p: any) => `Discount`,
+const getMetaTags = (meta: Dict<IMeta>, path: string): Dict<any> => {
+    if (path in meta) {
+        return meta[path].tags;
+    }
 
-    "blog": (p: any) => `Blog`,
-    "post": (p: any) => `${p.name}`,
+    const overlaps = []
+    for (let key in meta) {
+        if (path.startsWith(key)) {
+            overlaps.push(key);
+        }
+    }
 
-    "login": (p: any) => `Login`,
-    "confirm": (p: any) => `Confirm`,
-    "forget": (p: any) => `Forget`,
-    "register": (p: any) => `Registration`,
-    "reset": (p: any) => `Reset password`,
+    if (overlaps.length > 0) {
+        let max = overlaps[0];
 
-    "contact": (p: any) => `Contact us`,
-    "policy": (p: any) => `Privacy policy`,
-    "about": (p: any) => `About us`,
-    "tos": (p: any) => `Terms of service`,
-    "404": (p: any) => `Page not found`,
-};
+        for (let overlap of overlaps) {
+            if (overlap.length > max.length) {
+                max = overlap;
+            }
+        }
 
-const Meta: React.FC<HelmetProps> = ({page, props = {}}) => {
+        return meta[max].tags;
+    }
+
+    return {};
+}
+
+export const Meta: React.FC<IProps> = (props) => {
+    const {current: {game: {url: gameUrl}}, meta} = useStore();
+    const {location: {pathname: browserUrl}} = useHistory()
+
+    const preUrl = browserUrl.startsWith('/' + gameUrl)
+        ? browserUrl.slice(1 + gameUrl.length)
+        : browserUrl;
+    const url = preUrl.startsWith('/')
+        ? preUrl
+        : '/' + preUrl;
+
+    const {
+        path = url,
+        entity = {}
+    } = props;
+
+    const tags = getMetaTags(meta, path);
+
+    console.log(tags);
+    const data = Object.keys(tags).map(key => ({
+        path: key,
+        value: parse(tags[key], entity)
+    }));
+
     return (
         <Helmet>
-            <title>Yo wassup</title>
+            {
+                data.map(({path, value}) => (
+                    path === "title"
+                        ? <title key={path}>{value}</title>
+                        : <meta key={path} name={path} content={value} />
+                ))
+            }
         </Helmet>
     );
 };
-
-export default Meta;

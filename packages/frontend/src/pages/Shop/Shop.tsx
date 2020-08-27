@@ -13,6 +13,7 @@ import ItemCard from "./ItemCard";
 import {InfoCard} from "pages/Base/InfoCard";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {AutoCompleteCustom} from "components/AutoCompleteCustom";
+import {Meta} from "pages/Base/Meta";
 
 const empty = "default";
 
@@ -34,7 +35,7 @@ declare var Tawk_API: any
 
 const Shop: React.FC = () => {
     const {notify} = useNotification();
-    const {current: {shop}} = useStore();
+    const {current: {shop, game}} = useStore();
 
     const {tags, items} = shop();
     const itemIds = dictSort(items.id).filter(t => !items.id[t].direct);
@@ -144,13 +145,16 @@ const Shop: React.FC = () => {
     )
 
     return (
-        <Container fixed>
-            <Col fullWidth s={16}>
-                {filterNames()}
-                {filterTags()}
-                {filterData()}
-            </Col>
-        </Container>
+        <>
+            <Meta entity={game} />
+            <Container fixed>
+                <Col fullWidth s={16}>
+                    {filterNames()}
+                    {filterTags()}
+                    {filterData()}
+                </Col>
+            </Container>
+        </>
     );
 };
 

@@ -9,6 +9,7 @@ import {useStore} from './Data/Wrapper';
 import {dictSort} from '@truecost/shared';
 import {Link} from 'react-router-dom';
 import TextCard from './Base/TextCard';
+import {Meta} from './Base/Meta';
 
 export const Discount: React.FC = () => {
     const {subs, current: {game}} = useStore();
@@ -20,73 +21,75 @@ export const Discount: React.FC = () => {
     )
 
     return (
-
-        <TextCard title="Discount">
-            <Col left s={8}>
-                <Typography>
-                    Discount plan is a simple way of having permanent discount on everything (every item and service on every game) for relatively cheap one time payment.
+        <>
+            <Meta />
+            <TextCard title="Discount">
+                <Col left s={8}>
+                    <Typography>
+                        Discount plan is a simple way of having permanent discount on everything (every item and service on every game) for relatively cheap one time payment.
             </Typography>
-                <Typography><strong>Important:</strong> discount is applied only on the last (3rd step)</Typography>
-                <Typography><strong>How to purchuase a discount:</strong></Typography>
-                <TimelineItem>
-                    <TimelineOppositeContent style={{maxWidth: 0}} />
-                    <TimelineSeparator>
-                        <TimelineDot>
-                            <AddCircle />
-                        </TimelineDot>
-                        <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent>
-                        <Typography variant="body2" color="textSecondary">
-                            1 step
+                    <Typography><strong>Important:</strong> discount is applied only on the last (3rd step)</Typography>
+                    <Typography><strong>How to purchuase a discount:</strong></Typography>
+                    <TimelineItem>
+                        <TimelineOppositeContent style={{maxWidth: 0}} />
+                        <TimelineSeparator>
+                            <TimelineDot>
+                                <AddCircle />
+                            </TimelineDot>
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography variant="body2" color="textSecondary">
+                                1 step
                     </Typography>
-                        <Button variant="outlined" component={Link} to={url + '/shop'}>
-                            Add items to cart
+                            <Button variant="outlined" component={Link} to={url + '/shop'}>
+                                Add items to cart
                     </Button>
-                    </TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                    <TimelineOppositeContent style={{maxWidth: 0}} />
-                    <TimelineSeparator>
-                        <TimelineDot color="primary">
-                            <ShoppingCart />
-                        </TimelineDot>
-                        <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent>
-                        <Typography variant="body2" color="textSecondary">
-                            2 step
+                        </TimelineContent>
+                    </TimelineItem>
+                    <TimelineItem>
+                        <TimelineOppositeContent style={{maxWidth: 0}} />
+                        <TimelineSeparator>
+                            <TimelineDot color="primary">
+                                <ShoppingCart />
+                            </TimelineDot>
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography variant="body2" color="textSecondary">
+                                2 step
                     </Typography>
-                        <Button variant="outlined" component={Link} to={url + '/checkout'}>
-                            Verify your order
+                            <Button variant="outlined" component={Link} to={url + '/checkout'}>
+                                Verify your order
                     </Button>
-                    </TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                    <TimelineOppositeContent style={{maxWidth: 0}} />
-                    <TimelineSeparator>
-                        <TimelineDot color="secondary">
-                            <Loyalty />
-                        </TimelineDot>
-                    </TimelineSeparator>
-                    <TimelineContent>
-                        <Typography variant="body2" color="textSecondary">
-                            3 step
+                        </TimelineContent>
+                    </TimelineItem>
+                    <TimelineItem>
+                        <TimelineOppositeContent style={{maxWidth: 0}} />
+                        <TimelineSeparator>
+                            <TimelineDot color="secondary">
+                                <Loyalty />
+                            </TimelineDot>
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography variant="body2" color="textSecondary">
+                                3 step
                     </Typography>
-                        <Button variant="outlined" component={Link} to={url + '/checkout/2'}>
-                            Select discount plan
+                            <Button variant="outlined" component={Link} to={url + '/checkout/2'}>
+                                Select discount plan
                     </Button>
-                    </TimelineContent>
-                </TimelineItem>
-                <Typography><strong>Сurrently available plans:</strong></Typography>
-                {subsSorted.length > 0 ?
-                    subsSorted.map(subId => (
-                        <Typography key={subId} style={{
-                            textAlign: "right",
-                            userSelect: "none"
-                        }}>{`• ${subs[subId].description}`}</Typography>
-                    )) : mock()}
-            </Col >
-        </TextCard>
+                        </TimelineContent>
+                    </TimelineItem>
+                    <Typography><strong>Сurrently available plans:</strong></Typography>
+                    {subsSorted.length > 0 ?
+                        subsSorted.map(subId => (
+                            <Typography key={subId} style={{
+                                textAlign: "right",
+                                userSelect: "none"
+                            }}>{`• ${subs[subId].description}`}</Typography>
+                        )) : mock()}
+                </Col >
+            </TextCard>
+        </>
     )
 }

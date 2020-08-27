@@ -11,7 +11,7 @@ import {ItemExtra} from './ItemExtra';
 import {ItemTotal} from './ItemTotal';
 import {ItemDivider} from './ItemDivider';
 import {ItemRange} from './ItemRange';
-import {CheckoutEmpty} from '../CheckoutEmpty';
+import {CheckoutEmpty} from './CheckoutEmpty';
 
 export const OrderInfo: React.FC = () => {
     const {current: {shop, cart, game: {url}}, update} = useStore();

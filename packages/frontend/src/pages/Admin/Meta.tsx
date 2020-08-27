@@ -12,7 +12,7 @@ export const AdminMeta: React.FC = () => {
         items: `
             ${base.fragment}
             url
-            metatag
+            tags
 		`,
     });
 
@@ -21,14 +21,14 @@ export const AdminMeta: React.FC = () => {
         label: "url",
     });
 
-    const metatag = new CCustom({
+    const tags = new CCustom({
         base: "[]",
-        key: "metatag",
-        label: "metatag",
+        key: "tags",
+        label: "tags",
         component: <EditorMetaTag/>,
     });
 
-    const fields = [url, metatag];
+    const fields = [url, tags];
 
     return (
         <CRUD

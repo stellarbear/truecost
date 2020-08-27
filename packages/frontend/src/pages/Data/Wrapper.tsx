@@ -1,16 +1,16 @@
 import React, {createContext, useState, useEffect, useContext} from "react";
 import {useQuery} from "react-apollo";
-import {OptionType, OptionArea, IUser, IGame, IOption, IShop, ICart, subscription, ISubscription, Dict, IGameContext} from "@truecost/shared";
+import {OptionType, OptionArea, IUser, IGame, IOption, IShop, ICart, subscription, ISubscription, Dict, IGameContext, SafeJSON, arrayToDict} from "@truecost/shared";
 import {useData, IStoreContext, IStore} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
-import {ICartContext, useCart, ICartUpsert, ICartRemove} from "./useCart";
-import {useHistory} from "react-router";
-import {hydrate} from "react-dom";
+import {useCart, ICartUpsert, ICartRemove} from "./useCart";
 import {Mock} from "./Mock";
+import {useMeta, IMeta} from "./useMeta";
 
 interface IRawContext {
+    meta: Dict<IMeta>
     store: IStore
     payment: {
         stripe: string
@@ -18,6 +18,7 @@ interface IRawContext {
 }
 
 export interface IDataContext {
+    meta: Dict<IMeta>
     games: IGameContext["data"],
     subs: Dict<ISubscription>
     current: {
@@ -48,31 +49,35 @@ const DataContext = createContext<IDataContext>({} as IDataContext);
 
 
 const Raw: React.FC = ({children}) => {
-    const {location: {pathname: url}} = useHistory();
     console.log('query start')
-    const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true, variables: {url}});
-    
+    const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true});
+
     if (loading || !data) {
-        return <Mock permanent/>
+        return <Mock permanent />
     }
 
-    console.log(data.MetaCurrent);
-    const [store] = useState(useData(data));
+    const {MetaAll, ...RestAll} = data;
+    const [store] = useState(useData(RestAll));
+    const [meta] = useState(useMeta(MetaAll));
     return (
-        <RawContext.Provider value={{
-            payment: {stripe: data.Stripe},
-            store,
-        }}>
-            <Mock />
-            <Data>
-                {children}
-            </Data>
-        </RawContext.Provider>
+        <>
+            <RawContext.Provider value={{
+                payment: {stripe: data.Stripe},
+                store,
+                meta
+            }}>
+                <Data>
+                    {children}
+                </Data>
+            </RawContext.Provider>
+        </>
     );
 }
 
 const Data: React.FC = ({children}) => {
-    const {store, payment} = useContext(RawContext);
+    const {store, payment, meta} = useContext(RawContext);
+    console.log(meta);
+    //TODO: inpect 2 rerenders
 
     const {cart, itemUpsert, itemRemove, cartWipe, cartCount, itemCount} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
@@ -80,8 +85,7 @@ const Data: React.FC = ({children}) => {
 
     return (
         <DataContext.Provider value={{
-            //cart,
-            //store,
+            meta,
             subs: store.shop.subs,
             games: store.game.data,
             current: {
@@ -106,6 +110,7 @@ const Data: React.FC = ({children}) => {
             },
             payment
         }}>
+            <Mock />
             {children}
         </DataContext.Provider>
     );
