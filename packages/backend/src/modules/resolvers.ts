@@ -17,7 +17,7 @@ const resolvers = [
     PaymentResolver,
     MetaCRUDResolver,
     BlogCRUDResolver, BookingResolver,
-    SubscriptionCRUDResolver, 
+    SubscriptionCRUDResolver,
     UserCRUDResolver, BookingCRUDResolver,
     AccountResolver, SessionResolver,
     TagCRUDResolver, GameCRUDResolver, ItemCRUDResolver,

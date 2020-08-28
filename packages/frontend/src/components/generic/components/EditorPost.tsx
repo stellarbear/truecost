@@ -12,15 +12,14 @@ interface EditorPostProps {
 const preview = (value: string, limit = 1600) =>
     value.length > limit
         ? value.slice(0, limit) + "..."
-        : value
+        : value;
 
 
 const EditorPost: React.FC<EditorPostProps> = (props) => {
     const {
         value = "",
         label = "post",
-        onChangeEvent = () => {
-        },
+        onChangeEvent = () => {},
     } = props;
     const [text, setText] = useState("");
     const [open, setOpen] = useState(false);

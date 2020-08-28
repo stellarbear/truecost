@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {InputField} from 'components/generic/components/InputField';
+import React from 'react';
 import {Col, Row} from 'pages/Base/Grid';
-import {Typography, IconButton, Divider, FormControlLabel, Checkbox, Paper} from '@material-ui/core';
+import {Checkbox, FormControlLabel, IconButton, Paper, Typography} from '@material-ui/core';
 
 import Xbox from "mdi-material-ui/MicrosoftXbox";
 import Windows from "mdi-material-ui/MicrosoftWindows";
@@ -10,50 +9,55 @@ import {colors} from 'theme';
 
 const platforms = [{
     icon: <Windows />,
-    label: "PC"
+    label: "PC",
 }, {
     icon: <Playstation />,
-    label: "PlayStation"
+    label: "PlayStation",
 }, {
     icon: <Xbox />,
-    label: "XBOX"
-},]
+    label: "XBOX",
+}];
 const platformLables = platforms.map(p => p.label);
-export const validatePlatform = (value: any) => Array.isArray(value) ? value.filter(v => platformLables.includes(v)) : [];
+export const validatePlatform = (value: any) =>
+    Array.isArray(value)
+        ? value.filter(v => platformLables.includes(v))
+        : [];
 
 interface IProps {
-    platform: string[]
-    setPlatform: (value: string[]) => void
-    cross: boolean
-    setCross: (Value: boolean) => void
+    platform: string[];
+    setPlatform: (value: string[]) => void;
+    cross: boolean;
+    setCross: (Value: boolean) => void;
 }
 
 export const AuxPlatform: React.FC<IProps> = (props) => {
-    const {platform, cross,
-        setPlatform, setCross} = props;
+    const {
+        platform, cross,
+        setPlatform, setCross,
+    } = props;
 
     const onPlatformClick = (label: string) => {
         if (cross) {
             const filtered = platform.filter(p => p !== label);
             setPlatform(filtered.length === platform.length
-                ? [...filtered, label] : filtered)
+                ? [...filtered, label] : filtered);
         } else {
             setPlatform([label]);
         }
-    }
+    };
 
     const onCrossClick = () => {
         if (cross && platform.length > 1) {
-            setPlatform([platform.pop()!])
+            setPlatform([platform.pop() || "PC"]);
         }
 
         setCross(!cross);
-    }
+    };
 
     return (
         <Paper elevation={3}>
-            <Col left fullWidth p={8} >
-                <Typography variant="caption" >Choose platform</Typography>
+            <Col left fullWidth p={8}>
+                <Typography variant="caption">Choose platform</Typography>
                 <Row between wrap>
                     <Row>
                         {platforms.map(({icon, label}) => (
@@ -65,7 +69,7 @@ export const AuxPlatform: React.FC<IProps> = (props) => {
                                             transition: "all 0.2s linear",
                                             transform: "scale(1.5)",
                                             cursor: "pointer",
-                                        }
+                                        },
                                     })}
                                 </IconButton>
                                 <Typography variant="caption">{label}</Typography>
@@ -79,5 +83,5 @@ export const AuxPlatform: React.FC<IProps> = (props) => {
                 </Row>
             </Col>
         </Paper>
-    )
-}
+    );
+};

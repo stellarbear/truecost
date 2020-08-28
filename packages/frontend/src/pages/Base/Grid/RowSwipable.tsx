@@ -1,16 +1,16 @@
 import * as React from 'react';
+import {CSSProperties} from 'react';
 import {IconButton, makeStyles} from '@material-ui/core';
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import ArrowForward from "@material-ui/icons/ArrowForward";
-import {CSSProperties} from 'react';
 
 interface IProps {
-    id: string
-    w: number
-    s?: number
-    p?: number
-    style?: CSSProperties
-    arrows?: boolean
+    id: string;
+    w: number;
+    s?: number;
+    p?: number;
+    style?: CSSProperties;
+    arrows?: boolean;
 }
 
 const useStyles = makeStyles({
@@ -44,10 +44,10 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                 gridTemplateColumns: w,
                 gridAutoFlow: "column",
                 gridAutoColumns: `minmax(${w}px, 1fr)`,
-                overflowX: "auto"
+                overflowX: "auto",
             }}>
                 {children}
-            </div >
+            </div>
             {arrows && (
                 <>
                     <IconButton
@@ -62,9 +62,9 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                             const element = document.getElementById(id);
                             element?.scrollTo(
                                 {left: element.scrollLeft - element.offsetWidth, behavior: "smooth"}
-                            )
+                            );
                         }}>
-                        <ArrowBack />
+                        <ArrowBack/>
                     </IconButton>
                     <IconButton
                         style={{
@@ -78,12 +78,12 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                             const element = document.getElementById(id);
                             element?.scrollTo(
                                 {left: element.scrollLeft + element.offsetWidth, behavior: "smooth"}
-                            )
+                            );
                         }}>
-                        <ArrowForward />
+                        <ArrowForward/>
                     </IconButton>
                 </>
             )}
         </div>
-    )
-}
+    );
+};

@@ -2,8 +2,7 @@ import {IUserContext} from "./useData";
 import {useState} from "react";
 import {IUser} from "@truecost/shared";
 
-interface IProps extends IUserContext {
-}
+type IProps = IUserContext;
 
 export function useUser(props: IProps) {
     const [state, setState] = useState<IUser | null>(

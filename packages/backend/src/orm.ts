@@ -1,4 +1,4 @@
-import {EntityManager, EntityRepository, MikroORM} from "mikro-orm";
+import {EntityManager, MikroORM} from "mikro-orm";
 import {UserEntity} from "./modules/crud/user/user.entity";
 import {entities} from './modules';
 import {Dict} from "@truecost/shared";
@@ -10,7 +10,7 @@ import {ItemEntity} from "./modules/crud/item/item.entity";
 export const DI = {} as {
     orm: MikroORM;
     em: EntityManager;
-    map: Dict<typeof BaseEntity>
+    map: Dict<typeof BaseEntity>;
 };
 
 export const init = async () => {
@@ -32,5 +32,5 @@ export const init = async () => {
         "item": ItemEntity,
         "tag": TagEntity,
         "user": UserEntity,
-    }
+    };
 };

@@ -5,9 +5,9 @@ import {Meta} from "./Base/Meta";
 
 export const Policy: React.FC = () => (
     <>
-        <Meta />
+        <Meta/>
         <TextCard title="Privacy policy"
-            data={Object.keys(text.policy).map(key =>
-                ({title: key, text: (text as any).policy[key]}))} />
+                  data={Object.keys(text.policy).map(key =>
+                      ({title: key, text: (text as any).policy[key]}))}/>
     </>
 );

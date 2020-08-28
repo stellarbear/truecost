@@ -5,15 +5,14 @@ import {Carousel} from 'components/Carousel';
 import {backend} from 'auxiliary/route';
 
 interface IProps {
-    item: IItem
+    item: IItem;
 }
 
 export const ItemImage: React.FC<IProps> = (props) => {
     const {item} = props;
-    const itemId = item.id;
 
     const {current: {shop}} = useStore();
-    const {items,} = shop();
+    const {items} = shop();
 
     const image = (item: IItem) => `${backend.uri}/${item.id}/${item.images[0]}/u.png`;
 
@@ -21,8 +20,8 @@ export const ItemImage: React.FC<IProps> = (props) => {
         <Carousel>
             {[
                 image(item),
-                ...item.item.filter((id) => (id in items.id)).map((id) => image(items.id[id]))
+                ...item.item.filter((id) => (id in items.id)).map((id) => image(items.id[id])),
             ]}
         </Carousel>
-    )
-}
+    );
+};

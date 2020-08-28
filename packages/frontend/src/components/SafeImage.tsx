@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {useStore} from 'pages/Data/Wrapper';
 import {useState} from 'react';
+import {useStore} from 'pages/Data/Wrapper';
 import LazyLoad from 'react-lazyload';
-import {frontend, backend} from 'auxiliary/route';
+import {backend, frontend} from 'auxiliary/route';
 import {Skeleton} from '@material-ui/lab';
 
 interface IProps extends React.ImgHTMLAttributes<any> {
-    src: string
-    height?: number
+    src: string;
+    height?: number;
 }
 
 export const SafeImage: React.FC<IProps> = ({src, style = {}, height, ...rest}) => {
@@ -20,13 +20,13 @@ export const SafeImage: React.FC<IProps> = ({src, style = {}, height, ...rest}) 
     const supress = (e: any) => {
         (e.target as any).onerror = null;
         (e.target as any).src = fallback;
-    }
+    };
 
     return (
         <LazyLoad
             height={height}
             once debounce
-            placeholder={<Skeleton variant="rect" width={"100%"} height={height} />}
+            placeholder={<Skeleton variant="rect" width={"100%"} height={height}/>}
         >
             <img
                 height={height}
@@ -41,6 +41,6 @@ export const SafeImage: React.FC<IProps> = ({src, style = {}, height, ...rest}) 
                     : () => setError(true)}
             />
         </LazyLoad>
-    )
+    );
 
-}
+};

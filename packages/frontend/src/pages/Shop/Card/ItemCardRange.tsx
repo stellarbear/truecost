@@ -1,20 +1,18 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {IItem, Price} from '@truecost/shared';
-import {DataContext, useStore} from 'pages/Data/Wrapper';
-import {Button, Typography, Checkbox, Divider, ButtonBase} from '@material-ui/core';
-import {NotificationContext} from 'components/wrappers';
+import {useStore} from 'pages/Data/Wrapper';
+import {Button, ButtonBase, Typography} from '@material-ui/core';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 
 interface IProps {
-    item: IItem
-    price: Price
-    redirect: string
+    item: IItem;
+    price: Price;
+    redirect: string;
 }
 
 export const ItemCardRange: React.FC<IProps> = (props) => {
     const {item, redirect, price} = props;
-    const itemId = item.id;
 
     const {update: {cart}} = useStore();
     const noLimit = cart.count({itemId: item.id}) < (item.limit || Infinity);
@@ -58,7 +56,7 @@ export const ItemCardRange: React.FC<IProps> = (props) => {
                             {
                                 noLimit
                                     ? <Typography variant="h5">{price.toString}</Typography>
-                                    : <CheckCircle />
+                                    : <CheckCircle/>
                             }
                         </div>
                     </Button>
@@ -66,4 +64,4 @@ export const ItemCardRange: React.FC<IProps> = (props) => {
             </div>
         </ButtonBase>
     );
-}
+};

@@ -1,6 +1,5 @@
 import * as React from "react";
-import {Route, Switch, Redirect} from "react-router-dom";
-import {NotifyWrapper} from "components/wrappers";
+import {Route} from "react-router-dom";
 import AuthRoute from "pages/Admin/AuthRoute";
 import {DataContext, DataWrapper} from "pages/Data/Wrapper";
 import Shop from "pages/Shop/Shop";
@@ -21,12 +20,13 @@ import {CheckoutSuccess} from "pages/Checkout/CheckoutSuccess";
 import {Track} from "pages/Track";
 import {Account} from "pages/Account";
 import {useScript} from "auxiliary/useScript";
-import {tawk, yandex, google} from "scripts";
+import {google, tawk, yandex} from "scripts";
 import {BackToTop} from "components/BackToTop";
 import Home from "pages/Home";
-import {Contact, Policy, About, TOS} from "pages";
+import {About, Contact, Policy, TOS} from "pages";
 import NotFound from "pages/NotFound";
 import {NavigationWrapper} from "pages/Navigation";
+import {NotifyWrapper} from "components/wrappers/NotifyWrapper";
 
 
 const App = () => {
@@ -41,47 +41,52 @@ const App = () => {
                     <DataContext.Consumer>
                         {({games}) => {
                             const urls = Object.values(games.id).map(value => value.url);
-                            
+
                             return (
                                 <BackToTop>
                                     <NavigationWrapper>
-                                        <Route exact path={"/"} component={Home} />
+                                        <Route exact path={"/"} component={Home}/>
 
-                                        <Route exact path={urls.map(u => '/' + u)} component={Home} />
-                                        <Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
-                                        <Route exact path={urls.map(u => '/' + u + '/checkout/success')} component={CheckoutSuccess} />
-                                        <Route exact path={urls.map(u => '/' + u + '/checkout/:step?')} component={Checkout} />
-                                        <Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
+                                        <Route exact path={urls.map(u => '/' + u)} component={Home}/>
+                                        <Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop}/>
+                                        <Route exact path={urls.map(u => '/' + u + '/checkout/success')}
+                                               component={CheckoutSuccess}/>
+                                        <Route exact path={urls.map(u => '/' + u + '/checkout/:step?')}
+                                               component={Checkout}/>
+                                        <Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item}/>
 
-                                        <AuthRoute path={`/account`} component={Account} />
-                                        <AuthRoute path={`/admin`} component={Admin} roles={[RoleType.ADMIN]} />
+                                        <AuthRoute path={`/account`} component={Account}/>
+                                        <AuthRoute path={`/admin`} component={Admin} roles={[RoleType.ADMIN]}/>
 
-                                        <AuthRoute exact path={`/login`} component={Login} unauthorized />
+                                        <AuthRoute exact path={`/login`} component={Login} unauthorized/>
 
-                                        <AuthRoute exact path={`/register`} component={Register} unauthorized />
-                                        <AuthRoute exact path={`/register/verify/:verify/:value`} component={RegisterVerify}
-                                            unauthorized />
+                                        <AuthRoute exact path={`/register`} component={Register} unauthorized/>
+                                        <AuthRoute exact path={`/register/verify/:verify/:value`}
+                                                   component={RegisterVerify}
+                                                   unauthorized/>
                                         <AuthRoute exact path={`/register/message`} component={RegisterMessage}
-                                            unauthorized />
+                                                   unauthorized/>
 
-                                        <AuthRoute exact path={`/password/forget`} component={PasswordForget} unauthorized />
-                                        <AuthRoute exact path={`/password/forget/:forget/:value`} component={PasswordReset}
-                                            unauthorized />
+                                        <AuthRoute exact path={`/password/forget`} component={PasswordForget}
+                                                   unauthorized/>
+                                        <AuthRoute exact path={`/password/forget/:forget/:value`}
+                                                   component={PasswordReset}
+                                                   unauthorized/>
                                         <AuthRoute exact path={`/password/message`} component={PasswordMessage}
-                                            unauthorized />
+                                                   unauthorized/>
 
-                                        <Route exact path={`/track`} component={Track} />
-                                        <Route exact path={`/discount`} component={Discount} />
-                                        <Route exact path={`/contact`} component={Contact} />
-                                        <Route exact path={`/policy`} component={Policy} />
-                                        <Route exact path={`/about`} component={About} />
-                                        <Route exact path={`/tos`} component={TOS} />
+                                        <Route exact path={`/track`} component={Track}/>
+                                        <Route exact path={`/discount`} component={Discount}/>
+                                        <Route exact path={`/contact`} component={Contact}/>
+                                        <Route exact path={`/policy`} component={Policy}/>
+                                        <Route exact path={`/about`} component={About}/>
+                                        <Route exact path={`/tos`} component={TOS}/>
                                         <Route
                                             render={({staticContext}) => {
                                                 if (staticContext) {
                                                     staticContext.statusCode = 404;
                                                 }
-                                                return <NotFound />;
+                                                return <NotFound/>;
                                             }}
                                         />
                                     </NavigationWrapper>

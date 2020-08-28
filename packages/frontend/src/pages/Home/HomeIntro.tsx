@@ -1,17 +1,16 @@
 import * as React from 'react';
-import ArrowDown from '@material-ui/icons/ArrowDownward'
-import {Card, ButtonBase, Typography, Button, IconButton} from '@material-ui/core';
-import {Link} from 'react-router-dom';
-import {DataContext, useStore} from 'pages/Data/Wrapper';
 import {CSSProperties} from 'react';
+import ArrowDown from '@material-ui/icons/ArrowDownward';
+import {Button, IconButton, Typography} from '@material-ui/core';
+import {Link} from 'react-router-dom';
+import {useStore} from 'pages/Data/Wrapper';
 
 interface IProps {
-    style?: CSSProperties
+    style?: CSSProperties;
 }
 
 export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
     const {current: {game}, subs} = useStore();
-    const current = game!;
     const max = Math.max(...Object.values(subs).map(s => s.discount));
 
     const discount = () => (
@@ -31,22 +30,22 @@ export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
                 style={{marginTop: 8}}
                 variant="body1" color="inherit">{`on everything`}</Typography>
         </>
-    )
+    );
 
     return (
         <div style={style}>
-            <Typography variant="h4">{`${current.name} premium service`}</Typography>
+            <Typography variant="h4">{`${game.name} premium service`}</Typography>
             <Typography variant="body1">boosting, coaching, carry</Typography>
             {max > 0 && discount()}
             <IconButton
                 className="float"
                 style={{
                     marginTop: 32,
-                    backgroundColor: "#fff"
+                    backgroundColor: "#fff",
                 }}
                 onClick={() => window.scrollBy({top: 400, behavior: "smooth"})}>
-                <ArrowDown />
+                <ArrowDown/>
             </IconButton>
         </div>
-    )
-}
+    );
+};

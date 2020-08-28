@@ -1,5 +1,5 @@
 import {buildSchema, registerEnumType} from 'type-graphql';
-import {OptionArea, OptionType, RoleType, StatusType, OptionMerge} from "@truecost/shared";
+import {OptionArea, OptionMerge, OptionType, RoleType, StatusType} from "@truecost/shared";
 import {resolvers} from './modules';
 
 const init = async () => {

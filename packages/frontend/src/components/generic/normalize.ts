@@ -3,9 +3,9 @@ import {isNull} from "@truecost/shared";
 export const normalize = (data: Record<string, any>) => {
     const clone = {...data};
 
-    for (let key in clone) {
+    for (const key in clone) {
         if (key === "__typename") {
-            delete clone[key]
+            delete clone[key];
         }
 
         const value = clone[key];
@@ -15,9 +15,9 @@ export const normalize = (data: Record<string, any>) => {
         } else if (value instanceof Object) {
             clone[key] = 'id' in value ? value.id : JSON.stringify(value);
         } else if (isNull(value)) {
-            clone[key] = undefined
+            clone[key] = undefined;
         }
     }
 
     return clone;
-}
+};

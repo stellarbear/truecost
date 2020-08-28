@@ -1,13 +1,12 @@
 import * as React from 'react';
-import {Grid} from '@material-ui/core';
 import {CSSProperties} from 'react';
 
 interface IBase {
-    s?: number
-    fullWidth?: boolean
-    style?: CSSProperties
-    p?: number | [number, number]
-    m?: number | [number, number]
+    s?: number;
+    fullWidth?: boolean;
+    style?: CSSProperties;
+    p?: number | [number, number];
+    m?: number | [number, number];
 
     onClick?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
     onMouseEnter?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
@@ -23,7 +22,7 @@ interface IRight extends IBase {
 }
 
 
-type IProps = ILeft | IRight | IBase
+type IProps = ILeft | IRight | IBase;
 
 const isLeft = (object: IProps): object is ILeft => 'left' in object;
 const isRight = (object: IProps): object is IRight => 'right' in object;
@@ -49,14 +48,14 @@ export const Col: React.FC<IProps> = (props) => {
             <div style={{width: fullWidth ? "100%" : "auto", marginBottom: s}}>
                 {child}
             </div>
-        )))
-    }
+        )));
+    };
 
     return (
         <div
-        onClick={onClick}
-        onMouseLeave={onMouseLeave}
-        onMouseEnter={onMouseEnter}
+            onClick={onClick}
+            onMouseLeave={onMouseLeave}
+            onMouseEnter={onMouseEnter}
             style={{
                 display: "flex",
                 margin: Array.isArray(m) ? `${m[0]}px ${m[1]}px` : m,
@@ -71,5 +70,5 @@ export const Col: React.FC<IProps> = (props) => {
             }}>
             {renderChildren()}
         </div>
-    )
-}
+    );
+};

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
-import {DataContext, useStore} from 'pages/Data/Wrapper';
-import {Chip, Typography, ButtonBase, IconButton} from '@material-ui/core';
+import {useStore} from 'pages/Data/Wrapper';
+import {ButtonBase, IconButton, Typography} from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
 import {Link} from 'react-router-dom';
 import {ItemDivider} from './ItemDivider';
 
 interface IProps {
-    item: IItem
+    item: IItem;
 }
 
 export const ItemChildren: React.FC<IProps> = (props) => {
@@ -15,7 +15,7 @@ export const ItemChildren: React.FC<IProps> = (props) => {
     const itemId = item.id;
 
     const {current: {shop, game: {url}}} = useStore();
-    const {items,} = shop();
+    const {items} = shop();
 
     if (item.item.length === 0) {
         return null;
@@ -33,7 +33,7 @@ export const ItemChildren: React.FC<IProps> = (props) => {
                             display: "flex",
                             alignItems: "center",
                             flexDirection: "row",
-                            justifyContent: "flex-start"
+                            justifyContent: "flex-start",
                         }}>
                         <IconButton size="small">
                             <LinkIcon/>
@@ -44,7 +44,7 @@ export const ItemChildren: React.FC<IProps> = (props) => {
                     </ButtonBase>
                 ))
             }
-            <ItemDivider condition={item.item.length > 0} />
+            <ItemDivider condition={item.item.length > 0}/>
         </>
-    )
-}
+    );
+};

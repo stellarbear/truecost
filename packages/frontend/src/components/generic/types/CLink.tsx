@@ -1,6 +1,6 @@
 import * as React from "react";
-import {ABase, IRender, ICtor} from "./ABase";
-import {SelectFieldAsync, IQuery} from "../components/SelectFieldAsync";
+import {ABase, ICtor, IRender} from "./ABase";
+import {IQuery, SelectFieldAsync} from "../components/SelectFieldAsync";
 
 export interface ILink extends ICtor<any> {
     query: IQuery;
@@ -14,24 +14,26 @@ export class CLink extends ABase<any> {
     multiple: boolean;
 
     constructor({
-        query,
-        multiple = false, readOnly = false, ...rest
-    }: ILink) {
+                    query,
+                    multiple = false, readOnly = false, ...rest
+                }: ILink) {
         super(rest);
         this.query = query;
         this.readOnly = readOnly;
         this.multiple = multiple;
     }
 
-    SelectQueryField = (r: IRender<any>) => this.SelectField(r, false)
-    SelectReadOnlyQueryField = (r: IRender<any>) => this.SelectField(r, this.readOnly)
+    SelectQueryField = (r: IRender<any>) => this.SelectField(r, false);
 
     renderAddImplementation = this.SelectQueryField;
     renderFilterlementation = this.SelectQueryField;
+
+    SelectReadOnlyQueryField = (r: IRender<any>) => this.SelectField(r, this.readOnly);
+
     renderListlementation = this.SelectReadOnlyQueryField;
 
-    SelectField({value, onChange, id, state}: IRender<any>, readOnly: boolean) {
-        const {label, base} = this.data;
+    SelectField({value, onChange, state}: IRender<any>, readOnly: boolean) {
+        const {label} = this.data;
         const {multiple, query} = this;
 
         return (

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface IProps {
-    permanent?: boolean
+    permanent?: boolean;
 }
 
 export const Mock: React.FC<IProps> = ({permanent}) => {
@@ -9,7 +9,7 @@ export const Mock: React.FC<IProps> = ({permanent}) => {
 
     React.useEffect(() => {
         !hydrated && (permanent == undefined) && setHydrated(true);
-    }, [])
+    }, []);
 
     return (
         <div style={{
@@ -31,7 +31,7 @@ export const Mock: React.FC<IProps> = ({permanent}) => {
                     transform: "translate(-50%, -50%)",
                 }}
                 width={16} height={16}
-                src={`/preloader.gif`} />
+                src={`/preloader.gif`}/>
         </div>
-    )
-}
+    );
+};

@@ -1,14 +1,14 @@
 import * as React from 'react';
-import {useStore} from 'pages/Data/Wrapper';
-import {Container, Box, Button, Typography, Paper} from '@material-ui/core';
-import {Col} from 'pages/Base/Grid';
 import {useState} from 'react';
+import {useStore} from 'pages/Data/Wrapper';
+import {Button, Container, Paper, Typography} from '@material-ui/core';
+import {Col} from 'pages/Base/Grid';
 import {AccountUpdate} from './AccountUpdate';
 import {subscription} from '@truecost/shared';
 
 export const AccountInfo: React.FC = () => {
     const {current: {user, discount}} = useStore();
-    const [showUpdate, setShowUpdate] = useState(false)
+    const [showUpdate, setShowUpdate] = useState(false);
 
     const subscriptionInfo = () => (
         discount > 0 && (
@@ -18,7 +18,11 @@ export const AccountInfo: React.FC = () => {
                 <Typography>{`${subscription.timeLeft(user)} day(s) left`}</Typography>
             </Col>
         )
-    )
+    );
+
+    if (!user) {
+        return null;
+    }
 
     return (
         <Container maxWidth="sm">
@@ -27,23 +31,23 @@ export const AccountInfo: React.FC = () => {
                     <Col p={16} s={8} left>
                         <Col left>
                             <Typography variant="caption">Email:</Typography>
-                            <Typography>{user!.email}</Typography>
+                            <Typography>{user.email}</Typography>
                         </Col>
                         <Col left>
                             <Typography variant="caption">Username:</Typography>
-                            <Typography>{user!.name}</Typography>
+                            <Typography>{user.name}</Typography>
                         </Col>
                         {subscriptionInfo()}
                     </Col>
                 </Paper>
                 <Button fullWidth
-                    onClick={() => setShowUpdate(!showUpdate)}>
+                        onClick={() => setShowUpdate(!showUpdate)}>
                     Change info
                 </Button>
                 {showUpdate &&
-                    <AccountUpdate
-                        onUpdate={() => setShowUpdate(false)} />}
+                <AccountUpdate
+                    onUpdate={() => setShowUpdate(false)}/>}
             </Col>
         </Container>
-    )
-}
+    );
+};

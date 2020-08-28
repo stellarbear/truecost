@@ -1,10 +1,9 @@
 import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
-import {CLink, CSelect, CString} from "components/generic/types";
+import {CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {CNumber} from "components/generic/types/CNumber";
 import {base} from "./Base/Base";
-import {game} from "./Base/Game";
 
 export const AdminSubscription: React.FC = () => {
     const crud = new CRUDgql({
@@ -44,7 +43,6 @@ export const AdminSubscription: React.FC = () => {
         key: "description",
         label: "description",
     });
-
 
 
     const fields = [price, days, discount, description];

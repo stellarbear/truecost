@@ -1,6 +1,6 @@
 import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
-import {CDate, CImage, CString, CCustom} from "components/generic/types";
+import {CCustom, CDate, CImage, CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base";
 import EditorPost from "components/generic/components/EditorPost";
@@ -44,7 +44,7 @@ export const AdminBlog: React.FC = () => {
         base: "",
         key: "text",
         label: "text",
-        component: <EditorPost />,
+        component: <EditorPost/>,
     });
 
     const preview = new CString({
@@ -53,7 +53,7 @@ export const AdminBlog: React.FC = () => {
         multiline: true,
     });
 
-    const fields = [url, text, date, preview]
+    const fields = [url, text, date, preview];
 
     return (
         <CRUD

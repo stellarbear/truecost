@@ -7,4 +7,4 @@ export const social = {
     twitch: "https://instagram.com/_u/truecostgg/",
     discord: "https://www.twitch.tv/truecost",
     skype: "https://discordapp.com/users/678059004139798548",
-}
+};

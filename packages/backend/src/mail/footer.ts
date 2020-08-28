@@ -30,5 +30,5 @@ export const footer = () => {
         </mj-group>
         </mj-section>
     </mj-wrapper>
-    `
-}
+    `;
+};

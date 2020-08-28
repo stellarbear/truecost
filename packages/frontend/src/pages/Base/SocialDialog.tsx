@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useRef, useState} from "react";
 import {
     Button,
     Dialog,
@@ -13,7 +13,7 @@ import {TransitionProps} from "@material-ui/core/transitions/transition";
 import Close from "@material-ui/icons/Close";
 
 const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {children?: React.ReactElement<any, any>},
+    props: TransitionProps & { children?: React.ReactElement<any, any> },
     ref: React.Ref<unknown>,
 ) {
     return <Grow in ref={ref} {...props} />;
@@ -38,13 +38,13 @@ const SocialDialog: React.FC<ISocialDialogProps> = (props) => {
     const [open, setOpen] = useState(false);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const onCopy = (e: any) => {
+    const onCopy = () => {
         if (textAreaRef?.current) {
             textAreaRef.current.select();
             document.execCommand('copy');
             //setOpen(false);
         }
-    }
+    };
 
     return (
         <div>
@@ -63,7 +63,7 @@ const SocialDialog: React.FC<ISocialDialogProps> = (props) => {
                             {title}
                         </div>
                         <IconButton onClick={() => setOpen(false)} style={{marginLeft: 32}}>
-                            <Close />
+                            <Close/>
                         </IconButton>
                     </div>
                 </DialogTitle>
@@ -85,7 +85,7 @@ const SocialDialog: React.FC<ISocialDialogProps> = (props) => {
                         )
                     }
                     {valid && (
-                        <a href={url} target="_blank" style={{
+                        <a href={url} target="_blank" rel="noreferrer" style={{
                             textDecoration: "none",
                             color: "inherit",
                         }}>

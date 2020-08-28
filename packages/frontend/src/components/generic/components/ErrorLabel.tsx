@@ -1,6 +1,5 @@
-import {createStyles, makeStyles, Theme, Typography} from "@material-ui/core";
+import {Typography} from "@material-ui/core";
 import * as React from "react";
-import {Row, Col} from "pages/Base/Grid";
 import {useState} from "react";
 
 interface IProps {
@@ -8,8 +7,8 @@ interface IProps {
 }
 
 const ErrorLabel: React.FC<IProps> = (props) => {
-    const {error, children,} = props;
-    const [show, setShow] = useState(true)
+    const {error, children} = props;
+    const [show, setShow] = useState(true);
 
     return (
         <div style={{position: 'relative'}}
@@ -28,7 +27,7 @@ const ErrorLabel: React.FC<IProps> = (props) => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        zIndex: 2
+                        zIndex: 2,
                     }}
                     component="div"
                     variant="caption">

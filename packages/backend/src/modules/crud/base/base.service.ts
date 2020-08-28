@@ -1,4 +1,4 @@
-import {EntityRepository, wrap, Collection} from "mikro-orm";
+import {Collection, EntityRepository, wrap} from "mikro-orm";
 import {assert} from "../../../helpers/assert";
 import {DI} from "../../../orm";
 import {UploadType} from "../../../scalars";
@@ -58,13 +58,13 @@ export abstract class BaseService<T> {
     }
 
     async get({
-        skip = 0,
-        take = 1,
-        set = {},
-        like = {},
-        between = {},
-        filter = {},
-    }) {
+                  skip = 0,
+                  take = 1,
+                  set = {},
+                  like = {},
+                  between = {},
+                  filter = {},
+              }) {
         const sub = [
             ...convert(set, "set"),
             ...convert(like, "like"),
@@ -77,7 +77,7 @@ export abstract class BaseService<T> {
         const [items, count] = await this.repository.findAndCount(query, {
             limit: take || undefined,
             offset: skip,
-            populate: true
+            populate: true,
         });
         return {items, count};
     }
@@ -116,7 +116,7 @@ export abstract class BaseService<T> {
     async upsert(
         input: Record<string, any>,
         images: string[] = [],
-        relations: string[]
+        relations: string[],
     ) {
         const item = await this.item(input.id);
         assert(item, "id not found");
@@ -125,7 +125,7 @@ export abstract class BaseService<T> {
             await this.upload(item, input, images);
 
             //  M:N propagation cheat
-            for (let relation of relations) {
+            for (const relation of relations) {
                 if (relation in item && relation in input) {
                     const relatives = await DI.em.find(DI.map[relation], {id: {$in: input[relation] || []}});
                     ((item as any)[relation] as Collection<any>).set(relatives);
@@ -136,7 +136,7 @@ export abstract class BaseService<T> {
 
             await this.repository.persistAndFlush(item);
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
 
         return item;

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 const prefix: Record<number, string> = {
     [660]: "UTC-11",
     [600]: "UTC-10 ",
@@ -36,7 +37,7 @@ const prefix: Record<number, string> = {
     [-765]: "UTC+12:45 ",
     [-780]: "UTC+13 ",
     [-840]: "UTC+14 ",
-}
+};
 
 const list: [number, string][] = [
     [660, "Pacific/Midway, United States Minor Outlying Islands"],
@@ -463,6 +464,6 @@ const list: [number, string][] = [
     [-780, "Pacific/Fakaofo, Tokelau, Atafu Village, Nukunonu, Fale old settlement"],
     [-780, "Pacific/Tongatapu, Tonga, Nuku‘alofa, Lapaha, Neiafu, Pangai, ‘Ohonua"],
     [-840, "Pacific/Kiritimati, Kiribati"],
-]
+];
 
-export const tz = {list, prefix}
+export const tz = {list, prefix};

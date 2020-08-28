@@ -1,19 +1,18 @@
 import * as React from 'react';
-import {IItem, Price, OptionMerge} from "@truecost/shared";
-import {DataContext, useStore} from 'pages/Data/Wrapper';
-import {Chip, Typography, Checkbox} from '@material-ui/core';
-import Markdown from 'components/Markdown';
 import {useState} from 'react';
+import {Price} from "@truecost/shared";
+import {useStore} from 'pages/Data/Wrapper';
+import {Checkbox, Typography} from '@material-ui/core';
 import {ItemDivider} from './ItemDivider';
 
 interface IProps {
-    total: Price
+    total: Price;
 }
 
 export const ItemExtra: React.FC<IProps> = (props) => {
     const {total} = props;
 
-    const [hovered, setHovered] = useState<string>("")
+    const [hovered, setHovered] = useState<string>("");
 
     const {current: {shop, cart}, update} = useStore();
     const {options: {global: {id: options}}} = shop();
@@ -26,39 +25,39 @@ export const ItemExtra: React.FC<IProps> = (props) => {
         upsert({
             optionIds: (filtered.length === selected.length
                 ? [...selected, id]
-                : filtered), quantity: 0
+                : filtered), quantity: 0,
         });
-    }
+    };
 
     return (
         <>
             <Typography variant="caption">Extra options</Typography>
-            <ItemDivider condition={true} />
+            <ItemDivider condition={true}/>
             {Object.keys(options).map((optionId) =>
                 (
                     <div key={`${optionId}`}
-                        onMouseEnter={() => setHovered(optionId)}
-                        onMouseLeave={() => setHovered("")}
-                        style={{
-                            display: "flex", alignItems: "center", justifyContent: "flex-end", cursor: "pointer",
-                            backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
-                            transition: "all 0.3s",
-                        }}
-                        onClick={() => toggleOption(optionId)}>
+                         onMouseEnter={() => setHovered(optionId)}
+                         onMouseLeave={() => setHovered("")}
+                         style={{
+                             display: "flex", alignItems: "center", justifyContent: "flex-end", cursor: "pointer",
+                             backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
+                             transition: "all 0.3s",
+                         }}
+                         onClick={() => toggleOption(optionId)}>
                         <Typography variant="caption" style={{
                             textAlign: "right",
-                            userSelect: "none"
+                            userSelect: "none",
                         }}>{options[optionId].name}</Typography>
-                        <Checkbox checked={selected.includes(optionId)} />
+                        <Checkbox checked={selected.includes(optionId)}/>
                         <div style={{minWidth: 100}}>
                             <Typography variant="h6" style={{
-                                whiteSpace: "nowrap", textAlign: "center", userSelect: "none"
+                                whiteSpace: "nowrap", textAlign: "center", userSelect: "none",
                             }}>{total.getOption(options[optionId]).toString}</Typography>
                         </div>
                     </div>
                 ))
             }
-            <ItemDivider condition={Object.keys(options).length > 0} />
+            <ItemDivider condition={Object.keys(options).length > 0}/>
         </>
-    )
-}
+    );
+};

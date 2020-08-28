@@ -1,20 +1,20 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import ElevationScroll from 'components/ElevationScroll';
-import {AppBar, Toolbar, Hidden} from '@material-ui/core';
+import {AppBar, Hidden, Toolbar} from '@material-ui/core';
 import {Mobile} from './Mobile';
 import {Desktop} from './Desktop';
-import {useState, useEffect} from 'react';
-import {useHistory, withRouter, RouteComponentProps} from 'react-router';
+import {RouteComponentProps, withRouter} from 'react-router';
 import {useStore} from 'pages/Data/Wrapper';
 
 const height = 200;
 
-interface IProps extends RouteComponentProps {}
+type IProps = RouteComponentProps;
 
 export const NavigationBar: React.FC<IProps> = ({history}) => {
     const [isOnTop, setIsOnTop] = useState(true);
     const {current: {game}} = useStore();
-    
+
     const calcState = () => window.pageYOffset < height
         && (history.location.pathname === "/" ||
             history.location.pathname === "/" + game?.url);
@@ -28,7 +28,7 @@ export const NavigationBar: React.FC<IProps> = ({history}) => {
 
     const headerColorChange = () => setIsOnTop(calcState());
     const logo = isOnTop ? "/logo-white.png" : "/logo-black.png";
-    
+
     return (
         <ElevationScroll>
             <AppBar style={{
@@ -40,15 +40,15 @@ export const NavigationBar: React.FC<IProps> = ({history}) => {
                     width: "100vw", padding: 0,
                 }}>
                     <Hidden lgUp>
-                        <Mobile logo={"/logo-black.png"} />
+                        <Mobile logo={"/logo-black.png"}/>
                     </Hidden>
                     <Hidden mdDown>
-                        <Desktop logo={logo} />
+                        <Desktop logo={logo}/>
                     </Hidden>
                 </Toolbar>
             </AppBar>
         </ElevationScroll>
-    )
-}
+    );
+};
 
-export default withRouter(NavigationBar)
+export default withRouter(NavigationBar);

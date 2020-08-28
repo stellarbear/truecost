@@ -1,6 +1,6 @@
 import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
-import {CBoolean, CString, CNumber, CImage} from "components/generic/types";
+import {CBoolean, CImage, CNumber, CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base";
 import {game} from "./Base/Game";
@@ -81,19 +81,19 @@ export const AdminItem: React.FC = () => {
         min: 0,
         max: 10,
     });
-    
+
     const obtain = new CCustom({
         base: "",
         key: "obtain",
         label: "obtain",
-        component: <EditorPost/>,
+        component: <EditorPost />,
     });
-    
+
     const requirements = new CCustom({
         base: "",
         key: "requirements",
         label: "requirements",
-        component: <EditorPost/>,
+        component: <EditorPost />,
     });
 
     const isTopOffer = new CBoolean({
@@ -142,14 +142,15 @@ export const AdminItem: React.FC = () => {
         base: JSON.stringify(rangeBase),
         key: "range",
         label: "range",
-        component: <EditorRange/>,
+        component: <EditorRange />,
     });
 
-    const fields = [url, link, images, price, eta, range, discount, limit, obtain, requirements, direct, isTopOffer, item, tag, option];
+    const fields = [url, link, images, price, eta, range, discount, limit, obtain,
+        requirements, direct, isTopOffer, item, tag, option];
 
     return (
         <CRUD
-            
+
             title="Item"
             queryGet={crud.get}
 

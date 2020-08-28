@@ -1,24 +1,22 @@
 import * as React from "react";
-import {ABase, IRender, ICtor} from "./ABase";
+import {ABase, ICtor, IRender} from "./ABase";
 
 export interface ICustom extends ICtor<string> {
     component: React.ReactNode;
-    base: string
+    base: string;
 }
 
 export class CCustom extends ABase<string> {
     component: React.ReactNode;
+    renderAddImplementation = this.ClonedField;
+    renderFilterlementation = this.NoControl;
+    renderListlementation = this.ClonedField;
 
     constructor({component, ...rest}: ICustom) {
         super(rest);
 
         this.component = component;
     }
-
-
-    renderAddImplementation = this.ClonedField;
-    renderFilterlementation = this.NoControl;
-    renderListlementation = this.ClonedField;
 
     ClonedField({value, onChange}: IRender<string>) {
         const {label, base} = this.data;

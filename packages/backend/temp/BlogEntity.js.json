@@ -1,1 +1,58 @@
-{"data":{"className":"BlogEntity","properties":{"url":{"name":"url","reference":"scalar","getter":false,"setter":false,"type":"string"},"date":{"name":"date","reference":"scalar","getter":false,"setter":false,"type":"number"},"preview":{"name":"preview","reference":"scalar","getter":false,"setter":false,"type":"string"},"text":{"name":"text","reference":"scalar","getter":false,"setter":false,"type":"string"},"images":{"name":"images","reference":"scalar","getter":false,"setter":false,"type":"string[]"}},"hooks":{},"indexes":[],"uniques":[{"properties":"url"}],"path":"./build/modules/crud/blog/blog.entity.js","name":"BlogEntity","constructorParams":[],"toJsonParams":[],"extends":"BaseEntity","useCache":true,"collection":"blog-entity"},"origin":"./build/modules/crud/blog/blog.entity.js","hash":"dedc913b27db184291314d4abe0870c7"}
+{
+    "data": {
+        "className": "BlogEntity",
+        "properties": {
+            "url": {
+                "name": "url",
+                "reference": "scalar",
+                "getter": false,
+                "setter": false,
+                "type": "string"
+            },
+            "date": {
+                "name": "date",
+                "reference": "scalar",
+                "getter": false,
+                "setter": false,
+                "type": "number"
+            },
+            "preview": {
+                "name": "preview",
+                "reference": "scalar",
+                "getter": false,
+                "setter": false,
+                "type": "string"
+            },
+            "text": {
+                "name": "text",
+                "reference": "scalar",
+                "getter": false,
+                "setter": false,
+                "type": "string"
+            },
+            "images": {
+                "name": "images",
+                "reference": "scalar",
+                "getter": false,
+                "setter": false,
+                "type": "string[]"
+            }
+        },
+        "hooks": {},
+        "indexes": [],
+        "uniques": [
+            {
+                "properties": "url"
+            }
+        ],
+        "path": "./build/modules/crud/blog/blog.entity.js",
+        "name": "BlogEntity",
+        "constructorParams": [],
+        "toJsonParams": [],
+        "extends": "BaseEntity",
+        "useCache": true,
+        "collection": "blog-entity"
+    },
+    "origin": "./build/modules/crud/blog/blog.entity.js",
+    "hash": "dedc913b27db184291314d4abe0870c7"
+}

@@ -1,27 +1,27 @@
-import React, {useState} from 'react';
-import {Hidden, Stepper, Step, StepButton, Typography, Button, Container, Divider} from '@material-ui/core';
+import React from 'react';
+import {Button, Container, Step, StepButton, Stepper, Typography} from '@material-ui/core';
 import {AuxInfo} from './AuxInfo';
 import {Col, Row} from 'pages/Base/Grid';
 import {useStorage} from 'auxiliary/useStorage';
 import {OrderInfo} from './OrderInfo';
 import {EmalInfo} from './EmailInfo';
-import {useParams, useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {Meta} from 'pages/Base/Meta';
 import {useStore} from 'pages/Data/Wrapper';
 
 const steps = [{
     title: 'Check your order',
-    description: ''
+    description: '',
 }, {
     title: 'Additional information',
-    description: 'optional step'
+    description: 'optional step',
 }, {
     title: 'Provide email and discount',
-    description: ''
+    description: '',
 }];
 
 export const Checkout: React.FC = () => {
-    const {step} = useParams<{step: string}>();
+    const {step} = useParams<{ step: string }>();
     const history = useHistory();
     const {current: {game}} = useStore();
 
@@ -29,7 +29,7 @@ export const Checkout: React.FC = () => {
         cross: false,
         platform: [],
         time: [12, "am", 12, "pm"],
-        text: ""
+        text: "",
     });
     const [activeStep, setStep] = React.useState(Math.min(Math.max((+step || 0), 0), 2));
 
@@ -40,44 +40,44 @@ export const Checkout: React.FC = () => {
         const path = history.location.pathname;
         history.push(path.slice(-2, -1) === "/"
             ? path.slice(0, -1) + step
-            : path + "/" + step
-        )
+            : path + "/" + step,
+        );
 
-    }
+    };
 
     const updateInfo = (key: string, value: any) => {
         info[key] = value;  //  dirty hack
-        setInfo({...info, [key]: value})
-    }
+        setInfo({...info, [key]: value});
+    };
 
     const panels = () => (
         <Col fullWidth s={16}>
             <React.Fragment>
                 <div style={{display: activeStep !== 0 ? "none" : "block"}}>
-                    <OrderInfo />
+                    <OrderInfo/>
                 </div>
                 <div style={{display: activeStep !== 1 ? "none" : "block"}}>
-                    <AuxInfo value={info} setValue={(k: string, v: any) => updateInfo(k, v)} />
+                    <AuxInfo value={info} setValue={(k: string, v: any) => updateInfo(k, v)}/>
                 </div>
                 <div style={{display: activeStep !== 2 ? "none" : "block"}}>
-                    <EmalInfo info={info} />
+                    <EmalInfo info={info}/>
                 </div>
             </React.Fragment>
             {activeStep < 2 && (
                 <Row end s={8}>
                     <Button
                         disabled={activeStep === 0}
-                        onClick={() => setActiveStep(activeStep - 1)} >
+                        onClick={() => setActiveStep(activeStep - 1)}>
                         Back
                     </Button>
                     <Button variant="contained" color="primary"
-                        onClick={() => setActiveStep(activeStep + 1)}>
+                            onClick={() => setActiveStep(activeStep + 1)}>
                         Next
                     </Button>
                 </Row>
             )}
         </Col>
-    )
+    );
 
     const stepper = () => (
         <Stepper
@@ -88,18 +88,18 @@ export const Checkout: React.FC = () => {
             {steps.map(({title, description}, index) => (
                 <Step key={title}>
                     <StepButton onClick={() => setActiveStep(index)} completed={index < activeStep}
-                        style={{textAlign: "left"}}>
+                                style={{textAlign: "left"}}>
                         <Typography>{title}</Typography>
                         <Typography variant="caption">{description}</Typography>
                     </StepButton>
                 </Step>
             ))}
         </Stepper>
-    )
+    );
 
     return (
         <>
-            <Meta entity={game} />
+            <Meta entity={game}/>
             <Container maxWidth="sm" style={{padding: 0}}>
                 <Col fullWidth s={16}>
                     {stepper()}
@@ -107,5 +107,5 @@ export const Checkout: React.FC = () => {
                 </Col>
             </Container>
         </>
-    )
-}
+    );
+};

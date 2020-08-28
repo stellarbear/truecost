@@ -1,12 +1,12 @@
 import {BaseEntity} from "../base/base.entity";
-import {Collection, Entity, ManyToMany, ManyToOne, Property, Cascade, Unique} from "mikro-orm";
+import {Collection, Entity, ManyToMany, ManyToOne, Property, Unique} from "mikro-orm";
 import {TagEntity} from "../tag/tag.entity";
 import {OptionEntity} from "../option/option.entity";
 import {GameEntity} from "../game/game.entity";
 import {Field, Int, ObjectType} from "type-graphql";
-import {IRange, rangeBase} from "@truecost/shared";
+import {rangeBase} from "@truecost/shared";
 
-const rangeBaseJson = JSON.stringify(rangeBase)
+const rangeBaseJson = JSON.stringify(rangeBase);
 
 @Entity()
 @ObjectType()

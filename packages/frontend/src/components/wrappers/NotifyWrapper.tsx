@@ -1,14 +1,15 @@
-import React, {createContext, useState, useContext} from "react";
-import {createStyles, Fade, IconButton, makeStyles, Snackbar, Theme} from "@material-ui/core";
+import React, {createContext, useContext, useState} from "react";
+import {createStyles, Fade, IconButton, makeStyles, Snackbar} from "@material-ui/core";
 import Close from "@material-ui/icons/Close";
 import {colors} from "theme";
 
-const NotificationContext = createContext({
-    notify: (data: string, meta?: Record<string, any>): void => {
-    },
-});
+export interface INotify {
+    notify(message: string, meta?: Record<string, any>): void; 
+}
 
-const useStyles = makeStyles((theme: Theme) =>
+const NotificationContext = createContext({} as INotify);
+
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
             background: colors.primaryColor,

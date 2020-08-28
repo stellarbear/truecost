@@ -1,15 +1,10 @@
-import * as React from 'react'
-import {Price} from '@truecost/shared'
+import * as React from 'react';
 import {Typography} from '@material-ui/core';
 import {useStore} from 'pages/Data/Wrapper';
 import {PriceTypography} from 'pages/Base/PriceTypography';
-import {Row, Col} from 'pages/Base/Grid';
+import {Row} from 'pages/Base/Grid';
 
-interface IProps {
-    total: Price
-}
-
-export const ItemTotal: React.FC<IProps> = ({total}) => {
+export const ItemTotal: React.FC = () => {
     const {current: {shop, cart}} = useStore();
 
     const cartItems = cart();
@@ -32,5 +27,5 @@ export const ItemTotal: React.FC<IProps> = ({total}) => {
                 />
             </Row>
         </>
-    )
-}
+    );
+};

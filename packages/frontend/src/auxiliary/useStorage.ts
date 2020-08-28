@@ -1,7 +1,11 @@
 import {useState} from "react";
 import {SafeJSON} from "auxiliary/json";
 
-export const useStorage = <T>(key: string, base: T, validate: (input: T) => T = (input) => input): [T, (input: T) => void] => {
+export const useStorage = <T>(
+    key: string,
+    base: T,
+    validate: (input: T) => T = (input) => input,
+): [T, (input: T) => void] => {
     const [storage, setStorage] = useState<T>(() => {
         if (typeof window === 'undefined') {
             return base;
@@ -12,12 +16,12 @@ export const useStorage = <T>(key: string, base: T, validate: (input: T) => T = 
         const validated = validate(data);
 
         return validated;
-    })
+    });
 
     const updateStorage = (data: T) => {
-        localStorage.setItem(key, JSON.stringify(data))
+        localStorage.setItem(key, JSON.stringify(data));
         setStorage(data);
-    }
+    };
 
     return [storage, updateStorage];
-}
+};

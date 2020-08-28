@@ -1,8 +1,7 @@
-import {Button, Typography, Container, IconButton, Menu, MenuItem, Badge} from "@material-ui/core";
-import React, {useContext, useState} from "react";
+import {Badge, IconButton, Menu, MenuItem} from "@material-ui/core";
+import React, {useState} from "react";
 import {Link, useHistory} from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import {Col, Row} from "pages/Base/Grid";
 import {useStore} from 'pages/Data/Wrapper';
 import {gql, useMutation} from '@apollo/client';
 import {RoleType} from "@truecost/shared";
@@ -29,22 +28,22 @@ export const AccountPicker: React.FC = () => {
             setUser(null);
         }
         history.push("/login");
-    }
+    };
 
     const logIn = (
         [
-            <MenuItem component={Link} color="inherit" to={'/register'}>
+            <MenuItem key={'register'} component={Link} color="inherit" to={'/register'}>
                 Register
             </MenuItem>,
-            <MenuItem component={Link} color="inherit" to={'/login'}>
+            <MenuItem key={'login'} component={Link} color="inherit" to={'/login'}>
                 Login
-            </MenuItem>
+            </MenuItem>,
         ]
-    )
+    );
 
     const logOut = (
         [
-            <MenuItem component={Link} color="inherit" to={'/account/' + account.routes[0].url}>
+            <MenuItem key={'account'}  component={Link} color="inherit" to={'/account/' + account.routes[0].url}>
                 account
             </MenuItem>,
             user?.role === RoleType.ADMIN && (
@@ -52,11 +51,11 @@ export const AccountPicker: React.FC = () => {
                     admin
                 </MenuItem>
             ),
-            <MenuItem color="inherit" onClick={onLogOut}>
+            <MenuItem key={'logout'}  color="inherit" onClick={onLogOut}>
                 logout
-            </MenuItem>
+            </MenuItem>,
         ]
-    )
+    );
 
     return (
         <>
@@ -76,5 +75,5 @@ export const AccountPicker: React.FC = () => {
                         React.cloneElement(child, {key: index}))}
             </Menu>
         </>
-    )
-}
+    );
+};

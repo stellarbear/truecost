@@ -56,7 +56,7 @@ export const BULK_QUERY = gql`
             eta
             obtain
             requirements
-            
+
             tag  { id }
             option  { id }
             item  { id }
@@ -65,10 +65,10 @@ export const BULK_QUERY = gql`
         OptionAll {
             ${base.fragment}
             ${game.fragment}
-            price   
-            free    
-            type    
-            area    
+            price
+            free
+            type
+            area
             merge
         }
         TagAll {
@@ -77,7 +77,7 @@ export const BULK_QUERY = gql`
 
             children { id }
         }
-        
+
         SubscriptionAll {
             ${base.fragment}
             days

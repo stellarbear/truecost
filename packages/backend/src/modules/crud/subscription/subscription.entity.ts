@@ -1,7 +1,7 @@
 import {BaseEntity} from "../base/base.entity";
-import {Field, Float, ObjectType, Int} from "type-graphql";
+import {Field, Int, ObjectType} from "type-graphql";
 import {Entity, Property} from "mikro-orm";
-import {ISubscription} from "@truecost/shared"
+import {ISubscription} from "@truecost/shared";
 
 
 @Entity()

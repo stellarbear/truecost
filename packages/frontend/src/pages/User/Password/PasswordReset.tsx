@@ -1,16 +1,13 @@
 import * as React from 'react';
-import {InfoCard} from 'pages/Base/InfoCard';
-import {useParams, Redirect, useHistory} from 'react-router';
+import {useCallback} from 'react';
+import {Redirect, useHistory, useParams} from 'react-router';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
-import {Button, Box, CircularProgress, Container, Paper, TextField} from '@material-ui/core';
-import {useStore} from 'pages/Data/Wrapper';
+import {Box, Button, CircularProgress, Container, Paper, TextField} from '@material-ui/core';
 import {Alert} from '@material-ui/lab';
-import {Link} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import {theme} from 'theme';
 import {Col} from 'pages/Base/Grid';
 import {parseApolloError} from 'auxiliary/error';
-import {useCallback} from 'react';
 import {Meta} from 'pages/Base/Meta';
 import {gql, useMutation} from '@apollo/client';
 
@@ -32,7 +29,7 @@ interface ResetSubmit {
 export const PasswordReset: React.FC = () => {
     const history = useHistory();
     const {setLoading} = useLoading();
-    const {forget, value} = useParams<{forget: string, value: string}>();
+    const {forget, value} = useParams<{ forget: string; value: string }>();
     const [mutation, {data, error, loading}] = useMutation(verifyMutation);
 
     const {register, handleSubmit, errors, clearErrors} = useForm<ResetSubmit>({reValidateMode: "onBlur"});
@@ -43,7 +40,8 @@ export const PasswordReset: React.FC = () => {
                 clearErrors();
                 setLoading(true);
                 await mutation({variables: {...data, forget, value}});
-            } catch (e) {} finally {
+            } catch (e) {
+            } finally {
                 setLoading(false);
             }
         },
@@ -57,16 +55,16 @@ export const PasswordReset: React.FC = () => {
             } else {
             }
         }
-    }, [data?.PasswordReset])
+    }, [data?.PasswordReset]);
 
 
     if (!forget || !value) {
-        return <Redirect to="/404" />
+        return <Redirect to="/404"/>;
     }
 
     return (
         <>
-            <Meta />
+            <Meta/>
             <Container maxWidth="xs">
                 <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(ResetSubmit)}>
                     <Paper>
@@ -89,7 +87,7 @@ export const PasswordReset: React.FC = () => {
                                 />
                             </Col>
                             <Button fullWidth variant="contained" type="submit">
-                                {loading ? <CircularProgress size={24} /> : "update password"}
+                                {loading ? <CircularProgress size={24}/> : "update password"}
                             </Button>
                         </Col>
                     </Paper>
@@ -99,5 +97,5 @@ export const PasswordReset: React.FC = () => {
                 </form>
             </Container>
         </>
-    )
-}
+    );
+};

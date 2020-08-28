@@ -2,8 +2,7 @@ import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";
-import {game} from "./Base/Game";
-import {CLink, CSelect, CString, CNumber, CImage} from "components/generic/types";
+import {CImage, CLink, CNumber, CSelect, CString} from "components/generic/types";
 import {StatusType} from "@truecost/shared";
 
 export const AdminBooking: React.FC = () => {
@@ -11,11 +10,11 @@ export const AdminBooking: React.FC = () => {
         name: "Booking",
         items: `
 			${base.fragment}
-            
+
             status
 
             user { id name }
-            
+
             total
             code
             pi
@@ -54,7 +53,7 @@ export const AdminBooking: React.FC = () => {
             [StatusType.DONE]: "done",
             [StatusType.IN_PROGRESS]: "in progress",
             [StatusType.PAUSED]: "paused",
-        }
+        },
     });
 
     const total = new CNumber({

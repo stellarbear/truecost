@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {CBoolean, CString} from "components/generic/types";
 import {CNumber} from "components/generic/types/CNumber";
 

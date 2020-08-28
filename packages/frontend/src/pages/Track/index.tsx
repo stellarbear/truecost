@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {TextField, Button, Box, Container, Paper} from '@material-ui/core';
+import {Box, Container} from '@material-ui/core';
 import {Alert} from '@material-ui/lab';
 import {parseApolloError} from 'auxiliary/error';
 import {QueryForm} from './QueryForm';
@@ -15,24 +15,22 @@ const GET_BOOKING = gql`
             total
             info
             data
-            
+
             id
             images
         }
     }
-`
+`;
 
 export interface BookingSubmit {
-    email: string
-    code: string
+    email: string;
+    code: string;
 }
 
 export const Track: React.FC = () => {
     const [query, {data, error, loading}] = useLazyQuery(GET_BOOKING);
 
-    const onQuery = async (variables: BookingSubmit) => {
-        const responce = await query({variables});
-    }
+    const onQuery = async (variables: BookingSubmit) => await query({variables});
 
     return (
         <>
@@ -48,5 +46,5 @@ export const Track: React.FC = () => {
                 </Box>
             </Container>
         </>
-    )
-}
+    );
+};

@@ -20,7 +20,13 @@ const server = express();
 
 server
     .disable("x-powered-by")
-    .use(express.static(environment == "development" ? process.env.RAZZLE_PUBLIC_DIR! : path.join(__dirname, '../build/public')))
+    .use(
+        express.static(
+            environment == "development"
+                ? process.env.RAZZLE_PUBLIC_DIR || ""
+                : path.join(__dirname, '../build/public'),
+        ),
+    )
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
         const sheets: ServerStyleSheets = new ServerStyleSheets();
@@ -37,12 +43,13 @@ server
             </ApolloProvider>
         );
 
-        const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST!);
+        const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
 
         renderToStringWithData(sheets.collect(app)).then((content) => {
             const initialState = client.extract();
 
-            const html = <Html assets={assets} css={sheets.toString().replace(/\s/g, '')} content={content} state={initialState} />;
+            const html = <Html assets={assets} css={sheets.toString().replace(/\s/g, '')} content={content}
+                state={initialState} />;
 
             res.status(context.statusCode || 200)
                 .send(`<!doctype html>\n${ReactDOMServer.renderToStaticMarkup(html)}`);

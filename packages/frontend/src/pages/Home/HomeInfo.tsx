@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {gql, useQuery} from '@apollo/client';
 import {useStore} from 'pages/Data/Wrapper';
-import {Paper, CircularProgress, Typography} from '@material-ui/core';
+import {CircularProgress, Paper, Typography} from '@material-ui/core';
 import {IInfo, SafeJSON} from '@truecost/shared';
-import {CarouselPure} from 'components/CarouselPure';
+import {Carousel} from 'components/Carousel';
 import {backend} from 'auxiliary/route';
 import {SafeImage} from 'components/SafeImage';
 import {Row} from 'pages/Base/Grid';
@@ -26,7 +26,7 @@ const GET_INFO = gql`
             game  { id }
         }
     }
-`
+`;
 
 const height = 250;
 
@@ -39,27 +39,27 @@ const mock = () => (
             <Typography>Fetching some data...</Typography>
         </Row>
     </Paper>
-)
+);
 
 export const HomeInfo = () => {
     const history = useHistory();
     const {current: {game}} = useStore();
     const {data, loading, error} = useQuery(GET_INFO, {variables: {game: game.id}});
 
-    if (loading || !data.InfoAll || data.InfoAll.length === 0) {
-        return mock()
+    if (loading || !data.InfoAll || data.InfoAll.length === 0 || error) {
+        return mock();
     }
 
-    const validInfo: IInfo[] = data.InfoAll.filter((d: IInfo) => d.active && (d.game === null || d.game.id === game.id) && d.images.length === 1)
+    const validInfo: IInfo[] = data.InfoAll.filter((d: IInfo) =>
+        d.active && (d.game === null || d.game.id === game.id) && d.images.length === 1);
 
     if (validInfo.length === 0) {
-        return mock()
+        return mock();
     }
-
 
     return (
         <Paper elevation={6} style={{overflow: "hidden"}}>
-            <CarouselPure>
+            <Carousel>
                 {validInfo.map(info => (
                     <div key={info.id} style={{position: "relative", cursor: "pointer"}}
                         onClick={() => {
@@ -69,14 +69,18 @@ export const HomeInfo = () => {
 
                             const to = info.redirect[0] === "/" ? info.redirect.slice(1) : info.redirect;
                             if (info.game) {
-                                const key = 'shop'
+                                const key = 'shop';
                                 const oldValue = SafeJSON.parse(localStorage.getItem(key), {});
-                                const newValue = {...oldValue, tags: info.tag.map((t: any) => t.id), names: info.item.map((i: any) => i.id)};
+                                const newValue = {
+                                    ...oldValue,
+                                    tags: info.tag.map((t: any) => t.id),
+                                    names: info.item.map((i: any) => i.id),
+                                };
                                 localStorage.setItem(key, JSON.stringify(newValue));
 
-                                history.push(`${game.url}/${to}`)
+                                history.push(`${game.url}/${to}`);
                             } else {
-                                history.push(`${to}`)
+                                history.push(`${to}`);
                             }
                         }}
                     >
@@ -89,7 +93,7 @@ export const HomeInfo = () => {
                         </Row>
                     </div>
                 ))}
-            </CarouselPure>
+            </Carousel>
         </Paper>
-    )
-}
+    );
+};

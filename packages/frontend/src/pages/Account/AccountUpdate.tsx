@@ -1,11 +1,9 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {Container, Box, Button, CircularProgress, TextField, Paper} from '@material-ui/core';
+import {Box, Button, CircularProgress, Paper, TextField} from '@material-ui/core';
 import {Col} from 'pages/Base/Grid';
-import {error} from 'console';
 import {Alert} from '@material-ui/lab';
 import {parseApolloError} from 'auxiliary/error';
-import {useState} from 'react';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {useForm} from 'react-hook-form';
@@ -21,23 +19,23 @@ const USER_UPDATE_INFO = gql`
             id
         }
     }
-`
+`;
 
 interface ISubmit {
-    oldPassword: string
-    newPassword?: string
-    name?: string
+    oldPassword: string;
+    newPassword?: string;
+    name?: string;
 }
 
 interface IProps {
-    onUpdate: () => void
+    onUpdate: () => void;
 }
 
 export const AccountUpdate: React.FC<IProps> = ({onUpdate}) => {
     const {setLoading} = useLoading();
     const {update: {setUser}} = useStore();
     const {notify} = useNotification();
-    const [mutation, {data, error, loading}] = useMutation(USER_UPDATE_INFO)
+    const [mutation, {data, error, loading}] = useMutation(USER_UPDATE_INFO);
 
     const {register, handleSubmit, errors, clearErrors} = useForm<ISubmit>({reValidateMode: "onBlur"});
 
@@ -55,7 +53,8 @@ export const AccountUpdate: React.FC<IProps> = ({onUpdate}) => {
                 }
 
                 await mutation({variables});
-            } catch (e) {} finally {
+            } catch (e) {
+            } finally {
                 setLoading(false);
             }
         },
@@ -67,7 +66,7 @@ export const AccountUpdate: React.FC<IProps> = ({onUpdate}) => {
             if (data.UserUpdateInfo) {
                 setUser(data.UserUpdateInfo);
                 notify("account info updated");
-                onUpdate()
+                onUpdate();
             }
         }
     }, [data?.UserUpdateInfo]);
@@ -109,7 +108,7 @@ export const AccountUpdate: React.FC<IProps> = ({onUpdate}) => {
                         variant="filled"
                     />
                     <Button fullWidth variant="contained" type="submit">
-                        {loading ? <CircularProgress size={24} /> : "update info"}
+                        {loading ? <CircularProgress size={24}/> : "update info"}
                     </Button>
                 </Col>
             </Paper>
@@ -117,5 +116,5 @@ export const AccountUpdate: React.FC<IProps> = ({onUpdate}) => {
                 {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
             </Box>
         </form>
-    )
-}
+    );
+};

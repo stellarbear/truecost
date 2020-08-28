@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {createStyles, FormGroup, makeStyles, Switch, Theme, Typography} from "@material-ui/core";
+import React from "react";
+import {Switch, Typography} from "@material-ui/core";
 import {SwitchProps} from "@material-ui/core/Switch";
 import {Row} from "pages/Base/Grid";
 import {useEventState} from "../../../auxiliary/useEventState";
@@ -13,7 +13,7 @@ interface IProps extends SwitchProps {
 }
 
 const getOpacity = (flag: boolean) => flag ? 1.0 : 0.4;
-const style: CSSProperties = {userSelect: "none", cursor: "pointer"}
+const style: CSSProperties = {userSelect: "none", cursor: "pointer"};
 
 export const SwitchField: React.FC<IProps> = (props) => {
     const {value, prefix, suffix, onChangeEvent, ...rest} = props;

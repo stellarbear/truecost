@@ -11,15 +11,15 @@ export const getRoutes = (environment = 'development') => {
     const frontend = {
         uri: `${protocol}://${client}`,
         port: clientPort,
-    }
+    };
 
     const backend = {
         uri: `${protocol}://${server}`,
         port: serverPort,
-        endpoint:  `${protocol}://${server}/${endpoint}`,
-    }
+        endpoint: `${protocol}://${server}/${endpoint}`,
+    };
 
     return ({
-        frontend, backend, environment, domain
-    })
-}
+        frontend, backend, environment, domain,
+    });
+};

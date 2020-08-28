@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState, ReactNode} from "react";
 import {IconButton} from "@material-ui/core";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import ArrowForward from "@material-ui/icons/ArrowForward";
@@ -9,7 +9,7 @@ import {CSSProperties} from "@material-ui/core/styles/withStyles";
 
 interface IProps {
     infinite?: boolean;
-    children: string[]
+    children: (string[] | ReactNode[]);
 }
 
 const arrowStyle: CSSProperties = {
@@ -17,14 +17,13 @@ const arrowStyle: CSSProperties = {
     top: "40%",
     zIndex: 2,
     background: "#FFFFFFDD",
-}
+};
 
 export const Carousel: React.FC<IProps> = (props) => {
     const {
         children,
         infinite = true,
     } = props;
-    const slide = React.useRef<HTMLDivElement | null>(null);
 
     const [current, setCurrent] = useState(0);
     const [touchX, setTouchX] = useState<number | null>(null);
@@ -68,6 +67,7 @@ export const Carousel: React.FC<IProps> = (props) => {
                     ...arrowStyle,
                     left: 8,
                 }}
+                disabled={disabledLeft}
                 onClick={() => onLeft()}>
                 <ArrowBack />
             </IconButton>
@@ -76,16 +76,17 @@ export const Carousel: React.FC<IProps> = (props) => {
                     ...arrowStyle,
                     right: 8,
                 }}
+                disabled={disabledRight}
                 onClick={() => onRight()}>
                 <ArrowForward />
             </IconButton>
         </>
-    )
+    );
 
     const dots = () => children.length > 1 && (
         <Row>
             {
-                children.map((_, index) => (
+                (children as any[]).map((_, index) => (
                     <FiberManualRecord
                         style={{
                             cursor: "pointer",
@@ -97,17 +98,27 @@ export const Carousel: React.FC<IProps> = (props) => {
                 ))
             }
         </Row>
-    )
+    );
 
     const view = () => (
-        <SafeImage
-            onTouchStart={(e) => setTouchX(e.touches?.[0]?.clientX ?? null)}
-            onTouchMove={(e) => setMoveX(e.touches?.[0]?.clientX ?? null)}
-            onTouchEnd={(e) => onMove()}
-            draggable="false"
-            style={{objectFit: "cover", width: "100%"}}
-            src={children[current]} />
-    )
+        Array.isArray(current) && current.every(item => typeof item === "string")
+            ? (
+                <SafeImage
+                    onTouchStart={(e) => setTouchX(e.touches?.[0]?.clientX ?? null)}
+                    onTouchMove={(e) => setMoveX(e.touches?.[0]?.clientX ?? null)}
+                    onTouchEnd={() => onMove()}
+                    draggable="false"
+                    style={{objectFit: "cover", width: "100%"}}
+                    src={children[current] as string} />
+            ) : (
+                children[current] && React.isValidElement(children[current]) && 
+                React.cloneElement(children[current] as any, {
+                    onTouchStart: (e) => setTouchX(e.touches?.[0]?.clientX ?? null),
+                    onTouchMove: (e) => setMoveX(e.touches?.[0]?.clientX ?? null),
+                    onTouchEnd: () => onMove(),
+                })
+            )
+    );
 
     return (
         <Col style={{position: "relative"}}>

@@ -1,14 +1,14 @@
-import * as React from 'react'
-import {Col, Row} from './Grid'
-import {Typography, Card} from '@material-ui/core'
-import {DataContext, useStore} from 'pages/Data/Wrapper';
+import * as React from 'react';
 import {CSSProperties} from 'react';
-import {frontend, backend} from 'auxiliary/route';
+import {Col, Row} from './Grid';
+import {Typography} from '@material-ui/core';
+import {useStore} from 'pages/Data/Wrapper';
+import {backend, frontend} from 'auxiliary/route';
 
 interface IProps {
-    text: string[]
+    text: string[];
     style?: CSSProperties;
-    actions?: React.ReactElement[]
+    actions?: React.ReactElement[];
 }
 
 export const InfoCard: React.FC<IProps> = ({text, actions = [], style = {}}) => {
@@ -26,7 +26,7 @@ export const InfoCard: React.FC<IProps> = ({text, actions = [], style = {}}) => 
                 <Col>
                     {text.map((sentence, index) =>
                         <Typography align="center"
-                            variant="body2" key={index}>{sentence}</Typography>)}
+                                    variant="body2" key={index}>{sentence}</Typography>)}
                     <Row s={8} m={8} wrap>
                         {React.Children.map(actions, (action, index) =>
                             <div key={index}>{action}</div>)}
@@ -34,5 +34,5 @@ export const InfoCard: React.FC<IProps> = ({text, actions = [], style = {}}) => 
                 </Col>
             </Row>
         </Col>
-    )
-}
+    );
+};

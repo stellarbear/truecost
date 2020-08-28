@@ -29,7 +29,7 @@ export class ItemCRUDResolver extends BaseResolver
             notEmpty: ["images", "price", "game", "url"],
             unique: ["url"],
             images: ["images"],
-            propagate: ["option", "tag"]
+            propagate: ["option", "tag"],
         },
         restrictPublic: false,
     },

@@ -1,16 +1,12 @@
 import * as React from 'react';
-import {Col, Row} from 'pages/Base/Grid';
-import {useHistory} from 'react-router';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import {StatusType, SafeJSON, Dict} from '@truecost/shared';
-import {Table, TableBody, TableRow, TableCell, Typography, Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
-import {BookingInfo} from './BookingInfo';
+import {Col} from 'pages/Base/Grid';
+import {Table, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 
 interface IProps {
     goods: {
         game: string;
         data: any[];
-    }
+    };
 }
 
 export const BookingGoods: React.FC<IProps> = ({goods}) => {
@@ -33,12 +29,13 @@ export const BookingGoods: React.FC<IProps> = ({goods}) => {
                                             <Typography variant="caption">{description || "-"}</Typography>
                                         </Col>
                                     </TableCell>
-                                    <TableCell style={{whiteSpace: "nowrap"}}>{`${amount / 100} $ x ${quantity}`}</TableCell>
+                                    <TableCell
+                                        style={{whiteSpace: "nowrap"}}>{`${amount / 100} $ x ${quantity}`}</TableCell>
                                 </TableRow>
                             ))
                     }
                 </TableBody>
             </Table>
         </ >
-    )
-}
+    );
+};

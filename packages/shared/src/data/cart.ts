@@ -1,15 +1,15 @@
 import {Dict, IShop} from ".";
 
 export interface ICartItem {
-    itemId: string
-    quantity: number
-    optionIds: string[]
-    chunk?: [number, number]
+    itemId: string;
+    quantity: number;
+    optionIds: string[];
+    chunk?: [number, number];
 }
 
 export interface ICart {
-    local: Dict<ICartItem>
-    global: string[]
+    local: Dict<ICartItem>;
+    global: string[];
 }
 
 export const parseCart = (shop: IShop, json: any) => {
@@ -18,7 +18,7 @@ export const parseCart = (shop: IShop, json: any) => {
         const game = shop;
 
         if (typeof json === "object" && "local" in json && "global" in json) {
-            for (let jsonItemId in json.local) {
+            for (const jsonItemId in json.local) {
 
                 const {quantity, itemId, optionIds} = json.local[jsonItemId];
 
@@ -46,7 +46,8 @@ export const parseCart = (shop: IShop, json: any) => {
                 result.global = json.global;
             }
         }
-    } catch {}
+    } catch {
+    }
 
     return result;
-}
+};

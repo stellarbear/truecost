@@ -14,24 +14,25 @@ class MetaResponse extends PaginatedResponse(MetaEntity) {
 export class MetaCRUDResolver extends BaseResolver
     <typeof MetaEntity, typeof MetaInput, typeof MetaResponse, MetaInput>
 
-    (
-        {
+(
+    {
 
-            inputRef: MetaInput,
-            classRef: MetaEntity,
-            resultRef: MetaResponse,
-            get: {
-                like: ["url"],
-            },
-            upsert: {
-                notEmpty: ["url"],
-                unique: ["url"],
-            },
-            restrictPublic: false,
+        inputRef: MetaInput,
+        classRef: MetaEntity,
+        resultRef: MetaResponse,
+        get: {
+            like: ["url"],
         },
-    )
+        upsert: {
+            notEmpty: ["url"],
+            unique: ["url"],
+        },
+        restrictPublic: false,
+    },
+)
 {
-    constructor() {
+    constructor()
+    {
         super(new MetaService());
     }
 }

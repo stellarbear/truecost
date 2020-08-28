@@ -42,7 +42,7 @@ const TrustBox: React.FC<TrustBoxProps> = ({
             data-businessunit-id="5e4c2b703be4c400018e2b59"
             data-style-height="100%" data-style-width="100%" data-theme={theme}
         >
-            <a href="https://www.trustpilot.com/review/truecost.gg" target="_blank" rel="noopener">Trustpilot</a>
+            <a href="https://www.trustpilot.com/review/truecost.gg" target="_blank" rel="noreferrer">Trustpilot</a>
         </div>
     );
 };

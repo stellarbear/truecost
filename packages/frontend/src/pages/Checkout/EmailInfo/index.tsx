@@ -1,13 +1,13 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {Col, Row} from 'pages/Base/Grid';
-import {Button, Box, Paper, Typography, Divider} from '@material-ui/core';
+import {Col} from 'pages/Base/Grid';
+import {Box} from '@material-ui/core';
 import {useForm} from 'react-hook-form';
 import {loadStripe} from '@stripe/stripe-js';
 import {Alert} from '@material-ui/lab';
 import {parseApolloError} from 'auxiliary/error';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
-import {useState} from 'react';
 import {EmailSubscription} from './EmailSubscription';
 import {EmailFields} from './EmailFields';
 import {EmailPrice} from './EmailPrice';
@@ -15,7 +15,7 @@ import {EmailAgree} from './EmailAgree';
 import {gql, useMutation} from '@apollo/client';
 
 interface IProps {
-    info: Record<string, any>
+    info: Record<string, any>;
 }
 
 interface BookingSubmit {
@@ -24,7 +24,7 @@ interface BookingSubmit {
 
 const MAKE_BOOKING = gql`
     mutation BookingMake($email: String!, $booking: String!, $info: String!, $game: String!, $subscription: String) {
-        BookingMake(email:$email, booking:$booking, info: $info, game: $game, subscription:$subscription) 
+        BookingMake(email:$email, booking:$booking, info: $info, game: $game, subscription:$subscription)
     }
 `;
 
@@ -39,12 +39,12 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
 
     const {register, handleSubmit, errors, clearErrors, watch, setError} = useForm<BookingSubmit>({
         reValidateMode: "onBlur",
-        defaultValues: {email: user ? user.email : ""}
+        defaultValues: {email: user ? user.email : ""},
     });
 
     const cartItems = cart();
 
-    const bookingSubmit = async (data: BookingSubmit) => {
+    const bookingSubmit = async () => {
         try {
             clearErrors();
             setLoading(true);
@@ -57,25 +57,26 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                 subscription: selectedSubscription,
                 booking: JSON.stringify(cartItems),
                 info: JSON.stringify({platform, text, cross, time, zone}),
-            }
+            };
             await mutation({variables});
-        } catch (e) {} finally {
+        } catch (e) {
+        } finally {
             setLoading(false);
         }
-    }
+    };
 
     React.useEffect(() => {
         if (data?.BookingMake) {
             redirectToStripe(data.BookingMake);
         }
-    }, [data?.BookingMake])
+    }, [data?.BookingMake]);
 
     const redirectToStripe = async (sessionId: string) => {
         const stripe = await loadStripe(stripeKey);
         if (stripe) {
-            const {error} = await stripe.redirectToCheckout({sessionId});
+            await stripe.redirectToCheckout({sessionId});
         }
-    }
+    };
 
     return (
         <Col s={16} fullWidth right>
@@ -101,6 +102,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                     />
                     <EmailPrice
                         agree={agree}
+                        loading={loading}
                         current={currentSubscription}
                         selected={selectedSubscription}
                     />
@@ -110,5 +112,5 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                 </Col>
             </form>
         </Col>
-    )
-}
+    );
+};

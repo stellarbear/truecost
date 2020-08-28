@@ -1,26 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {
     Button,
-    createStyles,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
+    Divider,
     IconButton,
     Table,
     TableBody,
     TableCell,
     TableRow,
     TextField,
-    Theme,
     Typography,
-    withStyles,
-    Divider,
 } from "@material-ui/core";
 import {SafeJSON} from "auxiliary/json";
 import AddCircle from "@material-ui/icons/AddCircle";
 import Delete from "@material-ui/icons/Delete";
-import {rangeBase, IRange, IRangeData} from "@truecost/shared";
+import {IRange, IRangeData, rangeBase} from "@truecost/shared";
 import {Col, Row} from "pages/Base/Grid";
 import {SwitchField} from "./SwitchField";
 import {NumericField} from "./NumericField";
@@ -51,19 +48,19 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
 
     useEffect(() => {
         const parsed = SafeJSON.parse(value, rangeBase);
-        parsed.d.sort((a, b) => a.a - b.a)
+        parsed.d.sort((a, b) => a.a - b.a);
         setState(parsed);
     }, [value]);
 
     const updateData = (d: IRangeData[]) =>
-        setState({...state, d})
+        setState({...state, d});
 
     const addNewRow = () => updateData([...state.d, {
         a: 0,
         p: 0,
         e: 0,
-        m: "mark"
-    }])
+        m: "mark",
+    }]);
 
     const renderRow = (index: number) => {
         const {a: at, p: price, m: mark, e: eta} = state.d[index];
@@ -139,7 +136,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                         <IconButton
                             disabled={index !== state.d.length - 1}
                             onClick={() => updateData([...state.d.slice(0, index), ...state.d.slice(index + 1)])}>
-                            <Delete />
+                            <Delete/>
                         </IconButton>
                     </TableCell>
                 </TableRow>
@@ -185,7 +182,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                                 onChangeEvent={(s) => setState({...state, s})}
                             />
                         </Row>
-                        <Divider />
+                        <Divider/>
                         <Row start s={16}>
                             <Typography>Mode: </Typography>
                             <SwitchField
@@ -195,7 +192,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                                 onChangeEvent={(o) => setState({...state, o})}
                             />
                         </Row>
-                        <Divider /> 
+                        <Divider/>
                         {renderTable()}
                     </Col>
                 </DialogContent>
@@ -205,7 +202,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                 }}>
                     <IconButton
                         onClick={() => addNewRow()}>
-                        <AddCircle color="primary" />
+                        <AddCircle color="primary"/>
                     </IconButton>
                     <Button
                         onClick={() => {
@@ -230,7 +227,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                 value={preview(state)}
                 multiline
                 rowsMax={4}
-                onClick={() => setOpen(true)} />
+                onClick={() => setOpen(true)}/>
             {renderDialog()}
         </React.Fragment>
     );

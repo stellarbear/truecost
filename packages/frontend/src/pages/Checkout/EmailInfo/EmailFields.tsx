@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {validate, subscription} from '@truecost/shared';
-import {TextField, Typography, Paper, Button, CircularProgress} from '@material-ui/core';
+import {subscription, validate} from '@truecost/shared';
+import {Button, CircularProgress, Paper, TextField, Typography} from '@material-ui/core';
 import {Col, Row} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
 import {ErrorOption} from 'react-hook-form/dist/types/form';
@@ -16,13 +16,13 @@ const GET_SUBSCRIPTION = gql`
 `;
 
 interface IProps {
-    register: any
-    email: string
-    error?: string
-    disabled: boolean
-    clearErrors: () => void
-    setCurrent: (value?: string) => void
-    setError: (name: "email", error: ErrorOption) => void
+    register: any;
+    email: string;
+    error?: string;
+    disabled: boolean;
+    clearErrors: () => void;
+    setCurrent: (value?: string) => void;
+    setError: (name: "email", error: ErrorOption) => void;
 }
 
 export const EmailFields: React.FC<IProps> = (props) => {
@@ -35,34 +35,34 @@ export const EmailFields: React.FC<IProps> = (props) => {
     React.useEffect(() => {
         if (user) {
             const payed = subscription.validate(user as any) &&
-                user?.subscription!;
+                user?.subscription;
 
             if (payed) {
                 setCurrent(user?.subscription?.id);
             }
         }
-    }, [user])
+    }, [user]);
 
     React.useEffect(() => {
         if (data) {
             if (data?.UserGetSubscription) {
-                setCurrent(data?.UserGetSubscription.id)
-                notify("Subscription applied")
+                setCurrent(data?.UserGetSubscription.id);
+                notify("Subscription applied");
             } else {
-                notify("No active subscription on this email")
+                notify("No active subscription on this email");
             }
         }
-    }, [data?.UserGetSubscription])
+    }, [data?.UserGetSubscription]);
 
     const onClick = () => {
         if (email.length === 0) {
-            setError("email", {type: "error", message: "This field is required"})
+            setError("email", {type: "error", message: "This field is required"});
         } else if (!validate("email").test(email)) {
-            setError("email", {type: "error", message: "Does not look like email (:"})
+            setError("email", {type: "error", message: "Does not look like email (:"});
         } else {
             query({variables: {email}});
         }
-    }
+    };
 
     return (
         <Paper elevation={3}>
@@ -89,12 +89,12 @@ export const EmailFields: React.FC<IProps> = (props) => {
                     <Button onClick={() => onClick()}>
                         {
                             loading
-                                ? <CircularProgress size={24} />
+                                ? <CircularProgress size={24}/>
                                 : `Check subscription`
                         }
                     </Button>
                 </Row>
             </Col>
-        </Paper >
-    )
-}
+        </Paper>
+    );
+};

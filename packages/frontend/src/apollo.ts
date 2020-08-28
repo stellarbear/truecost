@@ -2,7 +2,7 @@ import fetch from "isomorphic-fetch";
 import {onError} from "@apollo/client/link/error";
 import {createUploadLink} from "apollo-upload-client";
 import {backend} from "auxiliary/route";
-import {ApolloLink, ApolloClient, InMemoryCache} from "@apollo/client";
+import {ApolloClient, ApolloLink, InMemoryCache} from "@apollo/client";
 
 interface IApolloClient {
     browser: boolean;

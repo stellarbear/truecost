@@ -1,9 +1,9 @@
 import {Field, ObjectType} from "type-graphql";
-import {Collection, Entity, Enum, ManyToMany, ManyToOne, Property, Cascade} from "mikro-orm";
+import {Collection, Entity, Enum, ManyToMany, ManyToOne, Property} from "mikro-orm";
 import {ItemEntity} from "../item/item.entity";
 import {GameEntity} from "../game/game.entity";
 import {BaseEntity} from "../base/base.entity";
-import {OptionArea, OptionType, IOption, OptionMerge} from "@truecost/shared";
+import {IOption, OptionArea, OptionMerge, OptionType} from "@truecost/shared";
 
 @Entity()
 @ObjectType()
@@ -13,7 +13,6 @@ export class OptionEntity extends BaseEntity implements IOption {
     price: number = 1;
     @Field()
     @Property()
-    //  price from which option becomes free (0 for no limit)
     free: number = 0;
 
 

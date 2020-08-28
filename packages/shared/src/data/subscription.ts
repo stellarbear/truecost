@@ -1,15 +1,15 @@
 import {IUser} from "../interfaces";
 
-const validate = (user?:IUser | null) => {
+const validate = (user?: IUser | null) => {
     if (!user || !user.subscribeDate || !user.subscription) {
         return 0;
     }
 
     const minimumDate = new Date(new Date().setDate(new Date().getDate() - user.subscription.days));
     return user.subscribeDate > minimumDate ? user.subscription.discount : 0;
-}
+};
 
-const timeLeft = (user?:IUser | null) => {
+const timeLeft = (user?: IUser | null) => {
     if (user?.subscription && user.subscribeDate) {
         if (!validate) {
             return 0;
@@ -22,7 +22,7 @@ const timeLeft = (user?:IUser | null) => {
         return Math.round(Math.abs((payDate - minimumDate) / oneDay));
     }
 
-    return 0
-}
+    return 0;
+};
 
-export const subscription = {validate, timeLeft}
+export const subscription = {validate, timeLeft};

@@ -1,7 +1,6 @@
 import * as React from "react";
 import {Typography} from "@material-ui/core";
 import {Col} from "./Grid";
-import {CSSProperties} from "react";
 
 
 interface IPriceTypoProps {
@@ -14,7 +13,7 @@ export const PriceTypography: React.FC<IPriceTypoProps> = ({price, discount}) =>
         <Typography variant="h6" color="inherit" noWrap>
             {`${price} $`}
         </Typography>
-    )
+    );
 
     const renderWithDiscount = () => (
         <Col m={[-8, 0]}>
@@ -31,11 +30,11 @@ export const PriceTypography: React.FC<IPriceTypoProps> = ({price, discount}) =>
                 {`${price + discount} $`}
             </Typography>
         </Col>
-    )
+    );
 
     return (
         discount === 0
             ? renderNormal()
             : renderWithDiscount()
-    )
+    );
 };

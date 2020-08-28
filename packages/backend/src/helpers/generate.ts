@@ -1,24 +1,24 @@
-const numbers = "0123456789"
-const lowercase = "abcdefghijklmnopqrstuvwxyz"
-const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const numbers = "0123456789";
+const lowercase = "abcdefghijklmnopqrstuvwxyz";
+const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 interface IGenerate {
-    length?: number,
-    num?: boolean
-    lower?: boolean
-    upper?: boolean
+    length?: number;
+    num?: boolean;
+    lower?: boolean;
+    upper?: boolean;
 }
 
 export const generateString = ({
-    length = 8,
-    num = true,
-    lower = true,
-    upper = true,
-}: IGenerate) => {
+                                   length = 8,
+                                   num = true,
+                                   lower = true,
+                                   upper = true,
+                               }: IGenerate) => {
     const alphabet = (num ? numbers : '') +
-        (lower ? lowercase : '') + 
-        (upper ? uppercase: '');
-        
+        (lower ? lowercase : '') +
+        (upper ? uppercase : '');
+
     let result = '';
 
     for (let i = 0; i < length; i++) {
@@ -27,4 +27,4 @@ export const generateString = ({
     }
 
     return result;
-}
+};

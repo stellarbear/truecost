@@ -1,6 +1,6 @@
 import {BaseEntity} from "../base/base.entity";
 import {Field, ObjectType} from "type-graphql";
-import {Entity, Property, OneToMany, Collection, Unique} from "mikro-orm";
+import {Collection, Entity, OneToMany, Property, Unique} from "mikro-orm";
 import {IGame} from "@truecost/shared";
 import {ItemEntity} from "../item/item.entity";
 import {OptionEntity} from "../option/option.entity";

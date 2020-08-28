@@ -21,16 +21,19 @@ export const forgetEmail = (forget: string, userId: string) => {
                     Password reset request
                     </mj-text>
                     <mj-text color="#637381" font-size="16px">
-                    We have received a request to reset your password on <a class="text-link" href="${domain}">${domain}</a>
+                    We have received a request to reset your password on 
+                    <a class="text-link" href="${domain}">${domain}</a>
                     <br/> In case you didn't do this, you may safely ignore this mailing
                     <br/>
                     <br/> In order to reset your password, click the button below
                     </mj-text>
-                    <mj-button background-color="#DC004E" align="center" color="#ffffff" font-size="17px" font-weight="bold" href="${forgetUrl}" width="300px">
+                    <mj-button background-color="#DC004E" align="center" color="#ffffff" 
+                    font-size="17px" font-weight="bold" href="${forgetUrl}" width="300px">
                     Reset password
                     </mj-button>
                     <mj-text color="#637381" font-size="16px">
-                    If the button is not clickable you may use the following link to complete verification <a class="text-link" href="${forgetUrl}">${forgetUrl}</a>
+                    If the button is not clickable you may use the following link 
+                    to complete verification <a class="text-link" href="${forgetUrl}">${forgetUrl}</a>
                     </mj-text>
                 </mj-column>
             </mj-section>
@@ -41,7 +44,8 @@ export const forgetEmail = (forget: string, userId: string) => {
                     </mj-column>
                     <mj-column width="80%">
                     <mj-text color="#637381" font-size="16px">
-                        Note: this url will be valid for only 1 hour! If it is already expired, you may request password reset again.
+                        Note: this url will be valid for only 1 hour! If it is already expired, 
+                        you may request password reset again.
                     </mj-text>
                     </mj-column>
                     <mj-column width="20%">
@@ -52,5 +56,5 @@ export const forgetEmail = (forget: string, userId: string) => {
             ${footer()}
         </mj-body>
     </mjml>
-    `
-}
+    `;
+};

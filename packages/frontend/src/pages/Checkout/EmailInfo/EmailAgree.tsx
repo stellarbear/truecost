@@ -1,13 +1,12 @@
 import * as React from 'react';
 import {Checkbox, Typography} from '@material-ui/core';
 import {Row} from 'pages/Base/Grid';
-import {Link} from 'react-router-dom';
 import {ModalDialog} from 'components/ModalDialog';
 import {TOS} from 'pages/TOS';
 
 interface IProps {
-    agree: boolean
-    toggleAgree: () => void
+    agree: boolean;
+    toggleAgree: () => void;
 }
 
 export const EmailAgree: React.FC<IProps> = ({agree, toggleAgree}) => {
@@ -31,11 +30,11 @@ export const EmailAgree: React.FC<IProps> = ({agree, toggleAgree}) => {
                     }
                     content={
                         [
-                            <TOS key={0}/>
+                            <TOS key={0}/>,
                         ]
                     }
                 />
             </Row>
         </div>
-    )
-}
+    );
+};

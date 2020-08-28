@@ -1,24 +1,13 @@
 import * as React from "react";
-import {
-    Button,
-    Typography,
-    Drawer,
-    Table,
-    TableBody,
-    TableRow,
-    TableCell,
-} from "@material-ui/core";
-import AddCircle from "@material-ui/icons/AddCircle";
+import {Button, Drawer, Table, TableBody, TableCell, TableRow, Typography} from "@material-ui/core";
 import {ItemProp} from "./types";
 
 import {getResolverName} from "auxiliary";
 import {DocumentNode} from "graphql";
 import {Col} from "pages/Base/Grid";
-import {IBase} from "@truecost/shared";
 import {normalize} from "./normalize";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {useLoading} from "components/wrappers/LoadingWrapper";
-import {useShared} from "./CRUD";
 import {parseApolloError} from "auxiliary/error";
 import {useMutation} from "@apollo/client";
 
@@ -30,7 +19,7 @@ interface AddProps {
 const defaultState = (props: ItemProp[]) =>
     props.reduce((acc, cur) => Object.assign(acc, {[cur.data.key]: cur.data.base}), {});
 
-type IState = Record<string, any>
+type IState = Record<string, any>;
 
 export const Add: React.FC<AddProps> = (props) => {
     const {propsAdd, mutation} = props;
@@ -38,23 +27,23 @@ export const Add: React.FC<AddProps> = (props) => {
     const [create] = useMutation(mutation);
     const {notify} = useNotification();
 
-    const [error, setError] = React.useState<IState>({})
+    const [error, setError] = React.useState<IState>({});
     const [state, setState] = React.useState<IState>(defaultState(propsAdd));
     const [drawer, setDrawer] = React.useState(false);
 
     const onStateChange = (newState: IState) => {
         setState(newState);
         setError({});
-    }
+    };
 
     const onChange = (key: string, value: any) => {
-        onStateChange({...state, [key]: value})
+        onStateChange({...state, [key]: value});
     };
 
     const onAdd = async () => {
         try {
             setLoading(true);
-            console.log('trying create', normalize(state))
+            console.log('trying create', normalize(state));
             const response = await create({variables: {input: normalize(state)}});
             const resolverName = getResolverName(mutation);
             if (response?.data?.[resolverName]) {
@@ -91,11 +80,11 @@ export const Add: React.FC<AddProps> = (props) => {
                     <TableRow key={`${prop.data.key}-${index}`}>
                         <TableCell align="right">{prop.data.label}</TableCell>
                         <TableCell align="left" style={{width: '100%'}}>{render(prop)}</TableCell>
-                    </TableRow>
+                    </TableRow>,
                 )}
             </TableBody>
         </Table>
-    )
+    );
 
     return (
         <React.Fragment>
@@ -104,13 +93,13 @@ export const Add: React.FC<AddProps> = (props) => {
             </Button>
             <Drawer anchor={'right'} open={drawer} onClose={() => setDrawer(false)}>
                 <Col s={16} fullWidth p={16}
-                    style={{minWidth: 400, overflow: "hidden"}}>
+                     style={{minWidth: 400, overflow: "hidden"}}>
                     <div style={{height: "90vh", overflow: "auto"}}>
                         {table()}
                     </div>
                     <Button variant="contained"
-                        fullWidth color="primary"
-                        onClick={() => onAdd()}>
+                            fullWidth color="primary"
+                            onClick={() => onAdd()}>
                         Add record
                     </Button>
                 </Col>

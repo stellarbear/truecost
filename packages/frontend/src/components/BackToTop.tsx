@@ -26,8 +26,8 @@ export const BackToTop: React.FC = ({children}) => {
                 width: 60, height: 60,
                 borderRadius: 30,
             }} variant="extended" color="primary"
-                onClick={() => window.scroll({top: 0, left: 0, behavior: "smooth"})}>
-                <Navigation />
+                 onClick={() => window.scroll({top: 0, left: 0, behavior: "smooth"})}>
+                <Navigation/>
             </Fab>
         </>
     );

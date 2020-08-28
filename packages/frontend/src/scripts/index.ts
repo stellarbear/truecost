@@ -1,3 +1,3 @@
-export * from './tawk'
-export * from './yandex'
-export * from './google'
+export * from './tawk';
+export * from './yandex';
+export * from './google';

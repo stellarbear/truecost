@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {createContext, useState, useEffect} from 'react';
+import {createContext} from 'react';
 import {Backdrop, CircularProgress} from '@material-ui/core';
 
 export interface IContext {
-    setLoading: (input: boolean) => void
+    setLoading: (input: boolean) => void;
 }
 
 const LoadingContext = createContext({} as IContext);
@@ -13,7 +13,7 @@ const LoadingWrapper: React.FC = ({children}) => {
 
     return (
         <LoadingContext.Provider value={{
-            setLoading
+            setLoading,
         }}>
             <>
                 {children}
@@ -28,4 +28,4 @@ const LoadingWrapper: React.FC = ({children}) => {
 
 export {LoadingWrapper, LoadingContext};
 
-export const useLoading = () => React.useContext(LoadingContext)
+export const useLoading = () => React.useContext(LoadingContext);

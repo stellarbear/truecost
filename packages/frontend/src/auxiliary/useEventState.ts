@@ -1,6 +1,6 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 
-type Event<T> = (value: T) => void
+type Event<T> = (value: T) => void;
 
 export const useEventState = <T>(value: T, event: Event<T>) => {
     const [state, setState] = useState(value);
@@ -12,12 +12,12 @@ export const useEventState = <T>(value: T, event: Event<T>) => {
     const setAndBubbleState = (value: T) => {
         setState(value);
         bubbleStateArg(value);
-    }
+    };
 
     return {
         state,
         setState,
         bubbleState,
-        setAndBubbleState
-    }
-}
+        setAndBubbleState,
+    };
+};

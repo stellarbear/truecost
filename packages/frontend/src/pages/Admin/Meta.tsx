@@ -1,6 +1,6 @@
 import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
-import {CBoolean, CString, CNumber, CImage} from "components/generic/types";
+import {CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {CCustom} from "components/generic/types/CCustom";
 import {base} from "./Base";
@@ -32,7 +32,7 @@ export const AdminMeta: React.FC = () => {
 
     return (
         <CRUD
-            
+
             title="Meta"
             queryGet={crud.get}
 

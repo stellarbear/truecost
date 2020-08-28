@@ -7,6 +7,5 @@ export const Admin = () => (
         scroll
         prefix="admin"
         routes={admin.routes}
-        base={admin.routes[0].url}
     />
-)
+);

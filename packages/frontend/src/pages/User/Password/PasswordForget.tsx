@@ -1,12 +1,4 @@
-import {
-    Box,
-    Button,
-    CircularProgress,
-    Container,
-    TextField,
-    Paper,
-    Typography,
-} from "@material-ui/core";
+import {Box, Button, CircularProgress, Container, Paper, TextField, Typography} from "@material-ui/core";
 import React, {useCallback, useEffect} from "react";
 
 import {useHistory} from "react-router";
@@ -44,7 +36,8 @@ export const PasswordForget: React.FC = () => {
                 clearErrors();
                 setLoading(true);
                 await mutation({variables: {...data}});
-            } catch (e) {} finally {
+            } catch (e) {
+            } finally {
                 setLoading(false);
             }
         },
@@ -63,7 +56,7 @@ export const PasswordForget: React.FC = () => {
 
     return (
         <>
-            <Meta />
+            <Meta/>
             <Container maxWidth="xs">
                 <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(ForgetSubmit)}>
                     <Paper>
@@ -87,7 +80,7 @@ export const PasswordForget: React.FC = () => {
                                 />
                             </Col>
                             <Button fullWidth variant="contained" type="submit">
-                                {loading ? <CircularProgress size={24} /> : "reset password"}
+                                {loading ? <CircularProgress size={24}/> : "reset password"}
                             </Button>
                         </Col>
                     </Paper>

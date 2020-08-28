@@ -1,11 +1,7 @@
 import React from "react";
-
-import {NotificationContext} from "components/wrappers";
-import {DataContext, useStore} from "pages/Data/Wrapper";
-import {Chip, Grid, TextField, Paper, Container, Button, Typography, Divider} from "@material-ui/core";
-import {dictSort, dictSortMap} from "@truecost/shared";
-import {Autocomplete, createFilterOptions} from "@material-ui/lab";
-import {SafeJSON} from "auxiliary/json";
+import {useStore} from "pages/Data/Wrapper";
+import {Chip, Container, Divider, Paper, Typography} from "@material-ui/core";
+import {dictSort} from "@truecost/shared";
 import {useStorage} from "auxiliary/useStorage";
 import {Col, Row, RowGrid} from "pages/Base/Grid";
 import {ArraySlice} from "components/generic/components/ArraySlice";
@@ -31,7 +27,7 @@ export const defaultState: IShopState = {
     order: "asc",
 };
 
-declare var Tawk_API: any
+declare let Tawk_API: any;
 
 const Shop: React.FC = () => {
     const {notify} = useNotification();
@@ -39,31 +35,33 @@ const Shop: React.FC = () => {
 
     const {tags, items} = shop();
     const itemIds = dictSort(items.id).filter(t => !items.id[t].direct);
-    const tagIds = Object.keys(tags.id)
+    const tagIds = Object.keys(tags.id);
 
     const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => {
         const result = {...defaultState, ...state};
 
-        result.tags = result.tags.filter(n => tagIds.includes(n))
-        result.names = result.names.filter(n => itemIds.includes(n))
+        result.tags = result.tags.filter(n => tagIds.includes(n));
+        result.names = result.names.filter(n => itemIds.includes(n));
 
         return result;
     });
     const tagDeps = state.tags.length > 0 ? shop().getTagDeps(state.tags[state.tags.length - 1]) : [];
 
+    //  TODO: make readale
     const filterItems = () => itemIds
         .filter(itemId =>
             state.names.length === 0 ? true
-                : state.names.includes(itemId) || (items.id[itemId].item.length > 0 && items.id[itemId].item.some(i => state.names.includes(i))))
+                : (state.names.includes(itemId) ||
+                (items.id[itemId].item.length > 0 && items.id[itemId].item.some(i => state.names.includes(i)))))
         .filter(itemId => state.tags.length === 0 ? true :
             items.id[itemId].tag.some(t => tagDeps.includes(t)));
 
     const renderMock = () => (
         <InfoCard text={[
             'Unfortunately, nothing was found',
-            'Try next time or change some filters'
+            'Try next time or change some filters',
         ]} />
-    )
+    );
 
     const renderItems = (data: string[]) => (
         <ArraySlice data={data} prefix="shop-pagination" scroll={300} chunk={24}>
@@ -75,7 +73,7 @@ const Shop: React.FC = () => {
                 </RowGrid>
             ))}
         </ArraySlice>
-    )
+    );
 
     const filterData = () => {
         const data = filterItems();
@@ -83,8 +81,8 @@ const Shop: React.FC = () => {
             (data.length === 0)
                 ? renderMock()
                 : renderItems(data)
-        )
-    }
+        );
+    };
 
     const filterNames = () => (
         <AutoCompleteCustom
@@ -94,18 +92,18 @@ const Shop: React.FC = () => {
                 setState({
                     ...state,
                     tags: [],
-                    names
+                    names,
                 })
             }
             onCustom={() => {
-                Tawk_API?.maximize()
-                notify("Ask us for the custom order, we will serve it to you!")
+                Tawk_API?.maximize();
+                notify("Ask us for the custom order, we will serve it to you!");
             }}
             getLabel={(itemId) => itemId in items.id ? items.id[itemId].name : "unknown"}
         />
-    )
+    );
 
-    const tag = (tagId: string, depth: number = 0) => (
+    const tag = (tagId: string, depth = 0) => (
         <Chip
             style={{marginBottom: 4}}
             key={tagId}
@@ -118,12 +116,12 @@ const Shop: React.FC = () => {
                     ...state,
                     tags: index === -1
                         ? [...state.tags.slice(0, depth), tagId]
-                        : state.tags.slice(0, index)
+                        : state.tags.slice(0, index),
                 });
             }}
             color={state.tags.includes(tagId) ? "primary" : undefined}
         />
-    )
+    );
 
     const filterTags = () => Object.keys(tags.base).length > 0 && (
         <Paper>
@@ -132,7 +130,7 @@ const Shop: React.FC = () => {
                     {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
                 </Row>
                 {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
-                    <Col fullWidth left s={4} p={8} key={tagId} >
+                    <Col fullWidth left s={4} p={8} key={tagId}>
                         <Typography variant="body2">{`${tags.id[tagId].name}: `}</Typography>
                         <Divider />
                         <Row start p={[2, 0]} s={8} wrap>
@@ -142,7 +140,7 @@ const Shop: React.FC = () => {
                 ))}
             </Col>
         </Paper>
-    )
+    );
 
     return (
         <>

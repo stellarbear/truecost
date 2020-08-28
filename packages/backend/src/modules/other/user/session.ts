@@ -1,6 +1,6 @@
 import {Arg, Ctx, Mutation, Query, Resolver} from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
-import {Context, sessionCookieName} from "../../../server";
+import {Context} from "../../../server";
 import {assert} from "../../../helpers/assert";
 import {pbkdf2} from "../../../helpers/pbkdf2";
 import {v4} from "uuid";
@@ -25,7 +25,8 @@ export class SessionResolver {
         assert(user, "user not found");
         assert(user.verified, "user not yet verified");
         assert(user.active, "account disabled");
-        assert(user.salt, "You need to do a password recovery. Please, click the button below (forgot password) and follow the instructions")
+        assert(user.salt, "You need to do a password recovery. Please, click the button" +
+            " below (forgot password) and follow the instructions");
 
         const verify = await pbkdf2.validate(user.password, password, user.salt);
         assert(verify, "invalid password");
@@ -50,7 +51,7 @@ export class SessionResolver {
         }
 
         const sessionIds = await redis.client.smembers(`user-${userId}`);
-        await redis.client.del(sessionIds.map(s => `session-${s}`))
+        await redis.client.del(sessionIds.map(s => `session-${s}`));
         await redis.client.del(`user-${userId}`);
 
         return true;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {InfoCard} from 'pages/Base/InfoCard';
-import {useParams, Redirect, useHistory} from 'react-router';
-import {Button, Box, CircularProgress} from '@material-ui/core';
+import {Redirect, useHistory, useParams} from 'react-router';
+import {Box, Button, CircularProgress} from '@material-ui/core';
 import {Link} from 'react-router-dom';
 import {Meta} from 'pages/Base/Meta';
 import {gql, useMutation} from '@apollo/client';
@@ -20,7 +20,7 @@ const verifyMutation = gql`
 
 export const RegisterVerify: React.FC = () => {
     const history = useHistory();
-    const {verify, value} = useParams<{verify: string, value: string}>();
+    const {verify, value} = useParams<{ verify: string; value: string }>();
     const [mutation, {data, error, loading}] = useMutation(verifyMutation);
 
     React.useEffect(() => {
@@ -28,7 +28,7 @@ export const RegisterVerify: React.FC = () => {
             if (verify && value) {
                 await mutation({variables: {verify, value}});
             }
-        }
+        };
 
         onLoad();
     }, []);
@@ -40,35 +40,35 @@ export const RegisterVerify: React.FC = () => {
             } else {
             }
         }
-    }, [data?.UserVerify])
+    }, [data?.UserVerify]);
 
 
     if (!verify || !value) {
-        return <Redirect to="/404" />
+        return <Redirect to="/404"/>;
     }
 
     if (error) {
-        return <Redirect to="/404" />
+        return <Redirect to="/404"/>;
     }
 
     if (loading) {
         return (
             <Box mt={2}>
                 <CircularProgress
-                    disableShrink color="inherit" />
+                    disableShrink color="inherit"/>
             </Box>
-        )
+        );
     }
 
     return (
         <>
-            <Meta />
+            <Meta/>
             <InfoCard text={[
                 'You account is verified!',
-                'We have automatically logged you in.'
+                'We have automatically logged you in.',
             ]} actions={[
-                <Button variant="outlined" component={Link} to="/shop">To the shop!</Button>,
-            ]} />
+                <Button key="shop" variant="outlined" component={Link} to="/shop">To the shop!</Button>,
+            ]}/>
         </>
-    )
-}
+    );
+};

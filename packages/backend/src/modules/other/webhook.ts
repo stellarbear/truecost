@@ -5,9 +5,8 @@ import {GameEntity} from "../crud/game/game.entity";
 import {assert} from "../../helpers/assert";
 import {UserEntity} from "../crud/user/user.entity";
 import {pbkdf2} from "../../helpers/pbkdf2";
-import {wrap, EntityRepository} from "mikro-orm";
-import {RoleType, StatusType, Dict, SafeJSON} from "@truecost/shared";
-import {TagEntity} from "../crud/tag/tag.entity";
+import {EntityRepository, wrap} from "mikro-orm";
+import {Dict, RoleType, SafeJSON, StatusType} from "@truecost/shared";
 import {composeEmail} from "../../mail/compose";
 import {accountEmail} from "../../mail/samples/account";
 import {domain} from "../../helpers/route";
@@ -24,16 +23,16 @@ export const createOrder = async (response: Record<string, any>) => {
             info,
             game,
             email,
-            subscription
-        }
+            subscription,
+        },
     } = response;
 
     const data = display_items.map(({amount, quantity, custom: {name, description}}: any) => ({
         amount,
         quantity,
         name,
-        description
-    }))
+        description,
+    }));
     console.log(data);
 
     const subsRepo = DI.em.getRepository(SubscriptionEntity);
@@ -44,7 +43,7 @@ export const createOrder = async (response: Record<string, any>) => {
     const currentGame = await gameRepo.findOne({id: game}, {populate: false});
     assert(currentGame, "game not found");
 
-    const currentUser = (await userRepo.findOne({email})) ?? (await createUser(userRepo, email))
+    const currentUser = (await userRepo.findOne({email})) ?? (await createUser(userRepo, email));
 
     const code = "TC-" + generateString({length: 8, num: true, upper: true, lower: false});
     const currentBooking = bookRepo.create({
@@ -76,7 +75,7 @@ export const createOrder = async (response: Record<string, any>) => {
     }
 
 
-    const information: Record<string, any> = SafeJSON.parse(info, {})
+    const information: Record<string, any> = SafeJSON.parse(info, {});
     slack([
         " ʕノ•ᴥ•ʔノ [PURCHUASE SUCCESS]  \\(•ᴥ• \\)́",
         email,
@@ -84,11 +83,11 @@ export const createOrder = async (response: Record<string, any>) => {
         ...data.map(({name, quantity, description, amount}: any) =>
             `• ${name} x ${quantity}\n  price: ${amount / 100} $\n opts: ${description}`),
         '--------',
-        `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`
-    ])
+        `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`,
+    ]);
 
     try {
-        console.log('sending order receipt')
+        console.log('sending order receipt');
         await composeEmail({
             to: email,
             template: orderEmail(code, {
@@ -101,12 +100,12 @@ export const createOrder = async (response: Record<string, any>) => {
                 total: Math.round(amount_total / 100) + " $",
             }),
             subject: 'Order receipt',
-            text: `Order receipt for ${domain}`
-        })
+            text: `Order receipt for ${domain}`,
+        });
     } catch (e) {
         console.log(e);
     }
-}
+};
 
 const createUser = async (repo: EntityRepository<UserEntity>, email: string) => {
     const user = repo.create({});
@@ -127,16 +126,16 @@ const createUser = async (repo: EntityRepository<UserEntity>, email: string) => 
     await repo.persistAndFlush(user);
 
     try {
-        console.log('sending account info')
+        console.log('sending account info');
         await composeEmail({
             to: email,
             template: accountEmail(password),
             subject: 'New account',
-            text: `New account for ${domain}`
-        })
+            text: `New account for ${domain}`,
+        });
     } catch (e) {
         console.log(e);
     }
 
     return user;
-}
+};

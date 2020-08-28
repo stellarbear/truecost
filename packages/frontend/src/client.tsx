@@ -1,5 +1,5 @@
 import {hydrate, render} from "react-dom";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {BrowserRouter, useLocation} from "react-router-dom";
 
 import App from "app";
@@ -35,8 +35,8 @@ const BaseApp: React.FC = () => {
         <ApolloProvider client={client}>
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
-                    <ScrollToTop />
-                    <App />
+                    <ScrollToTop/>
+                    <App/>
                 </ThemeProvider>
             </BrowserRouter>
         </ApolloProvider>
@@ -45,7 +45,7 @@ const BaseApp: React.FC = () => {
 
 const renderMethod = module.hot ? render : hydrate;
 renderMethod(
-    <BaseApp />,
+    <BaseApp/>,
     document.getElementById("root"),
 );
 

@@ -1,7 +1,7 @@
 import {BaseEntity} from "../base/base.entity";
 import {Field, Float, ObjectType} from "type-graphql";
 import {Entity, Property, Unique} from "mikro-orm";
-import {IBlog} from "@truecost/shared"
+import {IBlog} from "@truecost/shared";
 
 
 @Entity()
@@ -11,7 +11,7 @@ export class BlogEntity extends BaseEntity implements IBlog {
     @Unique()
     @Property()
     url!: string;
-    
+
     @Field(() => Float)
     @Property()
     date: number = new Date().getTime();

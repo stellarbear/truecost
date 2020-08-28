@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {IItem, Price} from '@truecost/shared';
-import {DataContext, useStore} from 'pages/Data/Wrapper';
-import {Button, Typography, Checkbox, Divider} from '@material-ui/core';
+import {useStore} from 'pages/Data/Wrapper';
+import {Button, Checkbox, Divider, Typography} from '@material-ui/core';
 import CheckCircle from '@material-ui/icons/CheckCircle';
-import {Col, Row} from 'pages/Base/Grid';
+import {Row} from 'pages/Base/Grid';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
 
 interface IProps {
-    item: IItem
-    price: Price
-    redirect: string
+    item: IItem;
+    price: Price;
+    redirect: string;
 }
 
 export const ItemCardBase: React.FC<IProps> = (props) => {
@@ -21,7 +21,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
     const [hovered, setHovered] = React.useState("");
 
     const {current: {shop}, update: {cart}} = useStore();
-    const {notify} = useNotification()
+    const {notify} = useNotification();
     const {options} = shop();
 
 
@@ -31,7 +31,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
         setSelectedOptions(filtered.length === selectedOptions.length
             ? [...selectedOptions, id]
             : filtered);
-    }
+    };
 
     const totalPrice = price.withOption(selectedOptions.map(id => options.local.id[id]));
     const itemOptions = shop().getOptions(item.id);
@@ -65,17 +65,17 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                                 checked={selectedOptions.includes(optionId)}
                             />
                             <Typography variant="body2"
-                                style={{userSelect: "none"}}>{options.local.id[optionId].name}
+                                        style={{userSelect: "none"}}>{options.local.id[optionId].name}
                             </Typography>
                             <Typography variant="h6" align="center" noWrap>
                                 {price.getOption(options.local.id[optionId]).toString}
                             </Typography>
                         </Row>
-                        <Divider style={{paddingLeft: 8}} />
+                        <Divider style={{paddingLeft: 8}}/>
                     </div>,
                 ) : (
-                        <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
-                    )}
+                    <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
+                )}
             </div>
             <Button
                 fullWidth
@@ -89,8 +89,8 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                     cart.upsert({
                         itemId,
                         optionIds: selectedOptions,
-                        quantity: 1
-                    })
+                        quantity: 1,
+                    });
 
                     notify(`${item.name} was added to your cart!`);
                 } : undefined}
@@ -100,11 +100,11 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                     {
                         noLimit
                             ? <Typography variant="h5">{totalPrice.toString}</Typography>
-                            : <CheckCircle style={{marginTop: 8}} />
+                            : <CheckCircle style={{marginTop: 8}}/>
                     }
 
                 </Row>
             </Button>
         </div>
     );
-}
+};

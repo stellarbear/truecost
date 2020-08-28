@@ -1,6 +1,5 @@
 import * as React from "react";
-import {ABase, IRender, ICtor} from "./ABase";
-import {isUndefined} from "@truecost/shared";
+import {ABase, ICtor, IRender} from "./ABase";
 import {BooleanSelectField} from "../components/BooleanSelectField";
 import SwitchField from "../components/SwitchField";
 
@@ -12,6 +11,9 @@ export interface IBoolean extends ICtor<boolean> {
 export class CBoolean extends ABase<boolean> {
     textTrue: string;
     textFalse: string;
+    renderAddImplementation = this.asSwitch;
+    renderFilterlementation = this.asSelect;
+    renderListlementation = this.asSwitch;
 
     constructor({textTrue, textFalse, base = false, ...rest}: IBoolean) {
         super({...rest, base});
@@ -19,13 +21,8 @@ export class CBoolean extends ABase<boolean> {
         this.textFalse = textFalse;
     }
 
-    renderAddImplementation = this.asSwitch;
-    renderFilterlementation = this.asSelect;
-    renderListlementation = this.asSwitch;
-
     asSelect({value, onChange}: IRender<boolean>) {
         const {label} = this.data;
-        const {textTrue, textFalse} = this;
 
         return (
             <BooleanSelectField
@@ -37,7 +34,6 @@ export class CBoolean extends ABase<boolean> {
     }
 
     asSwitch({value, onChange}: IRender<boolean>) {
-        const {label} = this.data;
         const {textTrue, textFalse} = this;
 
         return (

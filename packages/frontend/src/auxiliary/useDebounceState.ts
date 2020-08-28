@@ -1,6 +1,6 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 
-type Event<T> = (value: T) => void
+type Event<T> = (value: T) => void;
 
 export const useDebounceState = <T>(value: T, event: Event<T>, lag = 1000) => {
     const [timerID, setTimerID] = useState<NodeJS.Timeout>();
@@ -19,10 +19,10 @@ export const useDebounceState = <T>(value: T, event: Event<T>, lag = 1000) => {
             event(value);
         }, lag);
         setTimerID(timer);
-    }
+    };
 
     return {
         state,
         bubbleState,
-    }
-}
+    };
+};

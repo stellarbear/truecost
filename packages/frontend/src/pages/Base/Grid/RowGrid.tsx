@@ -2,10 +2,10 @@ import * as React from 'react';
 import {CSSProperties} from 'react';
 
 interface IProps {
-    w: number
-    s?: number
-    p?: number
-    style?: CSSProperties
+    w: number;
+    s?: number;
+    p?: number;
+    style?: CSSProperties;
 
 }
 
@@ -31,5 +31,5 @@ export const RowGrid: React.FC<IProps> = (props) => {
         }}>
             {children}
         </div>
-    )
-}
+    );
+};

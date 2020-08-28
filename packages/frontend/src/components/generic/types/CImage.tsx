@@ -1,8 +1,8 @@
 import * as React from "react";
-import {ABase, IRender, ICtor} from "./ABase";
-import RemoveCircle from '@material-ui/icons/RemoveCircle'
-import AddBox from '@material-ui/icons/AddBox'
-import {Col, Row} from "pages/Base/Grid";
+import {ABase, ICtor, IRender} from "./ABase";
+import RemoveCircle from '@material-ui/icons/RemoveCircle';
+import AddBox from '@material-ui/icons/AddBox';
+import {Row} from "pages/Base/Grid";
 import {Badge} from "@material-ui/core";
 import SelectImage from "components/generic/components/SelectImage";
 import Zoom from "../components/Zoom";
@@ -18,6 +18,9 @@ export class CImage extends ABase<any> {
     limit: number;
     size: number;
     ext: string;
+    renderAddImplementation = this.ImageList;
+    renderFilterlementation = this.NoControl;
+    renderListlementation = this.ImageList;
 
     constructor({limit = 0, size = 6 * 1024 * 1024, ext, ...rest}: IImage) {
         super(rest);
@@ -26,13 +29,8 @@ export class CImage extends ABase<any> {
         this.ext = ext;
     }
 
-    renderAddImplementation = this.ImageList;
-    renderFilterlementation = this.NoControl;
-    renderListlementation = this.ImageList;
-
-
     ImageList({value, onChange, id}: IRender<any>) {
-        const {label, base} = this.data;
+        const {label} = this.data;
         const {limit, ext, size} = this;
         const dimension = 64;
 
@@ -61,7 +59,7 @@ export class CImage extends ABase<any> {
                                     badgeContent={
                                         <RemoveCircle
                                             onClick={() => onChange([...images.filter(v => v != val)])}
-                                            style={{width: 16, height: 16, marginLeft: -4, marginRight: -4}} />
+                                            style={{width: 16, height: 16, marginLeft: -4, marginRight: -4}}/>
                                     }
                                     anchorOrigin={{horizontal: "right", vertical: "bottom"}}
                                     style={{cursor: "pointer "}}
@@ -78,7 +76,7 @@ export class CImage extends ABase<any> {
                                                 const newList = [...images];
                                                 newList[index] = value;
                                                 onChange(newList);
-                                            }} />
+                                            }}/>
                                     </Zoom>
                                 </Badge>
                             </div>
@@ -91,7 +89,7 @@ export class CImage extends ABase<any> {
                             ext={ext}
                             size={size}
                             src={null}
-                            mock={<AddBox />}
+                            mock={<AddBox/>}
                             width={dimension}
                             height={dimension}
                             id={`${id}-${label}-new`}
@@ -99,7 +97,7 @@ export class CImage extends ABase<any> {
                                 if (value) {
                                     onChange([...images, value]);
                                 }
-                            }} />
+                            }}/>
                     </div>
                 )}
             </Row>

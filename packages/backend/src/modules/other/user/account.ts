@@ -1,4 +1,4 @@
-import {Arg, Mutation, Resolver, Ctx, Query} from "type-graphql";
+import {Arg, Ctx, Mutation, Query, Resolver} from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
 import {DI} from "../../../orm";
 import {v4} from "uuid";
@@ -6,7 +6,7 @@ import {assert} from "../../../helpers/assert";
 import {wrap} from "mikro-orm";
 import {pbkdf2} from "../../../helpers/pbkdf2";
 import {redis} from "../../../redis";
-import {RoleType, validate, subscription} from "@truecost/shared";
+import {RoleType, subscription, validate} from "@truecost/shared";
 import {composeEmail} from "../../../mail/compose";
 import {verificationEmail} from "../../../mail/samples/verification";
 import {forgetEmail} from "../../../mail/samples/forget";
@@ -27,7 +27,7 @@ export class AccountResolver {
         email = email.toLocaleLowerCase().trim();
         const username = (name || email).trim();
         assert(!["root", "mod", "admin", "truecost"].some(s => username.includes(s)), "bad name", ["name"]);
-        const count = await this.userRepo.count({name: username})
+        const count = await this.userRepo.count({name: username});
         assert(count == 0, "name already in use");
 
         assert(validate("email").test(email), "Does not look like email (:", ["email"]);
@@ -60,8 +60,8 @@ export class AccountResolver {
                 to: email,
                 template: verificationEmail(verify, user.id),
                 subject: 'Account verification',
-                text: `Verification link: ${domain}/register/verify/${verify}/${user.id}`
-            })
+                text: `Verification link: ${domain}/register/verify/${verify}/${user.id}`,
+            });
             await redis.client.set(`verify-${verify}`, user.id, "ex", redis.duration.day);
         } catch (e) {
             assert(false, e);
@@ -104,8 +104,8 @@ export class AccountResolver {
                 to: email,
                 template: forgetEmail(forget, user.id),
                 subject: 'Password reset',
-                text: `Password reset link: ${domain}/password/forget/${forget}/${user.id}`
-            })
+                text: `Password reset link: ${domain}/password/forget/${forget}/${user.id}`,
+            });
             await redis.client.set(`forget-${forget}`, user.id, "ex", redis.duration.hour);
         } catch (e) {
             assert(false, e);
@@ -160,7 +160,7 @@ export class AccountResolver {
             const username = name.trim();
             assert(username.length > 3, "at least 3 chars for name");
             assert(!["root", "mod", "admin", "truecost"].some(s => username.includes(s)), "bad name", ["name"]);
-            const count = await this.userRepo.count({name: username, id: {$ne: userId}})
+            const count = await this.userRepo.count({name: username, id: {$ne: userId}});
             assert(count == 0, "name already in use");
 
             user.name = username;
@@ -186,15 +186,15 @@ export class AccountResolver {
         email = email.toLocaleLowerCase().trim();
         const user = await this.userRepo.findOne({email}, {populate: true});
         if (!user || !user.subscription) {
-            return ;
+            return;
         }
 
         if (!subscription.validate(user as any)) {
             user.subscription = undefined;
             await this.userRepo.persistAndFlush(user);
-            return ;
+            return;
         }
 
-        return user.subscription
+        return user.subscription;
     }
 }

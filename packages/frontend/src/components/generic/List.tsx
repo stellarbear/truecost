@@ -1,41 +1,27 @@
 import {
-    Card,
-    createStyles,
+    CircularProgress,
     IconButton,
-    makeStyles,
-    Menu,
-    MenuItem,
     Paper,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
-    Theme,
-    Toolbar,
-    Tooltip,
-    Typography,
-    withStyles,
-    CircularProgress,
 } from "@material-ui/core";
 import React, {useEffect} from "react";
-import FilterList from "@material-ui/icons/FilterList";
 import Save from "@material-ui/icons/Save";
 import Cancel from "@material-ui/icons/Cancel";
 import Delete from "@material-ui/icons/Delete";
-
-import {NotificationContext} from "components/wrappers";
-import {colors} from "theme";
 import {ItemProp} from "./types";
 import {getResolverName} from "auxiliary";
 
 import {DocumentNode} from "graphql";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {normalize} from "./normalize";
-import {Row, Col} from "pages/Base/Grid";
+import {Row} from "pages/Base/Grid";
 import {useLoading} from "components/wrappers/LoadingWrapper";
 import {ArraySlice} from "./components/ArraySlice";
-import {IShared, useShared} from "./CRUD";
+import {useShared} from "./CRUD";
 import {InfoCard} from "pages/Base/InfoCard";
 import {parseApolloError} from "auxiliary/error";
 import {TimeoutButton} from "./components/TimeoutButton";
@@ -49,14 +35,14 @@ const stickyStyle: CSSProperties = {
     left: 0,
     backgroundColor: "#FFFFFFDD",
     zIndex: 3,
-}
+};
 
-type IItem = {id: string;[key: string]: any}
-type IItems = Record<string, IItem>
-type IError = Record<string, Record<string, string>>
+type IItem = { id: string; [key: string]: any };
+type IItems = Record<string, IItem>;
+type IError = Record<string, Record<string, string>>;
 
 interface UserListProps {
-    title: string
+    title: string;
     propsList: ItemProp[];
     listQuery: DocumentNode;
     updateMutation: DocumentNode;
@@ -77,7 +63,7 @@ export const List: React.FC<UserListProps> = (props) => {
     const [remove] = useMutation(removeMutation);
     const [update] = useMutation(updateMutation);
     const [items, setItems] = React.useState<IItems>({});
-    const [clones, setClones] = React.useState<IItems>({})
+    const [clones, setClones] = React.useState<IItems>({});
     const [errors, setErrors] = React.useState<IError>({});
     const {renderVisible, propsFiltered} = visible({key: `list-${title}`, propsArray: propsList});
 
@@ -89,7 +75,7 @@ export const List: React.FC<UserListProps> = (props) => {
     useEffect(() => {
         const listResponse = getResolverName(listQuery);
         if (data?.[listResponse]?.items) {
-            const {items, count} = data[listResponse];
+            const {items} = data[listResponse];
 
             console.log("query sent", normalize(share.vars));
             console.log("response received", items);
@@ -115,11 +101,11 @@ export const List: React.FC<UserListProps> = (props) => {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const onDelete = async (id: string) => {
         await onTry(id, async () => {
-            console.log('trying delete', id)
+            console.log('trying delete', id);
             const response = await remove({variables: {input: {id}}});
             const name = getResolverName(removeMutation);
 
@@ -129,12 +115,12 @@ export const List: React.FC<UserListProps> = (props) => {
             } else {
                 return false;
             }
-        })
-    }
+        });
+    };
 
     const onUpdate = async (id: string) => {
         await onTry(id, async () => {
-            console.log('trying sent', normalize(items[id]))
+            console.log('trying sent', normalize(items[id]));
             const response = await update({variables: {input: normalize(items[id])}});
             const name = getResolverName(updateMutation);
 
@@ -144,18 +130,18 @@ export const List: React.FC<UserListProps> = (props) => {
             } else {
                 return false;
             }
-        })
-    }
+        });
+    };
 
     const onChange = (id: string, key: string, value: any) => {
         const newItems = {...items, [id]: {...items[id], [key]: value}};
         setItems(newItems);
-        setErrors({})
-    }
+        setErrors({});
+    };
 
-    const onCancel = (id: string) => {
+    const onCancel = () => {
         setItems({...clones});
-    }
+    };
 
     const render = (item: IItem, prop: ItemProp) => {
         const {data: {key}} = prop;
@@ -170,20 +156,20 @@ export const List: React.FC<UserListProps> = (props) => {
     };
 
     const actions = (id: string) => {
-        const similar = JSON.stringify(items[id]) == JSON.stringify(clones[id])
+        const similar = JSON.stringify(items[id]) == JSON.stringify(clones[id]);
 
         return (
             <Row>
                 <IconButton disabled={similar} onClick={() => onUpdate(id)}>
-                    <Save />
+                    <Save/>
                 </IconButton>
-                <IconButton disabled={similar} onClick={() => onCancel(id)}>
-                    <Cancel />
+                <IconButton disabled={similar} onClick={() => onCancel()}>
+                    <Cancel/>
                 </IconButton>
-                <TimeoutButton timeout={3} icon={<Delete />} onClickEvent={() => onDelete(id)} />
+                <TimeoutButton timeout={3} icon={<Delete/>} onClickEvent={() => onDelete(id)}/>
             </Row>
-        )
-    }
+        );
+    };
 
     if (loading) {
         return (
@@ -191,12 +177,12 @@ export const List: React.FC<UserListProps> = (props) => {
                 style={{height: "50vh"}}
                 text={[
                     'Loading',
-                    'Please, wait'
+                    'Please, wait',
                 ]}
                 actions={[
-                    <CircularProgress color="inherit" size={40} />
-                ]} />
-        )
+                    <CircularProgress key="loading" color="inherit" size={40}/>,
+                ]}/>
+        );
     }
 
     return (
@@ -244,5 +230,5 @@ export const List: React.FC<UserListProps> = (props) => {
                 ))}
             </ArraySlice>
         </div>
-    )
+    );
 };

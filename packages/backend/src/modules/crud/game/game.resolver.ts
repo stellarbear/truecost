@@ -20,7 +20,7 @@ export class GameCRUDResolver extends BaseResolver
         classRef: GameEntity,
         resultRef: GameResponse,
         get: {
-            like: ["url"]
+            like: ["url"],
         },
         upsert: {
             notEmpty: ["twitter", "background", "assistant", "url"],

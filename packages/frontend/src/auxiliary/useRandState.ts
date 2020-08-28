@@ -14,7 +14,7 @@ export function generateCode(length: number, prefix = ""): string {
 }
 
 export const useRandState = (length: number): [string] => {
-    const [state] = useState<string>(generateCode(length))
+    const [state] = useState<string>(generateCode(length));
 
     return [state];
-}
+};

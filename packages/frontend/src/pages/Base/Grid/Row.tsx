@@ -1,16 +1,15 @@
 import * as React from 'react';
-import {Grid} from '@material-ui/core';
 import {CSSProperties} from 'react';
 
 interface IBase {
-    s?: number
-    fullWidth?: boolean
-    wrap?: boolean
-    style?: CSSProperties
-    p?: number | [number, number]
-    m?: number | [number, number]
+    s?: number;
+    fullWidth?: boolean;
+    wrap?: boolean;
+    style?: CSSProperties;
+    p?: number | [number, number];
+    m?: number | [number, number];
 
-    width?: (number | string)[]
+    width?: (number | string)[];
 
     onClick?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
     onMouseEnter?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
@@ -38,7 +37,7 @@ interface IBetween extends IBase {
 }
 
 
-type IProps = IStart | IEnd | IEven | IAround | IBetween | IBase
+type IProps = IStart | IEnd | IEven | IAround | IBetween | IBase;
 
 const isStart = (object: IProps): object is IStart => 'start' in object;
 const isEnd = (object: IProps): object is IEnd => 'end' in object;
@@ -69,8 +68,8 @@ export const Row: React.FC<IProps> = (props) => {
             <div key={index} style={{marginRight: s, width: width[index] || "auto"}}>
                 {child}
             </div>
-        )))
-    }
+        )));
+    };
 
     return (
         <div
@@ -87,14 +86,14 @@ export const Row: React.FC<IProps> = (props) => {
                 justifyContent:
                     isStart(rest) ? "flex-start"
                         : isEnd(rest) ? "flex-end"
-                            : isEven(rest) ? "space-evenly"
-                                : isAround(rest) ? "space-around"
-                                    : isBetween(rest) ? "space-between"
-                                        : "center",
+                        : isEven(rest) ? "space-evenly"
+                            : isAround(rest) ? "space-around"
+                                : isBetween(rest) ? "space-between"
+                                    : "center",
 
                 ...style,
             }}>
             {renderChildren()}
         </div>
-    )
-}
+    );
+};

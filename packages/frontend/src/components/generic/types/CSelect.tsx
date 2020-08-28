@@ -1,9 +1,6 @@
 import * as React from "react";
-import {ABase, IRender, ICtor} from "./ABase";
-import {BooleanSelectField} from "../components/BooleanSelectField";
-import SwitchField from "../components/SwitchField";
-import DateTimeField, {IDateTimePickerType} from "../components/DateTimeField";
-import {SelectField, IOption} from "../components/SelectField";
+import {ABase, ICtor, IRender} from "./ABase";
+import {IOption, SelectField} from "../components/SelectField";
 
 export interface ISelect extends ICtor<any> {
     multiple: boolean;
@@ -13,16 +10,15 @@ export interface ISelect extends ICtor<any> {
 export class CSelect extends ABase<any> {
     options: IOption;
     multiple: boolean;
+    renderAddImplementation = this.SelectField;
+    renderFilterlementation = this.SelectField;
+    renderListlementation = this.SelectField;
 
     constructor({options, multiple, ...rest}: ISelect) {
         super(rest);
         this.options = options;
         this.multiple = multiple;
     }
-
-    renderAddImplementation = this.SelectField;
-    renderFilterlementation = this.SelectField;
-    renderListlementation = this.SelectField;
 
     SelectField({value, onChange}: IRender<any | any[]>) {
         const {label} = this.data;

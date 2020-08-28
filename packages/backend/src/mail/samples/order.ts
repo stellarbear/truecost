@@ -27,7 +27,7 @@ export const orderEmail = (code: string, data: Record<string, string>) => {
                     <mj-text color="#637381" font-size="16px">
                         <ul>
                             ${Object.keys(data).map(key =>
-                                `<li style="padding-bottom: 8px"><strong>${key}:</strong> ${data[key]}`)}
+        `<li style="padding-bottom: 8px"><strong>${key}:</strong> ${data[key]}`)}
                         </ul>
                     </mj-text>
                 </mj-column>
@@ -39,7 +39,8 @@ export const orderEmail = (code: string, data: Record<string, string>) => {
                     </mj-column>
                     <mj-column width="80%">
                     <mj-text color="#637381" font-size="16px">
-                        Note: Use code and email to <a class="text-link" href="${trackUrl}">track your order</a>. Or just sign in to your account
+                        Note: Use code and email to <a class="text-link" href="${trackUrl}">track your order</a>.
+                         Or just sign in to your account
                     </mj-text>
                     </mj-column>
                     <mj-column width="20%">
@@ -50,5 +51,5 @@ export const orderEmail = (code: string, data: Record<string, string>) => {
             ${footer()}
         </mj-body>
     </mjml>
-    `
-}
+    `;
+};

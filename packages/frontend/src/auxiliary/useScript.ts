@@ -4,7 +4,7 @@ export const useScript = (html: any) => {
     useEffect(() => {
         const script = document.createElement('script');
 
-        script.type = "text/javascript"
+        script.type = "text/javascript";
         script.innerHTML = html;
         script.async = true;
 
@@ -12,6 +12,6 @@ export const useScript = (html: any) => {
 
         return () => {
             document.body.removeChild(script);
-        }
+        };
     }, [html]);
 };

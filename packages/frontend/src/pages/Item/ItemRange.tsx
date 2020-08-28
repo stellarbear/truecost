@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {IItem, Price} from "@truecost/shared";
+import {IItem} from "@truecost/shared";
 import RangeField from 'components/generic/components/RangeField';
-import {Row, Col} from 'pages/Base/Grid';
+import {Col} from 'pages/Base/Grid';
 import {ItemDivider} from './ItemDivider';
 
 interface IProps {
-    item: IItem
-    chunk: [number, number]
-    onChange: (data: [number, number]) => void
+    item: IItem;
+    chunk: [number, number];
+    onChange: (data: [number, number]) => void;
 }
 
 export const ItemRange: React.FC<IProps> = (props) => {
@@ -35,7 +35,7 @@ export const ItemRange: React.FC<IProps> = (props) => {
                     onChangeEvent={onChange}
                 />
             </Col>
-            <ItemDivider />
+            <ItemDivider/>
         </>
-    )
-}
+    );
+};

@@ -1,5 +1,5 @@
 import {useHistory} from "react-router";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {IGame, IGameContext} from "@truecost/shared";
 
 const defaultGame: IGame = {
@@ -11,10 +11,9 @@ const defaultGame: IGame = {
     twitter: "truecost",
     background: [""],
     assistant: [""],
-}
+};
 
-interface IProps extends IGameContext {
-}
+type IProps = IGameContext;
 
 export function useGame(props: IProps) {
     const history = useHistory();
@@ -22,11 +21,11 @@ export function useGame(props: IProps) {
 
     const path = (pathname + "/");
     const index = path.indexOf('/', 1);
-    const gameUrl = path.slice(1, index)
+    const gameUrl = path.slice(1, index);
 
     const currentGame = gameUrl in props.data.url
         ? props.data.url[gameUrl]
-        : Object.keys(props.data.id)[0] || null
+        : Object.keys(props.data.id)[0] || null;
 
     const [state, setState] = useState<IGame>(
         currentGame && currentGame in props.data.id

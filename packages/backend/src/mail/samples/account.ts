@@ -3,7 +3,7 @@ import {header} from "../header";
 import {footer} from "../footer";
 import {domain} from "../../helpers/route";
 
-export const accountEmail = (password:string) => {
+export const accountEmail = (password: string) => {
     const logo = linkUri('/default/logo.png');
     const assistant = linkUri('/default/assistant.png');
 
@@ -16,10 +16,11 @@ export const accountEmail = (password:string) => {
                     <mj-image src="${logo}" alt="" align="center" width="150px" />
                 </mj-column>
                 <mj-column width="100%" background-color="#ffffff" padding="15px" padding-bottom="0px">
-                    <mj-text color="#637381" font-size="16px">  
+                    <mj-text color="#637381" font-size="16px">
                     You have purchuased some goods on <a class="text-link" href="${domain}">${domain}</a>
                     <br/>
-                    We have created an account just for your convenience. It is not mandatory to log in, just easier to track our progress.
+                    We have created an account just for your convenience. It is not mandatory to log in, 
+                    just easier to track our progress.
                     </mj-text>
                     <mj-text color="#212b35" font-weight="bold" font-size="20px">
                     Account password
@@ -47,5 +48,5 @@ export const accountEmail = (password:string) => {
             ${footer()}
         </mj-body>
     </mjml>
-    `
-}
+    `;
+};

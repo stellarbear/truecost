@@ -1,7 +1,7 @@
-import {AppBar, Container, Hidden, Toolbar} from "@material-ui/core";
-import React, {useEffect, useState, useContext} from "react";
+import {Container, Toolbar} from "@material-ui/core";
+import React from "react";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import {Switch, withRouter} from "react-router";
+import {Switch} from "react-router";
 import "css/router-animation.css";
 import {Footer} from "./Footer";
 import NavigationBar from "./NavigationBar";
@@ -24,7 +24,7 @@ export const NavigationWrapper: React.FC = (props) => {
                     }}>
                         <NavigationBar/>
                         <div>
-                            <Toolbar style={{margin: 8}} />
+                            <Toolbar style={{margin: 8}}/>
                             <Container fixed>
                                 <Switch>
                                     {children}
@@ -32,7 +32,7 @@ export const NavigationWrapper: React.FC = (props) => {
                             </Container>
                         </div>
                         <Container fixed>
-                            <Footer />
+                            <Footer/>
                         </Container>
                     </section>
                 </CSSTransition>

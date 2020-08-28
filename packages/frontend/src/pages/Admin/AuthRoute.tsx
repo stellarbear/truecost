@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Redirect, Route, RouteProps} from "react-router";
-import {DataContext, useStore} from "pages/Data/Wrapper";
+import {useStore} from "pages/Data/Wrapper";
 
 interface AuthRouteProps extends RouteProps {
     unauthorized?: boolean;
@@ -13,7 +13,7 @@ const AuthRoute: React.FC<AuthRouteProps> = (props) => {
         unauthorized = false,
         ...rest
     } = props;
-    const {current: {user}} = useStore()
+    const {current: {user}} = useStore();
 
     const buildRoute = () => {
         if (!user && !unauthorized) {

@@ -11,7 +11,7 @@ import fastifygql from "fastify-gql";
 import * as fastifygqlupload from 'fastify-gql-upload';
 import fastifysession from 'fastify-session';
 import fastifystatic from 'fastify-static';
-import {environment, domain} from './helpers/route';
+import {domain, environment} from './helpers/route';
 
 import Stripe from 'stripe';
 import {creds} from './helpers/creds';
@@ -36,12 +36,12 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         origin: true,
     });
     app.register(fastifystatic, {
-        root: path.join(__dirname, '/../static')
-    })
+        root: path.join(__dirname, '/../static'),
+    });
 
     app.register(fastifygqlupload, {
         limits: {fileSize: 6 * 1024 * 1024},
-    })
+    });
     app.register(fastifycookie);
     app.register(fastifysession, {
         store: new store({client: redis.client}),
@@ -65,22 +65,21 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         context: async (req: any, res: any) => {
             DI.em.clear();
             return ({req, res});
-        }
-    })
-
+        },
+    });
 
 
     app.register((fastify, opts, next) => {
         app.addContentTypeParser('application/json', {parseAs: 'buffer'},
             (_, body, done) => {
                 try {
-                    done(null, {raw: body})
+                    done(null, {raw: body});
                 } catch (error) {
-                    error.statusCode = 400
-                    done(error, undefined)
+                    error.statusCode = 400;
+                    done(error, undefined);
                 }
-            }
-        )
+            },
+        );
 
         app.post(`/webhook/payment/stripe`, {
             handler: async (request, response) => {
@@ -97,11 +96,11 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
                     }
                 } catch (err) {
                     console.log("err", err);
-                    return response.code(400).send()
+                    return response.code(400).send();
                 }
 
-                return response.send({received: true})
-            }
+                return response.send({received: true});
+            },
         });
 
         next();

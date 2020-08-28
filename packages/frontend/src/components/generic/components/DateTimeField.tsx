@@ -1,14 +1,14 @@
 import * as React from "react";
 import {useEventState} from "../../../auxiliary/useEventState";
-import {TextField, BaseTextFieldProps} from "@material-ui/core";
+import {BaseTextFieldProps, TextField} from "@material-ui/core";
 
 export type IDateTimePickerType = "datetime-local" | "date" | "time";
 
 interface IProps extends BaseTextFieldProps {
-    type: IDateTimePickerType
+    type: IDateTimePickerType;
     label?: string;
     value: number;
-    onChangeEvent: ((value:number) => void);
+    onChangeEvent: ((value: number) => void);
 }
 
 export const DateTimeField: React.FC<IProps> = (props) => {
@@ -19,7 +19,7 @@ export const DateTimeField: React.FC<IProps> = (props) => {
         onChangeEvent,
         ...rest
     } = props;
-    const {state, setAndBubbleState} = useEventState(value, onChangeEvent);
+    const {setAndBubbleState} = useEventState(value, onChangeEvent);
 
     return (
         <TextField

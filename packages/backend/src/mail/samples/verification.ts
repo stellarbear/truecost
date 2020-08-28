@@ -26,11 +26,13 @@ export const verificationEmail = (verify: string, userId: string) => {
                     <br/>
                     <br/> In order to verify your account, click the button below
                     </mj-text>
-                    <mj-button background-color="#DC004E" align="center" color="#ffffff" font-size="17px" font-weight="bold" href="${verificationUrl}" width="300px">
+                    <mj-button background-color="#DC004E" align="center" color="#ffffff" font-size="17px" 
+                    font-weight="bold" href="${verificationUrl}" width="300px">
                     Verify account
                     </mj-button>
                     <mj-text color="#637381" font-size="16px">
-                    If the button is not clickable you may use the following link to complete verification <a class="text-link" href="${verificationUrl}">${verificationUrl}</a>
+                    If the button is not clickable you may use the following link to complete verification 
+                    <a class="text-link" href="${verificationUrl}">${verificationUrl}</a>
                     </mj-text>
                 </mj-column>
             </mj-section>
@@ -41,7 +43,8 @@ export const verificationEmail = (verify: string, userId: string) => {
                     </mj-column>
                     <mj-column width="80%">
                     <mj-text color="#637381" font-size="16px">
-                        Note: this url will be valid for only 24 hours! If it is already expired, you may register again and receive new verification link.
+                        Note: this url will be valid for only 24 hours! If it is already expired, you may 
+                        register again and receive new verification link.
                     </mj-text>
                     </mj-column>
                     <mj-column width="20%">
@@ -52,5 +55,5 @@ export const verificationEmail = (verify: string, userId: string) => {
             ${footer()}
         </mj-body>
     </mjml>
-    `
-}
+    `;
+};

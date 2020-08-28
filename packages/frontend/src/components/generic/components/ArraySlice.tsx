@@ -1,18 +1,17 @@
 import * as React from 'react';
 import Pagination from '@material-ui/lab/Pagination';
-import {Select, MenuItem} from '@material-ui/core';
+import {MenuItem, Select} from '@material-ui/core';
 import {sequence} from 'auxiliary/sequence';
-import {Row, Col} from 'pages/Base/Grid';
-import {InfoCard} from 'pages/Base/InfoCard';
+import {Col, Row} from 'pages/Base/Grid';
 import {useStorage} from 'auxiliary/useStorage';
 
 interface IProps {
-    scroll?: number
-    prefix: string
-    data: any[],
-    chunk?: number
-    limit?: number
-    children: (data: any[]) => React.ReactNode
+    scroll?: number;
+    prefix: string;
+    data: any[];
+    chunk?: number;
+    limit?: number;
+    children: (data: any[]) => React.ReactNode;
 }
 
 export const ArraySlice: React.FC<IProps> = (props) => {
@@ -22,9 +21,9 @@ export const ArraySlice: React.FC<IProps> = (props) => {
 
     React.useEffect(() => {
         if (Math.ceil(data.length / count) < page) {
-            setPage(1)
+            setPage(1);
         }
-    }, [data])
+    }, [data]);
 
     const select = () => (
         <Select
@@ -33,15 +32,15 @@ export const ArraySlice: React.FC<IProps> = (props) => {
             renderValue={val => `${val} items`}
             MenuProps={{disableScrollLock: true}}
             onChange={(event) => {
-                setCount(event.target.value as number || chunk)
+                setCount(event.target.value as number || chunk);
                 setPage(1);
             }}
         >
             {sequence(limit, (i) => (i + 1) * chunk).map((num) =>
                 <MenuItem key={num}
-                    value={num}>{num}</MenuItem>)}
+                          value={num}>{num}</MenuItem>)}
         </Select>
-    )
+    );
 
     const pagination = () => (
         <Pagination
@@ -51,8 +50,8 @@ export const ArraySlice: React.FC<IProps> = (props) => {
             onChange={(_, value) => {
                 setPage(value);
                 scroll && window.scrollY > scroll && window.scroll({top: 0, left: 0, behavior: "smooth"});
-            }} />
-    )
+            }}/>
+    );
 
     return (
         <Col fullWidth s={16}>
@@ -65,5 +64,5 @@ export const ArraySlice: React.FC<IProps> = (props) => {
                 {pagination()}
             </Row>
         </Col>
-    )
-}
+    );
+};

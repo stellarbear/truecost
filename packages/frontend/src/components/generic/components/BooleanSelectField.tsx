@@ -1,4 +1,4 @@
-import {Chip, createStyles, FormControl, InputLabel, makeStyles, MenuItem, Select, Theme} from "@material-ui/core";
+import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
 import * as React from "react";
 import {SelectProps} from "@material-ui/core/Select";
 import {useEventState} from "../../../auxiliary/useEventState";
@@ -11,13 +11,13 @@ interface IProps extends SelectProps {
 
 const undef = -1;
 
-export const BooleanSelectField: React.FC<IProps> = ({
-                                                         label,
-                                                         onChangeEvent,
-                                                         base,
-                                                         value = undef,
-                                                         ...rest
-                                                     }) => {
+export const BooleanSelectField: React.FC<IProps> = (props) => {
+    const {
+        label,
+        onChangeEvent,
+        value = undef,
+        ...rest
+    } = props;
     const {state, setAndBubbleState} = useEventState(value, onChangeEvent);
 
     return (
@@ -30,7 +30,7 @@ export const BooleanSelectField: React.FC<IProps> = ({
                     const {value} = event.target;
                     setAndBubbleState(value == undef
                         ? undefined
-                        : !!value)
+                        : !!value);
                 }}
             >
                 <MenuItem value={undef}>Any</MenuItem>

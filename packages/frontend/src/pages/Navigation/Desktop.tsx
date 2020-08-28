@@ -1,8 +1,8 @@
-import {Button, Typography, Container, Chip} from "@material-ui/core";
-import React, {useContext} from "react";
+import {Button, Chip, Container, Typography} from "@material-ui/core";
+import React from "react";
 import {Link} from 'react-router-dom';
-import {DataContext, useStore} from "pages/Data/Wrapper";
-import {Col, Row} from "pages/Base/Grid";
+import {useStore} from "pages/Data/Wrapper";
+import {Row} from "pages/Base/Grid";
 import {Account} from './Account';
 import {GamePicker} from "./GamePicker";
 import {CartPicker} from "./CartPicker";
@@ -14,7 +14,7 @@ interface IDesktop {
 export const Desktop: React.FC<IDesktop> = (props) => {
     const {logo} = props;
     const {current: {game, discount}} = useStore();
-    const url = '/' + game.url
+    const url = '/' + game.url;
 
     const navigation = () => (
         <Row fullWidth>
@@ -41,7 +41,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
                 label={`${discount} % active`}
             />
         )
-    )
+    );
 
     const account = () => (
         <div style={{
@@ -51,11 +51,11 @@ export const Desktop: React.FC<IDesktop> = (props) => {
         }}>
             <Row>
                 {subscription()}
-                <CartPicker />
-                <Account />
+                <CartPicker/>
+                <Account/>
             </Row>
         </div>
-    )
+    );
 
     const home = () => (
         <div style={{
@@ -66,12 +66,12 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             <Row>
                 <Button component={Link} to={url}>
                     <img height={80} width={80} src={logo}
-                        style={{marginTop: -20, marginBottom: -20}} />
+                         style={{marginTop: -20, marginBottom: -20}}/>
                 </Button>
-                <GamePicker />
+                <GamePicker/>
             </Row>
         </div>
-    )
+    );
 
     return (
         <Container fixed style={{position: "relative"}}>

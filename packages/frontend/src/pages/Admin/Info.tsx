@@ -1,6 +1,6 @@
 import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
-import {CBoolean, CString, CNumber, CImage} from "components/generic/types";
+import {CImage, CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 //import {meta} from "./Base/Meta";
 //import {game} from "./Base/Game";
@@ -8,8 +8,6 @@ import {game} from "./Base/Game";
 import {CCustom} from "components/generic/types/CCustom";
 import {CLink} from "components/generic/types/CLink";
 import EditorPost from "components/generic/components/EditorPost";
-import EditorRange from "components/generic/components/EditorRange";
-import {rangeBase} from "@truecost/shared";
 import {base} from "./Base";
 
 export const AdminInfo: React.FC = () => {
@@ -32,7 +30,7 @@ export const AdminInfo: React.FC = () => {
         base: "",
         key: "text",
         label: "text",
-        component: <EditorPost />,
+        component: <EditorPost/>,
     });
 
     const redirect = new CString({
@@ -56,7 +54,7 @@ export const AdminInfo: React.FC = () => {
         },
         multiple: true,
     });
-    
+
     const tag = new CLink({
         key: "tag",
         label: "tag",
@@ -72,7 +70,7 @@ export const AdminInfo: React.FC = () => {
 
     return (
         <CRUD
-            
+
             title="Info"
             queryGet={crud.get}
 

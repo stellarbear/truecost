@@ -1,20 +1,11 @@
-import React, {useState, useRef} from "react";
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    Grow,
-    IconButton,
-    Typography,
-} from "@material-ui/core";
+import React, {useState} from "react";
+import {Dialog, DialogActions, DialogContent, DialogTitle, Grow, IconButton, Typography} from "@material-ui/core";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 import Close from "@material-ui/icons/Close";
 import {Row} from "pages/Base/Grid";
 
 const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {children?: React.ReactElement<any, any>},
+    props: TransitionProps & { children?: React.ReactElement<any, any> },
     ref: React.Ref<unknown>,
 ) {
     return <Grow in ref={ref} {...props} />;
@@ -22,7 +13,7 @@ const Transition = React.forwardRef(function Transition(
 
 interface IProps {
     button: JSX.Element;
-    title?: string
+    title?: string;
     content?: JSX.Element[];
     actions?: JSX.Element[];
 }
@@ -32,7 +23,7 @@ export const ModalDialog: React.FC<IProps> = (props) => {
         title,
         button,
         content = [],
-        actions = []
+        actions = [],
     } = props;
     const [open, setOpen] = useState(false);
 
@@ -49,7 +40,7 @@ export const ModalDialog: React.FC<IProps> = (props) => {
                         <Row fullWidth between>
                             <Typography>{title}</Typography>
                             <IconButton onClick={() => setOpen(false)} style={{marginLeft: 32}}>
-                                <Close />
+                                <Close/>
                             </IconButton>
                         </Row>
                     </DialogTitle>
@@ -65,4 +56,4 @@ export const ModalDialog: React.FC<IProps> = (props) => {
             </Dialog>
         </div>
     );
-}
+};

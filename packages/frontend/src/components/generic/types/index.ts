@@ -31,5 +31,5 @@ export {
     ItemProp,
     CBoolean,
     CNumber,
-    CString
+    CString,
 };

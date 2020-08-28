@@ -5,7 +5,7 @@ import {IconButton, Typography} from '@material-ui/core';
 import {Row} from 'pages/Base/Grid';
 
 interface IProps {
-    item: IItem
+    item: IItem;
 }
 
 export const ItemDescription: React.FC<IProps> = (props) => {
@@ -14,13 +14,13 @@ export const ItemDescription: React.FC<IProps> = (props) => {
     return (
         <Row>
             {
-                item.link && <a target="_blank" href={item.link}>
+                item.link && <a target="_blank" rel="noreferrer" href={item.link}>
                     <IconButton>
-                        <LinkIcon />
+                        <LinkIcon/>
                     </IconButton>
                 </a>
             }
             <Typography variant="h4" style={{textAlign: "center"}}>{item.name}</Typography>
         </Row>
-    )
-}
+    );
+};

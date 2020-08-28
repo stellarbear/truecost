@@ -1,12 +1,9 @@
 import * as React from 'react';
-import {Col, Row} from 'pages/Base/Grid';
-import {useHistory} from 'react-router';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import {StatusType, SafeJSON, Dict} from '@truecost/shared';
-import {Table, TableBody, TableRow, TableCell, Typography, Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
+import {Dict} from '@truecost/shared';
+import {Table, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 
 interface IProps {
-    info: Dict<any>
+    info: Dict<any>;
 }
 
 export const BookingInfo: React.FC<IProps> = ({info}) => {
@@ -14,9 +11,9 @@ export const BookingInfo: React.FC<IProps> = ({info}) => {
         Array.isArray(info[key])
             ? info[key].join(", ")
             : typeof info[key] === "boolean"
-                ? info[key] ? "+" : "-"
-                : info[key]
-    )
+            ? info[key] ? "+" : "-"
+            : info[key]
+    );
 
     return (
         <>
@@ -34,5 +31,5 @@ export const BookingInfo: React.FC<IProps> = ({info}) => {
                 </TableBody>
             </Table>
         </>
-    )
-}
+    );
+};

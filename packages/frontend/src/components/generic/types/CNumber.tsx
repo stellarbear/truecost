@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ABase, IRender, ICtor} from "./ABase";
+import {ABase, ICtor, IRender} from "./ABase";
 import {NumericField} from "../components/NumericField";
 import RangeField from "../components/RangeField";
 
@@ -15,6 +15,9 @@ export class CNumber extends ABase<number> {
     max: number;
     step: number;
     single: boolean;
+    renderAddImplementation = this.NumericField;
+    renderFilterlementation = this.RangeField;
+    renderListlementation = this.NumericField;
 
     constructor({min = 0, step = 10, single = true, max = Number.MAX_SAFE_INTEGER, base = min, ...rest}: INumber) {
         super({...rest, base});
@@ -25,27 +28,22 @@ export class CNumber extends ABase<number> {
         this.single = single;
     }
 
-    renderAddImplementation = this.NumericField;
-    renderFilterlementation = this.RangeField;
-    renderListlementation = this.NumericField;
-
     NumericField({value, onChange}: IRender<number>) {
-        const {label, base} = this.data;
-        const {min, max, single} = this;
+        const {base} = this.data;
+        const {min, max} = this;
 
         return (
             <NumericField
                 min={min}
                 max={max}
-                value={value || base!}
+                value={value || base || min}
                 onChangeEvent={onChange}
             />
         );
     }
 
     RangeField({value, onChange}: IRender<[number, number]>) {
-        const {label, base} = this.data;
-        const {min, max, single} = this;
+        const {min, max} = this;
 
         return (
             <RangeField

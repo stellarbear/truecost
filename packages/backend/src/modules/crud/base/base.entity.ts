@@ -30,5 +30,5 @@ export abstract class BaseEntity implements IBase {
 
     @Field(() => Int)
     @Property()
-    order: number = 0;
+    order = 0;
 }

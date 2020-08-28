@@ -27,14 +27,14 @@ interface ICRUDGet<V> {
     like?: Array<keyof V>;
     between?: Array<keyof V>;
     filter?: Array<keyof V>;
-};
+}
 
 interface ICRUDUpsert<V> {
     notEmpty?: Array<keyof V>;
     unique?: Array<keyof V>;
     images?: Array<keyof V>;
     propagate?: Array<keyof V>;
-};
+}
 
 interface ICRUDResolver<T, I, R, V> {
     classRef: T;
@@ -46,15 +46,15 @@ interface ICRUDResolver<T, I, R, V> {
     prefix?: string;
 }
 
-const merge = <T, U extends T>(src: {[K in keyof T]: T[K][]}, dst: {[K in keyof U]: U[K][]}) => {
-    for (let key in src) {
+const merge = <T, U extends T>(src: { [K in keyof T]: T[K][] }, dst: { [K in keyof U]: U[K][] }) => {
+    for (const key in src) {
         if (key in dst) {
             src[key].push(...(dst[key] || []));
         }
     }
 
     return src;
-}
+};
 
 export function BaseResolver<T extends typeof BaseEntity,
     I extends typeof BaseInput,
@@ -71,39 +71,39 @@ export function BaseResolver<T extends typeof BaseEntity,
         notEmpty: ["active", "name"],
         unique: [],
         images: [],
-        propagate: []
+        propagate: [],
     };
 
     return CRUDResolver<T, I, R, V>({
         ...rest,
         get: merge(baseGet, get as any),
         upsert: merge(baseUpsert, upsert as any),
-    })
+    });
 }
 
 export function CRUDResolver<T extends typeof BaseEntity,
     I extends typeof BaseInput,
     R extends ClassType<unknown>,
-    V extends {id?: string}>(
-        {
-            inputRef,
-            classRef,
-            resultRef,
-            get: {
-                set = [],
-                like = [],
-                filter = [],
-                between = [],
-            },
-            upsert: {
-                notEmpty = [],
-                unique = [],
-                images = [],
-                propagate = []
-            },
-            restrictPublic = true,
-            prefix = classRef.name.replace('Entity', ""),
-        }: ICRUDResolver<T, I, R, V>): any {
+    V extends { id?: string }>(
+    {
+        inputRef,
+        classRef,
+        resultRef,
+        get: {
+            set = [],
+            like = [],
+            filter = [],
+            between = [],
+        },
+        upsert: {
+            notEmpty = [],
+            unique = [],
+            images = [],
+            propagate = [],
+        },
+        restrictPublic = true,
+        prefix = classRef.name.replace('Entity', ""),
+    }: ICRUDResolver<T, I, R, V>): any {
 
     @Resolver(() => resultRef, {isAbstract: true})
     abstract class CRUDResolverClass {
@@ -130,7 +130,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
         @UseMiddleware(UseAuth([RoleType.ADMIN]))
         @Mutation(() => String, {name: `${prefix}Delete`})
         async delete(@Arg('input', () => inputRef) {id}: V): Promise<string> {
-            console.log('delete arrived-----------------------------', id)
+            console.log('delete arrived-----------------------------', id);
             assert(id, "id must be specified");
             await this.service.delete(id);
             return id;
@@ -139,7 +139,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
         @UseMiddleware(UseAuth([RoleType.ADMIN]))
         @Mutation(() => classRef, {name: `${prefix}Upsert`})
         async upsert(@Arg('input', () => inputRef) input: V): Promise<T> {
-            console.log('upsert arrived-----------------------------', input)
+            console.log('upsert arrived-----------------------------', input);
             const emptyValues = notEmpty.filter(key =>
                 (isArray(input[key]) || isString(input[key])) ? (input[key] as any).length == 0
                     : input[key] == undefined);

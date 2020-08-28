@@ -5,9 +5,9 @@ import {Meta} from "./Base/Meta";
 
 export const TOS: React.FC = () => (
     <>
-        <Meta />
+        <Meta/>
         <TextCard title="Terms of service"
-            data={Object.keys(text.tos).map(key =>
-                ({title: key, text: (text as any).tos[key]}))} />
+                  data={Object.keys(text.tos).map(key =>
+                      ({title: key, text: (text as any).tos[key]}))}/>
     </>
 );

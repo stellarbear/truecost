@@ -1,18 +1,17 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
-import {DataContext} from 'pages/Data/Wrapper';
-import {Chip, Typography} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 import Markdown from 'components/Markdown';
 import {Col} from 'pages/Base/Grid';
 import {ItemDivider} from './ItemDivider';
 
 interface IProps {
-    item: IItem
+    item: IItem;
 }
 
 export const ItemRequirements: React.FC<IProps> = (props) => {
     const {item} = props;
-    const itemId = item.id
+    const itemId = item.id;
 
     if (!item.requirements || item.requirements.length === 0) {
         return null;
@@ -30,7 +29,7 @@ export const ItemRequirements: React.FC<IProps> = (props) => {
                     ))
                 }
             </Col>
-            <ItemDivider condition={item.requirements.length > 0} />
+            <ItemDivider condition={item.requirements.length > 0}/>
         </>
-    )
-}
+    );
+};

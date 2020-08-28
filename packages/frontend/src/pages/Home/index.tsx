@@ -1,18 +1,7 @@
-import React, {CSSProperties, useContext} from "react";
-import {
-    Button,
-    ButtonBase,
-    createStyles,
-    Grid,
-    Hidden,
-    IconButton,
-    makeStyles,
-    Theme,
-    Typography,
-    Card,
-} from "@material-ui/core";
+import React from "react";
+import {Grid} from "@material-ui/core";
 import "css/float.css";
-import {DataContext} from "../Data/Wrapper";
+import {useStore} from "../Data/Wrapper";
 import Parallax from "components/Parallax";
 import {HomeIntro} from "./HomeIntro";
 import {HomeTrustPilot} from "./HomeTrustPilot";
@@ -23,43 +12,38 @@ import {HomeTopOffers} from "./HomeTopOffers";
 import {HomeInfo} from "./HomeInfo";
 import {Meta} from "pages/Base/Meta";
 
-
-interface IHomeProps {
-}
-
-const Home: React.FC<IHomeProps> = ({}): JSX.Element => {
-    const {current: {game}} = useContext(DataContext);
-    const current = game!;
-    const image = `${backend.uri}/${current.id}/${current.background}/u.jpg`
+const Home: React.FC = () => {
+    const {current: {game}} = useStore();
+    const image = `${backend.uri}/${game.id}/${game.background}/u.jpg`;
 
     return (
         <React.Fragment>
-            <Meta entity={game} />
-            <Parallax image={image} />
+            <Meta entity={game}/>
+            <Parallax image={image}/>
             <Grid container spacing={2}
-                style={{
-                    color: "#fff",
-                }}>
-                <Grid item xs={12} sm={4} md={6} />
+                  style={{
+                      color: "#fff",
+                  }}>
+                <Grid item xs={12} sm={4} md={6}/>
                 <Grid item xs={12} sm={8} md={6}>
-                    <HomeIntro style={{marginTop: "15vh", textAlign: "center"}} />
+                    <HomeIntro style={{marginTop: "15vh", textAlign: "center"}}/>
                 </Grid>
                 <Grid container spacing={2}
-                    style={{marginTop: "15vh", marginBottom: 16}}>
+                      style={{marginTop: "15vh", marginBottom: 16}}>
                     <Grid item xs={12} sm={8}>
-                        <HomeInfo />
+                        <HomeInfo/>
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <HomeTwitter />
+                        <HomeTwitter/>
                     </Grid>
                     <Grid item xs={12}>
-                        <HomeTopOffers />
+                        <HomeTopOffers/>
                     </Grid>
                     <Grid item xs={12} sm={8}>
-                        <HomeHowTo />
+                        <HomeHowTo/>
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <HomeTrustPilot />
+                        <HomeTrustPilot/>
                     </Grid>
                 </Grid>
             </Grid>

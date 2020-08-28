@@ -1,19 +1,12 @@
-import {
-    Box,
-    Button,
-    CircularProgress,
-    Container,
-    TextField,
-    Paper,
-} from "@material-ui/core";
-import React, {useCallback, useEffect, useState} from "react";
+import {Box, Button, CircularProgress, Container, Paper, TextField} from "@material-ui/core";
+import React, {useCallback, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {useHistory} from "react-router";
 import Alert from "@material-ui/lab/Alert";
 import {useForm} from "react-hook-form";
 import {validate} from "@truecost/shared";
 import {theme} from "theme";
-import {Col, Row} from "pages/Base/Grid";
+import {Col} from "pages/Base/Grid";
 import {parseApolloError} from "auxiliary/error";
 import {useStore} from "pages/Data/Wrapper";
 import {useLoading} from "components/wrappers/LoadingWrapper";
@@ -58,7 +51,8 @@ export const Login: React.FC = () => {
                 clearErrors();
                 setLoading(true);
                 await loginMutation({variables: data});
-            } catch (e) {} finally {
+            } catch (e) {
+            } finally {
                 setLoading(false);
             }
         },
@@ -74,7 +68,7 @@ export const Login: React.FC = () => {
 
     return (
         <>
-            <Meta />
+            <Meta/>
             <Container maxWidth="xs">
                 <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(logInSubmit)}>
                     <Paper>
@@ -111,7 +105,7 @@ export const Login: React.FC = () => {
                                     variant="filled"
                                 />
                                 <Button fullWidth variant="contained" type="submit">
-                                    {loading ? <CircularProgress size={24} /> : "LOGIN"}
+                                    {loading ? <CircularProgress size={24}/> : "LOGIN"}
                                 </Button>
                             </Col>
                         </Col>
@@ -123,7 +117,7 @@ export const Login: React.FC = () => {
                 <Col p={[0, 16]} fullWidth>
                     <Button fullWidth component={Link} to={"/password/forget"}>
                         Forgot password?
-            </Button>
+                    </Button>
                 </Col>
             </Container>
         </>

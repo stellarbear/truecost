@@ -11,12 +11,12 @@ export const AdminTag: React.FC = () => {
         items: `
 			${base.fragment}
             ${game.fragment}
-            
+
 			item { id name game { id } }
 			children { id name game { id } }
 		`,
     });
-    
+
     const item = new CLink({
         key: "item",
         label: "item",

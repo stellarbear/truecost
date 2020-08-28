@@ -12,13 +12,13 @@ export const Contact: React.FC = () => {
 
     return (
         <>
-            <Meta />
+            <Meta/>
             <TextCard title="Contact us" data={[{
                 title: null,
                 text: text.contact,
             }]}>
                 <React.Fragment>
-                    <Divider style={{margin: "16px 0px"}} />
+                    <Divider style={{margin: "16px 0px"}}/>
                     <div style={{
                         display: "flex", flexWrap: "wrap", justifyContent: "space-evenly",
                     }}>
@@ -27,8 +27,8 @@ export const Contact: React.FC = () => {
                                 <div key={`social-${index}`} style={{
                                     display: "flex", flexDirection: "column", alignItems: "center",
                                 }}
-                                    onMouseEnter={() => setHovered(item.title)}
-                                    onMouseLeave={() => setHovered("")}>
+                                     onMouseEnter={() => setHovered(item.title)}
+                                     onMouseLeave={() => setHovered("")}>
                                     <SocialDialog key={`social-${index}`} button={
                                         (
                                             <IconButton color="inherit" size="medium">

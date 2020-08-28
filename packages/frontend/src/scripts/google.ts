@@ -3,4 +3,4 @@ export const google = `
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'UA-160874000-1');
-`
+`;

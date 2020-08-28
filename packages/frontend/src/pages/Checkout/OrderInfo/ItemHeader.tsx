@@ -1,16 +1,16 @@
 import * as React from 'react';
-import {Row, Col} from 'pages/Base/Grid';
+import {Col, Row} from 'pages/Base/Grid';
 import {IconButton, Typography} from '@material-ui/core';
 import {PriceTypography} from 'pages/Base/PriceTypography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {IItem, Price, Time} from '@truecost/shared';
 
 interface IProps {
-    item: IItem
-    total: Price
-    quantity: number
-    chunk?: [number, number]
-    onDelete: () => void
+    item: IItem;
+    total: Price;
+    quantity: number;
+    chunk?: [number, number];
+    onDelete: () => void;
 }
 
 export const ItemHeader: React.FC<IProps> = (props) => {
@@ -19,7 +19,7 @@ export const ItemHeader: React.FC<IProps> = (props) => {
         <Row fullWidth between>
             <Row>
                 <IconButton style={{marginLeft: -12}} onClick={() => onDelete()}>
-                    <DeleteIcon />
+                    <DeleteIcon/>
                 </IconButton>
                 <Col left>
                     <Typography>
@@ -42,8 +42,8 @@ export const ItemHeader: React.FC<IProps> = (props) => {
             </Row>
             <Col>
                 <PriceTypography price={total.toValue * quantity}
-                    discount={item.discount * quantity} />
+                                 discount={item.discount * quantity}/>
             </Col>
         </Row>
-    )
-}
+    );
+};

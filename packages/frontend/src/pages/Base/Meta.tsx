@@ -6,8 +6,8 @@ import {useHistory} from 'react-router';
 import {IMeta} from 'pages/Data/useMeta';
 
 interface IProps {
-    path?: string
-    entity?: Dict<any>
+    path?: string;
+    entity?: Dict<any>;
 }
 
 const parse = (src: string, entity: Dict<any>): string => {
@@ -22,17 +22,17 @@ const parse = (src: string, entity: Dict<any>): string => {
         }
 
         const prop = result.slice(start + 1, end);
-        result = result.slice(0, start) + (entity[prop] || "") + result.slice(end + 1)
+        result = result.slice(0, start) + (entity[prop] || "") + result.slice(end + 1);
     }
-}
+};
 
 const getMetaTags = (meta: Dict<IMeta>, path: string): Dict<any> => {
     if (path in meta) {
         return meta[path].tags;
     }
 
-    const overlaps = []
-    for (let key in meta) {
+    const overlaps = [];
+    for (const key in meta) {
         if (path.startsWith(key)) {
             overlaps.push(key);
         }
@@ -41,7 +41,7 @@ const getMetaTags = (meta: Dict<IMeta>, path: string): Dict<any> => {
     if (overlaps.length > 0) {
         let max = overlaps[0];
 
-        for (let overlap of overlaps) {
+        for (const overlap of overlaps) {
             if (overlap.length > max.length) {
                 max = overlap;
             }
@@ -51,11 +51,11 @@ const getMetaTags = (meta: Dict<IMeta>, path: string): Dict<any> => {
     }
 
     return {};
-}
+};
 
 export const Meta: React.FC<IProps> = (props) => {
     const {current: {game: {url: gameUrl}}, meta} = useStore();
-    const {location: {pathname: browserUrl}} = useHistory()
+    const {location: {pathname: browserUrl}} = useHistory();
 
     const preUrl = browserUrl.startsWith('/' + gameUrl)
         ? browserUrl.slice(1 + gameUrl.length)
@@ -66,13 +66,13 @@ export const Meta: React.FC<IProps> = (props) => {
 
     const {
         path = url,
-        entity = {}
+        entity = {},
     } = props;
 
     const tags = getMetaTags(meta, path);
     const data = Object.keys(tags).map(key => ({
         path: key,
-        value: parse(tags[key], entity)
+        value: parse(tags[key], entity),
     }));
 
     return (
@@ -81,7 +81,7 @@ export const Meta: React.FC<IProps> = (props) => {
                 data.map(({path, value}) => (
                     path === "title"
                         ? <title key={path}>{value}</title>
-                        : <meta key={path} name={path} content={value} />
+                        : <meta key={path} name={path} content={value}/>
                 ))
             }
         </Helmet>

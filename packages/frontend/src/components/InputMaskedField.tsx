@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {TextField} from "@material-ui/core";
 import {BaseTextFieldProps} from "@material-ui/core/TextField";
 
-interface MaskedInputFieldProps extends BaseTextFieldProps {
+interface IProps extends BaseTextFieldProps {
     mask: any[];
     value: string;
     editable?: boolean;
@@ -10,17 +10,21 @@ interface MaskedInputFieldProps extends BaseTextFieldProps {
     onChangeEvent: ((value: string) => void);
 }
 
-const InputMaskedField = ({
-                              mask,
-                              value,
-                              editable,
-                              onChangeEvent,
-                              separator = "_",
-                              ...rest
-                          }: MaskedInputFieldProps): JSX.Element => {
+const InputMaskedField: React.FC<IProps> = (props) => {
+    const {
+        mask,
+        value,
+        editable,
+        onChangeEvent,
+        separator = "_",
+        ...rest
+    } = props;
+    
     const validMask = mask
         .filter(e => ["String", "RegExp"].includes(e.constructor.name))
-        .reduce((obj, cur) => cur.constructor.name == "String" ? obj.concat((cur as string).split("")) : [...obj, cur], []) as any[];
+        .reduce((obj, cur) => cur.constructor.name == "String"
+            ? obj.concat((cur as string).split(""))
+            : [...obj, cur], []) as any[];
     const inputMask = validMask
         .map((e, i: number) => e.constructor.name == "RegExp" ? i : undefined)
         .filter(x => x) as number[];
@@ -44,7 +48,9 @@ const InputMaskedField = ({
         if (input) {
             const current: any = (input as any).current;
             current.value = chars.join("");
-            current.selectionStart = current.selectionEnd = pointer < inputMask.length ? inputMask[pointer] : validMask.length;
+            current.selectionStart = current.selectionEnd = pointer < inputMask.length 
+            ? inputMask[pointer] 
+            : validMask.length;
         }
     }, [chars]);
 

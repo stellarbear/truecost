@@ -1,2 +1,2 @@
-export * from './price'
-export * from './time'
+export * from './price';
+export * from './time';

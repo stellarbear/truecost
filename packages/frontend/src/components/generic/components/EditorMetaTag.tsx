@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {
     Button,
-    createStyles,
     Dialog,
     DialogActions,
     DialogContent,
@@ -12,9 +11,7 @@ import {
     TableCell,
     TableRow,
     TextField,
-    Theme,
     Typography,
-    withStyles,
 } from "@material-ui/core";
 import {SafeJSON} from "auxiliary/json";
 import AddCircle from "@material-ui/icons/AddCircle";
@@ -33,7 +30,7 @@ interface EditorMarkProps {
 
 
 const preview = (data: IState[]) =>
-    data.map(({name, content}) => `${name}: ${content}`).join('\n')
+    data.map(({name, content}) => `${name}: ${content}`).join('\n');
 
 const EditorMetaTag: React.FC<EditorMarkProps> = (props) => {
     const {
@@ -54,7 +51,7 @@ const EditorMetaTag: React.FC<EditorMarkProps> = (props) => {
     const addNewRow = () => setState([...state, {
         name: "",
         content: "",
-    }])
+    }]);
 
     const renderRow = (index: number) => {
         const {name, content} = state[index];

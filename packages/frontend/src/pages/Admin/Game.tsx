@@ -41,11 +41,11 @@ export const AdminGame: React.FC = () => {
         limit: 1,
     });
 
-    const fields = [url, twitter, assistant, background]
+    const fields = [url, twitter, assistant, background];
 
     return (
         <CRUD
-            
+
             title="Game"
             queryGet={crud.get}
 

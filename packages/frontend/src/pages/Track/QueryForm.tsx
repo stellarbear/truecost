@@ -2,16 +2,14 @@ import * as React from 'react';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {useStore} from 'pages/Data/Wrapper';
 import {useForm} from 'react-hook-form';
-import {Col, Row} from 'pages/Base/Grid';
-import {TextField, Button, Box, Container, Paper, CircularProgress} from '@material-ui/core';
-import {Alert} from '@material-ui/lab';
-import {parseApolloError} from 'auxiliary/error';
+import {Col} from 'pages/Base/Grid';
+import {Button, CircularProgress, Paper, TextField} from '@material-ui/core';
 import {validate} from '@truecost/shared';
 import {BookingSubmit} from '.';
 
 interface IProps {
-    loading?: boolean
-    onQuery: (variables: BookingSubmit) => Promise<void>
+    loading?: boolean;
+    onQuery: (variables: BookingSubmit) => Promise<void>;
 }
 
 export const QueryForm: React.FC<IProps> = ({onQuery, loading = false}) => {
@@ -20,7 +18,7 @@ export const QueryForm: React.FC<IProps> = ({onQuery, loading = false}) => {
 
     const {register, handleSubmit, errors, clearErrors} = useForm<BookingSubmit>({
         reValidateMode: "onBlur",
-        defaultValues: {email: user ? user.email : ""}
+        defaultValues: {email: user ? user.email : ""},
     });
 
     const bookingSubmit = async (data: BookingSubmit) => {
@@ -29,10 +27,11 @@ export const QueryForm: React.FC<IProps> = ({onQuery, loading = false}) => {
             setLoading(true);
             await onQuery(data);
 
-        } catch (e) {} finally {
+        } catch (e) {
+        } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit(bookingSubmit)}>
@@ -58,7 +57,7 @@ export const QueryForm: React.FC<IProps> = ({onQuery, loading = false}) => {
                         fullWidth
                         inputRef={register({
                             required: "This field is required",
-                            validate: (v: string) => v.startsWith("TC-") || 'Does not look like code (:'
+                            validate: (v: string) => v.startsWith("TC-") || 'Does not look like code (:',
                         })}
                         name={"code"}
                         label="Code *"
@@ -67,10 +66,10 @@ export const QueryForm: React.FC<IProps> = ({onQuery, loading = false}) => {
                         variant="filled"
                     />
                     <Button fullWidth variant="contained" type="submit">
-                        {loading ? <CircularProgress size={24} /> : "Track order"}
+                        {loading ? <CircularProgress size={24}/> : "Track order"}
                     </Button>
                 </Col>
             </Paper>
         </form>
-    )
-}
+    );
+};

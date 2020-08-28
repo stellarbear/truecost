@@ -1,10 +1,10 @@
 import * as React from "react";
 import {makeStyles} from "@material-ui/styles";
-import {Backdrop, Badge, createStyles, Fade, Modal, Paper, Theme} from "@material-ui/core";
+import {Backdrop, Badge, createStyles, Fade, Modal, Paper} from "@material-ui/core";
 import ZoomOutMap from "@material-ui/icons/ZoomOutMap";
 import {BadgeProps} from "@material-ui/core/Badge";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {},
         modal: {
@@ -34,11 +34,12 @@ interface IZoom extends BadgeProps {
     children: React.ReactNode;
 }
 
-const Zoom: React.FC<IZoom> = ({
-                                   smallProps = {},
-                                   bigProps = {},
-                                   children,
-                               }) => {
+const Zoom: React.FC<IZoom> = (props) => {
+    const {
+        smallProps = {},
+        bigProps = {},
+        children,
+    } = props;
     const classes = useStyles();
     const [showLightBox, setShowLightBox] = React.useState<boolean>(false);
 

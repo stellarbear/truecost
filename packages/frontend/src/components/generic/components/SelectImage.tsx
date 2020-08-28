@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Avatar} from "@material-ui/core";
 import AccountBox from "@material-ui/icons/AccountBox";
-import {NotificationContext} from "../../wrappers";
+import {useNotification} from "components/wrappers/NotifyWrapper";
 
 interface ISelectImageProps {
     id: string;
@@ -14,18 +14,19 @@ interface ISelectImageProps {
     onChangeEvent: (value: any) => void;
 }
 
-const SelectImage: React.FC<ISelectImageProps> = ({
-                                                      mock = <AccountBox/>,
-                                                      onChangeEvent,
-                                                      height = 256,
-                                                      width = 256,
-                                                      size = 6 * 1024 * 1024,
-                                                      ext,
-                                                      src,
-                                                      id,
-                                                  }) => {
+const SelectImage: React.FC<ISelectImageProps> = (props) => {
+    const {
+        mock = <AccountBox/>,
+        onChangeEvent,
+        height = 256,
+        width = 256,
+        size = 6 * 1024 * 1024,
+        ext,
+        src,
+        id,
+    } = props;
 
-    const {notify} = useContext(NotificationContext);
+    const {notify} = useNotification();
 
     return (
         <div style={{height}}>
@@ -38,8 +39,7 @@ const SelectImage: React.FC<ISelectImageProps> = ({
                             ? <img
                                 style={{objectFit: "cover"}}
                                 src={src}
-                                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                                }}
+                                onError={() => {}}
                                 alt=""
                                 width={width}
                                 height={height}
@@ -58,16 +58,16 @@ const SelectImage: React.FC<ISelectImageProps> = ({
                     if (event.target.files) {
                         const file = event.target.files[0];
                         if (!file) {
-                            return
+                            return;
                         }
                         if (file.size > size) {
                             notify(`size limit exceeded - ${size}`);
-                            return
+                            return;
                         } else if (!ext || file.name.endsWith('.' + ext)) {
                             onChangeEvent(file);
                         } else {
                             notify(`only ${ext} allowed`);
-                            return
+                            return;
                         }
                     }
                 }}/>

@@ -1,4 +1,4 @@
-import {IUser, parseShop, IGameContext, IShopContext} from '@truecost/shared';
+import {IGameContext, IShopContext, IUser, parseShop} from '@truecost/shared';
 
 export interface IUserContext {
     data?: IUser;
@@ -18,12 +18,12 @@ export function useData(data: any): IStore {
     const {GameAll, ItemAll, TagAll, OptionAll, SubscriptionAll, UserWhoAmI} = data;
 
     const {shop, game} = parseShop(
-        GameAll, ItemAll, TagAll, OptionAll, SubscriptionAll
+        GameAll, ItemAll, TagAll, OptionAll, SubscriptionAll,
     );
 
     return ({
         user: {data: UserWhoAmI},
         shop,
         game,
-    })
+    });
 }

@@ -3,15 +3,15 @@ import {Autocomplete, createFilterOptions} from '@material-ui/lab';
 import {TextField} from '@material-ui/core';
 
 interface IFilter {
-    id: string,
-    custom: boolean
+    id: string;
+    custom: boolean;
 }
 
 interface IProps {
-    values: string[]
-    options: string[]
-    onChange: (v: string[]) => void
-    onCustom: (v: string) => void
+    values: string[];
+    options: string[];
+    onChange: (v: string[]) => void;
+    onCustom: (v: string) => void;
     getLabel: (v: string) => string;
 }
 
@@ -20,13 +20,13 @@ const filter = createFilterOptions<IFilter>();
 export const AutoCompleteCustom: React.FC<IProps> = (props) => {
     const {onChange, onCustom, values, options, getLabel} = props;
 
-    let optionsOverride = options
+    const optionsOverride = options
         .map(id => ({
             id,
-            custom: false
+            custom: false,
         }));
 
-    let valuesOverride = values.map(n => ({id: n, custom: false}));
+    const valuesOverride = values.map(n => ({id: n, custom: false}));
 
     return (
         <Autocomplete
@@ -58,7 +58,7 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
             value={valuesOverride}
             options={optionsOverride}
             getOptionLabel={({id: itemId, custom}) => !custom ? getLabel(itemId).replace(/\s/g, ' ') : itemId}
-            renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined" />}
+            renderInput={(params) => <TextField {...params} label="Search by name" variant="outlined"/>}
         />
-    )
-}
+    );
+};

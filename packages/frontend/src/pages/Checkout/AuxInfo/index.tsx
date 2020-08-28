@@ -1,20 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {InputField} from 'components/generic/components/InputField';
-import {Col, Row} from 'pages/Base/Grid';
-import {Typography, IconButton, Divider, FormControlLabel, Checkbox, Card, CardContent} from '@material-ui/core';
+import React from 'react';
+import {Col} from 'pages/Base/Grid';
 import {AuxPlatform, validatePlatform} from './AuxPlatform';
 import {AuxField} from './AuxField';
 import {AuxTime, validateTime, validateTimeZone} from './AuxTime';
 
 interface IProps {
-    value: Record<string, any>
-    setValue: (key: string, value: any) => void
+    value: Record<string, any>;
+    setValue: (key: string, value: any) => void;
 }
 
 export const AuxInfo: React.FC<IProps> = ({
-    value,
-    setValue
-}) => {
+                                              value,
+                                              setValue,
+                                          }) => {
     const text = value.text || "";
     const cross = !!value.cross;
     const time = validateTime(value.time);
@@ -40,5 +38,5 @@ export const AuxInfo: React.FC<IProps> = ({
                 setText={(v) => setValue("text", v)}
             />
         </Col>
-    )
-}
+    );
+};

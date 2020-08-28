@@ -5,8 +5,8 @@ import {Meta} from "./Base/Meta";
 
 export const About: React.FC = () => (
     <>
-        <Meta />
+        <Meta/>
         <TextCard title="About us"
-            data={Object.keys(text.about).map(key => ({title: key, text: (text as any).about[key]}))} />
+                  data={Object.keys(text.about).map(key => ({title: key, text: (text as any).about[key]}))}/>
     </>
 );

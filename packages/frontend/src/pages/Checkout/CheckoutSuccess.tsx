@@ -6,16 +6,16 @@ import {useStore} from 'pages/Data/Wrapper';
 import {Meta} from 'pages/Base/Meta';
 
 export const CheckoutSuccess: React.FC = () => {
-    const {current: {game, cart}, update: {cart: {wipe}}} = useStore();
-    const url = '/' + game.url
+    const {current: {game}, update: {cart: {wipe}}} = useStore();
+    const url = '/' + game.url;
 
     React.useEffect(() => {
         wipe();
-    }, [])
+    }, []);
 
     return (
         <>
-            <Meta />
+            <Meta/>
             <InfoCard
                 text={[
                     "The purchase was successful!",
@@ -23,8 +23,8 @@ export const CheckoutSuccess: React.FC = () => {
                     " ",
                     "Note: do not forget to check SPAM folder",
                 ]} actions={[
-                    <Button variant="outlined" component={Link} to={url + '/shop'}>To the shop!</Button>,
-                ]} />
+                <Button key="shop" variant="outlined" component={Link} to={url + '/shop'}>To the shop!</Button>,
+            ]}/>
         </>
-    )
-}
+    );
+};

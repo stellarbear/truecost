@@ -1,17 +1,20 @@
 import * as React from "react";
-import {ABase, IRender, ICtor} from "./ABase";
+import {ABase, ICtor, IRender} from "./ABase";
 import DateTimeField, {IDateTimePickerType} from "../components/DateTimeField";
 
 export interface IDate extends ICtor<number> {
     max?: Date;
     min?: Date;
-    type: IDateTimePickerType
+    type: IDateTimePickerType;
 }
 
 export class CDate extends ABase<number> {
     min: Date;
     max: Date;
-    type: IDateTimePickerType
+    type: IDateTimePickerType;
+    renderAddImplementation = this.DateTimeField;
+    renderFilterlementation = this.DateTimeField;
+    renderListlementation = this.DateTimeField;
 
     constructor({type, min = new Date(), max = new Date("2022-01-01"), ...rest}: IDate) {
         super(rest);
@@ -21,13 +24,9 @@ export class CDate extends ABase<number> {
         this.type = type;
     }
 
-    renderAddImplementation = this.DateTimeField;
-    renderFilterlementation = this.DateTimeField;
-    renderListlementation = this.DateTimeField;
-
     DateTimeField({value, onChange}: IRender<number>) {
-        const {label, base} = this.data;
-        const {min, max, type} = this;
+        const {label} = this.data;
+        const {min, type} = this;
 
         return (
             <DateTimeField

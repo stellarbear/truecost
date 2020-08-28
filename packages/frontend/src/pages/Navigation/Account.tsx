@@ -1,12 +1,11 @@
-import {Button, Typography, Container} from "@material-ui/core";
-import React, {useContext} from "react";
+import {Button} from "@material-ui/core";
+import React from "react";
 import {Link, useHistory} from 'react-router-dom';
-import {DataContext} from "pages/Data/Wrapper";
-import {Col, Row} from "pages/Base/Grid";
-import {useStore} from 'pages/Data/Wrapper';
+import {useStore} from "pages/Data/Wrapper";
+import {Row} from "pages/Base/Grid";
 import {RoleType} from "@truecost/shared";
 import {account} from "pages/Account/routes";
-import {useMutation, gql} from "@apollo/client";
+import {gql, useMutation} from "@apollo/client";
 
 const LOGOUT = gql`
     mutation UserLogout {
@@ -28,7 +27,7 @@ export const Account: React.FC = () => {
             setUser(null);
         }
         history.push("/login");
-    }
+    };
 
     const logIn = (
         <Row>
@@ -39,7 +38,7 @@ export const Account: React.FC = () => {
                 Login
             </Button>
         </Row>
-    )
+    );
 
     const logOut = (
         <Row>
@@ -55,7 +54,7 @@ export const Account: React.FC = () => {
                 logout
             </Button>
         </Row>
-    )
+    );
 
     return user ? logOut : logIn;
-}
+};

@@ -5,7 +5,7 @@ import {CRUDgql} from "auxiliary";
 import {CNumber} from "components/generic/types/CNumber";
 import {base} from "./Base/Base";
 import {game} from "./Base/Game";
-import {enumValues, OptionType, OptionArea, OptionMerge} from "@truecost/shared"
+import {OptionArea, OptionMerge, OptionType} from "@truecost/shared";
 
 export const AdminOption: React.FC = () => {
     const crud = new CRUDgql({
@@ -19,7 +19,7 @@ export const AdminOption: React.FC = () => {
 			type
             area
             merge
-            
+
 			item { id name game { id } }
 		`,
     });
@@ -45,8 +45,8 @@ export const AdminOption: React.FC = () => {
         label: "type",
         options: {
             [OptionType.NOMINAL]: "$",
-            [OptionType.RELATIVE]: "%"
-        }
+            [OptionType.RELATIVE]: "%",
+        },
     });
 
     const area = new CSelect({
@@ -55,8 +55,8 @@ export const AdminOption: React.FC = () => {
         label: "area",
         options: {
             [OptionArea.LOCAL]: "local",
-            [OptionArea.GLOBAL]: "global"
-        }
+            [OptionArea.GLOBAL]: "global",
+        },
     });
 
     const merge = new CSelect({
@@ -65,10 +65,10 @@ export const AdminOption: React.FC = () => {
         label: "merge",
         options: {
             [OptionMerge.INCLUDE]: "include",
-            [OptionMerge.EXCLUDE]: "exclude"
-        }
+            [OptionMerge.EXCLUDE]: "exclude",
+        },
     });
-    
+
     const item = new CLink({
         key: "item",
         label: "item",

@@ -1,17 +1,13 @@
 import * as React from 'react';
-import {IItem, Price} from "@truecost/shared";
-import {DataContext} from 'pages/Data/Wrapper';
-import {Chip, Typography, Checkbox} from '@material-ui/core';
-import Markdown from 'components/Markdown';
-import {useState} from 'react';
+import {IItem} from "@truecost/shared";
 import RangeField from 'components/generic/components/RangeField';
-import {Row, Col} from 'pages/Base/Grid';
+import {Col} from 'pages/Base/Grid';
 import {ItemDivider} from './ItemDivider';
 
 interface IProps {
-    item: IItem
-    chunk: [number, number]
-    onChange: (data: [number, number]) => void
+    item: IItem;
+    chunk: [number, number];
+    onChange: (data: [number, number]) => void;
 }
 
 export const ItemRange: React.FC<IProps> = (props) => {
@@ -25,7 +21,7 @@ export const ItemRange: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <ItemDivider condition={item.range.d.length > 0} />
+            <ItemDivider condition={item.range.d.length > 0}/>
             <Col fullWidth>
                 <RangeField
                     step={item.range.s}
@@ -41,5 +37,5 @@ export const ItemRange: React.FC<IProps> = (props) => {
                 />
             </Col>
         </>
-    )
-}
+    );
+};

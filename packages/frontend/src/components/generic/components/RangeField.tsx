@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {createStyles, makeStyles, Slider, Theme, Typography} from "@material-ui/core";
+import React, {useEffect} from "react";
+import {makeStyles, Slider, Typography} from "@material-ui/core";
 import TextField, {BaseTextFieldProps} from "@material-ui/core/TextField";
-import {Row, Col} from "../../../pages/Base/Grid";
+import {Col, Row} from "../../../pages/Base/Grid";
 
 const useStyles = makeStyles({
     markLabel: {
@@ -20,6 +20,7 @@ interface IProps extends BaseTextFieldProps {
         value: number;
         label: string;
     }[];
+    
     label: string;
     labelLeft?: string;
     labelRight?: string;
@@ -45,23 +46,23 @@ const RangeField: React.FC<IProps> = (props) => {
     } = props;
 
     const parse = (a: any): number => {
-        const parsed = parseInt(a, 10)
+        const parsed = parseInt(a, 10);
         const result = parsed || min;
 
-        return Math.min(Math.max(min, result), max)
-    }
+        return Math.min(Math.max(min, result), max);
+    };
 
-    const order = ([a, b]: [number, number]): [number, number] => a <= b ? [a, b] : [b, a]
+    const order = ([a, b]: [number, number]): [number, number] => a <= b ? [a, b] : [b, a];
 
     const validate = ([a, b]: [any, any]) => {
-        a = parse(a)
-        b = parse(b)
+        a = parse(a);
+        b = parse(b);
 
         setState(order([a, b]));
     };
 
     const [state, setState] = React.useState<[number, number]>(order(value));
-    const filteredMarks = marks.filter(({value, label}) => value >= min && value <= max)
+    const filteredMarks = marks.filter(({value}) => value >= min && value <= max);
 
     useEffect(() => {
         validate(value);
@@ -69,9 +70,9 @@ const RangeField: React.FC<IProps> = (props) => {
 
     return (
         <Col fullWidth s={8}
-            style={{
-                textAlign: "center",
-            }}>
+             style={{
+                 textAlign: "center",
+             }}>
             <Row between>
                 <TextField
                     disabled={single}
@@ -84,7 +85,7 @@ const RangeField: React.FC<IProps> = (props) => {
                     onBlur={() => onChangeEvent(state)}
                     inputProps={{
                         style: {textAlign: "center", maxWidth: 80},
-                    }} />
+                    }}/>
                 <Typography gutterBottom style={{textAlign: "center", margin: 8, marginTop: 14}}>
                     {label}
                 </Typography>
@@ -98,10 +99,10 @@ const RangeField: React.FC<IProps> = (props) => {
                     onBlur={() => onChangeEvent(state)}
                     inputProps={{
                         style: {textAlign: "center", maxWidth: 80},
-                    }} />
+                    }}/>
             </Row>
             <Slider
-                classes={{ markLabel: classes.markLabel,  }}
+                classes={{markLabel: classes.markLabel}}
                 track={"normal"}
                 min={min}
                 max={max}
