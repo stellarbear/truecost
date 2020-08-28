@@ -32,17 +32,17 @@ export const OrderInfo: React.FC = () => {
         const upsert = update.cart.upsert;
 
         return (
-            <Accordion key={key} elevation={3}>
+            <Accordion key={key} elevation={3} TransitionProps={{unmountOnExit: true}}>
                 <AccordionSummary
-                    expandIcon={<ExpandMore/>}>
+                    expandIcon={<ExpandMore />}>
                     <ItemHeader
                         onDelete={() => update.cart.remove({...cartItem})}
                         item={item} total={total} chunk={chunk}
-                        quantity={quantity}/>
+                        quantity={quantity} />
                 </AccordionSummary>
                 <AccordionDetails>
                     <Col fullWidth style={{width: "100%"}}>
-                        <ItemDivider condition={true}/>
+                        <ItemDivider condition={true} />
                         <ItemCount
                             onAdd={() => upsert({...cartItem, quantity: +1})}
                             onRemove={() => upsert({...cartItem, quantity: -1})}
@@ -73,25 +73,17 @@ export const OrderInfo: React.FC = () => {
         );
     };
 
-    const emptyAccordion = () => (
-        <Accordion style={{display: "none"}}>
-            <AccordionSummary>
-            </AccordionSummary>
-            <AccordionDetails>
-            </AccordionDetails>
-        </Accordion>
-    );
+    const keys = Object.keys(cartItems);
 
     return (
         <Col s={8} fullWidth right>
             <Typography variant="caption">Items</Typography>
-            {emptyAccordion()}
-            {Object.keys(cartItems).length > 0 ?
-                Object.keys(cartItems).map(key => itemCard(key))
-                : <CheckoutEmpty/>}
+            {keys.length > 0
+                ? keys.map(key => itemCard(key))
+                : <CheckoutEmpty />}
             <ItemExtra
-                total={total}/>
-            <ItemTotal/>
+                total={total} />
+            <ItemTotal />
         </Col>
     );
 };

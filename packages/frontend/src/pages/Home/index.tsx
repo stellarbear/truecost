@@ -19,33 +19,35 @@ const Home: React.FC = () => {
 
     return (
         <React.Fragment>
-            <Meta entity={game}/>
-            <Parallax image={image}/>
+            <Meta entity={game} />
+            <Parallax image={image} />
             <Grid container
-                  style={{
-                      color: "#fff",
-                  }}>
-                <Grid item xs={12} sm={12} md={6}>
-                    <HomeRange/>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6}>
-                    <HomeIntro style={{marginTop: "10vh", textAlign: "center"}}/>
+                style={{
+                    color: "#fff",
+                }}>
+                <Grid container direction="row-reverse" >
+                    <Grid item xs={12} sm={12} md={6}>
+                        <HomeIntro style={{margin: "10vh 0", textAlign: "center"}} />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6}>
+                        <HomeRange />
+                    </Grid>
                 </Grid>
                 <Grid container spacing={2} style={{margin: "16px 0px 16px -8px"}}>
                     <Grid item xs={12} sm={8}>
-                        <HomeInfo/>
+                        <HomeInfo />
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <HomeTwitter/>
+                        <HomeTwitter />
                     </Grid>
                     <Grid item xs={12}>
-                        <HomeTopOffers/>
+                        <HomeTopOffers />
                     </Grid>
                     <Grid item xs={12} sm={8}>
-                        <HomeHowTo/>
+                        <HomeHowTo />
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <HomeTrustPilot/>
+                        <HomeTrustPilot />
                     </Grid>
                 </Grid>
             </Grid>

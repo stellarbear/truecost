@@ -48,7 +48,7 @@ server
         renderToStringWithData(sheets.collect(app)).then((content) => {
             const initialState = client.extract();
 
-            const html = <Html assets={assets} css={sheets.toString().replace(/\s/g, '')} content={content}
+            const html = <Html assets={assets} css={sheets.toString()/*.replace(/\s/g, '')*/} content={content}
                                state={initialState}/>;
 
             res.status(context.statusCode || 200)
