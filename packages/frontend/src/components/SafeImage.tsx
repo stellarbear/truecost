@@ -33,6 +33,8 @@ export const SafeImage: React.FC<IProps> = ({src, style = {}, height, ...rest}) 
                 src={error ? fallback : src}
                 style={{
                     display: "block",
+                    maxWidth: "100%",
+                    margin: "0 auto",
                     ...style,
                 }}
                 {...rest}

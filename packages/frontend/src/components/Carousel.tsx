@@ -101,7 +101,7 @@ export const Carousel: React.FC<IProps> = (props) => {
     );
 
     const view = () => (
-        Array.isArray(current) && current.every(item => typeof item === "string")
+        Array.isArray(children) && children.every(item => typeof item === "string")
             ? (
                 <SafeImage
                     onTouchStart={(e) => setTouchX(e.touches?.[0]?.clientX ?? null)}
