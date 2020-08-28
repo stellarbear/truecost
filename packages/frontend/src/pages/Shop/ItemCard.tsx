@@ -93,7 +93,6 @@ const ItemCard: React.FC<IProps> = (props) => {
                     <SafeImage
                         height={300}
                         src={image} style={{objectFit: "contain", width: "inherit"}}/>
-
                     <Divider/>
                     <Row between p={8} s={8} width={["100%", "auto"]} style={{height: 60}}>
                         <Typography variant="body1" align="center"

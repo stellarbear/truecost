@@ -11,6 +11,7 @@ import {backend} from "auxiliary/route";
 import {HomeTopOffers} from "./HomeTopOffers";
 import {HomeInfo} from "./HomeInfo";
 import {Meta} from "pages/Base/Meta";
+import {HomeRange} from "./HomeRange";
 
 const Home: React.FC = () => {
     const {current: {game}} = useStore();
@@ -20,16 +21,17 @@ const Home: React.FC = () => {
         <React.Fragment>
             <Meta entity={game}/>
             <Parallax image={image}/>
-            <Grid container spacing={2}
+            <Grid container
                   style={{
                       color: "#fff",
                   }}>
-                <Grid item xs={12} sm={4} md={6}/>
-                <Grid item xs={12} sm={8} md={6}>
-                    <HomeIntro style={{marginTop: "15vh", textAlign: "center"}}/>
+                <Grid item xs={12} sm={12} md={6}>
+                    <HomeRange/>
                 </Grid>
-                <Grid container spacing={2}
-                      style={{marginTop: "15vh", marginBottom: 16}}>
+                <Grid item xs={12} sm={12} md={6}>
+                    <HomeIntro style={{marginTop: "10vh", textAlign: "center"}}/>
+                </Grid>
+                <Grid container spacing={2} style={{margin: "16px 0px 16px -8px"}}>
                     <Grid item xs={12} sm={8}>
                         <HomeInfo/>
                     </Grid>

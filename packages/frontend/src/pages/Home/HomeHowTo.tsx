@@ -24,7 +24,7 @@ export const HomeHowTo: React.FC = () => {
         icon: <RateReview fontSize="large"/>,
         text: "Leave an honest review in order to support us!",
     }];
-    
+
     return (
         <Paper elevation={6}>
             <RowSwipable id="how-to" s={16} p={16} w={250} arrows>

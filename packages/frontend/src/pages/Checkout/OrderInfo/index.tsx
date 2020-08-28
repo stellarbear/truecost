@@ -73,15 +73,25 @@ export const OrderInfo: React.FC = () => {
         );
     };
 
+    const emptyAccordion = () => (
+        <Accordion style={{display: "none"}}>
+            <AccordionSummary>
+            </AccordionSummary>
+            <AccordionDetails>
+            </AccordionDetails>
+        </Accordion>
+    );
+
     return (
         <Col s={8} fullWidth right>
             <Typography variant="caption">Items</Typography>
+            {emptyAccordion()}
             {Object.keys(cartItems).length > 0 ?
                 Object.keys(cartItems).map(key => itemCard(key))
                 : <CheckoutEmpty/>}
             <ItemExtra
                 total={total}/>
-            <ItemTotal />
+            <ItemTotal/>
         </Col>
     );
 };

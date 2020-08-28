@@ -14,10 +14,10 @@ export const ShowBookingInfo: React.FC<IProps> = ({raw}) => (
         <Button
             component={Link}
             to={`/track`}
-            startIcon={< ArrowBack />}
+            startIcon={< ArrowBack/>}
         >
             Back to tracking
-            </Button>
-        <BookingCard raw={raw} />
+        </Button>
+        <BookingCard raw={raw}/>
     </Col>
 );

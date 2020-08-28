@@ -20,7 +20,7 @@ interface IProps extends BaseTextFieldProps {
         value: number;
         label: string;
     }[];
-    
+
     label: string;
     labelLeft?: string;
     labelRight?: string;

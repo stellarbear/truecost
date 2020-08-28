@@ -34,12 +34,12 @@ export const Track: React.FC = () => {
 
     return (
         <>
-            <Meta />
+            <Meta/>
             <Container maxWidth="sm">
                 {data?.BookingGetByCode
                     ? <ShowBookingInfo raw={data.BookingGetByCode}
                     />
-                    : <QueryForm loading={loading} onQuery={onQuery} />
+                    : <QueryForm loading={loading} onQuery={onQuery}/>
                 }
                 <Box mt={2}>
                     {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}

@@ -19,7 +19,7 @@ const InputMaskedField: React.FC<IProps> = (props) => {
         separator = "_",
         ...rest
     } = props;
-    
+
     const validMask = mask
         .filter(e => ["String", "RegExp"].includes(e.constructor.name))
         .reduce((obj, cur) => cur.constructor.name == "String"
@@ -48,9 +48,9 @@ const InputMaskedField: React.FC<IProps> = (props) => {
         if (input) {
             const current: any = (input as any).current;
             current.value = chars.join("");
-            current.selectionStart = current.selectionEnd = pointer < inputMask.length 
-            ? inputMask[pointer] 
-            : validMask.length;
+            current.selectionStart = current.selectionEnd = pointer < inputMask.length
+                ? inputMask[pointer]
+                : validMask.length;
         }
     }, [chars]);
 

@@ -69,7 +69,7 @@ export const Carousel: React.FC<IProps> = (props) => {
                 }}
                 disabled={disabledLeft}
                 onClick={() => onLeft()}>
-                <ArrowBack />
+                <ArrowBack/>
             </IconButton>
             <IconButton
                 style={{
@@ -78,7 +78,7 @@ export const Carousel: React.FC<IProps> = (props) => {
                 }}
                 disabled={disabledRight}
                 onClick={() => onRight()}>
-                <ArrowForward />
+                <ArrowForward/>
             </IconButton>
         </>
     );
@@ -94,7 +94,7 @@ export const Carousel: React.FC<IProps> = (props) => {
                             transition: "all .2s",
                         }}
                         key={index}
-                        onClick={() => onIndex(index)} />
+                        onClick={() => onIndex(index)}/>
                 ))
             }
         </Row>
@@ -109,9 +109,9 @@ export const Carousel: React.FC<IProps> = (props) => {
                     onTouchEnd={() => onMove()}
                     draggable="false"
                     style={{objectFit: "cover", width: "100%"}}
-                    src={children[current] as string} />
+                    src={children[current] as string}/>
             ) : (
-                children[current] && React.isValidElement(children[current]) && 
+                children[current] && React.isValidElement(children[current]) &&
                 React.cloneElement(children[current] as any, {
                     onTouchStart: (e) => setTouchX(e.touches?.[0]?.clientX ?? null),
                     onTouchMove: (e) => setMoveX(e.touches?.[0]?.clientX ?? null),

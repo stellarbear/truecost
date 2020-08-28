@@ -86,14 +86,14 @@ export const AdminItem: React.FC = () => {
         base: "",
         key: "obtain",
         label: "obtain",
-        component: <EditorPost />,
+        component: <EditorPost/>,
     });
 
     const requirements = new CCustom({
         base: "",
         key: "requirements",
         label: "requirements",
-        component: <EditorPost />,
+        component: <EditorPost/>,
     });
 
     const isTopOffer = new CBoolean({
@@ -142,7 +142,7 @@ export const AdminItem: React.FC = () => {
         base: JSON.stringify(rangeBase),
         key: "range",
         label: "range",
-        component: <EditorRange />,
+        component: <EditorRange/>,
     });
 
     const fields = [url, link, images, price, eta, range, discount, limit, obtain,

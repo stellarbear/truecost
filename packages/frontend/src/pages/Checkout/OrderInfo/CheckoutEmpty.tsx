@@ -16,7 +16,7 @@ export const CheckoutEmpty: React.FC = () => {
             </Col>
             <Button variant="outlined" component={Link} to={url + '/shop'} style={{textAlign: "center"}}>
                 To the shop!
-                </Button>,
+            </Button>,
         </Row>
     );
 };

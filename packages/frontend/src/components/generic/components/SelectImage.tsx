@@ -39,7 +39,8 @@ const SelectImage: React.FC<ISelectImageProps> = (props) => {
                             ? <img
                                 style={{objectFit: "cover"}}
                                 src={src}
-                                onError={() => {}}
+                                onError={() => {
+                                }}
                                 alt=""
                                 width={width}
                                 height={height}

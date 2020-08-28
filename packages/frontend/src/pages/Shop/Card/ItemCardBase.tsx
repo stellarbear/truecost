@@ -50,16 +50,16 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
             <div style={{overflowY: "auto"}}>
                 {itemOptions.length > 0 ? itemOptions.map((optionId) =>
                     <div key={`${itemId}-option-${optionId}`}>
-                        <Row
-                            s={8}
-                            p={8}
-                            onMouseEnter={() => setHovered(optionId)}
-                            onMouseLeave={() => setHovered("")}
-                            onClick={() => toggleSelected(optionId)}
-                            style={{
-                                backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
-                                transition: "all 0.3s",
-                            }}
+                        <Row fullWidth between
+                             s={8}
+                             p={[8, 0]}
+                             onMouseEnter={() => setHovered(optionId)}
+                             onMouseLeave={() => setHovered("")}
+                             onClick={() => toggleSelected(optionId)}
+                             style={{
+                                 backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
+                                 transition: "all 0.3s",
+                             }}
                         >
                             <Checkbox
                                 checked={selectedOptions.includes(optionId)}

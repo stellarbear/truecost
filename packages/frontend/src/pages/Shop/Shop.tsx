@@ -60,7 +60,7 @@ const Shop: React.FC = () => {
         <InfoCard text={[
             'Unfortunately, nothing was found',
             'Try next time or change some filters',
-        ]} />
+        ]}/>
     );
 
     const renderItems = (data: string[]) => (
@@ -68,7 +68,7 @@ const Shop: React.FC = () => {
             {(itemIds => (
                 <RowGrid w={250} s={16} p={16}>
                     {itemIds.map(id => (
-                        <ItemCard key={id} id={id} />
+                        <ItemCard key={id} id={id}/>
                     ))}
                 </RowGrid>
             ))}
@@ -132,7 +132,7 @@ const Shop: React.FC = () => {
                 {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
                     <Col fullWidth left s={4} p={8} key={tagId}>
                         <Typography variant="body2">{`${tags.id[tagId].name}: `}</Typography>
-                        <Divider />
+                        <Divider/>
                         <Row start p={[2, 0]} s={8} wrap>
                             {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
                         </Row>
@@ -144,7 +144,7 @@ const Shop: React.FC = () => {
 
     return (
         <>
-            <Meta entity={game} />
+            <Meta entity={game}/>
             <Container fixed>
                 <Col fullWidth s={16}>
                     {filterNames()}

@@ -35,7 +35,7 @@ const image = (infoId: string, imageId: string) => `${backend.uri}/${infoId}/${i
 const mock = () => (
     <Paper elevation={6} style={{overflow: "hidden", height}}>
         <Row s={8} p={8}>
-            <CircularProgress size={24} />
+            <CircularProgress size={24}/>
             <Typography>Fetching some data...</Typography>
         </Row>
     </Paper>
@@ -62,32 +62,32 @@ export const HomeInfo = () => {
             <Carousel>
                 {validInfo.map(info => (
                     <div key={info.id} style={{position: "relative", cursor: "pointer"}}
-                        onClick={() => {
-                            if (info.redirect.length === 0) {
-                                return;
-                            }
+                         onClick={() => {
+                             if (info.redirect.length === 0) {
+                                 return;
+                             }
 
-                            const to = info.redirect[0] === "/" ? info.redirect.slice(1) : info.redirect;
-                            if (info.game) {
-                                const key = 'shop';
-                                const oldValue = SafeJSON.parse(localStorage.getItem(key), {});
-                                const newValue = {
-                                    ...oldValue,
-                                    tags: info.tag.map((t: any) => t.id),
-                                    names: info.item.map((i: any) => i.id),
-                                };
-                                localStorage.setItem(key, JSON.stringify(newValue));
+                             const to = info.redirect[0] === "/" ? info.redirect.slice(1) : info.redirect;
+                             if (info.game) {
+                                 const key = 'shop';
+                                 const oldValue = SafeJSON.parse(localStorage.getItem(key), {});
+                                 const newValue = {
+                                     ...oldValue,
+                                     tags: info.tag.map((t: any) => t.id),
+                                     names: info.item.map((i: any) => i.id),
+                                 };
+                                 localStorage.setItem(key, JSON.stringify(newValue));
 
-                                history.push(`${game.url}/${to}`);
-                            } else {
-                                history.push(`${to}`);
-                            }
-                        }}
+                                 history.push(`${game.url}/${to}`);
+                             } else {
+                                 history.push(`${to}`);
+                             }
+                         }}
                     >
                         <SafeImage
                             style={{height, objectFit: "cover", width: "100%"}}
                             draggable="false"
-                            src={image(info.id, info.images[0])} />
+                            src={image(info.id, info.images[0])}/>
                         <Row style={{position: "absolute", top: 0, left: 0}} p={16}>
                             <Typography style={{color: "white"}}>{info.text}</Typography>
                         </Row>

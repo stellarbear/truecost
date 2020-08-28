@@ -4,7 +4,7 @@ import Close from "@material-ui/icons/Close";
 import {colors} from "theme";
 
 export interface INotify {
-    notify(message: string, meta?: Record<string, any>): void; 
+    notify(message: string, meta?: Record<string, any>): void;
 }
 
 const NotificationContext = createContext({} as INotify);

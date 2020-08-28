@@ -37,7 +37,7 @@ server
             <ApolloProvider client={client}>
                 <StaticRouter context={context} location={req.url}>
                     <ThemeProvider theme={theme}>
-                        <App />
+                        <App/>
                     </ThemeProvider>
                 </StaticRouter>
             </ApolloProvider>
@@ -49,7 +49,7 @@ server
             const initialState = client.extract();
 
             const html = <Html assets={assets} css={sheets.toString().replace(/\s/g, '')} content={content}
-                state={initialState} />;
+                               state={initialState}/>;
 
             res.status(context.statusCode || 200)
                 .send(`<!doctype html>\n${ReactDOMServer.renderToStaticMarkup(html)}`);

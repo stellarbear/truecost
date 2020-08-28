@@ -43,7 +43,7 @@ export const AccountPicker: React.FC = () => {
 
     const logOut = (
         [
-            <MenuItem key={'account'}  component={Link} color="inherit" to={'/account/' + account.routes[0].url}>
+            <MenuItem key={'account'} component={Link} color="inherit" to={'/account/' + account.routes[0].url}>
                 account
             </MenuItem>,
             user?.role === RoleType.ADMIN && (
@@ -51,7 +51,7 @@ export const AccountPicker: React.FC = () => {
                     admin
                 </MenuItem>
             ),
-            <MenuItem key={'logout'}  color="inherit" onClick={onLogOut}>
+            <MenuItem key={'logout'} color="inherit" onClick={onLogOut}>
                 logout
             </MenuItem>,
         ]
@@ -61,7 +61,7 @@ export const AccountPicker: React.FC = () => {
         <>
             <IconButton color="inherit" aria-haspopup="true" onClick={(e) => setAnchorEl(e.currentTarget)}>
                 <Badge badgeContent={discount > 0 ? `${discount}\u00A0%` : 0} color="secondary">
-                    <AccountCircle />
+                    <AccountCircle/>
                 </Badge>
             </IconButton>
             <Menu

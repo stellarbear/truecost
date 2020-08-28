@@ -47,12 +47,12 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                     {`subscription discount: -${subscriptionDiscount} %`}
                 </Typography>
             </Col>
-            <Divider />
+            <Divider/>
             <Row end>
                 <div
                     onClick={() => !agree && notify("Agree to TOS first")}>
                     <Button disabled={!agree} variant="contained" type="submit">
-                        {loading ? <CircularProgress size={24} /> : `Total: ${total.toValue} $`}
+                        {loading ? <CircularProgress size={24}/> : `Total: ${total.toValue} $`}
                     </Button>
                 </div>
             </Row>
