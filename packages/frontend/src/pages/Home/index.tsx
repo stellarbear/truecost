@@ -2,7 +2,6 @@ import React from "react";
 import {Grid} from "@material-ui/core";
 import "css/float.css";
 import {useStore} from "../Data/Wrapper";
-import Parallax from "components/Parallax";
 import {HomeIntro} from "./HomeIntro";
 import {HomeTrustPilot} from "./HomeTrustPilot";
 import {HomeHowTo} from "./HomeHowTo";
@@ -11,7 +10,7 @@ import {backend} from "auxiliary/route";
 import {HomeTopOffers} from "./HomeTopOffers";
 import {HomeInfo} from "./HomeInfo";
 import {Meta} from "pages/Base/Meta";
-import {HomeRange} from "./HomeRange";
+import {HomeImage} from "./HomeImage";
 
 const Home: React.FC = () => {
     const {current: {game}} = useStore();
@@ -20,7 +19,7 @@ const Home: React.FC = () => {
     return (
         <React.Fragment>
             <Meta entity={game} />
-            <Parallax image={image} />
+            <HomeImage src={image} />
             <Grid container
                 style={{
                     color: "#fff",
@@ -30,7 +29,7 @@ const Home: React.FC = () => {
                         <HomeIntro style={{margin: "10vh 0", textAlign: "center"}} />
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
-                        <HomeRange />
+                        {/*<HomeRange />*/}
                     </Grid>
                 </Grid>
                 <Grid container spacing={2} style={{margin: "16px 0px 16px -8px"}}>
