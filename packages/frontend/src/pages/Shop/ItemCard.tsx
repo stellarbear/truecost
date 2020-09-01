@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {Button, ButtonBase, Card, Chip, Divider, Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
-import {Price} from '@truecost/shared';
+import {CalcPrice} from '@truecost/shared';
 import {PriceTypography} from "../Base/PriceTypography";
 import {ItemCardBase} from "./Card/ItemCardBase";
 import {ItemCardRange} from "./Card/ItemCardRange";
@@ -30,7 +30,7 @@ const ItemCard: React.FC<IProps> = (props) => {
     }
 
     const item = items.id[id];
-    const price = Price.fromItem(item);
+    const itemPrice = CalcPrice.fromItem(item);
     const redirect = `/${url}/item/${item.url}`;
 
     const [raised, setRaised] = React.useState(false);
@@ -50,8 +50,8 @@ const ItemCard: React.FC<IProps> = (props) => {
             onClick={(event) => event.stopPropagation()}>
             {
                 item.range.d.length === 0
-                    ? <ItemCardBase item={item} redirect={redirect} price={price}/>
-                    : <ItemCardRange item={item} redirect={redirect} price={price}/>
+                    ? <ItemCardBase item={item} redirect={redirect} price={itemPrice}/>
+                    : <ItemCardRange item={item} redirect={redirect} price={itemPrice}/>
             }
         </div>
     );
@@ -103,7 +103,7 @@ const ItemCard: React.FC<IProps> = (props) => {
                             color="primary"
                             variant="outlined"
                         >
-                            <PriceTypography price={price.toValue}
+                            <PriceTypography price={itemPrice.value}
                                              discount={item.discount}/>
                         </Button>
                     </Row>

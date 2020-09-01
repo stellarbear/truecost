@@ -1,5 +1,6 @@
 import {IGame, IItem, IOption, ISubscription, ITag, rangeBase} from "../interfaces";
-import {arrayToDict, dictSortMap, ICartItem, OptionArea, OptionMerge, Price, SafeJSON} from "..";
+import {arrayToDict, dictSortMap, ICartItem, OptionArea, OptionMerge, SafeJSON} from "..";
+import {CalcPrice, CalcResult} from "../math";
 
 export type Dict<T> = Record<string, T>;
 
@@ -28,9 +29,7 @@ export interface IShop {
 
     getOptions(itemId: string): string[];
 
-    getTotal(cart: Dict<ICartItem>, discount?: number): Price;
-
-    getExtra(price: Price, options: string[], discount?: number): Price;
+    getTotal(cart: Dict<ICartItem>, extra?: string[]): CalcResult;
 }
 
 export interface IGameContext {
@@ -98,35 +97,26 @@ export const parseShop = (
 
                 return result;
             },
-            getTotal(cart: Dict<ICartItem>, discount = 0) {
+
+            getTotal(cart: Dict<ICartItem>, extra: string[] = []) {
                 const items = this.items.id;
                 const options = this.options.local.id;
+                const global = this.options.global.id;
 
-                let result = Price.zero();
+                let value = 0;
 
                 for (const itemId in cart) {
-                    const amount = Price
-                        .fromItem(items[itemId], cart[itemId].chunk)
-                        .withOption(cart[itemId].optionIds.map(o => options[o]))
-                        .percentage(100 - discount);
+                    const itemPrice = CalcPrice.fromItem(items[itemId], cart[itemId].chunk);
+                    const totalPrice = CalcPrice.fromItemAndOptions(itemPrice,
+                         cart[itemId].optionIds.map(o => options[o]));
 
-                    result = result.add(amount);
+                    value += totalPrice.value;
                 }
 
-                return result;
-            },
-            getExtra(price: Price, options: string[], discount = 0) {
-                const global = this.options.global.id;
-                const optionsMapped = (options.map(s => global[s]));
+                value = CalcPrice.fromItemAndOptions({value, string: ""}, extra.map(s => global[s])).value;
+                const string = `${value} $`;
 
-                let result = Price.zero();
-                for (const option of optionsMapped) {
-                    const amount = price.getOption(option).percentage(100 - discount);
-
-                    result = result.add(amount);
-                }
-
-                return result;
+                return {value, string};
             },
             getTagDeps(tagId: string) {
                 const result = new Set([tagId]);

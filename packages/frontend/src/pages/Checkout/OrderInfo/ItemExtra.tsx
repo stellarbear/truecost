@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {Price} from "@truecost/shared";
 import {useStore} from 'pages/Data/Wrapper';
 import {Checkbox, Typography} from '@material-ui/core';
 import {ItemDivider} from './ItemDivider';
+import {CalcResult, CalcPrice} from '@truecost/shared';
+import {TypographyTwoLevel} from 'pages/Base/TypographyTwoLevel';
 
 interface IProps {
-    total: Price;
+    total: CalcResult;
 }
 
 export const ItemExtra: React.FC<IProps> = (props) => {
@@ -32,32 +33,35 @@ export const ItemExtra: React.FC<IProps> = (props) => {
     return (
         <>
             <Typography variant="caption">Extra options</Typography>
-            <ItemDivider condition={true}/>
-            {Object.keys(options).map((optionId) =>
-                (
+            <ItemDivider condition={true} />
+            {Object.keys(options).map((optionId) => {
+                const option = CalcPrice.fromOption(total, options[optionId]);
+                return (
                     <div key={`${optionId}`}
-                         onMouseEnter={() => setHovered(optionId)}
-                         onMouseLeave={() => setHovered("")}
-                         style={{
-                             display: "flex", alignItems: "center", justifyContent: "flex-end", cursor: "pointer",
-                             backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
-                             transition: "all 0.3s",
-                         }}
-                         onClick={() => toggleOption(optionId)}>
+                        onMouseEnter={() => setHovered(optionId)}
+                        onMouseLeave={() => setHovered("")}
+                        style={{
+                            display: "flex", alignItems: "center", justifyContent: "flex-end", cursor: "pointer",
+                            backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
+                            transition: "all 0.3s",
+                        }}
+                        onClick={() => toggleOption(optionId)}>
                         <Typography variant="caption" style={{
                             textAlign: "right",
                             userSelect: "none",
                         }}>{options[optionId].name}</Typography>
-                        <Checkbox checked={selected.includes(optionId)}/>
+                        <Checkbox checked={selected.includes(optionId)} />
                         <div style={{minWidth: 100}}>
-                            <Typography variant="h6" style={{
-                                whiteSpace: "nowrap", textAlign: "center", userSelect: "none",
-                            }}>{total.getOption(options[optionId]).toString}</Typography>
+                            <TypographyTwoLevel
+                                text={option.string}
+                                description={option.description}
+                            />
                         </div>
                     </div>
-                ))
+                );
+            })
             }
-            <ItemDivider condition={Object.keys(options).length > 0}/>
+            <ItemDivider condition={Object.keys(options).length > 0} />
         </>
     );
 };

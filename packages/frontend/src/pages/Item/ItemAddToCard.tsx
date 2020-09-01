@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IItem, Price} from "@truecost/shared";
+import {IItem, CalcResult} from "@truecost/shared";
 import {useStore} from 'pages/Data/Wrapper';
 import {Button, Typography} from '@material-ui/core';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
@@ -10,7 +10,7 @@ import {useNotification} from 'components/wrappers/NotifyWrapper';
 
 interface IProps {
     item: IItem;
-    price: Price;
+    price: CalcResult;
     options: string[];
     chunk: [number, number];
 }
@@ -44,7 +44,7 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
         >
             <Row fullWidth between>
                 <Typography variant="caption">{noLimit ? "add to cart" : "item in your cart"}</Typography>
-                <PriceTypography price={price.toValue}
+                <PriceTypography price={price.value}
                                  discount={item.discount}/>
             </Row>
         </Button>

@@ -1,15 +1,16 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
-import {IItem, Price} from '@truecost/shared';
+import {IItem, CalcResult, CalcPrice} from '@truecost/shared';
 import {useStore} from 'pages/Data/Wrapper';
 import {Button, Checkbox, Divider, Typography} from '@material-ui/core';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import {Row} from 'pages/Base/Grid';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
+import {TypographyTwoLevel} from 'pages/Base/TypographyTwoLevel';
 
 interface IProps {
     item: IItem;
-    price: Price;
+    price: CalcResult;
     redirect: string;
 }
 
@@ -33,7 +34,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
             : filtered);
     };
 
-    const totalPrice = price.withOption(selectedOptions.map(id => options.local.id[id]));
+    const totalPrice = CalcPrice.fromItemAndOptions(price, selectedOptions.map(id => options.local.id[id]));
     const itemOptions = shop().getOptions(item.id);
 
     const noLimit = cart.count({itemId: item.id}) < (item.limit || Infinity);
@@ -48,34 +49,39 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                 Open item page
             </Button>
             <div style={{overflowY: "auto"}}>
-                {itemOptions.length > 0 ? itemOptions.map((optionId) =>
-                    <div key={`${itemId}-option-${optionId}`}>
-                        <Row fullWidth between
-                             s={8}
-                             p={[8, 0]}
-                             onMouseEnter={() => setHovered(optionId)}
-                             onMouseLeave={() => setHovered("")}
-                             onClick={() => toggleSelected(optionId)}
-                             style={{
-                                 backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
-                                 transition: "all 0.3s",
-                             }}
-                        >
-                            <Checkbox
-                                checked={selectedOptions.includes(optionId)}
-                            />
-                            <Typography variant="body2"
-                                        style={{userSelect: "none"}}>{options.local.id[optionId].name}
-                            </Typography>
-                            <Typography variant="h6" align="center" noWrap>
-                                {price.getOption(options.local.id[optionId]).toString}
-                            </Typography>
-                        </Row>
-                        <Divider style={{paddingLeft: 8}}/>
-                    </div>,
-                ) : (
-                    <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
-                )}
+                {itemOptions.length > 0 ? itemOptions.map((optionId) => {
+                    const option = CalcPrice.fromOption(price, options.local.id[optionId]);
+
+                    return (
+                        <div key={`${itemId}-option-${optionId}`}>
+                            <Row fullWidth between
+                                s={8}
+                                p={[8, 0]}
+                                onMouseEnter={() => setHovered(optionId)}
+                                onMouseLeave={() => setHovered("")}
+                                onClick={() => toggleSelected(optionId)}
+                                style={{
+                                    backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
+                                    transition: "all 0.3s",
+                                }}
+                            >
+                                <Checkbox
+                                    checked={selectedOptions.includes(optionId)}
+                                />
+                                <Typography variant="body2"
+                                    style={{userSelect: "none"}}>{options.local.id[optionId].name}
+                                </Typography>
+                                <TypographyTwoLevel
+                                    text={option.string}
+                                    description={option.description}
+                                />
+                            </Row>
+                            <Divider style={{paddingLeft: 8}} />
+                        </div>
+                    );
+                }) : (
+                        <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
+                    )}
             </div>
             <Button
                 fullWidth
@@ -99,8 +105,8 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                     <Typography variant="caption">{noLimit ? "add to cart" : "item in your cart"}</Typography>
                     {
                         noLimit
-                            ? <Typography variant="h5">{totalPrice.toString}</Typography>
-                            : <CheckCircle style={{marginTop: 8}}/>
+                            ? <Typography variant="h5">{totalPrice.string}</Typography>
+                            : <CheckCircle style={{marginTop: 8}} />
                     }
 
                 </Row>

@@ -7,7 +7,7 @@ import {ItemEntity} from "../crud/item/item.entity";
 import {TagEntity} from "../crud/tag/tag.entity";
 import {OptionEntity} from "../crud/option/option.entity";
 import {GameEntity} from "../crud/game/game.entity";
-import {parseCart, parseShop, Price, SafeJSON, subscription as subscrMath} from "@truecost/shared";
+import {parseCart, parseShop, SafeJSON, subscription as subscrMath, CalcPrice} from "@truecost/shared";
 import {backend, frontend} from "../../helpers/route";
 import {creds} from "../../helpers/creds";
 import Stripe from 'stripe';
@@ -94,8 +94,7 @@ export class BookingResolver {
         const optionsLocal = store.options.local.id;
         const optionsGlobal = store.options.global.id;
         const cart = parseCart(store, SafeJSON.parse(booking, {}));
-
-        const total = store.getTotal(cart.local);
+        const localCartPrice = store.getTotal(cart.local);
 
         const line_items = [];
         //  items
@@ -108,7 +107,9 @@ export class BookingResolver {
             const name = item.name + (item.range.d.length > 0 ? ` ${chunk?.join(' - ')}` : '');
             const description = options.map(o => o.name).join(', ') || "-";
             const images = item.images.map(i => `${backend.uri}/${item.id}/${i}/u.png`);
-            const amount = Price.fromItem(item, chunk).withOption(options).percentage(discount).toValue * 100;
+            const itemPrice = CalcPrice.fromItem(item, chunk);
+            const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, options);
+            const amount = CalcPrice.percentage(totalPrice.value * 100, discount);
 
             return (
                 {
@@ -117,7 +118,7 @@ export class BookingResolver {
                     currency: 'usd',
                     description,
                     images,
-                    amount,
+                    amount: amount > 0 ? amount : 1,
                 }
             );
 
@@ -130,7 +131,8 @@ export class BookingResolver {
             const name = option.name;
             const quantity = 1;
             const images: string[] = [];
-            const amount = total.getOption(option).percentage(discount).toValue * 100;
+            const optionPrice = CalcPrice.fromOption(localCartPrice, option);
+            const amount = CalcPrice.percentage(optionPrice.value * 100, discount);
             return (
                 {
                     name,
@@ -138,7 +140,7 @@ export class BookingResolver {
                     currency: 'usd',
                     description: '-',
                     images,
-                    amount,
+                    amount: amount > 0 ? amount : 1,
                 }
             );
         }));
@@ -158,6 +160,8 @@ export class BookingResolver {
                 });
             }
         }
+
+        console.log(line_items);
 
         const information: Record<string, any> = SafeJSON.parse(info, {});
         slack([

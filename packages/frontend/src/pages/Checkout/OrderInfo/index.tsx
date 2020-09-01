@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col} from 'pages/Base/Grid';
 import {Accordion, AccordionDetails, AccordionSummary, Typography} from '@material-ui/core';
-import {Price} from '@truecost/shared';
+import {CalcPrice} from '@truecost/shared';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {ItemOption} from './ItemOption';
 import {ItemHeader} from './ItemHeader';
@@ -26,8 +26,9 @@ export const OrderInfo: React.FC = () => {
         const {itemId, optionIds, chunk, quantity} = cartItem;
         const item = items[itemId];
 
-        const price = Price.fromItem(item, chunk);
-        const total = price.withOption(optionIds.map(o => local[o]));
+        debugger;
+        const itemPrice = CalcPrice.fromItem(item, chunk);
+        const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, optionIds.map(o => local[o]));
 
         const upsert = update.cart.upsert;
 
@@ -37,7 +38,7 @@ export const OrderInfo: React.FC = () => {
                     expandIcon={<ExpandMore />}>
                     <ItemHeader
                         onDelete={() => update.cart.remove({...cartItem})}
-                        item={item} total={total} chunk={chunk}
+                        item={item} total={totalPrice} chunk={chunk}
                         quantity={quantity} />
                 </AccordionSummary>
                 <AccordionDetails>
@@ -59,7 +60,7 @@ export const OrderInfo: React.FC = () => {
                                 })}
                         />
                         <ItemOption
-                            price={price} item={item}
+                            price={itemPrice} item={item}
                             selected={optionIds}
                             onChange={(val: string[]) =>
                                 upsert({
@@ -83,7 +84,8 @@ export const OrderInfo: React.FC = () => {
                 : <CheckoutEmpty />}
             <ItemExtra
                 total={total} />
-            <ItemTotal />
+            <ItemTotal
+                total={total} />
         </Col>
     );
 };

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
-import {IItem, Price} from '@truecost/shared';
+import {IItem, CalcResult} from '@truecost/shared';
 import {useStore} from 'pages/Data/Wrapper';
 import {Button, ButtonBase, Typography} from '@material-ui/core';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 
 interface IProps {
     item: IItem;
-    price: Price;
+    price: CalcResult;
     redirect: string;
 }
 
@@ -55,7 +55,7 @@ export const ItemCardRange: React.FC<IProps> = (props) => {
                             <Typography variant="caption">{noLimit ? "starting from" : "item in your cart"}</Typography>
                             {
                                 noLimit
-                                    ? <Typography variant="h5">{price.toString}</Typography>
+                                    ? <Typography variant="h5">{price.string}</Typography>
                                     : <CheckCircle/>
                             }
                         </div>

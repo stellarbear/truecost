@@ -35,7 +35,8 @@ export const ItemRelated: React.FC<IProps> = (props) => {
     const {current: {shop}} = useStore();
     const {items} = shop();
 
-    const [related] = useState<string[]>(getRelated(items.id, id));
+    const [related, setRelated] = useState<string[]>([]);
+    React.useEffect(() => setRelated(getRelated(items.id, id)), [id]);
 
     return (
         <RowSwipable id="related-items" s={16} p={16} w={250} arrows>

@@ -28,7 +28,7 @@ export const AdminOption: React.FC = () => {
     const price = new CNumber({
         key: "price",
         label: "price",
-        min: 1,
+        min: -1000,
         max: 1000,
     });
 

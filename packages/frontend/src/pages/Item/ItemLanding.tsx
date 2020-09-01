@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IItem, Price} from "@truecost/shared";
+import {IItem, CalcPrice} from "@truecost/shared";
 import {Button, Container, Grid} from '@material-ui/core';
 import {ItemImage} from './ItemImage';
 import {ItemDescription} from './ItemDescription';
@@ -32,44 +32,44 @@ export const ItemLanding: React.FC<IProps> = (props) => {
         ? [item.range.d.first().a, item.range.d.last().a] : [0, 0]);
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
 
-    const price = Price.fromItem(item, chunk);
-    const total = price.withOption(selectedOptions.map(o => options.local.id[o]));
+    const itemPrice = CalcPrice.fromItem(item, chunk);
+    const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, selectedOptions.map(o => options.local.id[o]));
 
     return (
         <Container fixed>
             <Button
                 component={Link}
                 to={`/${url}/shop`}
-                startIcon={< ArrowBack/>}
+                startIcon={< ArrowBack />}
             >
                 To the shop
             </Button>
             <Grid container>
                 <Grid item xs={12} lg={6}>
-                    <ItemImage item={item}/>
+                    <ItemImage item={item} />
                 </Grid>
                 <Grid item xs={12} lg={6}>
-                    <ItemDescription item={item}/>
-                    <ItemTag item={item} chunk={chunk}/>
-                    <ItemChildren item={item}/>
-                    <ItemObtain item={item}/>
-                    <ItemRequirements item={item}/>
-                    <ItemRange item={item} chunk={chunk} onChange={setChunk}/>
-                    <ItemPrice price={price} item={item}/>
-                    <ItemOption price={price} item={item}
-                                selected={selectedOptions}
-                                onChange={(val: string[]) => setSelectedOptions(val)}/>
-                    <ItemEta item={item} chunk={chunk}/>
+                    <ItemDescription item={item} />
+                    <ItemTag item={item} chunk={chunk} />
+                    <ItemChildren item={item} />
+                    <ItemObtain item={item} />
+                    <ItemRequirements item={item} />
+                    <ItemRange item={item} chunk={chunk} onChange={setChunk} />
+                    <ItemPrice price={itemPrice} item={item} />
+                    <ItemOption price={itemPrice} item={item}
+                        selected={selectedOptions}
+                        onChange={(val: string[]) => setSelectedOptions(val)} />
+                    <ItemEta item={item} chunk={chunk} />
                     <ItemAddToCard
-                        price={total} item={item} chunk={chunk}
+                        price={totalPrice} item={item} chunk={chunk}
                         options={selectedOptions}
                     />
                 </Grid>
             </Grid>
-            <Button startIcon={< ArrowDownward/>}>
+            <Button startIcon={< ArrowDownward />}>
                 Related goods
             </Button>
-            <ItemRelated item={item}/>
+            <ItemRelated item={item} />
         </Container>
     );
 };

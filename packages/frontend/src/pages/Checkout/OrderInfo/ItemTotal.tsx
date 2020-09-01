@@ -3,17 +3,20 @@ import {Typography} from '@material-ui/core';
 import {useStore} from 'pages/Data/Wrapper';
 import {PriceTypography} from 'pages/Base/PriceTypography';
 import {Row} from 'pages/Base/Grid';
+import {CalcPrice, CalcResult} from '@truecost/shared';
 
-export const ItemTotal: React.FC = () => {
+interface IProps {
+    total: CalcResult;
+}
+
+export const ItemTotal: React.FC<IProps> = (props) => {
+    const {total} = props;
     const {current: {shop, cart}} = useStore();
 
     const cartItems = cart();
-    const {items: {id: items}} = shop();
+    const {items: {id: items}, options: {global: {id: global}}} = shop();
 
-    const base = shop().getTotal(cartItems.local);
-    const extra = shop().getExtra(base, cartItems.global);
-    const subtotal = base.add(extra);
-
+    const totalPrice = CalcPrice.fromItemAndOptions(total,cartItems.global.map(o => global[o]));
     const discount = Object.keys(cartItems.local).reduce((acc, cur) => acc + items[cur].discount, 0);
 
     return (
@@ -22,7 +25,7 @@ export const ItemTotal: React.FC = () => {
             <Row end s={16}>
                 <Typography>subtotal:</Typography>
                 <PriceTypography
-                    price={subtotal.toValue}
+                    price={totalPrice.value}
                     discount={discount}
                 />
             </Row>
