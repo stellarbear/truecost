@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Col} from 'pages/Base/Grid';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {Dict, SafeJSON} from '@truecost/shared';
-import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography} from '@material-ui/core';
+import {Accordion, AccordionDetails, AccordionSummary, Typography} from '@material-ui/core';
 import {BookingInfo} from './BookingInfo';
 import {BookingGoods} from './BookingGoods';
 import {BookingImages} from './BookingImages';
@@ -19,8 +19,8 @@ export const BookingCard: React.FC<IProps> = ({raw}) => {
     const dataParsed = SafeJSON.parse<{ game: string; data: any[] }>(data, {game: "-", data: []});
 
     return (
-        <ExpansionPanel>
-            <ExpansionPanelSummary
+        <Accordion>
+            <AccordionSummary
                 expandIcon={<ExpandMore/>}>
                 <Col left>
                     <Typography>
@@ -30,15 +30,15 @@ export const BookingCard: React.FC<IProps> = ({raw}) => {
                         {status}
                     </Typography>
                 </Col>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
                 <Col fullWidth left s={16}>
                     <BookingImages bookingId={id} images={images || []}/>
                     <BookingInfo info={infoParsed}/>
                     <BookingGoods goods={dataParsed}/>
                     <BookingTotal total={total || 1}/>
                 </Col>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
+            </AccordionDetails>
+        </Accordion>
     );
 };

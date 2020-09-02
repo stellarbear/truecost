@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col} from 'pages/Base/Grid';
-import {Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, NoSsr} from '@material-ui/core';
+import {Typography, Accordion, AccordionSummary, AccordionDetails, NoSsr} from '@material-ui/core';
 import {CalcPrice} from '@truecost/shared';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {ItemOption} from './ItemOption';
@@ -32,15 +32,15 @@ export const OrderInfo: React.FC = () => {
         const upsert = update.cart.upsert;
 
         return (
-            <ExpansionPanel key={key} elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
-                <ExpansionPanelSummary
+            <Accordion key={key} elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
+                <AccordionSummary
                     expandIcon={<ExpandMore />}>
                     <ItemHeader
                         onDelete={() => update.cart.remove({...cartItem})}
                         item={item} total={totalPrice} chunk={chunk}
                         quantity={quantity} />
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
+                </AccordionSummary>
+                <AccordionDetails>
                     <Col fullWidth style={{width: "100%"}}>
                         <ItemDivider condition={true} />
                         <ItemCount
@@ -68,8 +68,8 @@ export const OrderInfo: React.FC = () => {
                                 })}
                         />
                     </Col>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                </AccordionDetails>
+            </Accordion>
         );
     };
 
