@@ -10,6 +10,10 @@ export const HomeTopOffers: React.FC = () => {
 
     const top = Object.keys(items).filter(i => items[i].topOffer);
 
+    if (top.length === 0) {
+        return <div />;
+    }
+
     return (
         <Paper elevation={6}>
             <RowSwipable id="top-offers" s={16} p={16} w={250} arrows>

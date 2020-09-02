@@ -69,7 +69,7 @@ export class BookingResolver {
         assert(gameEntiry, "invalid game");
 
         const GameAll = await this.gameRepo.findAll();
-        const ItemAll = await this.itemRepo.findAll({populate: true});
+        const ItemAll = await this.itemRepo.findAll();
         const TagAll = await this.tagRepo.findAll();
         const OptionAll = await this.optionRepo.findAll();
         const SubscriptionAll = await this.subsRepo.findAll();
@@ -106,7 +106,7 @@ export class BookingResolver {
 
             const name = item.name + (item.range.d.length > 0 ? ` ${chunk?.join(' - ')}` : '');
             const description = options.map(o => o.name).join(', ') || "-";
-            const images = item.images.map(i => `${backend.uri}/${item.id}/${i}/u.png`);
+            const images = item.images.map(i => `${backend.uri}/${itemId}/${i}/u.png`);
             const itemPrice = CalcPrice.fromItem(item, chunk);
             const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, options);
             const amount = CalcPrice.percentage(totalPrice.value * 100, discount);

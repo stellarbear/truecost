@@ -9,17 +9,18 @@ export interface CalcResult {
 export class CalcPrice {
     private constructor(private readonly price: number = 0) {}
 
+    static round = (val:number) => Math.round((val + Number.EPSILON) * 100) / 100;
+
     private static sum(...nums: number[]): number {
         const total = nums.reduce((acc, cur) => acc + cur, 0);
 
-        return total;
+        return this.round(total);
     }
 
     static percentage(from: number, value: number): number {
         const delta = from * value / 100;
-        const result = Math.round((delta + Number.EPSILON) * 100) / 100;
 
-        return result;
+        return this.round(delta);
     }
 
     private static applyRange(item: IItem, chunk: [number, number]) {
