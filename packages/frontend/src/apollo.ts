@@ -30,7 +30,7 @@ const link = (props: IApolloClient) => ApolloLink.from([
 ]);
 
 const createApolloClient = ({ssr, cookie}: IApolloClient) => {
-    console.log(`connect from ${ssr ? "server" : "client"} to ${backend.endpoint}`);
+    console.log(`connect from ${ssr ? "server" : "client"} to ${backend.demand(ssr)}`);
     const client = new ApolloClient({
         cache: !ssr ? new InMemoryCache().restore((window as any).apolloState) : new InMemoryCache(),
         ssrForceFetchDelay: !ssr ? 100 : undefined,
