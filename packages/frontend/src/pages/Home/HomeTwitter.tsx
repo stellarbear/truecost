@@ -18,7 +18,9 @@ export const HomeTwitter: React.FC = () => {
                 noBoarders
                 sourceType="profile"
                 screenName={game.twitter}
-                options={{height}}
+                noScrollbar
+                noFooter
+                options={{tweetLimit: 4, height}}
             />
         </Paper>
     );
