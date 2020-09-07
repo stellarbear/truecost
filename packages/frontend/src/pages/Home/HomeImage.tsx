@@ -15,6 +15,10 @@ export const HomeImage: React.FC<IProps> = ({src}) => (
     >
         <SafeImage
             height={"inherit"}
-            src={src} style={{objectFit: "contain", width: "inherit"}} />
+            src={src} style={{
+                width: "100vw",
+                height: "100vh",
+                objectFit: "cover",
+            }} />
     </div>
 );
