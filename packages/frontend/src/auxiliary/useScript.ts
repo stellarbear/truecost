@@ -3,10 +3,10 @@ import {useEffect} from 'react';
 export const useScript = (html: any) => {
     useEffect(() => {
         const script = document.createElement('script');
+        script.defer = true;
 
         script.type = "text/javascript";
         script.innerHTML = html;
-        script.async = true;
 
         document.body.appendChild(script);
 
