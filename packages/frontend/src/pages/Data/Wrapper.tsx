@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useState} from "react";
 import {Dict, ICart, IGame, IGameContext, IShop, ISubscription, IUser, subscription} from "@truecost/shared";
-import {IStore, useData} from "./useData";
+import {IStore, useData, IInfoContext} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
@@ -20,6 +20,7 @@ interface IRawContext {
 export interface IDataContext {
     meta: Dict<IMeta>;
     games: IGameContext["data"];
+    infos: IInfoContext["data"];
     subs: Dict<ISubscription>;
     current: {
         discount: number;
@@ -86,6 +87,7 @@ const Data: React.FC = ({children}) => {
             meta,
             subs: store.shop.subs,
             games: store.game.data,
+            infos: store.info.data,
             current: {
                 discount: subscription.validate(user),
                 user: user,

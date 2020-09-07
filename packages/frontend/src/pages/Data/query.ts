@@ -86,5 +86,20 @@ export const BULK_QUERY = gql`
 
             description
         }
+
+        InfoAll {
+            id
+            name
+            order
+            active
+
+            text
+            redirect
+            images
+
+            tag  { id }
+            item  { id }
+            game  { id }
+        }
     }
 `;

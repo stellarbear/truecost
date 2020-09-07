@@ -46,7 +46,7 @@ export const Mobile: React.FC<IProps> = (props) => {
             {button(url + '/checkout', "Checkout")}
             <Divider/>
             {button("/track", "Track")}
-            {button("/blog", "Blog")}
+            {button("/discount", "Discount")}
             {button("/contact", "Contact")}
             {button("/about", "About")}
             <Divider/>
