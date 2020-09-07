@@ -2,6 +2,7 @@
 packages/**/dist
 packages/**/build
 packages/backend/static/*
+packages/backend/static.backup/*
 packages/shared/build/
 packages/backend/build/
 packages/frontend/build/
