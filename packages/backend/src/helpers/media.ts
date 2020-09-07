@@ -3,7 +3,6 @@ import * as path from "path";
 import * as sharp from 'sharp';
 import {promisify} from 'util';
 import {FileUpload} from "graphql-upload";
-import {constants} from "@truecost/shared";
 
 const dir = path.resolve(fs.realpathSync(process.cwd()), "static");
 const rmdir = promisify(fs.rmdir);
@@ -48,12 +47,12 @@ export class Media {
         fullName: string,
         width?: number,
     ) {
-        let handle = await sharp(path.resolve(uploadPath, fullName));
-        let resized = width ? (await handle.resize(width)) : handle;
+        const handle = await sharp(path.resolve(uploadPath, fullName));
+        const resized = width ? (await handle.resize(width)) : handle;
 
         await resized.toFile(path.resolve(uploadPath,
             width
                 ? `${baseName}x${width}.webp`
-                : `${baseName}.webp`))
+                : `${baseName}.webp`));
     }
 }

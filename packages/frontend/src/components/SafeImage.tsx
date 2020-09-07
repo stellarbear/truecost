@@ -4,7 +4,6 @@ import {useStore} from 'pages/Data/Wrapper';
 import LazyLoad from 'react-lazyload';
 import {backend, frontend} from 'auxiliary/route';
 import {Skeleton} from '@material-ui/lab';
-import {constants} from '@truecost/shared';
 
 interface IProps extends React.ImgHTMLAttributes<any> {
     src: string;
@@ -28,8 +27,7 @@ export const SafeImage: React.FC<IProps> = ({src, style = {}, height, ...rest}) 
         ...style,
     };
 
-    const baseSrc = src.slice(0, src.lastIndexOf('.'))
-    const extension = src.slice(src.lastIndexOf('.') + 1)
+    const baseSrc = src.slice(0, src.lastIndexOf('.'));
 
     return (
         <LazyLoad
@@ -50,7 +48,7 @@ export const SafeImage: React.FC<IProps> = ({src, style = {}, height, ...rest}) 
                     src={error > 1 ? fallback : src}
                     style={baseStyle}
                     {...rest}
-                    onError={(e) => setError(1 + error)}
+                    onError={() => setError(1 + error)}
                 />
             </picture>
         </LazyLoad>
