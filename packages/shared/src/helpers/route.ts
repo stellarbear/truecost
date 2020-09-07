@@ -21,10 +21,6 @@ export const getRoutes = (environment = 'development') => {
         uri: `${protocol}://${server}`,
         port: serverPort,
         endpoint: `${protocol}://${server}/${endpoint}`,
-        demand: (ssr: boolean) =>
-            ssr
-                ? `${dev[0]}://${dev[1]}/${endpoint}`
-                : `${protocol}://${server}/${endpoint}`,
     };
 
     return ({
