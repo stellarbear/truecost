@@ -31,7 +31,10 @@ server
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
         const sheets: ServerStyleSheets = new ServerStyleSheets();
 
-        const client = createApolloClient({browser: false}, req.header('Cookie'));
+        const client = createApolloClient({
+            ssr: true,
+            cookie: req.header('Cookie'),
+        });
 
         const app = (
             <ApolloProvider client={client}>

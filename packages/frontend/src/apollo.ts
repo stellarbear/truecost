@@ -5,7 +5,8 @@ import {backend} from "auxiliary/route";
 import {ApolloClient, ApolloLink, InMemoryCache} from "@apollo/client";
 
 interface IApolloClient {
-    browser: boolean;
+    ssr: boolean;
+    cookie?: string;
 }
 
 const errorLink = onError(({graphQLErrors}) => {
@@ -14,7 +15,7 @@ const errorLink = onError(({graphQLErrors}) => {
     }
 });
 
-const httpLink = (cookie?: string) => createUploadLink({
+const httpLink = ({cookie}: IApolloClient) => createUploadLink({
     uri: backend.endpoint,
     credentials: "include",
     fetch,
@@ -23,23 +24,24 @@ const httpLink = (cookie?: string) => createUploadLink({
     },
 });
 
-const link = (cookie?: string) => ApolloLink.from([
+const link = (props: IApolloClient) => ApolloLink.from([
     errorLink,
-    httpLink(cookie),
+    httpLink(props),
 ]);
 
-const createApolloClient = ({browser}: IApolloClient, cookie?: string) => {
+const createApolloClient = ({ssr, cookie}: IApolloClient) => {
+    console.log(`connect from ${ssr ? "server" : "client"} to ${backend.endpoint}`);
     const client = new ApolloClient({
-        cache: browser ? new InMemoryCache().restore((window as any).apolloState) : new InMemoryCache(),
-        ssrForceFetchDelay: browser ? 100 : undefined,
+        cache: ssr ? new InMemoryCache().restore((window as any).apolloState) : new InMemoryCache(),
+        ssrForceFetchDelay: ssr ? 100 : undefined,
         defaultOptions: {
             query: {
                 fetchPolicy: 'cache-first',
             },
         },
-        connectToDevTools: browser,
+        connectToDevTools: ssr,
         ssrMode: true,
-        link: link(cookie),
+        link: link({ssr, cookie}),
     });
 
     return client;

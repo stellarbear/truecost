@@ -8,7 +8,9 @@ import {ThemeProvider} from "@material-ui/styles";
 import createApolloClient from "apollo";
 import {ApolloProvider} from "@apollo/client";
 
-const client = createApolloClient({browser: true});
+const client = createApolloClient({
+    ssr: false,
+});
 
 const ScrollToTop: React.FC = () => {
     const {pathname} = useLocation();
@@ -35,8 +37,8 @@ const BaseApp: React.FC = () => {
         <ApolloProvider client={client}>
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
-                    <ScrollToTop/>
-                    <App/>
+                    <ScrollToTop />
+                    <App />
                 </ThemeProvider>
             </BrowserRouter>
         </ApolloProvider>
@@ -45,7 +47,7 @@ const BaseApp: React.FC = () => {
 
 const renderMethod = module.hot ? render : hydrate;
 renderMethod(
-    <BaseApp/>,
+    <BaseApp />,
     document.getElementById("root"),
 );
 
