@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useState} from "react";
 import {Dict, ICart, IGame, IGameContext, IShop, ISubscription, IUser, subscription} from "@truecost/shared";
-import {IStore, useData, IInfoContext} from "./useData";
+import {useData, IInfoContext} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
@@ -10,11 +10,7 @@ import {IMeta, useMeta} from "./useMeta";
 import {useQuery} from "@apollo/client";
 
 interface IRawContext {
-    meta: Dict<IMeta>;
-    store: IStore;
-    payment: {
-        stripe: string;
-    };
+    data: any;
 }
 
 export interface IDataContext {
@@ -57,16 +53,9 @@ const Raw: React.FC = ({children}) => {
         return <Mock permanent/>;
     }
 
-    const {MetaAll, ...RestAll} = data;
-    const [store] = useState(useData(RestAll));
-    const [meta] = useState(useMeta(MetaAll));
     return (
         <>
-            <RawContext.Provider value={{
-                payment: {stripe: data.Stripe},
-                store,
-                meta,
-            }}>
+            <RawContext.Provider value={{data}}>
                 <Data>
                     {children}
                 </Data>
@@ -76,7 +65,11 @@ const Raw: React.FC = ({children}) => {
 };
 
 const Data: React.FC = ({children}) => {
-    const {store, payment, meta} = useContext(RawContext);
+    const {data} = useContext(RawContext);
+    const {MetaAll, Stripe, ...RestAll} = data;
+    
+    const [store] = useState(useData(RestAll));
+    const [meta] = useState(useMeta(MetaAll));
 
     const {cart, itemUpsert, itemRemove, cartWipe, cartCount, itemCount} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
@@ -108,7 +101,7 @@ const Data: React.FC = ({children}) => {
                     wipe: () => cartWipe(game.id),
                 },
             },
-            payment,
+            payment: {stripe: Stripe},
         }}>
             <Mock/>
             {children}

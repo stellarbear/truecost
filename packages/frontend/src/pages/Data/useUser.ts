@@ -6,7 +6,7 @@ type IProps = IUserContext;
 
 export function useUser(props: IProps) {
     const [state, setState] = useState<IUser | null>(
-        props.data || null);
+        props?.data?.active && props.data || null);
 
     return {state, setState};
 }

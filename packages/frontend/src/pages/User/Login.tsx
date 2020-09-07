@@ -20,6 +20,7 @@ const LOGIN = gql`
         UserLogin(email:$email, password:$password) {
             id
             name
+            active
 
             role
             email
@@ -29,8 +30,6 @@ const LOGIN = gql`
         }
     }
 `;
-
-//TODO: account disabled error&&&&????
 
 interface LogInSubmit {
     email: string;

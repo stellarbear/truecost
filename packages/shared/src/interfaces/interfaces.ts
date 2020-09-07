@@ -2,11 +2,11 @@ import {OptionArea, OptionMerge, OptionType} from "..";
 import {StatusType} from "../enums";
 
 export interface IBaseUser {
-    user: { id: string };
+    user: {id: string};
 }
 
 export interface IBaseGame {
-    game: { id: string };
+    game: {id: string};
 }
 
 export interface IBase {
@@ -16,10 +16,9 @@ export interface IBase {
     active: boolean;
 }
 
-export interface IUser {
+export interface IUser extends IBase {
     role: string;
     email: string;
-    name: string;
     id: string;
 
     subscription?: ISubscription;

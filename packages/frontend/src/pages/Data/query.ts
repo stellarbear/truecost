@@ -22,9 +22,11 @@ export const BULK_QUERY = gql`
         }
 
         Stripe
+        
         UserWhoAmI {
             id
             name
+            active
 
             role
             email
