@@ -15,8 +15,8 @@ const errorLink = onError(({graphQLErrors}) => {
     }
 });
 
-const httpLink = ({cookie}: IApolloClient) => createUploadLink({
-    uri: backend.endpoint,
+const httpLink = ({cookie, ssr}: IApolloClient) => createUploadLink({
+    uri: backend.demand(ssr),
     credentials: "include",
     fetch,
     headers: {
@@ -32,14 +32,14 @@ const link = (props: IApolloClient) => ApolloLink.from([
 const createApolloClient = ({ssr, cookie}: IApolloClient) => {
     console.log(`connect from ${ssr ? "server" : "client"} to ${backend.endpoint}`);
     const client = new ApolloClient({
-        cache: ssr ? new InMemoryCache().restore((window as any).apolloState) : new InMemoryCache(),
-        ssrForceFetchDelay: ssr ? 100 : undefined,
+        cache: !ssr ? new InMemoryCache().restore((window as any).apolloState) : new InMemoryCache(),
+        ssrForceFetchDelay: !ssr ? 100 : undefined,
         defaultOptions: {
             query: {
                 fetchPolicy: 'cache-first',
             },
         },
-        connectToDevTools: ssr,
+        connectToDevTools: !ssr,
         ssrMode: true,
         link: link({ssr, cookie}),
     });
