@@ -35,7 +35,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
 
     const arrowStyle: CSSProperties = {
         opacity: visible ? 1.0 : 0.0,
-        transition: "0.3 all",
+        transition: "all 0.5s",
         
         position: "absolute",
         top: "40%",
