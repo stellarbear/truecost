@@ -15,6 +15,7 @@ import {Row} from "pages/Base/Grid";
 import {HomeGames} from "./HomeGames";
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import {Link} from "react-router-dom";
+import {HomeCurtain} from "./HomeCurtain";
 
 const info = (text: string, prefix?: React.ReactNode) => (
     <Row s={16} even width={["auto", "auto", "100%"]}
@@ -47,12 +48,11 @@ const Home: React.FC = () => {
                     </Grid>
                 </Grid>
                 <div style={{
-                    backgroundColor: "#FFFFFFEE",
-                    borderRadius: 6,
-                    padding: "0px 48px",
-                    margin: "0px -48px",
+                    position: "relative",
                     width: "inherit",
+
                 }}>
+                    <HomeCurtain/>
                     <Grid container spacing={2} style={{margin: "0px 0px 16px -8px"}}>
                         <Grid item xs={12}>
                             {info(`Top deals`,
