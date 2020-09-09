@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {CSSProperties} from 'react';
-import {IconButton, makeStyles} from '@material-ui/core';
+import {IconButton, makeStyles, Hidden} from '@material-ui/core';
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 
@@ -29,13 +29,27 @@ export const RowSwipable: React.FC<IProps> = (props) => {
         arrows = false,
         children,
     } = props;
+    const [visible, setVisibility] = React.useState(false);
 
     const classes = useStyles();
 
+    const arrowStyle: CSSProperties = {
+        opacity: visible ? 1.0 : 0.0,
+        transition: "0.3 all",
+        
+        position: "absolute",
+        top: "40%",
+        zIndex: 2,
+        background: "#FFFFFFDD",
+    };
+
     return (
-        <div style={{
-            position: "relative",
-        }}>
+        <div
+            onMouseEnter={() => setVisibility(true)}
+            onMouseLeave={() => setVisibility(false)}
+            style={{
+                position: "relative",
+            }}>
             <div id={id} className={classes.row} style={{
                 ...style,
                 display: "grid",
@@ -49,14 +63,11 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                 {children}
             </div>
             {arrows && (
-                <>
+                <Hidden smDown>
                     <IconButton
                         style={{
-                            position: "absolute",
-                            top: "40%",
+                            ...arrowStyle,
                             left: s + 4,
-                            zIndex: 2,
-                            background: "#FFFFFFDD",
                         }}
                         onClick={() => {
                             const element = document.getElementById(id);
@@ -64,15 +75,12 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                                 {left: element.scrollLeft - element.offsetWidth, behavior: "smooth"}
                             );
                         }}>
-                        <ArrowBack/>
+                        <ArrowBack />
                     </IconButton>
                     <IconButton
                         style={{
-                            position: "absolute",
-                            top: "40%",
+                            ...arrowStyle,
                             right: s + 4,
-                            zIndex: 2,
-                            background: "#FFFFFFDD",
                         }}
                         onClick={() => {
                             const element = document.getElementById(id);
@@ -80,9 +88,9 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                                 {left: element.scrollLeft + element.offsetWidth, behavior: "smooth"}
                             );
                         }}>
-                        <ArrowForward/>
+                        <ArrowForward />
                     </IconButton>
-                </>
+                </Hidden>
             )}
         </div>
     );
