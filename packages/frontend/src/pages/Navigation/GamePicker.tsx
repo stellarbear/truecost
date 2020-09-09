@@ -34,6 +34,7 @@ export const GamePicker: React.FC = () => {
             </Button>
             <Menu
                 anchorEl={anchorEl}
+                disableScrollLock
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={() => setAnchorEl(null)}

@@ -12,7 +12,7 @@ export const HomeTwitter: React.FC = () => {
         <Paper elevation={6} style={{
             height,
             overflow: "hidden",
-            position: "relative"
+            position: "relative",
         }}>
             <div style={{
                     position: "absolute",
