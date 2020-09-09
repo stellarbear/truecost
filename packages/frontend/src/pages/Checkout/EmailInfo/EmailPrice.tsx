@@ -2,19 +2,18 @@ import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
 import {Button, Divider, Typography, CircularProgress} from '@material-ui/core';
-import {useNotification} from 'components/wrappers/NotifyWrapper';
 import {CalcPrice} from '@truecost/shared';
+import {ModalDialog} from 'components/ModalDialog';
+import {TOS} from 'pages';
 
 interface IProps {
     selected?: string;
     current?: string;
-    agree: boolean;
     loading: boolean;
 }
 
 export const EmailPrice: React.FC<IProps> = (props) => {
-    const {notify} = useNotification();
-    const {current, selected, agree, loading} = props;
+    const {current, selected, loading} = props;
     const {subs, current: {cart, shop}} = useStore();
 
     const cartItems = cart();
@@ -44,13 +43,27 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                 </Typography>
             </Col>
             <Divider />
+            <Row >
+                <Typography variant="caption" color="secondary">
+                    {`You agree with\u00A0`}
+                </Typography>
+                <ModalDialog
+                    button={
+                        <Typography variant="caption"  style={{textDecoration: "underline"}}>
+                            Terms of use
+                            </Typography>
+                    }
+                    content={
+                        [
+                            <TOS key={0} />,
+                        ]
+                    }
+                />
+            </Row>
             <Row end>
-                <div
-                    onClick={() => !agree && notify("Agree to TOS first")}>
-                    <Button disabled={!agree} variant="contained" type="submit">
-                        {loading ? <CircularProgress size={24} /> : `Total: ${total} $`}
-                    </Button>
-                </div>
+                <Button variant="contained" type="submit" color="primary">
+                    {loading ? <CircularProgress size={24} /> : `Total: ${total} $`}
+                </Button>
             </Row>
         </Col>
     );

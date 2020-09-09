@@ -1,14 +1,17 @@
 import * as React from "react";
 import {Typography} from "@material-ui/core";
 import {Col} from "./Grid";
+import {CSSProperties} from "react";
 
 
 interface IProps {
     text: string;
     description?: string;
+    styleUp?: CSSProperties;
+    styleDown?: CSSProperties;
 }
 
-export const TypographyTwoLevel: React.FC<IProps> = ({text, description}) => {
+export const TypographyTwoLevel: React.FC<IProps> = ({text, description, styleUp = {}, styleDown = {}}) => {
     const renderNormal = () => (
         <Typography align="center" variant="h6" color="inherit" noWrap>
             {text}
@@ -17,7 +20,8 @@ export const TypographyTwoLevel: React.FC<IProps> = ({text, description}) => {
 
     const renderTwolevel = () => (
         <Col m={[-8, 0]}>
-            <Typography align="center" variant="h6" color="inherit" noWrap>
+            <Typography align="center" variant="h6" color="inherit" noWrap 
+            style={{...styleUp}}>
                 {text}
             </Typography>
             <Typography color="inherit" noWrap
@@ -25,6 +29,7 @@ export const TypographyTwoLevel: React.FC<IProps> = ({text, description}) => {
                     opacity: 0.5,
                     marginTop: -4,
                     fontSize: "0.8rem",
+                    ...styleDown,
                 }}>
                 {description}
             </Typography>

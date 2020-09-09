@@ -30,7 +30,7 @@ export const Mock: React.FC<IProps> = ({permanent}) => {
                     left: "50%",
                     transform: "translate(-50%, -50%)",
                 }}
-                width={16} height={16}
+                width={128} height={128}
                 src={`/preloader.gif`}/>
         </div>
     );

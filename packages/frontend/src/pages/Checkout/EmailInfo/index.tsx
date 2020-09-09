@@ -11,7 +11,6 @@ import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {EmailSubscription} from './EmailSubscription';
 import {EmailFields} from './EmailFields';
 import {EmailPrice} from './EmailPrice';
-import {EmailAgree} from './EmailAgree';
 import {gql, useMutation} from '@apollo/client';
 
 interface IProps {
@@ -30,7 +29,6 @@ const MAKE_BOOKING = gql`
 
 export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
-    const [agree, setAgree] = useState(false);
     const {current: {user, game, cart}, payment: {stripe: stripeKey}} = useStore();
     const [mutation, {data, error, loading}] = useMutation(MAKE_BOOKING);
 
@@ -96,12 +94,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                         selected={selectedSubscription}
                         setSelected={setSelectedSubscription}
                     />
-                    <EmailAgree
-                        agree={agree}
-                        toggleAgree={() => setAgree(!agree)}
-                    />
                     <EmailPrice
-                        agree={agree}
                         loading={loading}
                         current={currentSubscription}
                         selected={selectedSubscription}

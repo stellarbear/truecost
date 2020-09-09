@@ -13,7 +13,7 @@ export interface IGameContext {
 }
 
 export const HomeGames: React.FC = () => {
-    const {games, current: {game}} = useStore();
+    const {games, current: {game}, update: {setGame}} = useStore();
 
     const current = game;
     const gamesSorted = dictSort(games.id);
@@ -31,6 +31,7 @@ export const HomeGames: React.FC = () => {
                     <ButtonBase component={Link} to={'/' + games.id[game].url}
                         style={{textDecoration: 'none', outline: "none"}}
                         key={game}
+                        onClick={() => setGame(game)}
                     >
                         <Col key={game}>
                             <SafeImage

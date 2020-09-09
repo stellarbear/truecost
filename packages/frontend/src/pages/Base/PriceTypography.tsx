@@ -9,6 +9,7 @@ interface IPriceTypoProps {
 
 export const PriceTypography: React.FC<IPriceTypoProps> = ({price, discount}) => (
     <TypographyTwoLevel
+    styleDown={{textDecoration: "line-through"}}
         text={`${price} $`}
         description={discount === 0 ? undefined : `${price + discount} $`}
     />

@@ -33,12 +33,12 @@ export const Html: React.FC<IProps> = ({assets, css, content, state}) => (
                 src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
                 defer></script>
         </head>
-        <body style={{margin: 0}}>
+        <body style={{margin: 0, overflowX: "hidden"}}>
             <div id="root" dangerouslySetInnerHTML={{__html: content}} />
             <script dangerouslySetInnerHTML={{
                 __html: `window.apolloState=${JSON.stringify(state).replace(/</g, '\\u003c')};`,
             }} />
             <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-160874000-1"></script>
         </body>
-    </html>
+    </html >
 );
