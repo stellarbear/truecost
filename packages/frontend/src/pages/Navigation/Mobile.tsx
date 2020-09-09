@@ -10,6 +10,7 @@ import {GamePicker} from "./GamePicker";
 import {CartPicker} from "./CartPicker";
 import {AccountPicker} from "./AccountPicker";
 import {backend, frontend} from "auxiliary/route";
+import {SafeImage} from "components/SafeImage";
 
 interface IProps {
     logo: string;
@@ -44,12 +45,12 @@ export const Mobile: React.FC<IProps> = (props) => {
             {button(url, "Home")}
             {button(url + '/shop', "Shop")}
             {button(url + '/checkout', "Checkout")}
-            <Divider/>
+            <Divider />
             {button("/track", "Track")}
             {button("/discount", "Discount")}
             {button("/contact", "Contact")}
             {button("/about", "About")}
-            <Divider/>
+            <Divider />
         </Col>
     );
 
@@ -62,13 +63,13 @@ export const Mobile: React.FC<IProps> = (props) => {
                         aria-label="Open drawer"
                         onClick={() => setOpen(!open)}
                     >
-                        <Menu/>
+                        <Menu />
                     </IconButton>
-                    <GamePicker/>
+                    <GamePicker />
                 </Row>
                 <Row>
-                    <CartPicker/>
-                    <AccountPicker/>
+                    <CartPicker />
+                    <AccountPicker />
                 </Row>
             </Row>
         );
@@ -86,21 +87,24 @@ export const Mobile: React.FC<IProps> = (props) => {
             <Col fullWidth style={{minWidth: 240}}>
                 <Row between>
                     <IconButton onClick={() => setOpen(!open)} style={{margin: "8px"}}>
-                        <Clear/>
+                        <Clear />
                     </IconButton>
                     <Button component={Link} to={url}>
                         <img height={48} width={48} src={logo}
-                             style={{marginTop: -20, marginBottom: -20}}/>
+                            style={{marginTop: -20, marginBottom: -20}} />
                     </Button>
                 </Row>
-                <Divider/>
+                <Divider />
                 {navigation()}
-                <img className="float" style={{
-                    position: "absolute",
-                    bottom: -60,
-                    left: -60,
-                    width: 200, height: 200, objectFit: "cover", margin: 8, marginLeft: 0,
-                }} src={image}/>
+                <SafeImage
+                    className="float"
+                    height={"inherit"}
+                    src={image} style={{
+                        position: "absolute",
+                        bottom: -60,
+                        left: -60,
+                        width: 200, height: 200, objectFit: "cover", margin: 8, marginLeft: 0,
+                    }} />
             </Col>
         </Drawer>
 

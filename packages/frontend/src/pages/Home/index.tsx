@@ -55,15 +55,6 @@ const Home: React.FC = () => {
                 }}>
                     <Grid container spacing={2} style={{margin: "0px 0px 16px -8px"}}>
                         <Grid item xs={12}>
-                            {info(`${game.name} news`)}
-                        </Grid>
-                        <Grid item xs={12} sm={8}>
-                            <HomeInfo />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <HomeTwitter />
-                        </Grid>
-                        <Grid item xs={12}>
                             {info(`Top deals`,
                                 <IconButton component={Link} to={url + "/shop"}>
                                     <ShoppingBasket />
@@ -74,19 +65,28 @@ const Home: React.FC = () => {
                             <HomeTopOffers />
                         </Grid>
                         <Grid item xs={12}>
-                            {info(`How to use our service`)}
+                            {info(`Game services`)}
                         </Grid>
                         <Grid item xs={12} sm={8}>
-                            <HomeHowTo />
+                            <HomeGames />
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <HomeTrustPilot />
                         </Grid>
                         <Grid item xs={12}>
-                            {info(`Game services`)}
+                            {info(`${game.name} news`)}
+                        </Grid>
+                        <Grid item xs={12} sm={8}>
+                            <HomeInfo />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <HomeTwitter />
                         </Grid>
                         <Grid item xs={12}>
-                            <HomeGames />
+                            {info(`How to use our service`)}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <HomeHowTo />
                         </Grid>
                     </Grid>
                 </div>
