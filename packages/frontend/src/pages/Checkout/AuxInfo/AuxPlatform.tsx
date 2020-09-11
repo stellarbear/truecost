@@ -8,13 +8,13 @@ import Playstation from "mdi-material-ui/SonyPlaystation";
 import {colors} from 'theme';
 
 const platforms = [{
-    icon: <Windows/>,
+    icon: <Windows />,
     label: "PC",
 }, {
-    icon: <Playstation/>,
+    icon: <Playstation />,
     label: "PlayStation",
 }, {
-    icon: <Xbox/>,
+    icon: <Xbox />,
     label: "XBOX",
 }];
 const platformLables = platforms.map(p => p.label);
@@ -39,8 +39,10 @@ export const AuxPlatform: React.FC<IProps> = (props) => {
     const onPlatformClick = (label: string) => {
         if (cross) {
             const filtered = platform.filter(p => p !== label);
-            setPlatform(filtered.length === platform.length
-                ? [...filtered, label] : filtered);
+            if (filtered.length > 0) {
+                setPlatform(filtered.length === platform.length
+                    ? [...filtered, label] : filtered);
+            }
         } else {
             setPlatform([label]);
         }
@@ -77,7 +79,7 @@ export const AuxPlatform: React.FC<IProps> = (props) => {
                         ))}
                     </Row>
                     <FormControlLabel
-                        control={<Checkbox checked={cross} onChange={() => onCrossClick()}/>}
+                        control={<Checkbox checked={cross} onChange={() => onCrossClick()} />}
                         label="Cross save"
                     />
                 </Row>

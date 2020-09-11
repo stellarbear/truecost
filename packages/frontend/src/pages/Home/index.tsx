@@ -4,7 +4,6 @@ import {useStore} from "../Data/Wrapper";
 import {HomeIntro} from "./HomeIntro";
 import {HomeTrustPilot} from "./HomeTrustPilot";
 import {HomeHowTo} from "./HomeHowTo";
-import {HomeTwitter} from "./HomeTwitter";
 import {backend} from "auxiliary/route";
 import {HomeTopOffers} from "./HomeTopOffers";
 import {HomeInfo} from "./HomeInfo";
@@ -51,8 +50,14 @@ const Home: React.FC = () => {
                     width: "inherit",
 
                 }}>
-                    <HomeCurtain/>
+                    <HomeCurtain />
                     <Grid container spacing={2} style={{margin: "0px 0px 16px -8px"}}>
+                        <Grid item xs={12}>
+                            {info(`Game services`)}
+                        </Grid>
+                        <Grid item xs={12} >
+                            <HomeGames />
+                        </Grid>
                         <Grid item xs={12}>
                             {info(`Top deals`,
                                 <IconButton component={Link} to={url + "/shop"}>
@@ -64,22 +69,13 @@ const Home: React.FC = () => {
                             <HomeTopOffers />
                         </Grid>
                         <Grid item xs={12}>
-                            {info(`Game services`)}
-                        </Grid>
-                        <Grid item xs={12} sm={8}>
-                            <HomeGames />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <HomeTrustPilot />
-                        </Grid>
-                        <Grid item xs={12}>
                             {info(`${game.name} news`)}
                         </Grid>
                         <Grid item xs={12} sm={8}>
                             <HomeInfo />
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <HomeTwitter />
+                            <HomeTrustPilot />
                         </Grid>
                         <Grid item xs={12}>
                             {info(`How to use our service`)}

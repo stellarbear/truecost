@@ -37,8 +37,7 @@
 		"react-helmet": "^6.1.0",
 		"react-hook-form": "^6.5.3",
 		"react-lazyload": "^3.0.0",
-		"react-router-dom": "^5.1.2",
-		"react-twitter-embed": "^3.0.3"
+		"react-router-dom": "^5.1.2"
 	},
 	"devDependencies": {
 		"@types/apollo-upload-client": "^14.1.0",

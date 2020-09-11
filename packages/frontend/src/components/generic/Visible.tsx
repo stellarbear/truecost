@@ -65,12 +65,12 @@ export const visible: (props: IProps) => IHidden = (props) => {
     };
 
     const onUp = (index: number) => {
-        onDrop(index, index > 0 ? index - 1 : index)
-    }
+        onDrop(index, index > 0 ? index - 1 : index);
+    };
 
     const onDown = (index: number) => {
-        onDrop(index, index < visible.length - 1 ? index + 1 : index)
-    }
+        onDrop(index, index < visible.length - 1 ? index + 1 : index);
+    };
 
     const onClick = (label: string) => {
         const current = visible.find(v => v.l == label);

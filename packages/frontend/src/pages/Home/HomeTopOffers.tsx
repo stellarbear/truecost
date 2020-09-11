@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Paper} from '@material-ui/core';
 import {useStore} from 'pages/Data/Wrapper';
-import {RowSwipable} from 'pages/Base/Grid';
+import {RowGrid} from 'pages/Base/Grid';
 import ItemCard from 'pages/Shop/ItemCard';
 
 export const HomeTopOffers: React.FC = () => {
@@ -15,10 +15,10 @@ export const HomeTopOffers: React.FC = () => {
     }
 
     return (
-        <Paper elevation={6}>
-            <RowSwipable id="top-offers" s={16} p={16} w={250} arrows>
-                {top.map(id => <ItemCard key={id} id={id}/>)}
-            </RowSwipable>
+        <Paper elevation={6} style={{padding: 16}}>
+            <RowGrid w={250} s={16} p={16}>
+                {top.map(id => <ItemCard key={id} id={id} />)}
+            </RowGrid>
         </Paper>
     );
 };
