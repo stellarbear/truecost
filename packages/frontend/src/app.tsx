@@ -34,65 +34,65 @@ const App = () => {
     useScript(yandex);
     useScript(google);
 
+    const routes = (urls: string[]) => (
+        <BackToTop>
+            <NavigationWrapper>
+                <Route sensitive exact path={"/"} component={Home} />
+
+                <Route sensitive exact
+                    path={urls.map(u => '/' + u)} component={Home} />
+                <Route sensitive exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
+                <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/success')}
+                    component={CheckoutSuccess} />
+                <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/:step?')}
+                    component={Checkout} />
+                <Route sensitive exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
+
+                <AuthRoute sensitive path={`/account`} component={Account} />
+                <AuthRoute sensitive path={`/admin`} component={Admin} roles={[RoleType.ADMIN]} />
+
+                <AuthRoute sensitive exact path={`/login`} component={Login} unauthorized />
+
+                <AuthRoute sensitive exact path={`/register`} component={Register} unauthorized />
+                <AuthRoute sensitive exact path={`/register/verify/:verify/:value`}
+                    component={RegisterVerify}
+                    unauthorized />
+                <AuthRoute sensitive exact path={`/register/message`} component={RegisterMessage}
+                    unauthorized />
+
+                <AuthRoute sensitive exact path={`/password/forget`} component={PasswordForget}
+                    unauthorized />
+                <AuthRoute sensitive exact path={`/password/forget/:forget/:value`}
+                    component={PasswordReset}
+                    unauthorized />
+                <AuthRoute sensitive exact path={`/password/message`} component={PasswordMessage}
+                    unauthorized />
+
+                <Route sensitive exact path={`/track`} component={Track} />
+                <Route sensitive exact path={`/discount`} component={Discount} />
+                <Route sensitive exact path={`/contact`} component={Contact} />
+                <Route sensitive exact path={`/policy`} component={Policy} />
+                <Route sensitive exact path={`/about`} component={About} />
+                <Route sensitive exact path={`/tos`} component={TOS} />
+                <Route
+                    render={({staticContext}) => {
+                        if (staticContext) {
+                            staticContext.statusCode = 404;
+                        }
+                        return <NotFound />;
+                    }}
+                />
+
+            </NavigationWrapper>
+        </BackToTop>
+    );
+
     return (
         <LoadingWrapper>
             <NotifyWrapper>
                 <DataWrapper>
                     <DataContext.Consumer>
-                        {({games}) => {
-                            const urls = Object.values(games.id).map(value => value.url);
-
-                            return (
-                                <BackToTop>
-                                    <NavigationWrapper>
-                                        <Route exact path={"/"} component={Home}/>
-
-                                        <Route exact path={urls.map(u => '/' + u)} component={Home}/>
-                                        <Route exact path={urls.map(u => '/' + u + '/shop')} component={Shop}/>
-                                        <Route exact path={urls.map(u => '/' + u + '/checkout/success')}
-                                               component={CheckoutSuccess}/>
-                                        <Route exact path={urls.map(u => '/' + u + '/checkout/:step?')}
-                                               component={Checkout}/>
-                                        <Route exact path={urls.map(u => '/' + u + '/item/:url')} component={Item}/>
-
-                                        <AuthRoute path={`/account`} component={Account}/>
-                                        <AuthRoute path={`/admin`} component={Admin} roles={[RoleType.ADMIN]}/>
-
-                                        <AuthRoute exact path={`/login`} component={Login} unauthorized/>
-
-                                        <AuthRoute exact path={`/register`} component={Register} unauthorized/>
-                                        <AuthRoute exact path={`/register/verify/:verify/:value`}
-                                                   component={RegisterVerify}
-                                                   unauthorized/>
-                                        <AuthRoute exact path={`/register/message`} component={RegisterMessage}
-                                                   unauthorized/>
-
-                                        <AuthRoute exact path={`/password/forget`} component={PasswordForget}
-                                                   unauthorized/>
-                                        <AuthRoute exact path={`/password/forget/:forget/:value`}
-                                                   component={PasswordReset}
-                                                   unauthorized/>
-                                        <AuthRoute exact path={`/password/message`} component={PasswordMessage}
-                                                   unauthorized/>
-
-                                        <Route exact path={`/track`} component={Track}/>
-                                        <Route exact path={`/discount`} component={Discount}/>
-                                        <Route exact path={`/contact`} component={Contact}/>
-                                        <Route exact path={`/policy`} component={Policy}/>
-                                        <Route exact path={`/about`} component={About}/>
-                                        <Route exact path={`/tos`} component={TOS}/>
-                                        <Route
-                                            render={({staticContext}) => {
-                                                if (staticContext) {
-                                                    staticContext.statusCode = 404;
-                                                }
-                                                return <NotFound/>;
-                                            }}
-                                        />
-                                    </NavigationWrapper>
-                                </BackToTop>
-                            );
-                        }}
+                        {({games}) => routes(Object.values(games.id).map(value => value.url))}
                     </DataContext.Consumer>
                 </DataWrapper>
             </NotifyWrapper>
