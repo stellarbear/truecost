@@ -1,7 +1,7 @@
 import * as React from "react";
 import {StaticRouter} from "react-router-dom";
-import ReactDOMServer from "react-dom/server";
-import {renderToStringWithData} from "@apollo/client/react/ssr";
+import ReactDOMServer, {renderToString, renderToStaticMarkup} from "react-dom/server";
+import {renderToStringWithData, getDataFromTree} from "@apollo/client/react/ssr";
 import {StaticRouterContext} from "react-router";
 import express from "express";
 
@@ -15,6 +15,7 @@ import createApolloClient from "apollo";
 import {environment} from "auxiliary/route";
 import {Html, IAssets} from "html";
 import {ApolloProvider} from "@apollo/client";
+import {Helmet} from "react-helmet";
 
 const server = express();
 
@@ -47,21 +48,23 @@ server
         );
 
         const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
-
-        renderToStringWithData(sheets.collect(app)).then((content) => {
+        getDataFromTree(app).then(() => {
+            // We are ready to render for real
+            const content = renderToString(sheets.collect(app));
             const initialState = client.extract();
+            const helmet = Helmet.renderStatic();
 
             const html = <Html
+                helmet={helmet}
                 assets={assets}
                 css={sheets.toString().replace(/\s/g, '')}
                 content={content}
                 state={initialState} />;
 
-            res.status(context.statusCode || 200)
-                .send(`<!doctype html>\n${ReactDOMServer.renderToStaticMarkup(html)}`);
+            res.status(context.statusCode || 200);
+            res.send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
             res.end();
-
-        }).catch(console.log);
+        }).catch(console.log);;
     });
 
 export default server;

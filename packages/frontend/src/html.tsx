@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {NormalizedCacheObject} from '@apollo/client';
+import {HelmetData} from 'react-helmet';
 
 export interface IAsset {
     js: string;
@@ -13,11 +14,12 @@ export interface IAssets {
 interface IProps {
     assets: IAssets;
     css: string;
+    helmet: HelmetData
     content: string;
     state: NormalizedCacheObject;
 }
 
-export const Html: React.FC<IProps> = ({assets, css, content, state}) => (
+export const Html: React.FC<IProps> = ({assets, css, helmet, content, state}) => (
     <html>
         <head>
             <meta charSet='utf-8' />
