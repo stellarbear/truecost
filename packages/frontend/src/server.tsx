@@ -9,7 +9,7 @@ import App from "./app";
 
 import * as path from 'path';
 import {theme} from "theme";
-import {ServerStyleSheets, ThemeProvider} from "@material-ui/styles";
+import {ThemeProvider} from "@material-ui/styles";
 
 import createApolloClient from "apollo";
 import {environment} from "auxiliary/route";
@@ -30,7 +30,6 @@ server
     )
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
-        const sheets: ServerStyleSheets = new ServerStyleSheets();
 
         const client = createApolloClient({
             ssr: true,
@@ -50,14 +49,13 @@ server
         const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
         getDataFromTree(app).then(() => {
             // We are ready to render for real
-            const content = renderToString(sheets.collect(app));
+            const content = renderToString(app);
             const initialState = client.extract();
             const helmet = Helmet.renderStatic();
 
             const html = <Html
                 helmet={helmet}
                 assets={assets}
-                css={sheets.toString().replace(/\s/g, '')}
                 content={content}
                 state={initialState} />;
 

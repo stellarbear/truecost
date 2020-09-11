@@ -22,28 +22,16 @@ const ScrollToTop: React.FC = () => {
     return null;
 };
 
-const BaseApp: React.FC = () => {
-
-    React.useEffect((): void => {
-        const jssStyles = document.querySelector("#jss-server-side");
-        if (jssStyles) {
-            if (jssStyles.parentNode) {
-                jssStyles.parentNode.removeChild(jssStyles);
-            }
-        }
-    }, []);
-
-    return (
-        <ApolloProvider client={client}>
-            <BrowserRouter>
-                <ThemeProvider theme={theme}>
-                    <ScrollToTop />
-                    <App />
-                </ThemeProvider>
-            </BrowserRouter>
-        </ApolloProvider>
-    );
-};
+const BaseApp: React.FC = () => (
+    <ApolloProvider client={client}>
+        <BrowserRouter>
+            <ThemeProvider theme={theme}>
+                <ScrollToTop />
+                <App />
+            </ThemeProvider>
+        </BrowserRouter>
+    </ApolloProvider>
+);
 
 const renderMethod = module.hot ? render : hydrate;
 renderMethod(
