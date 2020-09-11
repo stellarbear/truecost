@@ -4,6 +4,7 @@ import {Col, Row} from './Grid';
 import {Typography} from '@material-ui/core';
 import {useStore} from 'pages/Data/Wrapper';
 import {backend, frontend} from 'auxiliary/route';
+import {SafeImage} from 'components/SafeImage';
 
 interface IProps {
     text: string[];
@@ -19,14 +20,17 @@ export const InfoCard: React.FC<IProps> = ({text, actions = [], style = {}}) => 
     return (
         <Col style={style}>
             <Row s={8} wrap>
-                <img className="float" style={{
-                    minWidth: 80,
-                    width: 80, height: 80, objectFit: "cover", margin: 8, marginLeft: 0,
-                }} src={image}/>
+                <SafeImage
+                    className="float"
+                    height={80}
+                    src={image} style={{
+                        minWidth: 80,
+                        width: 80, height: 80, objectFit: "cover", margin: 8, marginLeft: 0,
+                    }} />
                 <Col>
                     {text.map((sentence, index) =>
                         <Typography align="center"
-                                    variant="body2" key={index}>{sentence}</Typography>)}
+                            variant="body2" key={index}>{sentence}</Typography>)}
                     <Row s={8} m={8} wrap>
                         {React.Children.map(actions, (action, index) =>
                             <div key={index}>{action}</div>)}

@@ -1,9 +1,11 @@
 import * as React from 'react';
+import {Col} from 'pages/Base/Grid';
 
 interface IProps {
     permanent?: boolean;
 }
 
+//https://loading.io/css/
 export const Mock: React.FC<IProps> = ({permanent}) => {
     const [hydrated, setHydrated] = React.useState(false);
 
@@ -23,15 +25,17 @@ export const Mock: React.FC<IProps> = ({permanent}) => {
             opacity: hydrated ? 0.0 : 1.0,
             backgroundColor: "#fff",
         }}>
-            <img
-                style={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                }}
-                width={128} height={128}
-                src={`/preloader.gif`}/>
+            <Col s={-48} style={{
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+            }}>
+                <img
+                    width={128} height={128}
+                    src={`/logo-black.png`} />
+                <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </Col>
         </div>
     );
 };

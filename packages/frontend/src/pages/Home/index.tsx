@@ -1,6 +1,5 @@
 import React from "react";
 import {Grid, Typography, Divider, IconButton} from "@material-ui/core";
-import "css/float.css";
 import {useStore} from "../Data/Wrapper";
 import {HomeIntro} from "./HomeIntro";
 import {HomeTrustPilot} from "./HomeTrustPilot";
