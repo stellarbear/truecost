@@ -1,6 +1,4 @@
 import * as React from "react";
-import "css/float.css";
-import "css/preloader.css";
 import {Route} from "react-router-dom";
 import AuthRoute from "pages/Admin/AuthRoute";
 import {DataContext, DataWrapper} from "pages/Data/Wrapper";
