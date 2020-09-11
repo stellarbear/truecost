@@ -1,7 +1,7 @@
 import * as React from "react";
 import {StaticRouter} from "react-router-dom";
-import ReactDOMServer, {renderToString, renderToStaticMarkup} from "react-dom/server";
-import {renderToStringWithData, getDataFromTree} from "@apollo/client/react/ssr";
+import {renderToString, renderToStaticMarkup} from "react-dom/server";
+import { getDataFromTree} from "@apollo/client/react/ssr";
 import {StaticRouterContext} from "react-router";
 import express from "express";
 
@@ -64,7 +64,7 @@ server
             res.status(context.statusCode || 200);
             res.send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
             res.end();
-        }).catch(console.log);;
+        }).catch(console.log);
     });
 
 export default server;

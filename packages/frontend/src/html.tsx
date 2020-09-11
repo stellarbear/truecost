@@ -14,7 +14,7 @@ export interface IAssets {
 interface IProps {
     assets: IAssets;
     css: string;
-    helmet: HelmetData
+    helmet: HelmetData;
     content: string;
     state: NormalizedCacheObject;
 }
@@ -22,6 +22,8 @@ interface IProps {
 export const Html: React.FC<IProps> = ({assets, css, helmet, content, state}) => (
     <html>
         <head>
+            {helmet.title.toComponent()}
+            {helmet.meta.toComponent()}
             <meta charSet='utf-8' />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
