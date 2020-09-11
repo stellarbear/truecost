@@ -4,6 +4,9 @@ var path = require('path');
 module.exports = {
 	plugins: [
 		{
+			name: 'bundle-analyzer',
+		},
+		{
 			//	swap from tslint to eslint
 			name: "typescript",
 			options: {
