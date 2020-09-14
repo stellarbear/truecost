@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Autocomplete, createFilterOptions} from '@material-ui/lab';
+import Autocomplete, {createFilterOptions} from '@material-ui/lab/Autocomplete';
 import {TextField} from '@material-ui/core';
 
 interface IFilter {

@@ -1,6 +1,7 @@
 import * as React from "react";
-import {makeStyles} from "@material-ui/styles";
-import {Backdrop, Badge, createStyles, Fade, Modal, Paper} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
+import {Backdrop, Badge, Fade, Modal, Paper} from "@material-ui/core";
+import {createStyles} from '@material-ui/core/styles';
 import ZoomOutMap from "@material-ui/icons/ZoomOutMap";
 import {BadgeProps} from "@material-ui/core/Badge";
 
@@ -55,7 +56,7 @@ const Zoom: React.FC<IZoom> = (props) => {
                 badgeContent={
                     <ZoomOutMap
                         onClick={() => onBadgeClick()}
-                        className={classes.badgeIcon}/>
+                        className={classes.badgeIcon} />
                 }
                 anchorOrigin={{
                     horizontal: "right",

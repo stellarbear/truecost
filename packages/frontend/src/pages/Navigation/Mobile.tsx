@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Button, Divider, Drawer, IconButton} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles} from '@material-ui/core/styles';
 import Clear from "@material-ui/icons/Clear";
 import Menu from "@material-ui/icons/Menu";
 import {Link} from "react-router-dom";

@@ -1,18 +1,10 @@
 import * as React from 'react';
 import {NormalizedCacheObject} from '@apollo/client';
 import {HelmetData} from 'react-helmet';
-
-export interface IAsset {
-    js: string;
-    css: string;
-}
-
-export interface IAssets {
-    client: IAsset;
-}
+import {Dict} from '@truecost/shared';
 
 interface IProps {
-    assets: IAssets;
+    assets: Dict<{js: string}>;
     helmet: HelmetData;
     content: string;
     state: NormalizedCacheObject;
@@ -26,8 +18,9 @@ export const Html: React.FC<IProps> = ({assets, helmet, content, state}) => (
             <meta charSet='utf-8' />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
-            <script src={assets.client.js} async></script>
-            {assets.client.css && <link rel="stylesheet" href={assets.client.css} />}
+            <script src={assets.client.js} defer></script>
+            <script src={assets.mui.js} defer></script>
+            <script src={assets.vendor.js} defer></script>
 
             <link rel="stylesheet"
                 href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />

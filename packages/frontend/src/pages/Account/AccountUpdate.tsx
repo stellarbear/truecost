@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Box, Button, CircularProgress, Paper, TextField} from '@material-ui/core';
 import {Col} from 'pages/Base/Grid';
-import {Alert} from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 import {parseApolloError} from 'auxiliary/error';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
 import {useLoading} from 'components/wrappers/LoadingWrapper';

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {CSSProperties} from 'react';
-import {IconButton, makeStyles, Hidden} from '@material-ui/core';
+import {IconButton, Hidden} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 

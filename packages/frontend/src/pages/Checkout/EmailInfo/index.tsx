@@ -5,7 +5,7 @@ import {Col} from 'pages/Base/Grid';
 import {Box} from '@material-ui/core';
 import {useForm} from 'react-hook-form';
 import {loadStripe} from '@stripe/stripe-js';
-import {Alert} from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 import {parseApolloError} from 'auxiliary/error';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {EmailSubscription} from './EmailSubscription';

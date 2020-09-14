@@ -3,7 +3,7 @@ import {useCallback} from 'react';
 import {Redirect, useHistory, useParams} from 'react-router';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {Box, Button, CircularProgress, Container, Paper, TextField} from '@material-ui/core';
-import {Alert} from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 import {useForm} from 'react-hook-form';
 import {theme} from 'theme';
 import {Col} from 'pages/Base/Grid';

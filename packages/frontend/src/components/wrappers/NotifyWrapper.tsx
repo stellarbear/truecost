@@ -1,5 +1,7 @@
 import React, {createContext, useContext, useState} from "react";
-import {createStyles, Fade, IconButton, makeStyles, Snackbar} from "@material-ui/core";
+import {Fade, IconButton, Snackbar} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
+import {createStyles} from '@material-ui/core/styles';
 import Close from "@material-ui/icons/Close";
 import {colors} from "theme";
 

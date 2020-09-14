@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
-import {makeStyles, Slider, Typography} from "@material-ui/core";
+import {Slider, Typography} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
 import TextField, {BaseTextFieldProps} from "@material-ui/core/TextField";
 import {Col, Row} from "../../../pages/Base/Grid";
 
@@ -70,9 +71,9 @@ const RangeField: React.FC<IProps> = (props) => {
 
     return (
         <Col fullWidth s={8}
-             style={{
-                 textAlign: "center",
-             }}>
+            style={{
+                textAlign: "center",
+            }}>
             <Row between>
                 <TextField
                     disabled={single}
@@ -85,7 +86,7 @@ const RangeField: React.FC<IProps> = (props) => {
                     onBlur={() => onChangeEvent(state)}
                     inputProps={{
                         style: {textAlign: "center", maxWidth: 80},
-                    }}/>
+                    }} />
                 <Typography gutterBottom style={{textAlign: "center", margin: 8, marginTop: 14}}>
                     {label}
                 </Typography>
@@ -99,7 +100,7 @@ const RangeField: React.FC<IProps> = (props) => {
                     onBlur={() => onChangeEvent(state)}
                     inputProps={{
                         style: {textAlign: "center", maxWidth: 80},
-                    }}/>
+                    }} />
             </Row>
             <Slider
                 classes={{markLabel: classes.markLabel}}

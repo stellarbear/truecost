@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Box, Container} from '@material-ui/core';
-import {Alert} from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 import {parseApolloError} from 'auxiliary/error';
 import {QueryForm} from './QueryForm';
 import {ShowBookingInfo} from './ShowInfo';

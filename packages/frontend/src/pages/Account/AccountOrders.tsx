@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {Box, Container} from '@material-ui/core';
-import {Alert} from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 import {parseApolloError} from 'auxiliary/error';
 import {Col} from 'pages/Base/Grid';
 import {BookingCard} from 'pages/Track/BookingCard';

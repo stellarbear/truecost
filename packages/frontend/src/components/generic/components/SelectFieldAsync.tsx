@@ -2,7 +2,7 @@ import {CircularProgress, Select, TextField, Typography} from "@material-ui/core
 import * as React from "react";
 import {SelectProps} from "@material-ui/core/Select";
 import {useEventState} from "../../../auxiliary/useEventState";
-import {Autocomplete} from "@material-ui/lab";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import {gql, useLazyQuery} from "@apollo/client";
 
 export interface IOption {

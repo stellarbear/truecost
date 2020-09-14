@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import LazyLoad from 'react-lazyload';
 import {backend, frontend} from 'auxiliary/route';
-import {Skeleton} from '@material-ui/lab';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 interface IProps extends React.ImgHTMLAttributes<any> {
     src: string;

@@ -2,7 +2,7 @@ import {Select, TextField} from "@material-ui/core";
 import * as React from "react";
 import {SelectProps} from "@material-ui/core/Select";
 import {useEventState} from "../../../auxiliary/useEventState";
-import {Autocomplete} from "@material-ui/lab";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 export type IOption = Record<string, string>;
 

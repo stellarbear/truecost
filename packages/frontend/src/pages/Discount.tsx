@@ -1,12 +1,10 @@
 import * as React from 'react';
-import {
-    TimelineConnector,
-    TimelineContent,
-    TimelineDot,
-    TimelineItem,
-    TimelineOppositeContent,
-    TimelineSeparator,
-} from '@material-ui/lab';
+import TimelineConnector from "@material-ui/lab/TimelineConnector";
+import TimelineContent from "@material-ui/lab/TimelineContent";
+import TimelineDot from "@material-ui/lab/TimelineDot";
+import TimelineItem from "@material-ui/lab/TimelineItem";
+import TimelineOppositeContent from "@material-ui/lab/TimelineOppositeContent";
+import TimelineSeparator from "@material-ui/lab/TimelineSeparator";
 import {Button, Typography} from '@material-ui/core';
 import AddCircle from '@material-ui/icons/AddCircle';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
@@ -29,7 +27,7 @@ export const Discount: React.FC = () => {
 
     return (
         <>
-            <Meta/>
+            <Meta />
             <TextCard title="Discount">
                 <Col left s={8}>
                     <Typography>
@@ -39,12 +37,12 @@ export const Discount: React.FC = () => {
                     <Typography><strong>Important:</strong> discount is applied only on the last (3rd step)</Typography>
                     <Typography><strong>How to purchuase a discount:</strong></Typography>
                     <TimelineItem>
-                        <TimelineOppositeContent style={{maxWidth: 0}}/>
+                        <TimelineOppositeContent style={{maxWidth: 0}} />
                         <TimelineSeparator>
                             <TimelineDot>
-                                <AddCircle/>
+                                <AddCircle />
                             </TimelineDot>
-                            <TimelineConnector/>
+                            <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
                             <Typography variant="body2" color="textSecondary">
@@ -56,12 +54,12 @@ export const Discount: React.FC = () => {
                         </TimelineContent>
                     </TimelineItem>
                     <TimelineItem>
-                        <TimelineOppositeContent style={{maxWidth: 0}}/>
+                        <TimelineOppositeContent style={{maxWidth: 0}} />
                         <TimelineSeparator>
                             <TimelineDot color="primary">
-                                <ShoppingCart/>
+                                <ShoppingCart />
                             </TimelineDot>
-                            <TimelineConnector/>
+                            <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
                             <Typography variant="body2" color="textSecondary">
@@ -73,10 +71,10 @@ export const Discount: React.FC = () => {
                         </TimelineContent>
                     </TimelineItem>
                     <TimelineItem>
-                        <TimelineOppositeContent style={{maxWidth: 0}}/>
+                        <TimelineOppositeContent style={{maxWidth: 0}} />
                         <TimelineSeparator>
                             <TimelineDot color="secondary">
-                                <Loyalty/>
+                                <Loyalty />
                             </TimelineDot>
                         </TimelineSeparator>
                         <TimelineContent>
