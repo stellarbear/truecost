@@ -1,7 +1,7 @@
 import * as React from "react";
 import {StaticRouter} from "react-router-dom";
 import {renderToString, renderToStaticMarkup} from "react-dom/server";
-import { getDataFromTree} from "@apollo/client/react/ssr";
+import {getDataFromTree} from "@apollo/client/react/ssr";
 import {StaticRouterContext} from "react-router";
 import express from "express";
 
@@ -13,7 +13,7 @@ import {ThemeProvider} from "@material-ui/styles";
 
 import createApolloClient from "apollo";
 import {environment} from "auxiliary/route";
-import {Html, IAssets} from "html";
+import {Html} from "html";
 import {ApolloProvider} from "@apollo/client";
 import {Helmet} from "react-helmet";
 
@@ -29,12 +29,14 @@ server
         ),
     )
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {
+        console.log('QUERY RECEIVED', +new Date());
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
 
         const client = createApolloClient({
             ssr: true,
             cookie: req.header('Cookie'),
         });
+        console.log('CLIENT BUILT', +new Date());
 
         const app = (
             <ApolloProvider client={client}>
@@ -45,19 +47,26 @@ server
                 </StaticRouter>
             </ApolloProvider>
         );
+        console.log('APP BUILT', +new Date());
 
-        const assets: IAssets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
+        const assets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
         getDataFromTree(app).then(() => {
+            console.log('DATA EXTRACTED', +new Date());
+
             // We are ready to render for real
             const content = renderToString(app);
             const initialState = client.extract();
             const helmet = Helmet.renderStatic();
 
+            console.log('RENDERED TO STRING', +new Date());
             const html = <Html
                 helmet={helmet}
                 assets={assets}
                 content={content}
                 state={initialState} />;
+
+
+            console.log('QUERY ANSWERED', +new Date());
 
             res.status(context.statusCode || 200);
             res.send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
