@@ -7,7 +7,6 @@ import {UseAuth} from "../../../middleware/auth";
 import {isArray, isString} from "../../../helpers/is";
 import {RoleType, SafeJSON} from "@truecost/shared";
 import {redis} from "../../../redis";
-import {v4} from "uuid";
 
 const filterInput = <V>(input: V, array: Array<keyof V>) => {
     if (array.length === 0) {
@@ -151,38 +150,27 @@ export function CRUDResolver<T extends typeof BaseEntity,
             assert(nonUniqueValues.length === 0, "must be unique", nonUniqueValues);
 
             const item = await this.service.upsert(input, images as string[], propagate as string[]);
-            await redis.client.set("hash", v4());
+            await redis.client.del("cache");
             return item;
         }
 
         @Query(() => [classRef], {name: `${prefix}All`})
         async all(): Promise<T[]> {
             assert(!restrictPublic, "not permitted");
-            const baseHash = await redis.client.get('hash');
-            const currentHash = await redis.client.hget('cache', 'hash');
+            const cacheField = `${prefix}All`;
 
-            if (!baseHash) {
-                const baseHash = v4();
-                await redis.client.set("hash", baseHash);
-            }
-
-            if (currentHash !== baseHash) {
-                await redis.client.del('cache');
-                if (baseHash) {
-                    await redis.client.hset('cache', 'hash', baseHash);
-                }
-            }
-
-            const cache = await redis.client.hget('cache', `${prefix}All`);
+            const cache = await redis.client.hget("cache", cacheField);
             if (cache) {
+                console.log('read from cache', cacheField);
                 const response = SafeJSON.parse(cache, []);
                 const result = response.map(entity => this.service.repository.map(entity));
 
                 return result;
             }
 
+            console.log('read from db', cacheField);
             const response = await this.service.all();
-            await redis.client.hset('cache', `${prefix}All`, JSON.stringify(response));
+            await redis.client.hset("cache", cacheField, JSON.stringify(response));
             return response;
         }
 

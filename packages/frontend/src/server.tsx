@@ -29,7 +29,6 @@ server
         ),
     )
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {
-        console.log('QUERY RECEIVED', +new Date());
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
 
         const client = createApolloClient({
@@ -49,8 +48,6 @@ server
 
         const assets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
         getDataFromTree(app).then(() => {
-            console.log('DATA EXTRACTED', +new Date());
-
             // We are ready to render for real
             const content = renderToString(app);
             const initialState = client.extract();
@@ -61,9 +58,6 @@ server
                 assets={assets}
                 content={content}
                 state={initialState} />;
-
-
-            console.log('QUERY ANSWERED', +new Date());
 
             res.status(context.statusCode || 200);
             res.send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
