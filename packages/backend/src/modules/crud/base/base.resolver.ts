@@ -7,6 +7,7 @@ import {UseAuth} from "../../../middleware/auth";
 import {isArray, isString} from "../../../helpers/is";
 import {RoleType, SafeJSON} from "@truecost/shared";
 import {redis} from "../../../redis";
+import {v4} from "uuid";
 
 const filterInput = <V>(input: V, array: Array<keyof V>) => {
     if (array.length === 0) {
@@ -150,13 +151,29 @@ export function CRUDResolver<T extends typeof BaseEntity,
             assert(nonUniqueValues.length === 0, "must be unique", nonUniqueValues);
 
             const item = await this.service.upsert(input, images as string[], propagate as string[]);
+            await redis.client.set("hash", v4());
             return item;
         }
 
         @Query(() => [classRef], {name: `${prefix}All`})
         async all(): Promise<T[]> {
             assert(!restrictPublic, "not permitted");
-            const cache = await redis.client.get(`${prefix}All`);
+            const baseHash = await redis.client.get('hash');
+            const currentHash = await redis.client.hget('cache', 'hash');
+
+            if (!baseHash) {
+                const baseHash = v4();
+                await redis.client.set("hash", baseHash);
+            }
+
+            if (currentHash !== baseHash) {
+                await redis.client.del('cache');
+                if (baseHash) {
+                    await redis.client.hset('cache', 'hash', baseHash);
+                }
+            }
+
+            const cache = await redis.client.hget('cache', `${prefix}All`);
             if (cache) {
                 const response = SafeJSON.parse(cache, []);
                 const result = response.map(entity => this.service.repository.map(entity));
@@ -165,8 +182,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
             }
 
             const response = await this.service.all();
-            //console.log(JSON.stringify(response))
-            await redis.client.set(`${prefix}All`, JSON.stringify(response), "ex", redis.duration.hour);
+            await redis.client.hset('cache', `${prefix}All`, JSON.stringify(response));
             return response;
         }
 

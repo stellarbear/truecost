@@ -32,7 +32,7 @@ export const SafeImage: React.FC<IProps> = ({src, style = {}, height, ...rest}) 
     return (
         <LazyLoad
             height={height}
-            once debounce
+            once debounce={100}
             placeholder={<Skeleton variant="rect" width={"100%"} height={height} />}
         >
             <picture>

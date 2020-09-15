@@ -17,6 +17,7 @@ import Stripe from 'stripe';
 import {creds} from './helpers/creds';
 import {createOrder} from './modules/other/webhook';
 import {GraphQLSchema} from 'graphql';
+import {v4} from 'uuid';
 
 export interface Context {
     req: express.Request;
@@ -30,6 +31,10 @@ export const sessionCookieName = 'sid';
 
 const init = async (schema: GraphQLSchema, store: RedisStore) => {
     const app = fastify({logger: false});
+    
+    if (!await redis.client.get("hash")) {
+        await redis.client.set("hash", v4());
+    }
 
     app.register(fastifycors, {
         credentials: true,
