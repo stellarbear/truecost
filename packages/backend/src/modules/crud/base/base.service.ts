@@ -41,7 +41,7 @@ const convert = (src: Record<string, any>, type: "set" | "like" | "between" | "f
 
 export abstract class BaseService<T> {
     constructor(
-        private readonly repository: EntityRepository<T>,
+        public readonly repository: EntityRepository<T>,
     ) {
     }
 
@@ -52,7 +52,7 @@ export abstract class BaseService<T> {
     }
 
     async all() {
-        const result = await this.repository.findAll({populate: true});
+        const result = await this.repository.findAll({populate: false});
 
         return result;
     }

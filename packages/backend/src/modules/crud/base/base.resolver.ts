@@ -5,7 +5,8 @@ import {BaseEntity} from "./base.entity";
 import {BaseInput} from "./base.input";
 import {UseAuth} from "../../../middleware/auth";
 import {isArray, isString} from "../../../helpers/is";
-import {RoleType} from "@truecost/shared";
+import {RoleType, SafeJSON} from "@truecost/shared";
+import {redis} from "../../../redis";
 
 const filterInput = <V>(input: V, array: Array<keyof V>) => {
     if (array.length === 0) {
@@ -46,7 +47,7 @@ interface ICRUDResolver<T, I, R, V> {
     prefix?: string;
 }
 
-const merge = <T, U extends T>(src: { [K in keyof T]: T[K][] }, dst: { [K in keyof U]: U[K][] }) => {
+const merge = <T, U extends T>(src: {[K in keyof T]: T[K][]}, dst: {[K in keyof U]: U[K][]}) => {
     for (const key in src) {
         if (key in dst) {
             src[key].push(...(dst[key] || []));
@@ -84,26 +85,26 @@ export function BaseResolver<T extends typeof BaseEntity,
 export function CRUDResolver<T extends typeof BaseEntity,
     I extends typeof BaseInput,
     R extends ClassType<unknown>,
-    V extends { id?: string }>(
-    {
-        inputRef,
-        classRef,
-        resultRef,
-        get: {
-            set = [],
-            like = [],
-            filter = [],
-            between = [],
-        },
-        upsert: {
-            notEmpty = [],
-            unique = [],
-            images = [],
-            propagate = [],
-        },
-        restrictPublic = true,
-        prefix = classRef.name.replace('Entity', ""),
-    }: ICRUDResolver<T, I, R, V>): any {
+    V extends {id?: string}>(
+        {
+            inputRef,
+            classRef,
+            resultRef,
+            get: {
+                set = [],
+                like = [],
+                filter = [],
+                between = [],
+            },
+            upsert: {
+                notEmpty = [],
+                unique = [],
+                images = [],
+                propagate = [],
+            },
+            restrictPublic = true,
+            prefix = classRef.name.replace('Entity', ""),
+        }: ICRUDResolver<T, I, R, V>): any {
 
     @Resolver(() => resultRef, {isAbstract: true})
     abstract class CRUDResolverClass {
@@ -155,7 +156,18 @@ export function CRUDResolver<T extends typeof BaseEntity,
         @Query(() => [classRef], {name: `${prefix}All`})
         async all(): Promise<T[]> {
             assert(!restrictPublic, "not permitted");
-            return await this.service.all();
+            const cache = await redis.client.get(`${prefix}All`);
+            if (cache) {
+                const response = SafeJSON.parse(cache, []);
+                const result = response.map(entity => this.service.repository.map(entity));
+
+                return result;
+            }
+
+            const response = await this.service.all();
+            //console.log(JSON.stringify(response))
+            await redis.client.set(`${prefix}All`, JSON.stringify(response), "ex", redis.duration.hour);
+            return response;
         }
 
         @Query(() => classRef, {name: `${prefix}Id`})

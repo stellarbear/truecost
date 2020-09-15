@@ -36,7 +36,6 @@ server
             ssr: true,
             cookie: req.header('Cookie'),
         });
-        console.log('CLIENT BUILT', +new Date());
 
         const app = (
             <ApolloProvider client={client}>
@@ -47,7 +46,6 @@ server
                 </StaticRouter>
             </ApolloProvider>
         );
-        console.log('APP BUILT', +new Date());
 
         const assets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
         getDataFromTree(app).then(() => {
@@ -58,7 +56,6 @@ server
             const initialState = client.extract();
             const helmet = Helmet.renderStatic();
 
-            console.log('RENDERED TO STRING', +new Date());
             const html = <Html
                 helmet={helmet}
                 assets={assets}
