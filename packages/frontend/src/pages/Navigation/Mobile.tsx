@@ -96,15 +96,15 @@ export const Mobile: React.FC<IProps> = (props) => {
                 </Row>
                 <Divider />
                 {navigation()}
-                <SafeImage
-                    className="float"
-                    height={"inherit"}
-                    src={image} style={{
-                        position: "absolute",
-                        bottom: -60,
-                        left: -60,
-                        width: 200, height: 200, objectFit: "cover", margin: 8, marginLeft: 0,
-                    }} />
+                <Row>
+                    <SafeImage
+                        className="float"
+                        height={"inherit"}
+                        src={image} style={{
+                            padding: 16,
+                            width: 60, height: 60, objectFit: "cover",
+                        }} />
+                </Row>
             </Col>
         </Drawer>
 
