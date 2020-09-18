@@ -36,14 +36,12 @@ export const NavigationBar: React.FC<IProps> = ({history}) => {
                 transition: "all 250ms ease 0s",
                 color: isOnTop ? 'white' : 'black',
             }}>
-                <Toolbar style={{
-                    width: "100vw", padding: 0,
-                }}>
+                <Toolbar style={{padding: 0 }}>
                     <Hidden lgUp>
-                        <Mobile logo={"/logo-black.png"}/>
+                        <Mobile logo={"/logo-black.png"} />
                     </Hidden>
                     <Hidden mdDown>
-                        <Desktop logo={logo}/>
+                        <Desktop logo={logo} />
                     </Hidden>
                 </Toolbar>
             </AppBar>
