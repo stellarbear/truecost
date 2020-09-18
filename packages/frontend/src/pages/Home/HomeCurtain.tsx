@@ -14,8 +14,8 @@ export const HomeCurtain: React.FC = () => (
         <Hidden smDown>
             <div style={{
                 ...shared,
-                left: -32,
-                right: -32,
+                left: -24,
+                right: -24,
             }} />
         </Hidden>
         <Hidden mdUp>
