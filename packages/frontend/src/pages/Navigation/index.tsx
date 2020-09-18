@@ -18,9 +18,9 @@ export const NavigationWrapper: React.FC = (props) => {
                 flexDirection: "column",
                 justifyContent: "space-between",
             }}>
-                <NavigationBar/>
+                <NavigationBar />
                 <div>
-                    <Toolbar style={{margin: 8}}/>
+                    <Toolbar style={{margin: 8}} />
                     <Container fixed>
                         <Switch>
                             {children}
@@ -28,7 +28,7 @@ export const NavigationWrapper: React.FC = (props) => {
                     </Container>
                 </div>
                 <Container fixed>
-                    <Footer/>
+                    <Footer />
                 </Container>
             </section>
         </React.Fragment>
