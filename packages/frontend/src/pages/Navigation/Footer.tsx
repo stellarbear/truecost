@@ -18,7 +18,7 @@ const payment = [
 
 export const Footer: React.FC = () => (
     <Paper elevation={6} style={{
-        margin: "0px -8px",
+        marginBottom: 16,
         zIndex: 3,
         color: "#fff",
         backgroundColor: "#263238",
@@ -34,7 +34,7 @@ export const Footer: React.FC = () => (
                 </Grid>
 
                 <Grid item xs={12} sm={1} md={3} />
-            <Grid item xs={12} sm={6} md={6}>
+                <Grid item xs={12} sm={6} md={6}>
                     <Col fullWidth s={8} p={8} style={{marginTop: 8}}>
                         <Typography variant="body2" color="inherit" align="center">© Truecost 2019-2020</Typography>
                         <Typography variant="body2" color="inherit" align="center">2885 Sanford
@@ -60,7 +60,7 @@ export const Footer: React.FC = () => (
                 </Grid>
             </Grid>
         </Col>
-        <Col style={{backgroundColor: "#E0E0E0"}}>
+        <Col style={{backgroundColor: "#E0E0E0", overflow: "hidden"}}>
             <Row s={-32} style={{marginTop: 40, marginBottom: -8}} wrap>
                 {payment.map((e, i) => React.createElement(e, {
                     style: {
