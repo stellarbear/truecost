@@ -61,10 +61,10 @@ export const Footer: React.FC = () => (
             </Grid>
         </Col>
         <Col style={{backgroundColor: "#E0E0E0"}}>
-            <Row s={8} style={{marginTop: 40, marginBottom: -8}}>
+            <Row s={-32} style={{marginTop: 40, marginBottom: -8}} wrap>
                 {payment.map((e, i) => React.createElement(e, {
                     style: {
-                        width: 40,
+                        width: 40, marginLeft: 40, padding: 8,
                         transform: "scale(3.0)",
                     },
                     key: i,
