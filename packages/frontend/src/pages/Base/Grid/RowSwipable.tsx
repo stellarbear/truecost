@@ -54,9 +54,9 @@ export const RowSwipable: React.FC<IProps> = (props) => {
             <div id={id} className={classes.row} style={{
                 ...style,
                 display: "grid",
-                padding: p,
+                padding: `${p}px 4px`,
                 gridGap: s,
-                gridTemplateColumns: w,
+                //gridTemplateColumns: w,
                 gridAutoFlow: "column",
                 gridAutoColumns: `minmax(${w}px, 1fr)`,
                 overflowX: "auto",
