@@ -29,6 +29,7 @@ export const EmailFields: React.FC<IProps> = (props) => {
     const {error, disabled, setCurrent, register, email, setError, clearErrors} = props;
     const [query, {data, loading}] = useLazyQuery(GET_SUBSCRIPTION);
     const {notify} = useNotification();
+    const [rand, setRand] = React.useState(Math.random());
 
     const {current: {user}} = useStore();
 
@@ -52,7 +53,7 @@ export const EmailFields: React.FC<IProps> = (props) => {
                 notify("No active subscription on this email");
             }
         }
-    }, [data?.UserGetSubscription]);
+    }, [data?.UserGetSubscription, rand]);
 
     const onClick = () => {
         if (email.length === 0) {
@@ -61,6 +62,7 @@ export const EmailFields: React.FC<IProps> = (props) => {
             setError("email", {type: "error", message: "Does not look like email (:"});
         } else {
             query({variables: {email}});
+            setRand(Math.random());
         }
     };
 
