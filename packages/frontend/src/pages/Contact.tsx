@@ -6,25 +6,24 @@ import {social} from "auxiliary/social";
 import TextCard from "./Base/TextCard";
 import SocialDialog from "./Base/SocialDialog";
 import {Meta} from "./Base/Meta";
-import {trim} from "auxiliary/string";
 
 export const Contact: React.FC = () => {
     const [hovered, setHovered] = useState("");
 
-    const schema = `{
+    const schema = {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "TrueCost",
         "url": "https://truecost.gg/",
         "logo": "https://truecost.gg/logo-black.png",
-        "sameAs": [${social.map(s => `"${s.url}"`)}]
-    }`;
+        "sameAs": social.map(s => `${s.url}`),
+    };
 
     return (
         <>
             <Meta>
                 <script type="application/ld+json">
-                    {trim(schema)}
+                    {JSON.stringify(schema)}
                 </script>
             </Meta>
             <TextCard title="Contact us" data={[{
