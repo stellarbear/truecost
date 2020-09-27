@@ -32,6 +32,7 @@ export const Mock: React.FC<IProps> = ({permanent}) => {
                 transform: "translate(-50%, -50%)",
             }}>
                 <img
+                    alt="logo icon"
                     width={128} height={128}
                     src={`/logo-black.png`} />
                 <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>

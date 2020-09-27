@@ -7,10 +7,18 @@ import {Col, Row} from "pages/Base/Grid";
 import {SafeImage} from "./SafeImage";
 import {CSSProperties} from "@material-ui/core/styles/withStyles";
 
-interface IProps {
+interface IPropsString {
+    alt: string;
     infinite?: boolean;
-    children: (string[] | ReactNode[]);
+    children: string[];
 }
+
+interface IPropsNode {
+    infinite?: boolean;
+    children: ReactNode[];
+}
+
+type IProps = IPropsString | IPropsNode;
 
 const arrowStyle: CSSProperties = {
     position: "absolute",
@@ -69,7 +77,7 @@ export const Carousel: React.FC<IProps> = (props) => {
                 }}
                 disabled={disabledLeft}
                 onClick={() => onLeft()}>
-                <ArrowBack/>
+                <ArrowBack />
             </IconButton>
             <IconButton
                 style={{
@@ -78,7 +86,7 @@ export const Carousel: React.FC<IProps> = (props) => {
                 }}
                 disabled={disabledRight}
                 onClick={() => onRight()}>
-                <ArrowForward/>
+                <ArrowForward />
             </IconButton>
         </>
     );
@@ -94,7 +102,7 @@ export const Carousel: React.FC<IProps> = (props) => {
                             transition: "all .2s",
                         }}
                         key={index}
-                        onClick={() => onIndex(index)}/>
+                        onClick={() => onIndex(index)} />
                 ))
             }
         </Row>
@@ -104,12 +112,13 @@ export const Carousel: React.FC<IProps> = (props) => {
         Array.isArray(children) && children.every(item => typeof item === "string")
             ? (
                 <SafeImage
+                    alt={`${(props as any).alt} carousel ${current + 1} slide`}
                     onTouchStart={(e) => setTouchX(e.touches?.[0]?.clientX ?? null)}
                     onTouchMove={(e) => setMoveX(e.touches?.[0]?.clientX ?? null)}
                     onTouchEnd={() => onMove()}
                     draggable="false"
                     style={{objectFit: "cover", width: "100%"}}
-                    src={children[current] as string}/>
+                    src={children[current] as string} />
             ) : (
                 children[current] && React.isValidElement(children[current]) &&
                 React.cloneElement(children[current] as any, {

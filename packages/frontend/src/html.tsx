@@ -11,7 +11,7 @@ interface IProps {
 }
 
 export const Html: React.FC<IProps> = ({assets, helmet, content, state}) => (
-    <html>
+    <html lang="en">
         <head>
             {helmet.title.toComponent()}
             {helmet.meta.toComponent()}

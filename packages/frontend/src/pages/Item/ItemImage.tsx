@@ -17,7 +17,7 @@ export const ItemImage: React.FC<IProps> = (props) => {
     const image = (item: IItem) => `${backend.uri}/${item.id}/${item.images[0]}/u.png`;
 
     return (
-        <Carousel>
+        <Carousel alt={`${item.name}`}>
             {[
                 image(item),
                 ...item.item.filter((id) => (id in items.id)).map((id) => image(items.id[id])),

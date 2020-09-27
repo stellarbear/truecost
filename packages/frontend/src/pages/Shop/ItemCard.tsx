@@ -50,8 +50,8 @@ const ItemCard: React.FC<IProps> = (props) => {
             onClick={(event) => event.stopPropagation()}>
             {
                 item.range.d.length === 0
-                    ? <ItemCardBase item={item} redirect={redirect} price={itemPrice}/>
-                    : <ItemCardRange item={item} redirect={redirect} price={itemPrice}/>
+                    ? <ItemCardBase item={item} redirect={redirect} price={itemPrice} />
+                    : <ItemCardRange item={item} redirect={redirect} price={itemPrice} />
             }
         </div>
     );
@@ -61,12 +61,12 @@ const ItemCard: React.FC<IProps> = (props) => {
 
         return (
             <Col left m={4} s={4}
-                 style={{position: "absolute", top: 0, left: 0}}>
+                style={{position: "absolute", top: 0, left: 0}}>
                 {filtered.length > 0 && (
                     <Chip
                         key={filtered[0]}
                         label={tags.id[filtered[0]].name}
-                        color="primary" size="small"/>
+                        color="primary" size="small" />
                 )}
             </Col>
         );
@@ -77,7 +77,7 @@ const ItemCard: React.FC<IProps> = (props) => {
             position: "absolute", top: 0, right: 0,
         }}>
             {inYourCart && (
-                <CheckCircle color="primary"/>
+                <CheckCircle color="primary" />
             )}
         </Row>
     );
@@ -86,17 +86,18 @@ const ItemCard: React.FC<IProps> = (props) => {
         const image = `${backend.uri}/${item.id}/${item.images[0]}/u.png`;
         return (
             <ButtonBase component={Link} to={redirect}
-                        style={{backgroundColor: 'transparent', padding: 0, height: "100%", width: "100%"}}>
+                style={{backgroundColor: 'transparent', padding: 0, height: "100%", width: "100%"}}>
                 <Col fullWidth style={{width: "100%"}}>
                     {chip()}
                     {eta()}
                     <SafeImage
+                        alt={`${item.name} image`}
                         height={300}
-                        src={image} style={{objectFit: "contain", width: "inherit"}}/>
-                    <Divider/>
+                        src={image} style={{objectFit: "contain", width: "inherit"}} />
+                    <Divider />
                     <Row between p={8} s={8} width={["100%", "auto"]} style={{height: 60}}>
                         <Typography variant="body1" align="center"
-                                    style={{maxHeight: 70, overflow: "hidden"}}>{item.name}</Typography>
+                            style={{maxHeight: 70, overflow: "hidden"}}>{item.name}</Typography>
                         <Button
                             onMouseEnter={() => setHovered(true)}
                             size="large"
@@ -104,7 +105,7 @@ const ItemCard: React.FC<IProps> = (props) => {
                             variant="outlined"
                         >
                             <PriceTypography price={itemPrice.value}
-                                             discount={item.discount}/>
+                                discount={item.discount} />
                         </Button>
                     </Row>
                 </Col>

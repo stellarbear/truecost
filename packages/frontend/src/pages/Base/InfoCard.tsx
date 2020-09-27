@@ -21,6 +21,7 @@ export const InfoCard: React.FC<IProps> = ({text, actions = [], style = {}}) => 
         <Col style={style}>
             <Row s={8} wrap>
                 <SafeImage
+                    alt={"assistant icon"}
                     className="float"
                     height={80}
                     src={image} style={{

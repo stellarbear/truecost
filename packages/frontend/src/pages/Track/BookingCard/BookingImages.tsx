@@ -15,7 +15,7 @@ export const BookingImages: React.FC<IProps> = ({bookingId, images}) => {
         images.length > 0 ? (
             <>
                 <Typography>Verification: </Typography>
-                <Carousel>
+                <Carousel alt={`${bookingId} order`}>
                     {
                         images.map((id) => image(id))
                     }

@@ -51,8 +51,8 @@ export const Desktop: React.FC<IDesktop> = (props) => {
         }}>
             <Row>
                 {subscription()}
-                <CartPicker/>
-                <Account/>
+                <CartPicker />
+                <Account />
             </Row>
         </div>
     );
@@ -65,10 +65,12 @@ export const Desktop: React.FC<IDesktop> = (props) => {
         }}>
             <Row>
                 <Button component={Link} to={url}>
-                    <img height={80} width={80} src={logo}
-                         style={{marginTop: -20, marginBottom: -20}}/>
+                    <img
+                        alt="logo icon"
+                        height={80} width={80} src={logo}
+                        style={{marginTop: -20, marginBottom: -20}} />
                 </Button>
-                <GamePicker/>
+                <GamePicker />
             </Row>
         </div>
     );

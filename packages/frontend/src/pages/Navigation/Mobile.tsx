@@ -90,7 +90,9 @@ export const Mobile: React.FC<IProps> = (props) => {
                         <Clear />
                     </IconButton>
                     <Button component={Link} to={url}>
-                        <img height={48} width={48} src={logo}
+                        <img
+                            alt="logo icon"
+                            height={48} width={48} src={logo}
                             style={{marginTop: -20, marginBottom: -20}} />
                     </Button>
                 </Row>
@@ -98,6 +100,7 @@ export const Mobile: React.FC<IProps> = (props) => {
                 {navigation()}
                 <Row>
                     <SafeImage
+                        alt={"assistant icon"}
                         className="float"
                         height={"inherit"}
                         src={image} style={{

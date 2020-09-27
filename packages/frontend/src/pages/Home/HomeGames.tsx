@@ -29,7 +29,7 @@ const Overlay: React.FC = () => (
             transform: "translate(-50%, -50%)",
         }}>
             <Col>
-                <CheckCircle color="primary" style={{transform: "scale(1.5)"}}/>
+                <CheckCircle color="primary" style={{transform: "scale(1.5)"}} />
             </Col>
         </div>
     </div>
@@ -60,6 +60,7 @@ export const HomeGames: React.FC = () => {
                         >
                             <Col key={game}>
                                 <SafeImage
+                                    alt={`${games.id[game].name} icon`}
                                     height={"inherit"}
                                     src={image(games.id[game])} style={{
                                         minWidth: 80,

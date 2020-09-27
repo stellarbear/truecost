@@ -61,11 +61,12 @@ export const HomeInfo = () => {
                         }}
                     >
                         <SafeImage
+                            alt={info.text}
                             style={{height, objectFit: "cover", width: "100%"}}
                             draggable="false"
                             src={image(info.id, info.images[0])} />
                         <Row style={{position: "absolute", top: 0, left: 0}} p={16}>
-                            <Markdown style={{color:"white"}}>
+                            <Markdown style={{color: "white"}}>
                                 {info.text}
                             </Markdown>
                         </Row>

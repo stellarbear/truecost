@@ -6,11 +6,13 @@ import {backend, frontend} from 'auxiliary/route';
 import Skeleton from '@material-ui/lab/Skeleton';
 
 interface IProps extends React.ImgHTMLAttributes<any> {
+    alt: string;
     src: string;
     height?: string | number;
 }
 
-export const SafeImage: React.FC<IProps> = ({src, style = {}, height, ...rest}) => {
+export const SafeImage: React.FC<IProps> = (props) => {
+    const {src, style = {}, height, ...rest} = props;
     const {current: {game}} = useStore();
     const fallback = game.id === "truecost" ? `${frontend.uri}/default/assistant.png`
         : `${backend.uri}/${game.id}/${game.assistant}/u.png`;

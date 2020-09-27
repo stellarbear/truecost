@@ -14,6 +14,7 @@ export const HomeImage: React.FC<IProps> = ({src}) => (
         }}
     >
         <SafeImage
+            alt={"background image"}
             height={"inherit"}
             src={src} style={{
                 width: "100vw",
