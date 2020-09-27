@@ -17,6 +17,8 @@ import Stripe from 'stripe';
 import {creds} from './helpers/creds';
 import {createOrder} from './modules/other/webhook';
 import {GraphQLSchema} from 'graphql';
+import {ItemEntity} from './modules/crud/item/item.entity';
+import {GameEntity} from './modules/crud/game/game.entity';
 
 export interface Context {
     req: express.Request;
@@ -104,6 +106,25 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         });
 
         next();
+    });
+
+    app.get('/sitemap', {
+        handler: async (request, response) => {
+            try {
+                const games = (await DI.em.find(GameEntity,
+                    {active: true}, {fields: ["url"]})).map(g => g.url);
+                const items = (await DI.em.find(ItemEntity,
+                    {active: true}, {fields: ["url", "game"]})).map(i => ({
+                        g: i.game.url,
+                        u: i.url,
+                    }));
+
+                return response.send({games, items});
+            } catch (err) {
+                console.log("err", err);
+                return response.code(400).send();
+            }
+        },
     });
 
 

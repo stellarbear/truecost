@@ -55,7 +55,8 @@ const getMetaTags = (meta: Dict<IMeta>, path: string): Dict<any> => {
 
 export const Meta: React.FC<IProps> = (props) => {
     const {current: {game: {url: gameUrl}}, meta} = useStore();
-    const {location: {pathname: browserUrl}} = useHistory();
+    const history = useHistory();
+    const {location: {pathname: browserUrl}} = history;
 
     const preUrl = browserUrl.startsWith('/' + gameUrl)
         ? browserUrl.slice(1 + gameUrl.length)
@@ -84,7 +85,7 @@ export const Meta: React.FC<IProps> = (props) => {
                         : <meta key={path} name={path} content={value} />
                 ))
             }
-            <link rel="canonical" href={location.pathname} />;
+            <link rel="canonical" href={browserUrl} />;
         </Helmet>
     );
 };

@@ -12,10 +12,11 @@ import {theme} from "theme";
 import {ThemeProvider} from "@material-ui/styles";
 
 import createApolloClient from "apollo";
-import {environment} from "auxiliary/route";
+import {environment, backend} from "auxiliary/route";
 import {Html} from "html";
 import {ApolloProvider} from "@apollo/client";
 import {Helmet} from "react-helmet";
+import {generateSiteMap} from "auxiliary/sitemap";
 
 const server = express();
 
@@ -28,6 +29,14 @@ server
                 : path.join(__dirname, '../build/public'),
         ),
     )
+    .get("/sitemap.xml", async (req: express.Request, res: express.Response): Promise<void> => {
+        const result = await fetch(`${backend.uri}/sitemap`);
+        const {games, items} = await result.json();
+        
+        res.setHeader('Content-Type', 'text/xml');
+        res.write(generateSiteMap(games, items));
+        res.end();
+    })
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
 
