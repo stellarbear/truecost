@@ -20,7 +20,7 @@ export const ItemDescription: React.FC<IProps> = (props) => {
                     </IconButton>
                 </a>
             }
-            <Typography variant="h4" style={{textAlign: "center"}}>{item.name}</Typography>
+            <Typography variant="h4" component="h1" style={{textAlign: "center"}}>{item.name}</Typography>
         </Row>
     );
 };
