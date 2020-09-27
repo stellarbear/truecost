@@ -66,6 +66,7 @@ export const Meta: React.FC<IProps> = (props) => {
         : '/' + preUrl;
 
     const {
+        children,
         path = url,
         entity = {},
     } = props;
@@ -85,7 +86,8 @@ export const Meta: React.FC<IProps> = (props) => {
                         : <meta key={path} name={path} content={value} />
                 ))
             }
-            <link rel="canonical" href={browserUrl} />;
+            <link rel="canonical" href={browserUrl} />
+            {children}
         </Helmet>
     );
 };
