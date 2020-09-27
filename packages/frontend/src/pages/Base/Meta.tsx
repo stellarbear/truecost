@@ -4,6 +4,7 @@ import {Dict} from '@truecost/shared';
 import {useStore} from 'pages/Data/Wrapper';
 import {useHistory} from 'react-router';
 import {IMeta} from 'pages/Data/useMeta';
+import {frontend} from 'auxiliary/route';
 
 interface IProps {
     path?: string;
@@ -86,7 +87,7 @@ export const Meta: React.FC<IProps> = (props) => {
                         : <meta key={path} name={path} content={value} />
                 ))
             }
-            <link rel="canonical" href={browserUrl} />
+            <link rel="canonical" href={`${frontend.uri}${browserUrl}`} />
             {children}
         </Helmet>
     );
