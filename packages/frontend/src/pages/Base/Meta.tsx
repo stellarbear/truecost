@@ -81,9 +81,10 @@ export const Meta: React.FC<IProps> = (props) => {
                 data.map(({path, value}) => (
                     path === "title"
                         ? <title key={path}>{value}</title>
-                        : <meta key={path} name={path} content={value}/>
+                        : <meta key={path} name={path} content={value} />
                 ))
             }
+            <link rel="canonical" href={location.pathname} />;
         </Helmet>
     );
 };
