@@ -4,6 +4,7 @@ import {DataContext} from "pages/Data/Wrapper";
 import {ItemLanding} from "./ItemLanding";
 import {Meta} from "pages/Base/Meta";
 import {trim} from "auxiliary/string";
+import {backend} from "auxiliary/route";
 
 export const Item: React.FC = () => {
     const location = useLocation();
@@ -23,12 +24,12 @@ export const Item: React.FC = () => {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": "Garden of Salvation",
-        "image": "${item.images[0]}"
+        "image": "${`${backend.uri}/${item.id}/${item.images[0]}/u.webp`}",
         "description": "You will obtain: ${item.obtain?.replace("\n", ", ")}",
         "brand": "${game.name}",
         "offers": {
             "@type": "Offer",
-            "url": "${location}",
+            "url": "${location.pathname}",
             "priceCurrency": "USD",
             "price": "${item.price}",
             "priceValidUntil": "${date}",
