@@ -4,7 +4,7 @@ import {DataContext} from "pages/Data/Wrapper";
 import {ItemLanding} from "./ItemLanding";
 import {Meta} from "pages/Base/Meta";
 import {trim} from "auxiliary/string";
-import {backend} from "auxiliary/route";
+import {backend, frontend} from "auxiliary/route";
 
 export const Item: React.FC = () => {
     const location = useLocation();
@@ -29,7 +29,7 @@ export const Item: React.FC = () => {
         "brand": "${game.name}",
         "offers": {
             "@type": "Offer",
-            "url": "${location.pathname}",
+            "url": "${frontend.uri}${location.pathname}",
             "priceCurrency": "USD",
             "price": "${item.price}",
             "priceValidUntil": "${date}",
