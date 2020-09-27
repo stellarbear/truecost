@@ -15,6 +15,8 @@ export const Html: React.FC<IProps> = ({assets, helmet, content, state}) => (
         <head>
             {helmet.title.toComponent()}
             {helmet.meta.toComponent()}
+            {helmet.link.toComponent()}
+            {helmet.script.toComponent()}
             <meta charSet='utf-8' />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
