@@ -13,13 +13,8 @@ module.exports = {
 				...config.optimization,
 				splitChunks: {
 					cacheGroups: {
-						mui: {
-							test: /[\\/]node_modules[\\/](@material-ui|popper|jss|mdi-material-ui)[\\/]/,
-							name: 'mui',
-							chunks: 'all',
-						},
 						vendor: {
-							test: /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom|react-transition-groudp|@apollo|graphql|react-hook-form|react-helmet|react-lazyload|markdown-to-jsx)[\\/]/,
+							test: /[\\/]node_modules[\\/]/,
 							name: 'vendor',
 							chunks: 'all',
 						},
@@ -27,6 +22,8 @@ module.exports = {
 							priority: -20,
 							reuseExistingChunk: true,
 						},
+						name: false,
+						chunks: 'all',
 					},
 				},
 			};
