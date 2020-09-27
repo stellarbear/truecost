@@ -51,6 +51,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
             <div style={{overflowY: "auto"}}>
                 {itemOptions.length > 0 ? itemOptions.map((optionId) => {
                     const option = CalcPrice.fromOption(price, options.local.id[optionId]);
+                    const name = options.local.id[optionId].name;
 
                     return (
                         <div key={`${itemId}-option-${optionId}`}>
@@ -66,10 +67,11 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                                 }}
                             >
                                 <Checkbox
+                                    inputProps={{'aria-label': name}}
                                     checked={selectedOptions.includes(optionId)}
                                 />
                                 <Typography variant="body2"
-                                    style={{userSelect: "none"}}>{options.local.id[optionId].name}
+                                    style={{userSelect: "none"}}>{name}
                                 </Typography>
                                 <TypographyTwoLevel
                                     text={option.string}

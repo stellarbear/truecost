@@ -60,7 +60,9 @@ const Home: React.FC = () => {
                         </Grid>
                         <Grid item xs={12}>
                             {info(`Top deals`,
-                                <IconButton component={Link} to={url + "/shop"}>
+                                <IconButton
+                                    aria-label="go to shop"
+                                    component={Link} to={url + "/shop"}>
                                     <ShoppingBasket />
                                 </IconButton>,
                             )}
