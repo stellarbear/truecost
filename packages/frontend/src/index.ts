@@ -6,7 +6,7 @@ import {frontend} from 'auxiliary/route';
 const basePort = frontend.port;
 
 if (module.hot) {
-    module.hot.accept('./server', (): void => {
+    module.hot.accept('./server', () => {
         console.log('🔁  HMR Reloading `./server`...');
     });
     console.info('✅  Server-side HMR Enabled!');
@@ -17,8 +17,8 @@ if (!basePort) {
 }
 
 export default express()
-    .use((req, res): void => (app as any).handle(req, res))
-    .listen(basePort, (): void => {
+    .use((req, res) => (app as any).handle(req, res))
+    .listen(basePort, () => {
 
         console.log(`> Started on port ${basePort}`);
     });

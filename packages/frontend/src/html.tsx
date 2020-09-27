@@ -21,7 +21,6 @@ export const Html: React.FC<IProps> = ({assets, helmet, content, state}) => (
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
             <script src={assets.client.js} defer></script>
-            <script src={assets.mui.js} defer></script>
             <script src={assets.vendor.js} defer></script>
 
             <link rel="stylesheet"

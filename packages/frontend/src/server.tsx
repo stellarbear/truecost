@@ -19,20 +19,19 @@ import {Helmet} from "react-helmet";
 import {generateSiteMap} from "auxiliary/sitemap";
 
 const server = express();
+const root = environment == "development"
+    ? process.env.RAZZLE_PUBLIC_DIR || ""
+    : path.join(__dirname, '../build/public');
 
 server
     .disable("x-powered-by")
     .use(
-        express.static(
-            environment == "development"
-                ? process.env.RAZZLE_PUBLIC_DIR || ""
-                : path.join(__dirname, '../build/public'),
-        ),
+        express.static(root),
     )
     .get("/sitemap.xml", async (req: express.Request, res: express.Response): Promise<void> => {
         const result = await fetch(`${backend.uri}/sitemap`);
         const {games, items} = await result.json();
-        
+
         res.setHeader('Content-Type', 'text/xml');
         res.write(generateSiteMap(games, items));
         res.end();
@@ -57,7 +56,6 @@ server
 
         const assets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
         getDataFromTree(app).then(() => {
-            // We are ready to render for real
             const content = renderToString(app);
             const initialState = client.extract();
             const helmet = Helmet.renderStatic();
