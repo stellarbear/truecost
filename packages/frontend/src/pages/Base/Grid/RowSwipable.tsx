@@ -37,7 +37,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
     const arrowStyle: CSSProperties = {
         opacity: visible ? 1.0 : 0.0,
         transition: "all 0.5s",
-        
+
         position: "absolute",
         top: "40%",
         zIndex: 2,
@@ -66,6 +66,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
             {arrows && (
                 <Hidden smDown>
                     <IconButton
+                        aria-label="swipe left"
                         style={{
                             ...arrowStyle,
                             left: s + 4,
@@ -79,6 +80,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                         <ArrowBack />
                     </IconButton>
                     <IconButton
+                        aria-label="swipe right"
                         style={{
                             ...arrowStyle,
                             right: s + 4,

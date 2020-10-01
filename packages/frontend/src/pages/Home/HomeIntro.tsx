@@ -26,7 +26,7 @@ export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
                 style={{marginTop: 8}}
                 variant="contained"
                 color="secondary">
-                <Typography variant="h6" color="inherit">{`${max} % discount `}</Typography>
+                <Typography variant="h6" component="p" color="inherit">{`${max} % discount `}</Typography>
             </Button>
             <Typography
                 style={{marginTop: 8}}
@@ -36,7 +36,7 @@ export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
 
     return (
         <div style={style}>
-            <Typography variant="h4">{`${game.name} personal service`}</Typography>
+            <Typography variant="h4" component="h1">{`${game.name} personal service`}</Typography>
             <Typography variant="body1">boosting, coaching, carry</Typography>
             {max > 0 && discount()}
             <Button

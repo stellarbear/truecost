@@ -56,7 +56,9 @@ const FooterAbout: React.FC = () => (
                             social.map((item, index) => (
                                 <SocialDialog key={`social-${index}`} button={
                                     (
-                                        <IconButton color="inherit" size="small">
+                                        <IconButton
+                                            aria-label={item.title}
+                                            color="inherit" size="small">
                                             {React.cloneElement(item.icon, {style: {color: "white"}})}
                                         </IconButton>
                                     )
