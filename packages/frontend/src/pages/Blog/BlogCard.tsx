@@ -40,7 +40,7 @@ export const BlogCard: React.FC<IProps> = (props) => {
                     <Row fullWidth between s={8}>
                         <Typography>{new Date(date).toLocaleDateString()}</Typography>
                         <Button variant="contained"
-                                component={Link} to={`/blog/${url}`}>Read more</Button>
+                                component={Link} to={`/post/${url}`}>Read more</Button>
                     </Row>
                 </Col>
             </Row>

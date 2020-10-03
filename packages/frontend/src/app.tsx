@@ -71,7 +71,7 @@ const App = () => {
                     unauthorized />
 
                 <Route sensitive exact path={`/blog`} component={Blog} />
-                <Route sensitive exact path={`/blog/:id`} component={BlogPost} />
+                <Route sensitive exact path={`/post/:id`} component={BlogPost} />
                 <Route sensitive exact path={`/track`} component={Track} />
                 <Route sensitive exact path={`/discount`} component={Discount} />
                 <Route sensitive exact path={`/contact`} component={Contact} />

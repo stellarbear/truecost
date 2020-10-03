@@ -57,6 +57,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                         return (
                             <div key={`${itemId}-option-${optionId}`}>
                                 <Row fullWidth between
+                                    width={["auto", "100%", "auto"]}
                                     s={8}
                                     p={[8, 0]}
                                     onMouseEnter={() => setHovered(optionId)}
@@ -83,7 +84,9 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                             </div>
                         );
                     }) : (
-                            <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
+                            <Typography style={{margin: 32, textAlign: "center"}}>
+                                No options available.
+                            </Typography>
                         )}
                 </NoSsr>
             </div>
