@@ -33,8 +33,8 @@ const createApolloClient = ({ssr, cookie}: IApolloClient) => {
     const client = new ApolloClient({
         cache: !ssr ? new InMemoryCache().restore((window as any).apolloState) : new InMemoryCache(),
         ...(ssr
-            ? {ssrMode: true}
-            : {ssrForceFetchDelay: 100}
+                ? {ssrMode: true}
+                : {ssrForceFetchDelay: 100}
         ),
         defaultOptions: {
             query: {

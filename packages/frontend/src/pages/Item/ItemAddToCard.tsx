@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IItem, CalcResult} from "@truecost/shared";
+import {CalcResult, IItem} from "@truecost/shared";
 import {useStore} from 'pages/Data/Wrapper';
 import {Button, Typography} from '@material-ui/core';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';

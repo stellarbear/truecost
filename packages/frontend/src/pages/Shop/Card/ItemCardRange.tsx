@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
-import {IItem, CalcResult} from '@truecost/shared';
+import {CalcResult, IItem} from '@truecost/shared';
 import {useStore} from 'pages/Data/Wrapper';
 import {Button, ButtonBase, Typography} from '@material-ui/core';
 import CheckCircle from '@material-ui/icons/CheckCircle';

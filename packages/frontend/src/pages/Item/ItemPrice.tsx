@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {IItem, CalcResult} from "@truecost/shared";
+import {CalcResult, IItem} from "@truecost/shared";
 import {Typography} from '@material-ui/core';
 import {PriceTypography} from 'pages/Base/PriceTypography';
 import {Row} from 'pages/Base/Grid';

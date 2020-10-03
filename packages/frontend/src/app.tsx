@@ -27,6 +27,8 @@ import {About, Contact, Policy, TOS} from "pages";
 import NotFound from "pages/NotFound";
 import {NavigationWrapper} from "pages/Navigation";
 import {NotifyWrapper} from "components/wrappers/NotifyWrapper";
+import {Blog} from "pages/Blog";
+import {BlogPost} from "pages/Blog/BlogPost";
 
 
 const App = () => {
@@ -68,6 +70,8 @@ const App = () => {
                 <AuthRoute sensitive exact path={`/password/message`} component={PasswordMessage}
                     unauthorized />
 
+                <Route sensitive exact path={`/blog`} component={Blog} />
+                <Route sensitive exact path={`/blog/:id`} component={BlogPost} />
                 <Route sensitive exact path={`/track`} component={Track} />
                 <Route sensitive exact path={`/discount`} component={Discount} />
                 <Route sensitive exact path={`/contact`} component={Contact} />

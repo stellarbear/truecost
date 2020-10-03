@@ -35,7 +35,6 @@ export const Mobile: React.FC<IProps> = (props) => {
     const image = game.id === "truecost" ? `${frontend.uri}/default/assistant.png`
         : `${backend.uri}/${game.id}/${game.assistant}/u.png`;
 
-
     const button = (url: string, text: string) => (
         <Button fullWidth component={Link} to={url} onClick={() => setOpen(false)}>{text}</Button>
     );
@@ -46,6 +45,7 @@ export const Mobile: React.FC<IProps> = (props) => {
             {button(url + '/shop', "Shop")}
             {button(url + '/checkout', "Checkout")}
             <Divider />
+            {button("/blog", "Blog")}
             {button("/track", "Track")}
             {button("/discount", "Discount")}
             {button("/contact", "Contact")}

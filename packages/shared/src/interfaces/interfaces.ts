@@ -31,7 +31,7 @@ export interface IBlog extends IBase {
     images: string[];
     date: number;
 
-    text?: string;
+    text: string;
 }
 
 export interface IGame extends IBase {

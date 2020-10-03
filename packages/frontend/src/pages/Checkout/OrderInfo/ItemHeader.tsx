@@ -3,7 +3,7 @@ import {Col, Row} from 'pages/Base/Grid';
 import {IconButton, Typography} from '@material-ui/core';
 import {PriceTypography} from 'pages/Base/PriceTypography';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {IItem, Time, CalcResult} from '@truecost/shared';
+import {CalcResult, IItem, Time} from '@truecost/shared';
 
 interface IProps {
     item: IItem;
@@ -19,7 +19,7 @@ export const ItemHeader: React.FC<IProps> = (props) => {
         <Row fullWidth between>
             <Row>
                 <IconButton style={{marginLeft: -12}} onClick={() => onDelete()}>
-                    <DeleteIcon />
+                    <DeleteIcon/>
                 </IconButton>
                 <Col left>
                     <Typography>
@@ -42,7 +42,7 @@ export const ItemHeader: React.FC<IProps> = (props) => {
             </Row>
             <Col>
                 <PriceTypography price={total.value * quantity}
-                    discount={item.discount * quantity} />
+                                 discount={item.discount * quantity}/>
             </Col>
         </Row>
     );

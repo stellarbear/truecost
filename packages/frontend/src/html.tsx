@@ -4,14 +4,14 @@ import {HelmetData} from 'react-helmet';
 import {Dict} from '@truecost/shared';
 
 interface IProps {
-    css: string;
+    //css: string;
     assets: Dict<{js: string}>;
     helmet: HelmetData;
     content: string;
     state: NormalizedCacheObject;
 }
 
-export const Html: React.FC<IProps> = ({assets, helmet, content, state, css}) => (
+export const Html: React.FC<IProps> = ({assets, helmet, content, state}) => (
     <html lang="en">
         <head>
             {helmet.title.toComponent()}
@@ -24,7 +24,6 @@ export const Html: React.FC<IProps> = ({assets, helmet, content, state, css}) =>
             <script src={assets.client.js} defer></script>
             <script src={assets.vendor.js} defer></script>
 
-            <style id="jss-server-side">${css}</style>
             <link rel="stylesheet"
                 href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
             <script type="text/javascript"

@@ -16,7 +16,7 @@ export const ItemTotal: React.FC<IProps> = (props) => {
     const cartItems = cart();
     const {items: {id: items}, options: {global: {id: global}}} = shop();
 
-    const totalPrice = CalcPrice.fromItemAndOptions(total,cartItems.global.map(o => global[o]));
+    const totalPrice = CalcPrice.fromItemAndOptions(total, cartItems.global.map(o => global[o]));
     const discount = Object.keys(cartItems.local).reduce((acc, cur) => acc + items[cur].discount, 0);
 
     return (

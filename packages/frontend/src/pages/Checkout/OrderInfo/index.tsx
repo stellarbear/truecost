@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col} from 'pages/Base/Grid';
-import {Typography, Accordion, AccordionSummary, AccordionDetails, NoSsr} from '@material-ui/core';
+import {Accordion, AccordionDetails, AccordionSummary, NoSsr, Typography} from '@material-ui/core';
 import {CalcPrice} from '@truecost/shared';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {ItemOption} from './ItemOption';
@@ -34,15 +34,15 @@ export const OrderInfo: React.FC = () => {
         return (
             <Accordion key={key} elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
                 <AccordionSummary
-                    expandIcon={<ExpandMore />}>
+                    expandIcon={<ExpandMore/>}>
                     <ItemHeader
                         onDelete={() => update.cart.remove({...cartItem})}
                         item={item} total={totalPrice} chunk={chunk}
-                        quantity={quantity} />
+                        quantity={quantity}/>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Col fullWidth style={{width: "100%"}}>
-                        <ItemDivider condition={true} />
+                        <ItemDivider condition={true}/>
                         <ItemCount
                             onAdd={() => upsert({...cartItem, quantity: +1})}
                             onRemove={() => upsert({...cartItem, quantity: -1})}
@@ -81,11 +81,11 @@ export const OrderInfo: React.FC = () => {
                 <Typography variant="caption">Items</Typography>
                 {keys.length > 0
                     ? keys.map(key => itemCard(key))
-                    : <CheckoutEmpty />}
+                    : <CheckoutEmpty/>}
                 <ItemExtra
-                    total={total} />
+                    total={total}/>
                 <ItemTotal
-                    total={total} />
+                    total={total}/>
             </Col>
         </NoSsr>
     );

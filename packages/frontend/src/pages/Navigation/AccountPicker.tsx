@@ -61,7 +61,7 @@ export const AccountPicker: React.FC = () => {
         <>
             <IconButton color="inherit" aria-haspopup="true" onClick={(e) => setAnchorEl(e.currentTarget)}>
                 <Badge badgeContent={discount > 0 ? `${discount}\u00A0%` : 0} color="secondary">
-                    <AccountCircle />
+                    <AccountCircle/>
                 </Badge>
             </IconButton>
             <Menu

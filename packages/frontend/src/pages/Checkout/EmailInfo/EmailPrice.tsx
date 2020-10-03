@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
-import {Button, Divider, Typography, CircularProgress} from '@material-ui/core';
+import {Button, CircularProgress, Divider, Typography} from '@material-ui/core';
 import {CalcPrice} from '@truecost/shared';
 import {ModalDialog} from 'components/ModalDialog';
 import {TOS} from 'pages';
@@ -42,27 +42,27 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                     {`subscription discount: -${subscriptionDiscount} %`}
                 </Typography>
             </Col>
-            <Divider />
-            <Row >
+            <Divider/>
+            <Row>
                 <Typography variant="caption" color="secondary">
                     {`You agree with\u00A0`}
                 </Typography>
                 <ModalDialog
                     button={
-                        <Typography variant="caption"  style={{textDecoration: "underline"}}>
+                        <Typography variant="caption" style={{textDecoration: "underline"}}>
                             Terms of use
-                            </Typography>
+                        </Typography>
                     }
                     content={
                         [
-                            <TOS key={0} />,
+                            <TOS key={0}/>,
                         ]
                     }
                 />
             </Row>
             <Row end>
                 <Button variant="contained" type="submit" color="primary">
-                    {loading ? <CircularProgress size={24} /> : `Total: ${total} $`}
+                    {loading ? <CircularProgress size={24}/> : `Total: ${total} $`}
                 </Button>
             </Row>
         </Col>
