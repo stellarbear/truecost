@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {IItem, CalcResult, CalcPrice} from '@truecost/shared';
 import {useStore} from 'pages/Data/Wrapper';
-import {Button, Checkbox, Divider, Typography} from '@material-ui/core';
+import {Button, Checkbox, Divider, NoSsr, Typography} from '@material-ui/core';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import {Row} from 'pages/Base/Grid';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
@@ -49,41 +49,43 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                 Open item page
             </Button>
             <div style={{overflowY: "auto"}}>
-                {itemOptions.length > 0 ? itemOptions.map((optionId) => {
-                    const option = CalcPrice.fromOption(price, options.local.id[optionId]);
-                    const name = options.local.id[optionId].name;
+                <NoSsr>
+                    {itemOptions.length > 0 ? itemOptions.map((optionId) => {
+                        const option = CalcPrice.fromOption(price, options.local.id[optionId]);
+                        const name = options.local.id[optionId].name;
 
-                    return (
-                        <div key={`${itemId}-option-${optionId}`}>
-                            <Row fullWidth between
-                                s={8}
-                                p={[8, 0]}
-                                onMouseEnter={() => setHovered(optionId)}
-                                onMouseLeave={() => setHovered("")}
-                                onClick={() => toggleSelected(optionId)}
-                                style={{
-                                    backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
-                                    transition: "all 0.3s",
-                                }}
-                            >
-                                <Checkbox
-                                    inputProps={{'aria-label': name}}
-                                    checked={selectedOptions.includes(optionId)}
-                                />
-                                <Typography variant="body2"
-                                    style={{userSelect: "none"}}>{name}
-                                </Typography>
-                                <TypographyTwoLevel
-                                    text={option.string}
-                                    description={option.description}
-                                />
-                            </Row>
-                            <Divider style={{paddingLeft: 8}} />
-                        </div>
-                    );
-                }) : (
-                        <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
-                    )}
+                        return (
+                            <div key={`${itemId}-option-${optionId}`}>
+                                <Row fullWidth between
+                                    s={8}
+                                    p={[8, 0]}
+                                    onMouseEnter={() => setHovered(optionId)}
+                                    onMouseLeave={() => setHovered("")}
+                                    onClick={() => toggleSelected(optionId)}
+                                    style={{
+                                        backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
+                                        transition: "all 0.3s",
+                                    }}
+                                >
+                                    <Checkbox
+                                        inputProps={{'aria-label': name}}
+                                        checked={selectedOptions.includes(optionId)}
+                                    />
+                                    <Typography variant="body2"
+                                        style={{userSelect: "none"}}>{name}
+                                    </Typography>
+                                    <TypographyTwoLevel
+                                        text={option.string}
+                                        description={option.description}
+                                    />
+                                </Row>
+                                <Divider style={{paddingLeft: 8}} />
+                            </div>
+                        );
+                    }) : (
+                            <Typography style={{margin: 32, textAlign: "center"}}>No options available.</Typography>
+                        )}
+                </NoSsr>
             </div>
             <Button
                 fullWidth

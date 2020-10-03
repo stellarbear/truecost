@@ -1,6 +1,6 @@
 import React from "react";
 import {useStore} from "pages/Data/Wrapper";
-import {Chip, Container, Divider, Paper, Typography} from "@material-ui/core";
+import {Chip, Container, Divider, NoSsr, Paper, Typography} from "@material-ui/core";
 import {dictSort} from "@truecost/shared";
 import {useStorage} from "auxiliary/useStorage";
 import {Col, Row, RowGrid} from "pages/Base/Grid";
@@ -52,7 +52,7 @@ const Shop: React.FC = () => {
         .filter(itemId =>
             state.names.length === 0 ? true
                 : (state.names.includes(itemId) ||
-                (items.id[itemId].item.length > 0 && items.id[itemId].item.some(i => state.names.includes(i)))))
+                    (items.id[itemId].item.length > 0 && items.id[itemId].item.some(i => state.names.includes(i)))))
         .filter(itemId => state.tags.length === 0 ? true :
             items.id[itemId].tag.some(t => tagDeps.includes(t)));
 
@@ -60,7 +60,7 @@ const Shop: React.FC = () => {
         <InfoCard text={[
             'Unfortunately, nothing was found',
             'Try next time or change some filters',
-        ]}/>
+        ]} />
     );
 
     const renderItems = (data: string[]) => (
@@ -68,7 +68,7 @@ const Shop: React.FC = () => {
             {(itemIds => (
                 <RowGrid w={250} s={16} p={16}>
                     {itemIds.map(id => (
-                        <ItemCard key={id} id={id}/>
+                        <ItemCard key={id} id={id} />
                     ))}
                 </RowGrid>
             ))}
@@ -85,22 +85,24 @@ const Shop: React.FC = () => {
     };
 
     const filterNames = () => (
-        <AutoCompleteCustom
-            values={state.names}
-            options={itemIds}
-            onChange={names =>
-                setState({
-                    ...state,
-                    tags: [],
-                    names,
-                })
-            }
-            onCustom={() => {
-                Tawk_API?.maximize();
-                notify("Ask us for the custom order, we will serve it to you!");
-            }}
-            getLabel={(itemId) => itemId in items.id ? items.id[itemId].name : "unknown"}
-        />
+        <NoSsr>
+            <AutoCompleteCustom
+                values={state.names}
+                options={itemIds}
+                onChange={names =>
+                    setState({
+                        ...state,
+                        tags: [],
+                        names,
+                    })
+                }
+                onCustom={() => {
+                    Tawk_API?.maximize();
+                    notify("Ask us for the custom order, we will serve it to you!");
+                }}
+                getLabel={(itemId) => itemId in items.id ? items.id[itemId].name : "unknown"}
+            />
+        </NoSsr>
     );
 
     const tag = (tagId: string, depth = 0) => (
@@ -132,7 +134,7 @@ const Shop: React.FC = () => {
                 {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
                     <Col fullWidth left s={4} p={8} key={tagId}>
                         <Typography variant="body2">{`${tags.id[tagId].name}: `}</Typography>
-                        <Divider/>
+                        <Divider />
                         <Row start p={[2, 0]} s={8} wrap>
                             {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
                         </Row>
@@ -144,7 +146,7 @@ const Shop: React.FC = () => {
 
     return (
         <>
-            <Meta entity={game}/>
+            <Meta entity={game} />
             <Container fixed>
                 <Col fullWidth s={16}>
                     {filterNames()}

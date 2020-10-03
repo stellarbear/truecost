@@ -71,7 +71,9 @@ export const ItemLanding: React.FC<IProps> = (props) => {
             <Button startIcon={< ArrowDownward />}>
                 Related goods
             </Button>
-            <ItemRelated item={item} />
+            <NoSsr>
+                <ItemRelated item={item} />
+            </NoSsr>
         </Container>
     );
 };
