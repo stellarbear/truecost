@@ -51,7 +51,7 @@ export const Checkout: React.FC = () => {
     };
 
     const panels = () => (
-        <Col fullWidth s={16}>
+        <Col s={16}>
             <React.Fragment>
                 <div style={{display: activeStep !== 0 ? "none" : "block"}}>
                     <OrderInfo/>
@@ -64,7 +64,7 @@ export const Checkout: React.FC = () => {
                 </div>
             </React.Fragment>
             {activeStep < 2 && (
-                <Row end s={8}>
+                <Row justify="flex-end" s={8}>
                     <Button
                         disabled={activeStep === 0}
                         onClick={() => setActiveStep(activeStep - 1)}>

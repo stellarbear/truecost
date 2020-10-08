@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const TextCard: React.FC<IProps> = ({title, data = [], children}) => (
-    <Col s={16} left fullWidth>
+    <Col s={16}>
         <Typography variant="h4" component="h1"
                     style={{textAlign: "left", marginTop: 16, marginBottom: 16}}>{title}</Typography>
         <Divider/>

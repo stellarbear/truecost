@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {CircularProgress, Paper, Typography} from '@material-ui/core';
+import {CircularProgress, Paper} from '@material-ui/core';
 import {IInfo, SafeJSON} from '@truecost/shared';
 import {Carousel} from 'components/Carousel';
 import {backend} from 'auxiliary/route';
@@ -15,10 +15,7 @@ const image = (infoId: string, imageId: string) => `${backend.uri}/${infoId}/${i
 
 const mock = () => (
     <Paper elevation={6} style={{overflow: "hidden", height}}>
-        <Row s={8} p={8}>
-            <CircularProgress size={24} />
-            <Typography>Fetching data...</Typography>
-        </Row>
+        <CircularProgress size={24} />
     </Paper>
 );
 

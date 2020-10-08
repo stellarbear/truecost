@@ -37,7 +37,7 @@ export const ModalDialog: React.FC<IProps> = (props) => {
             >
                 {title && (
                     <DialogTitle style={{padding: 8}}>
-                        <Row fullWidth between>
+                        <Row>
                             <Typography>{title}</Typography>
                             <IconButton onClick={() => setOpen(false)} style={{marginLeft: 32}}>
                                 <Close/>

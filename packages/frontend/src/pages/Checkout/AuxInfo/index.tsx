@@ -8,16 +8,17 @@ interface IProps {
     setValue: (key: string, value: any) => void;
 }
 
-export const AuxInfo: React.FC<IProps> = ({
-                                              value,
-                                              setValue,
-                                          }) => {
+export const AuxInfo: React.FC<IProps> = (props) => {
+    const {
+        value,
+        setValue,
+    } = props;
     const text = value.text || "";
     const cross = !!value.cross;
     const platform = validatePlatform(value.platform);
 
     return (
-        <Col fullWidth s={16}>
+        <Col s={16}>
             <AuxPlatform
                 cross={cross}
                 platform={platform}

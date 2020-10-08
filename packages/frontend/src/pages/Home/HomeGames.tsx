@@ -28,9 +28,7 @@ const Overlay: React.FC = () => (
             left: "50%",
             transform: "translate(-50%, -50%)",
         }}>
-            <Col>
-                <CheckCircle color="primary" style={{transform: "scale(1.5)"}} />
-            </Col>
+            <CheckCircle color="primary" style={{transform: "scale(1.5)"}} />
         </div>
     </div>
 );
@@ -51,7 +49,7 @@ export const HomeGames: React.FC = () => {
         <Paper elevation={6}>
             <RowSwipable id="supported-games" s={16} p={16} w={150} arrows>
                 {gamesSorted.map((game) => (
-                    <Row style={{position: "relative"}}
+                    <Row justify="center" style={{position: "relative"}}
                         key={game}>
                         <ButtonBase component={Link} to={'/' + games.id[game].url}
                             style={{textDecoration: 'none', outline: "none"}}

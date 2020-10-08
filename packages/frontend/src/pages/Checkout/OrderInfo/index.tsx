@@ -32,44 +32,46 @@ export const OrderInfo: React.FC = () => {
         const upsert = update.cart.upsert;
 
         return (
-            <Accordion key={key} elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
-                <AccordionSummary
-                    expandIcon={<ExpandMore/>}>
-                    <ItemHeader
-                        onDelete={() => update.cart.remove({...cartItem})}
-                        item={item} total={totalPrice} chunk={chunk}
-                        quantity={quantity}/>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Col fullWidth style={{width: "100%"}}>
-                        <ItemDivider condition={true}/>
-                        <ItemCount
-                            onAdd={() => upsert({...cartItem, quantity: +1})}
-                            onRemove={() => upsert({...cartItem, quantity: -1})}
-                            quantity={quantity}
-                            item={item}
-                        />
-                        <ItemRange
-                            item={item}
-                            chunk={chunk || [0, 0]}
-                            onChange={(val: [number, number]) =>
-                                upsert({
-                                    ...cartItem,
-                                    quantity: 0, chunk: val,
-                                })}
-                        />
-                        <ItemOption
-                            price={itemPrice} item={item}
-                            selected={optionIds}
-                            onChange={(val: string[]) =>
-                                upsert({
-                                    ...cartItem,
-                                    quantity: 0, optionIds: val,
-                                })}
-                        />
-                    </Col>
-                </AccordionDetails>
-            </Accordion>
+            <div>
+                <Accordion key={key} elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMore />}>
+                        <ItemHeader
+                            onDelete={() => update.cart.remove({...cartItem})}
+                            item={item} total={totalPrice} chunk={chunk}
+                            quantity={quantity} />
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Col fullWidth>
+                            <ItemDivider condition={true} />
+                            <ItemCount
+                                onAdd={() => upsert({...cartItem, quantity: +1})}
+                                onRemove={() => upsert({...cartItem, quantity: -1})}
+                                quantity={quantity}
+                                item={item}
+                            />
+                            <ItemRange
+                                item={item}
+                                chunk={chunk || [0, 0]}
+                                onChange={(val: [number, number]) =>
+                                    upsert({
+                                        ...cartItem,
+                                        quantity: 0, chunk: val,
+                                    })}
+                            />
+                            <ItemOption
+                                price={itemPrice} item={item}
+                                selected={optionIds}
+                                onChange={(val: string[]) =>
+                                    upsert({
+                                        ...cartItem,
+                                        quantity: 0, optionIds: val,
+                                    })}
+                            />
+                        </Col>
+                    </AccordionDetails>
+                </Accordion>
+            </div>
         );
     };
 
@@ -77,15 +79,15 @@ export const OrderInfo: React.FC = () => {
 
     return (
         <NoSsr>
-            <Col s={8} fullWidth right>
+            <Col s={8}>
                 <Typography variant="caption">Items</Typography>
                 {keys.length > 0
-                    ? keys.map(key => itemCard(key))
-                    : <CheckoutEmpty/>}
+                    ? (keys.map(key => itemCard(key)))
+                    : <CheckoutEmpty />}
                 <ItemExtra
-                    total={total}/>
+                    total={total} />
                 <ItemTotal
-                    total={total}/>
+                    total={total} />
             </Col>
         </NoSsr>
     );

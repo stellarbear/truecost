@@ -8,7 +8,7 @@ import IconDown from "@material-ui/icons/ExpandMore";
 import FilterList from "@material-ui/icons/FilterList";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import {Row} from 'pages/Base/Grid';
+import {Row, Col} from 'pages/Base/Grid';
 
 interface IProps {
     key: string;
@@ -101,11 +101,13 @@ export const visible: (props: IProps) => IHidden = (props) => {
                             key={l}
                             className="drag-handle"
                         >
-                            <Row fullWidth start s={8} width={["auto", "100%", "auto", "auto"]}>
+                            <Row s={8} align="center" fullWidth>
                                 <IconButton onClick={() => onClick(l)} >
                                     {v ? <Visibility /> : <VisibilityOff style={{opacity: 0.4}} />}
                                 </IconButton>
-                                <Typography>{l}</Typography>
+                                <Col fullWidth>
+                                    <Typography>{l}</Typography>
+                                </Col>
                                 <IconButton onClick={() => onUp(index)} >
                                     <IconUp />
                                 </IconButton>

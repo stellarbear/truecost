@@ -19,28 +19,30 @@ export const BlogCard: React.FC<IProps> = (props) => {
 
     return (
         <Card>
-            <Row fullWidth start
-                 style={{alignItems: "normal"}}
-                 width={["auto", "100%"]}
-                 m={8} s={8}>
+            <Row
+                align="stretch"
+                m={8} s={8}>
                 <SafeImage
                     alt={"blog image"}
                     height={160}
                     src={image} style={{
-                    minWidth: 160,
-                    width: 160, height: 160, objectFit: "cover", margin: 8, marginLeft: 0,
-                }}/>
+                        minWidth: 160,
+                        width: 160, height: 160, objectFit: "cover", margin: 8, marginLeft: 0,
+                    }} />
                 <Col fullWidth
-                     style={{justifyContent: "space-between", height: "100%"}}
-                >
-                    <Col left>
+                    align="flex-start"
+                    justify="space-between">
+                    <Col
+                        align="flex-start">
                         <Typography variant="h5" component="h2">{name}</Typography>
                         <Typography style={{opacity: 0.7}}>{preview}</Typography>
                     </Col>
-                    <Row fullWidth between s={8}>
+                    <Row fullWidth s={8}
+                        justify="space-between"
+                    >
                         <Typography>{new Date(date).toLocaleDateString()}</Typography>
                         <Button variant="contained"
-                                component={Link} to={`/post/${url}`}>Read more</Button>
+                            component={Link} to={`/post/${url}`}>Read more</Button>
                     </Row>
                 </Col>
             </Row>

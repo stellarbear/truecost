@@ -15,7 +15,7 @@ export const ItemPrice: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <Row s={24} end>
+            <Row s={24} align="center" justify="flex-end">
                 <Typography variant="body1">{"Base price"}</Typography>
                 <PriceTypography price={price.value}
                                  discount={item.discount}/>

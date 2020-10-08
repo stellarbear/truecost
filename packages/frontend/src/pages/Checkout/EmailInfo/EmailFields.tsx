@@ -68,9 +68,9 @@ export const EmailFields: React.FC<IProps> = (props) => {
 
     return (
         <Paper elevation={3}>
-            <Col fullWidth p={8}>
+            <Col p={8}>
                 <Typography variant="caption">Provide billing email</Typography>
-                <Row width={["100%", "auto"]} s={8}>
+                <Row s={8}>
                     <TextField
                         fullWidth
                         disabled={disabled}
@@ -88,7 +88,7 @@ export const EmailFields: React.FC<IProps> = (props) => {
                         variant="filled"
                         onChange={() => clearErrors()}
                     />
-                    <Button onClick={() => onClick()}>
+                    <Button onClick={() => onClick()} style={{minWidth: 120}}>
                         {
                             loading
                                 ? <CircularProgress size={24}/>

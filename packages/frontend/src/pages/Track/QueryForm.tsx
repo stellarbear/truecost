@@ -36,10 +36,9 @@ export const QueryForm: React.FC<IProps> = ({onQuery, loading = false}) => {
     return (
         <form onSubmit={handleSubmit(bookingSubmit)}>
             <Paper>
-                <Col fullWidth p={16}>
+                <Col p={16}>
                     <TextField
                         fullWidth
-                        disabled={!!user}
                         inputRef={register({
                             required: "This field is required",
                             pattern: {

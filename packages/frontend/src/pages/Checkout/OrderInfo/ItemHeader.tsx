@@ -16,16 +16,16 @@ interface IProps {
 export const ItemHeader: React.FC<IProps> = (props) => {
     const {item, quantity, total, onDelete, chunk} = props;
     return (
-        <Row fullWidth between>
-            <Row>
+        <Row justify="space-between" fullWidth align="center">
+            <Row align="center" s={8}>
                 <IconButton style={{marginLeft: -12}} onClick={() => onDelete()}>
-                    <DeleteIcon/>
+                    <DeleteIcon />
                 </IconButton>
-                <Col left>
+                <Col >
                     <Typography>
                         {item.name}
                     </Typography>
-                    <Col s={-6} left>
+                    <Col>
                         {item.range.d.length > 0 && chunk && (
                             <Typography variant={"caption"}>
                                 {`from: ${chunk[0]} to: ${chunk[1]}`}
@@ -40,10 +40,8 @@ export const ItemHeader: React.FC<IProps> = (props) => {
                     </Col>
                 </Col>
             </Row>
-            <Col>
-                <PriceTypography price={total.value * quantity}
-                                 discount={item.discount * quantity}/>
-            </Col>
+            <PriceTypography price={total.value * quantity}
+                discount={item.discount * quantity} />
         </Row>
     );
 };

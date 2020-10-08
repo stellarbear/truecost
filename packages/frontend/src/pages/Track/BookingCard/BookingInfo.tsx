@@ -17,7 +17,7 @@ export const BookingInfo: React.FC<IProps> = ({info}) => {
 
     return (
         <>
-            <Typography>Information: </Typography>
+            <Typography variant="h6">Information: </Typography>
             <Table>
                 <TableBody>
                     {

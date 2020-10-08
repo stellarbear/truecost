@@ -5,6 +5,7 @@ import {useStore} from 'pages/Data/Wrapper';
 import {Checkbox, Typography} from '@material-ui/core';
 import {ItemDivider} from './ItemDivider';
 import {TypographyTwoLevel} from 'pages/Base/TypographyTwoLevel';
+import {Row} from 'pages/Base/Grid';
 
 interface IProps {
     item: IItem;
@@ -34,33 +35,33 @@ export const ItemOption: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <ItemDivider condition={itemOptions.length > 0}/>
+            <ItemDivider condition={itemOptions.length > 0} />
             {itemOptions.map((optionId) => {
-                //debugger;
                 const option = CalcPrice.fromOption(price, options.local.id[optionId]);
 
                 return (
-                    <div key={`${itemId}-${optionId}`}
-                         onMouseEnter={() => setHovered(optionId)}
-                         onMouseLeave={() => setHovered("")}
-                         style={{
-                             display: "flex", alignItems: "center", justifyContent: "flex-end", cursor: "pointer",
-                             backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
-                             transition: "all 0.3s",
-                         }}
-                         onClick={() => toggleOption(optionId)}>
+                    <Row justify="flex-end" align="center"
+                        key={`${itemId}-${optionId}`}
+                        onMouseEnter={() => setHovered(optionId)}
+                        onMouseLeave={() => setHovered("")}
+                        onClick={() => toggleOption(optionId)}
+                        style={{
+                            cursor: "pointer",
+                            backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
+                            transition: "all 0.3s",
+                        }}>
                         <Typography variant="caption" style={{
                             textAlign: "right",
                             userSelect: "none",
                         }}>{options.local.id[optionId].name}</Typography>
-                        <Checkbox checked={selected.includes(optionId)}/>
+                        <Checkbox checked={selected.includes(optionId)} />
                         <div style={{minWidth: 100}}>
                             <TypographyTwoLevel
                                 text={option.string}
                                 description={option.description}
                             />
                         </div>
-                    </div>
+                    </Row>
                 );
             })
             }

@@ -51,7 +51,7 @@ export const Filter: React.FC<UserListProps> = (props) => {
                 </Button>
             </Row>
             <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
-                <Col s={16} fullWidth p={16}
+                <Col s={16} p={16}
                      style={{minWidth: 400}}>
                     <Divider/>
                     <Table size="small" style={{width: 'auto'}}>

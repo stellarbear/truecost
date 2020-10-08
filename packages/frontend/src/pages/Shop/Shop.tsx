@@ -127,15 +127,15 @@ const Shop: React.FC = () => {
 
     const filterTags = () => Object.keys(tags.base).length > 0 && (
         <Paper>
-            <Col fullWidth p={8}>
-                <Row start p={[2, 8]} s={8} wrap>
+            <Col p={8}>
+                <Row p={[2, 8]} s={8} wrap>
                     {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
                 </Row>
                 {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
-                    <Col fullWidth left s={4} p={8} key={tagId}>
+                    <Col s={4} p={[0, 8]} key={tagId}>
                         <Typography variant="body2">{`${tags.id[tagId].name}: `}</Typography>
                         <Divider />
-                        <Row start p={[2, 0]} s={8} wrap>
+                        <Row p={[2, 0]} s={8} wrap>
                             {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
                         </Row>
                     </Col>
@@ -147,8 +147,8 @@ const Shop: React.FC = () => {
     return (
         <>
             <Meta entity={game} />
-            <Container fixed>
-                <Col fullWidth s={16}>
+            <Container fixed style={{padding: 0}}>
+                <Col s={16}>
                     {filterNames()}
                     {filterTags()}
                     {filterData()}

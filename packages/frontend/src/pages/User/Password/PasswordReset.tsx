@@ -29,7 +29,7 @@ interface ResetSubmit {
 export const PasswordReset: React.FC = () => {
     const history = useHistory();
     const {setLoading} = useLoading();
-    const {forget, value} = useParams<{ forget: string; value: string }>();
+    const {forget, value} = useParams<{forget: string; value: string}>();
     const [mutation, {data, error, loading}] = useMutation(verifyMutation);
 
     const {register, handleSubmit, errors, clearErrors} = useForm<ResetSubmit>({reValidateMode: "onBlur"});
@@ -59,35 +59,33 @@ export const PasswordReset: React.FC = () => {
 
 
     if (!forget || !value) {
-        return <Redirect to="/404"/>;
+        return <Redirect to="/404" />;
     }
 
     return (
         <>
-            <Meta/>
+            <Meta />
             <Container maxWidth="xs">
                 <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(ResetSubmit)}>
                     <Paper>
-                        <Col fullWidth p={16}>
-                            <Col fullWidth>
-                                <TextField
-                                    fullWidth
-                                    inputRef={register({
-                                        required: "This field is required",
-                                        minLength: {
-                                            value: 3,
-                                            message: "At least 3 chars",
-                                        },
-                                    })}
-                                    name={"password"}
-                                    label="Password *"
-                                    error={!!errors.password?.message}
-                                    helperText={errors.password?.message || " "}
-                                    variant="filled"
-                                />
-                            </Col>
+                        <Col p={16}>
+                            <TextField
+                                fullWidth
+                                inputRef={register({
+                                    required: "This field is required",
+                                    minLength: {
+                                        value: 3,
+                                        message: "At least 3 chars",
+                                    },
+                                })}
+                                name={"password"}
+                                label="Password *"
+                                error={!!errors.password?.message}
+                                helperText={errors.password?.message || " "}
+                                variant="filled"
+                            />
                             <Button fullWidth variant="contained" type="submit">
-                                {loading ? <CircularProgress size={24}/> : "update password"}
+                                {loading ? <CircularProgress size={24} /> : "update password"}
                             </Button>
                         </Col>
                     </Paper>

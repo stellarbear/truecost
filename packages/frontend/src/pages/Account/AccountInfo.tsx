@@ -12,7 +12,7 @@ export const AccountInfo: React.FC = () => {
 
     const subscriptionInfo = () => (
         discount > 0 && (
-            <Col left>
+            <Col>
                 <Typography variant="caption">Discount:</Typography>
                 <Typography>{`${discount} %`}</Typography>
                 <Typography>{`${subscription.timeLeft(user)} day(s) left`}</Typography>
@@ -28,12 +28,12 @@ export const AccountInfo: React.FC = () => {
         <Container maxWidth="sm">
             <Col fullWidth s={16}>
                 <Paper>
-                    <Col p={16} s={8} left>
-                        <Col left>
+                    <Col p={16} s={8}>
+                        <Col>
                             <Typography variant="caption">Email:</Typography>
                             <Typography>{user.email}</Typography>
                         </Col>
-                        <Col left>
+                        <Col>
                             <Typography variant="caption">Username:</Typography>
                             <Typography>{user.name}</Typography>
                         </Col>

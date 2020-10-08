@@ -66,7 +66,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
         const {a: at, p: price, m: mark, e: eta} = state.d[index];
 
         return (
-            <Col fullWidth key={index}>
+            <Col key={index}>
                 <TableRow key={index}>
                     <TableCell>
                         <TextField
@@ -136,7 +136,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                         <IconButton
                             disabled={index !== state.d.length - 1}
                             onClick={() => updateData([...state.d.slice(0, index), ...state.d.slice(index + 1)])}>
-                            <Delete/>
+                            <Delete />
                         </IconButton>
                     </TableCell>
                 </TableRow>
@@ -172,8 +172,8 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                 <DialogTitle>{label}</DialogTitle>
                 <DialogContent
                     style={{minWidth: 550, maxHeight: 500}}>
-                    <Col fullWidth left s={8}>
-                        <Row start s={8}>
+                    <Col s={8}>
+                        <Row s={8} align="center">
                             <Typography>Step: </Typography>
                             <NumericField
                                 min={1}
@@ -182,8 +182,8 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                                 onChangeEvent={(s) => setState({...state, s})}
                             />
                         </Row>
-                        <Divider/>
-                        <Row start s={16}>
+                        <Divider />
+                        <Row s={16} align="center">
                             <Typography>Mode: </Typography>
                             <SwitchField
                                 value={state.o}
@@ -192,7 +192,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                                 onChangeEvent={(o) => setState({...state, o})}
                             />
                         </Row>
-                        <Divider/>
+                        <Divider />
                         {renderTable()}
                     </Col>
                 </DialogContent>
@@ -202,7 +202,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                 }}>
                     <IconButton
                         onClick={() => addNewRow()}>
-                        <AddCircle color="primary"/>
+                        <AddCircle color="primary" />
                     </IconButton>
                     <Button
                         onClick={() => {
@@ -227,7 +227,7 @@ const EditorRange: React.FC<EditorMarkProps> = (props) => {
                 value={preview(state)}
                 multiline
                 rowsMax={4}
-                onClick={() => setOpen(true)}/>
+                onClick={() => setOpen(true)} />
             {renderDialog()}
         </React.Fragment>
     );

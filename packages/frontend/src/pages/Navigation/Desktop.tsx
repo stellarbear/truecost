@@ -1,4 +1,4 @@
-import {Button, Chip, Container, Typography} from "@material-ui/core";
+import {Button, Chip, Container, Tooltip, Typography} from "@material-ui/core";
 import React from "react";
 import {Link} from 'react-router-dom';
 import {useStore} from "pages/Data/Wrapper";
@@ -17,7 +17,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
     const url = '/' + game.url;
 
     const navigation = () => (
-        <Row fullWidth>
+        <Row justify="center">
             <Button component={Link} to={url + '/shop'} color="inherit">
                 <Typography variant="h6">SHOP</Typography>
             </Button>
@@ -38,11 +38,13 @@ export const Desktop: React.FC<IDesktop> = (props) => {
 
     const subscription = () => (
         discount > 0 && (
-            <Chip
-                size="small"
-                color="secondary"
-                label={`${discount} % active`}
-            />
+            <Tooltip title="Your discount is active">
+                <Chip
+                    size="small"
+                    color="secondary"
+                    label={`${discount} %`}
+                />
+            </Tooltip>
         )
     );
 
@@ -52,7 +54,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             right: 16,
             top: 0,
         }}>
-            <Row>
+            <Row align="center">
                 {subscription()}
                 <CartPicker />
                 <Account />
@@ -86,20 +88,3 @@ export const Desktop: React.FC<IDesktop> = (props) => {
         </Container>
     );
 };
-
-
-/*
-
-
-<div style={{
-    display: "flex",
-    flexDirection: "row",
-    height: "fit-content",
-    justifyContent: "flex-end",
-    alignItems: "center",
-}}>
-    <GamePicker />
-    <AccountPicker />
-    {/*(user?.total ?? 0) > 0 && <Chip color="secondary" label={`${user?.total} %`} style={{ marginRight: 4 }} />}
-</div>
-*/

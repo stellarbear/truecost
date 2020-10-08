@@ -77,9 +77,9 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     };
 
     return (
-        <Col s={16} fullWidth right>
+        <Col s={16}>
             <form onSubmit={handleSubmit(bookingSubmit)}>
-                <Col fullWidth s={8}>
+                <Col s={8}>
                     <EmailFields
                         disabled={!!user}
                         register={register}

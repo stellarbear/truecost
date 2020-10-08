@@ -30,26 +30,27 @@ export const NumericField: React.FC<IProps> = (props) => {
     return (
         <Col>
             {label && <Typography>{label}</Typography>}
-            <Row>
+            <Row align="flex-end" s={4}>
                 <IconButton disabled={state == min}
-                            onClick={() => setAndBubbleState(validate(state - 1))}
+                    onClick={() => setAndBubbleState(validate(state - 1))}
                 >
-                    <ChevronLeft/>
-                </IconButton><TextField
-                margin="dense"
-                type="number"
-                value={state}
-                variant="filled"
-                label={label}
-                onChange={(event) => setState(validate(event.target.value))}
-                onBlur={() => bubbleState()}
-                inputProps={{
-                    style: {textAlign: "center", maxWidth: 80},
-                }}/>
+                    <ChevronLeft />
+                </IconButton>
+                <TextField
+                    margin="dense"
+                    type="number"
+                    value={state}
+                    variant="filled"
+                    label={label}
+                    onChange={(event) => setState(validate(event.target.value))}
+                    onBlur={() => bubbleState()}
+                    inputProps={{
+                        style: {textAlign: "center", maxWidth: 80},
+                    }} />
                 <IconButton disabled={state == max}
-                            onClick={() => setAndBubbleState(validate(state + 1))}
+                    onClick={() => setAndBubbleState(validate(state + 1))}
                 >
-                    <ChevronRight/>
+                    <ChevronRight />
                 </IconButton>
             </Row>
         </Col>

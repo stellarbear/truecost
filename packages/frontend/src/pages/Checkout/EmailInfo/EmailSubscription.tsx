@@ -23,15 +23,15 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
     );
 
     return (
-        <Col s={8} fullWidth>
+        <Col s={8}>
             <Typography variant="caption">Select subscription (optional)</Typography>
             <Divider/>
-            <Col fullWidth style={{
+            <Col style={{
                 opacity: payed ? 0.4 : 1.0,
             }}>
                 {subsSorted.length > 0 ?
                     subsSorted.map(subId => (
-                        <Row fullWidth end s={8}
+                        <Row justify="flex-end" s={8}
                              key={`${subId}`}
                              onMouseEnter={() => setHovered(subId)}
                              onMouseLeave={() => setHovered("")}
@@ -40,7 +40,7 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
                                  transition: "all 0.3s", cursor: "pointer",
                              }}
                              onClick={() => !payed && setSelected(selected === subId ? undefined : subId)}>
-                            <Col fullWidth>
+                            <Col>
                                 <Typography style={{
                                     textAlign: "right",
                                     userSelect: "none",

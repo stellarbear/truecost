@@ -56,31 +56,29 @@ export const PasswordForget: React.FC = () => {
 
     return (
         <>
-            <Meta/>
+            <Meta />
             <Container maxWidth="xs">
                 <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(ForgetSubmit)}>
                     <Paper>
-                        <Col fullWidth p={16}>
-                            <Col fullWidth>
-                                <Typography variant="caption">Reset link will be sent to your email</Typography>
-                                <TextField
-                                    fullWidth
-                                    inputRef={register({
-                                        required: "This field is required",
-                                        pattern: {
-                                            value: validate("email").regex,
-                                            message: "Does not look like email (:",
-                                        },
-                                    })}
-                                    name={"email"}
-                                    label="Email *"
-                                    error={!!errors.email?.message}
-                                    helperText={errors.email?.message || " "}
-                                    variant="filled"
-                                />
-                            </Col>
+                        <Col p={16}>
+                            <Typography variant="caption">Reset link will be sent to your email</Typography>
+                            <TextField
+                                fullWidth
+                                inputRef={register({
+                                    required: "This field is required",
+                                    pattern: {
+                                        value: validate("email").regex,
+                                        message: "Does not look like email (:",
+                                    },
+                                })}
+                                name={"email"}
+                                label="Email *"
+                                error={!!errors.email?.message}
+                                helperText={errors.email?.message || " "}
+                                variant="filled"
+                            />
                             <Button fullWidth variant="contained" type="submit">
-                                {loading ? <CircularProgress size={24}/> : "reset password"}
+                                {loading ? <CircularProgress size={24} /> : "reset password"}
                             </Button>
                         </Col>
                     </Paper>

@@ -49,7 +49,7 @@ export const BlogPost: React.FC = () => {
     return (
         <>
             <Meta entity={blog}/>
-            <Col fullWidth s={8}>
+            <Col s={8}>
                 <Button
                     component={Link}
                     to="/blog"

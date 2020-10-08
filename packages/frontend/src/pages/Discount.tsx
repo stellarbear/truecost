@@ -29,7 +29,7 @@ export const Discount: React.FC = () => {
         <>
             <Meta />
             <TextCard title="Discount">
-                <Col left s={8}>
+                <Col s={8}>
                     <Typography>
                         Discount plan is a simple way of having permanent discount on everything (every item and service
                         on every game) for relatively cheap one time payment.
@@ -90,7 +90,6 @@ export const Discount: React.FC = () => {
                     {subsSorted.length > 0 ?
                         subsSorted.map(subId => (
                             <Typography key={subId} style={{
-                                textAlign: "right",
                                 userSelect: "none",
                             }}>{`• ${subs[subId].description}`}</Typography>
                         )) : mock()}

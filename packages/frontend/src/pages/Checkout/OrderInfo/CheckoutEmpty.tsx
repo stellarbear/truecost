@@ -9,8 +9,8 @@ export const CheckoutEmpty: React.FC = () => {
     const url = '/' + game.url;
 
     return (
-        <Row between p={[0, 16]}>
-            <Col left>
+        <Row justify="space-between" p={[0, 16]}>
+            <Col>
                 <Typography variant="body2">It seems that your cart is empty</Typography>
                 <Typography variant="body2">Do not forget to add some goods!</Typography>
             </Col>

@@ -19,7 +19,7 @@ export const ItemObtain: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <Col left>
+            <Col>
                 <Typography variant="body1">You will obtain:</Typography>
                 {
                     item.obtain.split('\n').map((o, i) => (

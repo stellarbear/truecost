@@ -30,7 +30,7 @@ export const AccountOrder: React.FC = () => {
 
     return (
         <Container maxWidth="sm">
-            <Col fullWidth s={16}>
+            <Col s={16}>
                 {
                     data?.UserGetBooking &&
                     Array.isArray(data.UserGetBooking) &&

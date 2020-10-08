@@ -18,7 +18,7 @@ export const ItemTag: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <Row start s={4}>
+            <Row s={4}>
                 {
                     item.tag.map((tagId) => (tagId in tags.id) && (
                         <Chip

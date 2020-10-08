@@ -19,7 +19,7 @@ export const ItemCount: React.FC<IProps> = ({item, quantity, onAdd, onRemove}) =
     const redirect = `/${url}/item/${item.url}`;
 
     return (
-        <Row fullWidth between>
+        <Row fullWidth justify="space-between" >
             {
                 <a target="_blank" rel="noreferrer" href={redirect}>
                     <IconButton>
@@ -27,7 +27,7 @@ export const ItemCount: React.FC<IProps> = ({item, quantity, onAdd, onRemove}) =
                     </IconButton>
                 </a>
             }
-            <Row>
+            <Row align="center">
                 <IconButton
                     disabled={quantity <= 1}
                     onClick={onRemove}>

@@ -70,11 +70,11 @@ const RangeField: React.FC<IProps> = (props) => {
     }, [value]);
 
     return (
-        <Col fullWidth s={8}
+        <Col s={8}
             style={{
                 textAlign: "center",
             }}>
-            <Row between>
+            <Row justify="space-between">
                 <TextField
                     disabled={single}
                     margin="dense"
@@ -103,6 +103,7 @@ const RangeField: React.FC<IProps> = (props) => {
                     }} />
             </Row>
             <Slider
+                style={{marginBottom: 16}}
                 classes={{markLabel: classes.markLabel}}
                 track={"normal"}
                 min={min}

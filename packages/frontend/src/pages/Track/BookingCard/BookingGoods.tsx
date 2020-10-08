@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Col} from 'pages/Base/Grid';
 import {Table, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
 
 interface IProps {
@@ -12,7 +11,7 @@ interface IProps {
 export const BookingGoods: React.FC<IProps> = ({goods}) => {
     return (
         <>
-            <Typography>Goods: </Typography>
+            <Typography variant="h6">Goods: </Typography>
             <Table>
                 <TableBody>
                     {
@@ -24,10 +23,8 @@ export const BookingGoods: React.FC<IProps> = ({goods}) => {
                             .map(({name, quantity, description, amount}) => (
                                 <TableRow key={name}>
                                     <TableCell>
-                                        <Col left>
-                                            <Typography>{name}</Typography>
-                                            <Typography variant="caption">{description || "-"}</Typography>
-                                        </Col>
+                                        <Typography>{name}</Typography>
+                                        <Typography variant="caption">{description || "-"}</Typography>
                                     </TableCell>
                                     <TableCell
                                         style={{whiteSpace: "nowrap"}}>{`${amount / 100} $ x ${quantity}`}</TableCell>

@@ -28,8 +28,8 @@ export const EmailPrice: React.FC<IProps> = (props) => {
     const total = CalcPrice.percentage(cartPrice.value + subscriptionPrice, 100 - subscriptionDiscount);
 
     return (
-        <Col right s={8}>
-            <Col right>
+        <Col s={8}>
+            <Col align="flex-end">
                 <Typography variant="caption">{`subtotal: ${cartPrice.value} $`}</Typography>
                 <Typography
                     variant="caption"
@@ -42,8 +42,8 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                     {`subscription discount: -${subscriptionDiscount} %`}
                 </Typography>
             </Col>
-            <Divider/>
-            <Row>
+            <Divider />
+            <Row justify="flex-end" style={{cursor: "pointer"}}>
                 <Typography variant="caption" color="secondary">
                     {`You agree with\u00A0`}
                 </Typography>
@@ -55,14 +55,14 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                     }
                     content={
                         [
-                            <TOS key={0}/>,
+                            <TOS key={0} />,
                         ]
                     }
                 />
             </Row>
-            <Row end>
+            <Row justify="flex-end">
                 <Button variant="contained" type="submit" color="primary">
-                    {loading ? <CircularProgress size={24}/> : `Total: ${total} $`}
+                    {loading ? <CircularProgress size={24} /> : `Total: ${total} $`}
                 </Button>
             </Row>
         </Col>

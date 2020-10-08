@@ -21,7 +21,7 @@ export const ItemRange: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <Col fullWidth>
+            <Col>
                 <RangeField
                     step={item.range.s}
                     single={item.range.o}

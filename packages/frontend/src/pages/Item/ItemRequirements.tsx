@@ -19,7 +19,7 @@ export const ItemRequirements: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <Col left>
+            <Col>
                 <Typography variant="body1">Requirements:</Typography>
                 {
                     item.requirements.split('\n').map((o, i) => (

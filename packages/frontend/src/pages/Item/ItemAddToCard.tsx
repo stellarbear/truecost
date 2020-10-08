@@ -42,7 +42,7 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
                 notify(`${item.name} has been added to your cart!`);
             } : undefined}
         >
-            <Row fullWidth between>
+            <Row justify="space-between" align="center" fullWidth>
                 <Typography variant="caption">{noLimit ? "add to cart" : "item in your cart"}</Typography>
                 <PriceTypography price={price.value}
                                  discount={item.discount}/>

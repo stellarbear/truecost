@@ -40,7 +40,7 @@ export const Mobile: React.FC<IProps> = (props) => {
     );
 
     const navigation = () => (
-        <Col fullWidth>
+        <Col>
             {button(url, "Home")}
             {button(url + '/shop', "Shop")}
             {button(url + '/checkout', "Checkout")}
@@ -56,7 +56,8 @@ export const Mobile: React.FC<IProps> = (props) => {
 
     const appBar = () => {
         return (
-            <Row fullWidth between style={{paddingLeft: 16, paddingRight: 32}}>
+            <Row fullWidth justify="space-between"
+                style={{paddingLeft: 16, paddingRight: 32}}>
                 <Row>
                     <IconButton
                         color="inherit"
@@ -84,8 +85,8 @@ export const Mobile: React.FC<IProps> = (props) => {
             open={open}
             onClose={() => setOpen(false)}
             anchor={"left"}>
-            <Col fullWidth style={{minWidth: 240}}>
-                <Row between>
+            <Col style={{minWidth: 240}} >
+                <Row justify="space-between">
                     <IconButton onClick={() => setOpen(!open)} style={{margin: "8px"}}>
                         <Clear />
                     </IconButton>
@@ -98,16 +99,14 @@ export const Mobile: React.FC<IProps> = (props) => {
                 </Row>
                 <Divider />
                 {navigation()}
-                <Row>
-                    <SafeImage
-                        alt={"assistant icon"}
-                        className="float"
-                        height={"inherit"}
-                        src={image} style={{
-                            padding: 16,
-                            width: 60, height: 60, objectFit: "cover",
-                        }} />
-                </Row>
+                <SafeImage
+                    alt={"assistant icon"}
+                    className="float"
+                    height={"inherit"}
+                    src={image} style={{
+                        padding: 16,
+                        width: 60, height: 60, objectFit: "cover",
+                    }} />
             </Col>
         </Drawer>
 

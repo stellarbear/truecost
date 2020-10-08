@@ -39,7 +39,7 @@ export const Blog: React.FC = () => {
         <>
             <Meta />
             <TextCard title="Blog" data={[]}>
-                <Col fullWidth>
+                <Col>
                     {blogs.map(b => (
                         <BlogCard
                             key={b.id}

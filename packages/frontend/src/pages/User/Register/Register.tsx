@@ -59,55 +59,53 @@ export const Register: React.FC = () => {
 
     return (
         <>
-            <Meta/>
+            <Meta />
             <Container maxWidth="xs">
                 <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(RegisterSubmit)}>
                     <Paper>
-                        <Col fullWidth p={16}>
-                            <Col fullWidth>
-                                <TextField
-                                    fullWidth
-                                    inputRef={register()}
-                                    name={"name"}
-                                    label="Username"
-                                    placeholder="not required"
-                                    error={!!errors.name?.message}
-                                    helperText={errors.name?.message || " "}
-                                    variant="filled"
-                                />
-                                <TextField
-                                    fullWidth
-                                    inputRef={register({
-                                        required: "This field is required",
-                                        pattern: {
-                                            value: validate("email").regex,
-                                            message: "Does not look like email (:",
-                                        },
-                                    })}
-                                    name={"email"}
-                                    label="Email *"
-                                    error={!!errors.email?.message}
-                                    helperText={errors.email?.message || " "}
-                                    variant="filled"
-                                />
-                                <PasswordField
-                                    fullWidth
-                                    inputRef={register({
-                                        required: "This field is required",
-                                        minLength: {
-                                            value: 3,
-                                            message: "At least 3 chars",
-                                        },
-                                    })}
-                                    name={"password"}
-                                    label="Password *"
-                                    error={!!errors.password?.message}
-                                    helperText={errors.password?.message || " "}
-                                    variant="filled"
-                                />
-                            </Col>
+                        <Col p={16}>
+                            <TextField
+                                fullWidth
+                                inputRef={register()}
+                                name={"name"}
+                                label="Username"
+                                placeholder="not required"
+                                error={!!errors.name?.message}
+                                helperText={errors.name?.message || " "}
+                                variant="filled"
+                            />
+                            <TextField
+                                fullWidth
+                                inputRef={register({
+                                    required: "This field is required",
+                                    pattern: {
+                                        value: validate("email").regex,
+                                        message: "Does not look like email (:",
+                                    },
+                                })}
+                                name={"email"}
+                                label="Email *"
+                                error={!!errors.email?.message}
+                                helperText={errors.email?.message || " "}
+                                variant="filled"
+                            />
+                            <PasswordField
+                                fullWidth
+                                inputRef={register({
+                                    required: "This field is required",
+                                    minLength: {
+                                        value: 3,
+                                        message: "At least 3 chars",
+                                    },
+                                })}
+                                name={"password"}
+                                label="Password *"
+                                error={!!errors.password?.message}
+                                helperText={errors.password?.message || " "}
+                                variant="filled"
+                            />
                             <Button fullWidth variant="contained" type="submit">
-                                {loading ? <CircularProgress size={24}/> : "REGISTER"}
+                                {loading ? <CircularProgress size={24} /> : "REGISTER"}
                             </Button>
                         </Col>
                     </Paper>

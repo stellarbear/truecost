@@ -74,7 +74,7 @@ export const AccountUpdate: React.FC<IProps> = ({onUpdate}) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Paper>
-                <Col fullWidth p={16}>
+                <Col p={16}>
                     <TextField
                         fullWidth
                         inputRef={register()}

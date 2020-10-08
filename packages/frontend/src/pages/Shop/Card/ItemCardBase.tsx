@@ -56,8 +56,9 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
 
                         return (
                             <div key={`${itemId}-option-${optionId}`}>
-                                <Row fullWidth between
-                                    width={["auto", "100%", "auto"]}
+                                <Row
+                                    justify="space-between"
+                                    align="center"
                                     s={8}
                                     p={[8, 0]}
                                     onMouseEnter={() => setHovered(optionId)}
@@ -76,6 +77,7 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                                         style={{userSelect: "none"}}>{name}
                                     </Typography>
                                     <TypographyTwoLevel
+                                        style={{minWidth: 80}}
                                         text={option.string}
                                         description={option.description}
                                     />
@@ -108,7 +110,8 @@ export const ItemCardBase: React.FC<IProps> = (props) => {
                     notify(`${item.name} was added to your cart!`);
                 } : undefined}
             >
-                <Row between fullWidth>
+                <Row justify="space-between"
+                    fullWidth align="center">
                     <Typography variant="caption">{noLimit ? "add to cart" : "item in your cart"}</Typography>
                     {
                         noLimit

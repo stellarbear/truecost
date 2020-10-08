@@ -44,7 +44,7 @@ const ItemCard: React.FC<IProps> = (props) => {
                 position: "absolute",
                 top: hovered ? 0 : "100%",
                 height: "100%", width: "100%",
-                backgroundColor: "#FFFFFFDD",
+                backgroundColor: "#FFFFFFEE",
                 transition: "all 0.3s", zIndex: 30,
             }}
             onClick={(event) => event.stopPropagation()}>
@@ -60,19 +60,24 @@ const ItemCard: React.FC<IProps> = (props) => {
         const filtered = item.tag.filter(t => t in tags.id);
 
         return (
-            <Col left m={4} s={4}
+            <Col m={4} s={4}
                 style={{position: "absolute", top: 0, left: 0}}>
                 {filtered.length > 0 && (
                     <Chip
+                        style={{
+                            transition: "all 0.3s",
+                            opacity: raised ? 1.0 : 0.6,
+                        }}
                         key={filtered[0]}
+                        color={raised ? "primary" : undefined}
                         label={tags.id[filtered[0]].name}
-                        color="primary" size="small" />
+                        size="small" />
                 )}
             </Col>
         );
     };
 
-    const eta = () => (
+    const owned = () => (
         <Row p={8} s={8} style={{
             position: "absolute", top: 0, right: 0,
         }}>
@@ -89,17 +94,21 @@ const ItemCard: React.FC<IProps> = (props) => {
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%", width: "100%"}}>
                 <Col fullWidth style={{width: "100%"}}>
                     {chip()}
-                    {eta()}
+                    {owned()}
                     <SafeImage
                         alt={`${item.name} image`}
                         height={300}
                         src={image} style={{objectFit: "contain", width: "inherit"}} />
                     <Divider />
-                    <Row between p={8} s={8} width={["100%", "auto"]} style={{height: 60}}>
+                    <Row p={8} s={8}
+                        onMouseEnter={() => setHovered(true)}
+                        justify="space-between"
+                        align="center"
+                        style={{height: 60}}>
                         <Typography variant="body1" align="center"
-                            style={{maxHeight: 70, overflow: "hidden"}}>{item.name}</Typography>
+                            style={{maxHeight: 70, overflow: "hidden", width: "100%"}}>{item.name}</Typography>
                         <Button
-                            onMouseEnter={() => setHovered(true)}
+                            style={{minWidth: "fit-content"}}
                             size="large"
                             color="primary"
                             variant="outlined"

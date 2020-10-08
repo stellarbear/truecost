@@ -29,7 +29,7 @@ export const HomeHowTo: React.FC = () => {
         <Paper elevation={6}>
             <RowSwipable id="how-to" s={16} p={16} w={250} arrows>
                 {data.map(({icon, text}, i) => (
-                    <Col key={i}>
+                    <Col key={i} align="center" justify="center">
                         {icon}
                         <Typography style={{textAlign: 'center'}}>
                             {`${i + 1}. ${text}`}

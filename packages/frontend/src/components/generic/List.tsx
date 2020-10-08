@@ -174,7 +174,7 @@ export const List: React.FC<UserListProps> = (props) => {
     if (loading) {
         return (
             <InfoCard
-                style={{height: "50vh"}}
+                //style={{height: "50vh"}}
                 text={[
                     'Loading',
                     'Please, wait',

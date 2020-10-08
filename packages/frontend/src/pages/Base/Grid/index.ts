@@ -1,4 +1,3 @@
-export * from './Col';
-export * from './Row';
+export * from './Cell';
 export * from './RowGrid';
 export * from './RowSwipable';

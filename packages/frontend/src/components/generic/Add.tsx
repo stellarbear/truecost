@@ -92,7 +92,7 @@ export const Add: React.FC<AddProps> = (props) => {
                 <Typography>Add record</Typography>
             </Button>
             <Drawer anchor={'right'} open={drawer} onClose={() => setDrawer(false)}>
-                <Col s={16} fullWidth p={16}
+                <Col s={16} p={16}
                      style={{minWidth: 400, overflow: "hidden"}}>
                     <div style={{height: "90vh", overflow: "auto"}}>
                         {table()}

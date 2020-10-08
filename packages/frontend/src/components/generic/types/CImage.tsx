@@ -38,7 +38,7 @@ export class CImage extends ABase<any> {
 
         //TODO: refactor
         return (
-            <Row p={8} s={8} style={{
+            <Row p={12} s={8} style={{
                 overflowX: "auto",
                 overflowY: "hidden",
                 maxWidth: 300,

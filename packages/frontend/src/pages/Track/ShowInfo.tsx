@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export const ShowBookingInfo: React.FC<IProps> = ({raw}) => (
-    <Col fullWidth left>
+    <Col s={16} justify="flex-start">
         <Button
             component={Link}
             to={`/track`}

@@ -3,9 +3,9 @@ import {IconButton} from "@material-ui/core";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
-import {Col, Row} from "pages/Base/Grid";
 import {SafeImage} from "./SafeImage";
 import {CSSProperties} from "@material-ui/core/styles/withStyles";
+import {Row, Col} from "pages/Base/Grid";
 
 interface IPropsString {
     alt: string;

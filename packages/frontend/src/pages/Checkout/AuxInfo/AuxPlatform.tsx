@@ -58,12 +58,12 @@ export const AuxPlatform: React.FC<IProps> = (props) => {
 
     return (
         <Paper elevation={3}>
-            <Col left fullWidth p={8}>
+            <Col p={8}>
                 <Typography variant="caption">Choose platform</Typography>
-                <Row between wrap>
-                    <Row>
+                <Row justify="space-between" wrap>
+                    <Row s={8}>
                         {platforms.map(({icon, label}) => (
-                            <Col key={label}>
+                            <Col key={label} align="center">
                                 <IconButton onClick={() => onPlatformClick(label)}>
                                     {React.cloneElement(icon, {
                                         style: {

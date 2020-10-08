@@ -40,8 +40,8 @@ export const CRUD: React.FC<ICRUD> = (props) => {
 
     return (
         <SharedContext.Provider value={shared}>
-            <Col s={8} fullWidth>
-                <Row s={8}>
+            <Col s={8}>
+                <Row s={8} justify="center">
                     <Filter
                         title={title}
                         propsFilter={propsFilter}
