@@ -39,7 +39,7 @@ export const ItemOption: React.FC<IProps> = (props) => {
                 const option = CalcPrice.fromOption(price, options.local.id[optionId]);
                 const value = `${option.value >= 0 ? '+' : '-'} $${Math.abs(option.value)}`;
                 return (
-                    <Row p={2}
+                    <Row p={2} s={16}
                         align="center"
                         justify="space-between"
                         key={`${itemId}-${optionId}`}

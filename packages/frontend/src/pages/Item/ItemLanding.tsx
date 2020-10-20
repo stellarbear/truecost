@@ -3,7 +3,6 @@ import {IItem, CalcPrice} from "@truecost/shared";
 import {Button, Grid, NoSsr} from '@material-ui/core';
 import {ItemImage} from './ItemImage';
 import {ItemDescription} from './ItemDescription';
-import {ItemTag} from './ItemTag';
 import {ItemChildren} from './ItemChildren';
 import {ItemObtain} from './ItemObtain';
 import {ItemRange} from './ItemRange';
@@ -17,6 +16,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 import {useStore} from 'pages/Data/Wrapper';
 import {ItemEta} from './ItemEta';
+import {HowToUse} from 'pages/Base/HowToUse';
 
 interface IProps {
     item: IItem;
@@ -35,7 +35,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, selectedOptions.map(o => options.local.id[o]));
 
     return (
-        <>
+        <div style={{marginBottom: 32}}>
             <Button
                 component={Link}
                 to={`/${url}/shop`}
@@ -49,7 +49,6 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 </Grid>
                 <Grid item xs={12} lg={6}>
                     <ItemDescription item={item} />
-                    <ItemTag item={item} chunk={chunk} />
                     <ItemChildren item={item} />
                     <ItemObtain item={item} />
                     <ItemRequirements item={item} />
@@ -72,6 +71,10 @@ export const ItemLanding: React.FC<IProps> = (props) => {
             <NoSsr>
                 <ItemRelated item={item} />
             </NoSsr>
-        </>
+            <Button startIcon={< ArrowDownward />}>
+                How to use our service
+            </Button>
+            <HowToUse />
+        </div>
     );
 };
