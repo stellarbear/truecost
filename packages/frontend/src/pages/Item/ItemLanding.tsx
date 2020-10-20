@@ -17,6 +17,7 @@ import {Link} from 'react-router-dom';
 import {useStore} from 'pages/Data/Wrapper';
 import {ItemEta} from './ItemEta';
 import {HowToUse} from 'pages/Base/HowToUse';
+import {PersonalDiscount} from 'pages/Base/PersonalDiscount';
 
 interface IProps {
     item: IItem;
@@ -71,7 +72,8 @@ export const ItemLanding: React.FC<IProps> = (props) => {
             <NoSsr>
                 <ItemRelated item={item} />
             </NoSsr>
-            <Button startIcon={< ArrowDownward />}>
+            <PersonalDiscount />
+            <Button startIcon={< ArrowDownward />} style={{marginTop: 16}}>
                 How to use our service
             </Button>
             <HowToUse />

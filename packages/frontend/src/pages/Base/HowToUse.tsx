@@ -1,4 +1,4 @@
-import {Typography} from '@material-ui/core';
+import {Card, Typography} from '@material-ui/core';
 import {
     TimelineItem,
     TimelineOppositeContent,
@@ -25,31 +25,33 @@ const data = [{
 }];
 
 export const HowToUse: React.FC = () => (
-    <Col>
-        {data.map(({text, help}, i) => (
-            <TimelineItem key={i}>
-                <TimelineOppositeContent style={{maxWidth: 0, padding: 0}} />
-                <TimelineSeparator>
-                    <TimelineDot>
-                        <Col justify="center" style={{width: 32, height: 32}}>
-                            <Typography align="center">
-                                {`${i + 1}`}
-                            </Typography>
-                        </Col>
-                    </TimelineDot>
-                    <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                    <Typography variant="h6" >
-                        {text}
-                    </Typography>
-                    {help && (
-                        <Typography variant="body2" >
-                            {help}
+    <Card>
+        <Col p={[8, 16]}>
+            {data.map(({text, help}, i) => (
+                <TimelineItem key={i}>
+                    <TimelineOppositeContent style={{maxWidth: 0, padding: 0}} />
+                    <TimelineSeparator>
+                        <TimelineDot>
+                            <Col justify="center" style={{width: 32, height: 32}}>
+                                <Typography align="center">
+                                    {`${i + 1}`}
+                                </Typography>
+                            </Col>
+                        </TimelineDot>
+                        <TimelineConnector />
+                    </TimelineSeparator>
+                    <TimelineContent>
+                        <Typography variant="h6" >
+                            {text}
                         </Typography>
-                    )}
-                </TimelineContent>
-            </TimelineItem>
-        ))}
-    </Col >
+                        {help && (
+                            <Typography variant="body2" >
+                                {help}
+                            </Typography>
+                        )}
+                    </TimelineContent>
+                </TimelineItem>
+            ))}
+        </Col >
+    </Card>
 );
