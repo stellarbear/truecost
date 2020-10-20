@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {IItem, CalcPrice} from "@truecost/shared";
-import {Button, Container, Grid, NoSsr} from '@material-ui/core';
+import {Button, Grid, NoSsr} from '@material-ui/core';
 import {ItemImage} from './ItemImage';
 import {ItemDescription} from './ItemDescription';
 import {ItemTag} from './ItemTag';
@@ -8,7 +8,6 @@ import {ItemChildren} from './ItemChildren';
 import {ItemObtain} from './ItemObtain';
 import {ItemRange} from './ItemRange';
 import {ItemRequirements} from './ItemRequirements';
-import {ItemPrice} from './ItemPrice';
 import {ItemOption} from './ItemOption';
 import {ItemAddToCard} from './ItemAddToCard';
 import {ItemRelated} from './ItemRelated';
@@ -36,7 +35,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, selectedOptions.map(o => options.local.id[o]));
 
     return (
-        <Container fixed>
+        <>
             <Button
                 component={Link}
                 to={`/${url}/shop`}
@@ -56,7 +55,6 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     <ItemRequirements item={item} />
                     <NoSsr>
                         <ItemRange item={item} chunk={chunk} onChange={setChunk} />
-                        <ItemPrice price={itemPrice} item={item} />
                         <ItemOption price={itemPrice} item={item}
                             selected={selectedOptions}
                             onChange={(val: string[]) => setSelectedOptions(val)} />
@@ -74,6 +72,6 @@ export const ItemLanding: React.FC<IProps> = (props) => {
             <NoSsr>
                 <ItemRelated item={item} />
             </NoSsr>
-        </Container>
+        </>
     );
 };

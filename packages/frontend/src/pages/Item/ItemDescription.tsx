@@ -12,7 +12,7 @@ export const ItemDescription: React.FC<IProps> = (props) => {
     const {item} = props;
 
     return (
-        <Row>
+        <Row align="center">
             {
                 item.link && <a target="_blank" rel="noreferrer" href={item.link}>
                     <IconButton>

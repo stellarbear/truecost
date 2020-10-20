@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useState} from 'react';
 import {IItem} from "@truecost/shared";
 import {useStore} from 'pages/Data/Wrapper';
-import {RowSwipable} from 'pages/Base/Grid';
+import {Col, RowGrid} from 'pages/Base/Grid';
 import ItemCard from 'pages/Shop/ItemCard';
 
 interface IProps {
@@ -39,8 +39,10 @@ export const ItemRelated: React.FC<IProps> = (props) => {
     React.useEffect(() => setRelated(getRelated(items.id, id)), [id]);
 
     return (
-        <RowSwipable id="related-items" s={16} p={16} w={250} arrows>
-            {related.map(id => <ItemCard key={id} id={id}/>)}
-        </RowSwipable>
+        <Col p={[16, 0]}>
+            <RowGrid w={250} s={16} p={16}>
+                {related.map(id => <ItemCard key={id} id={id} />)}
+            </RowGrid>
+        </Col>
     );
 };

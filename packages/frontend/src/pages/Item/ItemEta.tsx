@@ -14,7 +14,7 @@ export const ItemEta: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <Row s={24} justify="flex-end">
+            <Row justify="flex-end" style={{paddingRight: 16}}>
                 <Typography>{"Estimated time: " + Time.fromItem(item, chunk).toString}</Typography>
             </Row>
             <ItemDivider condition={true}/>
