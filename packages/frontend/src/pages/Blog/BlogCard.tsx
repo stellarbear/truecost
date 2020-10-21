@@ -19,33 +19,25 @@ export const BlogCard: React.FC<IProps> = (props) => {
 
     return (
         <Card>
-            <Row
-                align="stretch"
-                m={8} s={8}>
-                <SafeImage
-                    alt={"blog image"}
-                    height={160}
-                    src={image} style={{
-                        minWidth: 160,
-                        width: 160, height: 160, objectFit: "cover", margin: 8, marginLeft: 0,
-                    }} />
-                <Col fullWidth
-                    align="flex-start"
-                    justify="space-between">
-                    <Col
-                        align="flex-start">
-                        <Typography variant="h5" component="h2">{name}</Typography>
-                        <Typography style={{opacity: 0.7}}>{preview}</Typography>
-                    </Col>
-                    <Row fullWidth s={8}
-                        justify="space-between"
-                    >
-                        <Typography>{new Date(date).toLocaleDateString()}</Typography>
-                        <Button variant="contained"
-                            component={Link} to={`/post/${url}`}>Read more</Button>
-                    </Row>
-                </Col>
-            </Row>
+            <Col p={8}>
+                <div style={{position: "relative"}}>
+                    <SafeImage
+                        alt={"blog image"}
+                        height={250}
+                        src={image} style={{
+                            minWidth: 250,
+                            width: 250, height: 250, objectFit: "cover", margin: 8, marginLeft: 0,
+                        }} />
+                    <Typography  
+                style={{position:"absolute"}} 
+                variant="h5" component="h2">{name}</Typography>
+                </div>
+                    <div style={{background: "linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);"}}>
+                <Typography style={{opacity: 0.7}}>{preview}</Typography>
+                </div>
+                <Button variant="contained"
+                    component={Link} to={`/post/${url}`}>Read more</Button>
+            </Col>
         </Card>
     );
 };

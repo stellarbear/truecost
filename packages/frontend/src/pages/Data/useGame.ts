@@ -1,17 +1,7 @@
 import {useHistory} from "react-router";
 import {useState} from "react";
 import {IGame, IGameContext} from "@truecost/shared";
-
-const defaultGame: IGame = {
-    id: "truecost",
-    url: "",
-    order: 0,
-    name: "truecost",
-    active: false,
-    twitter: "truecost",
-    background: [""],
-    assistant: [""],
-};
+import {mock} from "./mock";
 
 type IProps = IGameContext;
 
@@ -30,7 +20,7 @@ export function useGame(props: IProps) {
     const [state, setState] = useState<IGame>(
         currentGame && currentGame in props.data.id
             ? props.data.id[currentGame]
-            : defaultGame);
+            : mock.defaultGame);
 
     return {state, setState};
 }

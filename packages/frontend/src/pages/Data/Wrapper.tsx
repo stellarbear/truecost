@@ -50,7 +50,7 @@ const Raw: React.FC = ({children}) => {
     const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true});
 
     if (loading || !data || error) {
-        return <Mock permanent/>;
+        return <Mock permanent />;
     }
     console.log('QUERY FINISHED', +new Date());
 
@@ -68,7 +68,7 @@ const Raw: React.FC = ({children}) => {
 const Data: React.FC = ({children}) => {
     const {data} = useContext(RawContext);
     const {MetaAll, Stripe, ...RestAll} = data;
-    
+
     const [store] = useState(useData(RestAll));
     const [meta] = useState(useMeta(MetaAll));
 
@@ -104,7 +104,7 @@ const Data: React.FC = ({children}) => {
             },
             payment: {stripe: Stripe},
         }}>
-            <Mock/>
+            <Mock />
             {children}
         </DataContext.Provider>
     );

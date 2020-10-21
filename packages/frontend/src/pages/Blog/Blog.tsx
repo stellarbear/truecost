@@ -1,7 +1,7 @@
 import {gql, useQuery} from '@apollo/client';
 import {CircularProgress} from '@material-ui/core';
 import {IBlog} from '@truecost/shared';
-import {Col} from 'pages/Base/Grid';
+import {Col, RowGrid} from 'pages/Base/Grid';
 import {Meta} from 'pages/Base/Meta';
 import TextCard from 'pages/Base/TextCard';
 import * as React from 'react';
@@ -39,13 +39,13 @@ export const Blog: React.FC = () => {
         <>
             <Meta />
             <TextCard title="Blog" data={[]}>
-                <Col>
+                <RowGrid w={250} s={16} p={16}>
                     {blogs.map(b => (
                         <BlogCard
                             key={b.id}
                             blog={b} />
                     ))}
-                </Col>
+                </RowGrid>
             </TextCard>
         </>
     );

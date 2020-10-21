@@ -4,8 +4,6 @@ import {Link} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
 import {CalcPrice} from '@truecost/shared';
 import {PriceTypography} from "../Base/PriceTypography";
-import {ItemCardBase} from "./Card/ItemCardBase";
-import {ItemCardRange} from "./Card/ItemCardRange";
 import {Col, Row} from "pages/Base/Grid";
 import {SafeImage} from "components/SafeImage";
 import {backend} from "auxiliary/route";
@@ -37,24 +35,6 @@ const ItemCard: React.FC<IProps> = (props) => {
     const [hovered, setHovered] = React.useState(false);
 
     const inYourCart = cart.count({itemId: item.id}) > 0;
-
-    const overlay = () => (
-        <div
-            style={{
-                position: "absolute",
-                top: hovered ? 0 : "100%",
-                height: "100%", width: "100%",
-                backgroundColor: "#FFFFFFEE",
-                transition: "all 0.3s", zIndex: 30,
-            }}
-            onClick={(event) => event.stopPropagation()}>
-            {
-                item.range.d.length === 0
-                    ? <ItemCardBase item={item} redirect={redirect} price={itemPrice} />
-                    : <ItemCardRange item={item} redirect={redirect} price={itemPrice} />
-            }
-        </div>
-    );
 
     const chip = () => {
         const filtered = item.tag.filter(t => t in tags.id);
@@ -132,7 +112,6 @@ const ItemCard: React.FC<IProps> = (props) => {
             onMouseOut={() => setRaised(false)}
             onMouseLeave={() => setHovered(false)}
             raised={raised}>
-            {overlay()}
             {card()}
         </Card>
     );
