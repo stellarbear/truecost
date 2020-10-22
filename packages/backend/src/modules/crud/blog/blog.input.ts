@@ -18,4 +18,7 @@ export class BlogInput extends BaseInput {
 
     @Field(() => [UploadScalar], {nullable: true})
     images: UploadType[] = [];
+
+    @Field({nullable: true})
+    game?: string;
 }

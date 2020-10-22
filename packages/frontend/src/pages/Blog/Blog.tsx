@@ -6,6 +6,7 @@ import {Meta} from 'pages/Base/Meta';
 import TextCard from 'pages/Base/TextCard';
 import * as React from 'react';
 import {BlogCard} from './BlogCard';
+import {BlogFilter} from './BlogFilter';
 
 const GET_ALL_BLOG = gql`
     query BlogAll {
@@ -17,12 +18,15 @@ const GET_ALL_BLOG = gql`
             active
             preview
             images
+
+            game { id }
         }
     }
 `;
 
 export const Blog: React.FC = () => {
     const {data, error, loading} = useQuery(GET_ALL_BLOG);
+    const [filter, setFilter] = React.useState("");
 
     if (error || loading || !data.BlogAll) {
         return (
@@ -35,20 +39,26 @@ export const Blog: React.FC = () => {
     const blogs: IBlog[] = data.BlogAll.filter((d: any) => d.active);
     blogs.sort((a, b) => a.order - b.order);
 
-    const top = blogs.shift();
+    const filtered = filter === "" ? blogs : blogs.filter(b => b.game?.id === filter);
+    const top = filtered.shift();
 
     return (
         <>
             <Meta />
-            <TextCard title="Blog" data={[]}>
+            <TextCard title="Articles" data={[]}>
                 <Col s={16}>
+                    <BlogFilter
+                        blogs={blogs}
+                        filter={filter}
+                        setFilter={setFilter}
+                    />
                     {top && (
                         <BlogCard
                             key={top.id}
                             blog={top} />
                     )}
                     <RowGrid w={250} s={16} p={16}>
-                        {blogs.map(b => (
+                        {filtered.map(b => (
                             <BlogCard
                                 key={b.id}
                                 blog={b} />

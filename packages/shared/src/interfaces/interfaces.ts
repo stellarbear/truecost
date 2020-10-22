@@ -32,6 +32,7 @@ export interface IBlog extends IBase {
     date: number;
 
     text: string;
+    game?: {id: string};
 }
 
 export interface IGame extends IBase {

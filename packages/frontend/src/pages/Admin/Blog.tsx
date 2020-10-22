@@ -2,7 +2,7 @@ import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
 import {CCustom, CDate, CImage, CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
-import {base} from "./Base";
+import {base, game} from "./Base";
 import EditorPost from "components/generic/components/EditorPost";
 
 export const AdminBlog: React.FC = () => {
@@ -10,6 +10,7 @@ export const AdminBlog: React.FC = () => {
         name: "Blog",
         items: `
             ${base.fragment}
+			${game.fragment}
             url
 
 			date
@@ -44,7 +45,7 @@ export const AdminBlog: React.FC = () => {
         base: "",
         key: "text",
         label: "text",
-        component: <EditorPost/>,
+        component: <EditorPost />,
     });
 
     const preview = new CString({
@@ -62,9 +63,9 @@ export const AdminBlog: React.FC = () => {
 
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
-            propsAdd={[...base.fields, ...fields, image]}
-            propsList={[...base.fields, ...fields, image]}
-            propsFilter={[...base.fields, ...fields]}
+            propsAdd={[...base.fields, ...game.fields, ...fields, image]}
+            propsList={[...base.fields, ...game.fields, ...fields, image]}
+            propsFilter={[...base.fields, ...game.fields, ...fields]}
         />
     );
 };

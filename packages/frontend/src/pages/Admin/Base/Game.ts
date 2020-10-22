@@ -5,7 +5,7 @@ const link = new CLink({
     label: "game",
     query: {name: "GameAll"},
     multiple: false,
-    readOnly: true,
+    readOnly: false,
 });
 
 const fields = [link];

@@ -1,7 +1,8 @@
 import {BaseEntity} from "../base/base.entity";
 import {Field, Float, ObjectType} from "type-graphql";
-import {Entity, Property, Unique} from "mikro-orm";
+import {Entity, ManyToOne, Property, Unique} from "mikro-orm";
 import {IBlog} from "@truecost/shared";
+import {GameEntity} from "../game/game.entity";
 
 
 @Entity()
@@ -27,4 +28,8 @@ export class BlogEntity extends BaseEntity implements IBlog {
     @Field(() => [String])
     @Property()
     images: string[] = [];
+
+    @Field(() => GameEntity, {nullable: true})
+    @ManyToOne(() => GameEntity)
+    game?: GameEntity;
 }
