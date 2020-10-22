@@ -22,7 +22,7 @@ export const Item: React.FC = () => {
     const schema = {
         "@context": "https://schema.org/",
         "@type": "Product",
-        "name": "Garden of Salvation",
+        "name": `${item.name}`,
         "image": `${`${backend.uri}/${item.id}/${item.images[0]}/u.webp`}`,
         "description": `You will obtain: ${item.obtain?.replace("\n", ", ")}`,
         "brand": `${game.name}`,

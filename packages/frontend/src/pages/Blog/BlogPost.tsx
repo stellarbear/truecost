@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {gql, useQuery} from '@apollo/client';
-import {Redirect, useParams} from 'react-router';
+import {Redirect, useLocation, useParams} from 'react-router';
 import {Meta} from 'pages/Base/Meta';
 import {IBlog} from '@truecost/shared';
 import {Col} from 'pages/Base/Grid';
@@ -27,17 +27,18 @@ const GET_BLOG = gql`
 `;
 
 export const BlogPost: React.FC = () => {
-    const {id: url} = useParams<{ id: string }>();
+    const location = useLocation();
+    const {id: url} = useParams<{id: string}>();
     const {data, error, loading} = useQuery(GET_BLOG, {variables: {url}});
 
     if (error || loading) {
-        return <CircularProgress/>;
+        return <CircularProgress />;
     }
 
     const blog: IBlog | undefined = data?.BlogUrl;
 
     if (!blog) {
-        return <Redirect to="/blog"/>;
+        return <Redirect to="/blog" />;
     }
 
     const {images, text, name, id} = blog;
@@ -46,14 +47,44 @@ export const BlogPost: React.FC = () => {
         ? `${backend.uri}/${id}/${images[0]}/u.png`
         : `${frontend.uri}/default/assistant.png`;
 
+    const date = new Date(new Date().getFullYear() + 1, 0, 1).toJSON().slice(0, 10);
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `${frontend.uri}${location.pathname}`,
+        },
+        "headline": `${name}`,
+        "image": `${image}`,
+        "author": {
+            "@type": "Person",
+            "name": "Author",
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "TrueCost",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://truecost.gg/logo-black.png",
+            },
+        },
+        "datePublished": `${date}`,
+        "dateModified": `${date}`,
+    };
+
     return (
         <>
-            <Meta entity={blog}/>
+            <Meta entity={blog}>
+                <script type="application/ld+json">
+                    {JSON.stringify(schema)}
+                </script>
+            </Meta>
             <Col s={8}>
                 <Button
                     component={Link}
                     to="/blog"
-                    startIcon={< ArrowBack/>}
+                    startIcon={< ArrowBack />}
                 >
                     To the blog
                 </Button>
@@ -61,11 +92,11 @@ export const BlogPost: React.FC = () => {
                     alt={"blog image"}
                     height={300}
                     src={image} style={{
-                    minWidth: 300,
-                    width: 300, height: 300, objectFit: "cover", margin: 8, marginLeft: 0,
-                }}/>
+                        minWidth: 300,
+                        width: 300, height: 300, objectFit: "cover", margin: 8, marginLeft: 0,
+                    }} />
                 <Typography variant="h4" component="h1">{name}</Typography>
-                <Divider/>
+                <Divider />
                 <Markdown style={{opacity: 0.7}}>
                     {text}
                 </Markdown>
