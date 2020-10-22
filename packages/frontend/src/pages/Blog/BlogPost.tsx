@@ -40,7 +40,7 @@ export const BlogPost: React.FC = () => {
         return <Redirect to="/blog"/>;
     }
 
-    const {images, text, date, name, id} = blog;
+    const {images, text, name, id} = blog;
 
     const image = images.length > 0
         ? `${backend.uri}/${id}/${images[0]}/u.png`
@@ -64,7 +64,6 @@ export const BlogPost: React.FC = () => {
                     minWidth: 300,
                     width: 300, height: 300, objectFit: "cover", margin: 8, marginLeft: 0,
                 }}/>
-                <Typography variant="caption">{new Date(date).toLocaleDateString()}</Typography>
                 <Typography variant="h4" component="h1">{name}</Typography>
                 <Divider/>
                 <Markdown style={{opacity: 0.7}}>

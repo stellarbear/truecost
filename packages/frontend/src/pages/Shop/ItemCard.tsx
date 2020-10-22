@@ -32,7 +32,6 @@ const ItemCard: React.FC<IProps> = (props) => {
     const redirect = `/${url}/item/${item.url}`;
 
     const [raised, setRaised] = React.useState(false);
-    const [hovered, setHovered] = React.useState(false);
 
     const inYourCart = cart.count({itemId: item.id}) > 0;
 
@@ -81,7 +80,6 @@ const ItemCard: React.FC<IProps> = (props) => {
                         src={image} style={{objectFit: "contain", width: "inherit"}} />
                     <Divider />
                     <Row p={8} s={8}
-                        onMouseEnter={() => setHovered(true)}
                         justify="space-between"
                         align="center"
                         style={{height: 60}}>
@@ -110,7 +108,6 @@ const ItemCard: React.FC<IProps> = (props) => {
             }}
             onMouseOver={() => setRaised(true)}
             onMouseOut={() => setRaised(false)}
-            onMouseLeave={() => setHovered(false)}
             raised={raised}>
             {card()}
         </Card>

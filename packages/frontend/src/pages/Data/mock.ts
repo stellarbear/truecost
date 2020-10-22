@@ -1,4 +1,4 @@
-import {IGame, IShop, Dict, ICartItem} from "@truecost/shared";
+import {IGame, IShop} from "@truecost/shared";
 
 const defaultGame: IGame = {
     id: "truecost",
@@ -32,14 +32,14 @@ const defaultShop: IShop = {
         id: {},
     },
 
-    getTagDeps: (tagId: string) => [],
+    getTagDeps: () => [],
 
-    getOptions: (itemId: string) => [],
+    getOptions: () => [],
 
-    getTotal: (cart: Dict<ICartItem>, extra?: string[]) => ({
+    getTotal: () => ({
         value: 0,
         string: "",
-    })
-}
+    }),
+};
 
 export const mock = {defaultGame, defaultShop};

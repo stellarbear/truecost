@@ -1,7 +1,7 @@
 import {gql, useQuery} from '@apollo/client';
 import {CircularProgress} from '@material-ui/core';
 import {IBlog} from '@truecost/shared';
-import {Col, RowGrid} from 'pages/Base/Grid';
+import {RowGrid} from 'pages/Base/Grid';
 import {Meta} from 'pages/Base/Meta';
 import TextCard from 'pages/Base/TextCard';
 import * as React from 'react';
