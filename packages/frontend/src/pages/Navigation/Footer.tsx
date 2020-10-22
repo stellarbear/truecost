@@ -21,7 +21,7 @@ export const Footer: React.FC = () => {
 
     return (
         <Paper elevation={6} style={{
-            marginBottom: 16,
+            margin: "16px 0px",
             zIndex: 3,
             color: "#fff",
             backgroundColor: "#263238",

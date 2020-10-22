@@ -38,8 +38,9 @@ export const BlogCard: React.FC<IProps> = (props) => {
                         alt={"blog image"}
                         height={250}
                         src={image} style={{
-                            minWidth: 250,
-                            width: 250, height: 250, objectFit: "cover", margin: 8, marginLeft: 0,
+                            margin: "8px 8px 8px 0px",
+                            objectFit: "cover",
+                            width: "100%",
                         }} />
                     <Typography
                         variant="h5" component="h2">{name}</Typography>

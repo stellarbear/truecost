@@ -38,7 +38,7 @@ export const BlogPost: React.FC = () => {
     const blog: IBlog | undefined = data?.BlogUrl;
 
     if (!blog) {
-        return <Redirect to="/blog" />;
+        return <Redirect to="/404" />;
     }
 
     const {images, text, name, id} = blog;
@@ -80,7 +80,7 @@ export const BlogPost: React.FC = () => {
                     {JSON.stringify(schema)}
                 </script>
             </Meta>
-            <Col s={8}>
+            <Col s={8} align="flex-start">
                 <Button
                     component={Link}
                     to="/blog"
@@ -93,10 +93,10 @@ export const BlogPost: React.FC = () => {
                     height={300}
                     src={image} style={{
                         minWidth: 300,
-                        width: 300, height: 300, objectFit: "cover", margin: 8, marginLeft: 0,
+                        width: 300, height: 300, objectFit: "cover", marginLeft: 0,
                     }} />
                 <Typography variant="h4" component="h1">{name}</Typography>
-                <Divider />
+                <Divider style={{width: "100%"}}/>
                 <Markdown style={{opacity: 0.7}}>
                     {text}
                 </Markdown>

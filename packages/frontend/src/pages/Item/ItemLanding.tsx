@@ -36,7 +36,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, selectedOptions.map(o => options.local.id[o]));
 
     return (
-        <div style={{marginBottom: 32}}>
+        <div>
             <Button
                 component={Link}
                 to={`/${url}/shop`}
