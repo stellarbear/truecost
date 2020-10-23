@@ -45,10 +45,10 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 To the shop
             </Button>
             <Grid container spacing={4}>
-                <Grid item xs={12} lg={6}>
+                <Grid item xs={12} md={6}>
                     <ItemImage item={item} />
                 </Grid>
-                <Grid item xs={12} lg={6}>
+                <Grid item xs={12} md={6}>
                     <ItemDescription item={item} />
                     <ItemChildren item={item} />
                     <ItemObtain item={item} />

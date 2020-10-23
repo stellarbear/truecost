@@ -31,16 +31,16 @@ export const ItemAddToCard: React.FC<IProps> = (props) => {
             color={noLimit ? "primary" : "default"}
             variant="contained"
             startIcon={noLimit ? <AddShoppingCart/> : <CheckCircle/>}
-            onClick={noLimit ? () => {
+            onClick={() => {
                 cart.upsert({
                     itemId,
                     optionIds: options,
                     chunk,
-                    quantity: 1,
+                    quantity: noLimit ? 1 : 0,
                 });
 
                 notify(`${item.name} has been added to your cart!`);
-            } : undefined}
+            }}
         >
             <Row justify="space-between" align="center" fullWidth>
                 <Typography variant="caption">{noLimit ? "add to cart" : "item in your cart"}</Typography>

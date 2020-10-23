@@ -38,9 +38,12 @@ export const Blog: React.FC = () => {
 
     const blogs: IBlog[] = data.BlogAll.filter((d: any) => d.active);
     blogs.sort((a, b) => a.order - b.order);
+    console.log(blogs);
 
     const filtered = filter === "" ? blogs : blogs.filter(b => b.game?.id === filter);
-    const top = filtered.shift();
+    console.log(filtered);
+    const top = filtered[0];
+    const others = filtered.slice(1);
 
     return (
         <>
@@ -58,7 +61,7 @@ export const Blog: React.FC = () => {
                             blog={top} />
                     )}
                     <RowGrid w={250} s={16} p={16}>
-                        {filtered.map(b => (
+                        {others.map(b => (
                             <BlogCard
                                 key={b.id}
                                 blog={b} />

@@ -23,9 +23,10 @@ export const BlogFilter: React.FC<IProps> = (props) => {
     );
 
     return (
-        <Row s={8}>
+        <Row wrap>
             <Button
                 color="primary"
+                style={{margin: 4}}
                 onClick={() => setFilter("")}
                 variant={"" === filter ? "contained" : "outlined"}>
                 All
@@ -33,6 +34,7 @@ export const BlogFilter: React.FC<IProps> = (props) => {
             {options.map((id) => (
                 <Button
                     key={id}
+                    style={{margin: 4}}
                     color="primary"
                     onClick={() => setFilter(id)}
                     variant={id === filter ? "contained" : "outlined"}>

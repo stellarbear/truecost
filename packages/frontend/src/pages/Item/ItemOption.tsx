@@ -57,11 +57,14 @@ export const ItemOption: React.FC<IProps> = (props) => {
                                 checked={selected.includes(optionId)}
                             />
                             <Typography variant="body1" style={{
-                                textAlign: "right",
+                                textAlign: "left",
                                 userSelect: "none",
                             }}>{options.local.id[optionId].name}</Typography>
                         </Row>
-                        <Typography style={{paddingRight: 16}}>
+                        <Typography style={{
+                            paddingRight: 16,
+                            whiteSpace: "nowrap",
+                        }}>
                             <strong>
                                 {value}
                             </strong>
