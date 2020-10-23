@@ -134,6 +134,7 @@ export function CRUDResolver<T extends typeof BaseEntity,
             console.log('delete arrived-----------------------------', id);
             assert(id, "id must be specified");
             await this.service.delete(id);
+            await redis.client.del("cache");
             return id;
         }
 
