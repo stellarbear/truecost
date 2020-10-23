@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {Col} from 'pages/Base/Grid';
 import {InputField} from 'components/generic/components/InputField';
-import {Paper, Typography} from '@material-ui/core';
 
 interface IProps {
     text: string;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {subscription, validate} from '@truecost/shared';
-import {Button, CircularProgress, Paper, TextField, Typography} from '@material-ui/core';
-import {Col, Row} from 'pages/Base/Grid';
+import {Button, CircularProgress, TextField} from '@material-ui/core';
+import {Row} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
 import {ErrorOption} from 'react-hook-form/dist/types/form';
 import {useNotification} from 'components/wrappers/NotifyWrapper';

@@ -1,10 +1,8 @@
 import * as React from 'react';
 import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {Accordion, AccordionDetails, AccordionSummary, Checkbox, Switch, Typography} from '@material-ui/core';
-import {ItemDivider} from './ItemDivider';
+import {Accordion, AccordionDetails, AccordionSummary, Switch, Typography} from '@material-ui/core';
 import {CalcPrice, CalcResult} from '@truecost/shared';
-import {TypographyTwoLevel} from 'pages/Base/TypographyTwoLevel';
 import {Col, Row} from 'pages/Base/Grid';
 import {ExpandMore} from '@material-ui/icons';
 

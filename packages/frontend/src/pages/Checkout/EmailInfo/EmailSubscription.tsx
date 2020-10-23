@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {dictSort} from '@truecost/shared';
-import {Card, Checkbox, Divider, Typography} from '@material-ui/core';
+import {Card, Typography} from '@material-ui/core';
 import {Col, Row} from 'pages/Base/Grid';
 import {colors} from 'theme';
 
@@ -38,7 +38,7 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
                                 ? {
                                     color: "#fff",
                                     backgroundColor: colors.primaryColor,
-                                } : {})
+                                } : {}),
                         }}
                         onMouseEnter={() => setHovered(subId)}
                         onMouseLeave={() => setHovered("")}

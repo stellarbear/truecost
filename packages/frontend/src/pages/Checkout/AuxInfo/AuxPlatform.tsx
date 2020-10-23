@@ -1,6 +1,6 @@
 import React from 'react';
 import {Col, Row} from 'pages/Base/Grid';
-import {Checkbox, FormControlLabel, IconButton, Paper, Typography} from '@material-ui/core';
+import {Checkbox, FormControlLabel, IconButton, Typography} from '@material-ui/core';
 
 import Xbox from "mdi-material-ui/MicrosoftXbox";
 import Windows from "mdi-material-ui/MicrosoftWindows";
