@@ -1,10 +1,12 @@
 import * as React from 'react';
 import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {Checkbox, Typography} from '@material-ui/core';
+import {Accordion, AccordionDetails, AccordionSummary, Checkbox, Switch, Typography} from '@material-ui/core';
 import {ItemDivider} from './ItemDivider';
 import {CalcPrice, CalcResult} from '@truecost/shared';
 import {TypographyTwoLevel} from 'pages/Base/TypographyTwoLevel';
+import {Col, Row} from 'pages/Base/Grid';
+import {ExpandMore} from '@material-ui/icons';
 
 interface IProps {
     total: CalcResult;
@@ -30,38 +32,74 @@ export const ItemExtra: React.FC<IProps> = (props) => {
         });
     };
 
+    const totalOptionsPrice =
+        selected
+            .map(id => CalcPrice.fromOption(total, options[id]).value)
+            .reduce((acc, cur) => acc + cur, 0);
+
     return (
-        <>
-            <Typography variant="caption">Extra options</Typography>
-            <ItemDivider condition={true}/>
-            {Object.keys(options).map((optionId) => {
-                const option = CalcPrice.fromOption(total, options[optionId]);
-                return (
-                    <div key={`${optionId}`}
-                         onMouseEnter={() => setHovered(optionId)}
-                         onMouseLeave={() => setHovered("")}
-                         style={{
-                             display: "flex", alignItems: "center", justifyContent: "flex-end", cursor: "pointer",
-                             backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.15)" : "transparent",
-                             transition: "all 0.3s",
-                         }}
-                         onClick={() => toggleOption(optionId)}>
-                        <Typography variant="caption" style={{
-                            textAlign: "right",
-                            userSelect: "none",
-                        }}>{options[optionId].name}</Typography>
-                        <Checkbox checked={selected.includes(optionId)}/>
-                        <div style={{minWidth: 100}}>
-                            <TypographyTwoLevel
-                                text={option.string}
-                                description={option.description}
-                            />
-                        </div>
-                    </div>
-                );
-            })
-            }
-            <ItemDivider condition={Object.keys(options).length > 0}/>
-        </>
+        <div>
+            <Accordion elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
+                <AccordionSummary
+                    expandIcon={<ExpandMore />}>
+                    <Row fullWidth
+                        justify="space-between" align="center">
+                        <Col>
+                            <Typography >Extra options</Typography>
+                            <Typography variant="caption">Expand for live stream and other options</Typography>
+                        </Col>
+                        <Typography
+                            variant="h6"
+                            style={{
+                                paddingRight: 8,
+                                whiteSpace: "nowrap",
+                            }}>
+                            {`${totalOptionsPrice} $`}
+                        </Typography>
+                    </Row>
+                </AccordionSummary>
+                <AccordionDetails>
+                    {Object.keys(options).map((optionId) => {
+                        const option = CalcPrice.fromOption(total, options[optionId]);
+                        const value = `${option.value >= 0 ? '+' : '-'} $${Math.abs(option.value)}`;
+                        return (
+                            <Row fullWidth
+                                p={2} s={16}
+                                align="center"
+                                justify="space-between"
+                                key={`${optionId}`}
+                                onMouseEnter={() => setHovered(optionId)}
+                                onMouseLeave={() => setHovered("")}
+                                onClick={() => toggleOption(optionId)}
+
+                                style={{
+                                    backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.05)" : "transparent",
+                                    transition: "all 0.3s", cursor: "pointer",
+                                }}
+                            >
+                                <Row align="center">
+                                    <Switch
+                                        checked={selected.includes(optionId)}
+                                    />
+                                    <Typography variant="body1" style={{
+                                        textAlign: "left",
+                                        userSelect: "none",
+                                    }}>{options[optionId].name}</Typography>
+                                </Row>
+                                <Typography style={{
+                                    paddingRight: 16,
+                                    whiteSpace: "nowrap",
+                                }}>
+                                    <strong>
+                                        {value}
+                                    </strong>
+                                </Typography>
+                            </Row>
+                        );
+                    })
+                    }
+                </AccordionDetails>
+            </Accordion>
+        </div>
     );
 };

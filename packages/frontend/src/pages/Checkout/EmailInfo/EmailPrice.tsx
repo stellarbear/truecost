@@ -28,22 +28,9 @@ export const EmailPrice: React.FC<IProps> = (props) => {
     const total = CalcPrice.percentage(cartPrice.value + subscriptionPrice, 100 - subscriptionDiscount);
 
     return (
-        <Col s={8}>
-            <Col align="flex-end">
-                <Typography variant="caption">{`subtotal: ${cartPrice.value} $`}</Typography>
-                <Typography
-                    variant="caption"
-                    style={{opacity: subscriptionPrice ? 1.0 : 0.4}}>
-                    {`subscription price: +${subscriptionPrice} $`}
-                </Typography>
-                <Typography
-                    variant="caption"
-                    style={{opacity: subscriptionDiscount ? 1.0 : 0.4}}>
-                    {`subscription discount: -${subscriptionDiscount} %`}
-                </Typography>
-            </Col>
-            <Divider />
-            <Row justify="flex-end" style={{cursor: "pointer"}}>
+        <Col s={8} align="center">
+            <Row align="center"
+                style={{cursor: "pointer"}}>
                 <Typography variant="caption" color="secondary">
                     {`You agree with\u00A0`}
                 </Typography>
@@ -60,11 +47,41 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                     }
                 />
             </Row>
-            <Row justify="flex-end">
-                <Button variant="contained" type="submit" color="primary">
-                    {loading ? <CircularProgress size={24} /> : `Total: ${total} $`}
-                </Button>
-            </Row>
+            <Button
+                style={{minHeight: 60}}
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth >
+                {loading
+                    ? <CircularProgress size={24} />
+                    : (
+                        <Row fullWidth justify="space-around">
+                            <Typography variant="button">{`Check out`}</Typography>
+                            <Typography variant="button">
+                                <strong>
+                                    {`${total} $`}
+                                </strong>
+                            </Typography>
+                        </Row>
+                    )
+                }
+            </Button>
+            <Divider />
+            <Col align="flex-end" fullWidth>
+                <Typography
+                    variant="caption"
+                    style={{opacity: subscriptionDiscount ? 1.0 : 0.4}}>
+                    {`subscription discount: -${subscriptionDiscount} %`}
+                </Typography>
+                <Typography
+                    variant="caption"
+                    style={{opacity: subscriptionPrice ? 1.0 : 0.4}}>
+                    {`subscription price: +${subscriptionPrice} $`}
+                </Typography>
+                <Typography variant="caption">{`subtotal: ${cartPrice.value} $`}</Typography>
+                <Typography variant="caption">{`total: ${total} $`}</Typography>
+            </Col>
         </Col>
     );
 };

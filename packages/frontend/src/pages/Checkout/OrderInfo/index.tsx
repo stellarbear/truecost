@@ -8,7 +8,6 @@ import {ItemOption} from './ItemOption';
 import {ItemHeader} from './ItemHeader';
 import {ItemCount} from './ItemCount';
 import {ItemExtra} from './ItemExtra';
-import {ItemTotal} from './ItemTotal';
 import {ItemDivider} from './ItemDivider';
 import {ItemRange} from './ItemRange';
 import {CheckoutEmpty} from './CheckoutEmpty';
@@ -85,8 +84,6 @@ export const OrderInfo: React.FC = () => {
                     ? (keys.map(key => itemCard(key)))
                     : <CheckoutEmpty />}
                 <ItemExtra
-                    total={total} />
-                <ItemTotal
                     total={total} />
             </Col>
         </NoSsr>

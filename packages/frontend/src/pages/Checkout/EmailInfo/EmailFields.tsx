@@ -67,36 +67,34 @@ export const EmailFields: React.FC<IProps> = (props) => {
     };
 
     return (
-        <Paper elevation={3}>
-            <Col p={8}>
-                <Typography variant="caption">Provide billing email</Typography>
-                <Row s={8}>
-                    <TextField
-                        fullWidth
-                        disabled={disabled}
-                        inputRef={register({
-                            required: "This field is required",
-                            pattern: {
-                                value: validate("email").regex,
-                                message: "Does not look like email (:",
-                            },
-                        })}
-                        name={"email"}
-                        label="Email *"
-                        error={!!error}
-                        helperText={error}
-                        variant="filled"
-                        onChange={() => clearErrors()}
-                    />
-                    <Button onClick={() => onClick()} style={{minWidth: 120}}>
-                        {
-                            loading
-                                ? <CircularProgress size={24}/>
-                                : `Check subscription`
-                        }
-                    </Button>
-                </Row>
-            </Col>
-        </Paper>
+        <Row s={8}>
+            <TextField
+                fullWidth
+                disabled={disabled}
+                inputRef={register({
+                    required: "This field is required",
+                    pattern: {
+                        value: validate("email").regex,
+                        message: "Does not look like email (:",
+                    },
+                })}
+                name={"email"}
+                label="Your email address *"
+                error={!!error}
+                helperText={error}
+                variant="outlined"
+                onChange={() => clearErrors()}
+            />
+            <Button
+                variant="contained"
+                onClick={() => onClick()}
+                style={{minWidth: 120, maxHeight: 55}}>
+                {
+                    loading
+                        ? <CircularProgress size={24} />
+                        : `Check subscription`
+                }
+            </Button>
+        </Row>
     );
 };

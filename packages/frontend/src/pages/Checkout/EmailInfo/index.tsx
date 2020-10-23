@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {Col} from 'pages/Base/Grid';
-import {Box} from '@material-ui/core';
+import {Col, Row} from 'pages/Base/Grid';
+import {Box, IconButton, Typography} from '@material-ui/core';
 import {useForm} from 'react-hook-form';
 import {loadStripe} from '@stripe/stripe-js';
 import Alert from '@material-ui/lab/Alert';
@@ -12,6 +12,7 @@ import {EmailSubscription} from './EmailSubscription';
 import {EmailFields} from './EmailFields';
 import {EmailPrice} from './EmailPrice';
 import {gql, useMutation} from '@apollo/client';
+import Help from '@material-ui/icons/Help';
 
 interface IProps {
     info: Record<string, any>;
@@ -77,9 +78,17 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     };
 
     return (
-        <Col s={16}>
+        <Col s={8}>
+            <Row>
+                <Typography variant="caption">Subscription (optional)</Typography>
+            </Row>
             <form onSubmit={handleSubmit(bookingSubmit)}>
                 <Col s={8}>
+                    <EmailSubscription
+                        current={currentSubscription}
+                        selected={selectedSubscription}
+                        setSelected={setSelectedSubscription}
+                    />
                     <EmailFields
                         disabled={!!user}
                         register={register}
@@ -88,11 +97,6 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                         clearErrors={clearErrors}
                         setCurrent={setCurrentSubscription}
                         error={errors.email?.message}
-                    />
-                    <EmailSubscription
-                        current={currentSubscription}
-                        selected={selectedSubscription}
-                        setSelected={setSelectedSubscription}
                     />
                     <EmailPrice
                         loading={loading}

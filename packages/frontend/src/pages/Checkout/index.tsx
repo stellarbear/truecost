@@ -21,7 +21,7 @@ const steps = [{
 }];
 
 export const Checkout: React.FC = () => {
-    const {step} = useParams<{ step: string }>();
+    const {step} = useParams<{step: string}>();
     const history = useHistory();
     const {current: {game}} = useStore();
 
@@ -52,57 +52,18 @@ export const Checkout: React.FC = () => {
 
     const panels = () => (
         <Col s={16}>
-            <React.Fragment>
-                <div style={{display: activeStep !== 0 ? "none" : "block"}}>
-                    <OrderInfo/>
-                </div>
-                <div style={{display: activeStep !== 1 ? "none" : "block"}}>
-                    <AuxInfo value={info} setValue={(k: string, v: any) => updateInfo(k, v)}/>
-                </div>
-                <div style={{display: activeStep !== 2 ? "none" : "block"}}>
-                    <EmalInfo info={info}/>
-                </div>
-            </React.Fragment>
-            {activeStep < 2 && (
-                <Row justify="flex-end" s={8}>
-                    <Button
-                        disabled={activeStep === 0}
-                        onClick={() => setActiveStep(activeStep - 1)}>
-                        Back
-                    </Button>
-                    <Button variant="contained" color="primary"
-                            onClick={() => setActiveStep(activeStep + 1)}>
-                        Next
-                    </Button>
-                </Row>
-            )}
+            <OrderInfo />
+            <AuxInfo value={info} setValue={(k: string, v: any) => updateInfo(k, v)} />
+            <EmalInfo info={info} />
         </Col>
     );
 
-    const stepper = () => (
-        <Stepper
-            nonLinear
-            style={{padding: 0}}
-            activeStep={activeStep}
-            orientation={"vertical"}>
-            {steps.map(({title, description}, index) => (
-                <Step key={title}>
-                    <StepButton onClick={() => setActiveStep(index)} completed={index < activeStep}
-                                style={{textAlign: "left"}}>
-                        <Typography>{title}</Typography>
-                        <Typography variant="caption">{description}</Typography>
-                    </StepButton>
-                </Step>
-            ))}
-        </Stepper>
-    );
 
     return (
         <>
-            <Meta entity={game}/>
+            <Meta entity={game} />
             <Container maxWidth="sm" style={{padding: 0}}>
                 <Col fullWidth s={16}>
-                    {stepper()}
                     {panels()}
                 </Col>
             </Container>

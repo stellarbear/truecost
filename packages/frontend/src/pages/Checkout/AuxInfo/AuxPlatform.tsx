@@ -57,33 +57,30 @@ export const AuxPlatform: React.FC<IProps> = (props) => {
     };
 
     return (
-        <Paper elevation={3}>
-            <Col p={8}>
-                <Typography variant="caption">Choose platform</Typography>
-                <Row justify="space-between" wrap>
-                    <Row s={8}>
-                        {platforms.map(({icon, label}) => (
-                            <Col key={label} align="center">
-                                <IconButton onClick={() => onPlatformClick(label)}>
-                                    {React.cloneElement(icon, {
-                                        style: {
-                                            color: platform.includes(label) ? colors.accentColor : "black",
-                                            transition: "all 0.2s linear",
-                                            transform: "scale(1.5)",
-                                            cursor: "pointer",
-                                        },
-                                    })}
-                                </IconButton>
-                                <Typography variant="caption">{label}</Typography>
-                            </Col>
-                        ))}
-                    </Row>
-                    <FormControlLabel
-                        control={<Checkbox checked={cross} onChange={() => onCrossClick()} />}
-                        label="Cross save"
-                    />
+        <Col s={8}>
+            <Row justify="space-between" wrap>
+                <Row s={8}>
+                    {platforms.map(({icon, label}) => (
+                        <Col key={label} align="center">
+                            <IconButton onClick={() => onPlatformClick(label)}>
+                                {React.cloneElement(icon, {
+                                    style: {
+                                        color: platform.includes(label) ? colors.accentColor : "black",
+                                        transition: "all 0.2s linear",
+                                        transform: "scale(1.5)",
+                                        cursor: "pointer",
+                                    },
+                                })}
+                            </IconButton>
+                            <Typography variant="caption">{label}</Typography>
+                        </Col>
+                    ))}
                 </Row>
-            </Col>
-        </Paper>
+                <FormControlLabel
+                    control={<Checkbox checked={cross} onChange={() => onCrossClick()} />}
+                    label="Cross save"
+                />
+            </Row>
+        </Col>
     );
 };

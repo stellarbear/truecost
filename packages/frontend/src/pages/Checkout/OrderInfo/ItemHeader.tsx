@@ -4,6 +4,8 @@ import {IconButton, Typography} from '@material-ui/core';
 import {PriceTypography} from 'pages/Base/PriceTypography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {CalcResult, IItem, Time} from '@truecost/shared';
+import {backend} from 'auxiliary/route';
+import {SafeImage} from 'components/SafeImage';
 
 interface IProps {
     item: IItem;
@@ -15,12 +17,15 @@ interface IProps {
 
 export const ItemHeader: React.FC<IProps> = (props) => {
     const {item, quantity, total, onDelete, chunk} = props;
+    const image = `${backend.uri}/${item.id}/${item.images[0]}/u.png`;
     return (
         <Row justify="space-between" fullWidth align="center">
-            <Row align="center" s={8}>
-                <IconButton style={{marginLeft: -12}} onClick={() => onDelete()}>
-                    <DeleteIcon />
-                </IconButton>
+            <Row align="center" s={16}>
+                <SafeImage
+                    alt={`${item.name} thumbnail`}
+                    height={64}
+                    src={image}
+                />
                 <Col >
                     <Typography>
                         {item.name}
@@ -40,8 +45,13 @@ export const ItemHeader: React.FC<IProps> = (props) => {
                     </Col>
                 </Col>
             </Row>
-            <PriceTypography price={total.value * quantity}
-                discount={item.discount * quantity} />
+            <Row align="center" s={16}>
+                <PriceTypography price={total.value * quantity}
+                    discount={item.discount * quantity} />
+                <IconButton style={{marginLeft: -12}} onClick={() => onDelete()}>
+                    <DeleteIcon />
+                </IconButton>
+            </Row>
         </Row>
     );
 };

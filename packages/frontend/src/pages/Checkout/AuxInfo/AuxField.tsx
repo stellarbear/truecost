@@ -9,17 +9,12 @@ interface IProps {
 }
 
 export const AuxField: React.FC<IProps> = ({text, setText}) => (
-    <Paper elevation={3}>
-        <Col p={8}>
-            <Typography variant="caption">Any additional information</Typography>
-            <InputField
-                placeholder="Playable time is... Main character type is... Etc."
-                editable={true}
-                multiline={true}
-                rowsMax={4}
-                label={"Info"}
-                value={text}
-                onChangeEvent={(v) => setText(v.slice(0, 128))} />
-        </Col>
-    </Paper>
+    <InputField
+        placeholder="Playable time is... Main character type is... Etc."
+        editable={true}
+        multiline={true}
+        rowsMax={4}
+        label={"Additional information"}
+        value={text}
+        onChangeEvent={(v) => setText(v.slice(0, 128))} />
 );
