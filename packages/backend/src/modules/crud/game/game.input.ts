@@ -8,6 +8,9 @@ export class GameInput extends BaseInput {
     url?: string;
 
     @Field(() => [UploadScalar], {nullable: true})
+    preview: UploadType[] = [];
+
+    @Field(() => [UploadScalar], {nullable: true})
     background: UploadType[] = [];
 
     @Field(() => [UploadScalar], {nullable: true})

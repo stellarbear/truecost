@@ -25,7 +25,7 @@ export class GameCRUDResolver extends BaseResolver
         upsert: {
             notEmpty: ["twitter", "background", "assistant", "url"],
             unique: ["twitter", "url"],
-            images: ["background", "assistant"],
+            images: ["background", "assistant", "preview"],
         },
         restrictPublic: false,
     },

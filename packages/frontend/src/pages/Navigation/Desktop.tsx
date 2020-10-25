@@ -69,7 +69,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             top: -8,
         }}>
             <Row>
-                <Button component={Link} to={url}>
+                <Button component={Link} to={'/'}>
                     <img
                         alt="logo icon"
                         height={80} width={80} src={logo}

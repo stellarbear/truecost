@@ -32,7 +32,7 @@ export const NavigationBar: React.FC<IProps> = ({history}) => {
     return (
         <ElevationScroll>
             <AppBar style={{
-                backgroundColor: isOnTop ? "transparent" : "white",
+                backgroundColor: isOnTop ? "black" : "white",
                 transition: "all 250ms ease 0s",
                 color: isOnTop ? 'white' : 'black',
             }}>

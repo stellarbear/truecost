@@ -11,17 +11,18 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 
 interface IProps {
     id: string;
+    gameId?: string;
+    gameUrl?: string;
 }
 
-//const size = 284;
 const ItemCard: React.FC<IProps> = (props) => {
-    const {id} = props;
+    const {id, gameId, gameUrl} = props;
 
-    const {current: {shop, game: {url}}, update: {cart}} = useContext(DataContext);
+    const {current: {shop, game: {url}}, update: {cart, setGame}} = useContext(DataContext);
     const {
         tags,
         items,
-    } = shop();
+    } = shop(gameId);
 
     if (id === undefined || !(id in items.id)) {
         return null;
@@ -29,7 +30,7 @@ const ItemCard: React.FC<IProps> = (props) => {
 
     const item = items.id[id];
     const itemPrice = CalcPrice.fromItem(item);
-    const redirect = `/${url}/item/${item.url}`;
+    const redirect = `/${gameUrl || url}/item/${item.url}`;
 
     const [raised, setRaised] = React.useState(false);
 
@@ -69,7 +70,11 @@ const ItemCard: React.FC<IProps> = (props) => {
     const card = () => {
         const image = `${backend.uri}/${item.id}/${item.images[0]}/u.png`;
         return (
-            <ButtonBase component={Link} to={redirect}
+            <ButtonBase component={Link} to={redirect} onClick={() => {
+                if (gameId) {
+                    setGame(gameId);
+                }
+            }}
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%", width: "100%"}}>
                 <Col fullWidth style={{width: "100%"}}>
                     {chip()}

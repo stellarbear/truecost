@@ -34,6 +34,12 @@ export const AdminGame: React.FC = () => {
         ext: "png",
         limit: 1,
     });
+    const preview = new CImage({
+        key: "preview",
+        label: "preview",
+        ext: "png",
+        limit: 1,
+    });
     const background = new CImage({
         key: "background",
         label: "background",
@@ -41,7 +47,7 @@ export const AdminGame: React.FC = () => {
         limit: 1,
     });
 
-    const fields = [url, twitter, assistant, background];
+    const fields = [url, twitter, preview, assistant, background];
 
     return (
         <CRUD

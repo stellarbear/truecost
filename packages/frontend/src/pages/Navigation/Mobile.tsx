@@ -90,7 +90,7 @@ export const Mobile: React.FC<IProps> = (props) => {
                     <IconButton onClick={() => setOpen(!open)} style={{margin: "8px"}}>
                         <Clear />
                     </IconButton>
-                    <Button component={Link} to={url}>
+                    <Button component={Link} to={'/'}>
                         <img
                             alt="logo icon"
                             height={48} width={48} src={logo}

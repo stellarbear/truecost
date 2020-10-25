@@ -30,6 +30,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
         arrows = false,
         children,
     } = props;
+
     const [visible, setVisibility] = React.useState(false);
 
     const classes = useStyles();

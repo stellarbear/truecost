@@ -22,13 +22,13 @@ import {Account} from "pages/Account";
 import {useScript} from "auxiliary/useScript";
 import {google, tawk, yandex} from "scripts";
 import {BackToTop} from "components/BackToTop";
-import Home from "pages/Home";
 import {About, Contact, Policy, TOS} from "pages";
 import NotFound from "pages/NotFound";
 import {NavigationWrapper} from "pages/Navigation";
 import {NotifyWrapper} from "components/wrappers/NotifyWrapper";
 import {Blog} from "pages/Blog";
 import {BlogPost} from "pages/Blog/BlogPost";
+import {HomeGame, HomeLanding} from "pages/Home";
 
 
 const App = () => {
@@ -39,10 +39,10 @@ const App = () => {
     const routes = (urls: string[]) => (
         <BackToTop>
             <NavigationWrapper>
-                <Route sensitive exact path={"/"} component={Home} />
+                <Route sensitive exact path={"/"} component={HomeLanding} />
 
                 <Route sensitive exact
-                    path={urls.map(u => '/' + u)} component={Home} />
+                    path={urls.map(u => '/' + u)} component={HomeGame} />
                 <Route sensitive exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
                 <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/success')}
                     component={CheckoutSuccess} />

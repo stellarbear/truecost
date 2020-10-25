@@ -3,7 +3,7 @@ import {Button, Menu, MenuItem, Typography} from '@material-ui/core';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import {dictSort} from '@truecost/shared';
 import {useStore} from 'pages/Data/Wrapper';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {Row} from 'pages/Base/Grid';
 
 export interface IGameContext {
@@ -12,13 +12,14 @@ export interface IGameContext {
 }
 
 export const GamePicker: React.FC = () => {
+    const {pathname} = useLocation();
     const {games, current: {game}, update: {setGame}} = useStore();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const current = game;
     const gamesSorted = dictSort(games.id);
 
-    if (gamesSorted.length === 0 || !current) {
+    if (pathname === "/" || gamesSorted.length === 0 || !current) {
         return null;
     }
 

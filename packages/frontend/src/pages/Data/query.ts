@@ -41,6 +41,7 @@ export const BULK_QUERY = gql`
             twitter
             background
             assistant
+            preview
         }
         ItemAll {
             ${base.fragment}

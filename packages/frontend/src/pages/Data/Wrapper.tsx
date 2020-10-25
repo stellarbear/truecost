@@ -22,8 +22,8 @@ export interface IDataContext {
         discount: number;
         user: IUser | null;
         game: IGame;
-        shop(): IShop;
-        cart(): ICart;
+        shop(id?: string): IShop;
+        cart(id?: string): ICart;
     };
     update: {
         setUser(user: IUser | null): void;
@@ -86,8 +86,8 @@ const Data: React.FC = ({children}) => {
                 discount: subscription.validate(user),
                 user: user,
                 game: game,
-                cart: () => cart[game.id],
-                shop: () => store.shop.data[game.id],
+                cart: (id) => cart[id || game.id],
+                shop: (id) => store.shop.data[id || game.id],
             },
             update: {
                 setUser: (user: IUser | null) => setUser(user),

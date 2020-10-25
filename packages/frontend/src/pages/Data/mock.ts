@@ -9,6 +9,7 @@ const defaultGame: IGame = {
     twitter: "truecost",
     background: [""],
     assistant: [""],
+    preview: [""],
 };
 
 const defaultShop: IShop = {

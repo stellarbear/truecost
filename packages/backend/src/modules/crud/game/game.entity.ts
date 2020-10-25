@@ -14,11 +14,15 @@ export class GameEntity extends BaseEntity implements IGame {
     @Property()
     url!: string;
 
-    @Field(() => [String])
+    @Field(() => [String], {defaultValue: []})
+    @Property()
+    preview: string[] = [];
+
+    @Field(() => [String], {defaultValue: []})
     @Property()
     background: string[] = [];
 
-    @Field(() => [String])
+    @Field(() => [String], {defaultValue: []})
     @Property()
     assistant: string[] = [];
 
