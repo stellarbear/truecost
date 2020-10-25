@@ -108,7 +108,7 @@ export const parseShop = (
                 for (const itemId in cart) {
                     const itemPrice = CalcPrice.fromItem(items[itemId], cart[itemId].chunk);
                     const totalPrice = CalcPrice.fromItemAndOptions(itemPrice,
-                         cart[itemId].optionIds.map(o => options[o]));
+                        cart[itemId].optionIds.map(o => options[o]));
 
                     value += totalPrice.value;
                 }
@@ -193,22 +193,25 @@ export const parseShop = (
     }
 
     for (const game of GameAll) {
-        const {id: gameId} = game;
-        const store = shopDict.data[gameId].tags;
+        const {id: gameId, active} = game;
 
-        const tagBaseArray = Object.keys(store.id);
-        const tagBaseCandidates = new Set(tagBaseArray);
+        if (active) {
+            const store = shopDict.data[gameId].tags;
 
-        for (const tag of tagBaseArray) {
-            const children = shopDict.data[gameId].getTagDeps(tag);
-            for (const child of children) {
-                if (child !== tag) {
-                    tagBaseCandidates.delete(child);
+            const tagBaseArray = Object.keys(store.id);
+            const tagBaseCandidates = new Set(tagBaseArray);
+
+            for (const tag of tagBaseArray) {
+                const children = shopDict.data[gameId].getTagDeps(tag);
+                for (const child of children) {
+                    if (child !== tag) {
+                        tagBaseCandidates.delete(child);
+                    }
                 }
             }
-        }
 
-        store.base = Array.from(tagBaseCandidates);
+            store.base = Array.from(tagBaseCandidates);
+        }
     }
 
     return ({
