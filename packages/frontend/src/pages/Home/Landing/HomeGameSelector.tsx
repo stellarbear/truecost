@@ -37,7 +37,7 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
                             height={"inherit"}
                             src={image(games[gameId])} style={{
                                 minWidth: 150,
-                                width: 150, objectFit: "cover", marginTop: 8,
+                                width: 150, objectFit: "cover", marginBottom: 8,
                             }} />
                         <Typography>
                             {games[gameId].name}

@@ -25,7 +25,8 @@ export const EmailPrice: React.FC<IProps> = (props) => {
             : [0, 0];
 
     const cartPrice = shop().getTotal(cartItems.local, cartItems.global);
-    const total = CalcPrice.percentage(cartPrice.value + subscriptionPrice, 100 - subscriptionDiscount);
+    const total = CalcPrice.percentage(cartPrice.value, 100 - subscriptionDiscount) +
+        subscriptionPrice;
 
     return (
         <Col s={8} align="center">
