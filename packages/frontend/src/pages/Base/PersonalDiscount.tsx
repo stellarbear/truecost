@@ -1,4 +1,4 @@
-import {Typography, Button, Card} from '@material-ui/core';
+import {Typography, Button, Card, ButtonBase} from '@material-ui/core';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Row} from './Grid';
@@ -12,17 +12,24 @@ export const PersonalDiscount: React.FC = () => {
             color: "#fff",
             backgroundColor: "#263238",
         }}>
-            <Row s={16} p={[8, 16]} justify="center" align="center">
-                <Typography
-                    variant="h6" component="p" color="inherit">Get your personal discount plan up&nbsp;to</Typography>
-                <Button
-                    component={Link}
-                    to="/discount"
-                    variant="contained"
-                    color="secondary">
-                    <Typography variant="h6" component="p" color="inherit">{`${max} % discount `}</Typography>
-                </Button>
-            </Row>
+            <ButtonBase
+                style={{width: "100%"}}
+                component={Link}
+                to="/discount">
+                <Row s={16} p={[8, 16]} justify="center" align="center">
+                    <Typography
+                        variant="h6" component="p" color="inherit">
+                        Get your personal discount plan up&nbsp;to
+                        </Typography>
+                    <Button
+                        component={Link}
+                        to="/discount"
+                        variant="contained"
+                        color="secondary">
+                        <Typography variant="h6" component="p" color="inherit">{`${max} % discount `}</Typography>
+                    </Button>
+                </Row>
+            </ButtonBase>
         </Card>
     );
 };

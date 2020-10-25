@@ -38,7 +38,7 @@ export const HowToUse: React.FC = () => (
                                 </Typography>
                             </Col>
                         </TimelineDot>
-                        <TimelineConnector />
+                        {(i < data.length - 1) && <TimelineConnector />}
                     </TimelineSeparator>
                     <TimelineContent>
                         <Typography variant="h6" >

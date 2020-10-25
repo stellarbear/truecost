@@ -6,6 +6,8 @@ import {HomeGameSelector} from "./HomeGameSelector";
 import {dictSort} from "@truecost/shared";
 import {HomeGameTopOffers} from "./HomeGameTopOffers";
 import {HomeGameInfo} from "./HomeGameInfo";
+import {HowToUse} from "pages/Base/HowToUse";
+import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 
 export const HomeLanding: React.FC = () => {
     const {games: {id: games}} = useStore();
@@ -24,6 +26,9 @@ export const HomeLanding: React.FC = () => {
                     </Typography>
                     <HomeGameSelector games={games} />
                 </Grid>
+                <Grid item xs={12}>
+                    <PersonalDiscount />
+                </Grid>
                 {
                     gamesSorted.map(gameId => (
                         <Grid key={gameId} item xs={12}>
@@ -37,6 +42,9 @@ export const HomeLanding: React.FC = () => {
                         </Grid>
                     ))
                 }
+                <Grid item xs={12}>
+                    <HowToUse />
+                </Grid>
             </Grid>
         </React.Fragment >
     );
