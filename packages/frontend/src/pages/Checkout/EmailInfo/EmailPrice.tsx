@@ -57,8 +57,10 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                     ? <CircularProgress size={24} />
                     : (
                         <Row fullWidth justify="space-around">
-                            <Typography variant="button">{`Check out`}</Typography>
-                            <Typography variant="button">
+                            <Typography variant="button" style={{fontSize: "1.4rem"}}>
+                                {`Check out`}
+                            </Typography>
+                            <Typography variant="button" style={{fontSize: "1.4rem"}}>
                                 <strong>
                                     {`${total} $`}
                                 </strong>
