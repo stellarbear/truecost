@@ -83,7 +83,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                     <Typography variant="caption">Subscription (optional)</Typography>
                 </Row>
                 <form onSubmit={handleSubmit(bookingSubmit)}>
-                    <Col s={8}>
+                    <Col s={16}>
                         <EmailSubscription
                             current={currentSubscription}
                             selected={selectedSubscription}
