@@ -29,6 +29,7 @@ export const HomeGameTopOffers: React.FC<IProps> = (props) => {
                     w={250} s={16} p={16} arrows>
                     {top.map(id => (
                         <ItemCard
+                            noprice
                             gameUrl={game.url}
                             gameId={game.id}
                             key={id} id={id} />

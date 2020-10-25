@@ -13,10 +13,11 @@ interface IProps {
     id: string;
     gameId?: string;
     gameUrl?: string;
+    noprice?: boolean;
 }
 
 const ItemCard: React.FC<IProps> = (props) => {
-    const {id, gameId, gameUrl} = props;
+    const {id, gameId, gameUrl, noprice = false} = props;
 
     const {current: {shop, game: {url}}, update: {cart, setGame}} = useContext(DataContext);
     const {
@@ -90,15 +91,17 @@ const ItemCard: React.FC<IProps> = (props) => {
                         style={{height: 60}}>
                         <Typography variant="body1" align="center"
                             style={{maxHeight: 70, overflow: "hidden", width: "100%"}}>{item.name}</Typography>
-                        <Button
-                            style={{minWidth: "fit-content"}}
-                            size="large"
-                            color="primary"
-                            variant="outlined"
-                        >
-                            <PriceTypography price={itemPrice.value}
-                                discount={item.discount} />
-                        </Button>
+                        {noprice || (
+                            <Button
+                                style={{minWidth: "fit-content"}}
+                                size="large"
+                                color="primary"
+                                variant="outlined"
+                            >
+                                <PriceTypography price={itemPrice.value}
+                                    discount={item.discount} />
+                            </Button>
+                        )}
                     </Row>
                 </Col>
             </ButtonBase>

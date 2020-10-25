@@ -58,6 +58,7 @@ export const HomeGameInfo: React.FC<IProps> = (props) => {
                         }}
                     >
                         <SafeImage
+                            height={250}
                             alt={info.text}
                             style={{height, objectFit: "cover", width: "100%"}}
                             draggable="false"

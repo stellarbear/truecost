@@ -10,6 +10,7 @@ interface IProps {
     w: number;
     s?: number;
     p?: number;
+    collapse?: boolean;
     style?: CSSProperties;
     arrows?: boolean;
 }
@@ -26,6 +27,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
     const {
         id,
         style = {},
+        collapse = false,
         p = 0, s = 0, w,
         arrows = false,
         children,
@@ -59,43 +61,45 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                 gridGap: s,
                 //gridTemplateColumns: w,
                 gridAutoFlow: "column",
-                gridAutoColumns: `minmax(${w}px, 1fr)`,
+                gridAutoColumns: collapse ? `${w}px ` : `minmax(${w}px, 1fr)`,
                 overflowX: "auto",
             }}>
                 {children}
             </div>
-            {arrows && (
-                <Hidden smDown>
-                    <IconButton
-                        aria-label="swipe left"
-                        style={{
-                            ...arrowStyle,
-                            left: s + 4,
-                        }}
-                        onClick={() => {
-                            const element = document.getElementById(id);
-                            element?.scrollTo(
-                                {left: element.scrollLeft - element.offsetWidth, behavior: "smooth"}
-                            );
-                        }}>
-                        <ArrowBack />
-                    </IconButton>
-                    <IconButton
-                        aria-label="swipe right"
-                        style={{
-                            ...arrowStyle,
-                            right: s + 4,
-                        }}
-                        onClick={() => {
-                            const element = document.getElementById(id);
-                            element?.scrollTo(
-                                {left: element.scrollLeft + element.offsetWidth, behavior: "smooth"}
-                            );
-                        }}>
-                        <ArrowForward />
-                    </IconButton>
-                </Hidden>
-            )}
-        </div>
+            {
+                arrows && (
+                    <Hidden smDown>
+                        <IconButton
+                            aria-label="swipe left"
+                            style={{
+                                ...arrowStyle,
+                                left: s + 4,
+                            }}
+                            onClick={() => {
+                                const element = document.getElementById(id);
+                                element?.scrollTo(
+                                    {left: element.scrollLeft - element.offsetWidth, behavior: "smooth"}
+                                );
+                            }}>
+                            <ArrowBack />
+                        </IconButton>
+                        <IconButton
+                            aria-label="swipe right"
+                            style={{
+                                ...arrowStyle,
+                                right: s + 4,
+                            }}
+                            onClick={() => {
+                                const element = document.getElementById(id);
+                                element?.scrollTo(
+                                    {left: element.scrollLeft + element.offsetWidth, behavior: "smooth"}
+                                );
+                            }}>
+                            <ArrowForward />
+                        </IconButton>
+                    </Hidden>
+                )
+            }
+        </div >
     );
 };

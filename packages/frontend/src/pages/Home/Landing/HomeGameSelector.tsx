@@ -20,7 +20,10 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
         `${backend.uri}/${game.id}/${game.preview?.[0]}/u.png`;
 
     return (
-        <RowSwipable id="services" s={16} p={16} w={150}>
+        <RowSwipable id="services"
+            s={16} p={16} w={150}
+            collapse
+            arrows>
             {gamesSorted.map(gameId => (
                 <ButtonBase
                     key={gameId}
@@ -33,8 +36,8 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
                             alt={`${games[gameId].name} service`}
                             height={"inherit"}
                             src={image(games[gameId])} style={{
-                                minWidth: 80,
-                                width: 80, height: 80, objectFit: "cover", margin: 8, marginLeft: 0,
+                                minWidth: 150,
+                                width: 150, objectFit: "cover", margin: 8, marginLeft: 0,
                             }} />
                         <Typography>
                             {games[gameId].name}
