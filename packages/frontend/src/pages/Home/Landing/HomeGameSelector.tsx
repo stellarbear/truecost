@@ -28,7 +28,7 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
                 <ButtonBase
                     key={gameId}
                     component={Link}
-                    to={'/' + games[gameId].url + '/shop'}
+                    to={'/' + games[gameId].url}
                     onClick={() => setGame(gameId)}
                 >
                     <Col align="center">
