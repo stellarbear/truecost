@@ -1,6 +1,6 @@
 import {Button} from '@material-ui/core';
 import {IGame} from '@truecost/shared';
-import {RowSwipable} from 'pages/Base/Grid';
+import {RowGrid} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
 import ItemCard from 'pages/Shop/ItemCard';
 import React from 'react';
@@ -24,17 +24,17 @@ export const HomeGameTopOffers: React.FC<IProps> = (props) => {
 
     return (
         <>
-            <div style={{marginLeft: -16}}>
-                <RowSwipable id={`${game.name} top offers`}
-                    w={250} s={16} p={16} arrows>
-                    {top.map(id => (
+            <div style={{marginBottom: 16}}>
+                <RowGrid 
+                    w={250} s={16} p={16}>
+                    {top.slice(0, 12).map(id => (
                         <ItemCard
                             noprice
                             gameUrl={game.url}
                             gameId={game.id}
                             key={id} id={id} />
                     ))}
-                </RowSwipable>
+                </RowGrid>
             </div>
             <Button fullWidth
                 onClick={() => setGame(game.id)}

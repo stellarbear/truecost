@@ -4,7 +4,13 @@ import {Link, useLocation} from "react-router-dom";
 import {social} from "auxiliary/social";
 import SocialDialog from "../Base/SocialDialog";
 import {Col, Row} from "pages/Base/Grid";
-import {Visa, MasterCard, Discover, JCB, Unionpay, Amex, Diners} from "assets/cards";
+import {Bitcoin, Paypal, Visa, MasterCard, Discover, JCB, Unionpay, Amex, Diners} from "assets/cards";
+import {useNotification} from "components/wrappers/NotifyWrapper";
+
+const additional = [
+    Paypal,
+    Bitcoin,
+];
 
 const payment = [
     Visa,
@@ -27,6 +33,7 @@ export const Footer: React.FC = () => {
             backgroundColor: "#263238",
         }}>
             {!location.pathname.includes("checkout") && <FooterAbout />}
+            <FooterAdditionalPayment />
             <FooterPayment />
         </Paper>
     );
@@ -73,6 +80,24 @@ const FooterAbout: React.FC = () => (
         </Grid>
     </Grid>
 );
+
+const FooterAdditionalPayment: React.FC = () => {
+    const {notify} = useNotification();
+    return (
+        <Row
+            onClick={() => notify("Contact us for paypal/bitcoin payments")}
+            justify="center" wrap
+            style={{backgroundColor: "#E0E0E0", overflow: "hidden", cursor: "pointer"}} >
+            {additional.map((e, i) => React.createElement(e, {
+                style: {
+                    margin: "24px 32px 0px",
+                    transform: "scale(3.0)",
+                },
+                key: i,
+            }))}
+        </Row>
+    );
+};
 
 const FooterPayment: React.FC = () => (
     <Row

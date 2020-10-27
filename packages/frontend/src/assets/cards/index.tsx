@@ -5,3 +5,5 @@ export * from './jcb';
 export * from './mastercard';
 export * from './unionpay';
 export * from './visa';
+export * from './paypal';
+export * from './bitcoin';

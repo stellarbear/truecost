@@ -3,17 +3,16 @@ import {Grid, Typography, Divider, IconButton} from "@material-ui/core";
 import {useStore} from "../../Data/Wrapper";
 import {HomeIntro} from "./HomeIntro";
 import {HomeTrustPilot} from "./HomeTrustPilot";
-import {HomeHowTo} from "./HomeHowTo";
 import {backend} from "auxiliary/route";
 import {HomeTopOffers} from "./HomeTopOffers";
 import {HomeInfo} from "./HomeInfo";
 import {Meta} from "pages/Base/Meta";
 import {HomeImage} from "./HomeImage";
 import {Row} from "pages/Base/Grid";
-import {HomeGames} from "./HomeGames";
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import {Link} from "react-router-dom";
 import {HomeCurtain} from "./HomeCurtain";
+import {HowToUse} from "pages/Base/HowToUse";
 
 const info = (text: string, prefix?: React.ReactNode) => (
     <Row s={16} align="center"
@@ -55,12 +54,6 @@ export const HomeGame: React.FC = () => {
                     <HomeCurtain />
                     <Grid container spacing={2} style={{margin: "0px 0px 16px -8px"}}>
                         <Grid item xs={12}>
-                            {info(`Game services`)}
-                        </Grid>
-                        <Grid item xs={12} >
-                            <HomeGames />
-                        </Grid>
-                        <Grid item xs={12}>
                             {info(`Top deals`,
                                 <IconButton
                                     aria-label="go to shop"
@@ -85,7 +78,7 @@ export const HomeGame: React.FC = () => {
                             {info(`How to use our service`)}
                         </Grid>
                         <Grid item xs={12}>
-                            <HomeHowTo />
+                            <HowToUse />
                         </Grid>
                     </Grid>
                 </div>
