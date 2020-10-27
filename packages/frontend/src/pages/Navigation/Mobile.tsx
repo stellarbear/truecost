@@ -3,7 +3,7 @@ import {Button, Divider, Drawer, IconButton} from "@material-ui/core";
 import {makeStyles} from '@material-ui/core/styles';
 import Clear from "@material-ui/icons/Clear";
 import Menu from "@material-ui/icons/Menu";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useStore} from "pages/Data/Wrapper";
 import {Col, Row} from "pages/Base/Grid";
 import {GamePicker} from "./GamePicker";
@@ -28,6 +28,7 @@ export const Mobile: React.FC<IProps> = (props) => {
         logo,
     } = props;
     const classes = useStyles();
+    const {pathname} = useLocation();
     const [open, setOpen] = React.useState<boolean>(false);
     const {current: {game}} = useStore();
     const url = '/' + game.url;
@@ -42,7 +43,7 @@ export const Mobile: React.FC<IProps> = (props) => {
     const navigation = () => (
         <Col>
             {button(url, "Home")}
-            {button(url + '/shop', "Shop")}
+            {pathname !== "/" && button(url + '/shop', "Shop")}
             {button(url + '/checkout', "Checkout")}
             <Divider />
             {button("/blog", "Blog")}

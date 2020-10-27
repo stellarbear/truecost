@@ -26,8 +26,8 @@ export const GamePicker: React.FC = () => {
     return (
         <>
             <Button color="inherit" aria-haspopup="true" onClick={(e) => setAnchorEl(e.currentTarget)}>
-                <Row>
-                    <Typography style={{whiteSpace: "nowrap"}}>
+                <Row align="center">
+                    <Typography variant="h6" style={{whiteSpace: "nowrap"}}>
                         {games.id[current.id].name}
                     </Typography>
                     <ArrowDropDown/>

@@ -2,7 +2,7 @@ import {Container, Toolbar} from "@material-ui/core";
 import React from "react";
 import {Switch} from "react-router";
 import {Footer} from "./Footer";
-import NavigationBar from "./NavigationBar";
+import {NavigationBar} from "./NavigationBar";
 
 
 export const NavigationWrapper: React.FC = (props) => {

@@ -4,27 +4,26 @@ import ElevationScroll from 'components/ElevationScroll';
 import {AppBar, Hidden, Toolbar} from '@material-ui/core';
 import {Mobile} from './Mobile';
 import {Desktop} from './Desktop';
-import {RouteComponentProps, withRouter} from 'react-router';
+import {RouteComponentProps, useLocation, withRouter} from 'react-router';
 import {useStore} from 'pages/Data/Wrapper';
 
 const height = 200;
 
-type IProps = RouteComponentProps;
-
-export const NavigationBar: React.FC<IProps> = ({history}) => {
+export const NavigationBar: React.FC = () => {
+    const {pathname} = useLocation();
     const [isOnTop, setIsOnTop] = useState(true);
     const {current: {game}} = useStore();
 
     const calcState = () => window.pageYOffset < height
-        && (history.location.pathname === "/" ||
-            history.location.pathname === "/" + game?.url);
+        && (pathname === "/" ||
+            pathname === "/" + game?.url);
 
     useEffect(() => {
         window.addEventListener("scroll", headerColorChange);
         return () => window.removeEventListener("scroll", headerColorChange);
-    }, [history.location.pathname]);
+    }, [pathname]);
 
-    useEffect(() => setIsOnTop(calcState()), [history.location.pathname]);
+    useEffect(() => setIsOnTop(calcState()), [pathname]);
 
     const headerColorChange = () => setIsOnTop(calcState());
     const logo = isOnTop ? "/logo-white.png" : "/logo-black.png";
@@ -32,11 +31,15 @@ export const NavigationBar: React.FC<IProps> = ({history}) => {
     return (
         <ElevationScroll>
             <AppBar style={{
-                backgroundColor: isOnTop ? "black" : "white",
+                backgroundColor: isOnTop
+                    ? pathname === "/"
+                        ? "black"
+                        : "transparent"
+                    : "white",
                 transition: "all 250ms ease 0s",
                 color: isOnTop ? 'white' : 'black',
             }}>
-                <Toolbar style={{padding: 0 }}>
+                <Toolbar style={{padding: 0}}>
                     <Hidden lgUp>
                         <Mobile logo={"/logo-black.png"} />
                     </Hidden>
@@ -48,5 +51,3 @@ export const NavigationBar: React.FC<IProps> = ({history}) => {
         </ElevationScroll>
     );
 };
-
-export default withRouter(NavigationBar);

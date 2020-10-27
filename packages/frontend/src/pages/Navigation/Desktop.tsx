@@ -1,6 +1,6 @@
 import {Button, Chip, Container, Tooltip, Typography} from "@material-ui/core";
 import React from "react";
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {useStore} from "pages/Data/Wrapper";
 import {Row} from "pages/Base/Grid";
 import {Account} from './Account';
@@ -11,26 +11,41 @@ interface IDesktop {
     logo: string;
 }
 
+const animate = {transition: "all 0.3s"};
+
 export const Desktop: React.FC<IDesktop> = (props) => {
     const {logo} = props;
+    const {pathname} = useLocation();
     const {current: {game, discount}} = useStore();
     const url = '/' + game.url;
 
     const navigation = () => (
-        <Row justify="center">
-            <Button component={Link} to={url + '/shop'} color="inherit">
+        <Row justify="center" style={{transform: "all 0.5s"}}>
+            <Button component={Link} to={url + '/shop'}
+                style={{
+                    ...animate,
+                    ...(pathname === "/" ? ({
+                        marginLeft: -64,
+                        opacity: 0,
+                    }) : ({})),
+                }}
+                color="inherit">
                 <Typography variant="h6">SHOP</Typography>
             </Button>
-            <Button component={Link} to={'/track'} color="inherit">
+            <Button component={Link} to={'/track'}
+                color="inherit" style={animate}>
                 <Typography variant="h6">TRACK</Typography>
             </Button>
-            <Button component={Link} color="inherit" to={'/discount'}>
+            <Button component={Link} to={'/discount'}
+                color="inherit" style={animate}>
                 <Typography variant="h6">DISCOUNT</Typography>
             </Button>
-            <Button component={Link} color="inherit" to={'/blog'}>
+            <Button component={Link} to={'/blog'}
+                color="inherit" style={animate}>
                 <Typography variant="h6">BLOG</Typography>
             </Button>
-            <Button component={Link} color="inherit" to={'/contact'}>
+            <Button component={Link} to={'/contact'}
+                color="inherit" style={animate}>
                 <Typography variant="h6">CONTACT</Typography>
             </Button>
         </Row>
@@ -75,7 +90,9 @@ export const Desktop: React.FC<IDesktop> = (props) => {
                         height={80} width={80} src={logo}
                         style={{marginTop: -20, marginBottom: -20}} />
                 </Button>
-                <GamePicker />
+                <div style={{marginTop: 8}}>
+                    <GamePicker />
+                </div>
             </Row>
         </div>
     );
