@@ -18,7 +18,12 @@ const info = (text: string, prefix?: React.ReactNode) => (
     <Row s={16} align="center"
         style={{padding: "16px 16px 0px 16px", color: "#000"}}>
         {prefix || <div />}
-        <Typography variant="h6" noWrap style={{minWidth: "fit-content"}}>{text}</Typography>
+        <Typography variant="h4" noWrap style={{
+            minWidth: "fit-content",
+            fontWeight: 300,
+        }}>
+            {text}
+        </Typography>
         <div style={{width: "100%"}}>
             <Divider style={{backgroundColor: "#000", opacity: 0.4}} />
         </div>

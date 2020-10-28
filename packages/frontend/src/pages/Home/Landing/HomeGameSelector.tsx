@@ -11,6 +11,8 @@ interface IProps {
     games: Dict<IGame>;
 }
 
+const hardcodedWidth = 1232;
+
 export const HomeGameSelector: React.FC<IProps> = (props) => {
     const {games} = props;
     const {update: {setGame}} = useStore();
@@ -21,7 +23,11 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
 
     return (
         <RowSwipable id="services"
-            s={16} p={16} w={150}
+            s={16} w={Math.max(
+                150,
+                (hardcodedWidth - 16 * (gamesSorted.length - 1))
+                / gamesSorted.length)
+            }
             collapse
             arrows>
             {gamesSorted.map(gameId => (
@@ -36,8 +42,7 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
                             alt={`${games[gameId].name} service`}
                             height={"inherit"}
                             src={image(games[gameId])} style={{
-                                minWidth: 150,
-                                width: 150, objectFit: "cover", marginBottom: 8,
+                                objectFit: "cover", marginBottom: 8,
                             }} />
                         <Typography>
                             {games[gameId].name}
