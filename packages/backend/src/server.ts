@@ -19,6 +19,7 @@ import {createOrder} from './modules/other/webhook';
 import {GraphQLSchema} from 'graphql';
 import {ItemEntity} from './modules/crud/item/item.entity';
 import {GameEntity} from './modules/crud/game/game.entity';
+import {BlogEntity} from './modules/crud/blog/blog.entity';
 
 export interface Context {
     req: express.Request;
@@ -111,6 +112,8 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
     app.get('/sitemap', {
         handler: async (request, response) => {
             try {
+                const blogs = (await DI.em.find(BlogEntity,
+                    {active: true}, {fields: ["url"]})).map(g => g.url);
                 const games = (await DI.em.find(GameEntity,
                     {active: true}, {fields: ["url"]})).map(g => g.url);
                 const items = (await DI.em.find(ItemEntity,
@@ -119,7 +122,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
                         u: i.url,
                     }));
 
-                return response.send({games, items});
+                return response.send({games, items, blogs});
             } catch (err) {
                 console.log("err", err);
                 return response.code(400).send();

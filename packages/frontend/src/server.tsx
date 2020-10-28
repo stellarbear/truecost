@@ -30,10 +30,10 @@ server
     )
     .get("/sitemap.xml", async (req: express.Request, res: express.Response): Promise<void> => {
         const result = await fetch(`${backend.uri}/sitemap`);
-        const {games, items} = await result.json();
+        const {games, items, blogs} = await result.json();
 
         res.setHeader('Content-Type', 'text/xml');
-        res.write(generateSiteMap(games, items));
+        res.write(generateSiteMap(games, blogs, items));
         res.end();
     })
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {

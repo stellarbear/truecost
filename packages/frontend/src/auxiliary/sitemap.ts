@@ -11,7 +11,7 @@ const basePages = [
     "tos",
 ];
 
-export const generateSiteMap = (games: string[], items: {u: string; g: string}[]) => {
+export const generateSiteMap = (games: string[], blogs: string[], items: {u: string; g: string}[]) => {
 
     return (
         `<?xml version="1.0" encoding="UTF-8"?>
@@ -26,6 +26,14 @@ export const generateSiteMap = (games: string[], items: {u: string; g: string}[]
                  <loc>${frontend.uri}/${game}</loc>
                  <changefreq>always</changefreq>
                  <priority>0.9</priority>
+              </url>
+            `))
+             .join('')}
+             ${blogs.map((blog) => (
+             `<url>
+                 <loc>${frontend.uri}/post/${blog}</loc>
+                 <changefreq>always</changefreq>
+                 <priority>0.8</priority>
               </url>
             `))
              .join('')}
