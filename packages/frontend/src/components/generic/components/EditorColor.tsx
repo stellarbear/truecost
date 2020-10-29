@@ -23,7 +23,7 @@ export const EditorColor: React.FC<EditorColorProps> = (props) => {
         <Row s={8}>
             <div style={{
                 width: 32, height: 32,
-                backgroundColor: value ? value : colors.accentColor,
+                backgroundColor: value ? value : colors.primaryColor,
                 borderRadius: "4px",
             }} />
             <TextField
