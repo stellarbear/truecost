@@ -3,7 +3,8 @@ import {CRUD} from "components/generic/CRUD";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";
 import {game} from "./Base/Game";
-import {CLink} from "components/generic/types";
+import {CCustom, CLink} from "components/generic/types";
+import {EditorColor} from "components/generic/components/EditorColor";
 
 export const AdminTag: React.FC = () => {
     const crud = new CRUDgql({
@@ -12,6 +13,7 @@ export const AdminTag: React.FC = () => {
 			${base.fragment}
             ${game.fragment}
 
+            color
 			item { id name game { id } }
 			children { id name game { id } }
 		`,
@@ -37,6 +39,13 @@ export const AdminTag: React.FC = () => {
         multiple: true,
     });
 
+    const color = new CCustom({
+        base: "",
+        key: "color",
+        label: "color",
+        component: <EditorColor />,
+    });
+
     const fields = [item, children];
 
     return (
@@ -47,7 +56,7 @@ export const AdminTag: React.FC = () => {
             mutationDelete={crud.delete}
             mutationUpsert={crud.upsert}
             propsAdd={[...base.fields, ...game.fields, ...fields]}
-            propsList={[...base.fields, ...game.fields, ...fields]}
+            propsList={[...base.fields, ...game.fields, color, ...fields]}
             propsFilter={[...base.fields, ...game.fields, ...fields]}
         />
     );

@@ -37,7 +37,7 @@ const stickyStyle: CSSProperties = {
     zIndex: 3,
 };
 
-type IItem = { id: string; [key: string]: any };
+type IItem = {id: string;[key: string]: any};
 type IItems = Record<string, IItem>;
 type IError = Record<string, Record<string, string>>;
 
@@ -161,12 +161,12 @@ export const List: React.FC<UserListProps> = (props) => {
         return (
             <Row>
                 <IconButton disabled={similar} onClick={() => onUpdate(id)}>
-                    <Save/>
+                    <Save />
                 </IconButton>
                 <IconButton disabled={similar} onClick={() => onCancel()}>
-                    <Cancel/>
+                    <Cancel />
                 </IconButton>
-                <TimeoutButton timeout={3} icon={<Delete/>} onClickEvent={() => onDelete(id)}/>
+                <TimeoutButton timeout={3} icon={<Delete />} onClickEvent={() => onDelete(id)} />
             </Row>
         );
     };
@@ -180,8 +180,8 @@ export const List: React.FC<UserListProps> = (props) => {
                     'Please, wait',
                 ]}
                 actions={[
-                    <CircularProgress key="loading" color="inherit" size={40}/>,
-                ]}/>
+                    <CircularProgress key="loading" color="inherit" size={40} />,
+                ]} />
         );
     }
 
@@ -192,7 +192,10 @@ export const List: React.FC<UserListProps> = (props) => {
             </div>
             <ArraySlice data={Object.keys(items)} chunk={3} prefix="admin-pagination">
                 {(itemIds => (
-                    <Paper style={{overflow: "auto"}}>
+                    <Paper style={{
+                        overflowY: "visible",
+                        overflowX: "auto",
+                    }}>
                         <Table size="small">
                             <TableHead>
                                 <TableRow>

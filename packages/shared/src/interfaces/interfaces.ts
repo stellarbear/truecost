@@ -61,6 +61,7 @@ export interface IItem extends IBase, IBaseGame {
     link: string;
     images: string[];
     eta: number;
+    buy: number;
     price: number;
     range: IRange;
     discount: number;
@@ -95,6 +96,7 @@ export interface IInfo extends IBase, IBaseGame {
 
 
 export interface ITag extends IBase, IBaseGame {
+    color: string;
     children: string[];
 }
 

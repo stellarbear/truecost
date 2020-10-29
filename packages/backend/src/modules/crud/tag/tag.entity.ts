@@ -1,12 +1,16 @@
 import {BaseEntity} from "../base/base.entity";
 import {Field, ObjectType} from "type-graphql";
-import {Collection, Entity, ManyToMany, ManyToOne} from "mikro-orm";
+import {Collection, Entity, ManyToMany, ManyToOne, Property} from "mikro-orm";
 import {ItemEntity} from "../item/item.entity";
 import {GameEntity} from "../game/game.entity";
 
 @Entity()
 @ObjectType()
 export class TagEntity extends BaseEntity /*implements ITag*/ {
+    @Field({defaultValue: ""})
+    @Property({default: ""})
+    color: string = "";
+
     @Field(() => GameEntity)
     @ManyToOne(() => GameEntity)
     game!: GameEntity;

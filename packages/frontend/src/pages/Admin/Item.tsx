@@ -20,6 +20,7 @@ export const AdminItem: React.FC = () => {
             link
 			images
 
+            buy
             eta
             price
             range
@@ -52,6 +53,13 @@ export const AdminItem: React.FC = () => {
         label: "image",
         ext: "png",
         limit: 1,
+    });
+
+    const buy = new CNumber({
+        key: "buy",
+        label: "buy",
+        min: 0,
+        max: 1000000,
     });
 
     const eta = new CNumber({
@@ -145,7 +153,7 @@ export const AdminItem: React.FC = () => {
         component: <EditorRange/>,
     });
 
-    const fields = [url, link, images, price, eta, range, discount, limit, obtain,
+    const fields = [url, link, images, price, buy, eta, range, discount, limit, obtain,
         requirements, direct, isTopOffer, item, tag, option];
 
     return (

@@ -24,6 +24,9 @@ export class ItemEntity extends BaseEntity /*implements IItem */ {
     images: string[] = [];
 
 
+    @Field(() => Int, {defaultValue: 0})
+    @Property({default: 0})
+    buy: number = 0;
     @Field(() => Int)
     @Property()
     eta: number = 60;

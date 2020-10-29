@@ -48,6 +48,11 @@ const ItemCard: React.FC<IProps> = (props) => {
                         style={{
                             transition: "all 0.3s",
                             opacity: raised ? 1.0 : 0.6,
+                            ...(tags.id[filtered[0]].color ? {
+                                backgroundColor: tags.id[filtered[0]].color,
+                                color: "#fff",
+                                opacity: 1,
+                            } : {}),
                         }}
                         key={filtered[0]}
                         color={raised ? "primary" : undefined}
@@ -89,8 +94,19 @@ const ItemCard: React.FC<IProps> = (props) => {
                         justify="space-between"
                         align="center"
                         style={{height: 60}}>
-                        <Typography variant="body1" align="center"
-                            style={{maxHeight: 70, overflow: "hidden", width: "100%"}}>{item.name}</Typography>
+                        <Col fullWidth>
+                            <Typography variant="body1" align="center"
+                                style={{maxHeight: 70, overflow: "hidden", width: "100%"}}>
+                                {item.name}
+                            </Typography>
+                            {noprice && (
+                                <Typography variant="body2" align="center"
+                                    style={{maxHeight: 70, overflow: "hidden", width: "100%"}}>
+                                    Ordered
+                                    <strong>{` ${(item.buy) || 0} times`}</strong>
+                                </Typography>
+                            )}
+                        </Col>
                         {noprice || (
                             <Button
                                 style={{minWidth: "fit-content"}}

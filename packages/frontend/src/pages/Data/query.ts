@@ -56,6 +56,7 @@ export const BULK_QUERY = gql`
             topOffer
             direct
 
+            buy
             eta
             obtain
             requirements
@@ -78,6 +79,7 @@ export const BULK_QUERY = gql`
             ${base.fragment}
             ${game.fragment}
 
+            color
             children { id }
         }
 

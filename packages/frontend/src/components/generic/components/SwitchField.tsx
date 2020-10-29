@@ -20,7 +20,7 @@ export const SwitchField: React.FC<IProps> = (props) => {
     const {state, setAndBubbleState} = useEventState(value, onChangeEvent);
 
     return (
-        <Row>
+        <Row align="center">
             <Typography
                 noWrap
                 style={{...style, opacity: getOpacity(!state)}}
