@@ -20,10 +20,8 @@ export const PersonalDiscount: React.FC = () => {
                     <Typography
                         variant="h6" component="p" color="inherit">
                         Get your personal discount plan up&nbsp;to
-                        </Typography>
+                    </Typography>
                     <Button
-                        component={Link}
-                        to="/discount"
                         variant="contained"
                         color="secondary">
                         <Typography variant="h6" component="p" color="inherit">{`${max} % discount `}</Typography>

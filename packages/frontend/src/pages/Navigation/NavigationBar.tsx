@@ -4,7 +4,7 @@ import ElevationScroll from 'components/ElevationScroll';
 import {AppBar, Hidden, Toolbar} from '@material-ui/core';
 import {Mobile} from './Mobile';
 import {Desktop} from './Desktop';
-import {RouteComponentProps, useLocation, withRouter} from 'react-router';
+import {useLocation} from 'react-router';
 import {useStore} from 'pages/Data/Wrapper';
 
 const height = 200;

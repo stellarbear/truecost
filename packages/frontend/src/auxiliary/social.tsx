@@ -31,7 +31,7 @@ const social = [
         valid: true,
         icon: <Facebook/>,
         title: "Facebook",
-        url: "http://www.facebook.com/true.cost.906",
+        url: "https://www.facebook.com/SupportTrueCost",
     },
     {
         valid: true,

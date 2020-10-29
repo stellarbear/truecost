@@ -12,7 +12,6 @@ interface IProps {
     p?: number;
     collapse?: boolean;
     style?: CSSProperties;
-    arrows?: boolean;
 }
 
 const useStyles = makeStyles({
@@ -29,11 +28,11 @@ export const RowSwipable: React.FC<IProps> = (props) => {
         style = {},
         collapse = false,
         p = 0, s = 0, w,
-        arrows = false,
         children,
     } = props;
-
+    const [arrows, setArrows] = React.useState(false);
     const [visible, setVisibility] = React.useState(false);
+    const rowRef = React.useRef<HTMLInputElement>(null);
 
     const classes = useStyles();
 
@@ -47,6 +46,13 @@ export const RowSwipable: React.FC<IProps> = (props) => {
         background: "#FFFFFFDD",
     };
 
+    React.useEffect(() => {
+        if (rowRef.current) {
+            setArrows(rowRef.current.offsetWidth <
+                rowRef.current.scrollWidth);
+        }
+    }, [rowRef]);
+
     return (
         <div
             onMouseEnter={() => setVisibility(true)}
@@ -54,21 +60,25 @@ export const RowSwipable: React.FC<IProps> = (props) => {
             style={{
                 position: "relative",
             }}>
-            <div id={id} className={classes.row} style={{
-                ...style,
-                display: "grid",
-                padding: `${p}px ${p}px`,
-                gridGap: s,
-                //gridTemplateColumns: w,
-                gridAutoFlow: "column",
-                gridAutoColumns: collapse ? `${w}px ` : `minmax(${w}px, 1fr)`,
-                overflowX: "auto",
-            }}>
+            <div
+                id={id}
+                ref={rowRef}
+                className={classes.row}
+                style={{
+                    ...style,
+                    display: "grid",
+                    padding: `${p}px ${p}px`,
+                    gridGap: s,
+                    //gridTemplateColumns: w,
+                    gridAutoFlow: "column",
+                    gridAutoColumns: collapse ? `${w}px ` : `minmax(${w}px, 1fr)`,
+                    overflowX: "auto",
+                }}>
                 {children}
             </div>
             {
                 arrows && (
-                    <Hidden smDown>
+                    <Hidden xsDown>
                         <IconButton
                             aria-label="swipe left"
                             style={{

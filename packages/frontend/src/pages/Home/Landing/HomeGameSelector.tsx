@@ -28,8 +28,7 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
                 (hardcodedWidth - 16 * (gamesSorted.length - 1))
                 / gamesSorted.length)
             }
-            collapse
-            arrows>
+            collapse>
             {gamesSorted.map(gameId => (
                 <ButtonBase
                     key={gameId}

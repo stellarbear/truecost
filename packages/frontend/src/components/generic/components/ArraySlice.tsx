@@ -20,7 +20,7 @@ export const ArraySlice: React.FC<IProps> = (props) => {
         limit = 8, prefix, scroll = 0,
         noSelect = false,
     } = props;
-    const [count, setCount] = useStorage(`${prefix}-chunk`, chunk);
+    const [count, setCount] = useStorage(`${prefix}-chunk`, chunk, (v) => noSelect ? chunk : v);
     const [page, setPage] = useStorage(`${prefix}-page`, 1, (p) => Math.ceil(data.length / count) < p ? 1 : p);
 
     React.useEffect(() => {

@@ -6,6 +6,7 @@ import {HomeGameSelector} from "./HomeGameSelector";
 import {dictSort} from "@truecost/shared";
 import {HomeGameTopOffers} from "./HomeGameTopOffers";
 import {HomeGameInfo} from "./HomeGameInfo";
+import {HomeTrustPilot} from "./HomeTrustPilot";
 import {HowToUse} from "pages/Base/HowToUse";
 import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 import {Row} from "pages/Base/Grid";
@@ -54,6 +55,9 @@ export const HomeLanding: React.FC = () => {
                         </Grid>
                     ))
                 }
+                <Grid item xs={12}>
+                    <HomeTrustPilot />
+                </Grid>
                 <Grid item xs={12}>
                     <HowToUse />
                 </Grid>
