@@ -37,6 +37,7 @@ export const BULK_QUERY = gql`
 
         GameAll {
             ${base.fragment}
+            seo
             url
             twitter
             background

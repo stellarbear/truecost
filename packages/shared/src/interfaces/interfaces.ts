@@ -37,6 +37,7 @@ export interface IBlog extends IBase {
 
 export interface IGame extends IBase {
     url: string;
+    seo: string;
     twitter: string;
     preview: string[];
     background: string[];

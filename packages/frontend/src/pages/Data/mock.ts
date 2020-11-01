@@ -3,6 +3,7 @@ import {IGame, IShop} from "@truecost/shared";
 const defaultGame: IGame = {
     id: "truecost",
     url: "",
+    seo: "",
     order: 0,
     name: "truecost",
     active: false,

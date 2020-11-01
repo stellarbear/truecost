@@ -1,8 +1,9 @@
 import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
-import {CImage, CString} from "components/generic/types";
+import {CCustom, CImage, CString} from "components/generic/types";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base";
+import EditorPost from "components/generic/components/EditorPost";
 
 export const AdminGame: React.FC = () => {
     const crud = new CRUDgql({
@@ -10,6 +11,7 @@ export const AdminGame: React.FC = () => {
         items: `
             ${base.fragment}
             url
+            seo
 			twitter
 
 			assistant
@@ -20,6 +22,13 @@ export const AdminGame: React.FC = () => {
     const url = new CString({
         key: "url",
         label: "url",
+    });
+
+    const seo = new CCustom({
+        base: "",
+        key: "seo",
+        label: "seo",
+        component: <EditorPost />,
     });
 
     const twitter = new CString({
@@ -47,7 +56,7 @@ export const AdminGame: React.FC = () => {
         limit: 1,
     });
 
-    const fields = [url, twitter, preview, assistant, background];
+    const fields = [url, seo, twitter, preview, assistant, background];
 
     return (
         <CRUD

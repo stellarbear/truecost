@@ -30,6 +30,10 @@ export class GameEntity extends BaseEntity implements IGame {
     @Property()
     twitter: string = "";
 
+    @Field({defaultValue: ""})
+    @Property({default: ""})
+    seo: string = "";
+
     @Field(() => [ItemEntity])
     @OneToMany(() => ItemEntity, item => item.game, {orphanRemoval: true})
     item = new Collection<ItemEntity>(this);

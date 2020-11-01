@@ -18,4 +18,7 @@ export class GameInput extends BaseInput {
 
     @Field({nullable: true})
     twitter?: string;
+
+    @Field({nullable: true})
+    seo?: string;
 }

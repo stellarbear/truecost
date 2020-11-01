@@ -10,6 +10,8 @@ import {InfoCard} from "pages/Base/InfoCard";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {AutoCompleteCustom} from "components/AutoCompleteCustom";
 import {Meta} from "pages/Base/Meta";
+import Markdown from "components/Markdown";
+import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 
 const empty = "default";
 
@@ -64,8 +66,8 @@ const Shop: React.FC = () => {
     );
 
     const renderItems = (data: string[]) => (
-        <ArraySlice data={data} prefix="shop-pagination" 
-        scroll={300} chunk={36} noSelect>
+        <ArraySlice data={data} prefix="shop-pagination"
+            scroll={300} chunk={36} noSelect>
             {(itemIds => (
                 <RowGrid w={250} s={16} p={16}>
                     {itemIds.map(id => (
@@ -145,6 +147,12 @@ const Shop: React.FC = () => {
         </Paper>
     );
 
+    const renderSeo = () => game.seo && game.seo.length > 0 && (
+        <Markdown style={{opacity: 0.7}}>
+            {game.seo}
+        </Markdown>
+    )
+
     return (
         <>
             <Meta entity={game} />
@@ -153,6 +161,8 @@ const Shop: React.FC = () => {
                     {filterNames()}
                     {filterTags()}
                     {filterData()}
+                    <PersonalDiscount />
+                    {renderSeo()}
                 </Col>
             </Container>
         </>
