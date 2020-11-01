@@ -5,7 +5,7 @@ import Close from "@material-ui/icons/Close";
 import {Row} from "pages/Base/Grid";
 
 const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & { children?: React.ReactElement<any, any> },
+    props: TransitionProps & {children?: React.ReactElement<any, any>},
     ref: React.Ref<unknown>,
 ) {
     return <Grow in ref={ref} {...props} />;
@@ -16,6 +16,7 @@ interface IProps {
     title?: string;
     content?: JSX.Element[];
     actions?: JSX.Element[];
+    onOpen?: () => void;
 }
 
 export const ModalDialog: React.FC<IProps> = (props) => {
@@ -24,12 +25,18 @@ export const ModalDialog: React.FC<IProps> = (props) => {
         button,
         content = [],
         actions = [],
+        onOpen = () => {},
     } = props;
     const [open, setOpen] = useState(false);
 
     return (
         <div>
-            {React.cloneElement(button, {onClick: () => setOpen(true)})}
+            {React.cloneElement(button, {
+                onClick: () => {
+                    setOpen(true);
+                    onOpen();
+                },
+            })}
             <Dialog
                 open={open}
                 onClose={() => setOpen(false)}
@@ -40,7 +47,7 @@ export const ModalDialog: React.FC<IProps> = (props) => {
                         <Row>
                             <Typography>{title}</Typography>
                             <IconButton onClick={() => setOpen(false)} style={{marginLeft: 32}}>
-                                <Close/>
+                                <Close />
                             </IconButton>
                         </Row>
                     </DialogTitle>

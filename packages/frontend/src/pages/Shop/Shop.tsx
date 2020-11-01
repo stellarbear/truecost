@@ -151,7 +151,7 @@ const Shop: React.FC = () => {
         <Markdown style={{opacity: 0.7}}>
             {game.seo}
         </Markdown>
-    )
+    );
 
     return (
         <>

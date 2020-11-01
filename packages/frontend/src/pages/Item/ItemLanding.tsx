@@ -18,6 +18,7 @@ import {useStore} from 'pages/Data/Wrapper';
 import {ItemEta} from './ItemEta';
 import {HowToUse} from 'pages/Base/HowToUse';
 import {PersonalDiscount} from 'pages/Base/PersonalDiscount';
+import {ItemOrdered} from './ItemOrdered';
 
 interface IProps {
     item: IItem;
@@ -50,6 +51,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <ItemDescription item={item} />
+                    <ItemOrdered item={item} />
                     <ItemChildren item={item} />
                     <ItemObtain item={item} />
                     <ItemRequirements item={item} />
@@ -61,6 +63,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     </NoSsr>
                     <ItemEta item={item} chunk={chunk} />
                     <ItemAddToCard
+                        url={url}
                         price={totalPrice} item={item} chunk={chunk}
                         options={selectedOptions}
                     />
