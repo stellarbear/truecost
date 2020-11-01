@@ -14,6 +14,7 @@ export const AdminGame: React.FC = () => {
             seo
 			twitter
 
+            preview
 			assistant
 			background
 		`,
