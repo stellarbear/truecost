@@ -10,8 +10,8 @@ import {InfoCard} from "pages/Base/InfoCard";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {AutoCompleteCustom} from "components/AutoCompleteCustom";
 import {Meta} from "pages/Base/Meta";
-import Markdown from "components/Markdown";
 import {PersonalDiscount} from "pages/Base/PersonalDiscount";
+import {ShopSeo} from "./ShopSeo";
 
 const empty = "default";
 
@@ -147,12 +147,6 @@ const Shop: React.FC = () => {
         </Paper>
     );
 
-    const renderSeo = () => game.seo && game.seo.length > 0 && (
-        <Markdown style={{opacity: 0.7}}>
-            {game.seo}
-        </Markdown>
-    );
-
     return (
         <>
             <Meta entity={game} />
@@ -162,7 +156,7 @@ const Shop: React.FC = () => {
                     {filterTags()}
                     {filterData()}
                     <PersonalDiscount />
-                    {renderSeo()}
+                    <ShopSeo game={game}/>
                 </Col>
             </Container>
         </>
