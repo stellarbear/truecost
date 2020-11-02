@@ -42,7 +42,9 @@ const options = {
 };
 
 const Markdown: React.FC<MarkdownProps> = (props) => (
-    <ReactMarkdown style={{/*fontFamily: "Russo One"*/}} options={options} {...props} />
+    <ReactMarkdown
+        options={options}
+        {...props} />
 );
 
 export default Markdown;

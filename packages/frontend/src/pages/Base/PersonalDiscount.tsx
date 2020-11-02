@@ -16,12 +16,15 @@ export const PersonalDiscount: React.FC = () => {
                 style={{width: "100%"}}
                 component={Link}
                 to="/discount">
-                <Row s={16} p={[8, 16]} justify="center" align="center">
+                <Row s={16} p={[8, 16]} wrap justify="center" align="center">
                     <Typography
+                        align="center"
+                        style={{margin: 8}}
                         variant="h6" component="p" color="inherit">
                         Get your personal discount plan up&nbsp;to
                     </Typography>
                     <Button
+                        style={{margin: 8}}
                         variant="contained"
                         color="secondary">
                         <Typography variant="h6" component="p" color="inherit">{`${max} % discount `}</Typography>

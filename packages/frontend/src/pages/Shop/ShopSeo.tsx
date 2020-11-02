@@ -1,4 +1,4 @@
-import {Accordion, AccordionDetails, AccordionSummary} from '@material-ui/core';
+import {Accordion, AccordionDetails, AccordionSummary, Typography} from '@material-ui/core';
 import {IGame} from '@truecost/shared';
 import Markdown from 'markdown-to-jsx';
 import {Col} from 'pages/Base/Grid';
@@ -20,27 +20,39 @@ export const ShopSeo: React.FC<IProps> = (props) => {
         .filter(e => e && e.includes('\n'));
 
     return (
-        <Col>
-            {data.map((e, i) => {
-                const index = e.indexOf('\n');
-                const header = e.slice(0, index);
-                const data = e.slice(index);
+        <Col s={16} style={{marginTop: 16}}>
+            <Typography variant="h4" noWrap style={{
+                minWidth: "fit-content",
+                fontWeight: 300,
+            }}>
+                Frequently asked questions
+            </Typography>
+            <Col>
+                {data.map((e, i) => {
+                    const index = e.indexOf('\n');
+                    const header = e.slice(0, index);
+                    const data = e.slice(index);
 
-                return (
-                    <Accordion key={i}>
-                        <AccordionSummary>
-                            <Markdown>
-                                {header}
-                            </Markdown>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Markdown style={{opacity: 0.7}}>
-                                {data}
-                            </Markdown>
-                        </AccordionDetails>
-                    </Accordion>
-                );
-            })}
+                    return (
+                        <Accordion key={i}
+                            style={{
+                                fontFamily: "Roboto",
+                            }}>
+                            <AccordionSummary style={{padding: "4px 16px"}}>
+                                <Typography
+                                    variant="h6" component="p" color="inherit">
+                                    {header}
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Markdown style={{opacity: 0.7}}>
+                                    {data}
+                                </Markdown>
+                            </AccordionDetails>
+                        </Accordion>
+                    );
+                })}
+            </Col>
         </Col>
     );
 };
