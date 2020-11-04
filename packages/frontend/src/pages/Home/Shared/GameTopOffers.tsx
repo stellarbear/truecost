@@ -10,7 +10,7 @@ interface IProps {
     game: IGame;
 }
 
-export const HomeGameTopOffers: React.FC<IProps> = (props) => {
+export const GameTopOffers: React.FC<IProps> = (props) => {
     const {game} = props;
     const {current: {shop}, update: {setGame}} = useStore();
     const {items: {id: items}} = shop(game.id);

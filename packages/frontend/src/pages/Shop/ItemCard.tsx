@@ -86,14 +86,14 @@ const ItemCard: React.FC<IProps> = (props) => {
                     {chip()}
                     {owned()}
                     <div style={{
-                        backgroundColor: "#f4f4f4"
+                        backgroundColor: "#f4f4f4",
                     }}>
                         <SafeImage
                             alt={`${item.name} image`}
                             height={300}
                             src={image} style={{
                                 objectFit: "contain", width: "inherit",
-                                filter: "drop-shadow(10px 12px 9px #555)"
+                                filter: "drop-shadow(10px 12px 9px #555)",
                             }} />
                     </div>
                     <Divider />

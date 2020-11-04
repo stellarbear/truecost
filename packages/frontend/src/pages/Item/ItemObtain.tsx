@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {IItem} from "@truecost/shared";
 import {Typography} from '@material-ui/core';
-import Markdown from 'components/Markdown';
+import {Markdown} from 'components/Markdown';
 import {Col} from 'pages/Base/Grid';
 import {ItemDivider} from './ItemDivider';
 

@@ -4,16 +4,15 @@ import {useStore} from "../../Data/Wrapper";
 import {HomeIntro} from "./HomeIntro";
 import {HomeTrustPilot} from "./HomeTrustPilot";
 import {backend} from "auxiliary/route";
-import {HomeTopOffers} from "./HomeTopOffers";
-import {HomeInfo} from "./HomeInfo";
 import {Meta} from "pages/Base/Meta";
 import {HomeImage} from "./HomeImage";
 import {Row} from "pages/Base/Grid";
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import {Link} from "react-router-dom";
 import {HomeCurtain} from "./HomeCurtain";
-import {HowToUse} from "pages/Base/HowToUse";
 import {ShopSeo} from "pages/Shop/ShopSeo";
+import {GameInfo} from "../Shared/GameInfo";
+import {GameTopOffers} from "../Shared/GameTopOffers";
 
 const info = (text: string, prefix?: React.ReactNode) => (
     <Row s={16} align="center"
@@ -69,13 +68,13 @@ export const HomeGame: React.FC = () => {
                             )}
                         </Grid>
                         <Grid item xs={12}>
-                            <HomeTopOffers />
+                            <GameTopOffers game={game}/>
                         </Grid>
                         <Grid item xs={12}>
                             {info(`${game.name} news`)}
                         </Grid>
                         <Grid item xs={12} sm={8}>
-                            <HomeInfo />
+                            <GameInfo game={game} />
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <HomeTrustPilot />

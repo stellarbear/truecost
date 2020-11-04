@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from "@material-ui/core";
-import Markdown from "components/Markdown";
+import {Markdown} from "components/Markdown";
 
 interface EditorPostProps {
     value?: string;

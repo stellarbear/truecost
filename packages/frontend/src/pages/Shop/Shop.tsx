@@ -11,7 +11,6 @@ import {useNotification} from "components/wrappers/NotifyWrapper";
 import {AutoCompleteCustom} from "components/AutoCompleteCustom";
 import {Meta} from "pages/Base/Meta";
 import {PersonalDiscount} from "pages/Base/PersonalDiscount";
-import {ShopSeo} from "./ShopSeo";
 import {HowToUse} from "pages/Base/HowToUse";
 
 const empty = "default";

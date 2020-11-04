@@ -4,8 +4,8 @@ import {useStore} from "../../Data/Wrapper";
 import {Meta} from "pages/Base/Meta";
 import {HomeGameSelector} from "./HomeGameSelector";
 import {dictSort} from "@truecost/shared";
-import {HomeGameTopOffers} from "./HomeGameTopOffers";
-import {HomeGameInfo} from "./HomeGameInfo";
+import {GameTopOffers} from "../Shared/GameTopOffers";
+import {GameInfo} from "../Shared/GameInfo";
 import {HomeTrustPilot} from "./HomeTrustPilot";
 import {HowToUse} from "pages/Base/HowToUse";
 import {PersonalDiscount} from "pages/Base/PersonalDiscount";
@@ -53,8 +53,8 @@ export const HomeLanding: React.FC = () => {
                                 {info(`${games[gameId].name} top deals`)}
                             </Grid>
                             <Grid key={gameId} item xs={12}>
-                                <HomeGameTopOffers game={games[gameId]} />
-                                <HomeGameInfo game={games[gameId]} />
+                                <GameTopOffers game={games[gameId]} />
+                                <GameInfo game={games[gameId]} />
                             </Grid>
                         </React.Fragment>
                     ))

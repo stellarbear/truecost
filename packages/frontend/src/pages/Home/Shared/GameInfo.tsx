@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {ButtonBase, Paper} from '@material-ui/core';
+import {Button, ButtonBase, Paper} from '@material-ui/core';
 import {IGame, IInfo, SafeJSON} from '@truecost/shared';
 import {Carousel} from 'components/Carousel';
 import {backend} from 'auxiliary/route';
 import {SafeImage} from 'components/SafeImage';
 import {Row} from 'pages/Base/Grid';
 import {useHistory} from 'react-router';
-import Markdown from 'components/Markdown';
+import {Markdown} from 'components/Markdown';
 
 const height = 250;
 
@@ -17,7 +17,7 @@ interface IProps {
     game: IGame;
 }
 
-export const HomeGameInfo: React.FC<IProps> = (props) => {
+export const GameInfo: React.FC<IProps> = (props) => {
     const {game} = props;
     const history = useHistory();
     const {infos, update: {setGame}} = useStore();
@@ -64,10 +64,13 @@ export const HomeGameInfo: React.FC<IProps> = (props) => {
                             draggable="false"
                             src={image(info.id, info.images[0])} />
                         <Row style={{position: "absolute", top: 0, left: 0}} p={16}>
-                            <Markdown style={{color: "white"}}>
+                            <Markdown scale>
                                 {info.text}
                             </Markdown>
                         </Row>
+                        <Button
+                            style={{position: "absolute", bottom: 16, right: 16}}
+                            variant="contained" color="secondary">Buy now</Button>
                     </ButtonBase>
                 ))}
             </Carousel>
