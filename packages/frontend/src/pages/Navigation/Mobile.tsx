@@ -31,7 +31,7 @@ export const Mobile: React.FC<IProps> = (props) => {
     const {pathname} = useLocation();
     const [open, setOpen] = React.useState<boolean>(false);
     const {current: {game}} = useStore();
-    const url = '/' + game.url;
+    const url = '/' + ((pathname !== '/') ? game.url : '');
 
     const image = game.id === "truecost" ? `${frontend.uri}/default/assistant.png`
         : `${backend.uri}/${game.id}/${game.assistant}/u.png`;
@@ -91,7 +91,7 @@ export const Mobile: React.FC<IProps> = (props) => {
                     <IconButton onClick={() => setOpen(!open)} style={{margin: "8px"}}>
                         <Clear />
                     </IconButton>
-                    <Button component={Link} to={'/'}>
+                    <Button component={Link} to={url}>
                         <img
                             alt="logo icon"
                             height={48} width={48} src={logo}
