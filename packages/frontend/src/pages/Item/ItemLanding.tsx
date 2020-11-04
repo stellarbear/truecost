@@ -69,7 +69,8 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     />
                 </Grid>
             </Grid>
-            <Button startIcon={< ArrowDownward />}>
+            <Button startIcon={< ArrowDownward />}
+                style={{pointerEvents: "none"}}>
                 Related goods
             </Button>
             <NoSsr>

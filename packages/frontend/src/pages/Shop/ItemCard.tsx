@@ -85,10 +85,17 @@ const ItemCard: React.FC<IProps> = (props) => {
                 <Col fullWidth style={{width: "100%"}}>
                     {chip()}
                     {owned()}
-                    <SafeImage
-                        alt={`${item.name} image`}
-                        height={300}
-                        src={image} style={{objectFit: "contain", width: "inherit"}} />
+                    <div style={{
+                        backgroundColor: "#f4f4f4"
+                    }}>
+                        <SafeImage
+                            alt={`${item.name} image`}
+                            height={300}
+                            src={image} style={{
+                                objectFit: "contain", width: "inherit",
+                                filter: "drop-shadow(10px 12px 9px #555)"
+                            }} />
+                    </div>
                     <Divider />
                     <Row p={8} s={8}
                         justify="space-between"
