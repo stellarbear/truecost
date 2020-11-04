@@ -13,6 +13,7 @@ import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import {Link} from "react-router-dom";
 import {HomeCurtain} from "./HomeCurtain";
 import {HowToUse} from "pages/Base/HowToUse";
+import {ShopSeo} from "pages/Shop/ShopSeo";
 
 const info = (text: string, prefix?: React.ReactNode) => (
     <Row s={16} align="center"
@@ -79,12 +80,18 @@ export const HomeGame: React.FC = () => {
                         <Grid item xs={12} sm={4}>
                             <HomeTrustPilot />
                         </Grid>
-                        <Grid item xs={12}>
-                            {info(`How to use our service`)}
-                        </Grid>
-                        <Grid item xs={12}>
-                            <HowToUse />
-                        </Grid>
+                        {
+                            game.seo && game.seo.length > 0 && (
+                                <>
+                                    <Grid item xs={12}>
+                                        {info(`Frequently asked questions`)}
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <ShopSeo game={game} />
+                                    </Grid>
+                                </>
+                            )
+                        }
                     </Grid>
                 </div>
             </Grid>

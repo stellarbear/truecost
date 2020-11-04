@@ -20,39 +20,31 @@ export const ShopSeo: React.FC<IProps> = (props) => {
         .filter(e => e && e.includes('\n'));
 
     return (
-        <Col s={16} style={{marginTop: 16}}>
-            <Typography variant="h4" noWrap style={{
-                minWidth: "fit-content",
-                fontWeight: 300,
-            }}>
-                Frequently asked questions
-            </Typography>
-            <Col>
-                {data.map((e, i) => {
-                    const index = e.indexOf('\n');
-                    const header = e.slice(0, index);
-                    const data = e.slice(index);
+        <Col>
+            {data.map((e, i) => {
+                const index = e.indexOf('\n');
+                const header = e.slice(0, index);
+                const data = e.slice(index);
 
-                    return (
-                        <Accordion key={i}
-                            style={{
-                                fontFamily: "Roboto",
-                            }}>
-                            <AccordionSummary style={{padding: "4px 16px"}}>
-                                <Typography
-                                    variant="h6" component="p" color="inherit">
-                                    {header}
-                                </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Markdown style={{opacity: 0.7}}>
-                                    {data}
-                                </Markdown>
-                            </AccordionDetails>
-                        </Accordion>
-                    );
-                })}
-            </Col>
+                return (
+                    <Accordion key={i}
+                        style={{
+                            fontFamily: "Roboto",
+                        }}>
+                        <AccordionSummary style={{padding: "4px 16px"}}>
+                            <Typography
+                                variant="h6" component="p" color="inherit">
+                                {header}
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Markdown style={{opacity: 0.7}}>
+                                {data}
+                            </Markdown>
+                        </AccordionDetails>
+                    </Accordion>
+                );
+            })}
         </Col>
     );
 };

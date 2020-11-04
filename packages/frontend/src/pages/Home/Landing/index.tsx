@@ -13,7 +13,7 @@ import {Row} from "pages/Base/Grid";
 
 const info = (text: string) => (
     <Row s={16} align="center"
-        style={{paddingBottom: 16, color: "#000"}}>
+        style={{padding: "16px 16px 0px 16px", color: "#000"}}>
         <Typography variant="h4" noWrap style={{
             minWidth: "fit-content",
             fontWeight: 300,
@@ -33,12 +33,14 @@ export const HomeLanding: React.FC = () => {
     return (
         <React.Fragment>
             <Meta />
-            <Grid container spacing={6}
+            <Grid container spacing={2}
                 style={{
                     color: "#000",
                 }}>
                 <Grid item xs={12} >
                     {info(`Select game`)}
+                </Grid>
+                <Grid item xs={12} >
                     <HomeGameSelector games={games} />
                 </Grid>
                 <Grid item xs={12}>
@@ -46,17 +48,22 @@ export const HomeLanding: React.FC = () => {
                 </Grid>
                 {
                     gamesSorted.map(gameId => (
-                        <Grid key={gameId} item xs={12}>
-                            <>
+                        <React.Fragment key={gameId}>
+                            <Grid item xs={12} >
                                 {info(`${games[gameId].name} top deals`)}
+                            </Grid>
+                            <Grid key={gameId} item xs={12}>
                                 <HomeGameTopOffers game={games[gameId]} />
                                 <HomeGameInfo game={games[gameId]} />
-                            </>
-                        </Grid>
+                            </Grid>
+                        </React.Fragment>
                     ))
                 }
                 <Grid item xs={12}>
                     <HomeTrustPilot />
+                </Grid>
+                <Grid item xs={12}>
+                    {info(`How to use our service`)}
                 </Grid>
                 <Grid item xs={12}>
                     <HowToUse />

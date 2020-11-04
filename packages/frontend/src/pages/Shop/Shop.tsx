@@ -12,6 +12,7 @@ import {AutoCompleteCustom} from "components/AutoCompleteCustom";
 import {Meta} from "pages/Base/Meta";
 import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 import {ShopSeo} from "./ShopSeo";
+import {HowToUse} from "pages/Base/HowToUse";
 
 const empty = "default";
 
@@ -147,6 +148,18 @@ const Shop: React.FC = () => {
         </Paper>
     );
 
+    const howto = () => (
+        <Col s={16} style={{marginTop: 16}}>
+            <Typography variant="h4" noWrap style={{
+                minWidth: "fit-content",
+                fontWeight: 300,
+            }}>
+                {`How to use our service`}
+            </Typography>
+            <HowToUse />
+        </Col>
+    )
+
     return (
         <>
             <Meta entity={game} />
@@ -156,7 +169,7 @@ const Shop: React.FC = () => {
                     {filterTags()}
                     {filterData()}
                     <PersonalDiscount />
-                    <ShopSeo game={game}/>
+                    {howto()}
                 </Col>
             </Container>
         </>
