@@ -158,7 +158,7 @@ const Shop: React.FC = () => {
             </Typography>
             <HowToUse />
         </Col>
-    )
+    );
 
     return (
         <>
