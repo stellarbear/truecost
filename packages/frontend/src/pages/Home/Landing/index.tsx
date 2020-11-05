@@ -26,13 +26,34 @@ const info = (text: string) => (
     </Row>
 );
 
+
 export const HomeLanding: React.FC = () => {
     const {games: {id: games}} = useStore();
     const gamesSorted = dictSort(games);
 
+    const schema = {
+        "@context": "https://schema.org/",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TrueCost",
+            "item": "https://truecost.gg/"
+        }, ...Object.keys(games).map((gameId, i) => ({
+            "@type": "ListItem",
+            "position": (i + 2),
+            "name": `${games[gameId].name}`,
+            "item": `https://truecost.gg/${games[gameId].url}`,
+        }))]
+    };
+
     return (
         <React.Fragment>
-            <Meta />
+            <Meta >
+                <script type="application/ld+json">
+                    {JSON.stringify(schema)}
+                </script>
+            </Meta>
             <Grid container spacing={2}
                 style={{
                     color: "#000",
