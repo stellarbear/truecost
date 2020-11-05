@@ -31,7 +31,8 @@ export const Mobile: React.FC<IProps> = (props) => {
     const {pathname} = useLocation();
     const [open, setOpen] = React.useState<boolean>(false);
     const {current: {game}} = useStore();
-    const url = '/' + ((pathname !== '/') ? game.url : '');
+    const homeUrl = (['/', `/${game.url}`].includes(pathname) ? '/' : ('/' + game.url));
+    const url = '/' + game.url;
 
     const image = game.id === "truecost" ? `${frontend.uri}/default/assistant.png`
         : `${backend.uri}/${game.id}/${game.assistant}/u.png`;
@@ -42,7 +43,6 @@ export const Mobile: React.FC<IProps> = (props) => {
 
     const navigation = () => (
         <Col>
-            {button(url, "Home")}
             {pathname !== "/" && button(url + '/shop', "Shop")}
             {button(url + '/checkout', "Checkout")}
             <Divider />
@@ -91,7 +91,7 @@ export const Mobile: React.FC<IProps> = (props) => {
                     <IconButton onClick={() => setOpen(!open)} style={{margin: "8px"}}>
                         <Clear />
                     </IconButton>
-                    <Button component={Link} to={url}>
+                    <Button component={Link} to={homeUrl}>
                         <img
                             alt="logo icon"
                             height={48} width={48} src={logo}

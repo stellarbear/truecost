@@ -17,7 +17,8 @@ export const Desktop: React.FC<IDesktop> = (props) => {
     const {logo} = props;
     const {pathname} = useLocation();
     const {current: {game, discount}} = useStore();
-    const url = '/' + ((pathname !== '/') ? game.url : '');
+    const homeUrl = (['/', `/${game.url}`].includes(pathname) ? '/' : ('/' + game.url));
+    const url = '/' + game.url;
 
     const navigation = () => (
         <Row justify="center" style={{transform: "all 0.5s"}}>
@@ -84,7 +85,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             top: -8,
         }}>
             <Row>
-                <Button component={Link} to={url}>
+                <Button component={Link} to={homeUrl}>
                     <img
                         alt="logo icon"
                         height={80} width={80} src={logo}

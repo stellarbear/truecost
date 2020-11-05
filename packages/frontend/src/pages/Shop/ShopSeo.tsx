@@ -2,6 +2,7 @@ import {Accordion, AccordionDetails, AccordionSummary, Typography} from '@materi
 import {IGame} from '@truecost/shared';
 import Markdown from 'markdown-to-jsx';
 import {Col} from 'pages/Base/Grid';
+import {ExpandMore} from '@material-ui/icons';
 import React from 'react';
 
 interface IProps {
@@ -31,7 +32,8 @@ export const ShopSeo: React.FC<IProps> = (props) => {
                         style={{
                             fontFamily: "Roboto",
                         }}>
-                        <AccordionSummary style={{padding: "4px 16px"}}>
+                        <AccordionSummary style={{padding: "4px 16px"}}
+                            expandIcon={<ExpandMore />}>
                             <Typography
                                 variant="h6" component="p" color="inherit">
                                 {header}

@@ -25,7 +25,7 @@ export const GameTopOffers: React.FC<IProps> = (props) => {
     return (
         <>
             <div style={{marginBottom: 16}}>
-                <RowGrid 
+                <RowGrid
                     w={250} s={16} p={16}>
                     {top.slice(0, 12).map(id => (
                         <ItemCard
@@ -37,10 +37,12 @@ export const GameTopOffers: React.FC<IProps> = (props) => {
                 </RowGrid>
             </div>
             <Button fullWidth
+                variant="contained"
                 onClick={() => setGame(game.id)}
                 component={Link} to={url + "/shop"}
                 style={{
-                    margin: "-8px 0px 8px 0px",
+                    backgroundColor: "#fafafa",
+                    margin: "0px 0px 16px 0px",
                     padding: "16px",
                 }}>
                 Show more
