@@ -38,13 +38,13 @@ export const HomeLanding: React.FC = () => {
             "@type": "ListItem",
             "position": 1,
             "name": "TrueCost",
-            "item": "https://truecost.gg/"
+            "item": "https://truecost.gg/",
         }, ...Object.keys(games).map((gameId, i) => ({
             "@type": "ListItem",
             "position": (i + 2),
             "name": `${games[gameId].name}`,
             "item": `https://truecost.gg/${games[gameId].url}`,
-        }))]
+        }))],
     };
 
     return (

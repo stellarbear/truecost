@@ -12,7 +12,7 @@ export const Item: React.FC = () => {
     const {items} = shop();
 
     if (itemUrl === undefined || !(itemUrl in items.url)) {
-        console.log(itemUrl, Object.keys(items.url))
+        console.log(itemUrl, Object.keys(items.url));
         return <Redirect to="/404" />;
     }
 

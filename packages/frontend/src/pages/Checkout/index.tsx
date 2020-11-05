@@ -15,7 +15,6 @@ export const Checkout: React.FC = () => {
     const [info, setInfo] = useStorage<Record<string, any>>('checkout', {
         cross: false,
         platform: [],
-        time: [12, "am", 12, "pm"],
         text: "",
     });
 
