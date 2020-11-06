@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {Button, ButtonBase, Paper} from '@material-ui/core';
+import {Button, ButtonBase, NoSsr, Paper} from '@material-ui/core';
 import {IGame, IInfo, SafeJSON} from '@truecost/shared';
 import {Carousel} from 'components/Carousel';
 import {backend} from 'auxiliary/route';
@@ -30,50 +30,52 @@ export const GameInfo: React.FC<IProps> = (props) => {
     }
 
     return (
-        <Paper elevation={6} style={{overflow: "hidden"}}>
-            <Carousel>
-                {validInfo.map(info => (
-                    <ButtonBase key={info.id} style={{position: "relative"}}
-                        onClick={() => {
-                            if (info.redirect.length === 0) {
-                                return;
-                            }
+        <NoSsr>
+            <Paper elevation={6} style={{overflow: "hidden"}}>
+                <Carousel>
+                    {validInfo.map(info => (
+                        <ButtonBase key={info.id} style={{position: "relative"}}
+                            onClick={() => {
+                                if (info.redirect.length === 0) {
+                                    return;
+                                }
 
-                            const to = info.redirect[0] === "/" ? info.redirect.slice(1) : info.redirect;
-                            if (info.game) {
-                                const key = 'shop';
-                                const oldValue = SafeJSON.parse(localStorage.getItem(key), {});
-                                const newValue = {
-                                    ...oldValue,
-                                    tags: info.tag.map((t: any) => t.id),
-                                    names: info.item.map((i: any) => i.id),
-                                };
-                                localStorage.setItem(key, JSON.stringify(newValue));
-                                setGame(game.id);
+                                const to = info.redirect[0] === "/" ? info.redirect.slice(1) : info.redirect;
+                                if (info.game) {
+                                    const key = 'shop';
+                                    const oldValue = SafeJSON.parse(localStorage.getItem(key), {});
+                                    const newValue = {
+                                        ...oldValue,
+                                        tags: info.tag.map((t: any) => t.id),
+                                        names: info.item.map((i: any) => i.id),
+                                    };
+                                    localStorage.setItem(key, JSON.stringify(newValue));
+                                    setGame(game.id);
 
-                                history.push(`${game.url}/${to}`);
-                            } else {
-                                history.push(`${to}`);
-                            }
-                        }}
-                    >
-                        <SafeImage
-                            height={250}
-                            alt={info.text}
-                            style={{height, objectFit: "cover", width: "100%"}}
-                            draggable="false"
-                            src={image(info.id, info.images[0])} />
-                        <Row style={{position: "absolute", top: 0, left: 0}} p={16}>
-                            <Markdown scale>
-                                {info.text}
-                            </Markdown>
-                        </Row>
-                        <Button
-                            style={{position: "absolute", bottom: 16, right: 16}}
-                            variant="contained" color="secondary">Buy now</Button>
-                    </ButtonBase>
-                ))}
-            </Carousel>
-        </Paper>
+                                    history.push(`${game.url}/${to}`);
+                                } else {
+                                    history.push(`${to}`);
+                                }
+                            }}
+                        >
+                            <SafeImage
+                                height={250}
+                                alt={info.text}
+                                style={{height, objectFit: "cover", width: "100%"}}
+                                draggable="false"
+                                src={image(info.id, info.images[0])} />
+                            <Row style={{position: "absolute", top: 0, left: 0}} p={16}>
+                                <Markdown scale>
+                                    {info.text}
+                                </Markdown>
+                            </Row>
+                            <Button
+                                style={{position: "absolute", bottom: 16, right: 16}}
+                                variant="contained" color="secondary">Buy now</Button>
+                        </ButtonBase>
+                    ))}
+                </Carousel>
+            </Paper>
+        </NoSsr>
     );
 };
