@@ -59,15 +59,15 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
             value={valuesOverride}
             options={optionsOverride}
             getOptionLabel={({id: itemId, custom}) => !custom ? getLabel(itemId).replace(/\s/g, ' ') : itemId}
-            renderInput={(params) => (
-                <TextField
-                    {...params}
-                    label="Search"
-                    InputProps={{
-                        endAdornment: <Search />,
-                    }}
-                    variant="outlined" />
-            )}
+            renderInput={(params) => {
+                params.InputProps.endAdornment = <Search style={{marginRight: -48}} />;
+                return (
+                    <TextField
+                        label="Search"
+                        {...params}
+                        variant="outlined" />
+                );
+            }}
         />
     );
 };

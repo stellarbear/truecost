@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Col} from 'pages/Base/Grid';
+import {Row} from 'pages/Base/Grid';
 
 interface IProps {
     permanent?: boolean;
@@ -25,7 +25,7 @@ export const Mock: React.FC<IProps> = ({permanent}) => {
             opacity: hydrated ? 0.0 : 1.0,
             backgroundColor: "#fff",
         }}>
-            <Col align="center" s={16}
+            <Row align="center" s={8}
                 style={{
                     position: "fixed",
                     top: "50%",
@@ -34,15 +34,13 @@ export const Mock: React.FC<IProps> = ({permanent}) => {
                 }}>
                 <img
                     alt="logo icon"
-                    style={{marginBottom: -48}}
-                    width={128} height={128}
-                    src={`/logo-black.png`} />
+                    width={30} height={30}
+                    src={`/loading.svg`} />
                 <img
                     alt="logo icon"
-                    style={{marginBottom: -48}}
-                    width={128} height={6}
-                    src={`/loading.gif`} />
-            </Col>
+                    width={128} height={128}
+                    src={`/logo-black.png`} />
+            </Row>
         </div >
     );
 };
