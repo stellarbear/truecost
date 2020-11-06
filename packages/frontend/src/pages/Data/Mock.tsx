@@ -1,11 +1,11 @@
-import {Col} from 'pages/Base/Grid';
 import * as React from 'react';
+import {Col} from 'pages/Base/Grid';
 
 interface IProps {
     permanent?: boolean;
 }
 
-//https://loading.io/css/
+//http://ajaxloadingimages.net/
 export const Mock: React.FC<IProps> = ({permanent}) => {
     const [hydrated, setHydrated] = React.useState(false);
 
@@ -25,20 +25,24 @@ export const Mock: React.FC<IProps> = ({permanent}) => {
             opacity: hydrated ? 0.0 : 1.0,
             backgroundColor: "#fff",
         }}>
-            <Col  align="center"
-            style={{
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-            }}>
+            <Col align="center" s={16}
+                style={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                }}>
                 <img
                     alt="logo icon"
                     style={{marginBottom: -48}}
                     width={128} height={128}
                     src={`/logo-black.png`} />
-                <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                <img
+                    alt="logo icon"
+                    style={{marginBottom: -48}}
+                    width={128} height={6}
+                    src={`/loading.gif`} />
             </Col>
-        </div>
+        </div >
     );
 };

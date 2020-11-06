@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {useStore} from "pages/Data/Wrapper";
 import {Chip, Container, Divider, Hidden, NoSsr, Paper, Typography} from "@material-ui/core";
 import {dictSort} from "@truecost/shared";
@@ -42,23 +42,27 @@ const Shop: React.FC = () => {
 
     const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => {
         const result = {...defaultState, ...state};
-        debugger;
 
         result.tags = result.tags.filter(n => tagIds.includes(n));
         result.names = result.names.filter(n => itemIds.includes(n));
 
         return result;
     });
-    const tagDeps = state.tags.length > 0 ? shop().getTagDeps(state.tags[state.tags.length - 1]) : [];
+
+    const nameSet = useMemo(() => new Set(state.names), [state.names]);
+    const tagSet = useMemo(() => new Set(
+        state.tags.length > 0 ? shop().getTagDeps(state.tags[state.tags.length - 1]) : [],
+    ), [state.tags]);
 
     //  TODO: make readale
     const filterItems = () => itemIds
-        .filter(itemId =>
-            state.names.length === 0 ? true
-                : (state.names.includes(itemId) ||
-                    (items.id[itemId].item.length > 0 && items.id[itemId].item.some(i => state.names.includes(i)))))
-        .filter(itemId => state.tags.length === 0 ? true :
-            items.id[itemId].tag.some(t => tagDeps.includes(t)));
+        .filter(itemId => (
+            nameSet.size === 0 ||
+            nameSet.has(itemId) ||
+            items.id[itemId].item.some(i => nameSet.has(i))
+        ) && (
+                state.tags.length === 0 ||
+                items.id[itemId].tag.some(t => tagSet.has(t))));
 
     const renderMock = () => (
         <InfoCard text={[
@@ -90,27 +94,29 @@ const Shop: React.FC = () => {
     };
 
     const filterNames = () => (
-        <AutoCompleteCustom
-            values={state.names}
-            options={itemIds}
-            onChange={names =>
-                setState({
-                    ...state,
-                    tags: [],
-                    names,
-                })
-            }
-            onCustom={() => {
-                Tawk_API?.maximize();
-                notify("Ask us for the custom order, we will serve it to you!");
-            }}
-            getLabel={(itemId) => itemId in items.id ? items.id[itemId].name : "unknown"}
-        />
+        <NoSsr>
+            <AutoCompleteCustom
+                values={state.names}
+                options={itemIds}
+                onChange={names =>
+                    setState({
+                        ...state,
+                        tags: [],
+                        names,
+                    })
+                }
+                onCustom={() => {
+                    Tawk_API?.maximize();
+                    notify("Ask us for the custom order, we will serve it to you!");
+                }}
+                getLabel={(itemId) => itemId in items.id ? items.id[itemId].name : "unknown"}
+            />
+        </NoSsr>
     );
 
     const tag = (tagId: string, depth = 0) => (
         <Chip
-            style={{marginBottom: 4}}
+            style={{marginBottom: 4, marginRight: 8}}
             key={tagId}
             label={tags.id[tagId].name}
             clickable
@@ -129,31 +135,34 @@ const Shop: React.FC = () => {
     );
 
     const filterTags = () => Object.keys(tags.base).length > 0 && (
-        <Row justify="space-between" s={16}>
-            <Paper style={{width: "100%"}}>
-                <Col p={8}>
-                    <Row p={[2, 8]} s={8} wrap>
-                        {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
-                    </Row>
-                    {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
-                        <Col s={8} p={8} key={tagId}>
-                            <Divider />
-                            <Row p={[2, 0]} s={8} wrap>
-                                {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
-                            </Row>
-                        </Col>
-                    ))}
-                </Col>
-            </Paper>
-
-            <Hidden mdDown>
-                <Paper elevation={2} style={{
-                    minWidth: 320,
-                }}>
-                    <TrustBox size="mikro" />
+        <NoSsr>
+            <Row justify="space-between">
+                <Paper style={{width: "100%"}}>
+                    <Col p={8}>
+                        <Row p={[2, 8]} wrap>
+                            {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
+                        </Row>
+                        {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
+                            <Col s={8} p={8} key={tagId}>
+                                <Divider />
+                                <Row p={[2, 0]} wrap>
+                                    {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
+                                </Row>
+                            </Col>
+                        ))}
+                    </Col>
                 </Paper>
-            </Hidden>
-        </Row>
+
+                <Hidden mdDown>
+                    <Paper elevation={2} style={{
+                        minWidth: 320,
+                        marginLeft: 16,
+                    }}>
+                        <TrustBox size="mikro" />
+                    </Paper>
+                </Hidden>
+            </Row>
+        </NoSsr>
     );
 
     const howto = () => (
@@ -173,10 +182,8 @@ const Shop: React.FC = () => {
             <Meta entity={game} />
             <Container fixed style={{padding: 0}}>
                 <Col s={16}>
-                    <NoSsr>
-                        {filterNames()}
-                        {filterTags()}
-                    </NoSsr>
+                    {filterNames()}
+                    {filterTags()}
                     {filterData()}
                     <PersonalDiscount />
                     {howto()}

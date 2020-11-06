@@ -3,7 +3,6 @@ import React, {useEffect} from "react";
 import {BrowserRouter, useLocation} from "react-router-dom";
 
 import "css/float.css";
-import "css/preloader.css";
 import App from "app";
 import {theme} from "theme";
 import {ThemeProvider} from "@material-ui/styles";

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Autocomplete, {createFilterOptions} from '@material-ui/lab/Autocomplete';
 import {TextField} from '@material-ui/core';
+import Search from '@material-ui/icons/Search';
 
 interface IFilter {
     id: string;
@@ -58,7 +59,15 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
             value={valuesOverride}
             options={optionsOverride}
             getOptionLabel={({id: itemId, custom}) => !custom ? getLabel(itemId).replace(/\s/g, ' ') : itemId}
-            renderInput={(params) => <TextField {...params} label="Search" variant="outlined"/>}
+            renderInput={(params) => (
+                <TextField
+                    {...params}
+                    label="Search"
+                    InputProps={{
+                        endAdornment: <Search />,
+                    }}
+                    variant="outlined" />
+            )}
         />
     );
 };
