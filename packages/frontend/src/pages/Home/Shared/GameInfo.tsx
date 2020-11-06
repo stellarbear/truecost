@@ -70,7 +70,7 @@ export const GameInfo: React.FC<IProps> = (props) => {
                         </Row>
                         <Button
                             style={{position: "absolute", bottom: 16, right: 16}}
-                            variant="contained" color="secondary">Buy now</Button>
+                            variant="contained" color="secondary">{info.cta || 'Buy now'}</Button>
                     </ButtonBase>
                 ))}
             </Carousel>

@@ -87,6 +87,7 @@ export interface IOption extends IBase, IBaseGame {
 }
 
 export interface IInfo extends IBase, IBaseGame {
+    cta: string;
     text: string;
     redirect: string;
     images: string[];

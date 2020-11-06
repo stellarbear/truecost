@@ -16,6 +16,7 @@ export const AdminInfo: React.FC = () => {
         items: `
         ${base.fragment}
         ${game.fragment}
+            cta
             text
             redirect
 			images
@@ -31,6 +32,11 @@ export const AdminInfo: React.FC = () => {
         key: "text",
         label: "text",
         component: <EditorPost/>,
+    });
+
+    const cta = new CString({
+        key: "cta",
+        label: "cta",
     });
 
     const redirect = new CString({
@@ -66,7 +72,7 @@ export const AdminInfo: React.FC = () => {
         readOnly: true,
     });
 
-    const fields = [text, redirect, images, item, tag];
+    const fields = [cta, text, redirect, images, item, tag];
 
     return (
         <CRUD

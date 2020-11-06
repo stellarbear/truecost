@@ -78,7 +78,7 @@ export const OrderInfo: React.FC = () => {
 
     return (
         <NoSsr>
-            <Col s={8}>
+            <Col s={16}>
                 <Typography variant="caption">Items</Typography>
                 {keys.length > 0
                     ? (keys.map(key => itemCard(key)))

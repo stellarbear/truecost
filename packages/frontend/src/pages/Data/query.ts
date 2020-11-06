@@ -99,6 +99,7 @@ export const BULK_QUERY = gql`
             order
             active
 
+            cta
             text
             redirect
             images
