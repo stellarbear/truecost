@@ -8,6 +8,9 @@ import {GameEntity} from "../game/game.entity";
 @Entity()
 @ObjectType()
 export class InfoEntity extends BaseEntity {
+    @Field({defaultValue: ''})
+    @Property({default: ''})
+    cta: string = "";
     @Field()
     @Property()
     text: string = "";

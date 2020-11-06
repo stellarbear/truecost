@@ -1,6 +1,6 @@
 import React from "react";
 import {useStore} from "pages/Data/Wrapper";
-import {Chip, Container, Divider, NoSsr, Paper, Typography} from "@material-ui/core";
+import {Chip, Container, Divider, Hidden, NoSsr, Paper, Typography} from "@material-ui/core";
 import {dictSort} from "@truecost/shared";
 import {useStorage} from "auxiliary/useStorage";
 import {Col, Row, RowGrid} from "pages/Base/Grid";
@@ -12,6 +12,7 @@ import {AutoCompleteCustom} from "components/AutoCompleteCustom";
 import {Meta} from "pages/Base/Meta";
 import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 import {HowToUse} from "pages/Base/HowToUse";
+import {TrustBox} from "pages/Base/TrustBox";
 
 const empty = "default";
 
@@ -129,22 +130,31 @@ const Shop: React.FC = () => {
     );
 
     const filterTags = () => Object.keys(tags.base).length > 0 && (
-        <Paper>
-            <Col p={8}>
-                <Row p={[2, 8]} s={8} wrap>
-                    {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
-                </Row>
-                {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
-                    <Col s={4} p={[0, 8]} key={tagId}>
-                        <Typography variant="body2">{`${tags.id[tagId].name}: `}</Typography>
-                        <Divider />
-                        <Row p={[2, 0]} s={8} wrap>
-                            {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
-                        </Row>
-                    </Col>
-                ))}
-            </Col>
-        </Paper>
+        <Row justify="space-between" s={16}>
+            <Paper style={{width: "100%"}}>
+                <Col p={8}>
+                    <Row p={[2, 8]} s={8} wrap>
+                        {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
+                    </Row>
+                    {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
+                        <Col s={8} p={8} key={tagId}>
+                            <Divider />
+                            <Row p={[2, 0]} s={8} wrap>
+                                {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
+                            </Row>
+                        </Col>
+                    ))}
+                </Col>
+            </Paper>
+
+            <Hidden mdDown>
+                <Paper elevation={2} style={{
+                    minWidth: 320,
+                }}>
+                    <TrustBox size="mikro" />
+                </Paper>
+            </Hidden>
+        </Row>
     );
 
     const howto = () => (

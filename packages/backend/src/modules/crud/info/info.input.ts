@@ -5,6 +5,8 @@ import {UploadScalar, UploadType} from "../../../scalars";
 @InputType()
 export class InfoInput extends BaseInput {
     @Field({nullable: true})
+    cta?: string;
+    @Field({nullable: true})
     text?: string;
     @Field({nullable: true})
     redirect?: string;

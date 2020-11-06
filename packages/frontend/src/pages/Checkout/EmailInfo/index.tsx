@@ -78,7 +78,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
 
     return (
         <NoSsr>
-            <Col s={8}>
+            <Col s={16}>
                 <Row>
                     <Typography variant="caption">Subscription (optional)</Typography>
                 </Row>
