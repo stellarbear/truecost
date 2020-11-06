@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Button, ButtonBase, Card, Chip, Divider, Typography} from "@material-ui/core";
+import {Button, ButtonBase, Card, Chip, Divider, NoSsr, Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
 import {CalcPrice} from '@truecost/shared';
@@ -83,8 +83,10 @@ const ItemCard: React.FC<IProps> = (props) => {
             }}
                 style={{backgroundColor: 'transparent', padding: 0, height: "100%", width: "100%"}}>
                 <Col fullWidth style={{width: "100%"}}>
-                    {chip()}
-                    {owned()}
+                    <NoSsr>
+                        {chip()}
+                        {owned()}
+                    </NoSsr>
                     <div style={{
                         backgroundColor: "#f4f4f4",
                     }}>

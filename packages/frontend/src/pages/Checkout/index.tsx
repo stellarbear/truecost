@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container} from '@material-ui/core';
+import {Container, NoSsr} from '@material-ui/core';
 import {AuxInfo} from './AuxInfo';
 import {Col} from 'pages/Base/Grid';
 import {useStorage} from 'auxiliary/useStorage';
@@ -35,11 +35,13 @@ export const Checkout: React.FC = () => {
     return (
         <>
             <Meta entity={game} />
-            <Container maxWidth="sm" style={{padding: 0}}>
-                <Col fullWidth s={16}>
-                    {panels()}
-                </Col>
-            </Container>
+            <NoSsr>
+                <Container maxWidth="sm" style={{padding: 0}}>
+                    <Col fullWidth s={16}>
+                        {panels()}
+                    </Col>
+                </Container>
+            </NoSsr>
         </>
     );
 };

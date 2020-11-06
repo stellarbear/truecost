@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col} from 'pages/Base/Grid';
-import {Accordion, AccordionDetails, AccordionSummary, NoSsr, Typography} from '@material-ui/core';
+import {Accordion, AccordionDetails, AccordionSummary, Typography} from '@material-ui/core';
 import {CalcPrice} from '@truecost/shared';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {ItemOption} from './ItemOption';
@@ -77,15 +77,13 @@ export const OrderInfo: React.FC = () => {
     const keys = Object.keys(cartItems);
 
     return (
-        <NoSsr>
-            <Col s={16}>
-                <Typography variant="caption">Items</Typography>
-                {keys.length > 0
-                    ? (keys.map(key => itemCard(key)))
-                    : <CheckoutEmpty />}
-                <ItemExtra
-                    total={total} />
-            </Col>
-        </NoSsr>
+        <Col s={16}>
+            <Typography variant="caption">Items</Typography>
+            {keys.length > 0
+                ? (keys.map(key => itemCard(key)))
+                : <CheckoutEmpty />}
+            <ItemExtra
+                total={total} />
+        </Col>
     );
 };

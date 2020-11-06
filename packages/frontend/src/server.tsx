@@ -17,6 +17,7 @@ import {Html} from "html";
 import {ApolloProvider} from "@apollo/client";
 import {Helmet} from "react-helmet";
 import {generateSiteMap} from "auxiliary/sitemap";
+import {ServerStyleSheets} from "@material-ui/core";
 
 const server = express();
 const root = environment == "development"
@@ -40,6 +41,7 @@ server
         const assets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
 
+        const sheets = new ServerStyleSheets();
         const client = createApolloClient({
             ssr: true,
             cookie: req.header('Cookie'),
@@ -54,13 +56,13 @@ server
                 </StaticRouter>
             </ApolloProvider>
         );
-        getDataFromTree(/*sheets.collect(app)*/app).then(() => {
+        getDataFromTree(sheets.collect(app)).then(() => {
             const content = renderToString(app);
             const initialState = client.extract();
             const helmet = Helmet.renderStatic();
 
             const html = <Html
-                //css={sheets.toString()}
+                css={sheets.toString()}
                 helmet={helmet}
                 assets={assets}
                 content={content}

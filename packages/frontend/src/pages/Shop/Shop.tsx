@@ -42,6 +42,7 @@ const Shop: React.FC = () => {
 
     const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => {
         const result = {...defaultState, ...state};
+        debugger;
 
         result.tags = result.tags.filter(n => tagIds.includes(n));
         result.names = result.names.filter(n => itemIds.includes(n));
@@ -89,24 +90,22 @@ const Shop: React.FC = () => {
     };
 
     const filterNames = () => (
-        <NoSsr>
-            <AutoCompleteCustom
-                values={state.names}
-                options={itemIds}
-                onChange={names =>
-                    setState({
-                        ...state,
-                        tags: [],
-                        names,
-                    })
-                }
-                onCustom={() => {
-                    Tawk_API?.maximize();
-                    notify("Ask us for the custom order, we will serve it to you!");
-                }}
-                getLabel={(itemId) => itemId in items.id ? items.id[itemId].name : "unknown"}
-            />
-        </NoSsr>
+        <AutoCompleteCustom
+            values={state.names}
+            options={itemIds}
+            onChange={names =>
+                setState({
+                    ...state,
+                    tags: [],
+                    names,
+                })
+            }
+            onCustom={() => {
+                Tawk_API?.maximize();
+                notify("Ask us for the custom order, we will serve it to you!");
+            }}
+            getLabel={(itemId) => itemId in items.id ? items.id[itemId].name : "unknown"}
+        />
     );
 
     const tag = (tagId: string, depth = 0) => (
@@ -174,8 +173,10 @@ const Shop: React.FC = () => {
             <Meta entity={game} />
             <Container fixed style={{padding: 0}}>
                 <Col s={16}>
-                    {filterNames()}
-                    {filterTags()}
+                    <NoSsr>
+                        {filterNames()}
+                        {filterTags()}
+                    </NoSsr>
                     {filterData()}
                     <PersonalDiscount />
                     {howto()}

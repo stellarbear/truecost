@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {IItem, CalcPrice} from "@truecost/shared";
-import {Button, Grid, NoSsr} from '@material-ui/core';
+import {Button, Grid} from '@material-ui/core';
 import {ItemImage} from './ItemImage';
 import {ItemDescription} from './ItemDescription';
 import {ItemChildren} from './ItemChildren';
@@ -55,12 +55,10 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     <ItemChildren item={item} />
                     <ItemObtain item={item} />
                     <ItemRequirements item={item} />
-                    <NoSsr>
-                        <ItemRange item={item} chunk={chunk} onChange={setChunk} />
-                        <ItemOption price={itemPrice} item={item}
-                            selected={selectedOptions}
-                            onChange={(val: string[]) => setSelectedOptions(val)} />
-                    </NoSsr>
+                    <ItemRange item={item} chunk={chunk} onChange={setChunk} />
+                    <ItemOption price={itemPrice} item={item}
+                        selected={selectedOptions}
+                        onChange={(val: string[]) => setSelectedOptions(val)} />
                     <ItemEta item={item} chunk={chunk} />
                     <ItemAddToCard
                         url={url}
@@ -73,9 +71,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 style={{pointerEvents: "none"}}>
                 Related goods
             </Button>
-            <NoSsr>
-                <ItemRelated item={item} />
-            </NoSsr>
+            <ItemRelated item={item} />
             <PersonalDiscount />
             <Button startIcon={< ArrowDownward />} style={{marginTop: 16}}>
                 How to use our service

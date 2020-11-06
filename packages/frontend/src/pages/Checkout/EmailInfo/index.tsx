@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
-import {Box, NoSsr, Typography} from '@material-ui/core';
+import {Box, Typography} from '@material-ui/core';
 import {useForm} from 'react-hook-form';
 import {loadStripe} from '@stripe/stripe-js';
 import Alert from '@material-ui/lab/Alert';
@@ -77,38 +77,36 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     };
 
     return (
-        <NoSsr>
-            <Col s={16}>
-                <Row>
-                    <Typography variant="caption">Subscription (optional)</Typography>
-                </Row>
-                <form onSubmit={handleSubmit(bookingSubmit)}>
-                    <Col s={16}>
-                        <EmailSubscription
-                            current={currentSubscription}
-                            selected={selectedSubscription}
-                            setSelected={setSelectedSubscription}
-                        />
-                        <EmailFields
-                            disabled={!!user}
-                            register={register}
-                            email={watch("email")}
-                            setError={setError}
-                            clearErrors={clearErrors}
-                            setCurrent={setCurrentSubscription}
-                            error={errors.email?.message}
-                        />
-                        <EmailPrice
-                            loading={loading}
-                            current={currentSubscription}
-                            selected={selectedSubscription}
-                        />
-                        <Box mt={2}>
-                            {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
-                        </Box>
-                    </Col>
-                </form>
-            </Col>
-        </NoSsr>
+        <Col s={16}>
+            <Row>
+                <Typography variant="caption">Subscription (optional)</Typography>
+            </Row>
+            <form onSubmit={handleSubmit(bookingSubmit)}>
+                <Col s={16}>
+                    <EmailSubscription
+                        current={currentSubscription}
+                        selected={selectedSubscription}
+                        setSelected={setSelectedSubscription}
+                    />
+                    <EmailFields
+                        disabled={!!user}
+                        register={register}
+                        email={watch("email")}
+                        setError={setError}
+                        clearErrors={clearErrors}
+                        setCurrent={setCurrentSubscription}
+                        error={errors.email?.message}
+                    />
+                    <EmailPrice
+                        loading={loading}
+                        current={currentSubscription}
+                        selected={selectedSubscription}
+                    />
+                    <Box mt={2}>
+                        {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
+                    </Box>
+                </Col>
+            </form>
+        </Col>
     );
 };

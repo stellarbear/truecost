@@ -1,11 +1,14 @@
 import * as React from 'react';
 import {admin} from "pages/Admin/routes";
 import {InnerHeader} from 'pages/Navigation/InnerHeader';
+import {NoSsr} from '@material-ui/core';
 
 export const Admin = () => (
-    <InnerHeader
-        scroll
-        prefix="admin"
-        routes={admin.routes}
-    />
+    <NoSsr>
+        <InnerHeader
+            scroll
+            prefix="admin"
+            routes={admin.routes}
+        />
+    </NoSsr>
 );
