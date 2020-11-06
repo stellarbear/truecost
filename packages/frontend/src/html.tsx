@@ -21,8 +21,8 @@ export const Html: React.FC<IProps> = ({assets, helmet, content, state, css}) =>
             <meta charSet='utf-8' />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 
-            <script src={assets.client.js} defer></script>
-            <script src={assets.vendor.js} defer></script>
+            <script src={assets.client.js} async></script>
+            <script src={assets.vendor.js} async></script>
 
 
             {font()}
