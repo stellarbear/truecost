@@ -44,6 +44,11 @@ interface IProps extends MarkdownProps {
 export const Markdown: React.FC<IProps> = ({scale = false, ...rest}) => {
     const classes = useStyles();
 
+    rest.style = {
+        fontFamily: 'Roboto',
+        ...rest.style, 
+    }
+
     return (
         <ReactMarkdown
             className={scale ? classes.scale : undefined}

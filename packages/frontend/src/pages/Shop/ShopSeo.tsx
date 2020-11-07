@@ -1,9 +1,9 @@
 import {Accordion, AccordionDetails, AccordionSummary, Typography} from '@material-ui/core';
 import {IGame} from '@truecost/shared';
-import Markdown from 'markdown-to-jsx';
 import {Col} from 'pages/Base/Grid';
 import {ExpandMore} from '@material-ui/icons';
 import React from 'react';
+import {Markdown} from 'components/Markdown';
 
 interface IProps {
     game: IGame;
@@ -28,10 +28,7 @@ export const ShopSeo: React.FC<IProps> = (props) => {
                 const data = e.slice(index);
 
                 return (
-                    <Accordion key={i}
-                        style={{
-                            fontFamily: "Roboto",
-                        }}>
+                    <Accordion key={i}>
                         <AccordionSummary style={{padding: "4px 16px"}}
                             expandIcon={<ExpandMore />}>
                             <Typography

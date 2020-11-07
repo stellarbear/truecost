@@ -10,7 +10,7 @@ import {ArrowBack} from '@material-ui/icons';
 import {Button, CircularProgress, Divider, Typography} from '@material-ui/core';
 import {backend, frontend} from 'auxiliary/route';
 import {SafeImage} from 'components/SafeImage';
-import Markdown from 'markdown-to-jsx';
+import {Markdown} from 'components/Markdown';
 
 const GET_BLOG = gql`
     query BlogUrl ($url: String!) {
