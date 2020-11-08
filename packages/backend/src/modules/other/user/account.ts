@@ -13,6 +13,7 @@ import {forgetEmail} from "../../../mail/samples/forget";
 import {Context} from "../../../server";
 import {SubscriptionEntity} from "../../crud/subscription/subscription.entity";
 import {domain} from "../../../helpers/route";
+import {remail} from "./helper";
 
 @Resolver(() => UserEntity)
 export class AccountResolver {
@@ -24,7 +25,6 @@ export class AccountResolver {
         @Arg("password") password: string,
         @Arg("name", {nullable: true}) name?: string,
     ) {
-        email = email.toLocaleLowerCase().trim();
         const username = (name || email).trim();
         assert(!["root", "mod", "admin", "truecost"].some(s => username.includes(s)), "bad name", ["name"]);
         const count = await this.userRepo.count({name: username});
@@ -32,7 +32,7 @@ export class AccountResolver {
 
         assert(validate("email").test(email), "Does not look like email (:", ["email"]);
 
-        let user = await this.userRepo.findOne({email});
+        let user = await this.userRepo.findOne({email: remail(email)});
         if (user) {
             assert(!user.verified, "user already verified");
             assert(!user.active, "account is disabled");
@@ -93,8 +93,7 @@ export class AccountResolver {
     async PasswordForget(
         @Arg("email") email: string,
     ) {
-        email = email.toLocaleLowerCase().trim();
-        const user = await this.userRepo.findOne({email});
+        const user = await this.userRepo.findOne({email: remail(email)});
         assert(user, "user not found");
 
         try {
@@ -183,8 +182,7 @@ export class AccountResolver {
     async UserGetSubscription(
         @Arg("email") email: string,
     ) {
-        email = email.toLocaleLowerCase().trim();
-        const user = await this.userRepo.findOne({email}, {populate: true});
+        const user = await this.userRepo.findOne({email: remail(email)}, {populate: true});
         if (!user || !user.subscription) {
             return;
         }

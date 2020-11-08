@@ -6,6 +6,7 @@ import {pbkdf2} from "../../../helpers/pbkdf2";
 import {v4} from "uuid";
 import {redis} from "../../../redis";
 import {DI} from "../../../orm";
+import {remail} from "./helper";
 
 //TODO: session middleware
 @Resolver()
@@ -18,10 +19,9 @@ export class SessionResolver {
         @Arg("email") email: string,
         @Arg("password") password: string,
     ) {
-        email = email.toLocaleLowerCase().trim();
         assert(ctx.req.session, "session failure");
 
-        const user = await this.userRepo.findOne({email});
+        const user = await this.userRepo.findOne({email: remail(email)});
         assert(user, "user not found");
         assert(user.verified, "user not yet verified");
         assert(user.active, "account disabled");
