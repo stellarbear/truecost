@@ -34,6 +34,22 @@ export const HomeGame: React.FC = () => {
     const {current: {game}} = useStore();
     const url = '/' + game.url;
     const image = `${backend.uri}/${game.id}/${game.background}/u.jpg`;
+    
+    const schema = {
+        "@context": "https://schema.org/",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TrueCost",
+            "item": "https://truecost.gg/",
+        }, {
+            "@type": "ListItem",
+            "position": 2,
+            "name": `${game.name}`,
+            "item": `https://truecost.gg/${game.url}`,
+        }],
+    };
 
     return (
         <React.Fragment>
