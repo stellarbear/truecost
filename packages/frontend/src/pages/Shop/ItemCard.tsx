@@ -89,6 +89,7 @@ const ItemCard: React.FC<IProps> = (props) => {
                     </NoSsr>
                     <div style={{
                         backgroundColor: "#f4f4f4",
+                        overflow: "hidden"
                     }}>
                         <SafeImage
                             alt={`${item.name} image`}
