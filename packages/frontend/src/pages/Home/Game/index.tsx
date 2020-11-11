@@ -34,7 +34,7 @@ export const HomeGame: React.FC = () => {
     const {current: {game}} = useStore();
     const url = '/' + game.url;
     const image = `${backend.uri}/${game.id}/${game.background}/u.jpg`;
-    
+
     const schema = {
         "@context": "https://schema.org/",
         "@type": "BreadcrumbList",
@@ -53,7 +53,11 @@ export const HomeGame: React.FC = () => {
 
     return (
         <React.Fragment>
-            <Meta entity={game} />
+            <Meta entity={game} >
+                <script type="application/ld+json">
+                    {JSON.stringify(schema)}
+                </script>
+            </Meta>
             <HomeImage src={image} />
             <Grid container
                 style={{
@@ -84,7 +88,7 @@ export const HomeGame: React.FC = () => {
                             )}
                         </Grid>
                         <Grid item xs={12}>
-                            <GameTopOffers game={game}/>
+                            <GameTopOffers game={game} />
                         </Grid>
                         <Grid item xs={12}>
                             {info(`${game.name} news`)}
