@@ -12,8 +12,6 @@ import {ItemAddToCard} from './ItemAddToCard';
 import {ItemRelated} from './ItemRelated';
 
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import ArrowBack from '@material-ui/icons/ArrowBack';
-import {Link} from 'react-router-dom';
 import {useStore} from 'pages/Data/Wrapper';
 import {ItemEta} from './ItemEta';
 import {HowToUse} from 'pages/Base/HowToUse';
@@ -38,16 +36,9 @@ export const ItemLanding: React.FC<IProps> = (props) => {
 
     return (
         <div>
-            <Button
-                component={Link}
-                to={`/${url}/shop`}
-                startIcon={< ArrowBack />}
-            >
-                To the shop
-            </Button>
             <Grid container spacing={4}>
                 <Grid item xs={12} md={6}>
-                    <ItemImage item={item} />
+                    <ItemImage item={item} url={url}/>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <ItemDescription item={item} />
@@ -68,7 +59,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 </Grid>
             </Grid>
             <Button startIcon={< ArrowDownward />}
-                style={{pointerEvents: "none"}}>
+                style={{pointerEvents: "none", paddingTop: 32}}>
                 Related goods
             </Button>
             <ItemRelated item={item} />
