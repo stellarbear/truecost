@@ -66,6 +66,8 @@ export const BlogCard: React.FC<IProps> = (props) => {
                 </Col>
             </ButtonBase>
             <Button
+                component={Link}
+                to={`/post/${url}`}
                 color={!raised ? "default" : "primary"}
                 style={{
                     width: "calc(100% - 16px)",
