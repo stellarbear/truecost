@@ -43,7 +43,7 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
                             src={image(games[gameId])} style={{
                                 objectFit: "cover", marginBottom: 8,
                             }} />
-                        <Typography variant="h4">
+                        <Typography variant="h5">
                             {games[gameId].name}
                         </Typography>
                     </Col>
