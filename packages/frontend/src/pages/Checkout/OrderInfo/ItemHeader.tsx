@@ -22,8 +22,10 @@ export const ItemHeader: React.FC<IProps> = (props) => {
         <Row justify="space-between" fullWidth align="center">
             <Row align="center" s={16}>
                 <SafeImage
+                    style={{minWidth: 64}}
                     alt={`${item.name} thumbnail`}
                     height={64}
+                    width={64}
                     src={image}
                 />
                 <Col >
