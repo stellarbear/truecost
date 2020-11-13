@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
-import {Button, CircularProgress, Divider, Typography} from '@material-ui/core';
+import {Button, CircularProgress, Typography} from '@material-ui/core';
 import {CalcPrice} from '@truecost/shared';
 import {ModalDialog} from 'components/ModalDialog';
 import {TOS} from 'pages';
@@ -49,6 +49,7 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                 />
             </Row>
             <Button
+                disabled={total === 0}
                 style={{minHeight: 60}}
                 variant="contained"
                 color="primary"
@@ -70,7 +71,14 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                     )
                 }
             </Button>
-            <Divider />
+            <Typography variant="caption"
+                style={{
+                    transition: "all 0.4s",
+                    height: total === 0 ? 20 : 0,
+                    opacity: total === 0 ? 1.0 : 0.0,
+                }}>
+                You need to add some goods or select a subscription
+                 </Typography>
             <Col align="flex-end" fullWidth>
                 <Typography
                     variant="caption"
