@@ -24,6 +24,8 @@ export const BlogCard: React.FC<IProps> = (props) => {
             style={{
                 position: "relative",
                 cursor: "pointer",
+                maxHeight: 512,
+                padding: 8,
             }}
             onMouseOver={() => setRaised(true)}
             onMouseOut={() => setRaised(false)}
@@ -31,9 +33,11 @@ export const BlogCard: React.FC<IProps> = (props) => {
         >
             <ButtonBase
                 component={Link}
+                style={{height: "100%"}}
                 to={`/post/${url}`}>
 
-                <Col s={8} p={8}>
+                <Col s={8} p={8}
+                    style={{height: "100%"}}>
                     <SafeImage
                         alt={"blog image"}
                         height={250}
@@ -59,11 +63,16 @@ export const BlogCard: React.FC<IProps> = (props) => {
                                 "rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%)",
                         }} />
                     </div>
-                    <Button
-                        color={!raised ? "default" : "primary"}
-                        variant="contained">Read more</Button>
                 </Col>
             </ButtonBase>
+            <Button
+                color={!raised ? "default" : "primary"}
+                style={{
+                    width: "calc(100% - 16px)",
+                    position: "absolute",
+                    left: 8, right: 8, bottom: 8,
+                }}
+                variant="contained">Read more</Button>
         </Card>
     );
 };

@@ -47,7 +47,7 @@ export const Markdown: React.FC<IProps> = ({scale = false, ...rest}) => {
     rest.style = {
         fontFamily: 'Roboto',
         ...rest.style, 
-    }
+    };
 
     return (
         <ReactMarkdown

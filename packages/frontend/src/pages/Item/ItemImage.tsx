@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom';
 
 interface IProps {
     item: IItem;
-    url: string
+    url: string;
 }
 
 export const ItemImage: React.FC<IProps> = (props) => {
