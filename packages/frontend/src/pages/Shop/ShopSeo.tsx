@@ -32,7 +32,7 @@ export const ShopSeo: React.FC<IProps> = (props) => {
                         <AccordionSummary style={{padding: "4px 16px"}}
                             expandIcon={<ExpandMore />}>
                             <Typography
-                                variant="h6" component="p" color="inherit">
+                                variant="h6" component="h2" color="inherit">
                                 {header}
                             </Typography>
                         </AccordionSummary>
