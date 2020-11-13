@@ -9,11 +9,13 @@ import {OptionEntity} from "./crud/option/option.entity";
 import {InfoEntity} from "./crud/info/info.entity";
 import {SubscriptionEntity} from "./crud/subscription/subscription.entity";
 import {MetaEntity} from "./crud/meta/meta.entity";
+import {ReviewEntity} from "./crud/review/review.entity";
 
 const entities = [
     BaseEntity, MetaEntity,
     UserEntity, BookingEntity,
     SubscriptionEntity,
+    ReviewEntity,
     ItemEntity, BlogEntity, GameEntity, TagEntity, OptionEntity, InfoEntity,
 ];
 

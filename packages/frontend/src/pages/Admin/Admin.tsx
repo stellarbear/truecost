@@ -6,7 +6,7 @@ import {NoSsr} from '@material-ui/core';
 export const Admin = () => (
     <NoSsr>
         <InnerHeader
-            scroll
+            wrap
             prefix="admin"
             routes={admin.routes}
         />

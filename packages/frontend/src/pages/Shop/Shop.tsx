@@ -1,7 +1,6 @@
 import React, {useMemo} from "react";
 import {useStore} from "pages/Data/Wrapper";
 import {Chip, Container, Divider, Hidden, NoSsr, Paper, Typography} from "@material-ui/core";
-import {dictSort} from "@truecost/shared";
 import {useStorage} from "auxiliary/useStorage";
 import {Col, Row, RowGrid} from "pages/Base/Grid";
 import {ArraySlice} from "components/generic/components/ArraySlice";
@@ -37,7 +36,7 @@ const Shop: React.FC = () => {
     const {current: {shop, game}} = useStore();
 
     const {tags, items} = shop();
-    const itemIds = dictSort(items.id).filter(t => !items.id[t].direct);
+    const itemIds = Object.keys(items.id).filter(t => !items.id[t].direct);
     const tagIds = Object.keys(tags.id);
 
     const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => {
@@ -140,13 +139,13 @@ const Shop: React.FC = () => {
                 <Paper style={{width: "100%"}}>
                     <Col p={8}>
                         <Row p={[2, 8]} wrap>
-                            {dictSort(tags.id, tags.base).map(tagId => tag(tagId))}
+                            {tags.base.map(tagId => tag(tagId))}
                         </Row>
                         {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
                             <Col s={8} p={8} key={tagId}>
                                 <Divider />
                                 <Row p={[2, 0]} wrap>
-                                    {dictSort(tags.id, tags.id[tagId].children).map(tagId => tag(tagId, index + 1))}
+                                    {tags.id[tagId].children.map(tagId => tag(tagId, index + 1))}
                                 </Row>
                             </Col>
                         ))}

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
-import {Box, Container} from '@material-ui/core';
+import {Box, Button, Container} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import {parseApolloError} from 'auxiliary/error';
 import {Col} from 'pages/Base/Grid';
 import {BookingCard} from 'pages/Track/BookingCard';
 import {gql, useQuery} from '@apollo/client';
+import {InfoCard} from 'pages/Base/InfoCard';
 
 const GET_BOOKING = gql`
     query UserGetBooking {
@@ -28,14 +29,29 @@ export const AccountOrder: React.FC = () => {
 
     setLoading(loading);
 
+    const orders = (data?.UserGetBooking &&
+        Array.isArray(data.UserGetBooking) &&
+        data.UserGetBooking) || [];
+
+    if (orders.length == 0) {
+        return (
+            <InfoCard
+                text={[
+                    'You have not ordered anything yet',
+                    'Do not forget to (:',
+                ]}
+                actions={[
+                    <Button key={0}>To the shop!</Button>,
+                ]} />
+        );
+    }
+
     return (
         <Container maxWidth="sm">
             <Col s={16}>
                 {
-                    data?.UserGetBooking &&
-                    Array.isArray(data.UserGetBooking) &&
-                    data.UserGetBooking.map((raw: any, index: number) =>
-                        <BookingCard raw={raw} key={index}/>,
+                    orders.map((raw: any, index: number) =>
+                        <BookingCard raw={raw} key={index} />,
                     )
                 }
             </Col>

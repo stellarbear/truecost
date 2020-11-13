@@ -11,19 +11,19 @@ import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Loyalty from '@material-ui/icons/Loyalty';
 import {Col} from './Base/Grid';
 import {useStore} from './Data/Wrapper';
-import {dictSort} from '@truecost/shared';
 import {Link} from 'react-router-dom';
 import TextCard from './Base/TextCard';
 import {Meta} from './Base/Meta';
 
 export const Discount: React.FC = () => {
     const {subs, current: {game}} = useStore();
-    const subsSorted = dictSort(subs);
     const url = '/' + game.url;
 
     const mock = () => (
         <Typography variant="caption">Unfortunaltely, no plans available</Typography>
     );
+
+    const ids = Object.keys(subs);
 
     return (
         <>
@@ -87,8 +87,8 @@ export const Discount: React.FC = () => {
                         </TimelineContent>
                     </TimelineItem>
                     <Typography><strong>Сurrently available plans:</strong></Typography>
-                    {subsSorted.length > 0 ?
-                        subsSorted.map(subId => (
+                    {ids.length > 0 ?
+                        ids.map(subId => (
                             <Typography key={subId} style={{
                                 userSelect: "none",
                             }}>{`• ${subs[subId].description}`}</Typography>

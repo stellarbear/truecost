@@ -108,5 +108,12 @@ export const BULK_QUERY = gql`
             item  { id }
             game  { id }
         }
+
+        ReviewAll {
+            id
+            who
+            text
+            title
+        }
     }
 `;

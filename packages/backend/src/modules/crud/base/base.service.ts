@@ -52,7 +52,7 @@ export abstract class BaseService<T> {
     }
 
     async all() {
-        const result = await this.repository.findAll({populate: false});
+        const result = await this.repository.findAll({populate: false, orderBy: {order: "ASC"}});
 
         return result;
     }

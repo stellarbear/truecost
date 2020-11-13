@@ -17,6 +17,7 @@ import {ItemEta} from './ItemEta';
 import {HowToUse} from 'pages/Base/HowToUse';
 import {PersonalDiscount} from 'pages/Base/PersonalDiscount';
 import {ItemOrdered} from './ItemOrdered';
+import {TrustPanel} from 'pages/Base/TrustPanel';
 
 interface IProps {
     item: IItem;
@@ -38,7 +39,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
         <div>
             <Grid container spacing={4}>
                 <Grid item xs={12} md={6}>
-                    <ItemImage item={item} url={url}/>
+                    <ItemImage item={item} url={url} />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <ItemDescription item={item} />
@@ -63,6 +64,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 Related goods
             </Button>
             <ItemRelated item={item} />
+            <TrustPanel style={{marginBottom: 16, marginTop: 16}} />
             <PersonalDiscount />
             <Button startIcon={< ArrowDownward />} style={{marginTop: 16}}>
                 How to use our service

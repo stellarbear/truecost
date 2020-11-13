@@ -4,6 +4,7 @@ import {AdminBooking} from "./Booking";
 import {AdminInfo} from "./Info";
 import {AdminSubscription} from "./Subscription";
 import {AdminMeta} from "./Meta";
+import {AdminReview} from "./Review";
 
 const routes = [
     {
@@ -37,6 +38,10 @@ const routes = [
     {
         url: "meta",
         component: AdminMeta,
+    },
+    {
+        url: "review",
+        component: AdminReview,
     },
     {
         url: "subscription",

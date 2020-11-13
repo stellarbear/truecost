@@ -3,7 +3,6 @@ import {Divider, Grid, Typography} from "@material-ui/core";
 import {useStore} from "../../Data/Wrapper";
 import {Meta} from "pages/Base/Meta";
 import {HomeGameSelector} from "./HomeGameSelector";
-import {dictSort} from "@truecost/shared";
 import {GameTopOffers} from "../Shared/GameTopOffers";
 import {GameInfo} from "../Shared/GameInfo";
 import {HomeTrustPilot} from "./HomeTrustPilot";
@@ -29,31 +28,11 @@ const info = (text: string) => (
 
 export const HomeLanding: React.FC = () => {
     const {games: {id: games}} = useStore();
-    const gamesSorted = dictSort(games);
-
-    const schema = {
-        "@context": "https://schema.org/",
-        "@type": "BreadcrumbList",
-        "itemListElement": [{
-            "@type": "ListItem",
-            "position": 1,
-            "name": "TrueCost",
-            "item": "https://truecost.gg/",
-        }, ...Object.keys(games).map((gameId, i) => ({
-            "@type": "ListItem",
-            "position": (i + 2),
-            "name": `${games[gameId].name}`,
-            "item": `https://truecost.gg/${games[gameId].url}`,
-        }))],
-    };
+    const ids = Object.keys(games);
 
     return (
         <React.Fragment>
-            <Meta >
-                <script type="application/ld+json">
-                    {JSON.stringify(schema)}
-                </script>
-            </Meta>
+            <Meta />
             <Grid container spacing={2}
                 style={{
                     color: "#000",
@@ -68,7 +47,7 @@ export const HomeLanding: React.FC = () => {
                     <PersonalDiscount />
                 </Grid>
                 {
-                    gamesSorted.map(gameId => (
+                    ids.map(gameId => (
                         <React.Fragment key={gameId}>
                             <Grid item xs={12} >
                                 {info(`${games[gameId].name} top deals`)}

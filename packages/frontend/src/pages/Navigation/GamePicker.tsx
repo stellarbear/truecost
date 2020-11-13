@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Menu, MenuItem, Typography} from '@material-ui/core';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import {dictSort} from '@truecost/shared';
 import {useStore} from 'pages/Data/Wrapper';
 import {Link, useLocation} from 'react-router-dom';
 import {Row} from 'pages/Base/Grid';
@@ -17,9 +16,9 @@ export const GamePicker: React.FC = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const current = game;
-    const gamesSorted = dictSort(games.id);
+    const ids = Object.keys(games.id);
 
-    if (pathname === "/" || gamesSorted.length === 0 || !current) {
+    if (pathname === "/" || ids.length === 0 || !current) {
         return null;
     }
 
@@ -40,7 +39,7 @@ export const GamePicker: React.FC = () => {
                 open={Boolean(anchorEl)}
                 onClose={() => setAnchorEl(null)}
             >
-                {gamesSorted.map((game) => (
+                {ids.map((game) => (
                     <Link to={'/' + games.id[game].url}
                           style={{textDecoration: 'none', outline: "none"}}
                           key={game}

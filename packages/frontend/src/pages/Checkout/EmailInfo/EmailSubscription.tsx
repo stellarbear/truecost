@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {dictSort} from '@truecost/shared';
 import {Card, Typography} from '@material-ui/core';
 import {Col, Row} from 'pages/Base/Grid';
 import {colors} from 'theme';
@@ -16,7 +15,7 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
     const {subs} = useStore();
     const [hovered, setHovered] = useState<string>("");
 
-    const subsSorted = dictSort(subs);
+    const ids = Object.keys(subs);
     const payed = !!current;
 
     const mock = () => (
@@ -27,8 +26,8 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
         <Row s={16} style={{
             opacity: payed ? 0.4 : 1.0,
         }}>
-            {subsSorted.length > 0 ?
-                subsSorted.map(subId => (
+            {ids.length > 0 ?
+                ids.map(subId => (
                     <Card
                         key={`${subId}`}
                         raised={hovered === subId}

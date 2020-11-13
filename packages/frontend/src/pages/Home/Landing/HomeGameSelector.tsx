@@ -1,5 +1,5 @@
 import {ButtonBase, Typography} from '@material-ui/core';
-import {Dict, dictSort, IGame} from '@truecost/shared';
+import {Dict, IGame} from '@truecost/shared';
 import {backend} from 'auxiliary/route';
 import {SafeImage} from 'components/SafeImage';
 import {Col, RowSwipable} from 'pages/Base/Grid';
@@ -16,7 +16,7 @@ const hardcodedWidth = 1232;
 export const HomeGameSelector: React.FC<IProps> = (props) => {
     const {games} = props;
     const {update: {setGame}} = useStore();
-    const gamesSorted = dictSort(games);
+    const ids = Object.keys(games);
 
     const image = (game: IGame) =>
         `${backend.uri}/${game.id}/${game.preview?.[0]}/u.png`;
@@ -25,11 +25,11 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
         <RowSwipable id="services"
             s={16} w={Math.max(
                 150,
-                (hardcodedWidth - 16 * (gamesSorted.length - 1))
-                / gamesSorted.length)
+                (hardcodedWidth - 16 * (ids.length - 1))
+                / ids.length)
             }
             collapse>
-            {gamesSorted.map(gameId => (
+            {ids.map(gameId => (
                 <ButtonBase
                     key={gameId}
                     component={Link}

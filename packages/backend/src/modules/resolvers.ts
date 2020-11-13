@@ -13,6 +13,7 @@ import {BookingResolver} from "./other/booking";
 import {PaymentResolver} from "./other/payment";
 import {MetaCRUDResolver} from "./crud/meta/meta.resolver";
 import {BlogResolver} from "./other/blog";
+import {ReviewCRUDResolver} from "./crud/review/review.resolver";
 
 const resolvers = [
     BlogResolver,
@@ -20,6 +21,7 @@ const resolvers = [
     MetaCRUDResolver,
     BlogCRUDResolver, BookingResolver,
     SubscriptionCRUDResolver,
+    ReviewCRUDResolver,
     UserCRUDResolver, BookingCRUDResolver,
     AccountResolver, SessionResolver,
     TagCRUDResolver, GameCRUDResolver, ItemCRUDResolver,

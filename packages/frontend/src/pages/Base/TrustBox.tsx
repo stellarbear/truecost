@@ -6,6 +6,8 @@ interface TrustBoxProps {
     theme?: "light" | "dark";
 }
 
+const url = "https://www.trustpilot.com/review/truecost.gg?stars=5";
+
 export const TrustBox: React.FC<TrustBoxProps> = (props) => {
     const {
         size,
@@ -38,7 +40,7 @@ export const TrustBox: React.FC<TrustBoxProps> = (props) => {
     return (
         <a target="_blank" rel="noreferrer"
             style={{width: "100%", height: "100%"}}
-            href="https://www.trustpilot.com/review/truecost.gg?stars=5">
+            href={url}>
             <ButtonBase
                 style={{width: "100%", height: "100%", padding: 16}}>
                 <div

@@ -8,6 +8,7 @@ import {ICartRemove, ICartUpsert, useCart} from "./useCart";
 import {Mock} from "./Mock";
 import {IMeta, useMeta} from "./useMeta";
 import {useQuery} from "@apollo/client";
+import {IReview, useReview} from "./useReview";
 
 interface IRawContext {
     data: any;
@@ -15,6 +16,7 @@ interface IRawContext {
 
 export interface IDataContext {
     meta: Dict<IMeta>;
+    reviews: IReview[];
     games: IGameContext["data"];
     infos: IInfoContext["data"];
     subs: Dict<ISubscription>;
@@ -67,10 +69,11 @@ const Raw: React.FC = ({children}) => {
 
 const Data: React.FC = ({children}) => {
     const {data} = useContext(RawContext);
-    const {MetaAll, Stripe, ...RestAll} = data;
+    const {MetaAll, ReviewAll, Stripe, ...RestAll} = data;
 
     const [store] = useState(useData(RestAll));
     const [meta] = useState(useMeta(MetaAll));
+    const [reviews] = useState(useReview(ReviewAll));
 
     const {cart, itemUpsert, itemRemove, cartWipe, cartCount, itemCount} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
@@ -79,6 +82,7 @@ const Data: React.FC = ({children}) => {
     return (
         <DataContext.Provider value={{
             meta,
+            reviews,
             subs: store.shop.subs,
             games: store.game.data,
             infos: store.info.data,
