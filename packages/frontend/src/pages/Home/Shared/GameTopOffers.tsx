@@ -45,7 +45,7 @@ export const GameTopOffers: React.FC<IProps> = (props) => {
                     <RowSwipable
                         noArrows
                         w={250} s={16} p={16}
-                        style={{marginLeft: -16, marginTop: -16}}
+                        style={{margin: -16}}
                         id={`${game.url} top offers`}>
                         {renderItems()}
                     </RowSwipable>
