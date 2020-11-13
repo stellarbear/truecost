@@ -16,7 +16,6 @@ interface IProps {
     logo: string;
 }
 
-
 const useStyles = makeStyles({
     paper: {
         overflow: "hidden",
@@ -24,9 +23,7 @@ const useStyles = makeStyles({
 });
 
 export const Mobile: React.FC<IProps> = (props) => {
-    const {
-        logo,
-    } = props;
+    const {logo} = props;
     const classes = useStyles();
     const {pathname} = useLocation();
     const [open, setOpen] = React.useState<boolean>(false);
@@ -45,37 +42,45 @@ export const Mobile: React.FC<IProps> = (props) => {
         <Col>
             {pathname !== "/" && button(url + '/shop', "Shop")}
             {button(url + '/checkout', "Checkout")}
-            <Divider />
-            {button("/blog", "Blog")}
             {button("/track", "Track")}
+            <Divider />
             {button("/discount", "Discount")}
             {button("/contact", "Contact")}
             {button("/about", "About")}
+            {button("/blog", "Blog")}
             <Divider />
         </Col>
     );
 
-    const appBar = () => {
-        return (
-            <Row fullWidth justify="space-between"
-                style={{paddingLeft: 16, paddingRight: 32}}>
-                <Row>
-                    <IconButton
-                        color="inherit"
-                        aria-label="Open drawer"
-                        onClick={() => setOpen(!open)}
-                    >
-                        <Menu />
-                    </IconButton>
-                    <GamePicker />
-                </Row>
-                <Row>
-                    <CartPicker />
-                    <AccountPicker />
-                </Row>
+    const home = () => pathname === "/" && (
+        <Button component={Link} to={'/'}>
+            <img
+                alt="logo icon"
+                height={80} width={80} src={"/logo-white.png"}
+                style={{marginTop: -20, marginBottom: -20}} />
+        </Button>
+    );
+
+    const appBar = () => (
+        <Row fullWidth justify="space-between"
+            style={{paddingLeft: 16, paddingRight: 32}}>
+            <Row>
+                <IconButton
+                    color="inherit"
+                    aria-label="Open drawer"
+                    onClick={() => setOpen(!open)}
+                >
+                    <Menu />
+                </IconButton>
+                <GamePicker />
+                {home()}
             </Row>
-        );
-    };
+            <Row>
+                <CartPicker />
+                <AccountPicker />
+            </Row>
+        </Row>
+    );
 
     const drawer = () => (
         <Drawer
