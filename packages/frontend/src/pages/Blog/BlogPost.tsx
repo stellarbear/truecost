@@ -92,8 +92,7 @@ export const BlogPost: React.FC = () => {
                     alt={"blog image"}
                     height={300}
                     src={image} style={{
-                        minWidth: 300,
-                        width: 300, height: 300, objectFit: "cover", marginLeft: 0,
+                        minWidth: 300, height: 300, objectFit: "cover", marginLeft: 0,
                     }} />
                 <Typography variant="h4" component="h1">{name}</Typography>
                 <Divider style={{width: "100%"}}/>
