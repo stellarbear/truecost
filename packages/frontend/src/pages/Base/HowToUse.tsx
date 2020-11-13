@@ -40,7 +40,13 @@ export const HowToUse: React.FC = () => (
                         </TimelineDot>
                         {(i < data.length - 1) && <TimelineConnector />}
                     </TimelineSeparator>
-                    <TimelineContent>
+                    <TimelineContent
+                        style={{
+                            display: "flex",
+                            flexDirection: !help ? "row" : "column",
+                            alignItems: !help ? "center" : "flex-start"
+                        }}
+                    >
                         <Typography variant="h6" >
                             {text}
                         </Typography>

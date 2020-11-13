@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useState} from 'react';
 import {CalcPrice, CalcResult, IItem} from "@truecost/shared";
 import {useStore} from 'pages/Data/Wrapper';
-import {Typography, Switch} from '@material-ui/core';
+import {Typography, Switch, NoSsr} from '@material-ui/core';
 import {ItemDivider} from './ItemDivider';
 import {Row} from 'pages/Base/Grid';
 
@@ -53,9 +53,11 @@ export const ItemOption: React.FC<IProps> = (props) => {
                         }}
                     >
                         <Row align="center">
-                            <Switch
-                                checked={selected.includes(optionId)}
-                            />
+                            <NoSsr>
+                                <Switch
+                                    checked={selected.includes(optionId)}
+                                />
+                            </NoSsr>
                             <Typography variant="body1" style={{
                                 textAlign: "left",
                                 userSelect: "none",
