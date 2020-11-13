@@ -13,11 +13,11 @@ interface IProps {
     id: string;
     gameId?: string;
     gameUrl?: string;
-    noprice?: boolean;
+    ordered?: boolean;
 }
 
 const ItemCard: React.FC<IProps> = (props) => {
-    const {id, gameId, gameUrl, noprice = false} = props;
+    const {id, gameId, gameUrl, ordered = false} = props;
 
     const {current: {shop, game: {url}}, update: {cart, setGame}} = useContext(DataContext);
     const {
@@ -109,26 +109,31 @@ const ItemCard: React.FC<IProps> = (props) => {
                                 style={{maxHeight: 70, overflow: "hidden", width: "100%"}}>
                                 {item.name}
                             </Typography>
-                            {noprice && (
-                                <Typography variant="body2" align="center"
-                                    style={{maxHeight: 70, overflow: "hidden", width: "100%"}}>
-                                    Ordered
-                                    <strong>{` ${(item.buy) || 0} times`}</strong>
-                                </Typography>
-                            )}
                         </Col>
-                        {noprice || (
-                            <Button
-                                style={{minWidth: "fit-content"}}
-                                size="large"
-                                color="primary"
-                                variant="outlined"
-                            >
-                                <PriceTypography price={itemPrice.value}
-                                    discount={item.discount} />
-                            </Button>
-                        )}
+                        <Button
+                            style={{minWidth: "fit-content"}}
+                            size="large"
+                            color="primary"
+                            variant="outlined"
+                        >
+                            <PriceTypography price={itemPrice.value}
+                                discount={item.discount} />
+                        </Button>
                     </Row>
+                    {
+                        ordered && (
+                            <>
+                                <Divider />
+                                <Typography variant="body2" align="center"
+                                    style={{
+                                        maxHeight: 70, overflow: "hidden", width: "100%",
+                                        padding: 8
+                                    }}>
+                                    Ordered <strong>{` ${(item.buy) || 0} times`}</strong>
+                                </Typography>
+                            </>
+                        )
+                    }
                 </Col>
             </ButtonBase>
         );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {IItem} from "@truecost/shared";
+import {IItem, shuffle} from "@truecost/shared";
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, RowGrid} from 'pages/Base/Grid';
 import ItemCard from 'pages/Shop/ItemCard';
@@ -9,23 +9,8 @@ interface IProps {
     item: IItem;
 }
 
-const shuffle = (array: string[]) => {
-    let counter = array.length;
-
-    while (counter > 0) {
-        const index = Math.floor(Math.random() * counter);
-        counter--;
-
-        const temp = array[counter];
-        array[counter] = array[index];
-        array[index] = temp;
-    }
-
-    return array;
-};
-
 const getRelated = (items: Record<string, IItem>, ban: string) => {
-    const all = shuffle(Object.keys(items).filter(e => e != ban));
+    const all = shuffle(Object.keys(items).filter(e => e != ban && !items[e].direct));
 
     return all.slice(0, Math.min(all.length - 1, 8));
 };

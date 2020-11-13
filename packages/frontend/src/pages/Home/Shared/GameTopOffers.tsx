@@ -29,7 +29,7 @@ export const GameTopOffers: React.FC<IProps> = (props) => {
                     w={250} s={16} p={16}>
                     {top.slice(0, 12).map(id => (
                         <ItemCard
-                            noprice
+                            ordered
                             gameUrl={game.url}
                             gameId={game.id}
                             key={id} id={id} />
