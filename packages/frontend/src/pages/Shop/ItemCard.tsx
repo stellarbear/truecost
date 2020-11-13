@@ -127,7 +127,7 @@ const ItemCard: React.FC<IProps> = (props) => {
                                 <Typography variant="body2" align="center"
                                     style={{
                                         maxHeight: 70, overflow: "hidden", width: "100%",
-                                        padding: 8
+                                        padding: 8,
                                     }}>
                                     Ordered <strong>{` ${(item.buy) || 0} times`}</strong>
                                 </Typography>

@@ -12,7 +12,7 @@ interface IProps {
     p?: number;
     collapse?: boolean;
     style?: CSSProperties;
-    noArrows?: boolean
+    noArrows?: boolean;
 }
 
 const useStyles = makeStyles({

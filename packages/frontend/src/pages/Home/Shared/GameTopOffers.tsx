@@ -30,7 +30,7 @@ export const GameTopOffers: React.FC<IProps> = (props) => {
                 gameId={game.id}
                 key={id} id={id} />
         ))
-    )
+    );
 
     return (
         <>

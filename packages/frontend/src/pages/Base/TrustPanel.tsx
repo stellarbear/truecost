@@ -1,5 +1,5 @@
 import React from "react";
-import {ButtonBase, Hidden, NoSsr} from "@material-ui/core";
+import { Hidden, NoSsr} from "@material-ui/core";
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import {shuffle} from "@truecost/shared";
 import {Col, Row, RowSwipable} from "./Grid";

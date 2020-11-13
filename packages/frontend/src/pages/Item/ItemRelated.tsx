@@ -2,8 +2,9 @@ import * as React from 'react';
 import {useState} from 'react';
 import {IItem, shuffle} from "@truecost/shared";
 import {useStore} from 'pages/Data/Wrapper';
-import {Col, RowGrid} from 'pages/Base/Grid';
+import {Col, RowGrid, RowSwipable} from 'pages/Base/Grid';
 import ItemCard from 'pages/Shop/ItemCard';
+import {Hidden} from '@material-ui/core';
 
 interface IProps {
     item: IItem;
@@ -23,11 +24,27 @@ export const ItemRelated: React.FC<IProps> = (props) => {
     const [related, setRelated] = useState<string[]>([]);
     React.useEffect(() => setRelated(getRelated(items.id, id)), [id]);
 
+    const renderItems = () => (
+        related.map(id => <ItemCard key={id} id={id} />)
+    );
+
     return (
         <Col p={[16, 0]}>
-            <RowGrid w={250} s={16} p={16}>
-                {related.map(id => <ItemCard key={id} id={id} />)}
-            </RowGrid>
+            <Hidden smDown>
+                <RowGrid
+                    w={250} s={16} p={16}>
+                    {renderItems()}
+                </RowGrid>
+            </Hidden>
+            <Hidden mdUp>
+                <RowSwipable
+                    noArrows
+                    w={250} s={16} p={16}
+                    style={{margin: -16}}
+                    id={`related offers`}>
+                    {renderItems()}
+                </RowSwipable>
+            </Hidden>
         </Col>
     );
 };
