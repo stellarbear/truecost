@@ -56,7 +56,7 @@ export const Mobile: React.FC<IProps> = (props) => {
         <Button component={Link} to={'/'}>
             <img
                 alt="logo icon"
-                height={80} width={80} src={"/logo-white.png"}
+                height={80} width={80} src={logo}
                 style={{marginTop: -20, marginBottom: -20}} />
         </Button>
     );
@@ -99,7 +99,7 @@ export const Mobile: React.FC<IProps> = (props) => {
                     <Button component={Link} to={homeUrl}>
                         <img
                             alt="logo icon"
-                            height={48} width={48} src={logo}
+                            height={48} width={48} src={"/logo-black.png"}
                             style={{marginTop: -20, marginBottom: -20}} />
                     </Button>
                 </Row>

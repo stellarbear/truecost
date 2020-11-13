@@ -1,6 +1,6 @@
-import {Button} from '@material-ui/core';
+import {Button, Hidden} from '@material-ui/core';
 import {IGame} from '@truecost/shared';
-import {RowGrid} from 'pages/Base/Grid';
+import {RowGrid, RowSwipable} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
 import ItemCard from 'pages/Shop/ItemCard';
 import React from 'react';
@@ -22,19 +22,34 @@ export const GameTopOffers: React.FC<IProps> = (props) => {
         return <div />;
     }
 
+    const renderItems = () => (
+        top.slice(0, 12).map(id => (
+            <ItemCard
+                ordered
+                gameUrl={game.url}
+                gameId={game.id}
+                key={id} id={id} />
+        ))
+    )
+
     return (
         <>
             <div style={{marginBottom: 16}}>
-                <RowGrid
-                    w={250} s={16} p={16}>
-                    {top.slice(0, 12).map(id => (
-                        <ItemCard
-                            ordered
-                            gameUrl={game.url}
-                            gameId={game.id}
-                            key={id} id={id} />
-                    ))}
-                </RowGrid>
+                <Hidden smDown>
+                    <RowGrid
+                        w={250} s={16} p={16}>
+                        {renderItems()}
+                    </RowGrid>
+                </Hidden>
+                <Hidden mdUp>
+                    <RowSwipable
+                        noArrows
+                        w={250} s={16} p={16}
+                        style={{marginLeft: -16, marginTop: -16}}
+                        id={`${game.url} top offers`}>
+                        {renderItems()}
+                    </RowSwipable>
+                </Hidden>
             </div>
             <Button fullWidth
                 variant="contained"

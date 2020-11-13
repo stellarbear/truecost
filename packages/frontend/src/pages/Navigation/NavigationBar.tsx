@@ -41,7 +41,7 @@ export const NavigationBar: React.FC = () => {
             }}>
                 <Toolbar style={{padding: 0}}>
                     <Hidden lgUp>
-                        <Mobile logo={"/logo-black.png"} />
+                        <Mobile logo={logo} />
                     </Hidden>
                     <Hidden mdDown>
                         <Desktop logo={logo} />

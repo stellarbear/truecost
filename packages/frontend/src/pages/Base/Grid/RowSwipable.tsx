@@ -12,6 +12,7 @@ interface IProps {
     p?: number;
     collapse?: boolean;
     style?: CSSProperties;
+    noArrows?: boolean
 }
 
 const useStyles = makeStyles({
@@ -26,6 +27,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
     const {
         id,
         style = {},
+        noArrows = false,
         collapse = false,
         p = 0, s = 0, w,
         children,
@@ -47,7 +49,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
     };
 
     React.useEffect(() => {
-        if (rowRef.current) {
+        if (rowRef.current && !noArrows) {
             setArrows(rowRef.current.offsetWidth <
                 rowRef.current.scrollWidth);
         }
