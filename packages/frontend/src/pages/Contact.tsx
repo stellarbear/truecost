@@ -22,7 +22,6 @@ export const Contact: React.FC = () => {
 
     return (
         <>
-            <TrustPanel />
             <Meta>
                 <script type="application/ld+json">
                     {JSON.stringify(schema)}
