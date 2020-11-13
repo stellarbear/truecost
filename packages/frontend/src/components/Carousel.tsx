@@ -92,7 +92,7 @@ export const Carousel: React.FC<IProps> = (props) => {
     );
 
     const dots = () => children.length > 1 && (
-        <Row>
+        <Row justify="center">
             {
                 (children as any[]).map((_, index) => (
                     <FiberManualRecord
