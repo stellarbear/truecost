@@ -22,7 +22,7 @@ export const NumericField: React.FC<IProps> = (props) => {
         max = 4096,
         onChangeEvent,
     } = props;
-    const {state, setState, bubbleState, setAndBubbleState} = useEventState(value, onChangeEvent);
+    const {state, setState, bubbleState, setAndBubbleState} = useEventState(value, (e) => onChangeEvent(e || 0));
 
     const validate = (value: any) =>
         Math.min(Math.max(min, parseInt(value, 10)), max);
