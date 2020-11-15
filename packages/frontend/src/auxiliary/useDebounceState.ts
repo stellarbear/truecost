@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 
 type Event<T> = (value: T) => void;
 
-export const useDebounceState = <T>(value: T, event: Event<T>, lag = 1000) => {
+export const useDebounceState = <T>(value: T, event: Event<T>, lag = 200) => {
     const [timerID, setTimerID] = useState<NodeJS.Timeout>();
     const [state, setState] = useState(value);
     useEffect(() => setState(value), [value]);
