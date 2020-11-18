@@ -61,6 +61,7 @@ export class BookingResolver {
         @Arg("email") email: string,
         @Arg("booking") booking: string,
         @Arg("info") info: string,
+        @Arg("coupon", {nullable: true}) coupon?: string,
         @Arg("subscription", {nullable: true}) subscription?: string,
     ) {
         console.log("arrived <----------------------------------------");
@@ -177,10 +178,11 @@ export class BookingResolver {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             customer_email: email,
-            //allow_promotion_codes: true,
-            discounts: [{
-                promotion_code: 'TEST',
-            }],
+            ...(coupon ? {
+                discounts: [{
+                    coupon,
+                }],
+            } : {}),
             metadata: {info, game, email: userEmail, subscription: sub},
             locale: "en",
             line_items,

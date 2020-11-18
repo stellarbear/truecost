@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {subscription, validate} from '@truecost/shared';
-import {Button, CircularProgress, TextField} from '@material-ui/core';
-import {Row} from 'pages/Base/Grid';
+import {CircularProgress, TextField} from '@material-ui/core';
+import {Col} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
 import {ErrorOption} from 'react-hook-form';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
@@ -20,18 +20,17 @@ interface IProps {
     register: any;
     email: string;
     error?: string;
-    disabled: boolean;
     clearErrors: () => void;
     setCurrent: (value?: string) => void;
     setError: (name: "email", error: ErrorOption) => void;
 }
 
 export const EmailFields: React.FC<IProps> = (props) => {
-    const {error, disabled, setCurrent, register, email, setError, clearErrors} = props;
+    const {error, setCurrent, register, email, setError, clearErrors} = props;
     const [query, {data, loading}] = useLazyQuery(GET_SUBSCRIPTION);
     const {notify} = useNotification();
 
-    const [mounted, setMounted] = React.useState(false)
+    const [mounted, setMounted] = React.useState(false);
 
     const onEmailUpdate = (email: string) => {
         console.log(email);
@@ -48,11 +47,11 @@ export const EmailFields: React.FC<IProps> = (props) => {
 
     React.useEffect(() => {
         if (mounted) {
-            bubbleState(email)
+            bubbleState(email);
         } else {
-            setMounted(true)
+            setMounted(true);
         }
-    }, [email])
+    }, [email]);
 
     const {current: {user}} = useStore();
 
@@ -79,10 +78,9 @@ export const EmailFields: React.FC<IProps> = (props) => {
     }, [data?.UserGetSubscription]);
 
     return (
-        <Row s={8}>
+        <Col s={8}>
             <TextField
                 fullWidth
-                disabled={disabled}
                 inputRef={register({
                     required: "This field is required",
                     pattern: {
@@ -100,9 +98,16 @@ export const EmailFields: React.FC<IProps> = (props) => {
                     setCurrent();
                 }}
                 InputProps={{
-                    endAdornment: loading && <CircularProgress size={24} />
+                    endAdornment: loading && <CircularProgress size={24} />,
                 }}
             />
-        </Row>
+            <TextField
+                fullWidth
+                inputRef={register()}
+                name={"coupon"}
+                label="Promotion code"
+                variant="outlined"
+            />
+        </Col>
     );
 };

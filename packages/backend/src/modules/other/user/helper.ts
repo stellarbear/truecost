@@ -1,1 +1,1 @@
-export const remail = (email: string): any => ({$regex: email.trim(), $options: 'i'});
+export const remail = (email: string): any => ({$regex: new RegExp(`^${email.trim()}$`, 'i')});

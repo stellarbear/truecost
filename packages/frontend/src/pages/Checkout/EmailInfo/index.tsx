@@ -17,11 +17,16 @@ interface IProps {
 
 interface BookingSubmit {
     email: string;
+    coupon?: string;
 }
 
 const MAKE_BOOKING = gql`
-    mutation BookingMake($email: String!, $booking: String!, $info: String!, $game: String!, $subscription: String) {
-        BookingMake(email:$email, booking:$booking, info: $info, game: $game, subscription:$subscription)
+    mutation BookingMake(
+        $email: String!, $booking: String!, $info: String!,
+         $game: String!, $coupon: String, $subscription: String) {
+        BookingMake(
+            email:$email, booking:$booking, info: $info, 
+            game: $game, subscription:$subscription, coupon: $coupon)
     }
 `;
 
@@ -35,12 +40,12 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
 
     const {register, handleSubmit, errors, clearErrors, watch, setError} = useForm<BookingSubmit>({
         reValidateMode: "onBlur",
-        defaultValues: {email: user ? user.email : ""},
+        defaultValues: {email: user ? user.email : "", coupon: ""},
     });
 
     const cartItems = cart();
 
-    const bookingSubmit = async () => {
+    const bookingSubmit = async (input: BookingSubmit) => {
         try {
             clearErrors();
             setLoading(true);
@@ -48,7 +53,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
             const {platform, text, cross, time, zone} = info;
 
             const variables = {
-                email: watch("email"),  //  hack cause var is undefined
+                ...input,
                 game: game.id,
                 subscription: selectedSubscription,
                 booking: JSON.stringify(cartItems),
@@ -87,7 +92,6 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                         setSelected={setSelectedSubscription}
                     />
                     <EmailFields
-                        disabled={!!user}
                         register={register}
                         email={watch("email")}
                         setError={setError}

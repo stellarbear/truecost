@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
-import {Box, Button, CircularProgress, Typography} from '@material-ui/core';
+import {Button, CircularProgress, Typography} from '@material-ui/core';
 import {CalcPrice} from '@truecost/shared';
 import {ModalDialog} from 'components/ModalDialog';
 import {TOS} from 'pages';
@@ -10,7 +10,7 @@ import {Alert} from '@material-ui/lab';
 import {parseApolloError} from 'auxiliary/error';
 
 interface IProps {
-    error?: ApolloError
+    error?: ApolloError;
     selected?: string;
     current?: string;
     loading: boolean;
