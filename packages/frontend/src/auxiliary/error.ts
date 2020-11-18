@@ -13,9 +13,9 @@ const extract = (error: ApolloError): ArrayType => {
             ? graphQLErrors
             : null;
 
-    const prepare = errors.filter((e: any) => e?.message && e?.extensions?.exception?.field);
+    const prepare = errors.filter((e: any) => e?.message);
     const mapped = prepare.map((e: any) => {
-        const fields = e.extensions.exception.field;
+        const fields = e?.extensions?.exception?.field ?? [];
         return ({message: e.message, fields: Array.isArray(fields) ? fields : [fields]});
     });
 
@@ -45,8 +45,6 @@ const covertToString = (errors: any[]): StringType => {
     return result;
 };
 
-///export function parseApolloError(error: undefined): null
-//export function parseApolloError(error: ApolloError): any;
 export function parseApolloError(error: ApolloError): {
     asArray: () => ArrayType;
     asString: () => StringType;

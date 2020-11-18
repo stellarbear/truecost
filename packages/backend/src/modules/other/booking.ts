@@ -177,9 +177,9 @@ export class BookingResolver {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             customer_email: email,
-            allow_promotion_codes: true,
+            //allow_promotion_codes: true,
             discounts: [{
-                promotion_code: '{{COUPON_ID}}',
+                promotion_code: 'TEST',
             }],
             metadata: {info, game, email: userEmail, subscription: sub},
             locale: "en",

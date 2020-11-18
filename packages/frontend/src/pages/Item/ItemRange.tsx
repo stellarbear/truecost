@@ -3,6 +3,7 @@ import {IItem} from "@truecost/shared";
 import RangeField from 'components/generic/components/RangeField';
 import {Col} from 'pages/Base/Grid';
 import {ItemDivider} from './ItemDivider';
+import {NoSsr} from '@material-ui/core';
 
 interface IProps {
     item: IItem;
@@ -20,7 +21,7 @@ export const ItemRange: React.FC<IProps> = (props) => {
     const data = item.range.d.sort((a, b) => a.a - b.a);
 
     return (
-        <>
+        <NoSsr>
             <Col>
                 <RangeField
                     step={item.range.s}
@@ -36,6 +37,6 @@ export const ItemRange: React.FC<IProps> = (props) => {
                 />
             </Col>
             <ItemDivider/>
-        </>
+        </NoSsr>
     );
 };

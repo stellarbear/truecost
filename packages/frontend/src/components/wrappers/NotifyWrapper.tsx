@@ -29,12 +29,12 @@ const NotifyWrapper: React.FC<NotifyProps> = ({children, timeout = 4096}): JSX.E
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
 
-    const notify = (message: string, meta: Record<string, any> = {}): void => {
+    const notify = (message: string, meta: Record<string, any> = {}) => {
         setMessage(message + Object.keys(meta).map(key => `\n[${key}]: ${meta[key]}`));
         setOpen(true);
     };
 
-    const handleClose = (): void => {
+    const handleClose = () => {
         setOpen(false);
     };
 
@@ -51,7 +51,6 @@ const NotifyWrapper: React.FC<NotifyProps> = ({children, timeout = 4096}): JSX.E
                 anchorOrigin={{vertical: "top", horizontal: "center"}}
                 open={open}
                 message={message}
-                onClose={handleClose}
                 TransitionComponent={Fade}
                 action={(
                     <IconButton
@@ -60,7 +59,7 @@ const NotifyWrapper: React.FC<NotifyProps> = ({children, timeout = 4096}): JSX.E
                         color='inherit'
                         onClick={handleClose}
                     >
-                        <Close/>
+                        <Close />
                     </IconButton>
                 )}
             />

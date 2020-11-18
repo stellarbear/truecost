@@ -1,19 +1,23 @@
 import * as React from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
-import {Button, CircularProgress, Typography} from '@material-ui/core';
+import {Box, Button, CircularProgress, Typography} from '@material-ui/core';
 import {CalcPrice} from '@truecost/shared';
 import {ModalDialog} from 'components/ModalDialog';
 import {TOS} from 'pages';
+import {ApolloError} from '@apollo/client';
+import {Alert} from '@material-ui/lab';
+import {parseApolloError} from 'auxiliary/error';
 
 interface IProps {
+    error?: ApolloError
     selected?: string;
     current?: string;
     loading: boolean;
 }
 
 export const EmailPrice: React.FC<IProps> = (props) => {
-    const {current, selected, loading} = props;
+    const {current, selected, loading, error} = props;
     const {subs, current: {cart, shop}} = useStore();
 
     const cartItems = cart();
@@ -25,11 +29,11 @@ export const EmailPrice: React.FC<IProps> = (props) => {
             : [0, 0];
 
     const cartPrice = shop().getTotal(cartItems.local, cartItems.global);
-    const total = CalcPrice.percentage(cartPrice.value, 100 - subscriptionDiscount) +
-        subscriptionPrice;
+    const total = CalcPrice.round(CalcPrice.percentage(cartPrice.value, 100 - subscriptionDiscount) +
+        subscriptionPrice);
 
     return (
-        <Col s={8} align="center">
+        <Col s={8} align="center" fullWidth>
             <Row align="center"
                 style={{cursor: "pointer"}}>
                 <Typography variant="caption" color="secondary">
@@ -71,6 +75,11 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                     )
                 }
             </Button>
+            {error && (
+                <Col style={{marginTop: 8}} fullWidth>
+                    <Alert severity="error">{parseApolloError(error).asString()}</Alert>
+                </Col>
+            )}
             <Typography variant="caption"
                 style={{
                     transition: "all 0.4s",
@@ -78,7 +87,7 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                     opacity: total === 0 ? 1.0 : 0.0,
                 }}>
                 You need to add some goods or select a subscription
-                 </Typography>
+            </Typography>
             <Col align="flex-end" fullWidth>
                 <Typography
                     variant="caption"
@@ -93,6 +102,6 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                 <Typography variant="caption">{`subtotal: ${cartPrice.value} $`}</Typography>
                 <Typography variant="caption">{`total: ${total} $`}</Typography>
             </Col>
-        </Col>
+        </Col >
     );
 };

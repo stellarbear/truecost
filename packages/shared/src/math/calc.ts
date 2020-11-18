@@ -7,9 +7,10 @@ export interface CalcResult {
 }
 
 export class CalcPrice {
-    private constructor(private readonly price: number = 0) {}
+    private constructor(private readonly price: number = 0) { }
 
-    static round = (val:number) => Math.round((val + Number.EPSILON) * 100) / 100;
+    static round = (val: number) =>
+        Math.round((val + Number.EPSILON) * 100) / 100;
 
     private static sum(...nums: number[]): number {
         const total = nums.reduce((acc, cur) => acc + cur, 0);

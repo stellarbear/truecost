@@ -2,11 +2,9 @@ import * as React from 'react';
 import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col, Row} from 'pages/Base/Grid';
-import {Box, Typography} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 import {useForm} from 'react-hook-form';
 import {loadStripe} from '@stripe/stripe-js';
-import Alert from '@material-ui/lab/Alert';
-import {parseApolloError} from 'auxiliary/error';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {EmailSubscription} from './EmailSubscription';
 import {EmailFields} from './EmailFields';
@@ -98,13 +96,11 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                         error={errors.email?.message}
                     />
                     <EmailPrice
+                        error={error}
                         loading={loading}
                         current={currentSubscription}
                         selected={selectedSubscription}
                     />
-                    <Box mt={2}>
-                        {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
-                    </Box>
                 </Col>
             </form>
         </Col>

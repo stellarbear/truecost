@@ -62,10 +62,10 @@ export const ItemExtra: React.FC<IProps> = (props) => {
                         const value = `${option.value >= 0 ? '+' : '-'} $${Math.abs(option.value)}`;
                         return (
                             <Row fullWidth
+                                key={optionId}
                                 p={2} s={16}
                                 align="center"
                                 justify="space-between"
-                                key={`${optionId}`}
                                 onMouseEnter={() => setHovered(optionId)}
                                 onMouseLeave={() => setHovered("")}
                                 onClick={() => toggleOption(optionId)}

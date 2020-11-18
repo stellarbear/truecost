@@ -6,6 +6,7 @@ import {useStore} from 'pages/Data/Wrapper';
 import {ErrorOption} from 'react-hook-form';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
 import {gql, useLazyQuery} from '@apollo/client';
+import {useDebounceState} from 'auxiliary/useDebounceState';
 
 const GET_SUBSCRIPTION = gql`
     query UserGetSubscription($email: String!) {
@@ -29,7 +30,29 @@ export const EmailFields: React.FC<IProps> = (props) => {
     const {error, disabled, setCurrent, register, email, setError, clearErrors} = props;
     const [query, {data, loading}] = useLazyQuery(GET_SUBSCRIPTION);
     const {notify} = useNotification();
-    const [rand, setRand] = React.useState(Math.random());
+
+    const [mounted, setMounted] = React.useState(false)
+
+    const onEmailUpdate = (email: string) => {
+        console.log(email);
+        if (email.length === 0) {
+            setError("email", {type: "error", message: "This field is required"});
+        } else if (!validate("email").test(email)) {
+            setError("email", {type: "error", message: "Does not look like email (:"});
+        } else {
+            query({variables: {email}});
+        }
+    };
+
+    const {bubbleState} = useDebounceState(email, onEmailUpdate, 1200);
+
+    React.useEffect(() => {
+        if (mounted) {
+            bubbleState(email)
+        } else {
+            setMounted(true)
+        }
+    }, [email])
 
     const {current: {user}} = useStore();
 
@@ -50,21 +73,10 @@ export const EmailFields: React.FC<IProps> = (props) => {
                 setCurrent(data?.UserGetSubscription.id);
                 notify("Subscription applied");
             } else {
-                notify("No active subscription on this email");
+                setCurrent();
             }
         }
-    }, [data?.UserGetSubscription, rand]);
-
-    const onClick = () => {
-        if (email.length === 0) {
-            setError("email", {type: "error", message: "This field is required"});
-        } else if (!validate("email").test(email)) {
-            setError("email", {type: "error", message: "Does not look like email (:"});
-        } else {
-            query({variables: {email}});
-            setRand(Math.random());
-        }
-    };
+    }, [data?.UserGetSubscription]);
 
     return (
         <Row s={8}>
@@ -83,18 +95,14 @@ export const EmailFields: React.FC<IProps> = (props) => {
                 error={!!error}
                 helperText={error}
                 variant="outlined"
-                onChange={() => clearErrors()}
+                onChange={() => {
+                    clearErrors();
+                    setCurrent();
+                }}
+                InputProps={{
+                    endAdornment: loading && <CircularProgress size={24} />
+                }}
             />
-            <Button
-                variant="contained"
-                onClick={() => onClick()}
-                style={{minWidth: 120, maxHeight: 55}}>
-                {
-                    loading
-                        ? <CircularProgress size={24} />
-                        : `Check subscription`
-                }
-            </Button>
         </Row>
     );
 };

@@ -31,8 +31,8 @@ export const OrderInfo: React.FC = () => {
         const upsert = update.cart.upsert;
 
         return (
-            <div>
-                <Accordion key={key} elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
+            <div key={key}>
+                <Accordion elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
                     <AccordionSummary
                         expandIcon={<ExpandMore />}>
                         <ItemHeader
