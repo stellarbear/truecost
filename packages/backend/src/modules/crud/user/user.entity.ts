@@ -1,6 +1,6 @@
 import {BaseEntity} from "../base/base.entity";
 import {Field, ObjectType} from "type-graphql";
-import {Collection, Entity, Enum, ManyToOne, OneToMany, Property, Unique} from "mikro-orm";
+import {Collection, Entity, Enum, ManyToOne, OneToMany, Property, Unique} from "@mikro-orm/core";
 import {RoleType} from "@truecost/shared";
 import {BookingEntity} from "../booking/booking.entity";
 import {SubscriptionEntity} from "../subscription/subscription.entity";

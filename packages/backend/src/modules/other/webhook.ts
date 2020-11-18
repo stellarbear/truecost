@@ -5,7 +5,7 @@ import {GameEntity} from "../crud/game/game.entity";
 import {assert} from "../../helpers/assert";
 import {UserEntity} from "../crud/user/user.entity";
 import {pbkdf2} from "../../helpers/pbkdf2";
-import {EntityRepository, wrap} from "mikro-orm";
+import {EntityRepository, wrap} from "@mikro-orm/core";
 import {Dict, RoleType, SafeJSON, StatusType} from "@truecost/shared";
 import {composeEmail} from "../../mail/compose";
 import {accountEmail} from "../../mail/samples/account";

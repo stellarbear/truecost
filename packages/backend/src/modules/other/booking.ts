@@ -47,7 +47,7 @@ export class BookingResolver {
         @Ctx() ctx: Context,
     ) {
         assert(ctx.req.session, "user not found");
-        const userId = await redis.client.get(`session-${ctx.req.session.sid}`);
+        const userId = await redis.client.get(`session-${ctx.req.session.id}`);
         assert(userId, "user not found");
         const booking = await this.bookRepo.find({user: userId});
 
@@ -173,10 +173,14 @@ export class BookingResolver {
             `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`,
         ]);
 
-        const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-03-02'});
+        const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-08-27'});
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             customer_email: email,
+            allow_promotion_codes: true,
+            discounts: [{
+                promotion_code: '{{COUPON_ID}}',
+            }],
             metadata: {info, game, email: userEmail, subscription: sub},
             locale: "en",
             line_items,
@@ -187,12 +191,12 @@ export class BookingResolver {
     }
 
     private async getEmail(ctx: Context, email: string): Promise<string> {
-        const sid = ctx.req.session?.sid;
-        if (!sid) {
+        const {id} = ctx.req.session;
+        if (!id) {
             return email;
         }
 
-        const userId = await redis.client.get(`session-${sid}`);
+        const userId = await redis.client.get(`session-${id}`);
         if (!userId) {
             return email;
         }

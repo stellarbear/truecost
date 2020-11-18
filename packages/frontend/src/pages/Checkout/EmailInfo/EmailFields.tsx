@@ -3,7 +3,7 @@ import {subscription, validate} from '@truecost/shared';
 import {Button, CircularProgress, TextField} from '@material-ui/core';
 import {Row} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
-import {ErrorOption} from 'react-hook-form/dist/types/form';
+import {ErrorOption} from 'react-hook-form';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
 import {gql, useLazyQuery} from '@apollo/client';
 

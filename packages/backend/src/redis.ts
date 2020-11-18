@@ -20,7 +20,7 @@ const duration = {
 const redis = {client, keys, duration};
 
 const init = () => {
-    return connectRedis(session);
+    return connectRedis(session as any);
 };
 
 export {redis, init};

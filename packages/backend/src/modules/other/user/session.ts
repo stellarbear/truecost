@@ -34,7 +34,7 @@ export class SessionResolver {
         const session = v4();
         await redis.client.sadd(`user-${user.id}`, session);
         await redis.client.set(`session-${session}`, user.id, "ex", redis.duration.week);
-        ctx.req.session.sid = session;
+        ctx.req.session.id = session;
 
         return user;
     }
@@ -42,10 +42,10 @@ export class SessionResolver {
     @Mutation(() => Boolean)
     async UserInvalidate(@Ctx() ctx: Context) {
         assert(ctx.req.session, "session failure");
-        const {sid} = ctx.req.session;
-        assert(sid, "must be logged in");
+        const {id} = ctx.req.session;
+        assert(id, "must be logged in");
 
-        const userId = await redis.client.get(`session-${sid}`);
+        const userId = await redis.client.get(`session-${id}`);
         if (userId) {
             return false;
         }
@@ -60,13 +60,13 @@ export class SessionResolver {
     @Mutation(() => Boolean)
     async UserLogout(@Ctx() ctx: Context) {
         assert(ctx.req.session, "session failure");
-        const {sid} = ctx.req.session;
-        assert(sid, "already logged out");
+        const {id} = ctx.req.session;
+        assert(id, "already logged out");
 
-        const userId = await redis.client.get(`session-${sid}`);
-        await redis.client.del(`session-${sid}`);
+        const userId = await redis.client.get(`session-${id}`);
+        await redis.client.del(`session-${id}`);
         if (userId) {
-            await redis.client.srem(userId, sid);
+            await redis.client.srem(userId, id);
         }
 
         return true;
@@ -76,12 +76,12 @@ export class SessionResolver {
     async UserWhoAmI(
         @Ctx() ctx: Context) {
         assert(ctx.req.session, "session failure");
-        const {sid} = ctx.req.session;
-        if (!sid) {
+        const {id} = ctx.req.session;
+        if (!id) {
             return null;
         }
 
-        const userId = await redis.client.get(`session-${sid}`);
+        const userId = await redis.client.get(`session-${id}`);
         if (!userId) {
             return null;
         }

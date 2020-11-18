@@ -1,4 +1,4 @@
-import {Collection, EntityRepository, wrap} from "mikro-orm";
+import {Collection, EntityRepository, wrap} from "@mikro-orm/core";
 import {assert} from "../../../helpers/assert";
 import {DI} from "../../../orm";
 import {UploadType} from "../../../scalars";

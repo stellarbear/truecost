@@ -8,10 +8,11 @@ import {redis} from "../redis";
 const UseAuth: (roles?: RoleType[]) => MiddlewareFn<Context> =
     (roles?: RoleType[]) => async ({context: {req}}, next) => {
         assert(req.session, "session failure");
-        const {sid} = req.session;
-        assert(sid, "must be logged in");
+        
+        const {id} = req.session;
+        assert(id, "must be logged in");
 
-        const userId = await redis.client.get(`session-${sid}`);
+        const userId = await redis.client.get(`session-${id}`);
         assert(userId, "key not found");
 
         const user: any = await DI.em.findOne(DI.map.user, {id: userId});

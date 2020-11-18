@@ -44,7 +44,7 @@ export const HowToUse: React.FC = () => (
                         style={{
                             display: "flex",
                             flexDirection: !help ? "row" : "column",
-                            alignItems: !help ? "center" : "flex-start"
+                            alignItems: !help ? "center" : "flex-start",
                         }}
                     >
                         <Typography variant="h6" >

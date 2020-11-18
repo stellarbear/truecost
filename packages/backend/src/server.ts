@@ -7,8 +7,8 @@ import {RedisStore} from 'connect-redis';
 import fastify from 'fastify';
 import fastifycookie from 'fastify-cookie';
 import fastifycors from "fastify-cors";
-import fastifygql from "fastify-gql";
-import * as fastifygqlupload from 'fastify-gql-upload';
+import fastifygql from "mercurius";
+import fastifygqlupload from 'mercurius-upload';
 import fastifysession from 'fastify-session';
 import fastifystatic from 'fastify-static';
 import {domain, environment} from './helpers/route';
@@ -29,8 +29,6 @@ export interface Context {
 //TODO: fastify-rate-limit
 //https://github.com/dougg0k/nodejs_graphql_typescript_starter/blob/master/src/index.ts
 
-export const sessionCookieName = 'sid';
-
 const init = async (schema: GraphQLSchema, store: RedisStore) => {
     const app = fastify({logger: false});
 
@@ -43,12 +41,11 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
     });
 
     app.register(fastifygqlupload, {
-        limits: {fileSize: 6 * 1024 * 1024},
+        maxFileSize: 6 * 1024 * 1024,
     });
     app.register(fastifycookie);
     app.register(fastifysession, {
         store: new store({client: redis.client}),
-        cookieName: sessionCookieName,
         secret: "aslkdfjoiq12312aslkdfjoiq12312aslkdfjoiq12312aslkdfjoiq12312",
         saveUninitialized: false,
         cookie: {
@@ -88,7 +85,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
             handler: async (request, response) => {
                 try {
                     const data = creds("stripe");
-                    const stripe = new Stripe(data.sk, {apiVersion: '2020-03-02'});
+                    const stripe = new Stripe(data.sk, {apiVersion: '2020-08-27'});
 
                     const sig = request.headers['stripe-signature'] as string;
                     const event = stripe.webhooks.constructEvent((request.body as any).raw, sig, data.webhook);

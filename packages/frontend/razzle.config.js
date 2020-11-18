@@ -1,8 +1,11 @@
 'use strict';
 
 module.exports = {
-	modify(defaultConfig, {target, dev}, webpack) {
-		const config = defaultConfig; // stay immutable here
+	modifyWebpackConfig({
+		env: { target, dev },
+		webpackConfig,
+	  }) {
+		const config = webpackConfig; // stay immutable here
 		if (target === 'web') {
 
 			config.output.filename = dev

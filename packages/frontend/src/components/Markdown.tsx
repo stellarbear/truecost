@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactMarkdown, {MarkdownProps} from 'markdown-to-jsx';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import {makeStyles} from '@material-ui/core';
+import ReactMarkdown, {MarkdownToJSX} from 'markdown-to-jsx';
 
 const useStyles = makeStyles({
     scale: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     },
 });
 
-const options = ({
+const options: MarkdownToJSX.Options = ({
     overrides: {
         h1: {
             component: Typography,
@@ -37,8 +37,10 @@ const options = ({
     },
 });
 
-interface IProps extends MarkdownProps {
+interface IProps  {
+    children: string;
     scale?: boolean;
+    style?: React.CSSProperties;
 }
 
 export const Markdown: React.FC<IProps> = ({scale = false, ...rest}) => {
@@ -46,7 +48,7 @@ export const Markdown: React.FC<IProps> = ({scale = false, ...rest}) => {
 
     rest.style = {
         fontFamily: 'Roboto',
-        ...rest.style, 
+        ...rest.style,
     };
 
     return (

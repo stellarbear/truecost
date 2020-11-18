@@ -1,5 +1,5 @@
 import {BaseEntity} from "../base/base.entity";
-import {Collection, Entity, ManyToMany, ManyToOne, Property, Unique} from "mikro-orm";
+import {Collection, Entity, ManyToMany, ManyToOne, Property, Unique} from "@mikro-orm/core";
 import {TagEntity} from "../tag/tag.entity";
 import {OptionEntity} from "../option/option.entity";
 import {GameEntity} from "../game/game.entity";

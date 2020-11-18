@@ -1,4 +1,4 @@
-import {PrimaryKey, Property, SerializedPrimaryKey, Unique} from "mikro-orm";
+import {PrimaryKey, Property, SerializedPrimaryKey, Unique} from "@mikro-orm/core";
 import {ObjectId} from "mongodb";
 import {Field, Int, ObjectType} from "type-graphql";
 import {IBase} from "@truecost/shared";

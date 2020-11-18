@@ -3,7 +3,7 @@ import {UserEntity} from "../../crud/user/user.entity";
 import {DI} from "../../../orm";
 import {v4} from "uuid";
 import {assert} from "../../../helpers/assert";
-import {wrap} from "mikro-orm";
+import {wrap} from "@mikro-orm/core";
 import {pbkdf2} from "../../../helpers/pbkdf2";
 import {redis} from "../../../redis";
 import {RoleType, subscription, validate} from "@truecost/shared";
@@ -144,7 +144,7 @@ export class AccountResolver {
         @Arg("name", {nullable: true}) name?: string,
     ) {
         assert(ctx.req.session, "user not found");
-        const userId = await redis.client.get(`session-${ctx.req.session.sid}`);
+        const userId = await redis.client.get(`session-${ctx.req.session.id}`);
         assert(userId, "user not found");
 
         const user = await this.userRepo.findOne({id: userId});

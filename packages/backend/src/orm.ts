@@ -1,4 +1,4 @@
-import {EntityManager, MikroORM} from "mikro-orm";
+import {EntityManager, MikroORM} from "@mikro-orm/core";
 import {UserEntity} from "./modules/crud/user/user.entity";
 import {entities} from './modules';
 import {Dict} from "@truecost/shared";
@@ -15,9 +15,6 @@ export const DI = {} as {
 
 export const init = async () => {
     DI.orm = await MikroORM.init({
-        discovery: {
-            requireEntitiesArray: true,
-        },
         entities,
         dbName: 'truecost',
         type: 'mongo',

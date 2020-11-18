@@ -90,7 +90,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                             onClick={() => {
                                 const element = document.getElementById(id);
                                 element?.scrollTo(
-                                    {left: element.scrollLeft - element.offsetWidth, behavior: "smooth"}
+                                    {left: element.scrollLeft - element.offsetWidth, behavior: "smooth"},
                                 );
                             }}>
                             <ArrowBack />
@@ -104,7 +104,7 @@ export const RowSwipable: React.FC<IProps> = (props) => {
                             onClick={() => {
                                 const element = document.getElementById(id);
                                 element?.scrollTo(
-                                    {left: element.scrollLeft + element.offsetWidth, behavior: "smooth"}
+                                    {left: element.scrollLeft + element.offsetWidth, behavior: "smooth"},
                                 );
                             }}>
                             <ArrowForward />

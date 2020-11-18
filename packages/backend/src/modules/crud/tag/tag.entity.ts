@@ -1,6 +1,6 @@
 import {BaseEntity} from "../base/base.entity";
 import {Field, ObjectType} from "type-graphql";
-import {Collection, Entity, ManyToMany, ManyToOne, Property} from "mikro-orm";
+import {Collection, Entity, ManyToMany, ManyToOne, Property} from "@mikro-orm/core";
 import {ItemEntity} from "../item/item.entity";
 import {GameEntity} from "../game/game.entity";
 

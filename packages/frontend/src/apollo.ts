@@ -22,7 +22,7 @@ const httpLink = ({cookie}: IApolloClient) => createUploadLink({
     headers: {
         cookie,
     },
-});
+}) as any;
 
 const link = (props: IApolloClient) => ApolloLink.from([
     errorLink,

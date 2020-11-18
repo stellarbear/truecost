@@ -6,7 +6,6 @@ import {social} from "auxiliary/social";
 import TextCard from "./Base/TextCard";
 import SocialDialog from "./Base/SocialDialog";
 import {Meta} from "./Base/Meta";
-import {TrustPanel} from "./Base/TrustPanel";
 
 export const Contact: React.FC = () => {
     const [hovered, setHovered] = useState("");
