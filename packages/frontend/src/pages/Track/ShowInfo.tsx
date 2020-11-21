@@ -17,6 +17,8 @@ export const ShowBookingInfo: React.FC<IProps> = ({raw, reset}) => (
         >
             Back to tracking
         </Button>
-        <BookingCard raw={raw} />
+        <div>
+            <BookingCard raw={raw} />
+        </div>
     </Col>
 );

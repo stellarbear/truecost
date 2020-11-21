@@ -51,7 +51,9 @@ export const AccountOrder: React.FC = () => {
             <Col s={16}>
                 {
                     orders.map((raw: any, index: number) =>
-                        <BookingCard raw={raw} key={index} />,
+                        <div key={index} >
+                            <BookingCard raw={raw}/>
+                        </div>,
                     )
                 }
             </Col>

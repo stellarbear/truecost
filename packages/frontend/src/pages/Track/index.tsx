@@ -29,29 +29,28 @@ export interface BookingSubmit {
 
 export const Track: React.FC = () => {
     const [query, {data, error, loading}] = useLazyQuery(GET_BOOKING);
-
-    const onQuery = async (variables: BookingSubmit) => await query({variables});
-
-    const reset = () => {
-        if (data) {
-            data.BookingGetByCode = null;
-        }
-    };
+    const [fetched, setFetched] = React.useState(false);
+    const reset = () => setFetched(false);
 
     return (
         <>
             <Meta />
             <Container maxWidth="sm">
-                {data?.BookingGetByCode
+                {fetched && data?.BookingGetByCode
                     ? (
                         <ShowBookingInfo
                             reset={reset}
                             raw={data.BookingGetByCode}
                         />
                     ) : (
-                        <QueryForm
-                            loading={loading}
-                            onQuery={onQuery} />
+                        <Container maxWidth="xs">
+                            <QueryForm
+                                loading={loading}
+                                onQuery={async (variables: BookingSubmit) => {
+                                    await query({variables});
+                                    setFetched(true);
+                                }} />
+                        </Container>
                     )
                 }
                 <Box mt={2}>
