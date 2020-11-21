@@ -32,14 +32,27 @@ export const Track: React.FC = () => {
 
     const onQuery = async (variables: BookingSubmit) => await query({variables});
 
+    const reset = () => {
+        if (data) {
+            data.BookingGetByCode = null;
+        }
+    };
+
     return (
         <>
-            <Meta/>
+            <Meta />
             <Container maxWidth="sm">
                 {data?.BookingGetByCode
-                    ? <ShowBookingInfo raw={data.BookingGetByCode}
-                    />
-                    : <QueryForm loading={loading} onQuery={onQuery}/>
+                    ? (
+                        <ShowBookingInfo
+                            reset={reset}
+                            raw={data.BookingGetByCode}
+                        />
+                    ) : (
+                        <QueryForm
+                            loading={loading}
+                            onQuery={onQuery} />
+                    )
                 }
                 <Box mt={2}>
                     {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}

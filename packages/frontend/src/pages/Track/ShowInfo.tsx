@@ -2,22 +2,21 @@ import * as React from 'react';
 import {Col} from 'pages/Base/Grid';
 import {Button} from '@material-ui/core';
 import {BookingCard} from './BookingCard';
-import {Link} from 'react-router-dom';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
 interface IProps {
     raw: any;
+    reset: () => void;
 }
 
-export const ShowBookingInfo: React.FC<IProps> = ({raw}) => (
+export const ShowBookingInfo: React.FC<IProps> = ({raw, reset}) => (
     <Col s={16} justify="flex-start">
         <Button
-            component={Link}
-            to={`/track`}
-            startIcon={< ArrowBack/>}
+            onClick={reset}
+            startIcon={< ArrowBack />}
         >
             Back to tracking
         </Button>
-        <BookingCard raw={raw}/>
+        <BookingCard raw={raw} />
     </Col>
 );
