@@ -64,6 +64,7 @@ export class AccountResolver {
             });
             await redis.client.set(`verify-${verify}`, user.id, "ex", redis.duration.day);
         } catch (e) {
+            await this.userRepo.removeAndFlush(user)
             assert(false, e);
         }
 
