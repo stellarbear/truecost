@@ -27,15 +27,21 @@ export const Mobile: React.FC<IProps> = (props) => {
     const classes = useStyles();
     const {pathname} = useLocation();
     const [open, setOpen] = React.useState<boolean>(false);
-    const {current: {game}} = useStore();
+    const {current: {game}, games} = useStore();
     const homeUrl = (['/', `/${game.url}`].includes(pathname) ? '/' : ('/' + game.url));
     const url = '/' + game.url;
 
     const image = game.id === "truecost" ? `${frontend.uri}/default/assistant.png`
         : `${backend.uri}/${game.id}/${game.assistant}/u.png`;
 
-    const button = (url: string, text: string) => (
-        <Button fullWidth component={Link} to={url} onClick={() => setOpen(false)}>{text}</Button>
+    const button = (url: string, text: string, key?: string) => (
+        <Button
+            key={key}
+            fullWidth
+            component={Link} to={url}
+            onClick={() => setOpen(false)}>
+            {text}
+        </Button>
     );
 
     const navigation = () => (
@@ -48,6 +54,10 @@ export const Mobile: React.FC<IProps> = (props) => {
             {button("/contact", "Contact")}
             {button("/about", "About")}
             {button("/blog", "Blog")}
+            <Divider />
+            {Object.keys(games.id).map((gameId) => (
+                button('/' + games.id[gameId].url, games.id[gameId].name, gameId)
+            ))}
             <Divider />
         </Col>
     );
