@@ -57,45 +57,46 @@ export const ItemExtra: React.FC<IProps> = (props) => {
                     </Row>
                 </AccordionSummary>
                 <AccordionDetails>
-                    {Object.keys(options).map((optionId) => {
-                        const option = CalcPrice.fromOption(total, options[optionId]);
-                        const value = `${option.value >= 0 ? '+' : '-'} $${Math.abs(option.value)}`;
-                        return (
-                            <Row fullWidth
-                                key={optionId}
-                                p={2} s={16}
-                                align="center"
-                                justify="space-between"
-                                onMouseEnter={() => setHovered(optionId)}
-                                onMouseLeave={() => setHovered("")}
-                                onClick={() => toggleOption(optionId)}
+                    <Col fullWidth>
+                        {Object.keys(options).map((optionId) => {
+                            const option = CalcPrice.fromOption(total, options[optionId]);
+                            const value = `${option.value >= 0 ? '+' : '-'} $${Math.abs(option.value)}`;
+                            return (
+                                <Row fullWidth
+                                    key={optionId}
+                                    p={2} s={16}
+                                    align="center"
+                                    justify="space-between"
+                                    onMouseEnter={() => setHovered(optionId)}
+                                    onMouseLeave={() => setHovered("")}
+                                    onClick={() => toggleOption(optionId)}
 
-                                style={{
-                                    backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.05)" : "transparent",
-                                    transition: "all 0.3s", cursor: "pointer",
-                                }}
-                            >
-                                <Row align="center">
-                                    <Switch
-                                        checked={selected.includes(optionId)}
-                                    />
-                                    <Typography variant="body1" style={{
-                                        textAlign: "left",
-                                        userSelect: "none",
-                                    }}>{options[optionId].name}</Typography>
+                                    style={{
+                                        backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.05)" : "transparent",
+                                        transition: "all 0.3s", cursor: "pointer",
+                                    }}
+                                >
+                                    <Row align="center">
+                                        <Switch
+                                            checked={selected.includes(optionId)}
+                                        />
+                                        <Typography variant="body1" style={{
+                                            textAlign: "left",
+                                            userSelect: "none",
+                                        }}>{options[optionId].name}</Typography>
+                                    </Row>
+                                    <Typography style={{
+                                        paddingRight: 16,
+                                        whiteSpace: "nowrap",
+                                    }}>
+                                        <strong>
+                                            {value}
+                                        </strong>
+                                    </Typography>
                                 </Row>
-                                <Typography style={{
-                                    paddingRight: 16,
-                                    whiteSpace: "nowrap",
-                                }}>
-                                    <strong>
-                                        {value}
-                                    </strong>
-                                </Typography>
-                            </Row>
-                        );
-                    })
-                    }
+                            );
+                        })}
+                    </Col>
                 </AccordionDetails>
             </Accordion>
         </div>

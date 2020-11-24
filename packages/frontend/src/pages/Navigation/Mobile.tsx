@@ -27,7 +27,7 @@ export const Mobile: React.FC<IProps> = (props) => {
     const classes = useStyles();
     const {pathname} = useLocation();
     const [open, setOpen] = React.useState<boolean>(false);
-    const {current: {game}, games} = useStore();
+    const {current: {game}, games, update: {setGame}} = useStore();
     const homeUrl = (['/', `/${game.url}`].includes(pathname) ? '/' : ('/' + game.url));
     const url = '/' + game.url;
 
@@ -56,7 +56,16 @@ export const Mobile: React.FC<IProps> = (props) => {
             {button("/blog", "Blog")}
             <Divider />
             {Object.keys(games.id).map((gameId) => (
-                button('/' + games.id[gameId].url, games.id[gameId].name, gameId)
+                <Button
+                    key={gameId}
+                    fullWidth
+                    component={Link} to={'/' + games.id[gameId].url}
+                    onClick={() => {
+                        setOpen(false)
+                        setGame(gameId)
+                    }}>
+                    {games.id[gameId].name}
+                </Button>
             ))}
             <Divider />
         </Col>
