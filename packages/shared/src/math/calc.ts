@@ -54,7 +54,7 @@ export class CalcPrice {
         const string = `${value} $`;
 
         return ({
-            value,
+            value: Math.max(value, 0),
             string,
         });
     }
@@ -72,7 +72,7 @@ export class CalcPrice {
         const description = type === OptionType.RELATIVE ? `${price} %` : undefined;
 
         return ({
-            value,
+            value: Math.max(value, 0),
             string,
             description,
         });
@@ -83,7 +83,7 @@ export class CalcPrice {
         const string = `${value} $`;
 
         return ({
-            value,
+            value: Math.max(value, 0),
             string,
         });
     }
