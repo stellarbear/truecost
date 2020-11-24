@@ -48,6 +48,8 @@ export const ArraySlice: React.FC<IProps> = (props) => {
 
     const pagination = () => (
         <Pagination
+            shape="rounded"
+            color="primary"
             showLastButton
             showFirstButton
             count={Math.ceil(data.length / count)} page={page}
