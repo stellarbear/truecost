@@ -63,7 +63,7 @@ export const Mobile: React.FC<IProps> = (props) => {
                     onClick={() => {
                         setGame(gameId);
                         setOpen(false);
-                        history.push('/' + games.id[gameId].url)
+                        history.push('/' + games.id[gameId].url);
                     }}>
                     {games.id[gameId].name}
                 </Button>

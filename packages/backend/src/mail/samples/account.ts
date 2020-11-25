@@ -9,7 +9,7 @@ export const accountEmail = (password: string) => {
 
     return `
     <mjml>
-        ${header("Account verification", `${domain} registration`)}
+        ${header("Account creation", `${domain} registration`)}
         <mj-body background-color="#E7E7E7" width="600px">
             <mj-section full-width="full-width" background-color="#00695f" padding-bottom="0">
                 <mj-column width="100%">
@@ -17,7 +17,7 @@ export const accountEmail = (password: string) => {
                 </mj-column>
                 <mj-column width="100%" background-color="#ffffff" padding="15px" padding-bottom="0px">
                     <mj-text color="#637381" font-size="16px">
-                    You have purchuased some goods on <a class="text-link" href="${domain}">${domain}</a>
+                    You have purchased some goods on <a class="text-link" href="${domain}">${domain}</a>
                     <br/>
                     We have created an account just for your convenience. It is not mandatory to log in, 
                     just easier to track our progress.

@@ -18,6 +18,7 @@ import {HowToUse} from 'pages/Base/HowToUse';
 import {PersonalDiscount} from 'pages/Base/PersonalDiscount';
 import {ItemOrdered} from './ItemOrdered';
 import {TrustPanel} from 'pages/Base/TrustPanel';
+import {EmailPromoCode} from 'pages/Base/EmailPromocode';
 
 interface IProps {
     item: IItem;
@@ -57,6 +58,8 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                         price={totalPrice} item={item} chunk={chunk}
                         options={selectedOptions}
                     />
+                    <EmailPromoCode
+                        code="SUBS" />
                 </Grid>
             </Grid>
             <Button startIcon={< ArrowDownward />}

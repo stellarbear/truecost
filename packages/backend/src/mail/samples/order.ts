@@ -11,7 +11,7 @@ export const orderEmail = (code: string, data: Record<string, string>) => {
 
     return `
     <mjml>
-        ${header("Account verification", `${domain} registration`)}
+        ${header("Order verification", `${domain} order`)}
         <mj-body background-color="#E7E7E7" width="600px">
             <mj-section full-width="full-width" background-color="#00695f" padding-bottom="0">
                 <mj-column width="100%">
