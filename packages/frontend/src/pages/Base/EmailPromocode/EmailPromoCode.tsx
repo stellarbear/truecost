@@ -32,7 +32,7 @@ export const EmailPromoCode: React.FC<IProps> = (props) => {
             }
             content={
                 [
-                    <EmailPromoDialog code={code} key={content}/>,
+                    <EmailPromoDialog code={code} key="content"/>,
                 ]
             }
         />
