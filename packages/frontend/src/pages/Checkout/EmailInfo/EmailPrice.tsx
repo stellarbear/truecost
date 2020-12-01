@@ -18,7 +18,7 @@ interface IProps {
 
 export const EmailPrice: React.FC<IProps> = (props) => {
     const {current, selected, loading, error} = props;
-    const {subs, current: {cart, shop}} = useStore();
+    const {subs, current: {cart, shop}, currency} = useStore();
 
     const cartItems = cart();
 
@@ -28,9 +28,12 @@ export const EmailPrice: React.FC<IProps> = (props) => {
             ? [subs[selected].price, subs[selected].discount]
             : [0, 0];
 
-    const cartPrice = shop().getTotal(cartItems.local, cartItems.global);
+    const adjustedSubscriptionPrice =
+        CalcPrice.applyCurrency(subscriptionPrice, currency);
+
+    const cartPrice = shop().getTotal(cartItems.local, currency, cartItems.global);
     const total = CalcPrice.round(CalcPrice.percentage(cartPrice.value, 100 - subscriptionDiscount) +
-        subscriptionPrice);
+        adjustedSubscriptionPrice);
 
     return (
         <Col s={8} align="center" fullWidth>
@@ -68,7 +71,7 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                             </Typography>
                             <Typography variant="button" style={{fontSize: "1.4rem"}}>
                                 <strong>
-                                    {`${total} $`}
+                                    {`${total} ${currency.label}`}
                                 </strong>
                             </Typography>
                         </Row>
@@ -96,11 +99,11 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                 </Typography>
                 <Typography
                     variant="caption"
-                    style={{opacity: subscriptionPrice ? 1.0 : 0.4}}>
-                    {`subscription price: +${subscriptionPrice} $`}
+                    style={{opacity: adjustedSubscriptionPrice ? 1.0 : 0.4}}>
+                    {`subscription price: +${adjustedSubscriptionPrice} ${currency.label}`}
                 </Typography>
-                <Typography variant="caption">{`subtotal: ${cartPrice.value} $`}</Typography>
-                <Typography variant="caption">{`total: ${total} $`}</Typography>
+                <Typography variant="caption">{`subtotal: ${cartPrice.value} ${currency.label}`}</Typography>
+                <Typography variant="caption">{`total: ${total} ${currency.label}`}</Typography>
             </Col>
         </Col >
     );

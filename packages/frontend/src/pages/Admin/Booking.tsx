@@ -3,7 +3,7 @@ import {CRUD} from "components/generic/CRUD";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";
 import {CImage, CLink, CNumber, CSelect, CString} from "components/generic/types";
-import {StatusType} from "@truecost/shared";
+import {Currencies, CurrencyKey, StatusType} from "@truecost/shared";
 
 export const AdminBooking: React.FC = () => {
     const crud = new CRUDgql({
@@ -15,6 +15,7 @@ export const AdminBooking: React.FC = () => {
 
             user { id name }
 
+            currency
             total
             code
             pi
@@ -41,6 +42,16 @@ export const AdminBooking: React.FC = () => {
         },
         multiple: false,
         readOnly: true,
+    });
+
+    const currency = new CSelect({
+        multiple: false,
+        key: "currency",
+        label: "currency",
+        options: Object.keys(Currencies).reduce((acc, cur) => {
+            acc[cur] = Currencies[cur as CurrencyKey].id;
+            return acc;
+        }, {} as any),
     });
 
     const status = new CSelect({
@@ -83,7 +94,7 @@ export const AdminBooking: React.FC = () => {
         editable: false,
     });
 
-    const fields = [images, user, status, total, code, pi, info, data];
+    const fields = [images, currency, user, status, total, code, pi, info, data];
 
     return (
         <CRUD

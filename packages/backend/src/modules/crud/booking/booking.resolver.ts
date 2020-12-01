@@ -20,7 +20,7 @@ export class BookingCRUDResolver extends BaseResolver
         classRef: BookingEntity,
         resultRef: BookingResponse,
         get: {
-            set: ["total"],
+            set: ["total", "currency"],
             like: ["code", "pi", "info", "data"],
             filter: ["user"],
         },

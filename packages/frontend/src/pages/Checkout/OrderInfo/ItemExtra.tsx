@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {Accordion, AccordionDetails, AccordionSummary, Switch, Typography} from '@material-ui/core';
+import {Accordion, AccordionDetails, AccordionSummary, Typography} from '@material-ui/core';
 import {CalcPrice, CalcResult} from '@truecost/shared';
 import {Col, Row} from 'pages/Base/Grid';
 import {ExpandMore} from '@material-ui/icons';
+import {PriceTypography} from 'pages/Base/PriceTypography';
+import {OptionRow} from 'pages/Base/OptionRow';
 
 interface IProps {
     total: CalcResult;
@@ -12,8 +13,6 @@ interface IProps {
 
 export const ItemExtra: React.FC<IProps> = (props) => {
     const {total} = props;
-
-    const [hovered, setHovered] = useState<string>("");
 
     const {current: {shop, cart}, update, currency} = useStore();
     const {options: {global: {id: options}}} = shop();
@@ -46,54 +45,24 @@ export const ItemExtra: React.FC<IProps> = (props) => {
                             <Typography >Extra options</Typography>
                             <Typography variant="caption">Expand for live stream and other options</Typography>
                         </Col>
-                        <Typography
-                            variant="h6"
-                            style={{
-                                paddingRight: 8,
-                                whiteSpace: "nowrap",
-                            }}>
-                            {`${totalOptionsPrice} $`}
-                        </Typography>
+                        <PriceTypography price={totalOptionsPrice} />
                     </Row>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Col fullWidth>
                         {Object.keys(options).map((optionId) => {
+                            console.log(total);
                             const option = CalcPrice.fromOption(total, currency, options[optionId]);
-                            const value = `${option.value >= 0 ? '+' : '-'} $${Math.abs(option.value)}`;
+                            const value = `${option.value >= 0 ? '+' : '-'} ${currency.label}${Math.abs(option.value)}`;
                             return (
-                                <Row fullWidth
+                                <OptionRow
                                     key={optionId}
-                                    p={2} s={16}
-                                    align="center"
-                                    justify="space-between"
-                                    onMouseEnter={() => setHovered(optionId)}
-                                    onMouseLeave={() => setHovered("")}
-                                    onClick={() => toggleOption(optionId)}
-
-                                    style={{
-                                        backgroundColor: optionId === hovered ? "rgba(0, 0, 0, 0.05)" : "transparent",
-                                        transition: "all 0.3s", cursor: "pointer",
-                                    }}
-                                >
-                                    <Row align="center">
-                                        <Switch
-                                            checked={selected.includes(optionId)}
-                                        />
-                                        <Typography variant="body1" style={{
-                                            textAlign: "left",
-                                            userSelect: "none",
-                                        }}>{options[optionId].name}</Typography>
-                                    </Row>
-                                    <Typography style={{
-                                        paddingRight: 16,
-                                        whiteSpace: "nowrap",
-                                    }}>
-                                        <strong>
-                                            {value}
-                                        </strong>
-                                    </Typography>
-                                </Row>
+                                    name={options[optionId].name}
+                                    toggleOption={toggleOption}
+                                    selected={selected}
+                                    optionId={optionId}
+                                    value={value}
+                                />
                             );
                         })}
                     </Col>

@@ -23,16 +23,18 @@ interface BookingSubmit {
 const MAKE_BOOKING = gql`
     mutation BookingMake(
         $email: String!, $booking: String!, $info: String!,
-         $game: String!, $coupon: String, $subscription: String) {
+         $game: String!, $coupon: String, $subscription: String,
+         $currency: String!) {
         BookingMake(
             email:$email, booking:$booking, info: $info, 
-            game: $game, subscription:$subscription, coupon: $coupon)
+            game: $game, subscription:$subscription, coupon: $coupon
+            currency: $currency)
     }
 `;
 
 export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
-    const {current: {user, game, cart}, payment: {stripe: stripeKey}} = useStore();
+    const {current: {user, game, cart}, payment: {stripe: stripeKey}, currency} = useStore();
     const [mutation, {data, error, loading}] = useMutation(MAKE_BOOKING);
 
     const [selectedSubscription, setSelectedSubscription] = useState<string | undefined>();
@@ -55,6 +57,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
             const variables = {
                 ...input,
                 game: game.id,
+                currency: currency.id,
                 subscription: selectedSubscription,
                 booking: JSON.stringify(cartItems),
                 info: JSON.stringify({platform, text, cross, time, zone}),

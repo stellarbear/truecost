@@ -1,14 +1,16 @@
 import * as React from 'react';
 import {Table, TableBody, TableCell, TableRow, Typography} from '@material-ui/core';
+import {ICurrency} from '@truecost/shared';
 
 interface IProps {
+    currency: ICurrency;
     goods: {
         game: string;
         data: any[];
     };
 }
 
-export const BookingGoods: React.FC<IProps> = ({goods}) => {
+export const BookingGoods: React.FC<IProps> = ({goods, currency}) => {
     return (
         <>
             <Typography variant="h6">Goods: </Typography>
@@ -27,7 +29,9 @@ export const BookingGoods: React.FC<IProps> = ({goods}) => {
                                         <Typography variant="caption">{description || "-"}</Typography>
                                     </TableCell>
                                     <TableCell
-                                        style={{whiteSpace: "nowrap"}}>{`${amount / 100} $ x ${quantity}`}</TableCell>
+                                        style={{whiteSpace: "nowrap"}}>
+                                        {`${amount / 100} ${currency.label} x ${quantity}`}
+                                    </TableCell>
                                 </TableRow>
                             ))
                     }

@@ -25,6 +25,10 @@ export class BookingEntity extends BaseEntity implements IBooking {
     @Property()
     code!: string;
 
+    @Field({defaultValue: "usd"})
+    @Property({default: "usd"})
+    currency: string = "usd";
+
 
     @Field({defaultValue: "{}"})
     @Property()

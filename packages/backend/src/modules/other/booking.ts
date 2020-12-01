@@ -9,7 +9,7 @@ import {OptionEntity} from "../crud/option/option.entity";
 import {GameEntity} from "../crud/game/game.entity";
 import {
     parseCart, parseShop, SafeJSON, subscription as subscrMath,
-    CalcPrice, Currencies, CurrencyKey
+    CalcPrice, Currencies, CurrencyKey,
 } from "@truecost/shared";
 import {backend, frontend} from "../../helpers/route";
 import {creds} from "../../helpers/creds";
@@ -73,9 +73,9 @@ export class BookingResolver {
         const gameEntiry = await this.gameRepo.findOne({id: game});
         assert(gameEntiry, "invalid game");
 
+        assert(currency in Currencies, `invalid currency ${currency}`);
         const currencyValue = currency as CurrencyKey;
         const currencyRecord = Currencies[currencyValue];
-        assert(!(currency in Currencies), "invalid currency");
 
         const GameAll = await this.gameRepo.findAll();
         const ItemAll = await this.itemRepo.findAll();
@@ -86,7 +86,6 @@ export class BookingResolver {
 
         const {shop} = parseShop(
             GameAll, ItemAll as any, TagAll as any, OptionAll, SubscriptionAll,
-            currencyRecord,
         );
 
         //  get discount or subscription
@@ -104,7 +103,7 @@ export class BookingResolver {
         const optionsLocal = store.options.local.id;
         const optionsGlobal = store.options.global.id;
         const cart = parseCart(store, SafeJSON.parse(booking, {}));
-        const localCartPrice = store.getTotal(cart.local);
+        const localCartPrice = store.getTotal(cart.local, currencyRecord);
 
         const line_items = [];
         //  items
@@ -120,7 +119,7 @@ export class BookingResolver {
 
             const itemPrice = CalcPrice.fromItem(item, currencyRecord, chunk);
             const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, currencyRecord, options);
-            const amount = CalcPrice.percentage(totalPrice.value * 100, discount);
+            const amount = Math.floor(CalcPrice.percentage(totalPrice.value * 100, discount));
 
             return (
                 {
@@ -143,7 +142,7 @@ export class BookingResolver {
             const quantity = 1;
             const images: string[] = [];
             const optionPrice = CalcPrice.fromOption(localCartPrice, currencyRecord, option);
-            const amount = CalcPrice.percentage(optionPrice.value * 100, discount);
+            const amount = Math.floor(CalcPrice.percentage(optionPrice.value * 100, discount));
             return (
                 {
                     name,
@@ -161,13 +160,15 @@ export class BookingResolver {
             const subEntity = await this.subsRepo.findOne({id: sub});
             if (subEntity) {
                 const {name, price} = subEntity;
+                const adjustedSubscriptionPrice =
+                    CalcPrice.applyCurrency(price, currencyRecord);
 
                 line_items.push({
                     name,
                     quantity: 1,
                     currency,
                     description: 'discount plan',
-                    amount: price * 100,
+                    amount: adjustedSubscriptionPrice * 100,
                 });
             }
         }
@@ -176,12 +177,12 @@ export class BookingResolver {
 
         const information: Record<string, any> = SafeJSON.parse(info, {});
         slack([
-            " (╯°□°)╯ [purchuase attempt] ...",
+            " (╯°□°)╯ [purchase attempt] ...",
             coupon || "-",
             currency,
             email,
             ...line_items.map(({name, quantity, amount, description}) =>
-                `• ${name} x ${quantity}\n  price: ${amount / 100} $\n opts: ${description}`),
+                `• ${name} x ${quantity}\n  price: ${amount / 100} ${currencyRecord.label}\n opts: ${description}`),
             '--------',
             `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`,
         ]);
@@ -195,7 +196,7 @@ export class BookingResolver {
                     coupon,
                 }],
             } : {}),
-            metadata: {info, game, email: userEmail, subscription: sub},
+            metadata: {info, game, email: userEmail, subscription: sub, currency},
             locale: "en",
             line_items,
             success_url: `${frontend.uri}/${gameEntiry?.url}/checkout/success`,

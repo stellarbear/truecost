@@ -6,7 +6,7 @@ import {assert} from "../../helpers/assert";
 import {UserEntity} from "../crud/user/user.entity";
 import {pbkdf2} from "../../helpers/pbkdf2";
 import {EntityRepository, wrap} from "@mikro-orm/core";
-import {Dict, RoleType, SafeJSON, StatusType} from "@truecost/shared";
+import {Currencies, CurrencyKey, Dict, RoleType, SafeJSON, StatusType} from "@truecost/shared";
 import {composeEmail} from "../../mail/compose";
 import {accountEmail} from "../../mail/samples/account";
 import {domain} from "../../helpers/route";
@@ -24,6 +24,7 @@ export const createOrder = async (response: Record<string, any>) => {
             game,
             email,
             subscription,
+            currency,
         },
     } = response;
 
@@ -56,6 +57,7 @@ export const createOrder = async (response: Record<string, any>) => {
 
         total: amount_total,
         pi: payment_intent,
+        currency,
         code,
 
         info,
@@ -75,13 +77,17 @@ export const createOrder = async (response: Record<string, any>) => {
         await userRepo.persistAndFlush(currentUser);
     }
 
+    const currencyValue = currency as CurrencyKey;
+    const currencyRecord = Currencies[currencyValue];
+    const label = currencyRecord?.label || "usd";
+    
     const information: Record<string, any> = SafeJSON.parse(info, {});
     slack([
-        " ʕノ•ᴥ•ʔノ [PURCHUASE SUCCESS]  \\(•ᴥ• \\)́",
+        " ʕノ•ᴥ•ʔノ [PURCHASE SUCCESS]  \\(•ᴥ• \\)́",
         email,
-        `total: ${amount_total / 100} $`,
+        `total: ${amount_total / 100} ${label}`,
         ...data.map(({name, quantity, description, amount}: any) =>
-            `• ${name} x ${quantity}\n  price: ${amount / 100} $\n opts: ${description}`),
+            `• ${name} x ${quantity}\n  price: ${amount / 100} ${label}\n opts: ${description}`),
         '--------',
         `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`,
     ]);
@@ -95,9 +101,9 @@ export const createOrder = async (response: Record<string, any>) => {
                 //pi: payment_intent,
                 ...data.reduce((acc: Dict<string>, {name, quantity, description, amount}: any) => ({
                     ...acc,
-                    [`${name} (${description})`]: `${amount / 100} $ x ${quantity}`,
+                    [`${name} (${description})`]: `${amount / 100} ${label} x ${quantity}`,
                 }), {}),
-                total: Math.round(amount_total / 100) + " $",
+                total: Math.round(amount_total / 100) + ` ${label}`,
             }),
             subject: 'Order receipt',
             text: `Order receipt for ${domain}`,

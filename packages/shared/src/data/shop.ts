@@ -29,7 +29,11 @@ export interface IShop {
 
     getOptions(itemId: string): string[];
 
-    getTotal(cart: Dict<ICartItem>, extra?: string[]): CalcResult;
+    getTotal(
+        cart: Dict<ICartItem>,
+        currency: ICurrency,
+        extra?: string[]
+    ): CalcResult;
 }
 
 export interface IGameContext {
@@ -53,7 +57,6 @@ const map = (src: any) => src.getIdentifiers
 export const parseShop = (
     GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], OptionAll: IOption[],
     SubscriptionAll: ISubscription[],
-    currency: ICurrency,
 ) => {
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
     const shopDict: IShopContext = {data: {}, subs: {}};
@@ -99,7 +102,12 @@ export const parseShop = (
                 return result;
             },
 
-            getTotal(cart: Dict<ICartItem>, extra: string[] = []) {
+            getTotal(
+                cart: Dict<ICartItem>,
+                currency: ICurrency,
+                extra: string[] = [],
+            ) {
+
                 const items = this.items.id;
                 const options = this.options.local.id;
                 const global = this.options.global.id;

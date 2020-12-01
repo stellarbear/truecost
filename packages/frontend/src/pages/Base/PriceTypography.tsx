@@ -5,10 +5,10 @@ import {TypographyTwoLevel} from "./TypographyTwoLevel";
 
 interface IPriceTypoProps {
     price: number;
-    discount: number;
+    discount?: number;
 }
 
-export const PriceTypography: React.FC<IPriceTypoProps> = ({price, discount}) => {
+export const PriceTypography: React.FC<IPriceTypoProps> = ({price, discount = 0}) => {
     const {currency} = useStore();
     return (
         <TypographyTwoLevel

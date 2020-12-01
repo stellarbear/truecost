@@ -77,8 +77,7 @@ const Data: React.FC = ({children}) => {
     const {data} = useContext(RawContext);
     const {MetaAll, ReviewAll, Stripe, ...RestAll} = data;
 
-    const {currency, setCurrency} = useCurrency();
-    const [store] = useState(useData(RestAll, currency));
+    const [store] = useState(useData(RestAll));
     const [meta] = useState(useMeta(MetaAll));
     const [reviews] = useState(useReview(ReviewAll));
 
@@ -86,6 +85,7 @@ const Data: React.FC = ({children}) => {
     const {state: user, setState: setUser} = useUser(store.user);
     const {state: game, setState: setGame} = useGame(store.game);
 
+    const {currency, setCurrency} = useCurrency();
 
     return (
         <DataContext.Provider value={{

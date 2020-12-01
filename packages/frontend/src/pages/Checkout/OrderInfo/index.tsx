@@ -18,7 +18,7 @@ export const OrderInfo: React.FC = () => {
     const {items: {id: items}, options: {local: {id: local}}} = shop();
     const cartItems = cart().local;
 
-    const total = shop().getTotal(cartItems);
+    const total = shop().getTotal(cartItems, currency);
 
     const itemCard = (key: string) => {
         const cartItem = cartItems[key];

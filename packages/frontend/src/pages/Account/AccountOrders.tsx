@@ -16,6 +16,7 @@ const GET_BOOKING = gql`
             total
             info
             data
+            currency
 
             id
             images

@@ -18,10 +18,16 @@ export class CalcPrice {
         return this.round(total);
     }
 
+    static applyCurrency = (price: number, currency: ICurrency) => {
+        const adjustedPrice = price * currency.val;
+
+        return CalcPrice.round(Math.max(adjustedPrice, 0));
+    };
+
     static percentage(from: number, value: number): number {
         const delta = from * value / 100;
 
-        return this.round(delta);
+        return CalcPrice.round(delta);
     }
 
     private static applyRange(item: IItem, chunk: [number, number], min: number) {
