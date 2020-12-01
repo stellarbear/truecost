@@ -10,7 +10,7 @@ export class CalcPrice {
     private constructor(private readonly price: number = 0) { }
 
     static round = (val: number) =>
-        Math.round((val + Number.EPSILON) * 100) / 100;
+        Math.round((val + Number.EPSILON) * 10) / 10;
 
     private static sum(...nums: number[]): number {
         const total = nums.reduce((acc, cur) => acc + cur, 0);
@@ -63,8 +63,10 @@ export class CalcPrice {
         const adjustedPrice = price * currency.val;
 
         const value = (item.range.d.length > 0)
-            ? CalcPrice.applyRange(item, chunk, adjustedPrice)
-            : adjustedPrice;
+            ? CalcPrice.applyCurrency(
+                CalcPrice.applyRange(item, chunk, adjustedPrice),
+                currency
+            ) : adjustedPrice;
         const string = `${value} ${currency.label}`;
 
         return ({
