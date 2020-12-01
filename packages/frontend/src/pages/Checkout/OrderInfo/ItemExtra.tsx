@@ -15,7 +15,7 @@ export const ItemExtra: React.FC<IProps> = (props) => {
 
     const [hovered, setHovered] = useState<string>("");
 
-    const {current: {shop, cart}, update} = useStore();
+    const {current: {shop, cart}, update, currency} = useStore();
     const {options: {global: {id: options}}} = shop();
     const selected = cart().global;
     const {upsert} = update.cart;
@@ -32,7 +32,7 @@ export const ItemExtra: React.FC<IProps> = (props) => {
 
     const totalOptionsPrice =
         selected
-            .map(id => CalcPrice.fromOption(total, options[id]).value)
+            .map(id => CalcPrice.fromOption(total, currency, options[id]).value)
             .reduce((acc, cur) => acc + cur, 0);
 
     return (
@@ -59,7 +59,7 @@ export const ItemExtra: React.FC<IProps> = (props) => {
                 <AccordionDetails>
                     <Col fullWidth>
                         {Object.keys(options).map((optionId) => {
-                            const option = CalcPrice.fromOption(total, options[optionId]);
+                            const option = CalcPrice.fromOption(total, currency, options[optionId]);
                             const value = `${option.value >= 0 ? '+' : '-'} $${Math.abs(option.value)}`;
                             return (
                                 <Row fullWidth

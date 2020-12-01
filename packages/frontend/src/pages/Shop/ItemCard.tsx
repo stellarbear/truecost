@@ -19,7 +19,12 @@ interface IProps {
 const ItemCard: React.FC<IProps> = (props) => {
     const {id, gameId, gameUrl, ordered = false} = props;
 
-    const {current: {shop, game: {url}}, update: {cart, setGame}} = useContext(DataContext);
+    const {
+        currency,
+        current: {shop, game: {url}},
+        update: {cart, setGame},
+    } = useContext(DataContext);
+
     const {
         tags,
         items,
@@ -30,7 +35,7 @@ const ItemCard: React.FC<IProps> = (props) => {
     }
 
     const item = items.id[id];
-    const itemPrice = CalcPrice.fromItem(item);
+    const itemPrice = CalcPrice.fromItem(item, currency);
     const redirect = `/${gameUrl || url}/item/${item.url}`;
 
     const [raised, setRaised] = React.useState(false);

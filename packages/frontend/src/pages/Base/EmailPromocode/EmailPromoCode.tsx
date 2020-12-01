@@ -2,8 +2,8 @@ import * as React from 'react';
 import {Button, Typography} from '@material-ui/core';
 import {Row} from '../Grid';
 import {ModalDialog} from 'components/ModalDialog';
-import {colors} from 'theme';
 import {EmailPromoDialog} from './EmailPromoDialog';
+import {Circle} from 'components';
 
 interface IProps {
     code: string;
@@ -18,12 +18,7 @@ export const EmailPromoCode: React.FC<IProps> = (props) => {
                 <Button fullWidth
                     style={{height: 48, marginTop: 8}}>
                     <Row s={16} align="center">
-                        <div style={{
-                            height: 12,
-                            width: 12,
-                            backgroundColor: colors.accentColor,
-                            borderRadius: "50%",
-                        }} />
+                        <Circle />
                         <Typography variant="button">
                             Get 10% discount promo code
                     </Typography>
@@ -32,7 +27,7 @@ export const EmailPromoCode: React.FC<IProps> = (props) => {
             }
             content={
                 [
-                    <EmailPromoDialog code={code} key="content"/>,
+                    <EmailPromoDialog code={code} key="content" />,
                 ]
             }
         />

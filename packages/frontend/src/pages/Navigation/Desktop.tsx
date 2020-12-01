@@ -6,6 +6,7 @@ import {Row} from "pages/Base/Grid";
 import {Account} from './Account';
 import {GamePicker} from "./GamePicker";
 import {CartPicker} from "./CartPicker";
+import {CurrencyPicker} from "./CurrencyPicker";
 
 interface IDesktop {
     logo: string;
@@ -63,7 +64,6 @@ export const Desktop: React.FC<IDesktop> = (props) => {
             </Tooltip>
         )
     );
-
     const account = () => (
         <div style={{
             position: "absolute",
@@ -72,6 +72,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
         }}>
             <Row align="center">
                 {subscription()}
+                <CurrencyPicker style={{marginRight: -12}} />
                 <CartPicker />
                 <Account />
             </Row>

@@ -19,7 +19,7 @@ export const ItemOption: React.FC<IProps> = (props) => {
 
     const [hovered, setHovered] = useState<string>("");
 
-    const {current: {shop}} = useStore();
+    const {current: {shop}, currency} = useStore();
     const {options} = shop();
 
     const toggleOption = (id: string) => {
@@ -36,8 +36,8 @@ export const ItemOption: React.FC<IProps> = (props) => {
         <>
             <Typography variant="body1">Options:</Typography>
             {itemOptions.map((optionId) => {
-                const option = CalcPrice.fromOption(price, options.local.id[optionId]);
-                const value = `${option.value >= 0 ? '+' : '-'} $${Math.abs(option.value)}`;
+                const option = CalcPrice.fromOption(price, currency, options.local.id[optionId]);
+                const value = `${option.value >= 0 ? '+' : '-'} ${currency.label}${Math.abs(option.value)}`;
                 return (
                     <Row p={2} s={16}
                         align="center"

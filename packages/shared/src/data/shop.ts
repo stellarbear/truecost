@@ -1,6 +1,6 @@
 import {IGame, IItem, IOption, ISubscription, ITag, rangeBase} from "../interfaces";
 import {arrayToDict, dictSortMap, ICartItem, OptionArea, OptionMerge, SafeJSON} from "..";
-import {CalcPrice, CalcResult} from "../math";
+import {CalcPrice, CalcResult, ICurrency} from "../math";
 
 export type Dict<T> = Record<string, T>;
 
@@ -53,6 +53,7 @@ const map = (src: any) => src.getIdentifiers
 export const parseShop = (
     GameAll: IGame[], ItemAll: IItem[], TagAll: ITag[], OptionAll: IOption[],
     SubscriptionAll: ISubscription[],
+    currency: ICurrency,
 ) => {
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
     const shopDict: IShopContext = {data: {}, subs: {}};
@@ -106,14 +107,14 @@ export const parseShop = (
                 let value = 0;
 
                 for (const itemId in cart) {
-                    const itemPrice = CalcPrice.fromItem(items[itemId], cart[itemId].chunk);
-                    const totalPrice = CalcPrice.fromItemAndOptions(itemPrice,
+                    const itemPrice = CalcPrice.fromItem(items[itemId], currency, cart[itemId].chunk);
+                    const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, currency,
                         cart[itemId].optionIds.map(o => options[o]));
 
                     value += totalPrice.value;
                 }
 
-                value = CalcPrice.fromItemAndOptions({value, string: ""}, extra.map(s => global[s])).value;
+                value = CalcPrice.fromItemAndOptions({value, string: ""}, currency, extra.map(s => global[s])).value;
                 const string = `${value} $`;
 
                 return {value, string};

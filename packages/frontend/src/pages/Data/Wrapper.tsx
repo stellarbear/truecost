@@ -1,5 +1,8 @@
 import React, {createContext, useContext, useState} from "react";
-import {Dict, ICart, IGame, IGameContext, IShop, ISubscription, IUser, subscription} from "@truecost/shared";
+import {
+    CurrencyKey, Dict, ICart, ICurrency, IGame, IGameContext, IShop,
+    ISubscription, IUser, subscription,
+} from "@truecost/shared";
 import {useData, IInfoContext} from "./useData";
 import {useGame} from "./useGame";
 import {useUser} from "./useUser";
@@ -9,6 +12,7 @@ import {Mock} from "./Mock";
 import {IMeta, useMeta} from "./useMeta";
 import {useQuery} from "@apollo/client";
 import {IReview, useReview} from "./useReview";
+import {useCurrency} from "./useCurrency";
 
 interface IRawContext {
     data: any;
@@ -17,6 +21,7 @@ interface IRawContext {
 export interface IDataContext {
     meta: Dict<IMeta>;
     reviews: IReview[];
+    currency: ICurrency;
     games: IGameContext["data"];
     infos: IInfoContext["data"];
     subs: Dict<ISubscription>;
@@ -28,6 +33,7 @@ export interface IDataContext {
         cart(id?: string): ICart;
     };
     update: {
+        setCurrency(key: CurrencyKey): void;
         setUser(user: IUser | null): void;
         setGame(id: string): void;
         cart: {
@@ -71,7 +77,8 @@ const Data: React.FC = ({children}) => {
     const {data} = useContext(RawContext);
     const {MetaAll, ReviewAll, Stripe, ...RestAll} = data;
 
-    const [store] = useState(useData(RestAll));
+    const {currency, setCurrency} = useCurrency();
+    const [store] = useState(useData(RestAll, currency));
     const [meta] = useState(useMeta(MetaAll));
     const [reviews] = useState(useReview(ReviewAll));
 
@@ -79,10 +86,12 @@ const Data: React.FC = ({children}) => {
     const {state: user, setState: setUser} = useUser(store.user);
     const {state: game, setState: setGame} = useGame(store.game);
 
+
     return (
         <DataContext.Provider value={{
             meta,
             reviews,
+            currency,
             subs: store.shop.subs,
             games: store.game.data,
             infos: store.info.data,
@@ -94,6 +103,7 @@ const Data: React.FC = ({children}) => {
                 shop: (id) => store.shop.data[id || game.id],
             },
             update: {
+                setCurrency,
                 setUser: (user: IUser | null) => setUser(user),
                 setGame: (id: string) => {
                     id in store.game.data.id && setGame(store.game.data.id[id]);

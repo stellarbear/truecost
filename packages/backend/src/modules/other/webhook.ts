@@ -43,7 +43,8 @@ export const createOrder = async (response: Record<string, any>) => {
     const currentGame = await gameRepo.findOne({id: game}, {populate: false});
     assert(currentGame, "game not found");
 
-    const currentUser = (await userRepo.findOne({email})) ?? (await createUser(userRepo, email));
+    const currentUser = (await userRepo.findOne({email}))
+        ?? (await createUser(userRepo, email));
 
     const code = "TC-" + generateString({length: 8, num: true, upper: true, lower: false});
     const currentBooking = bookRepo.create({

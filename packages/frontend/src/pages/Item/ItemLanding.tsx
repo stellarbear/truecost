@@ -26,15 +26,15 @@ interface IProps {
 
 export const ItemLanding: React.FC<IProps> = (props) => {
     const {item} = props;
-    const {current: {shop, game: {url}}} = useStore();
+    const {current: {shop, game: {url}}, currency} = useStore();
     const {options} = shop();
 
     const [chunk, setChunk] = React.useState<[number, number]>(item.range.d.length > 0
         ? [item.range.d.first().a, item.range.d.last().a] : [0, 0]);
     const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
 
-    const itemPrice = CalcPrice.fromItem(item, chunk);
-    const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, selectedOptions.map(o => options.local.id[o]));
+    const itemPrice = CalcPrice.fromItem(item, currency, chunk);
+    const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, currency, selectedOptions.map(o => options.local.id[o]));
 
     return (
         <div>

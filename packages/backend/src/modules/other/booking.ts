@@ -7,7 +7,10 @@ import {ItemEntity} from "../crud/item/item.entity";
 import {TagEntity} from "../crud/tag/tag.entity";
 import {OptionEntity} from "../crud/option/option.entity";
 import {GameEntity} from "../crud/game/game.entity";
-import {parseCart, parseShop, SafeJSON, subscription as subscrMath, CalcPrice} from "@truecost/shared";
+import {
+    parseCart, parseShop, SafeJSON, subscription as subscrMath,
+    CalcPrice, Currencies, CurrencyKey
+} from "@truecost/shared";
 import {backend, frontend} from "../../helpers/route";
 import {creds} from "../../helpers/creds";
 import Stripe from 'stripe';
@@ -61,6 +64,7 @@ export class BookingResolver {
         @Arg("email") email: string,
         @Arg("booking") booking: string,
         @Arg("info") info: string,
+        @Arg("currency") currency: string,
         @Arg("coupon", {nullable: true}) coupon?: string,
         @Arg("subscription", {nullable: true}) subscription?: string,
     ) {
@@ -68,6 +72,10 @@ export class BookingResolver {
         const userEmail = await this.getEmail(ctx, email);
         const gameEntiry = await this.gameRepo.findOne({id: game});
         assert(gameEntiry, "invalid game");
+
+        const currencyValue = currency as CurrencyKey;
+        const currencyRecord = Currencies[currencyValue];
+        assert(!(currency in Currencies), "invalid currency");
 
         const GameAll = await this.gameRepo.findAll();
         const ItemAll = await this.itemRepo.findAll();
@@ -78,6 +86,7 @@ export class BookingResolver {
 
         const {shop} = parseShop(
             GameAll, ItemAll as any, TagAll as any, OptionAll, SubscriptionAll,
+            currencyRecord,
         );
 
         //  get discount or subscription
@@ -108,15 +117,16 @@ export class BookingResolver {
             const name = item.name + (item.range.d.length > 0 ? ` ${chunk?.join(' - ')}` : '');
             const description = options.map(o => o.name).join(', ') || "-";
             const images = item.images.map(i => `${backend.uri}/${itemId}/${i}/u.png`);
-            const itemPrice = CalcPrice.fromItem(item, chunk);
-            const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, options);
+
+            const itemPrice = CalcPrice.fromItem(item, currencyRecord, chunk);
+            const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, currencyRecord, options);
             const amount = CalcPrice.percentage(totalPrice.value * 100, discount);
 
             return (
                 {
                     name,
                     quantity,
-                    currency: 'usd',
+                    currency,
                     description,
                     images,
                     amount: amount > 0 ? amount : 1,
@@ -132,13 +142,13 @@ export class BookingResolver {
             const name = option.name;
             const quantity = 1;
             const images: string[] = [];
-            const optionPrice = CalcPrice.fromOption(localCartPrice, option);
+            const optionPrice = CalcPrice.fromOption(localCartPrice, currencyRecord, option);
             const amount = CalcPrice.percentage(optionPrice.value * 100, discount);
             return (
                 {
                     name,
                     quantity,
-                    currency: 'usd',
+                    currency,
                     description: '-',
                     images,
                     amount: amount > 0 ? amount : 1,
@@ -155,7 +165,7 @@ export class BookingResolver {
                 line_items.push({
                     name,
                     quantity: 1,
-                    currency: 'usd',
+                    currency,
                     description: 'discount plan',
                     amount: price * 100,
                 });
@@ -167,6 +177,8 @@ export class BookingResolver {
         const information: Record<string, any> = SafeJSON.parse(info, {});
         slack([
             " (╯°□°)╯ [purchuase attempt] ...",
+            coupon || "-",
+            currency,
             email,
             ...line_items.map(({name, quantity, amount, description}) =>
                 `• ${name} x ${quantity}\n  price: ${amount / 100} $\n opts: ${description}`),

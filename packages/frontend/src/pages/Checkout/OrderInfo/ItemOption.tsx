@@ -20,7 +20,7 @@ export const ItemOption: React.FC<IProps> = (props) => {
 
     const [hovered, setHovered] = useState<string>("");
 
-    const {current: {shop}} = useStore();
+    const {current: {shop}, currency} = useStore();
     const {options} = shop();
 
     const toggleOption = (id: string) => {
@@ -37,7 +37,7 @@ export const ItemOption: React.FC<IProps> = (props) => {
         <>
             <ItemDivider condition={itemOptions.length > 0} />
             {itemOptions.map((optionId) => {
-                const option = CalcPrice.fromOption(price, options.local.id[optionId]);
+                const option = CalcPrice.fromOption(price, currency, options.local.id[optionId]);
 
                 return (
                     <Row justify="flex-end" align="center"

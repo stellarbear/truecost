@@ -11,6 +11,7 @@ import {CartPicker} from "./CartPicker";
 import {AccountPicker} from "./AccountPicker";
 import {backend, frontend} from "auxiliary/route";
 import {SafeImage} from "components/SafeImage";
+import {CurrencyPicker} from "./CurrencyPicker";
 
 interface IProps {
     logo: string;
@@ -92,10 +93,11 @@ export const Mobile: React.FC<IProps> = (props) => {
                 >
                     <Menu />
                 </IconButton>
-                <GamePicker />
+                <GamePicker mobile />
                 {home()}
             </Row>
             <Row>
+                <CurrencyPicker style={{marginRight: -12}} />
                 <CartPicker />
                 <AccountPicker />
             </Row>

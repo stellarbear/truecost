@@ -1,4 +1,4 @@
-import {IGameContext, IInfo, IShopContext, IUser, parseShop} from '@truecost/shared';
+import {ICurrency, IGameContext, IInfo, IShopContext, IUser, parseShop} from '@truecost/shared';
 import {mock} from './mock';
 
 export interface IUserContext {
@@ -21,11 +21,12 @@ export interface IStoreContext {
 }
 
 
-export function useData(data: any): IStore {
+export function useData(data: any, currency: ICurrency): IStore {
     const {GameAll, ItemAll, TagAll, OptionAll, SubscriptionAll, UserWhoAmI, InfoAll} = data;
 
     const {shop, game} = parseShop(
         GameAll, ItemAll, TagAll, OptionAll, SubscriptionAll,
+        currency,
     );
 
     shop.data.truecost = mock.defaultShop;

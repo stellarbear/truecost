@@ -13,7 +13,7 @@ import {ItemRange} from './ItemRange';
 import {CheckoutEmpty} from './CheckoutEmpty';
 
 export const OrderInfo: React.FC = () => {
-    const {current: {shop, cart}, update} = useStore();
+    const {current: {shop, cart}, update, currency} = useStore();
 
     const {items: {id: items}, options: {local: {id: local}}} = shop();
     const cartItems = cart().local;
@@ -25,8 +25,8 @@ export const OrderInfo: React.FC = () => {
         const {itemId, optionIds, chunk, quantity} = cartItem;
         const item = items[itemId];
 
-        const itemPrice = CalcPrice.fromItem(item, chunk);
-        const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, optionIds.map(o => local[o]));
+        const itemPrice = CalcPrice.fromItem(item, currency, chunk);
+        const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, currency, optionIds.map(o => local[o]));
 
         const upsert = update.cart.upsert;
 
