@@ -25,7 +25,7 @@ export const EmailPromoCode: React.FC<IProps> = (props) => {
                             borderRadius: "50%",
                         }} />
                         <Typography variant="button">
-                            Get promo code
+                            Get 10% discount promo code
                     </Typography>
                     </Row>
                 </Button>

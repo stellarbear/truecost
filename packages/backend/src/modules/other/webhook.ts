@@ -74,7 +74,6 @@ export const createOrder = async (response: Record<string, any>) => {
         await userRepo.persistAndFlush(currentUser);
     }
 
-
     const information: Record<string, any> = SafeJSON.parse(info, {});
     slack([
         " ʕノ•ᴥ•ʔノ [PURCHUASE SUCCESS]  \\(•ᴥ• \\)́",
