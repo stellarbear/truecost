@@ -70,7 +70,7 @@ export class CalcPrice {
         const string = `${value} ${currency.label}`;
 
         return ({
-            value: CalcPrice.round(Math.max(value, 0)),
+            value: CalcPrice.round(value),
             string,
         });
     }
@@ -94,7 +94,7 @@ export class CalcPrice {
         const description = type === OptionType.RELATIVE ? `${price} %` : undefined;
 
         return ({
-            value: CalcPrice.round(Math.max(value, 0)),
+            value: CalcPrice.round(value),
             string,
             description,
         });
