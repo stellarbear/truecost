@@ -49,7 +49,7 @@ const social = [
         valid: false,
         icon: <Discord/>,
         title: "Discord",
-        url: "truecost#3160",
+        url: "truecostgg#3160",
     },
     {
         valid: true,
