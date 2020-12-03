@@ -10,12 +10,13 @@ export class CalcPrice {
     private constructor(private readonly price: number = 0) { }
 
     static round = (val: number) =>
-        Math.round((val + Number.EPSILON) * 10) / 10;
+        Math.floor(val);
+        //Math.round((val + Number.EPSILON) * 10) / 10;
 
     private static sum(...nums: number[]): number {
         const total = nums.reduce((acc, cur) => acc + cur, 0);
 
-        return this.round(total);
+        return CalcPrice.round(total);
     }
 
     static applyCurrency = (price: number, currency: ICurrency) => {
