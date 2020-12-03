@@ -60,6 +60,7 @@ export class BookingResolver {
     @Mutation(() => String)
     async BookingMake(
         @Ctx() ctx: Context,
+        @Arg("method") method: string,
         @Arg("game") game: string,
         @Arg("email") email: string,
         @Arg("booking") booking: string,
@@ -173,13 +174,12 @@ export class BookingResolver {
             }
         }
 
-        console.log(line_items);
-
         const information: Record<string, any> = SafeJSON.parse(info, {});
         slack([
             " (╯°□°)╯ [purchase attempt] ...",
             coupon || "-",
             currency,
+            method,
             email,
             ...line_items.map(({name, quantity, amount, description}) =>
                 `• ${name} x ${quantity}\n  price: ${amount / 100} ${currencyRecord.label}\n opts: ${description}`),
@@ -187,22 +187,26 @@ export class BookingResolver {
             `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`,
         ]);
 
-        const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-08-27'});
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ["card"],
-            customer_email: email,
-            ...(coupon ? {
-                discounts: [{
-                    coupon,
-                }],
-            } : {}),
-            metadata: {info, game, email: userEmail, subscription: sub, currency},
-            locale: "en",
-            line_items,
-            success_url: `${frontend.uri}/${gameEntiry?.url}/checkout/success`,
-            cancel_url: `${frontend.uri}/${gameEntiry?.url}/checkout`,
-        });
-        return session.id;
+        if (method === "stripe") {
+            const stripe = new Stripe(creds("stripe").sk, {apiVersion: '2020-08-27'});
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ["card"],
+                customer_email: email,
+                ...(coupon ? {
+                    discounts: [{
+                        coupon,
+                    }],
+                } : {}),
+                metadata: {info, game, email: userEmail, subscription: sub, currency},
+                locale: "en",
+                line_items,
+                success_url: `${frontend.uri}/${gameEntiry?.url}/checkout/success`,
+                cancel_url: `${frontend.uri}/${gameEntiry?.url}/checkout`,
+            });
+            return session.id;
+        } else {
+            return "";
+        }
     }
 
     private async getEmail(ctx: Context, email: string): Promise<string> {

@@ -4,7 +4,7 @@ import {MasterCard, PayPal, Visa} from 'assets/cards';
 import {Col, Row} from 'pages/Base/Grid';
 import {colors} from 'theme';
 
-export enum PaymentMethod {Stripe = 0, PayPal = 1}
+export enum PaymentMethod {Stripe = "stripe", PayPal = "paypal"}
 
 interface IProps {
     method: PaymentMethod;

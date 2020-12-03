@@ -26,11 +26,11 @@ const MAKE_BOOKING = gql`
     mutation BookingMake(
         $email: String!, $booking: String!, $info: String!,
          $game: String!, $coupon: String, $subscription: String,
-         $currency: String!) {
+         $currency: String!, $method: String!) {
         BookingMake(
             email:$email, booking:$booking, info: $info, 
             game: $game, subscription:$subscription, coupon: $coupon
-            currency: $currency)
+            currency: $currency, method: $method)
     }
 `;
 
@@ -60,41 +60,42 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     const cartItems = cart();
 
     const bookingSubmit = async (input: BookingSubmit) => {
-        debugger;
-        clearErrors();
-        setLoading(true);
-        switch (method) {
-            case PaymentMethod.PayPal:
-                let {price} = total;
-                if (input.coupon === "SUBS") {
-                    price = CalcPrice.percentage(price, 90);
-                }
+        try {
+            clearErrors();
+            setLoading(true);
+            const {platform, text, cross, time, zone} = info;
 
-                const link = payPalLink + price + currency.id;
-                window.location = link as any;
+            const variables = {
+                ...input,
+                method,
+                game: game.id,
+                currency: currency.id,
+                subscription: selectedSubscription,
+                booking: JSON.stringify(cartItems),
+                info: JSON.stringify({platform, text, cross, time, zone}),
+            };
 
-                return;
-            case PaymentMethod.Stripe:
-            default:
-                try {
-                    const {platform, text, cross, time, zone} = info;
+            await mutation({variables});
 
-                    const variables = {
-                        ...input,
-                        game: game.id,
-                        currency: currency.id,
-                        subscription: selectedSubscription,
-                        booking: JSON.stringify(cartItems),
-                        info: JSON.stringify({platform, text, cross, time, zone}),
-                    };
-                    await mutation({variables});
+            switch (method) {
+                case PaymentMethod.PayPal:
+                    let {price} = total;
+                    if (input.coupon === "SUBS") {
+                        price = CalcPrice.percentage(price, 90);
+                    }
+
+                    const link = payPalLink + price + currency.id;
+                    window.location = link as any;
 
                     return;
+                case PaymentMethod.Stripe:
+                default:
+                    return;
 
-                } catch (e) {
-                } finally {
-                    setLoading(false);
-                }
+            }
+        } catch (e) {
+        } finally {
+            setLoading(false);
         }
     };
 
