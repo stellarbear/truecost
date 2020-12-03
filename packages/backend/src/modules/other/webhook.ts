@@ -111,6 +111,8 @@ export const createOrder = async (response: Record<string, any>) => {
     } catch (e) {
         console.log(e);
     }
+
+    return currentBooking;
 };
 
 const createUser = async (repo: EntityRepository<UserEntity>, email: string) => {

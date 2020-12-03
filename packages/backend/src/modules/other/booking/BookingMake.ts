@@ -1,29 +1,27 @@
-import {Arg, Ctx, Mutation, Query, Resolver, UseMiddleware} from "type-graphql";
-import {UserEntity} from "../crud/user/user.entity";
-import {Context} from "../../server";
-import {redis} from "../../redis";
-import {DI} from "../../orm";
-import {ItemEntity} from "../crud/item/item.entity";
-import {TagEntity} from "../crud/tag/tag.entity";
-import {OptionEntity} from "../crud/option/option.entity";
-import {GameEntity} from "../crud/game/game.entity";
+import {Arg, Ctx, Mutation, Resolver,} from "type-graphql";
+import {UserEntity} from "../../crud/user/user.entity";
+import {Context} from "../../../server";
+import {redis} from "../../../redis";
+import {DI} from "../../../orm";
+import {ItemEntity} from "../../crud/item/item.entity";
+import {TagEntity} from "../../crud/tag/tag.entity";
+import {OptionEntity} from "../../crud/option/option.entity";
+import {GameEntity} from "../../crud/game/game.entity";
 import {
     parseCart, parseShop, SafeJSON, subscription as subscrMath,
-    CalcPrice, Currencies, CurrencyKey, RoleType,
+    CalcPrice, Currencies, CurrencyKey,
 } from "@truecost/shared";
-import {backend, frontend} from "../../helpers/route";
-import {creds} from "../../helpers/creds";
+import {backend, frontend} from "../../../helpers/route";
+import {creds} from "../../../helpers/creds";
 import Stripe from 'stripe';
-import {assert} from "../../helpers/assert";
-import {BookingEntity} from "../crud/booking/booking.entity";
-import {SubscriptionEntity} from "../crud/subscription/subscription.entity";
-import {slack} from "../../helpers/slack";
-import {UseAuth} from "../../middleware/auth";
+import {assert} from "../../../helpers/assert";
+import {BookingEntity} from "../../crud/booking/booking.entity";
+import {SubscriptionEntity} from "../../crud/subscription/subscription.entity";
+import {slack} from "../../../helpers/slack";
+import {BookingMakeInput} from "./BookingMakeInput";
 
-
-//TODO: session middleware
 @Resolver()
-export class BookingResolver {
+export class BookingMakeResolver {
     tagRepo = DI.em.getRepository(TagEntity);
     gameRepo = DI.em.getRepository(GameEntity);
     userRepo = DI.em.getRepository(UserEntity);
@@ -32,56 +30,16 @@ export class BookingResolver {
     bookRepo = DI.em.getRepository(BookingEntity);
     subsRepo = DI.em.getRepository(SubscriptionEntity);
 
-    @Query(() => BookingEntity)
-    async BookingGetByCode(
-        @Arg("email") email: string,
-        @Arg("code") code: string,
-    ) {
-        const user = await this.userRepo.findOne({email});
-        assert(user, "order not found", ["code"]);
-
-        const booking = await this.bookRepo.findOne({code, user});
-        assert(booking, "order not found", ["code"]);
-
-        return booking;
-    }
-    
-    @UseMiddleware(UseAuth([RoleType.ADMIN]))
-    @Query(() => BookingEntity)
-    async BookingGetById(
-        @Arg("id") id: string,
-    ) {
-        const booking = await this.bookRepo.findOne({id});
-        assert(booking, "order not found", ["code"]);
-
-        return booking;
-    }
-
-    @Query(() => [BookingEntity])
-    async UserGetBooking(
-        @Ctx() ctx: Context,
-    ) {
-        assert(ctx.req.session, "user not found");
-        const userId = await redis.client.get(`session-${ctx.req.session.id}`);
-        assert(userId, "user not found");
-        const booking = await this.bookRepo.find({user: userId});
-
-        return booking;
-    }
-
     @Mutation(() => String)
     async BookingMake(
         @Ctx() ctx: Context,
-        @Arg("method") method: string,
-        @Arg("game") game: string,
-        @Arg("email") email: string,
-        @Arg("booking") booking: string,
-        @Arg("info") info: string,
-        @Arg("currency") currency: string,
-        @Arg("coupon", {nullable: true}) coupon?: string,
-        @Arg("subscription", {nullable: true}) subscription?: string,
+        @Arg("input") input: BookingMakeInput,
     ) {
-        console.log("arrived <----------------------------------------");
+        const {
+            game, email, booking, method,
+            info, currency, coupon, subscription
+        } = input
+
         const userEmail = await this.getEmail(ctx, email);
         const gameEntiry = await this.gameRepo.findOne({id: game});
         assert(gameEntiry, "invalid game");
@@ -240,6 +198,4 @@ export class BookingResolver {
         assert(user.active, "account disabled");
         return user.email;
     }
-
-
 }

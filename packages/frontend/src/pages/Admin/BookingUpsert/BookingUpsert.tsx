@@ -2,8 +2,8 @@ import {gql, useQuery} from '@apollo/client';
 import {CircularProgress} from '@material-ui/core';
 import * as React from 'react';
 import {Redirect, useParams} from 'react-router';
-import {IOrderData} from './interfaces';
-import {OrderUpsertForm} from './OrderUpsertForm';
+import {IBookingData} from './interfaces';
+import {BookingUpsertForm} from './BookingUpsertForm';
 
 const GET_BOOKING_BY_ID = gql`
     query BookingGetById ($id: String!) {
@@ -22,10 +22,10 @@ const GET_BOOKING_BY_ID = gql`
 `;
 
 interface Mutation {
-    BookingGetById?: IOrderData;
+    BookingGetById?: IBookingData;
 }
 
-export const OrderUpsert: React.FC = () => {
+export const BookingUpsert: React.FC = () => {
     const {id} = useParams<{id?: string}>();
     const {data, loading, error} = useQuery<Mutation>(GET_BOOKING_BY_ID, {variables: {id}});
 
@@ -38,8 +38,8 @@ export const OrderUpsert: React.FC = () => {
     }
 
     return (
-        <OrderUpsertForm
-            order={data?.BookingGetById}
+        <BookingUpsertForm
+            booking={data?.BookingGetById}
         />
     );
 };

@@ -9,7 +9,7 @@ import {ItemCRUDResolver} from "./crud/item/item.resolver";
 import {OptionCRUDResolver} from "./crud/option/option.resolver";
 import {SubscriptionCRUDResolver} from "./crud/subscription/subscription.resolver";
 import {InfoCRUDResolver} from "./crud/info/info.resolver";
-import {BookingResolver} from "./other/booking";
+import {BookingGetResolver, BookingMakeResolver, BookingUpsertResolver} from "./other/booking";
 import {PaymentResolver} from "./other/payment";
 import {MetaCRUDResolver} from "./crud/meta/meta.resolver";
 import {BlogResolver} from "./other/blog";
@@ -21,7 +21,8 @@ const resolvers = [
     PaymentResolver,
     MetaCRUDResolver,
     EmailResolver,
-    BlogCRUDResolver, BookingResolver,
+    BlogCRUDResolver, 
+    BookingGetResolver, BookingMakeResolver, BookingUpsertResolver,
     SubscriptionCRUDResolver,
     ReviewCRUDResolver,
     UserCRUDResolver, BookingCRUDResolver,

@@ -1,4 +1,4 @@
-export interface IOrderForm {
+export interface IBookingForm {
     id?: string;
     total: number;
     data: string;
@@ -12,7 +12,7 @@ export interface IOrderForm {
     currency: string;
 }
 
-export interface IOrderData {
+export interface IBookingData {
     id: string;
     total: number;
     data: string;

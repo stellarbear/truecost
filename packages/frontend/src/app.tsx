@@ -29,7 +29,7 @@ import {NotifyWrapper} from "components/wrappers/NotifyWrapper";
 import {Blog} from "pages/Blog";
 import {BlogPost} from "pages/Blog/BlogPost";
 import {HomeGame, HomeLanding} from "pages/Home";
-import {OrderUpsert} from "pages/Admin/OrderUpsert";
+import {BookingUpsert} from "pages/Admin/BookingUpsert";
 
 
 const App = () => {
@@ -51,7 +51,7 @@ const App = () => {
                     component={Checkout} />
                 <Route sensitive exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
-                <AuthRoute sensitive path={`/order/upsert/:id`} component={OrderUpsert} />
+                <AuthRoute sensitive path={`/booking/upsert/:id?`} component={BookingUpsert} />
                 <AuthRoute sensitive path={`/account`} component={Account} />
                 <AuthRoute sensitive path={`/admin`} component={Admin} roles={[RoleType.ADMIN]} />
 

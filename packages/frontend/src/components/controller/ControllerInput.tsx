@@ -11,6 +11,7 @@ interface Props {
     label: string;
     onChange: (...event: any[]) => void;
     noDiscard?: boolean;
+    readOnly?: boolean;
     rows?: number;
 }
 
@@ -22,6 +23,7 @@ export const ControllerInput =
             style = {},
             value, onChange,
             noDiscard = false,
+            readOnly = false,
             rows = 1,
         } = props;
 
@@ -34,6 +36,7 @@ export const ControllerInput =
                         fullWidth
                         rows={rows}
                         value={value}
+                        disabled={readOnly}
                         multiline={rows > 1}
                         onChange={(e) => onChange(e.target.value)}
                         label={label}

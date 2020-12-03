@@ -16,6 +16,7 @@ interface Props<K, T> {
     value?: K;
     label: string;
     noValue?: string;
+    readOnly?: boolean;
     onChange: (...event: any[]) => void;
     noDiscard?: boolean;
 }
@@ -30,6 +31,7 @@ export const ControllerDropdownSelect =
             data, value, onChange,
             noValue = "Not selected",
             noDiscard = false,
+            readOnly = false,
         } = props;
 
         return (
@@ -46,6 +48,7 @@ export const ControllerDropdownSelect =
                             {label}
                         </InputLabel>
                         <Select
+                            disabled={readOnly}
                             value={value || ""}
                             variant="filled"
                             onChange={(e) => onChange(e.target.value)}

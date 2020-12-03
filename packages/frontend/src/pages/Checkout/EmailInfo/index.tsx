@@ -23,14 +23,8 @@ interface BookingSubmit {
 }
 
 const MAKE_BOOKING = gql`
-    mutation BookingMake(
-        $email: String!, $booking: String!, $info: String!,
-         $game: String!, $coupon: String, $subscription: String,
-         $currency: String!, $method: String!) {
-        BookingMake(
-            email:$email, booking:$booking, info: $info, 
-            game: $game, subscription:$subscription, coupon: $coupon
-            currency: $currency, method: $method)
+    mutation BookingMake($input: BookingMakeInput!) {
+        BookingMake(input: $input)
     }
 `;
 

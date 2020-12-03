@@ -1,24 +1,47 @@
+import {gql, useMutation} from '@apollo/client';
 import {Button, Container, Divider, Typography} from '@material-ui/core';
 import {Currencies, validate} from '@truecost/shared';
 import {ControllerDropdownSelect, ControllerInput, ControllerNumber} from 'components/controller';
+import {useLoading} from 'components/wrappers/LoadingWrapper';
+import {useNotification} from 'components/wrappers/NotifyWrapper';
 import {Col, Row} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
 import * as React from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {dataDefault, infoDefault, infoValidate, dataValidate, parseOrder} from './helpers';
-import {IOrderForm, IOrderData} from './interfaces';
+import {dataDefault, infoDefault, infoValidate, dataValidate, parseBooking} from './helpers';
+import {IBookingForm, IBookingData} from './interfaces';
+
+
+const MAKE_BOOKING = gql`
+    mutation BookingUpsertManually($input: BookingUpsertInput!) {
+        BookingUpsertManually(input: $input) {
+            id
+        }
+    }
+`;
 
 
 interface IProps {
-    order?: IOrderData;
+    booking?: IBookingData;
 }
 
-type InputForm = IOrderForm;
+type InputForm = IBookingForm;
 
-export const OrderUpsertForm: React.FC<IProps> = (props) => {
-    const {order} = props;
-    const flattenedOrder = parseOrder(order);
-    const newOrder = !!order;
+export const BookingUpsertForm: React.FC<IProps> = (props) => {
+    const {booking} = props;
+    const isNew = !!!booking;
+    const {notify} = useNotification();
+    const {setLoading} = useLoading();
+    const flattenedOrder = parseBooking(booking);
+    const [mutation, {data}] = useMutation(MAKE_BOOKING);
+
+    React.useEffect(() => {
+        if (data?.BookingUpsertManually) {
+            notify(isNew
+                ? 'Заказ создан'
+                : 'Заказ обновлен')
+        }
+    }, [data?.BookingUpsertManually])
 
     const {subs, games} = useStore();
 
@@ -40,7 +63,7 @@ export const OrderUpsertForm: React.FC<IProps> = (props) => {
     const CurrencyOptions = React.useCallback(() =>
         [Currencies.usd, Currencies.eur]
             .map(({id, label}) => ({id, name: label}),
-            ), []);
+        ), []);
 
     const GameOptions = React.useCallback(() =>
         Object.keys(games.id).map((key) => ({
@@ -52,9 +75,16 @@ export const OrderUpsertForm: React.FC<IProps> = (props) => {
 
     const onSubmit = React.useCallback(
         async (input: InputForm) => {
-            input.info = input.info.replace(/\s\s+/g, ' ');
-            input.data = input.data.replace(/\s\s+/g, ' ');
-            console.log(input);
+            try {
+                setLoading(true);
+                input.info = input.info.replace(/\s\s+/g, ' ');
+                input.data = input.data.replace(/\s\s+/g, ' ');
+                console.log(input);
+                await mutation({variables: {input}});
+            } catch (e) {
+            } finally {
+                setLoading(false);
+            }
         },
         [],
     );
@@ -63,7 +93,7 @@ export const OrderUpsertForm: React.FC<IProps> = (props) => {
         <Container maxWidth="sm">
             <Col s={16}>
                 <Typography variant="h6">
-                    {order
+                    {!isNew
                         ? `Редактирование заказа`
                         : 'Новый заказ'}
                 </Typography>
@@ -82,6 +112,7 @@ export const OrderUpsertForm: React.FC<IProps> = (props) => {
                         render={({value, onChange}) => (
                             <ControllerInput
                                 {...{value, onChange}}
+                                readOnly={isNew}
                                 label="Email *"
                                 error={errors.email}
                             />
@@ -129,6 +160,7 @@ export const OrderUpsertForm: React.FC<IProps> = (props) => {
                         render={({value, onChange}) => (
                             <ControllerDropdownSelect
                                 {...{value, onChange}}
+                                readOnly={isNew}
                                 label="Subscription"
                                 data={SubscriptionOptions()}
                                 error={errors.subscription}
@@ -212,7 +244,7 @@ export const OrderUpsertForm: React.FC<IProps> = (props) => {
                         type="submit"
                         fullWidth
                         color="primary">
-                        {order ? "Обновить заказ" : "Создать заказ"}
+                        {!isNew ? "Обновить заказ" : "Создать заказ"}
                     </Button>
                 </form>
             </Col>
