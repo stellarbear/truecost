@@ -47,7 +47,7 @@ const ItemCard: React.FC<IProps> = (props) => {
 
         return (
             <Col m={4} s={4}
-                style={{position: "absolute", top: 0, left: 0}}>
+                style={{position: "absolute", top: 0, left: 0, zIndex: 5}}>
                 {filtered.length > 0 && (
                     <Chip
                         style={{

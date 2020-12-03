@@ -4,11 +4,11 @@ import {Link, useLocation} from "react-router-dom";
 import {social} from "auxiliary/social";
 import SocialDialog from "../Base/SocialDialog";
 import {Col, Row} from "pages/Base/Grid";
-import {Bitcoin, Paypal, Visa, MasterCard, Discover, JCB, Unionpay, Amex, Diners} from "assets/cards";
+import {Bitcoin, PayPal, Visa, MasterCard, Discover, JCB, UnionPay, Amex, Diners} from "assets/cards";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 
 const additional = [
-    Paypal,
+    PayPal,
     Bitcoin,
 ];
 
@@ -17,7 +17,7 @@ const payment = [
     MasterCard,
     Discover,
     JCB,
-    Unionpay,
+    UnionPay,
     Amex,
     Diners,
 ];

@@ -3,7 +3,7 @@ import {useStore} from 'pages/Data/Wrapper';
 import {Accordion, AccordionDetails, AccordionSummary, Typography} from '@material-ui/core';
 import {CalcPrice, CalcResult} from '@truecost/shared';
 import {Col, Row} from 'pages/Base/Grid';
-import {ExpandMore} from '@material-ui/icons';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import {PriceTypography} from 'pages/Base/PriceTypography';
 import {OptionRow} from 'pages/Base/OptionRow';
 

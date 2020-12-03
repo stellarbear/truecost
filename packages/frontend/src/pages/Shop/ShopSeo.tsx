@@ -1,7 +1,7 @@
 import {Accordion, AccordionDetails, AccordionSummary, Typography} from '@material-ui/core';
 import {IGame} from '@truecost/shared';
 import {Col} from 'pages/Base/Grid';
-import {ExpandMore} from '@material-ui/icons';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import React from 'react';
 import {Markdown} from 'components/Markdown';
 

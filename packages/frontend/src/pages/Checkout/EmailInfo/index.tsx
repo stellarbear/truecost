@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
-import {Col, Row} from 'pages/Base/Grid';
-import {Typography} from '@material-ui/core';
+import {Col} from 'pages/Base/Grid';
 import {useForm} from 'react-hook-form';
 import {loadStripe} from '@stripe/stripe-js';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
@@ -10,6 +9,9 @@ import {EmailSubscription} from './EmailSubscription';
 import {EmailFields} from './EmailFields';
 import {EmailPrice} from './EmailPrice';
 import {gql, useMutation} from '@apollo/client';
+import {EmailMethod, PaymentMethod} from './EmailMethod';
+import {calcTotal} from '../helper';
+import {CalcPrice} from '@truecost/shared';
 
 interface IProps {
     info: Record<string, any>;
@@ -32,9 +34,14 @@ const MAKE_BOOKING = gql`
     }
 `;
 
+const payPalLink = 'https://www.paypal.com/paypalme/truecostgg/';
+
 export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
-    const {current: {user, game, cart}, payment: {stripe: stripeKey}, currency} = useStore();
+    const [method, setMethod] = useState(PaymentMethod.Stripe);
+
+    const store = useStore();
+    const {current: {user, game, cart}, payment: {stripe: stripeKey}, currency} = store;
     const [mutation, {data, error, loading}] = useMutation(MAKE_BOOKING);
 
     const [selectedSubscription, setSelectedSubscription] = useState<string | undefined>();
@@ -45,27 +52,49 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
         defaultValues: {email: user ? user.email : "", coupon: ""},
     });
 
+    const total = calcTotal({
+        store,
+        current: currentSubscription,
+        selected: selectedSubscription,
+    });
     const cartItems = cart();
 
     const bookingSubmit = async (input: BookingSubmit) => {
-        try {
-            clearErrors();
-            setLoading(true);
+        debugger;
+        clearErrors();
+        setLoading(true);
+        switch (method) {
+            case PaymentMethod.PayPal:
+                let {price} = total;
+                if (input.coupon === "SUBS") {
+                    price = CalcPrice.percentage(price, 90);
+                }
 
-            const {platform, text, cross, time, zone} = info;
+                const link = payPalLink + price + currency.id;
+                window.location = link as any;
 
-            const variables = {
-                ...input,
-                game: game.id,
-                currency: currency.id,
-                subscription: selectedSubscription,
-                booking: JSON.stringify(cartItems),
-                info: JSON.stringify({platform, text, cross, time, zone}),
-            };
-            await mutation({variables});
-        } catch (e) {
-        } finally {
-            setLoading(false);
+                return;
+            case PaymentMethod.Stripe:
+            default:
+                try {
+                    const {platform, text, cross, time, zone} = info;
+
+                    const variables = {
+                        ...input,
+                        game: game.id,
+                        currency: currency.id,
+                        subscription: selectedSubscription,
+                        booking: JSON.stringify(cartItems),
+                        info: JSON.stringify({platform, text, cross, time, zone}),
+                    };
+                    await mutation({variables});
+
+                    return;
+
+                } catch (e) {
+                } finally {
+                    setLoading(false);
+                }
         }
     };
 
@@ -83,33 +112,31 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     };
 
     return (
-        <Col s={16}>
-            <Row>
-                <Typography variant="caption">Subscription (optional)</Typography>
-            </Row>
-            <form onSubmit={handleSubmit(bookingSubmit)}>
-                <Col s={16}>
-                    <EmailSubscription
-                        current={currentSubscription}
-                        selected={selectedSubscription}
-                        setSelected={setSelectedSubscription}
-                    />
-                    <EmailFields
-                        register={register}
-                        email={watch("email")}
-                        setError={setError}
-                        clearErrors={clearErrors}
-                        setCurrent={setCurrentSubscription}
-                        error={errors.email?.message}
-                    />
-                    <EmailPrice
-                        error={error}
-                        loading={loading}
-                        current={currentSubscription}
-                        selected={selectedSubscription}
-                    />
-                </Col>
-            </form>
-        </Col>
+        <form onSubmit={handleSubmit(bookingSubmit)}>
+            <Col s={16}>
+                <EmailSubscription
+                    current={currentSubscription}
+                    selected={selectedSubscription}
+                    setSelected={setSelectedSubscription}
+                />
+                <EmailFields
+                    register={register}
+                    email={watch("email")}
+                    setError={setError}
+                    clearErrors={clearErrors}
+                    setCurrent={setCurrentSubscription}
+                    error={errors.email?.message}
+                />
+                <EmailMethod
+                    method={method}
+                    setMethod={setMethod}
+                />
+                <EmailPrice
+                    total={total}
+                    error={error}
+                    loading={loading}
+                />
+            </Col>
+        </form>
     );
 };

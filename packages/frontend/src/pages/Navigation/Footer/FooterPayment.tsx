@@ -1,13 +1,13 @@
 import * as React from "react";
 import {Row} from "pages/Base/Grid";
-import {Visa, MasterCard, Discover, JCB, Unionpay, Amex, Diners} from "assets/cards";
+import {Visa, MasterCard, Discover, JCB, UnionPay, Amex, Diners} from "assets/cards";
 
 const payment = [
     Visa,
     MasterCard,
     Discover,
     JCB,
-    Unionpay,
+    UnionPay,
     Amex,
     Diners,
 ];

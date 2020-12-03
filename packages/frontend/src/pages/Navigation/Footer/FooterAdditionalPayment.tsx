@@ -1,10 +1,10 @@
 import * as React from "react";
 import {Row} from "pages/Base/Grid";
-import {Bitcoin, Paypal} from "assets/cards";
+import {Bitcoin, PayPal} from "assets/cards";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 
 const additional = [
-    Paypal,
+    PayPal,
     Bitcoin,
 ];
 

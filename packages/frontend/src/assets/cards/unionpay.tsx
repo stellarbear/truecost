@@ -6,7 +6,7 @@ interface IProps {
 }
 
 /* eslint-disable */
-export const Unionpay: React.FC<IProps> = (props) => (
+export const UnionPay: React.FC<IProps> = (props) => (
     <SvgIcon viewBox="0 0 60 40" {...props}>
         <g fill="none">
             <path

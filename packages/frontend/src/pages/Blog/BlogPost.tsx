@@ -6,7 +6,7 @@ import {Meta} from 'pages/Base/Meta';
 import {IBlog} from '@truecost/shared';
 import {Col} from 'pages/Base/Grid';
 import {Link} from 'react-router-dom';
-import {ArrowBack} from '@material-ui/icons';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import {Button, CircularProgress, Divider, Typography} from '@material-ui/core';
 import {backend, frontend} from 'auxiliary/route';
 import {SafeImage} from 'components/SafeImage';

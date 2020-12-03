@@ -66,7 +66,7 @@ export class CalcPrice {
         const value = (item.range.d.length > 0)
             ? CalcPrice.applyCurrency(
                 CalcPrice.applyRange(item, chunk, adjustedPrice),
-                currency
+                currency,
             ) : adjustedPrice;
         const string = `${value} ${currency.label}`;
 

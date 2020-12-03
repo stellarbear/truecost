@@ -3,7 +3,7 @@ import {Col} from 'pages/Base/Grid';
 import {AuxPlatform, validatePlatform} from './AuxPlatform';
 import {AuxField} from './AuxField';
 import {Accordion, AccordionSummary, Typography, AccordionDetails} from '@material-ui/core';
-import {ExpandMore} from '@material-ui/icons';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 
 interface IProps {
     value: Record<string, any>;

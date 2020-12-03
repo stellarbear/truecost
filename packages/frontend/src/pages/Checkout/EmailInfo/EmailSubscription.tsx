@@ -24,49 +24,54 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
     );
 
     return (
-        <Row s={16} style={{
-            opacity: payed ? 0.4 : 1.0,
-        }}>
-            {ids.length > 0 ?
-                ids.map(subId => {
-                    const adjustedSubscriptionPrice =
-                        CalcPrice.applyCurrency(subs[subId].price, currency);
+        <>
+            <Row>
+                <Typography variant="caption">Subscription (optional)</Typography>
+            </Row>
+            <Row s={16} style={{
+                opacity: payed ? 0.4 : 1.0,
+            }}>
+                {ids.length > 0 ?
+                    ids.map(subId => {
+                        const adjustedSubscriptionPrice =
+                            CalcPrice.applyCurrency(subs[subId].price, currency);
 
-                    return (
-                        <Card
-                            key={`${subId}`}
-                            raised={hovered === subId}
-                            style={{
-                                width: 300, cursor: "pointer",
-                                ...((current === subId || selected === subId)
-                                    ? {
-                                        color: "#fff",
-                                        backgroundColor: colors.primaryColor,
-                                    } : {}),
-                            }}
-                            onMouseEnter={() => setHovered(subId)}
-                            onMouseLeave={() => setHovered("")}
-                            onClick={() => !payed && setSelected(selected === subId ? undefined : subId)}>
-                            <Col p={[8, 16]}>
-                                <Row justify="space-between">
-                                    <Typography style={{
-                                        textAlign: "right",
+                        return (
+                            <Card
+                                key={`${subId}`}
+                                raised={hovered === subId}
+                                style={{
+                                    width: 300, cursor: "pointer",
+                                    ...((current === subId || selected === subId)
+                                        ? {
+                                            color: "#fff",
+                                            backgroundColor: colors.primaryColor,
+                                        } : {}),
+                                }}
+                                onMouseEnter={() => setHovered(subId)}
+                                onMouseLeave={() => setHovered("")}
+                                onClick={() => !payed && setSelected(selected === subId ? undefined : subId)}>
+                                <Col p={[8, 16]}>
+                                    <Row justify="space-between">
+                                        <Typography style={{
+                                            textAlign: "right",
+                                            userSelect: "none",
+                                        }}>{subs[subId].name}</Typography>
+                                        <div style={{minWidth: 60}}>
+                                            <Typography variant="h6" style={{
+                                                whiteSpace: "nowrap", textAlign: "center", userSelect: "none",
+                                            }}>{`${adjustedSubscriptionPrice} ${currency.label}`}</Typography>
+                                        </div>
+                                    </Row>
+                                    <Typography variant="caption" component="p" style={{
+                                        textAlign: "center",
                                         userSelect: "none",
-                                    }}>{subs[subId].name}</Typography>
-                                    <div style={{minWidth: 60}}>
-                                        <Typography variant="h6" style={{
-                                            whiteSpace: "nowrap", textAlign: "center", userSelect: "none",
-                                        }}>{`${adjustedSubscriptionPrice} ${currency.label}`}</Typography>
-                                    </div>
-                                </Row>
-                                <Typography variant="caption" component="p" style={{
-                                    textAlign: "center",
-                                    userSelect: "none",
-                                }}>{subs[subId].description}</Typography>
-                            </Col>
-                        </Card>
-                    );
-                }) : mock()}
-        </Row>
+                                    }}>{subs[subId].description}</Typography>
+                                </Col>
+                            </Card>
+                        );
+                    }) : mock()}
+            </Row>
+        </>
     );
 };
