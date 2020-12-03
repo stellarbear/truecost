@@ -1,4 +1,4 @@
-import {Arg, Ctx, Mutation, Query, Resolver} from "type-graphql";
+import {Arg, Ctx, Mutation, Query, Resolver, UseMiddleware} from "type-graphql";
 import {UserEntity} from "../crud/user/user.entity";
 import {Context} from "../../server";
 import {redis} from "../../redis";
@@ -9,7 +9,7 @@ import {OptionEntity} from "../crud/option/option.entity";
 import {GameEntity} from "../crud/game/game.entity";
 import {
     parseCart, parseShop, SafeJSON, subscription as subscrMath,
-    CalcPrice, Currencies, CurrencyKey,
+    CalcPrice, Currencies, CurrencyKey, RoleType,
 } from "@truecost/shared";
 import {backend, frontend} from "../../helpers/route";
 import {creds} from "../../helpers/creds";
@@ -18,6 +18,7 @@ import {assert} from "../../helpers/assert";
 import {BookingEntity} from "../crud/booking/booking.entity";
 import {SubscriptionEntity} from "../crud/subscription/subscription.entity";
 import {slack} from "../../helpers/slack";
+import {UseAuth} from "../../middleware/auth";
 
 
 //TODO: session middleware
@@ -40,6 +41,17 @@ export class BookingResolver {
         assert(user, "order not found", ["code"]);
 
         const booking = await this.bookRepo.findOne({code, user});
+        assert(booking, "order not found", ["code"]);
+
+        return booking;
+    }
+    
+    @UseMiddleware(UseAuth([RoleType.ADMIN]))
+    @Query(() => BookingEntity)
+    async BookingGetById(
+        @Arg("id") id: string,
+    ) {
+        const booking = await this.bookRepo.findOne({id});
         assert(booking, "order not found", ["code"]);
 
         return booking;
