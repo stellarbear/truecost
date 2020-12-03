@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Card, Typography} from '@material-ui/core';
+import {Card, Hidden, Typography} from '@material-ui/core';
 import {MasterCard, PayPal, Visa} from 'assets/cards';
 import {Col, Row} from 'pages/Base/Grid';
 import {colors} from 'theme';
@@ -23,10 +23,12 @@ const scalePayPal = {
 const options = [
     {
         method: PaymentMethod.Stripe, icon: (
-            <Row align="center" s={16}>
-                <Typography
-                    style={{marginTop: -5}}
-                    variant="caption">Preferred method</Typography>
+            <Row align="center">
+                <Hidden xsDown>
+                    <Typography
+                        style={{marginTop: -5, marginRight: 16}}
+                        variant="caption">Preferred method</Typography>
+                </Hidden>
                 <Row>
                     <Visa style={scaleStripe} />
                     <MasterCard style={scaleStripe} />
