@@ -24,6 +24,8 @@ const root = environment == "development"
     ? process.env.RAZZLE_PUBLIC_DIR || ""
     : path.join(__dirname, '../build/public');
 
+const assets = require(process.env.RAZZLE_ASSETS_MANIFEST || "");
+
 server
     .disable("x-powered-by")
     .use(
@@ -38,7 +40,6 @@ server
         res.end();
     })
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {
-        const assets = await import(process.env.RAZZLE_ASSETS_MANIFEST || "");
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
 
         const sheets = new ServerStyleSheets();
@@ -46,6 +47,8 @@ server
             ssr: true,
             cookie: req.header('Cookie'),
         });
+
+        console.log(JSON.stringify(assets));
 
         const app = (
             <ApolloProvider client={client}>
