@@ -60,7 +60,7 @@ const AdminPicker: React.FC = () => {
 
     return (
         <>
-            <Button onClick={(e) => setAnchorEl(e.currentTarget)}>
+            <Button color="inherit" onClick={(e) => setAnchorEl(e.currentTarget)}>
                 admin
             </Button>
             <Menu
