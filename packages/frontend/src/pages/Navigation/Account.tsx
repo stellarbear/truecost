@@ -1,5 +1,5 @@
-import {Button} from "@material-ui/core";
-import React from "react";
+import {Button, Menu, MenuItem} from "@material-ui/core";
+import React, {useState} from "react";
 import {Link, useHistory} from 'react-router-dom';
 import {useStore} from "pages/Data/Wrapper";
 import {Row} from "pages/Base/Grid";
@@ -45,11 +45,7 @@ export const Account: React.FC = () => {
             <Button component={Link} color="inherit" to={'/account/' + account.routes[0].url}>
                 account
             </Button>
-            {user?.role === RoleType.ADMIN && (
-                <Button component={Link} color="inherit" to={'/admin'}>
-                    admin
-                </Button>
-            )}
+            {user?.role === RoleType.ADMIN && <AdminPicker />}
             <Button color="inherit" onClick={onLogOut}>
                 logout
             </Button>
@@ -57,4 +53,30 @@ export const Account: React.FC = () => {
     );
 
     return user ? logOut : logIn;
+};
+
+const AdminPicker: React.FC = () => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    return (
+        <>
+            <Button onClick={(e) => setAnchorEl(e.currentTarget)}>
+                admin
+            </Button>
+            <Menu
+                disableScrollLock
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={() => setAnchorEl(null)}
+            >
+                <MenuItem component={Link} color="inherit" to={'/admin'}>
+                    CRUD
+                </MenuItem>
+                <MenuItem component={Link} color="inherit" to={'/booking/upsert'}>
+                    New order
+                </MenuItem>
+            </Menu >
+        </>
+    );
 };
