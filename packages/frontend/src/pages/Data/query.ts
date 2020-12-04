@@ -14,106 +14,106 @@ const game = {
 	`,
 };
 export const BULK_QUERY = gql`
-    query DataAll {
-        MetaAll {
-            url
-            tags
-            active
-        }
+query DataAll {
+MetaAll {
+    url
+    tags
+    active
+}
 
-        Stripe
-        
-        UserWhoAmI {
-            id
-            name
-            active
+Stripe
 
-            role
-            email
+UserWhoAmI {
+    id
+    name
+    active
 
-            subscription { id discount days }
-            subscribeDate
-        }
+    role
+    email
 
-        GameAll {
-            ${base.fragment}
-            seo
-            url
-            twitter
-            background
-            assistant
-            preview
-        }
-        ItemAll {
-            ${base.fragment}
-            ${game.fragment}
-            url
-            link
-            images
-            price
-            discount
-            limit
-            range
-            topOffer
-            direct
+    subscription { id discount days }
+    subscribeDate
+}
 
-            buy
-            eta
-            obtain
-            requirements
+GameAll {
+    ${base.fragment}
+    seo
+    url
+    twitter
+    background
+    assistant
+    preview
+}
+ItemAll {
+    ${base.fragment}
+    ${game.fragment}
+    url
+    link
+    images
+    price
+    discount
+    limit
+    range
+    topOffer
+    direct
 
-            tag  { id }
-            option  { id }
-            item  { id }
-        }
+    buy
+    eta
+    obtain
+    requirements
 
-        OptionAll {
-            ${base.fragment}
-            ${game.fragment}
-            price
-            free
-            type
-            area
-            merge
-        }
-        TagAll {
-            ${base.fragment}
-            ${game.fragment}
+    tag  { id }
+    option  { id }
+    item  { id }
+}
 
-            color
-            children { id }
-        }
+OptionAll {
+    ${base.fragment}
+    ${game.fragment}
+    price
+    free
+    type
+    area
+    merge
+}
+TagAll {
+    ${base.fragment}
+    ${game.fragment}
 
-        SubscriptionAll {
-            ${base.fragment}
-            days
-            price
-            discount
+    color
+    children { id }
+}
 
-            description
-        }
+SubscriptionAll {
+    ${base.fragment}
+    days
+    price
+    discount
 
-        InfoAll {
-            id
-            name
-            order
-            active
+    description
+}
 
-            cta
-            text
-            redirect
-            images
+InfoAll {
+    id
+    name
+    order
+    active
 
-            tag  { id }
-            item  { id }
-            game  { id }
-        }
+    cta
+    text
+    redirect
+    images
 
-        ReviewAll {
-            id
-            who
-            text
-            title
-        }
-    }
+    tag  { id }
+    item  { id }
+    game  { id }
+}
+
+ReviewAll {
+    id
+    who
+    text
+    title
+}
+}
 `;

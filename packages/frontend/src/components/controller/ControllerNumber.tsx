@@ -32,7 +32,7 @@ export const ControllerNumber =
                         fullWidth
                         type="number"
                         value={value}
-                        onChange={(e) => +onChange(e.target.value)}
+                        onChange={(e) => onChange(+e.target.value)}
                         label={label}
                         error={!!error?.message}
                         variant="filled"

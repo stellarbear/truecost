@@ -24,8 +24,6 @@ const root = environment == "development"
     ? process.env.RAZZLE_PUBLIC_DIR || ""
     : path.join(__dirname, '../build/public');
 
-const assets = require(process.env.RAZZLE_ASSETS_MANIFEST || "");
-
 server
     .disable("x-powered-by")
     .use(
@@ -48,8 +46,6 @@ server
             cookie: req.header('Cookie'),
         });
 
-        console.log(JSON.stringify(assets));
-
         const app = (
             <ApolloProvider client={client}>
                 <StaticRouter context={context} location={req.url}>
@@ -67,7 +63,6 @@ server
             const html = <Html
                 css={sheets.toString()}
                 helmet={helmet}
-                assets={assets}
                 content={content}
                 state={initialState} />;
 

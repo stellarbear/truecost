@@ -1,17 +1,18 @@
 import * as React from 'react';
 import {NormalizedCacheObject} from '@apollo/client';
 import {HelmetData} from 'react-helmet';
-import {Dict} from '@truecost/shared';
+
+/* eslint-disable */
+const assets = require(process.env.RAZZLE_ASSETS_MANIFEST || "");
 
 interface IProps {
     css: string;
-    assets: Dict<{js: string}>;
     helmet: HelmetData;
     content: string;
     state: NormalizedCacheObject;
 }
 
-export const Html: React.FC<IProps> = ({assets, helmet, content, state, css}) => (
+export const Html: React.FC<IProps> = ({helmet, content, state, css}) => (
     <html lang="en">
         <head>
             {helmet.title.toComponent()}
@@ -23,7 +24,6 @@ export const Html: React.FC<IProps> = ({assets, helmet, content, state, css}) =>
 
             <script src={assets.client.js} async></script>
             <script src={assets.vendor.js} async></script>
-
 
             {font()}
             {trustpilot()}
