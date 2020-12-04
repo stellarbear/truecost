@@ -50,14 +50,14 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
             ...flattenedOrder,
             data: dataDefault,
             info: infoDefault,
-            total: 1,
+            total: 100,
         },
     });
     const {register, control, errors, handleSubmit} = form;
 
     const SubscriptionOptions = React.useCallback(() =>
         Object.keys(subs).map((key) => ({
-            id: subs[key].name, name: subs[key].description,
+            id: subs[key].id, name: subs[key].description,
         })), [subs]);
 
     const CurrencyOptions = React.useCallback(() =>
@@ -196,7 +196,7 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
                                 <ControllerNumber
                                     noDiscard
                                     {...{value, onChange}}
-                                    label="Price *"
+                                    label="Price (1$ == 100) *"
                                     error={errors.total}
                                 />
                             )}

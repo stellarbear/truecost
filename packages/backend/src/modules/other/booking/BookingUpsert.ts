@@ -37,8 +37,6 @@ export class BookingUpsertResolver {
             info, game, email, subscription, currency,
         } = input;
 
-        console.log(data);
-
         if (id) {
             const booking = await this.bookRepo.findOne({id});
             assert(booking, "order not found");
