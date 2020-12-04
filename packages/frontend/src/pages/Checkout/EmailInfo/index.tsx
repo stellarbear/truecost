@@ -71,7 +71,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                 info: JSON.stringify({platform, text, cross}),
             };
 
-            await mutation({variables});
+            await mutation({variables: {input: variables}});
 
             switch (method) {
                 case PaymentMethod.PayPal:
