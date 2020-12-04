@@ -9,6 +9,8 @@ import {HomeTrustPilot} from "./HomeTrustPilot";
 import {HowToUse} from "pages/Base/HowToUse";
 import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 import {Row} from "pages/Base/Grid";
+import {text} from "./data";
+import {SeoText} from "pages/Shop/ShopSeo";
 
 const info = (text: string) => (
     <Row s={16} align="center"
@@ -62,11 +64,12 @@ export const HomeLanding: React.FC = () => {
                 <Grid item xs={12}>
                     <HomeTrustPilot />
                 </Grid>
+
                 <Grid item xs={12}>
-                    {info(`How to use our service`)}
+                    {info(`What is TrueCost.gg`)}
                 </Grid>
                 <Grid item xs={12}>
-                    <HowToUse />
+                    <SeoText text={text} />
                 </Grid>
             </Grid>
         </React.Fragment >
