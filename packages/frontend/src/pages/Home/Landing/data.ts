@@ -1,3 +1,5 @@
+
+/* eslint-disable */
 export const text = `>>>Professional boosting service
 Would you like to boost your rank quickly and efficiently? Then our boosting service will be most welcome for you! We hired some of the best players who with ease and incredible speed will boost your rank to the desired point. Our service is incredibly fast and our average wait time before the start of the boost rarely takes more than 5 minutes. We have cheap prices, an advanced personal area, a rich portfolio and excellent reviews. Choose our service to get your rank boosted!
 >>>What is Boost?

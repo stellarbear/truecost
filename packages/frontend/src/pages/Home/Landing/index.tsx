@@ -6,7 +6,6 @@ import {HomeGameSelector} from "./HomeGameSelector";
 import {GameTopOffers} from "../Shared/GameTopOffers";
 import {GameInfo} from "../Shared/GameInfo";
 import {HomeTrustPilot} from "./HomeTrustPilot";
-import {HowToUse} from "pages/Base/HowToUse";
 import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 import {Row} from "pages/Base/Grid";
 import {text} from "./data";

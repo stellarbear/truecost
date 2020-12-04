@@ -16,7 +16,7 @@ export const ShopSeo: React.FC<IProps> = (props) => {
         return null;
     }
 
-    return <SeoText text={game.seo} />
+    return <SeoText text={game.seo} />;
 };
 
 export const SeoText: React.FC<{text: string}> = (props) => {
@@ -52,4 +52,4 @@ export const SeoText: React.FC<{text: string}> = (props) => {
             })}
         </Col>
     );
-}
+};
