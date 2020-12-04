@@ -1,4 +1,4 @@
-import {Arg, Ctx, Mutation, Resolver, } from "type-graphql";
+import {Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
 import {Context} from "../../../server";
 import {DI} from "../../../orm";
@@ -12,9 +12,10 @@ import {BookingUpsertInput} from "./BookingUpsertInput";
 import {createOrder} from "../webhook";
 import {assert} from "../../../helpers/assert";
 import {wrap} from "@mikro-orm/core";
+import {RoleType} from "@truecost/shared";
+import {UseAuth} from "../../../middleware/auth";
 
 
-//TODO: session middleware
 @Resolver()
 export class BookingUpsertResolver {
     tagRepo = DI.em.getRepository(TagEntity);
@@ -25,6 +26,7 @@ export class BookingUpsertResolver {
     bookRepo = DI.em.getRepository(BookingEntity);
     subsRepo = DI.em.getRepository(SubscriptionEntity);
 
+    @UseMiddleware(UseAuth([RoleType.ADMIN]))
     @Mutation(() => BookingEntity)
     async BookingUpsertManually(
         @Ctx() ctx: Context,
@@ -32,8 +34,10 @@ export class BookingUpsertResolver {
     ) {
         const {
             id, total, data, pi,
-            info, game, email, subscription, currency
+            info, game, email, subscription, currency,
         } = input;
+
+        console.log(data);
 
         if (id) {
             const booking = await this.bookRepo.findOne({id});
@@ -41,16 +45,22 @@ export class BookingUpsertResolver {
 
             wrap(booking).assign({
                 total, pi, info, currency,
-                data: JSON.stringify({data, game})
+                data: JSON.stringify({data: JSON.parse(data), game}),
             });
 
             await this.bookRepo.persistAndFlush(booking);
 
-            return booking
+            return booking;
         } else {
+            //  Transform items to webhook format
+            const display_items = JSON.parse(data).map((item: any) => ({
+                ...item,
+                custom: {name: item.name, description: item.description},
+            }));
+
             const booking = await createOrder({
                 amount_total: total,
-                display_items: data,
+                display_items,
                 payment_intent: pi,
                 metadata: {
                     info,
@@ -59,9 +69,9 @@ export class BookingUpsertResolver {
                     subscription,
                     currency,
                 },
-            })
+            });
 
-            return booking
+            return booking;
         }
     }
 }

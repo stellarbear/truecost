@@ -1,4 +1,4 @@
-import {Arg, Ctx, Mutation, Resolver,} from "type-graphql";
+import {Arg, Ctx, Mutation, Resolver} from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
 import {Context} from "../../../server";
 import {redis} from "../../../redis";
@@ -37,8 +37,8 @@ export class BookingMakeResolver {
     ) {
         const {
             game, email, booking, method,
-            info, currency, coupon, subscription
-        } = input
+            info, currency, coupon, subscription,
+        } = input;
 
         const userEmail = await this.getEmail(ctx, email);
         const gameEntiry = await this.gameRepo.findOne({id: game});
@@ -167,11 +167,11 @@ export class BookingMakeResolver {
                         coupon,
                     }],
                 } : {}),
-                metadata: {info, game, email: userEmail, subscription: sub, currency},
+                metadata: {info, game: gameEntiry.name, email: userEmail, subscription: sub, currency},
                 locale: "en",
                 line_items,
-                success_url: `${frontend.uri}/${gameEntiry?.url}/checkout/success`,
-                cancel_url: `${frontend.uri}/${gameEntiry?.url}/checkout`,
+                success_url: `${frontend.uri}/${gameEntiry.url}/checkout/success`,
+                cancel_url: `${frontend.uri}/${gameEntiry.url}/checkout`,
             });
             return session.id;
         } else {

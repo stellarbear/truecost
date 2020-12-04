@@ -29,7 +29,7 @@ type InputForm = IBookingForm;
 
 export const BookingUpsertForm: React.FC<IProps> = (props) => {
     const {booking} = props;
-    const isNew = !!!booking;
+    const isOld = !!booking;
     const {notify} = useNotification();
     const {setLoading} = useLoading();
     const flattenedOrder = parseBooking(booking);
@@ -37,11 +37,11 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
 
     React.useEffect(() => {
         if (data?.BookingUpsertManually) {
-            notify(isNew
+            notify(!isOld
                 ? 'Заказ создан'
-                : 'Заказ обновлен')
+                : 'Заказ обновлен');
         }
-    }, [data?.BookingUpsertManually])
+    }, [data?.BookingUpsertManually]);
 
     const {subs, games} = useStore();
 
@@ -93,7 +93,7 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
         <Container maxWidth="sm">
             <Col s={16}>
                 <Typography variant="h6">
-                    {!isNew
+                    {isOld
                         ? `Редактирование заказа`
                         : 'Новый заказ'}
                 </Typography>
@@ -112,7 +112,7 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
                         render={({value, onChange}) => (
                             <ControllerInput
                                 {...{value, onChange}}
-                                readOnly={isNew}
+                                readOnly={isOld}
                                 label="Email *"
                                 error={errors.email}
                             />
@@ -160,7 +160,7 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
                         render={({value, onChange}) => (
                             <ControllerDropdownSelect
                                 {...{value, onChange}}
-                                readOnly={isNew}
+                                readOnly={isOld}
                                 label="Subscription"
                                 data={SubscriptionOptions()}
                                 error={errors.subscription}
@@ -244,7 +244,7 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
                         type="submit"
                         fullWidth
                         color="primary">
-                        {!isNew ? "Обновить заказ" : "Создать заказ"}
+                        {isOld ? "Обновить заказ" : "Создать заказ"}
                     </Button>
                 </form>
             </Col>

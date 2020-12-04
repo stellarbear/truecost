@@ -1,8 +1,6 @@
 import {DI} from "../../orm";
 import {generateString} from "../../helpers/generate";
 import {BookingEntity} from "../crud/booking/booking.entity";
-import {GameEntity} from "../crud/game/game.entity";
-import {assert} from "../../helpers/assert";
 import {UserEntity} from "../crud/user/user.entity";
 import {pbkdf2} from "../../helpers/pbkdf2";
 import {EntityRepository, wrap} from "@mikro-orm/core";
@@ -38,11 +36,7 @@ export const createOrder = async (response: Record<string, any>) => {
 
     const subsRepo = DI.em.getRepository(SubscriptionEntity);
     const bookRepo = DI.em.getRepository(BookingEntity);
-    const gameRepo = DI.em.getRepository(GameEntity);
     const userRepo = DI.em.getRepository(UserEntity);
-
-    const currentGame = await gameRepo.findOne({id: game}, {populate: false});
-    assert(currentGame, "game not found");
 
     const currentUser = (await userRepo.findOne({email}))
         ?? (await createUser(userRepo, email));
@@ -61,7 +55,7 @@ export const createOrder = async (response: Record<string, any>) => {
         code,
 
         info,
-        data: JSON.stringify({game: currentGame.name, data}),
+        data: JSON.stringify({game, data}),
     });
 
     await bookRepo.persistAndFlush(currentBooking);
@@ -97,7 +91,7 @@ export const createOrder = async (response: Record<string, any>) => {
         await composeEmail({
             to: email,
             template: orderEmail(code, {
-                game: currentGame.name,
+                game,
                 //pi: payment_intent,
                 ...data.reduce((acc: Dict<string>, {name, quantity, description, amount}: any) => ({
                     ...acc,
