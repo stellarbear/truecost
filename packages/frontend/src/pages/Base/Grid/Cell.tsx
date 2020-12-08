@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-type OnMouseEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
-
 type Justify =
     "flex-start" |
     "flex-end" |
@@ -21,7 +19,7 @@ type Align =
 type Direction =
     "row" | "column";
 
-interface IProps {
+interface IProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     s?: number;
     p?: number | [number, number];
     m?: number | [number, number];
@@ -33,10 +31,6 @@ interface IProps {
     align?: Align;
     justify?: Justify;
     direction?: Direction;
-
-    onClick?: ((event: OnMouseEvent) => void);
-    onMouseEnter?: ((event: OnMouseEvent) => void);
-    onMouseLeave?: ((event: OnMouseEvent) => void);
 }
 
 const Cell: React.FC<IProps> = (props) => {
@@ -49,9 +43,6 @@ const Cell: React.FC<IProps> = (props) => {
         children,
         align,
         justify,
-        onMouseEnter,
-        onMouseLeave,
-        onClick,
         ...rest
 
     } = props;
@@ -74,10 +65,7 @@ const Cell: React.FC<IProps> = (props) => {
 
     return (
         <div
-            onClick={onClick}
-            onMouseLeave={onMouseLeave}
-            onMouseEnter={onMouseEnter}
-
+            {...rest}
             style={{
                 width: fullWidth ? "100%" : undefined,
                 display: "flex",
@@ -90,7 +78,6 @@ const Cell: React.FC<IProps> = (props) => {
                 padding: p && (Array.isArray(p)
                     ? `${p[0]}px ${p[1]}px` : p),
                 ...style,
-                ...rest,
             }}
         >
             {renderChildren()}

@@ -75,7 +75,7 @@ export const TimeoutButton: React.FC<Props> = (props) => {
             padding: 4,
             position: "relative",
         }}>
-            <CircularProgress variant="static" value={progress * 100 / timeout}/>
+            <CircularProgress variant="determinate" value={progress * 100 / timeout}/>
             <div style={{
                 top: 0,
                 left: 0,

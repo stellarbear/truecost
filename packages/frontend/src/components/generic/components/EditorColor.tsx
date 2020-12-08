@@ -28,15 +28,13 @@ export const EditorColor: React.FC<EditorColorProps> = (props) => {
             }} />
             <TextField
                 placeholder={label}
+                value={value || "default"}
                 onClick={() => setShow(true)}
-                value={value || "deafult"}
             />
             {show && (
                 <div style={{position: 'relative'}}>
                     <div style={{position: 'fixed', zIndex: 2}}>
-                        <div
-                            style={{top: '0px', right: '0px', bottom: '0px', left: '0px'}}
-                        >
+                        <div style={{top: '0px', right: '0px', bottom: '0px', left: '0px'}}>
                             <ClickAwayListener onClickAway={() => setShow(false)}>
                                 <SketchPicker
                                     color={value}
