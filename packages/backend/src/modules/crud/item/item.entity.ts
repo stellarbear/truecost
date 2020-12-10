@@ -29,9 +29,6 @@ export class ItemEntity extends BaseEntity /*implements IItem */ {
     rate: number = 0;
     @Field(() => Int, {defaultValue: 0})
     @Property({default: 0})
-    ppl: number = 0;
-    @Field(() => Int, {defaultValue: 0})
-    @Property({default: 0})
     buy: number = 0;
     @Field(() => Int)
     @Property()

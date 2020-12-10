@@ -58,7 +58,6 @@ ItemAll {
     direct
 
     rate
-    ppl
     buy
     eta
     obtain

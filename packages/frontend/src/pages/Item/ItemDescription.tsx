@@ -32,7 +32,7 @@ export const ItemDescription: React.FC<IProps> = (props) => {
                     }
                     <Col align="center">
                         <Typography variant="h4" component="h1" style={{textAlign: "center"}}>{item.name}</Typography>
-                        <Rating value={rating} precision={0.5} />
+                        <Rating readOnly value={rating} precision={0.1} />
                     </Col>
                 </Row>
                 <Row s={4} align="center" p={[0, 8]}>

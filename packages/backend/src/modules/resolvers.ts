@@ -15,12 +15,14 @@ import {MetaCRUDResolver} from "./crud/meta/meta.resolver";
 import {BlogResolver} from "./other/blog";
 import {ReviewCRUDResolver} from "./crud/review/review.resolver";
 import {EmailResolver} from "./other/email";
+import {SpecialResolver} from "./other/special";
 
 const resolvers = [
     BlogResolver,
     PaymentResolver,
     MetaCRUDResolver,
     EmailResolver,
+    SpecialResolver,
     BlogCRUDResolver, 
     BookingGetResolver, BookingMakeResolver, BookingUpsertResolver,
     SubscriptionCRUDResolver,

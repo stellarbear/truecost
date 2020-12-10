@@ -20,8 +20,8 @@ export const Item: React.FC = () => {
     const item = items.id[itemId];
 
     const rate = item.rate || 0;
-    const ppl = item.ppl || 0;
-    const rating = Math.min(5, Math.max(0, rate / (ppl || 1)));
+    const buy = item.buy || 0;
+    const rating = Math.min(5, Math.max(0, rate / (buy || 1)));
     const date = new Date(new Date().getFullYear() + 1, 0, 1).toJSON().slice(0, 10);
 
     const schema = {
@@ -43,7 +43,7 @@ export const Item: React.FC = () => {
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": `${rating}`,
-            "reviewCount": `${ppl}`,
+            "reviewCount": `${buy}`,
         },
     };
 

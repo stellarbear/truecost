@@ -64,7 +64,6 @@ export interface IItem extends IBase, IBaseGame {
     eta: number;
     buy: number;
     rate: number;
-    ppl: number;
     price: number;
     range: IRange;
     discount: number;
