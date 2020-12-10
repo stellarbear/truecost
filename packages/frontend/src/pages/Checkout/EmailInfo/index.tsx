@@ -28,7 +28,7 @@ const MAKE_BOOKING = gql`
     }
 `;
 
-const payPalLink = 'https://www.paypal.com/paypalme/d2boostingservice/';
+const payPalLink = 'https://www.paypal.com/paypalme/truecost/';
 
 export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
