@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Button, ButtonBase, Card, Chip, Divider, NoSsr, Typography} from "@material-ui/core";
+import {Button, Card, Chip, Divider, NoSsr, Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {DataContext} from "pages/Data/Wrapper";
 import {CalcPrice} from '@truecost/shared';
@@ -8,6 +8,7 @@ import {Col, Row} from "pages/Base/Grid";
 import {SafeImage} from "components/SafeImage";
 import {backend} from "auxiliary/route";
 import CheckCircle from '@material-ui/icons/CheckCircle';
+import {AddToCartDialog} from "pages/Base/AddToCartDialog";
 
 interface IProps {
     id: string;
@@ -36,7 +37,8 @@ const ItemCard: React.FC<IProps> = (props) => {
 
     const item = items.id[id];
     const itemPrice = CalcPrice.fromItem(item, currency);
-    const redirect = `/${gameUrl || url}/item/${item.url}`;
+    const urlFixed = gameUrl || url;
+    const redirect = `/${urlFixed}/item/${item.url}`;
 
     const [raised, setRaised] = React.useState(false);
 
@@ -81,13 +83,12 @@ const ItemCard: React.FC<IProps> = (props) => {
     const card = () => {
         const image = `${backend.uri}/${item.id}/${item.images[0]}/u.png`;
         return (
-            <ButtonBase component={Link} to={redirect} onClick={() => {
-                if (gameId) {
-                    setGame(gameId);
-                }
-            }}
-                style={{backgroundColor: 'transparent', padding: 0, height: "100%", width: "100%"}}>
-                <Col fullWidth style={{width: "100%"}}>
+            <Col fullWidth style={{width: "100%"}}>
+                <Link to={redirect} onClick={() => {
+                    if (gameId) {
+                        setGame(gameId);
+                    }
+                }}>
                     <NoSsr>
                         {chip()}
                         {owned()}
@@ -104,43 +105,66 @@ const ItemCard: React.FC<IProps> = (props) => {
                                 filter: "drop-shadow(10px 12px 9px #555)",
                             }} />
                     </div>
-                    <Divider />
-                    <Row p={8} s={8}
-                        justify="space-between"
-                        align="center"
-                        style={{height: 60}}>
-                        <Col fullWidth>
-                            <Typography variant="body1" align="center"
-                                style={{maxHeight: 70, overflow: "hidden", width: "100%"}}>
-                                {item.name}
+                </Link>
+                <Divider />
+                <Row p={8} s={8}
+                    justify="space-between"
+                    align="center"
+                    style={{height: 60}}>
+                    <Col fullWidth>
+                        <Typography variant="body1" align="center"
+                            style={{maxHeight: 70, overflow: "hidden", width: "100%"}}>
+                            {item.name}
+                        </Typography>
+                    </Col>
+
+                    <AddToCartDialog
+                        url={urlFixed}
+                        item={item}
+                        options={[]}
+                        chunk={item.range.d.length > 0
+                            ? [item.range.d.first().a, item.range.d.last().a] : [0, 0]}
+                        button={
+                            <Button
+                                style={{
+                                    minHeight: 60,
+                                    minWidth: "fit-content",
+                                }}
+                                size="large"
+                                color="primary"
+                                variant="outlined"
+                            >
+                                <Col>
+                                    {item.range.d.length > 0 && (
+                                        <Typography
+                                            style={{
+                                                fontSize: 10,
+                                                marginBottom: -6,
+                                            }}
+                                            variant="caption">from</Typography>
+                                    )}
+                                    <PriceTypography price={itemPrice.value}
+                                        discount={item.discount} />
+                                </Col>
+                            </Button>
+                        }
+                    />
+                </Row>
+                {
+                    ordered && (
+                        <>
+                            <Divider />
+                            <Typography variant="body2" align="center"
+                                style={{
+                                    maxHeight: 70, overflow: "hidden", width: "100%",
+                                    padding: 8,
+                                }}>
+                                Ordered <strong>{` ${(item.buy) || 0} times`}</strong>
                             </Typography>
-                        </Col>
-                        <Button
-                            style={{minWidth: "fit-content"}}
-                            size="large"
-                            color="primary"
-                            variant="outlined"
-                        >
-                            <PriceTypography price={itemPrice.value}
-                                discount={item.discount} />
-                        </Button>
-                    </Row>
-                    {
-                        ordered && (
-                            <>
-                                <Divider />
-                                <Typography variant="body2" align="center"
-                                    style={{
-                                        maxHeight: 70, overflow: "hidden", width: "100%",
-                                        padding: 8,
-                                    }}>
-                                    Ordered <strong>{` ${(item.buy) || 0} times`}</strong>
-                                </Typography>
-                            </>
-                        )
-                    }
-                </Col>
-            </ButtonBase>
+                        </>
+                    )
+                }
+            </Col>
         );
     };
 

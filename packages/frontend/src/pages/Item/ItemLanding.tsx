@@ -22,10 +22,11 @@ import {EmailPromoCode} from 'pages/Base/EmailPromocode';
 
 interface IProps {
     item: IItem;
+    rating: number;
 }
 
 export const ItemLanding: React.FC<IProps> = (props) => {
-    const {item} = props;
+    const {item, rating} = props;
     const {current: {shop, game: {url}}, currency} = useStore();
     const {options} = shop();
 
@@ -43,7 +44,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     <ItemImage item={item} url={url} />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <ItemDescription item={item} />
+                    <ItemDescription item={item} rating={rating}/>
                     <ItemOrdered item={item} />
                     <ItemChildren item={item} />
                     <ItemObtain item={item} />

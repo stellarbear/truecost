@@ -54,7 +54,7 @@ export const Item: React.FC = () => {
                     {JSON.stringify(schema)}
                 </script>
             </Meta>
-            <ItemLanding item={item} />
+            <ItemLanding item={item} rating={rating}/>
         </>
     );
 };

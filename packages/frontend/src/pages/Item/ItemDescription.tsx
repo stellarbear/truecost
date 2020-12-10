@@ -4,15 +4,17 @@ import LinkIcon from '@material-ui/icons/Link';
 import {useStore} from 'pages/Data/Wrapper';
 import {IconButton, Typography} from '@material-ui/core';
 import {Chip} from '@material-ui/core';
-import {Row} from 'pages/Base/Grid';
+import {Col, Row} from 'pages/Base/Grid';
 import {ItemDivider} from './ItemDivider';
+import {Rating} from '@material-ui/lab';
 
 interface IProps {
+    rating: number;
     item: IItem;
 }
 
 export const ItemDescription: React.FC<IProps> = (props) => {
-    const {item} = props;
+    const {item, rating} = props;
     const itemId = item.id;
     const {current: {shop}} = useStore();
     const {tags} = shop();
@@ -28,7 +30,10 @@ export const ItemDescription: React.FC<IProps> = (props) => {
                             </IconButton>
                         </a>
                     }
-                    <Typography variant="h4" component="h1" style={{textAlign: "center"}}>{item.name}</Typography>
+                    <Col align="center">
+                        <Typography variant="h4" component="h1" style={{textAlign: "center"}}>{item.name}</Typography>
+                        <Rating value={rating} precision={0.5} />
+                    </Col>
                 </Row>
                 <Row s={4} align="center" p={[0, 8]}>
                     {

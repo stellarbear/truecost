@@ -1,5 +1,10 @@
 import React, {createContext, useState} from "react";
-import {Dialog, DialogActions, DialogContent, DialogTitle, Grow, IconButton, Typography} from "@material-ui/core";
+import {
+    Container, Dialog,
+    DialogActions, DialogContent,
+    DialogTitle, Grow, IconButton,
+    Typography,
+} from "@material-ui/core";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 import Close from "@material-ui/icons/Close";
 import {Row} from "pages/Base/Grid";
@@ -39,28 +44,31 @@ export const ModalDialog: React.FC<IProps> = (props) => {
         <ModalContext.Provider value={{
             toggle: () => setOpen(!open),
         }}>
-            <div>
-                {React.cloneElement(button, {
-                    onClick: () => {
-                        setOpen(true);
-                        onOpen();
-                    },
-                })}
-                <Dialog
-                    open={open}
-                    onClose={() => setOpen(false)}
-                    TransitionComponent={Transition}
-                >
-                    {title && (
-                        <DialogTitle style={{padding: 8}}>
-                            <Row>
-                                <Typography>{title}</Typography>
-                                <IconButton onClick={() => setOpen(false)} style={{marginLeft: 32}}>
-                                    <Close />
-                                </IconButton>
-                            </Row>
-                        </DialogTitle>
-                    )}
+            {React.cloneElement(button, {
+                onClick: () => {
+                    setOpen(true);
+                    onOpen();
+                },
+            })}
+            <Dialog
+                open={open}
+                onClose={() => setOpen(false)}
+                TransitionComponent={Transition}
+            >
+                <Container maxWidth="xs" style={{padding: 0}}>
+                    <DialogTitle style={{
+                        padding: 8,
+                        marginBottom: !title ? -48 : 0,
+                    }}>
+                        <Row justify="space-between">
+                            <Typography>{title || ""}</Typography>
+                            <IconButton
+                                onClick={() => setOpen(false)}
+                                style={{marginLeft: 32}}>
+                                <Close />
+                            </IconButton>
+                        </Row>
+                    </DialogTitle>
                     <DialogContent>
                         {content}
                     </DialogContent>
@@ -69,8 +77,8 @@ export const ModalDialog: React.FC<IProps> = (props) => {
                             {actions}
                         </DialogActions>
                     )}
-                </Dialog>
-            </div>
+                </Container>
+            </Dialog>
         </ModalContext.Provider>
     );
 };
