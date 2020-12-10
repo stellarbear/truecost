@@ -57,6 +57,8 @@ ItemAll {
     topOffer
     direct
 
+    rate
+    ppl
     buy
     eta
     obtain

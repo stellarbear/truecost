@@ -25,7 +25,7 @@ interface IProps {
 }
 
 export const ItemLanding: React.FC<IProps> = (props) => {
-    const {item} = props;
+    const {item, rating} = props;
     const {current: {shop, game: {url}}, currency} = useStore();
     const {options} = shop();
 

@@ -17,6 +17,11 @@ export class ItemInput extends BaseInput {
     @Field({nullable: true})
     range?: string;
     @Field(() => NumberScalar, {nullable: true})
+    rate?: NumberType;
+    @Field(() => NumberScalar, {nullable: true})
+    ppl?: NumberType;
+    @Field(() => NumberScalar, {nullable: true})
+
     buy?: NumberType;
     @Field(() => NumberScalar, {nullable: true})
     eta?: NumberType;

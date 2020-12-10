@@ -19,7 +19,11 @@ export const Item: React.FC = () => {
     const itemId = items.url[itemUrl];
     const item = items.id[itemId];
 
+    const rate = item.rate || 0;
+    const ppl = item.ppl || 0;
+    const rating = Math.min(5, Math.max(0, rate / (ppl || 1)));
     const date = new Date(new Date().getFullYear() + 1, 0, 1).toJSON().slice(0, 10);
+
     const schema = {
         "@context": "https://schema.org/",
         "@type": "Product",
@@ -35,6 +39,11 @@ export const Item: React.FC = () => {
             "priceValidUntil": `${date}`,
             "availability": "https://schema.org/InStock",
             "itemCondition": "https://schema.org/NewCondition",
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": `${rating}`,
+            "reviewCount": `${ppl}`,
         },
     };
 
