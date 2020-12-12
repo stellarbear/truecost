@@ -50,7 +50,7 @@ export class BookingMakeResolver {
         @Arg("token") token: string,
     ) {
         const {id, secret} = creds("paypal");
-        const environment = new paypal.core.SandboxEnvironment(id, secret);
+        const environment = new paypal.core.LiveEnvironment(id, secret);
         const client = new paypal.core.PayPalHttpClient(environment);
         const confirm = new paypal.orders.OrdersCaptureRequest(token);
 
@@ -142,7 +142,7 @@ export class BookingMakeResolver {
             return session.id;
         } else {
             const {id, secret} = creds("paypal");
-            const environment = new paypal.core.SandboxEnvironment(id, secret);
+            const environment = new paypal.core.LiveEnvironment(id, secret);
             const client = new paypal.core.PayPalHttpClient(environment);
 
             const request = new paypal.orders.OrdersCreateRequest();

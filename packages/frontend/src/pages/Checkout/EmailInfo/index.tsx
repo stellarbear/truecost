@@ -10,6 +10,7 @@ import {EmailPrice} from './EmailPrice';
 import {gql, useMutation} from '@apollo/client';
 import {EmailMethod, PaymentMethod} from './EmailMethod';
 import {calcTotal} from '../helper';
+import {loadStripe} from '@stripe/stripe-js';
 
 interface IProps {
     info: Record<string, any>;
@@ -25,8 +26,6 @@ const MAKE_BOOKING = gql`
         BookingMake(input: $input)
     }
 `;
-
-declare let Stripe: any;
 
 export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
@@ -68,14 +67,18 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
             };
 
             const result = await mutation({variables: {input: variables}});
+            console.log('1', result)
             if (result.data?.BookingMake) {
                 switch (method) {
                     case PaymentMethod.PayPal:
                         window.location = result.data?.BookingMake as any;
                         return;
                     case PaymentMethod.Stripe:
-                        const stripe = Stripe(stripeKey);
+                        console.log('2', 'stripe')
+                        const stripe = await loadStripe(stripeKey);
+                        console.log('3', stripe)
                         if (stripe) {
+                            console.log('4', result.data?.BookingMake)
                             await stripe.redirectToCheckout({sessionId: result.data?.BookingMake});
                         }
                         return;
@@ -84,6 +87,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                 }
             }
         } catch (e) {
+            console.log(e)
         } finally {
             setLoading(false);
         }

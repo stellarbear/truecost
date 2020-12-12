@@ -28,7 +28,6 @@ export const Html: React.FC<IProps> = ({helmet, content, state, css}) => (
             {font()}
             {trustpilot()}
             <style id="jss-server-side">{css}</style>
-            <script defer src="https://js.stripe.com/v3/"></script>
             <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-160874000-1"></script>
         </head>
         <body style={{margin: 0}}>

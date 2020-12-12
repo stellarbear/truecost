@@ -104,7 +104,7 @@ const sendBookingInfo = async (
             text: `Order receipt for ${domain}`,
         });
     } catch (e) {
-        console.log(e);
+        console.log('ERROR', e);
     }
 };
 
@@ -118,6 +118,6 @@ const sendAccountInfo = async (email: string, password: string) => {
             text: `New account for ${domain}`,
         });
     } catch (e) {
-        console.log(e);
+        console.log('ERROR', e);
     }
 };

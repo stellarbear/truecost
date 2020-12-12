@@ -7,7 +7,6 @@ export const orderEmail = (code: string, data: Record<string, string>) => {
     const logo = linkUri('/default/logo.png');
     const assistant = linkUri('/default/assistant.png');
     const trackUrl = `${domain}/track`;
-    console.log(data);
 
     return `
     <mjml>
