@@ -59,6 +59,7 @@ export const AdminBooking: React.FC = () => {
         key: "status",
         label: "status",
         options: {
+            [StatusType.AWAITING_FOR_PAYMENT]: "awaiting for payment",
             [StatusType.AWAITING_FOR_CONTACT]: "awaiting for contact",
             [StatusType.CLOSED]: "closed",
             [StatusType.DONE]: "done",

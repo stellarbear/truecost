@@ -15,7 +15,6 @@ interface IProps {
 
 export const BookingCard: React.FC<IProps> = ({raw}) => {
     const {code, status, total, info, data, images, id, currency} = raw;
-    debugger;
     const currencyRecord = currency && (currency in Currencies)
         ? Currencies[currency as CurrencyKey]
         : Currencies.usd;

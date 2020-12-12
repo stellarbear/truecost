@@ -15,7 +15,11 @@ export class BookingInput extends BaseInput {
     @Field({nullable: true})
     code?: string;
     @Field({nullable: true})
+    game?: string;
+    @Field({nullable: true})
     currency?: string;
+    @Field({nullable: true})
+    subscription?: string;
     @Field({nullable: true})
     pi?: string;
 

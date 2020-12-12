@@ -1,4 +1,5 @@
 declare module 'fastify-file-upload'
 declare module 'fastify-gql-upload'
+declare module '@paypal/checkout-server-sdk'
 declare module 'sharp'
 declare module 'mjml'

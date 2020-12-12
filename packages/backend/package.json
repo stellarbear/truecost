@@ -20,6 +20,7 @@
     "dependencies": {
         "@mikro-orm/core": "^4.3.3",
         "@mikro-orm/mongodb": "^4.3.3",
+        "@paypal/checkout-server-sdk": "^1.0.2",
         "apollo-server-express": "^2.19.0",
         "class-validator": "^0.12.2",
         "connect-redis": "^5.0.0",

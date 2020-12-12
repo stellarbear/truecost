@@ -30,6 +30,7 @@ import {Blog} from "pages/Blog";
 import {BlogPost} from "pages/Blog/BlogPost";
 import {HomeGame, HomeLanding} from "pages/Home";
 import {BookingUpsert} from "pages/Admin/BookingUpsert";
+import {CheckoutPaypal} from "pages/Checkout/CheckoutPaypal";
 
 
 const App = () => {
@@ -47,6 +48,9 @@ const App = () => {
                 <Route sensitive exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
                 <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/success')}
                     component={CheckoutSuccess} />
+                    
+                <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/paypal')}
+                    component={CheckoutPaypal} />
                 <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/:step?')}
                     component={Checkout} />
                 <Route sensitive exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />

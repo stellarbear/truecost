@@ -21,11 +21,11 @@ export class BookingCRUDResolver extends BaseResolver
         resultRef: BookingResponse,
         get: {
             set: ["total", "currency"],
-            like: ["code", "pi", "info", "data"],
+            like: ["code", "pi", "info", "data", "subscription"],
             filter: ["user"],
         },
         upsert: {
-            notEmpty: ["user"],
+            notEmpty: ["user", "code", "currency"],
             images: ["images"],
         },
     },

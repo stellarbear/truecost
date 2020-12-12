@@ -11,7 +11,6 @@ import {EmailPrice} from './EmailPrice';
 import {gql, useMutation} from '@apollo/client';
 import {EmailMethod, PaymentMethod} from './EmailMethod';
 import {calcTotal} from '../helper';
-import {CalcPrice} from '@truecost/shared';
 
 interface IProps {
     info: Record<string, any>;
@@ -28,15 +27,13 @@ const MAKE_BOOKING = gql`
     }
 `;
 
-const payPalLink = 'https://www.paypal.com/paypalme/truecost/';
-
 export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
     const [method, setMethod] = useState(PaymentMethod.Stripe);
 
     const store = useStore();
     const {current: {user, game, cart}, payment: {stripe: stripeKey}, currency} = store;
-    const [mutation, {data, error, loading}] = useMutation(MAKE_BOOKING);
+    const [mutation, {error, loading}] = useMutation(MAKE_BOOKING);
 
     const [selectedSubscription, setSelectedSubscription] = useState<string | undefined>();
     const [currentSubscription, setCurrentSubscription] = useState<string | undefined>(user?.subscription?.id);
@@ -59,8 +56,6 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
             setLoading(true);
             const {platform, text, cross} = info;
 
-            debugger;
-
             const variables = {
                 ...input,
                 method,
@@ -71,40 +66,25 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                 info: JSON.stringify({platform, text, cross}),
             };
 
-            await mutation({variables: {input: variables}});
-
-            switch (method) {
-                case PaymentMethod.PayPal:
-                    let {price} = total;
-                    if (input.coupon === "SUBS") {
-                        price = CalcPrice.percentage(price, 90);
-                    }
-
-                    const link = payPalLink + price + currency.id;
-                    window.location = link as any;
-
-                    return;
-                case PaymentMethod.Stripe:
-                default:
-                    return;
-
+            const result = await mutation({variables: {input: variables}});
+            if (result.data?.BookingMake) {
+                switch (method) {
+                    case PaymentMethod.PayPal:
+                        window.location = result.data?.BookingMake as any;
+                        return;
+                    case PaymentMethod.Stripe:
+                        const stripe = await loadStripe(stripeKey);
+                        if (stripe) {
+                            await stripe.redirectToCheckout({sessionId: result.data?.BookingMake});
+                        }
+                        return;
+                    default:
+                        return;
+                }
             }
         } catch (e) {
         } finally {
             setLoading(false);
-        }
-    };
-
-    React.useEffect(() => {
-        if (data?.BookingMake) {
-            redirectToStripe(data.BookingMake);
-        }
-    }, [data?.BookingMake]);
-
-    const redirectToStripe = async (sessionId: string) => {
-        const stripe = await loadStripe(stripeKey);
-        if (stripe) {
-            await stripe.redirectToCheckout({sessionId});
         }
     };
 
