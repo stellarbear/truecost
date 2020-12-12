@@ -8,7 +8,7 @@ import {orderEmail} from "../../mail/samples/order";
 import {SubscriptionEntity} from "../crud/subscription/subscription.entity";
 import {slack} from "../../helpers/slack";
 import {assert} from "../../helpers/assert";
-import {Dict, SafeJSON} from "@truecost/shared";
+import {Dict, SafeJSON, StatusType} from "@truecost/shared";
 
 export const createOrder = async (id: string, method: string) => {
     console.log(id);
@@ -34,6 +34,7 @@ export const createOrder = async (id: string, method: string) => {
         await userRepo.persistAndFlush(currentUser);
     }
 
+    currentBooking.status = StatusType.AWAITING_FOR_CONTACT;
     currentBooking.active = true;
     await bookRepo.persistAndFlush(currentBooking);
 
