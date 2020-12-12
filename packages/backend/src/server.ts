@@ -91,8 +91,8 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
                     const event = stripe.webhooks.constructEvent((request.body as any).raw, sig, data.webhook);
 
                     if (event.type === 'checkout.session.completed') {
-                        const session = event.data.object;
-                        await createOrder(session);
+                        const session: any = event.data.object;
+                        await createOrder(session?.metadata?.id, "stripe");
                     }
                 } catch (err) {
                     console.log("err", err);

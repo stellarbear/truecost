@@ -14,13 +14,15 @@ interface IProps {
 }
 
 export const BookingCard: React.FC<IProps> = ({raw}) => {
-    const {code, status, total, info, data, images, id, currency} = raw;
+    const {code, status, total, info, data, game, subscription, images, id, currency} = raw;
     const currencyRecord = currency && (currency in Currencies)
         ? Currencies[currency as CurrencyKey]
         : Currencies.usd;
 
     const infoParsed = SafeJSON.parse<Dict<any>>(info, {});
-    const dataParsed = SafeJSON.parse<{game: string; data: any[]}>(data, {game: "-", data: []});
+    const dataParsed = SafeJSON.parse<any[]>(data, []);
+
+    console.log(dataParsed);
 
     return (
         <Accordion>
@@ -41,10 +43,16 @@ export const BookingCard: React.FC<IProps> = ({raw}) => {
                     <BookingCode code={code} />
                     <Divider />
                     <BookingImages bookingId={id} images={images || []} />
-                    <BookingInfo info={infoParsed} />
-                    <BookingGoods goods={dataParsed} currency={currencyRecord} />
+                    <BookingInfo
+                        info={infoParsed}
+                        game={game}
+                        subscription={subscription} />
+                    <BookingGoods
+                        data={dataParsed}
+                        currency={currencyRecord}
+                    />
                     <Row justify="center">
-                        <BookingTotal total={total || 1} currency={currencyRecord}/>
+                        <BookingTotal total={total || 1} currency={currencyRecord} />
                     </Row>
                 </Col>
             </AccordionDetails>

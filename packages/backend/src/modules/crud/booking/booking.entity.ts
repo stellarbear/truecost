@@ -18,13 +18,13 @@ export class BookingEntity extends BaseEntity implements IBooking {
     @Field()
     @Property()
     total: number = 0;
-    @Field()
+    @Field({nullable: true})
     @Property()
     pi?: string;
     @Field()
     @Property()
     code!: string;
-    @Field()
+    @Field({nullable: true})
     @Property()
     subscription?: string;
 

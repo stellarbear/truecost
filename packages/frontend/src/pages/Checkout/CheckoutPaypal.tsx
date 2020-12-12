@@ -1,13 +1,56 @@
 import * as React from 'react';
 import {InfoCard} from 'pages/Base/InfoCard';
-import {Link, useParams} from "react-router-dom";
-import {Button} from '@material-ui/core';
+import {useHistory, useLocation} from "react-router-dom";
 import {useStore} from 'pages/Data/Wrapper';
-import {Meta} from 'pages/Base/Meta';
+import {gql, useLazyQuery} from '@apollo/client';
+import {useLoading} from 'components/wrappers/LoadingWrapper';
+
+const PAYPAL_ACCEPT = gql`
+    query BookingPaypalAccept($token: String!) {
+        BookingPaypalAccept(token: $token)
+    }
+`;
+
+const getQueryStringParams = (query: string) => {
+    return query
+        ? (/^[?#]/.test(query) ? query.slice(1) : query)
+            .split('&')
+            .reduce((params, param) => {
+                const [key, value] = param.split('=');
+                params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+                return params;
+            }, {} as Record<string, any>,
+            )
+        : {};
+};
 
 export const CheckoutPaypal: React.FC = () => {
-    const {token} = useParams<{token: string; PayerID: string}>();
+    const location = useLocation();
+    const history = useHistory();
+    const {setLoading} = useLoading();
     const {current: {game}} = useStore();
+    const {token} = getQueryStringParams(location.search);
+
+    const [query, {data, loading, error}] = useLazyQuery(PAYPAL_ACCEPT);
+
+    console.log(data, loading);
+    React.useEffect(() => {
+        setLoading(true);
+        query({variables: {token}});
+    }, []);
+
+    React.useEffect(() => {
+        if (data) {
+            setLoading(false);
+            debugger;
+            if (data?.BookingPaypalAccept) {
+                history.push(`/${game.url}/checkout/success`);
+            }
+        }
+        if (error) {
+            setLoading(false);
+        }
+    }, [data, loading, error]);
 
     return (
         <>
@@ -17,7 +60,7 @@ export const CheckoutPaypal: React.FC = () => {
                     "Do NOT close this tab!",
                     " ",
                     "Note: you will be redirected automatically",
-                ]}/>
+                ]} />
         </>
     );
 };

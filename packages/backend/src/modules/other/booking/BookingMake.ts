@@ -1,4 +1,4 @@
-import {Arg, Ctx, Mutation, Resolver} from "type-graphql";
+import {Arg, Ctx, Mutation, Query, Resolver} from "type-graphql";
 import {UserEntity} from "../../crud/user/user.entity";
 import {Context} from "../../../server";
 import {redis} from "../../../redis";
@@ -23,6 +23,7 @@ import * as paypal from '@paypal/checkout-server-sdk';
 import {pbkdf2} from "../../../helpers/pbkdf2";
 import {generateString} from "../../../helpers/generate";
 import {wrap} from "@mikro-orm/core";
+import {createOrder} from "../webhook";
 
 interface IItemShape {
     name: string;
@@ -42,90 +43,27 @@ export class BookingMakeResolver {
     optionRepo = DI.em.getRepository(OptionEntity);
     bookRepo = DI.em.getRepository(BookingEntity);
     subsRepo = DI.em.getRepository(SubscriptionEntity);
-    @Mutation(() => String)
-    async BookingTest(
-        @Ctx() ctx: Context,
-    ) {
-        const clientId = "ASFQP0-fmmeTUQAdfRTutwcNzD9vx_ijLEt1uEP-CNk6suUj73NM0wVXzrlt0mO0dLCcfARt-T8YuS7o";
-        const clientSecret = "EJDlGhFmkm17Fopzr9LwGVjuzSKCoj0U6gQ1WpFf4xuWkzrxQbjSR3-ObevxGDUFPuKiCJ2aEVw7X1p1";
-        const environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
-        const client = new paypal.core.PayPalHttpClient(environment);
 
-        const request = new paypal.orders.OrdersCreateRequest();
-        request.requestBody({
-            "intent": "CAPTURE",
-            "purchase_units": [
-                {
-                    "amount": {
-                        "currency_code": "USD",
-                        "value": "20",
-                        "breakdown": {
-                            "item_total": {
-                                "value": '30',
-                                "currency_code": "USD",
-                            },
-                            "discount": {
-                                "currency_code": "USD",
-                                "value": "10.00",
-                            },
-                        },
-                    },
-                    "items": [{
-                        "name": "item 1",
-                        "unit_amount": {
-                            "currency_code": "USD",
-                            "value": "10",
-                        },
-                        "quantity": 1,
-                    }, {
-                        "name": "item 2",
-                        "unit_amount": {
-                            "currency_code": "USD",
-                            "value": "10",
-                        },
-                        "quantity": 2,
-                    }],
-                },
-            ],
-            "application_context": {
-                locale: "en-US",
-                landing_page: "BILLING",
-                brand_name: "TrueCostGG",
-                user_action: "PAY_NOW",
-                shipping_preference: "NO_SHIPPING",
-                return_url: `${frontend.uri}/d2/checkout/paypal`,
-                cancel_url: `${frontend.uri}/d2/checkout`,
-            },
-        });
-        const response = await client.execute(request);
-
-        const approval = response.result.links.filter((link: any) => link.rel === 'approve');
-        assert(approval.length === 1, "paypal order failure (code: no approval)");
-        return approval[0].href;
-    }
-
-    @Mutation(() => Boolean)
+    @Query(() => Boolean)
     async BookingPaypalAccept(
         @Ctx() ctx: Context,
         @Arg("token") token: string,
     ) {
-        console.log(token);
-        const clientId = "ASFQP0-fmmeTUQAdfRTutwcNzD9vx_ijLEt1uEP-CNk6suUj73NM0wVXzrlt0mO0dLCcfARt-T8YuS7o";
-        const clientSecret = "EJDlGhFmkm17Fopzr9LwGVjuzSKCoj0U6gQ1WpFf4xuWkzrxQbjSR3-ObevxGDUFPuKiCJ2aEVw7X1p1";
-        const environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
+        const {id, secret} = creds("paypal");
+        const environment = new paypal.core.SandboxEnvironment(id, secret);
         const client = new paypal.core.PayPalHttpClient(environment);
         const confirm = new paypal.orders.OrdersCaptureRequest(token);
 
         const confirmResponse = await client.execute(confirm);
-        console.log(`Response: ${JSON.stringify(confirmResponse)}`);
-        console.log(`Capture: ${JSON.stringify(confirmResponse.result)}`);
+        assert(confirmResponse.result.status === "COMPLETED",
+            "paypal order failure (code: payment not processed)");
 
-        assert(confirmResponse.result.status === "COMPLETED", "paypal order failure (code: payment not processed)");
 
-        const order = new paypal.orders.OrdersGetRequest(token);
-        const orderResponse = await client.execute(order);
-        console.log(`Response: ${JSON.stringify(orderResponse)}`);
-        console.log(`Capture: ${JSON.stringify(orderResponse.result)}`);
+        const bookingId = confirmResponse.result?.purchase_units?.[0]?.payments?.captures?.[0]?.invoice_id;
+        assert(bookingId,
+            "booking id missing. contact us.");
+
+        await createOrder(bookingId, 'paypal');
 
         return true;
     }
@@ -140,7 +78,6 @@ export class BookingMakeResolver {
             info, currency, coupon, subscription,
         } = input;
 
-        console.log('make');
         const userEmail = await this.getEmail(ctx, email);
         const gameEntity = await this.gameRepo.findOne({id: game});
         assert(gameEntity, "invalid game");
@@ -149,11 +86,9 @@ export class BookingMakeResolver {
         const currencyValue = currency as CurrencyKey;
         const currencyRecord = Currencies[currencyValue];
 
-        console.log('user');
         const user = await this.userRepo.findOne({email: userEmail})
             ?? (await this.createUser(userEmail));
 
-        console.log('items');
         const items = await this.buildItems(
             user,
             game,
@@ -163,10 +98,8 @@ export class BookingMakeResolver {
         );
 
         assert(items.length > 0, "order can not be empty");
-        console.log('total');
         const total = this.totalItems(items, coupon);
 
-        console.log('booking');
         const bookingEntity = await this.createBooking(
             user,
             items,
@@ -176,21 +109,19 @@ export class BookingMakeResolver {
             gameEntity.name,
             subscription,
         );
-        /*
-                this.notify(
-                    info,
-                    items,
-                    currencyRecord,
-                    email,
-                    method,
-                    coupon
-                )
-        */
-        console.log('method');
+        
+        this.notify(
+            info,
+            items,
+            currencyRecord,
+            email,
+            method,
+            coupon,
+        );
+        
         if (method === "stripe") {
             const {sk} = creds("stripe");
             const stripe = new Stripe(sk, {apiVersion: '2020-08-27'});
-            console.log('session');
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ["card"],
                 customer_email: email,
@@ -208,15 +139,12 @@ export class BookingMakeResolver {
                 success_url: `${frontend.uri}/${gameEntity.url}/checkout/success`,
                 cancel_url: `${frontend.uri}/${gameEntity.url}/checkout`,
             });
-            console.log('session id');
             return session.id;
         } else {
             const {id, secret} = creds("paypal");
-            console.log(id, secret);
             const environment = new paypal.core.SandboxEnvironment(id, secret);
             const client = new paypal.core.PayPalHttpClient(environment);
 
-            console.log('request');
             const request = new paypal.orders.OrdersCreateRequest();
             const currency = currencyRecord.id;
             request.requestBody({
@@ -262,10 +190,8 @@ export class BookingMakeResolver {
                 },
             });
 
-            console.log('response');
             const response = await client.execute(request);
 
-            console.log('approval');
             const approval = response.result.links.filter((link: any) => link.rel === 'approve');
             assert(approval.length === 1, "paypal order failure (code: no approval)");
             return approval[0].href;
@@ -453,7 +379,7 @@ export class BookingMakeResolver {
         const currentBooking = this.bookRepo.create({
             active: false,
             name: "TC-" + (await this.bookRepo.count({})),
-            status: StatusType.AWAITING_FOR_CONTACT,
+            status: StatusType.AWAITING_FOR_PAYMENT,
 
             user: user.id,
 
@@ -485,15 +411,15 @@ export class BookingMakeResolver {
         const information: Record<string, any> = SafeJSON.parse(info, {});
 
         slack([
-            " (╯°□°)╯ [purchase attempt] ...",
+            "[purchase attempt]",
             coupon || "-",
             currency.id,
             method,
             email,
-            ...items.map(({name, quantity, amount, description}) =>
-                `• ${name} x ${quantity}\n  price: ${amount / 100} ${currency.label}\n opts: ${description}`),
             '--------',
-            `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`,
+            JSON.stringify(items),
+            '--------',
+            info,
         ]);
     }
 }

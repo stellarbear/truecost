@@ -9,7 +9,6 @@ import {GameEntity} from "../../crud/game/game.entity";
 import {BookingEntity} from "../../crud/booking/booking.entity";
 import {SubscriptionEntity} from "../../crud/subscription/subscription.entity";
 import {BookingUpsertInput} from "./BookingUpsertInput";
-import {createOrder} from "../webhook";
 import {assert} from "../../../helpers/assert";
 import {wrap} from "@mikro-orm/core";
 import {RoleType} from "@truecost/shared";
@@ -50,12 +49,14 @@ export class BookingUpsertResolver {
 
             return booking;
         } else {
+            assert(false, "creation disabled");
             //  Transform items to webhook format
             const display_items = JSON.parse(data).map((item: any) => ({
                 ...item,
                 custom: {name: item.name, description: item.description},
             }));
 
+            /*
             const booking = await createOrder({
                 amount_total: total,
                 display_items,
@@ -68,8 +69,7 @@ export class BookingUpsertResolver {
                     currency,
                 },
             });
-
-            return booking;
+            */
         }
     }
 }

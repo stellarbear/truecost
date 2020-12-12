@@ -4,20 +4,18 @@ import {ICurrency} from '@truecost/shared';
 
 interface IProps {
     currency: ICurrency;
-    goods: {
-        game: string;
-        data: any[];
-    };
+    data: any[];
 }
 
-export const BookingGoods: React.FC<IProps> = ({goods, currency}) => {
+export const BookingGoods: React.FC<IProps> = (props) => {
+    const {data, currency} = props;
     return (
         <>
             <Typography variant="h6">Goods: </Typography>
             <Table>
                 <TableBody>
                     {
-                        goods.data
+                        data
                             .filter(d => typeof d == "object" &&
                                 "quantity" in d &&
                                 "amount" in d &&
@@ -30,7 +28,7 @@ export const BookingGoods: React.FC<IProps> = ({goods, currency}) => {
                                     </TableCell>
                                     <TableCell
                                         style={{whiteSpace: "nowrap"}}>
-                                        {`${amount / 100} ${currency.label} x ${quantity}`}
+                                        {`${amount} ${currency.label} x ${quantity}`}
                                     </TableCell>
                                 </TableRow>
                             ))

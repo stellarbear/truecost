@@ -15,6 +15,8 @@ const GET_BOOKING = gql`
             total
             info
             data
+            game
+            subscription
             currency
 
             id

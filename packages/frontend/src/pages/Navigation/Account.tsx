@@ -73,7 +73,7 @@ const AdminPicker: React.FC = () => {
                 <MenuItem component={Link} color="inherit" to={'/admin'}>
                     CRUD
                 </MenuItem>
-                <MenuItem component={Link} color="inherit" to={'/booking/upsert'}>
+                <MenuItem disabled component={Link} color="inherit" to={'/booking/upsert'}>
                     New order
                 </MenuItem>
             </Menu >

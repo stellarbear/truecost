@@ -1,68 +1,31 @@
 import {DI} from "../../orm";
-import {generateString} from "../../helpers/generate";
 import {BookingEntity} from "../crud/booking/booking.entity";
 import {UserEntity} from "../crud/user/user.entity";
-import {pbkdf2} from "../../helpers/pbkdf2";
-import {EntityRepository, wrap} from "@mikro-orm/core";
-import {Currencies, CurrencyKey, Dict, RoleType, SafeJSON, StatusType} from "@truecost/shared";
 import {composeEmail} from "../../mail/compose";
 import {accountEmail} from "../../mail/samples/account";
 import {domain} from "../../helpers/route";
 import {orderEmail} from "../../mail/samples/order";
 import {SubscriptionEntity} from "../crud/subscription/subscription.entity";
 import {slack} from "../../helpers/slack";
+import {assert} from "../../helpers/assert";
+import {Dict, SafeJSON} from "@truecost/shared";
 
-export const createOrder = async (response: Record<string, any>) => {
-    const {
-        amount_total,
-        display_items,
-        payment_intent,
-        metadata: {
-            info,
-            game,
-            email,
-            subscription,
-            currency,
-        },
-    } = response;
-
-    const data = display_items.map(({amount, quantity, custom: {name, description}}: any) => ({
-        amount,
-        quantity,
-        name,
-        description,
-    }));
-    console.log(data);
+export const createOrder = async (id: string, method: string) => {
+    console.log(id);
 
     const subsRepo = DI.em.getRepository(SubscriptionEntity);
     const bookRepo = DI.em.getRepository(BookingEntity);
     const userRepo = DI.em.getRepository(UserEntity);
 
-    const currentUser = (await userRepo.findOne({email}))
-        ?? (await createUser(userRepo, email));
+    const currentBooking = await bookRepo.findOne({id}, true);
+    assert(currentBooking, "order id not found, contact us.");
 
-    const code = "TC-" + generateString({length: 8, num: true, upper: true, lower: false});
-    const currentBooking = bookRepo.create({
-        active: true,
-        name: "TC-" + (await bookRepo.count({})),
-        status: StatusType.AWAITING_FOR_CONTACT,
+    const currentUser = currentBooking.user;
+    assert(currentBooking, `user not found, contact us. order id: ${id}`);
 
-        user: currentUser.id,
-
-        total: amount_total,
-        pi: payment_intent,
-        currency,
-        code,
-
-        info,
-        data: JSON.stringify({game, data}),
-    });
-
-    await bookRepo.persistAndFlush(currentBooking);
-
-    //  apply subscription if bought
-    if (subscription) {
-        const subEntity = await subsRepo.findOne({id: subscription});
+    const subscriptionId = currentBooking.subscription;
+    if (subscriptionId) {
+        const subEntity = await subsRepo.findOne({id: subscriptionId});
         if (subEntity) {
             currentUser.subscription = subEntity;
             currentUser.subscribeDate = new Date();
@@ -71,33 +34,70 @@ export const createOrder = async (response: Record<string, any>) => {
         await userRepo.persistAndFlush(currentUser);
     }
 
-    const currencyValue = currency as CurrencyKey;
-    const currencyRecord = Currencies[currencyValue];
-    const label = currencyRecord?.label || "usd";
-    
-    const information: Record<string, any> = SafeJSON.parse(info, {});
+    currentBooking.active = true;
+    await bookRepo.persistAndFlush(currentBooking);
+
+    if (currentUser.active == false) {
+        currentUser.active = true;
+
+        await sendAccountInfo(currentUser.email, currentUser.name);
+
+        currentUser.name = currentUser.email;
+        await userRepo.persistAndFlush(currentUser);
+    }
+    await sendBookingInfo(
+        currentUser,
+        currentBooking,
+    );
+
+    notifyAboutBooking(
+        currentUser,
+        currentBooking,
+        method,
+    );
+
+    return currentBooking;
+};
+
+const notifyAboutBooking = (
+    user: UserEntity,
+    booking: BookingEntity,
+    method: string,
+) => {
+    const data = SafeJSON.parse<any[]>(booking.data, []);
+    const info = SafeJSON.parse<Record<string, any>>(booking.info, {});
+
     slack([
         " ʕノ•ᴥ•ʔノ [PURCHASE SUCCESS]  \\(•ᴥ• \\)́",
-        email,
-        `total: ${amount_total / 100} ${label}`,
-        ...data.map(({name, quantity, description, amount}: any) =>
-            `• ${name} x ${quantity}\n  price: ${amount / 100} ${label}\n opts: ${description}`),
+        user.email,
+        method,
         '--------',
-        `${Object.keys(information).map(key => `${key}: ${information[key] || "-"}`).join('\n')}`,
+        `total: ${booking.total} ${booking.currency}`,
+        '--------',
+        ...data.map(({name, quantity, description, amount}: any) =>
+            `• ${name} x ${quantity}\n  price: ${amount} ${booking.currency}\n opts: ${description}`),
+        '--------',
+        `${Object.keys(info).map(key => `${key}: ${info[key] || "-"}`).join('\n')}`,
     ]);
 
+};
+
+const sendBookingInfo = async (
+    user: UserEntity,
+    booking: BookingEntity,
+) => {
     try {
+        const data = SafeJSON.parse<any[]>(booking.data, []);
         console.log('sending order receipt');
         await composeEmail({
-            to: email,
-            template: orderEmail(code, {
-                game,
-                //pi: payment_intent,
+            to: user.email,
+            template: orderEmail(booking.code, {
+                game: booking.game,
+                total: `${booking.total} ${booking.currency}`,
                 ...data.reduce((acc: Dict<string>, {name, quantity, description, amount}: any) => ({
                     ...acc,
-                    [`${name} (${description})`]: `${amount / 100} ${label} x ${quantity}`,
+                    [`${name} (${description})`]: `${amount} ${booking.currency} x ${quantity}`,
                 }), {}),
-                total: Math.round(amount_total / 100) + ` ${label}`,
             }),
             subject: 'Order receipt',
             text: `Order receipt for ${domain}`,
@@ -105,28 +105,9 @@ export const createOrder = async (response: Record<string, any>) => {
     } catch (e) {
         console.log(e);
     }
-
-    return currentBooking;
 };
 
-const createUser = async (repo: EntityRepository<UserEntity>, email: string) => {
-    const user = repo.create({});
-
-    const password = generateString({length: 8});
-    const {hash, salt} = await pbkdf2.generate(password);
-
-    wrap(user).assign({
-        role: RoleType.USER,
-        verified: true,
-        password: hash,
-        active: true,
-        email,
-        name: email,
-        salt,
-    });
-
-    await repo.persistAndFlush(user);
-
+const sendAccountInfo = async (email: string, password: string) => {
     try {
         console.log('sending account info');
         await composeEmail({
@@ -138,6 +119,4 @@ const createUser = async (repo: EntityRepository<UserEntity>, email: string) => 
     } catch (e) {
         console.log(e);
     }
-
-    return user;
 };

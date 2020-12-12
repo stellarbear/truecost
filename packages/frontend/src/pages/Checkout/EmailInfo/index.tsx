@@ -3,7 +3,6 @@ import {useState} from 'react';
 import {useStore} from 'pages/Data/Wrapper';
 import {Col} from 'pages/Base/Grid';
 import {useForm} from 'react-hook-form';
-import {loadStripe} from '@stripe/stripe-js';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {EmailSubscription} from './EmailSubscription';
 import {EmailFields} from './EmailFields';
@@ -26,6 +25,8 @@ const MAKE_BOOKING = gql`
         BookingMake(input: $input)
     }
 `;
+
+declare let Stripe: any;
 
 export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
@@ -73,7 +74,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                         window.location = result.data?.BookingMake as any;
                         return;
                     case PaymentMethod.Stripe:
-                        const stripe = await loadStripe(stripeKey);
+                        const stripe = Stripe(stripeKey);
                         if (stripe) {
                             await stripe.redirectToCheckout({sessionId: result.data?.BookingMake});
                         }
