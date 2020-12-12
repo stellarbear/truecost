@@ -8,5 +8,5 @@ interface IProps {
 }
 
 export const BookingTotal: React.FC<IProps> = ({total, currency}) => (
-    <Typography  variant="h6">{`Total: ${total / 100} ${currency.label}`}</Typography>
+    <Typography  variant="h6">{`Total: ${total} ${currency.label}`}</Typography>
 ); 

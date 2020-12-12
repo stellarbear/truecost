@@ -67,18 +67,14 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
             };
 
             const result = await mutation({variables: {input: variables}});
-            console.log('1', result)
             if (result.data?.BookingMake) {
                 switch (method) {
                     case PaymentMethod.PayPal:
                         window.location = result.data?.BookingMake as any;
                         return;
                     case PaymentMethod.Stripe:
-                        console.log('2', 'stripe')
                         const stripe = await loadStripe(stripeKey);
-                        console.log('3', stripe)
                         if (stripe) {
-                            console.log('4', result.data?.BookingMake)
                             await stripe.redirectToCheckout({sessionId: result.data?.BookingMake});
                         }
                         return;
