@@ -109,16 +109,17 @@ export class BookingMakeResolver {
             gameEntity.name,
             subscription,
         );
-        
+
         this.notify(
             info,
             items,
             currencyRecord,
             email,
             method,
+            total.discounted,
             coupon,
         );
-        
+
         if (method === "stripe") {
             const {sk} = creds("stripe");
             const stripe = new Stripe(sk, {apiVersion: '2020-08-27'});
@@ -405,11 +406,9 @@ export class BookingMakeResolver {
         currency: ICurrency,
         email: string,
         method: string,
+        total: number,
         coupon?: string,
     ) {
-
-        const information: Record<string, any> = SafeJSON.parse(info, {});
-
         slack([
             "[purchase attempt]",
             coupon || "-",
@@ -417,7 +416,9 @@ export class BookingMakeResolver {
             method,
             email,
             '--------',
-            JSON.stringify(items),
+            `total: ${total} ${currency.label}`,
+            '--------',
+            JSON.stringify(items.map(i => ({name: i.name, desc: i.description}))),
             '--------',
             info,
         ]);

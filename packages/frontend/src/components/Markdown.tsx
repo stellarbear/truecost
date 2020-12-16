@@ -13,6 +13,8 @@ const useStyles = makeStyles({
     },
 });
 
+const Wrapper: React.FC = (props) => <Typography variant="caption" {...props} />;
+
 const options: MarkdownToJSX.Options = ({
     overrides: {
         h1: {
@@ -35,9 +37,10 @@ const options: MarkdownToJSX.Options = ({
         p: {component: Typography, props: {paragraph: true}},
         a: {component: Link},
     },
+    wrapper: Wrapper,
 });
 
-interface IProps  {
+interface IProps {
     children: string;
     scale?: boolean;
     style?: React.CSSProperties;

@@ -17,3 +17,5 @@ npm-*.log
 .DS_Store
 tsconfig.tsbuildinfo
 .env.local
+
+*.dump

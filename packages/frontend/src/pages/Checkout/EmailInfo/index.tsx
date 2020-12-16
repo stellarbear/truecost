@@ -16,7 +16,7 @@ interface IProps {
     info: Record<string, any>;
 }
 
-interface BookingSubmit {
+export interface BookingSubmit {
     email: string;
     coupon?: string;
 }
@@ -38,10 +38,12 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     const [selectedSubscription, setSelectedSubscription] = useState<string | undefined>();
     const [currentSubscription, setCurrentSubscription] = useState<string | undefined>(user?.subscription?.id);
 
-    const {register, handleSubmit, errors, clearErrors, watch, setError} = useForm<BookingSubmit>({
+    const form = useForm<BookingSubmit>({
         reValidateMode: "onBlur",
         defaultValues: {email: user ? user.email : "", coupon: ""},
     });
+
+    const {handleSubmit, clearErrors} = form;
 
     const total = calcTotal({
         store,
@@ -54,7 +56,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
         try {
             clearErrors();
             setLoading(true);
-            const {platform, text, cross} = info;
+            const {platform, text, cross, id, messenger} = info;
 
             const variables = {
                 ...input,
@@ -63,7 +65,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                 currency: currency.id,
                 subscription: selectedSubscription,
                 booking: JSON.stringify(cartItems),
-                info: JSON.stringify({platform, text, cross}),
+                info: JSON.stringify({platform, text, cross, id, messenger}),
             };
 
             const result = await mutation({variables: {input: variables}});
@@ -83,7 +85,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                 }
             }
         } catch (e) {
-            console.log(e)
+            console.log(e);
         } finally {
             setLoading(false);
         }
@@ -98,12 +100,8 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                     setSelected={setSelectedSubscription}
                 />
                 <EmailFields
-                    register={register}
-                    email={watch("email")}
-                    setError={setError}
-                    clearErrors={clearErrors}
+                    form={form}
                     setCurrent={setCurrentSubscription}
-                    error={errors.email?.message}
                 />
                 <EmailMethod
                     method={method}

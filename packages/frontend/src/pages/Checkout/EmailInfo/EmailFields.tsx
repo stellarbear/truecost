@@ -3,10 +3,11 @@ import {subscription, validate} from '@truecost/shared';
 import {CircularProgress, TextField} from '@material-ui/core';
 import {Col} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
-import {ErrorOption} from 'react-hook-form';
+import {Controller, UseFormMethods} from 'react-hook-form';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
 import {gql, useLazyQuery} from '@apollo/client';
 import {useDebounceState} from 'auxiliary/useDebounceState';
+import {BookingSubmit} from '.';
 
 const GET_SUBSCRIPTION = gql`
     query UserGetSubscription($email: String!) {
@@ -17,23 +18,21 @@ const GET_SUBSCRIPTION = gql`
 `;
 
 interface IProps {
-    register: any;
-    email: string;
-    error?: string;
-    clearErrors: () => void;
+    form: UseFormMethods<BookingSubmit>;
     setCurrent: (value?: string) => void;
-    setError: (name: "email", error: ErrorOption) => void;
 }
 
 export const EmailFields: React.FC<IProps> = (props) => {
-    const {error, setCurrent, register, email, setError, clearErrors} = props;
+    const {form, setCurrent} = props;
+    const { register, watch, setError, clearErrors, errors, control} = form;
+    const email = watch('email');
+
     const [query, {data, loading}] = useLazyQuery(GET_SUBSCRIPTION);
     const {notify} = useNotification();
 
     const [mounted, setMounted] = React.useState(false);
 
     const onEmailUpdate = (email: string) => {
-        console.log(email);
         if (email.length === 0) {
             setError("email", {type: "error", message: "This field is required"});
         } else if (!validate("email").test(email)) {
@@ -90,8 +89,8 @@ export const EmailFields: React.FC<IProps> = (props) => {
                 })}
                 name={"email"}
                 label="Your email address *"
-                error={!!error}
-                helperText={error}
+                error={!!errors.email?.message}
+                helperText={errors.email?.message}
                 variant="outlined"
                 onChange={() => {
                     clearErrors();
@@ -101,12 +100,19 @@ export const EmailFields: React.FC<IProps> = (props) => {
                     endAdornment: loading && <CircularProgress size={24} />,
                 }}
             />
-            <TextField
-                fullWidth
-                inputRef={register()}
+
+            <Controller
                 name={"coupon"}
-                label="Promotion code"
-                variant="outlined"
+                control={control}
+                render={({value, onChange}) => (
+                    <TextField
+                        fullWidth
+                        value={value}
+                        label="Promotion code"
+                        variant="outlined"
+                        onChange={(e) => onChange(e.target.value.toLocaleUpperCase())}
+                    />
+                )}
             />
         </Col>
     );

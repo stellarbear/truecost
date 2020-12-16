@@ -1,23 +1,21 @@
 import React from 'react';
 import {Col} from 'pages/Base/Grid';
-import {AuxPlatform, validatePlatform} from './AuxPlatform';
-import {AuxField} from './AuxField';
 import {Accordion, AccordionSummary, Typography, AccordionDetails} from '@material-ui/core';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import {AuxMessenger} from './AuxMessenger';
 
 interface IProps {
     value: Record<string, any>;
     setValue: (key: string, value?: any) => void;
 }
 
-export const AuxInfo: React.FC<IProps> = (props) => {
+export const ContactInfo: React.FC<IProps> = (props) => {
     const {
         value,
         setValue,
     } = props;
-    const text = value.text || "";
-    const cross = !!value.cross;
-    const platform = validatePlatform(value.platform);
+    const messenger = value.messenger;
+    const id = value.id;
 
     return (
         <div>
@@ -25,21 +23,17 @@ export const AuxInfo: React.FC<IProps> = (props) => {
                 <AccordionSummary
                     expandIcon={<ExpandMore />}>
                     <Col>
-                        <Typography >Order information</Typography>
-                        <Typography variant="caption">Select platform, and give us details</Typography>
+                        <Typography >Contact information</Typography>
+                        <Typography variant="caption">Specify ways of communication</Typography>
                     </Col>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Col s={8} fullWidth>
-                        <AuxPlatform
-                            cross={cross}
-                            platform={platform}
-                            setCross={(v) => setValue("cross", v)}
-                            setPlatform={(v) => setValue("platform", v)}
-                        />
-                        <AuxField
-                            text={text}
-                            setText={(v) => setValue("text", v)}
+                        <AuxMessenger
+                            id={id}
+                            messenger={messenger}
+                            setId={(v) => setValue("id", v)}
+                            setMessenger={(v) => setValue("messenger", v)}
                         />
                     </Col>
                 </AccordionDetails>

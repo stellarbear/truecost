@@ -47,7 +47,7 @@ export const CurrencyPicker: React.FC<IProps> = (props) => {
                         <Row s={8} align="center">
                             <strong>{`${Currencies[id].label} `}</strong>
                             <div>
-                                {`(${id})`}
+                                {`${id.toLocaleUpperCase()}`}
                             </div>
                             {(id === currency.id) && <Circle />}
                         </Row>

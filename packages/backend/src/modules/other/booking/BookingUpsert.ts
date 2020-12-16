@@ -33,7 +33,7 @@ export class BookingUpsertResolver {
     ) {
         const {
             id, total, data, pi,
-            info, game, email, subscription, currency,
+            info, game, currency,
         } = input;
 
         if (id) {
@@ -51,10 +51,6 @@ export class BookingUpsertResolver {
         } else {
             assert(false, "creation disabled");
             //  Transform items to webhook format
-            const display_items = JSON.parse(data).map((item: any) => ({
-                ...item,
-                custom: {name: item.name, description: item.description},
-            }));
 
             /*
             const booking = await createOrder({
