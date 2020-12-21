@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Autocomplete, {createFilterOptions} from '@material-ui/lab/Autocomplete';
-import {TextField} from '@material-ui/core';
+import {Button, TextField, Typography} from '@material-ui/core';
 import Search from '@material-ui/icons/Search';
 
 interface IFilter {
@@ -58,6 +58,9 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
             getOptionSelected={(v) => valuesOverride.some(o => o.id === v.id)}
             value={valuesOverride}
             options={optionsOverride}
+            renderOption={({custom, id}) => custom
+                ? <Button color="secondary" variant="contained">{`Custom order: ${id}`}</Button>
+                : <Typography noWrap>{getLabel(id).replace(/\s/g, ' ')}</Typography>}
             getOptionLabel={({id: itemId, custom}) => !custom ? getLabel(itemId).replace(/\s/g, ' ') : itemId}
             renderInput={(params) => {
                 params.InputProps.endAdornment = <Search style={{marginRight: -48}} />;

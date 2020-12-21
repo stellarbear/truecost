@@ -29,7 +29,7 @@ export const defaultState: IShopState = {
     order: "asc",
 };
 
-declare let Tawk_API: any;
+declare let LiveChatWidget: any;
 
 const Shop: React.FC = () => {
     const {notify} = useNotification();
@@ -105,7 +105,7 @@ const Shop: React.FC = () => {
                     })
                 }
                 onCustom={() => {
-                    Tawk_API?.maximize();
+                    LiveChatWidget?.call('maximize');
                     notify("Ask us for the custom order, we will serve it to you!");
                 }}
                 getLabel={(itemId) => itemId in items.id ? items.id[itemId].name : "unknown"}
