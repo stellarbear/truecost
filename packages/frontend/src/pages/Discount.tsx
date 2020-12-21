@@ -28,11 +28,12 @@ export const Discount: React.FC = () => {
     return (
         <>
             <Meta />
-            <TextCard title="Discount">
+            <TextCard title="Membership">
                 <Col s={8}>
+                    <Typography><strong>This is a one time payment. Not recurrent one.</strong></Typography>
                     <Typography>
-                        Discount plan is a simple way of having permanent discount on everything (every item and service
-                        on every game) for relatively cheap one time payment.
+                        Membership plan is a simple way of having permanent discount on everything 
+                        (every item and service on every game) for relatively cheap one time payment.
                     </Typography>
                     <Typography><strong>Important:</strong> discount is applied only on the last (3rd step)</Typography>
                     <Typography><strong>How to purchuase a discount:</strong></Typography>
@@ -66,7 +67,7 @@ export const Discount: React.FC = () => {
                                 2 step
                             </Typography>
                             <Button variant="outlined" component={Link} to={url + '/checkout'}>
-                                Verify your order
+                                Check your cart
                             </Button>
                         </TimelineContent>
                     </TimelineItem>
@@ -82,7 +83,7 @@ export const Discount: React.FC = () => {
                                 3 step
                             </Typography>
                             <Button variant="outlined" component={Link} to={url + '/checkout/2'}>
-                                Select discount plan
+                                Select membership plan plan
                             </Button>
                         </TimelineContent>
                     </TimelineItem>

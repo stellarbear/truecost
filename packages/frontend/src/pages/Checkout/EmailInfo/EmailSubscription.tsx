@@ -24,10 +24,8 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
     );
 
     return (
-        <>
-            <Row>
-                <Typography variant="caption">Subscription (optional)</Typography>
-            </Row>
+        <Col s={8}>
+            <Typography variant="caption">Membership (optional, one time payment)</Typography>
             <Row s={16} style={{
                 opacity: payed ? 0.4 : 1.0,
             }}>
@@ -72,6 +70,6 @@ export const EmailSubscription: React.FC<IProps> = ({selected, setSelected, curr
                         );
                     }) : mock()}
             </Row>
-        </>
+        </Col>
     );
 };

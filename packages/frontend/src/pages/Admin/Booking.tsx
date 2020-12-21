@@ -2,8 +2,10 @@ import * as React from "react";
 import {CRUD} from "components/generic/CRUD";
 import {CRUDgql} from "auxiliary";
 import {base} from "./Base/Base";
-import {CImage, CLink, CNumber, CSelect, CString} from "components/generic/types";
+import {CCustom, CImage, CLink, CNumber, CSelect, CString} from "components/generic/types";
 import {Currencies, CurrencyKey, StatusType} from "@truecost/shared";
+import {EditorItems} from "components/generic/components/EditorItems";
+import {EditorInfo} from "components/generic/components/EditorInfo";
 
 export const AdminBooking: React.FC = () => {
     const crud = new CRUDgql({
@@ -19,6 +21,7 @@ export const AdminBooking: React.FC = () => {
             total
             code
             pi
+            game
 
             info
             data
@@ -79,23 +82,29 @@ export const AdminBooking: React.FC = () => {
         label: "code",
         editable: false,
     });
+    const game = new CString({
+        key: "game",
+        label: "game",
+    });
     const pi = new CString({
         key: "pi",
         label: "payment",
-        editable: false,
-    });
-    const info = new CString({
-        key: "info",
-        label: "info",
-        editable: false,
-    });
-    const data = new CString({
-        key: "data",
-        label: "data",
-        editable: false,
     });
 
-    const fields = [images, currency, user, status, total, code, pi, info, data];
+    const data = new CCustom({
+        base: "[]",
+        key: "data",
+        label: "data",
+        component: <EditorItems/>,
+    });
+    const info = new CCustom({
+        base: "{}",
+        key: "info",
+        label: "info",
+        component: <EditorInfo/>,
+    });
+
+    const fields = [images, currency, user, status, total, code, pi, game, info, data];
 
     return (
         <CRUD
