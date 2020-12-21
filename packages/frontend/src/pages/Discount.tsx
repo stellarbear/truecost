@@ -20,7 +20,7 @@ export const Discount: React.FC = () => {
     const url = '/' + game.url;
 
     const mock = () => (
-        <Typography variant="caption">Unfortunaltely, no plans available</Typography>
+        <Typography variant="caption">Unfortunately, no plans available</Typography>
     );
 
     const ids = Object.keys(subs);
@@ -35,8 +35,8 @@ export const Discount: React.FC = () => {
                         Membership plan is a simple way of having permanent discount on everything 
                         (every item and service on every game) for relatively cheap one time payment.
                     </Typography>
-                    <Typography>You can always check the price breakdown under the payment button</Typography>
-                    <Typography><strong>How to purchuase a discount:</strong></Typography>
+                    <Typography>You can always check the price breakdown under the payment button.</Typography>
+                    <Typography><strong>How to purchase a discount:</strong></Typography>
                     <TimelineItem>
                         <TimelineOppositeContent style={{maxWidth: 0}} />
                         <TimelineSeparator>
