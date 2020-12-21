@@ -35,7 +35,7 @@ export const Discount: React.FC = () => {
                         Membership plan is a simple way of having permanent discount on everything 
                         (every item and service on every game) for relatively cheap one time payment.
                     </Typography>
-                    <Typography><strong>Important:</strong> discount is applied only on the last (3rd step)</Typography>
+                    <Typography>You can always check the price breakdown under the payment button</Typography>
                     <Typography><strong>How to purchuase a discount:</strong></Typography>
                     <TimelineItem>
                         <TimelineOppositeContent style={{maxWidth: 0}} />
@@ -83,11 +83,11 @@ export const Discount: React.FC = () => {
                                 3 step
                             </Typography>
                             <Button variant="outlined" component={Link} to={url + '/checkout/2'}>
-                                Select membership plan plan
+                                Select membership plan
                             </Button>
                         </TimelineContent>
                     </TimelineItem>
-                    <Typography><strong>Сurrently available plans:</strong></Typography>
+                    <Typography><strong>Currently available plans:</strong></Typography>
                     {ids.length > 0 ?
                         ids.map(subId => (
                             <Typography key={subId} style={{
