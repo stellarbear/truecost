@@ -26,7 +26,6 @@ const BaseApp: React.FC = () => {
         <ApolloProvider client={client}>
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
-                    {/*<ScrollToTop />*/}
                     <App />
                 </ThemeProvider>
             </BrowserRouter>
@@ -43,15 +42,3 @@ renderMethod(
 if (module.hot) {
     module.hot.accept();
 }
-
-/*
-const ScrollToTop: React.FC = () => {
-    const {pathname} = useLocation();
-
-    useEffect(() => {
-        window.scroll({top: 0, left: 0, behavior: "smooth"});
-    }, [pathname]);
-
-    return null;
-};
-*/
