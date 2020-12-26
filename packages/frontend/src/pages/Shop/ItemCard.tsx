@@ -80,6 +80,31 @@ const ItemCard: React.FC<IProps> = (props) => {
         </Row>
     );
 
+    const details = () => (
+        <div
+            style={{
+                transition: "all 0.3s",
+                position: "absolute",
+                left: "50%", top: "50%",
+                transform: "translate(-50%,-50%)",
+                opacity: raised ? 1.0 : 0.0,
+            }}
+        >
+            <Button variant="contained" color="secondary">Item details</Button>
+        </div>
+    );
+
+    const overlay = () => (
+        <div
+            style={{
+                transition: "all 0.3s",
+                position: "absolute",
+                left: 0, right: 0, top: 0, bottom: 0,
+                background: raised ? "#00000066" : undefined,
+            }}
+        />
+    );
+
     const card = () => {
         const image = `${backend.uri}/${item.id}/${item.images[0]}/u.png`;
         return (
@@ -95,6 +120,7 @@ const ItemCard: React.FC<IProps> = (props) => {
                     </NoSsr>
                     <div style={{
                         backgroundColor: "#f4f4f4",
+                        position: "relative",
                         overflow: "hidden",
                     }}>
                         <SafeImage
@@ -104,6 +130,8 @@ const ItemCard: React.FC<IProps> = (props) => {
                                 objectFit: "contain", width: "inherit",
                                 filter: "drop-shadow(10px 12px 9px #555)",
                             }} />
+                        {overlay()}
+                        {details()}
                     </div>
                 </Link>
                 <Divider />
