@@ -113,25 +113,32 @@ const Shop: React.FC = () => {
         </NoSsr>
     );
 
-    const tag = (tagId: string, depth = 0) => (
-        <Chip
-            style={{marginBottom: 4, marginRight: 8}}
-            key={tagId}
-            label={tags.id[tagId].name}
-            clickable
-            onClick={() => {
-                const index = state.tags.indexOf(tagId);
+    const tag = (tagId: string, depth = 0) => {
+        const active = state.tags.includes(tagId);
 
-                setState({
-                    ...state,
-                    tags: index === -1
-                        ? [...state.tags.slice(0, depth), tagId]
-                        : state.tags.slice(0, index),
-                });
-            }}
-            color={state.tags.includes(tagId) ? "primary" : undefined}
-        />
-    );
+        const onClick = () => {
+            const index = state.tags.indexOf(tagId);
+
+            setState({
+                ...state,
+                tags: index === -1
+                    ? [...state.tags.slice(0, depth), tagId]
+                    : state.tags.slice(0, index),
+            });
+        };
+
+        return (
+            <Chip
+                style={{marginBottom: 4, marginRight: 8}}
+                key={tagId}
+                label={tags.id[tagId].name}
+                clickable
+                onClick={onClick}
+                onDelete={active ? onClick : undefined}
+                color={active ? "primary" : undefined}
+            />
+        );
+    };
 
     const filterTags = () => Object.keys(tags.base).length > 0 && (
         <NoSsr>
