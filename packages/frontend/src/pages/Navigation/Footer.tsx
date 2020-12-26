@@ -4,12 +4,20 @@ import {Link, useLocation} from "react-router-dom";
 import {social} from "auxiliary/social";
 import SocialDialog from "../Base/SocialDialog";
 import {Col, Row} from "pages/Base/Grid";
-import {Bitcoin, PayPal, Visa, MasterCard, Discover, JCB, UnionPay, Amex, Diners} from "assets/cards";
+import {
+    Bitcoin, GooglePay, ApplePay, PayPal, Visa,
+    MasterCard, Discover, JCB, UnionPay, Amex, Diners,
+} from "assets/cards";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 
 const additional = [
     PayPal,
     Bitcoin,
+];
+
+const mobile = [
+    ApplePay,
+    GooglePay,
 ];
 
 const payment = [
@@ -33,6 +41,7 @@ export const Footer: React.FC = () => {
             backgroundColor: "#263238",
         }}>
             {!location.pathname.includes("checkout") && <FooterAbout />}
+            <FooterMobilePayment />
             <FooterAdditionalPayment />
             <FooterPayment />
         </Paper>
@@ -74,10 +83,6 @@ const FooterAbout: React.FC = () => (
                 </Row>
             </Col>
         </Grid>
-
-        <Grid item xs={12} sm={12} md={1}>
-
-        </Grid>
     </Grid>
 );
 
@@ -85,13 +90,37 @@ const FooterAdditionalPayment: React.FC = () => {
     const {notify} = useNotification();
     return (
         <Row
-            onClick={() => notify("Contact us for paypal/bitcoin payments")}
+            onClick={() => notify("Contact us for bitcoin payments")}
             justify="center" wrap
-            style={{backgroundColor: "#E0E0E0", overflow: "hidden", cursor: "pointer"}} >
+            style={{
+                marginBottom: -10,
+                backgroundColor: "#E0E0E0",
+                overflow: "hidden",
+                cursor: "pointer",
+            }} >
             {additional.map((e, i) => React.createElement(e, {
                 style: {
-                    margin: "24px 32px 0px",
+                    margin: "20px 32px 0px",
                     transform: "scale(3.0)",
+                },
+                key: i,
+            }))}
+        </Row>
+    );
+};
+
+const FooterMobilePayment: React.FC = () => {
+    return (
+        <Row
+            justify="center" wrap
+            style={{
+                marginBottom: -10,
+                backgroundColor: "#E0E0E0",
+            }} >
+            {mobile.map((e, i) => React.createElement(e, {
+                style: {
+                    margin: "20px 20px 0px",
+                    transform: "scale(2.6)",
                 },
                 key: i,
             }))}
@@ -101,11 +130,11 @@ const FooterAdditionalPayment: React.FC = () => {
 
 const FooterPayment: React.FC = () => (
     <Row
-        justify="center" wrap
+        justify="center"
         style={{backgroundColor: "#E0E0E0", overflow: "hidden"}} >
         {payment.map((e, i) => React.createElement(e, {
             style: {
-                width: 40, marginLeft: 40, marginTop: 40, marginRight: -20,
+                width: 30, marginLeft: 34, marginTop: 40, marginRight: -20,
                 transform: "scale(3.0)",
             },
             key: i,

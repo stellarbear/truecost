@@ -7,4 +7,6 @@ export * from './unionpay';
 export * from './visa';
 export * from './paypal';
 export * from './bitcoin';
+export * from './applepay';
+export * from './googlepay';
 export * from './stripe';
