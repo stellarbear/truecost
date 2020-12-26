@@ -47,7 +47,7 @@ export const ControllerNumber =
                         ))
                     }
                 </Row >
-                <FormHelperText>{error?.message || " "}</FormHelperText>
+                <FormHelperText error>{error?.message || " "}</FormHelperText>
             </Col >
         );
     };

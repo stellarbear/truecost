@@ -48,6 +48,7 @@ export const ControllerDropdownSelect =
                             {label}
                         </InputLabel>
                         <Select
+                            MenuProps={{disableScrollLock: true}}
                             disabled={readOnly}
                             value={value || ""}
                             variant="filled"
@@ -73,7 +74,7 @@ export const ControllerDropdownSelect =
                         ))
                     }
                 </Row >
-                <FormHelperText>{error?.message || " "}</FormHelperText>
+                <FormHelperText error>{error?.message || " "}</FormHelperText>
             </Col >
         );
     };

@@ -28,9 +28,9 @@ import {NotifyWrapper} from "components/wrappers/NotifyWrapper";
 import {Blog} from "pages/Blog";
 import {BlogPost} from "pages/Blog/BlogPost";
 import {HomeGame, HomeLanding} from "pages/Home";
-import {BookingUpsert} from "pages/Admin/BookingUpsert";
 import {CheckoutPaypal} from "pages/Checkout/CheckoutPaypal";
 import {CheckoutStripe} from "pages/Checkout/CheckoutStripe";
+import {BookingOrderLink} from "pages/Admin/BookingOrderLink";
 
 
 const App = () => {
@@ -45,18 +45,17 @@ const App = () => {
             <Route sensitive exact
                 path={urls.map(u => '/' + u)} component={HomeGame} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
+            
+            <AuthRoute sensitive path={`/checkout/paypal`} component={CheckoutPaypal} />
+            <AuthRoute sensitive path={`/checkout/stripe`} component={CheckoutStripe} />
+            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/:step?')}
+                component={Checkout} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/success')}
                 component={CheckoutSuccess} />
 
-            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/paypal')}
-                component={CheckoutPaypal} />
-            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/stripe')}
-                component={CheckoutStripe} />
-            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/:step?')}
-                component={Checkout} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
-            <AuthRoute sensitive path={`/booking/upsert/:id?`} component={BookingUpsert} />
+            <AuthRoute sensitive path={`/booking/link`} component={BookingOrderLink} />
             <AuthRoute sensitive path={`/account`} component={Account} />
             <AuthRoute sensitive path={`/admin`} component={Admin} roles={[RoleType.ADMIN]} />
 

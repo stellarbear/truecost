@@ -9,6 +9,7 @@ import {SubscriptionEntity} from "../crud/subscription/subscription.entity";
 import {slack} from "../../helpers/slack";
 import {assert} from "../../helpers/assert";
 import {Dict, SafeJSON, StatusType} from "@truecost/shared";
+import {clearDead} from "./booking/helpers";
 
 export const createOrder = async (id: string, method: string) => {
     console.log(id);
@@ -22,7 +23,7 @@ export const createOrder = async (id: string, method: string) => {
     assert(!currentBooking.active, "order id not found, contact us!");
 
     const currentUser = currentBooking.user;
-    assert(currentBooking, `user not found, contact us. order id: ${id}`);
+    assert(currentUser, `user not found, contact us. order id: ${id}`);
 
     const subscriptionId = currentBooking.subscription;
     if (subscriptionId) {
@@ -39,14 +40,7 @@ export const createOrder = async (id: string, method: string) => {
     currentBooking.active = true;
     await bookRepo.persistAndFlush(currentBooking);
 
-    const deadOrders = await bookRepo.find({
-        user: currentUser,
-        status: StatusType.AWAITING_FOR_PAYMENT,
-    });
-
-    for (const dead of deadOrders) {
-        await bookRepo.removeAndFlush(dead);
-    }
+    await clearDead(currentUser);
 
     if (currentUser.active == false) {
         currentUser.active = true;

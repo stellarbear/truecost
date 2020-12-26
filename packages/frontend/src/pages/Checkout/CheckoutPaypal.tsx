@@ -14,7 +14,6 @@ const PAYPAL_ACCEPT = gql`
     }
 `;
 
-
 export const CheckoutPaypal: React.FC = () => {
     const location = useLocation();
     const history = useHistory();

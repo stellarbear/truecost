@@ -1,60 +1,47 @@
 import {gql, useMutation} from '@apollo/client';
 import {Button, Container, Divider, Typography} from '@material-ui/core';
 import {Currencies, validate} from '@truecost/shared';
-import {ControllerDropdownSelect, ControllerInput, ControllerNumber} from 'components/controller';
+import {ErrorBox} from 'components';
+import {ControllerDropdownSelect, ControllerInput} from 'components/controller';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
 import {useNotification} from 'components/wrappers/NotifyWrapper';
 import {Col, Row} from 'pages/Base/Grid';
 import {useStore} from 'pages/Data/Wrapper';
 import * as React from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {dataDefault, infoDefault, infoValidate, dataValidate, parseBooking} from './helpers';
-import {IBookingForm, IBookingData} from './interfaces';
+import {dataDefault, infoDefault, infoValidate, dataValidate} from './helpers';
+import {IBookingForm} from './interfaces';
 
 
 const MAKE_BOOKING = gql`
-    mutation BookingUpsertManually($input: BookingUpsertInput!) {
-        BookingUpsertManually(input: $input) {
-            id
-        }
+    mutation BookingCreateOrderLink($input: BookingOrderLinkInput!) {
+        BookingCreateOrderLink(input: $input) 
     }
 `;
 
-
-interface IProps {
-    booking?: IBookingData;
-}
-
 type InputForm = IBookingForm;
 
-export const BookingUpsertForm: React.FC<IProps> = (props) => {
-    const {booking} = props;
-    const isOld = !!booking;
+export const BookingOrderLink: React.FC = () => {
     const {notify} = useNotification();
     const {setLoading} = useLoading();
-    const flattenedOrder = parseBooking(booking);
-    const [mutation, {data}] = useMutation(MAKE_BOOKING);
+    const [mutation, {data, error}] = useMutation(MAKE_BOOKING);
+
+    const {subs} = useStore();
 
     React.useEffect(() => {
-        if (data?.BookingUpsertManually) {
-            notify(!isOld
-                ? 'Заказ создан'
-                : 'Заказ обновлен');
+        if (data?.BookingCreateOrderLink) {
+            console.log(data?.BookingCreateOrderLink);
+            notify(data?.BookingCreateOrderLink);
         }
-    }, [data?.BookingUpsertManually]);
-
-    const {subs, games} = useStore();
+    }, [data]);
 
     const form = useForm<InputForm>({
         defaultValues: {
-            ...flattenedOrder,
             data: dataDefault,
             info: infoDefault,
-            total: 100,
         },
     });
-    const {register, control, errors, handleSubmit} = form;
-
+    const {control, errors, handleSubmit} = form;
     const SubscriptionOptions = React.useCallback(() =>
         Object.keys(subs).map((key) => ({
             id: subs[key].id, name: subs[key].description,
@@ -65,21 +52,13 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
             .map(({id, label}) => ({id, name: label}),
         ), []);
 
-    const GameOptions = React.useCallback(() =>
-        Object.keys(games.id).map((key) => ({
-            id: games.id[key].name, name: games.id[key].url,
-        })), [games.id]);
-
-
-    register("id", {});
-
     const onSubmit = React.useCallback(
         async (input: InputForm) => {
             try {
                 setLoading(true);
                 input.info = input.info.replace(/\s\s+/g, ' ');
                 input.data = input.data.replace(/\s\s+/g, ' ');
-                console.log(input);
+                
                 await mutation({variables: {input}});
             } catch (e) {
             } finally {
@@ -93,9 +72,7 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
         <Container maxWidth="sm">
             <Col s={16}>
                 <Typography variant="h6">
-                    {isOld
-                        ? `Редактирование заказа`
-                        : 'Новый заказ'}
+                    {`Создание прямого заказа`}
                 </Typography>
                 <Divider />
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -112,7 +89,6 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
                         render={({value, onChange}) => (
                             <ControllerInput
                                 {...{value, onChange}}
-                                readOnly={isOld}
                                 label="Email *"
                                 error={errors.email}
                             />
@@ -144,11 +120,9 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
                                     "This field is required",
                             }}
                             render={({value, onChange}) => (
-                                <ControllerDropdownSelect
-                                    noDiscard
+                                <ControllerInput
                                     {...{value, onChange}}
                                     label="Game *"
-                                    data={GameOptions()}
                                     error={errors.game}
                                 />
                             )}
@@ -160,48 +134,15 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
                         render={({value, onChange}) => (
                             <ControllerDropdownSelect
                                 {...{value, onChange}}
-                                readOnly={isOld}
                                 label="Subscription"
                                 data={SubscriptionOptions()}
                                 error={errors.subscription}
                             />
                         )}
                     />
+
                     <Divider style={{marginBottom: 32}} />
 
-                    <Row s={16}>
-                        <Controller
-                            name={"pi"}
-                            control={control}
-                            rules={{
-                                required: "This field is required",
-                            }}
-                            render={({value, onChange}) => (
-                                <ControllerInput
-                                    noDiscard
-                                    {...{value, onChange}}
-                                    label="Transaction ID *"
-                                    error={errors.pi}
-                                />
-                            )}
-                        />
-                        <Controller
-                            name={"total"}
-                            control={control}
-                            rules={{
-                                required: "This field is required",
-                                validate: (v) => v > 0 || "Must be > 0",
-                            }}
-                            render={({value, onChange}) => (
-                                <ControllerNumber
-                                    noDiscard
-                                    {...{value, onChange}}
-                                    label="Price (1$ == 100) *"
-                                    error={errors.total}
-                                />
-                            )}
-                        />
-                    </Row>
                     <Controller
                         name={"data"}
                         control={control}
@@ -244,9 +185,10 @@ export const BookingUpsertForm: React.FC<IProps> = (props) => {
                         type="submit"
                         fullWidth
                         color="primary">
-                        {isOld ? "Обновить заказ" : "Создать заказ"}
+                        {"Создать заказ"}
                     </Button>
                 </form>
+                <ErrorBox error={error} />
             </Col>
         </Container>
     );

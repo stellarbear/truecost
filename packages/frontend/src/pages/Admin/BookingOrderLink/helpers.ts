@@ -1,5 +1,4 @@
 import {SafeJSON} from "@truecost/shared";
-import {IBookingData, IBookingForm} from "./interfaces";
 
 export const dataDefault = `[
     {
@@ -83,23 +82,4 @@ export const dataValidate = (value: string) => {
     }
 
     return true;
-};
-
-export const parseBooking = (input?: IBookingData): Partial<IBookingForm> => {
-    const {game, data} = SafeJSON.parse(input?.data, {
-        game: undefined,
-        data: undefined,
-    });
-    const result: Partial<IBookingForm> = {
-        id: input?.id,
-        total: input?.total,
-        pi: input?.pi,
-        info: input?.info,
-        email: input?.user.email,
-        currency: input?.currency,
-        game,
-        data,
-    };
-
-    return result;
 };

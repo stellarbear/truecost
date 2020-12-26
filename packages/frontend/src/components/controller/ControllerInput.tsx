@@ -53,7 +53,7 @@ export const ControllerInput =
                         ))
                     }
                 </Row >
-                <FormHelperText>{error?.message || " "}</FormHelperText>
+                <FormHelperText error>{error?.message || " "}</FormHelperText>
             </Col >
         );
     };
