@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Card, Hidden, Typography} from '@material-ui/core';
-import {Stripe, PayPal} from 'assets/cards';
+import {Visa, MasterCard, PayPal} from 'assets/cards';
 import {Col, Row} from 'pages/Base/Grid';
 import {colors} from 'theme';
 
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const scaleStripe = {
-    width: 40, marginLeft: 40, marginTop: 15, marginRight: 20,
+    width: 40, marginLeft: 40, marginTop: 34, marginRight: -20,
     transform: "scale(2.8)",
 };
 const scalePayPal = {
@@ -21,7 +21,7 @@ const scalePayPal = {
 };
 
 const scalePreferred = {
-    marginTop: 15,
+    marginTop: -6,
     marginRight: 16,
 };
 
@@ -32,10 +32,11 @@ const options = [
                 <Hidden xsDown>
                     <Typography
                         style={scalePreferred}
-                        variant="caption">Preferred method</Typography>
+                        variant="caption">And other cards</Typography>
                 </Hidden>
                 <Row>
-                    <Stripe style={scaleStripe} />
+                    <Visa style={scaleStripe}/>
+                    <MasterCard style={scaleStripe}/>
                 </Row>
             </Row>
         ),
