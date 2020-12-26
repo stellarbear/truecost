@@ -32,7 +32,7 @@ const options: MarkdownToJSX.Options = ({
         },
         span: {
             component: Typography,
-            props: {variant: 'caption'},
+            props: {variant: 'body1'},
         },
         p: {component: Typography, props: {paragraph: true}},
         a: {component: Link},
