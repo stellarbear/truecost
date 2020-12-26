@@ -1,6 +1,6 @@
 import {hydrate, render} from "react-dom";
-import React, {useEffect} from "react";
-import {BrowserRouter, useLocation} from "react-router-dom";
+import React from "react";
+import {BrowserRouter} from "react-router-dom";
 
 import "css/float.css";
 import App from "app";
@@ -13,17 +13,6 @@ const client = createApolloClient({
     ssr: false,
 });
 
-/*
-const ScrollToTop: React.FC = () => {
-    const {pathname} = useLocation();
-
-    useEffect(() => {
-        window.scroll({top: 0, left: 0, behavior: "smooth"});
-    }, [pathname]);
-
-    return null;
-};
-*/
 
 const BaseApp: React.FC = () => {
     React.useEffect(() => {
@@ -54,3 +43,15 @@ renderMethod(
 if (module.hot) {
     module.hot.accept();
 }
+
+/*
+const ScrollToTop: React.FC = () => {
+    const {pathname} = useLocation();
+
+    useEffect(() => {
+        window.scroll({top: 0, left: 0, behavior: "smooth"});
+    }, [pathname]);
+
+    return null;
+};
+*/
