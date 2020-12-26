@@ -15,7 +15,7 @@ export const CheckoutSuccess: React.FC = () => {
 
     return (
         <>
-            <Meta/>
+            <Meta />
             <InfoCard
                 text={[
                     "The purchase was successful!",
@@ -23,8 +23,10 @@ export const CheckoutSuccess: React.FC = () => {
                     " ",
                     "Note: do not forget to check SPAM folder",
                 ]} actions={[
-                <Button key="shop" variant="outlined" component={Link} to={url + '/shop'}>To the shop!</Button>,
-            ]}/>
+                    <Button key="shop"
+                        variant="outlined" color="primary"
+                        component={Link} to={url + '/shop'}>To the shop!</Button>,
+                ]} />
         </>
     );
 };

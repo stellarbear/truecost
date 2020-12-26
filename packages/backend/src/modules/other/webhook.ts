@@ -19,6 +19,7 @@ export const createOrder = async (id: string, method: string) => {
 
     const currentBooking = await bookRepo.findOne({id}, true);
     assert(currentBooking, "order id not found, contact us.");
+    assert(!currentBooking.active, "order id not found, contact us!");
 
     const currentUser = currentBooking.user;
     assert(currentBooking, `user not found, contact us. order id: ${id}`);
@@ -37,6 +38,15 @@ export const createOrder = async (id: string, method: string) => {
     currentBooking.status = StatusType.AWAITING_FOR_CONTACT;
     currentBooking.active = true;
     await bookRepo.persistAndFlush(currentBooking);
+
+    const deadOrders = await bookRepo.find({
+        user: currentUser,
+        status: StatusType.AWAITING_FOR_PAYMENT,
+    });
+
+    for (const dead of deadOrders) {
+        await bookRepo.removeAndFlush(dead);
+    }
 
     if (currentUser.active == false) {
         currentUser.active = true;

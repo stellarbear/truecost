@@ -13,9 +13,6 @@ import fastifysession from 'fastify-session';
 import fastifystatic from 'fastify-static';
 import {domain, environment} from './helpers/route';
 
-import Stripe from 'stripe';
-import {creds} from './helpers/creds';
-import {createOrder} from './modules/other/webhook';
 import {GraphQLSchema} from 'graphql';
 import {ItemEntity} from './modules/crud/item/item.entity';
 import {GameEntity} from './modules/crud/game/game.entity';
@@ -68,7 +65,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
         },
     });
 
-
+    /*
     app.register((fastify, opts, next) => {
         app.addContentTypeParser('application/json', {parseAs: 'buffer'},
             (_, body, done) => {
@@ -105,6 +102,7 @@ const init = async (schema: GraphQLSchema, store: RedisStore) => {
 
         next();
     });
+    */
 
     app.get('/sitemap', {
         handler: async (request, response) => {

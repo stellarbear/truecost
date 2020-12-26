@@ -8,21 +8,20 @@ import {getQueryStringParams} from './helper';
 import {ErrorBox} from 'components';
 import {Col} from 'pages/Base/Grid';
 
-const PAYPAL_ACCEPT = gql`
-    query BookingPaypalAccept($token: String!) {
-        BookingPaypalAccept(token: $token)
+const STRIPE_ACCEPT = gql`
+    query BookingStripeAccept($token: String!) {
+        BookingStripeAccept(token: $token)
     }
 `;
 
-
-export const CheckoutPaypal: React.FC = () => {
+export const CheckoutStripe: React.FC = () => {
     const location = useLocation();
     const history = useHistory();
     const {setLoading} = useLoading();
     const {current: {game}} = useStore();
     const {token} = getQueryStringParams(location.search);
 
-    const [query, {data, loading, error}] = useLazyQuery(PAYPAL_ACCEPT);
+    const [query, {data, loading, error}] = useLazyQuery(STRIPE_ACCEPT);
 
     React.useEffect(() => {
         setLoading(true);
@@ -33,7 +32,7 @@ export const CheckoutPaypal: React.FC = () => {
         if (data) {
             setLoading(false);
 
-            if (data?.BookingPaypalAccept) {
+            if (data?.BookingStripeAccept) {
                 history.push(`/${game.url}/checkout/success`);
             }
         }

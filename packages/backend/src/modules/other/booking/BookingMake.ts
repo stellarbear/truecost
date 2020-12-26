@@ -68,6 +68,16 @@ export class BookingMakeResolver {
         return true;
     }
 
+    @Query(() => Boolean)
+    async BookingStripeAccept(
+        @Ctx() ctx: Context,
+        @Arg("token") token: string,
+    ) {
+        await createOrder(token, 'stripe');
+
+        return true;
+    }
+
     @Mutation(() => String)
     async BookingMake(
         @Ctx() ctx: Context,
@@ -137,7 +147,7 @@ export class BookingMakeResolver {
                     ...item,
                     amount: item.amount * 100,
                 })),
-                success_url: `${frontend.uri}/${gameEntity.url}/checkout/success`,
+                success_url: `${frontend.uri}/${gameEntity.url}/checkout/stripe/?token=${bookingEntity.id}`,
                 cancel_url: `${frontend.uri}/${gameEntity.url}/checkout`,
             });
             return session.id;
