@@ -20,25 +20,36 @@ const scalePayPal = {
     transform: "scale(3.0)",
 };
 
-const scalePreferred = {
-    marginTop: -6,
-    marginRight: 16,
-};
-
 const options = [
     {
         method: PaymentMethod.Stripe, icon: (
-            <Row align="center">
-                <Hidden xsDown>
-                    <Typography
-                        style={scalePreferred}
-                        variant="caption">And other cards</Typography>
+            <>
+                <Hidden smUp>
+                    <Col align="center" style={{marginTop: -11}}>
+                        <Row>
+                            <Visa style={scaleStripe} />
+                            <MasterCard style={scaleStripe} />
+                        </Row>
+                        <Typography
+                            style={{marginTop: -11}}
+                            variant="caption">And other cards</Typography>
+                    </Col>
                 </Hidden>
-                <Row>
-                    <Visa style={scaleStripe}/>
-                    <MasterCard style={scaleStripe}/>
-                </Row>
-            </Row>
+                <Hidden xsDown>
+                    <Row align="center">
+                        <Row>
+                            <Visa style={scaleStripe} />
+                            <MasterCard style={scaleStripe} />
+                        </Row>
+                        <Typography
+                            style={{
+                                marginTop: -4,
+                                marginLeft: 40,
+                            }}
+                            variant="caption">And other cards</Typography>
+                    </Row>
+                </Hidden>
+            </>
         ),
     },
     {
