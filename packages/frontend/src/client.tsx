@@ -13,6 +13,7 @@ const client = createApolloClient({
     ssr: false,
 });
 
+/*
 const ScrollToTop: React.FC = () => {
     const {pathname} = useLocation();
 
@@ -22,6 +23,7 @@ const ScrollToTop: React.FC = () => {
 
     return null;
 };
+*/
 
 const BaseApp: React.FC = () => {
     React.useEffect(() => {
@@ -35,7 +37,7 @@ const BaseApp: React.FC = () => {
         <ApolloProvider client={client}>
             <BrowserRouter>
                 <ThemeProvider theme={theme}>
-                    <ScrollToTop />
+                    {/*<ScrollToTop />*/}
                     <App />
                 </ThemeProvider>
             </BrowserRouter>
