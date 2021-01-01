@@ -77,6 +77,8 @@ const notifyAboutBooking = (
         user.email,
         method,
         '--------',
+        `code: ${booking.code}`,
+        '--------',
         `total: ${booking.total} ${booking.currency}`,
         '--------',
         ...data.map(({name, quantity, description, amount}: any) =>

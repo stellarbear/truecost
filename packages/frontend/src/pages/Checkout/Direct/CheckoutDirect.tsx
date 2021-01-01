@@ -52,7 +52,7 @@ export const CheckoutDirect: React.FC = () => {
 
             const variables = { id, method };
             const result = await mutation({ variables });
-            debugger;
+            
             if (result.data?.BookingMakeById) {
                 switch (method) {
                     case PaymentMethod.PayPal:
