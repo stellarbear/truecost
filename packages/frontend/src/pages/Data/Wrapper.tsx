@@ -8,7 +8,7 @@ import {useGame} from "./useGame";
 import {useUser} from "./useUser";
 import {BULK_QUERY} from "./query";
 import {ICartRemove, ICartUpsert, useCart} from "./useCart";
-import {Mock} from "./Mock";
+import {Mock} from './Mock';
 import {IMeta, useMeta} from "./useMeta";
 import {useQuery} from "@apollo/client";
 import {IReview, useReview} from "./useReview";

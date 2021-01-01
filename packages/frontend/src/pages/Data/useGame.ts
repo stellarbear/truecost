@@ -1,7 +1,7 @@
 import {useHistory} from "react-router";
 import {useState} from "react";
 import {IGame, IGameContext} from "@truecost/shared";
-import {mock} from "./mock";
+import {mock} from "./defaults";
 
 type IProps = IGameContext;
 

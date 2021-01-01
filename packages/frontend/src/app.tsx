@@ -31,6 +31,7 @@ import {HomeGame, HomeLanding} from "pages/Home";
 import {CheckoutPaypal} from "pages/Checkout/CheckoutPaypal";
 import {CheckoutStripe} from "pages/Checkout/CheckoutStripe";
 import {BookingOrderLink} from "pages/Admin/BookingOrderLink";
+import { CheckoutDirect } from "pages/Checkout/Direct";
 
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
                 path={urls.map(u => '/' + u)} component={HomeGame} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
             
+            <AuthRoute sensitive path={`/checkout/direct/:id`} component={CheckoutDirect} />
             <AuthRoute sensitive path={`/checkout/paypal`} component={CheckoutPaypal} />
             <AuthRoute sensitive path={`/checkout/stripe`} component={CheckoutStripe} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/:step?')}

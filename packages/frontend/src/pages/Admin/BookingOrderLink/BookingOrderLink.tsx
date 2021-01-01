@@ -1,6 +1,7 @@
 import {gql, useMutation} from '@apollo/client';
 import {Button, Container, Divider, Typography} from '@material-ui/core';
 import {Currencies, validate} from '@truecost/shared';
+import { frontend } from 'auxiliary/route';
 import {ErrorBox} from 'components';
 import {ControllerDropdownSelect, ControllerInput} from 'components/controller';
 import {useLoading} from 'components/wrappers/LoadingWrapper';
@@ -30,8 +31,10 @@ export const BookingOrderLink: React.FC = () => {
 
     React.useEffect(() => {
         if (data?.BookingCreateOrderLink) {
-            console.log(data?.BookingCreateOrderLink);
-            notify(data?.BookingCreateOrderLink);
+            const id = data.BookingCreateOrderLink;
+            const link = `${frontend.uri}/checkout/direct/${id}`;
+            console.log(link);
+            notify(link);
         }
     }, [data]);
 

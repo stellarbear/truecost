@@ -54,7 +54,7 @@ export const EmailPrice: React.FC<IProps> = (props) => {
                 type="submit"
                 fullWidth >
                 {loading
-                    ? <CircularProgress size={24} />
+                    ? <CircularProgress size={24} style={{color:"white"}}/>
                     : (
                         <Row fullWidth justify="space-around">
                             <Typography variant="button" style={{fontSize: "1.4rem"}}>

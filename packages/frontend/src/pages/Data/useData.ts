@@ -1,5 +1,5 @@
 import {IGameContext, IInfo, IShopContext, IUser, parseShop} from '@truecost/shared';
-import {mock} from './mock';
+import {mock} from './defaults';
 
 export interface IUserContext {
     data?: IUser;
