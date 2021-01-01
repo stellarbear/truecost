@@ -44,24 +44,24 @@ export const CheckoutDirect: React.FC = () => {
         return <CircularProgress />;
     }
 
-    const onSubmit = async () => {
-        debugger;
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        
         try {
             setLoading(true);
 
             const variables = { id, method };
-
-            const result = await mutation({ variables: { input: variables } });
+            const result = await mutation({ variables });
             debugger;
             if (result.data?.BookingMakeById) {
                 switch (method) {
                     case PaymentMethod.PayPal:
-                        window.location = result.data?.BookingMake as any;
+                        window.location = result.data?.BookingMakeById as any;
                         return;
                     case PaymentMethod.Stripe:
                         const stripe = await loadStripe(stripeKey);
                         if (stripe) {
-                            await stripe.redirectToCheckout({ sessionId: result.data?.BookingMake });
+                            await stripe.redirectToCheckout({ sessionId: result.data?.BookingMakeById });
                         }
                         return;
                     default:
