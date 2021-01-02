@@ -24,9 +24,10 @@ export const payWithStripe = async (
         } : {}),
         metadata: {id},
         locale: "en",
-        line_items: items.map(item => ({
-            ...item,
-            amount: item.amount * 100,
+        line_items: items.map(({description, amount, ...rest}) => ({
+            ...rest,
+            amount: amount * 100,
+            description: description || '-'
         })),
         success_url: `${frontend.uri}/${url}checkout/stripe/?token=${id}`,
         cancel_url: `${frontend.uri}/${url}checkout`,
