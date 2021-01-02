@@ -1,9 +1,10 @@
 import {Mutation, Resolver, UseMiddleware} from "type-graphql";
 import {DI} from "../../orm";
-import {RoleType} from "@truecost/shared";
+import {RoleType, StatusType} from "@truecost/shared";
 import {UseAuth} from "../../middleware/auth";
 import {ItemEntity} from "../crud/item/item.entity";
 import {redis} from "../../redis";
+import { BookingEntity } from "../crud/booking/booking.entity";
 
 const random = (input: number) => {
     const buy = input || 1;
@@ -31,6 +32,7 @@ const random = (input: number) => {
 @Resolver()
 export class SpecialResolver {
     itemRepo = DI.em.getRepository(ItemEntity);
+    bookRepo = DI.em.getRepository(BookingEntity);
 
     @UseMiddleware(UseAuth([RoleType.ADMIN]))
     @Mutation(() => [ItemEntity])
@@ -46,5 +48,17 @@ export class SpecialResolver {
 
         await redis.client.del("cache");
         return items;
+    }
+
+    @UseMiddleware(UseAuth([RoleType.ADMIN]))
+    @Mutation(() => Boolean)
+    async ClearHungBookings() {
+        const bookings = await this.bookRepo.find({status: StatusType.AWAITING_FOR_PAYMENT});
+
+        for (const booking of bookings) {
+            await this.bookRepo.remove(booking)
+        }
+
+        return true;
     }
 }
