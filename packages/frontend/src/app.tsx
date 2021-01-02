@@ -47,9 +47,9 @@ const App = () => {
                 path={urls.map(u => '/' + u)} component={HomeGame} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
 
-            <AuthRoute sensitive path={`/checkout/direct/:id`} component={CheckoutDirect} />
-            <AuthRoute sensitive path={`/checkout/paypal`} component={CheckoutPaypal} />
-            <AuthRoute sensitive path={`/checkout/stripe`} component={CheckoutStripe} />
+            <Route sensitive exact path={`/checkout/direct/:id`} component={CheckoutDirect} />
+            <Route sensitive exact path={`/checkout/paypal`} component={CheckoutPaypal} />
+            <Route sensitive exact path={`/checkout/stripe`} component={CheckoutStripe} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/stripe')}
                 component={CheckoutStripe} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/paypal')}

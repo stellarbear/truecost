@@ -9,13 +9,14 @@ import { ErrorBox } from 'components';
 
 interface IProps {
     error?: ApolloError;
+    currency: string
     loading: boolean;
     total: number;
 }
 
 export const OrderPrice: React.FC<IProps> = (props) => {
-    const { loading, total, error } = props;
-    const { currency } = useStore();
+    const { loading, total, error, currency } = props;
+    const currencyRecord = Currencies[currency as ICurrency];
 
     const price = total;
 
@@ -55,7 +56,7 @@ export const OrderPrice: React.FC<IProps> = (props) => {
                             </Typography>
                             <Typography variant="button" style={{ fontSize: "1.4rem" }}>
                                 <strong>
-                                    {`${price} ${currency.label}`}
+                                    {`${price} ${currencyRecord.label}`}
                                 </strong>
                             </Typography>
                         </Row>

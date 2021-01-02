@@ -27,7 +27,6 @@ export class BookingGetResolver {
         return booking;
     }
 
-    @UseMiddleware(UseAuth([RoleType.ADMIN]))
     @Query(() => BookingEntity)
     async BookingGetById(
         @Arg("id") id: string,

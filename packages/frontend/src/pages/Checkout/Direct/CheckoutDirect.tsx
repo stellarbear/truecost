@@ -92,6 +92,7 @@ export const CheckoutDirect: React.FC = () => {
                             <OrderPrice
                                 error={mutationError}
                                 loading={mutationLoading}
+                                currency={queryData?.BookingGetById?.currency}
                                 total={+queryData?.BookingGetById?.total}
                             />
                         </Col>
