@@ -107,7 +107,7 @@ export const createBooking = async (
 
     const currentBooking = repo.create({
         active: false,
-        name: "TC-" + (await repo.count({})),
+        name: `TC-${+new Date()}`,
         status: StatusType.AWAITING_FOR_PAYMENT,
 
         user: user.id,
