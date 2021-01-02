@@ -6,6 +6,7 @@ import { ModalDialog } from 'components/ModalDialog';
 import { TOS } from 'pages';
 import { ApolloError } from '@apollo/client';
 import { ErrorBox } from 'components';
+import { Currencies, CurrencyKey } from '@truecost/shared';
 
 interface IProps {
     error?: ApolloError;
@@ -16,7 +17,7 @@ interface IProps {
 
 export const OrderPrice: React.FC<IProps> = (props) => {
     const { loading, total, error, currency } = props;
-    const currencyRecord = Currencies[currency as ICurrency];
+    const currencyRecord = Currencies[currency as CurrencyKey];
 
     const price = total;
 
