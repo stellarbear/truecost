@@ -56,7 +56,7 @@ export class SpecialResolver {
         const bookings = await this.bookRepo.find({status: StatusType.AWAITING_FOR_PAYMENT});
 
         for (const booking of bookings) {
-            await this.bookRepo.remove(booking)
+            await this.bookRepo.removeAndFlush(booking)
         }
 
         return true;
