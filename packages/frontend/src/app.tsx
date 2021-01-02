@@ -1,36 +1,36 @@
 import * as React from "react";
-import {Route} from "react-router-dom";
+import { Route } from "react-router-dom";
 import AuthRoute from "pages/Admin/AuthRoute";
-import {DataContext, DataWrapper} from "pages/Data/Wrapper";
+import { DataContext, DataWrapper } from "pages/Data/Wrapper";
 import Shop from "pages/Shop/Shop";
-import {Login} from "pages/User";
-import {Discount} from "pages/Discount";
-import {Item} from "pages/Item";
-import {LoadingWrapper} from "components/wrappers/LoadingWrapper";
-import {Register} from "pages/User/Register/Register";
-import {RegisterMessage} from "pages/User/Register/RegisterMessage";
-import {RegisterVerify} from "pages/User/Register/RegisterVerify";
-import {Admin} from "pages/Admin";
-import {RoleType} from "@truecost/shared";
-import {Checkout} from "pages/Checkout";
-import {PasswordForget} from "pages/User/Password/PasswordForget";
-import {PasswordReset} from "pages/User/Password/PasswordReset";
-import {PasswordMessage} from "pages/User/Password/PasswordMessage";
-import {CheckoutSuccess} from "pages/Checkout/CheckoutSuccess";
-import {Track} from "pages/Track";
-import {Account} from "pages/Account";
-import {useScript} from "auxiliary/useScript";
-import {google, tawk, yandex} from "scripts";
-import {About, Contact, Policy, TOS} from "pages";
+import { Login } from "pages/User";
+import { Discount } from "pages/Discount";
+import { Item } from "pages/Item";
+import { LoadingWrapper } from "components/wrappers/LoadingWrapper";
+import { Register } from "pages/User/Register/Register";
+import { RegisterMessage } from "pages/User/Register/RegisterMessage";
+import { RegisterVerify } from "pages/User/Register/RegisterVerify";
+import { Admin } from "pages/Admin";
+import { RoleType } from "@truecost/shared";
+import { Checkout } from "pages/Checkout";
+import { PasswordForget } from "pages/User/Password/PasswordForget";
+import { PasswordReset } from "pages/User/Password/PasswordReset";
+import { PasswordMessage } from "pages/User/Password/PasswordMessage";
+import { CheckoutSuccess } from "pages/Checkout/CheckoutSuccess";
+import { Track } from "pages/Track";
+import { Account } from "pages/Account";
+import { useScript } from "auxiliary/useScript";
+import { google, tawk, yandex } from "scripts";
+import { About, Contact, Policy, TOS } from "pages";
 import NotFound from "pages/NotFound";
-import {NavigationWrapper} from "pages/Navigation";
-import {NotifyWrapper} from "components/wrappers/NotifyWrapper";
-import {Blog} from "pages/Blog";
-import {BlogPost} from "pages/Blog/BlogPost";
-import {HomeGame, HomeLanding} from "pages/Home";
-import {CheckoutPaypal} from "pages/Checkout/CheckoutPaypal";
-import {CheckoutStripe} from "pages/Checkout/CheckoutStripe";
-import {BookingOrderLink} from "pages/Admin/BookingOrderLink";
+import { NavigationWrapper } from "pages/Navigation";
+import { NotifyWrapper } from "components/wrappers/NotifyWrapper";
+import { Blog } from "pages/Blog";
+import { BlogPost } from "pages/Blog/BlogPost";
+import { HomeGame, HomeLanding } from "pages/Home";
+import { CheckoutPaypal } from "pages/Checkout/CheckoutPaypal";
+import { CheckoutStripe } from "pages/Checkout/CheckoutStripe";
+import { BookingOrderLink } from "pages/Admin/BookingOrderLink";
 import { CheckoutDirect } from "pages/Checkout/Direct";
 
 
@@ -46,14 +46,18 @@ const App = () => {
             <Route sensitive exact
                 path={urls.map(u => '/' + u)} component={HomeGame} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/shop')} component={Shop} />
-            
+
             <AuthRoute sensitive path={`/checkout/direct/:id`} component={CheckoutDirect} />
             <AuthRoute sensitive path={`/checkout/paypal`} component={CheckoutPaypal} />
             <AuthRoute sensitive path={`/checkout/stripe`} component={CheckoutStripe} />
-            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/:step?')}
-                component={Checkout} />
+            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/stripe')}
+                component={CheckoutStripe} />
+            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/paypal')}
+                component={CheckoutPaypal} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/success')}
                 component={CheckoutSuccess} />
+            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/:step?')}
+                component={Checkout} />
 
             <Route sensitive exact path={urls.map(u => '/' + u + '/item/:url')} component={Item} />
 
@@ -87,7 +91,7 @@ const App = () => {
             <Route sensitive exact path={`/about`} component={About} />
             <Route sensitive exact path={`/tos`} component={TOS} />
             <Route
-                render={({staticContext}) => {
+                render={({ staticContext }) => {
                     if (staticContext) {
                         staticContext.statusCode = 404;
                     }
@@ -103,7 +107,7 @@ const App = () => {
             <NotifyWrapper>
                 <DataWrapper>
                     <DataContext.Consumer>
-                        {({games}) => routes(Object.values(games.id).map(value => value.url))}
+                        {({ games }) => routes(Object.values(games.id).map(value => value.url))}
                     </DataContext.Consumer>
                 </DataWrapper>
             </NotifyWrapper>

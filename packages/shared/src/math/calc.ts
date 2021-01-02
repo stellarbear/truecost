@@ -86,7 +86,7 @@ export class CalcPrice {
         const adjustedPrice = price * currency.val;
 
         const value = (item.value >= adjustedFree && adjustedFree > 0)
-            ? 0
+            ? 1
             : type === OptionType.RELATIVE
                 ? this.percentage(item.value, price)
                 : adjustedPrice;

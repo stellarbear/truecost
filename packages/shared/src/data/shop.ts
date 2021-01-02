@@ -119,7 +119,7 @@ export const parseShop = (
                     const totalPrice = CalcPrice.fromItemAndOptions(itemPrice, currency,
                         cart[itemId].optionIds.map(o => options[o]));
 
-                    value += totalPrice.value;
+                    value += totalPrice.value * cart[itemId].quantity;
                 }
 
                 value = CalcPrice.fromItemAndOptions({value, string: ""}, currency, extra.map(s => global[s])).value;
