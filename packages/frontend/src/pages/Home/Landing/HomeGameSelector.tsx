@@ -24,7 +24,7 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
     return (
         <RowSwipable id="services"
             s={16} w={Math.max(
-                150,
+                160,
                 (hardcodedWidth - 16 * (ids.length - 1))
                 / ids.length)
             }
