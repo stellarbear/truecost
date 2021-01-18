@@ -1,11 +1,11 @@
-import {ButtonBase, Typography} from '@material-ui/core';
-import {Dict, IGame} from '@truecost/shared';
-import {backend} from 'auxiliary/route';
-import {SafeImage} from 'components/SafeImage';
-import {Col, RowSwipable} from 'pages/Base/Grid';
-import {useStore} from 'pages/Data/Wrapper';
+import { ButtonBase, Typography } from '@material-ui/core';
+import { Dict, IGame } from '@truecost/shared';
+import { backend } from 'auxiliary/route';
+import { SafeImage } from 'components/SafeImage';
+import { Col, RowSwipable } from 'pages/Base/Grid';
+import { useStore } from 'pages/Data/Wrapper';
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface IProps {
     games: Dict<IGame>;
@@ -14,8 +14,8 @@ interface IProps {
 const hardcodedWidth = 1232;
 
 export const HomeGameSelector: React.FC<IProps> = (props) => {
-    const {games} = props;
-    const {update: {setGame}} = useStore();
+    const { games } = props;
+    const { update: { setGame } } = useStore();
     const ids = Object.keys(games);
 
     const image = (game: IGame) =>
@@ -23,6 +23,7 @@ export const HomeGameSelector: React.FC<IProps> = (props) => {
 
     return (
         <RowSwipable id="services"
+            style={{ alignItems: "flex-start" }}
             s={16} w={Math.max(
                 160,
                 (hardcodedWidth - 16 * (ids.length - 1))

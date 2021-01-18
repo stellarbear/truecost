@@ -10,7 +10,7 @@ import { Currencies, CurrencyKey } from '@truecost/shared';
 
 interface IProps {
     error?: ApolloError;
-    currency: string
+    currency: string;
     loading: boolean;
     total: number;
 }

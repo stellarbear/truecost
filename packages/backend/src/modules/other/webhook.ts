@@ -43,7 +43,7 @@ export const createOrder = async (id: string, method: string) => {
     await clearDead(currentUser);
 
     if (currentUser.active === false) {
-        console.log('inside')
+        console.log('inside');
         currentUser.active = true;
 
         await sendAccountInfo(currentUser.email, currentUser.name);

@@ -19,7 +19,7 @@ const social = [
         valid: true,
         icon: <WhatsApp/>,
         title: "WhatsApp",
-        url: "https://wa.me/14243174366",
+        url: "https://wa.me/13133273038",
     },
     {
         valid: true,

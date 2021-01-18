@@ -27,7 +27,7 @@ export const payWithStripe = async (
         line_items: items.map(({description, amount, ...rest}) => ({
             ...rest,
             amount: amount * 100,
-            description: description || '-'
+            description: description || '-',
         })),
         success_url: `${frontend.uri}/${url}checkout/stripe/?token=${id}`,
         cancel_url: `${frontend.uri}/${url}checkout`,
