@@ -19,6 +19,7 @@ import {BlogResolver} from "./other/blog";
 import {ReviewCRUDResolver} from "./crud/review/review.resolver";
 import {EmailResolver} from "./other/email";
 import {SpecialResolver} from "./other/special";
+import { ConfigCRUDResolver } from "./crud/config/config.resolver";
 
 const resolvers = [
     BlogResolver,
@@ -26,7 +27,7 @@ const resolvers = [
     MetaCRUDResolver,
     EmailResolver,
     SpecialResolver,
-    BlogCRUDResolver,
+    BlogCRUDResolver, ConfigCRUDResolver,
     BookingAcceptResolver, BookingGetResolver, BookingMakeResolver, BookingOrderLinkResolver,
     SubscriptionCRUDResolver,
     ReviewCRUDResolver,

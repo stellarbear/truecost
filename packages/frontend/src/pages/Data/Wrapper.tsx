@@ -13,6 +13,7 @@ import {IMeta, useMeta} from "./useMeta";
 import {useQuery} from "@apollo/client";
 import {IReview, useReview} from "./useReview";
 import {useCurrency} from "./useCurrency";
+import { useConfig } from "./useConfig";
 
 interface IRawContext {
     data: any;
@@ -22,6 +23,7 @@ export interface IDataContext {
     meta: Dict<IMeta>;
     reviews: IReview[];
     currency: ICurrency;
+    config: Dict<any>;
     games: IGameContext["data"];
     infos: IInfoContext["data"];
     subs: Dict<ISubscription>;
@@ -76,11 +78,12 @@ const Raw: React.FC = ({children}) => {
 
 const Data: React.FC = ({children}) => {
     const {data} = useContext(RawContext);
-    const {MetaAll, ReviewAll, Stripe, ...RestAll} = data;
+    const {MetaAll, ReviewAll, ConfigAll, Stripe, ...RestAll} = data;
 
     const [store] = useState(useData(RestAll));
     const [meta] = useState(useMeta(MetaAll));
     const [reviews] = useState(useReview(ReviewAll));
+    const [config] = useState(useConfig(ConfigAll));
 
     const {cart, itemUpsert, itemRemove, cartWipe, cartCount, itemCount} = useCart(store.shop);
     const {state: user, setState: setUser} = useUser(store.user);
@@ -93,6 +96,7 @@ const Data: React.FC = ({children}) => {
             meta,
             reviews,
             currency,
+            config,
             subs: store.shop.subs,
             games: store.game.data,
             infos: store.info.data,

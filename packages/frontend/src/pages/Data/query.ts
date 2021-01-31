@@ -110,6 +110,11 @@ InfoAll {
     game  { id }
 }
 
+ConfigAll {
+    name
+    data
+}
+
 ReviewAll {
     id
     who

@@ -5,6 +5,7 @@ import {AdminInfo} from "./Info";
 import {AdminSubscription} from "./Subscription";
 import {AdminMeta} from "./Meta";
 import {AdminReview} from "./Review";
+import { AdminConfig } from "./Config";
 
 const routes = [
     {
@@ -46,6 +47,10 @@ const routes = [
     {
         url: "subscription",
         component: AdminSubscription,
+    },
+    {
+        url: "config",
+        component: AdminConfig,
     },
 ];
 
