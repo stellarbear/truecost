@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useStore } from 'pages/Data/Wrapper';
 import { Col, Row } from 'pages/Base/Grid';
 import { Button, CircularProgress, Typography } from '@material-ui/core';
 import { ModalDialog } from 'components/ModalDialog';

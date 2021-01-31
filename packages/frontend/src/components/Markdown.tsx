@@ -28,13 +28,13 @@ const options: MarkdownToJSX.Options = ({
         h3: {component: Typography, props: {gutterBottom: true, variant: 'subtitle1'}},
         h4: {
             component: Typography,
-            props: {gutterBottom: true, variant: 'caption', paragraph: true},
+            props: {gutterBottom: true, variant: 'caption'/*, paragraph: true*/},
         },
         span: {
             component: Typography,
             props: {variant: 'body1'},
         },
-        p: {component: Typography, props: {paragraph: true}},
+        p: {component: Typography, props: {/*paragraph: true, */variant: 'body1'}},
         a: {component: Link},
     },
     wrapper: Wrapper,

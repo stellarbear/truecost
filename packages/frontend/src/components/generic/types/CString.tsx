@@ -12,13 +12,28 @@ export class CString extends ABase<string> {
     editable: boolean;
     multiline: boolean;
     renderAddImplementation = this.InputField;
-    renderFilterlementation = this.InputField;
+    renderFilterlementation = this.InputFieldEditable;
     renderListlementation = this.InputField;
 
     constructor({multiline = false, editable = true, base = '', ...rest}: IString) {
         super({...rest, base});
         this.editable = editable;
         this.multiline = multiline;
+    }
+
+    InputFieldEditable({value, onChange}: IRender<string>) {
+        const {label, base} = this.data;
+        const {multiline} = this;
+
+        return (
+            <InputField
+                multiline={multiline}
+                rowsMax={multiline ? "4" : "1"}
+                label={label}
+                editable={true}
+                value={value || base || ""}
+                onChangeEvent={onChange}/>
+        );
     }
 
     InputField({value, onChange}: IRender<string>) {

@@ -56,6 +56,7 @@ const DataContext = createContext<IDataContext>({} as IDataContext);
 const Raw: React.FC = ({children}) => {
     console.log('QUERY STARTED', +new Date());
     const {data, error, loading} = useQuery(BULK_QUERY, {ssr: true});
+    console.log(loading, error);
 
     if (loading || !data || error) {
         return <Mock permanent />;

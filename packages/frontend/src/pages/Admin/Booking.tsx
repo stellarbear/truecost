@@ -64,6 +64,7 @@ export const AdminBooking: React.FC = () => {
         options: {
             [StatusType.AWAITING_FOR_PAYMENT]: "awaiting for payment",
             [StatusType.AWAITING_FOR_CONTACT]: "awaiting for contact",
+            [StatusType.BOOSTER_SEARCH]: "searching for booster",
             [StatusType.CLOSED]: "closed",
             [StatusType.DONE]: "done",
             [StatusType.IN_PROGRESS]: "in progress",

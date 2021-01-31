@@ -1,12 +1,11 @@
-import { Arg, Ctx, Query, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Query, Resolver } from "type-graphql";
 import { UserEntity } from "../../crud/user/user.entity";
 import { Context } from "../../../server";
 import { redis } from "../../../redis";
 import { DI } from "../../../orm";
-import { RoleType, StatusType } from "@truecost/shared";
+import { StatusType } from "@truecost/shared";
 import { assert } from "../../../helpers/assert";
 import { BookingEntity } from "../../crud/booking/booking.entity";
-import { UseAuth } from "../../../middleware/auth";
 
 @Resolver()
 export class BookingGetResolver {

@@ -7,56 +7,55 @@ import Facebook from "@material-ui/icons/Facebook";
 import Instagram from "@material-ui/icons/Instagram";
 import Telegram from "@material-ui/icons/Telegram";
 import WhatsApp from "@material-ui/icons/WhatsApp";
+import * as shared from '@truecost/shared';
 
-const social = [
+export const social = [
     {
         valid: true,
         icon: <Email/>,
         title: "Email",
-        url: "mailto:truecostgg@gmail.com",
+        url: shared.social.email,
     },
     {
         valid: true,
         icon: <WhatsApp/>,
         title: "WhatsApp",
-        url: "https://wa.me/13133273038",
+        url: shared.social.whatsapp,
     },
     {
         valid: true,
         icon: <Telegram/>,
         title: "Telegram",
-        url: "https://telegram.me/TrueCostGG",
+        url: shared.social.telegram,
     },
     {
         valid: true,
         icon: <Facebook/>,
         title: "Facebook",
-        url: "https://www.facebook.com/SupportTrueCost",
+        url: shared.social.facebook,
     },
     {
         valid: true,
         icon: <Instagram/>,
         title: "Instagram",
-        url: "https://instagram.com/_u/truecostgg/",
+        url: shared.social.instagram,
     },
     {
         valid: true,
         icon: <Twitch/>,
         title: "Twitch",
-        url: "https://www.twitch.tv/truecost",
+        url: shared.social.twitch,
     },
     {
         valid: false,
         icon: <Discord/>,
         title: "Discord",
-        url: "truecostgg#3160",
+        url: shared.social.discord,
     },
     {
         valid: true,
         icon: <Skype/>,
         title: "Skype",
-        url: "https://join.skype.com/invite/cxPHGgunsEyQ",
+        url: shared.social.skype,
     },
 ];
-
-export {social};

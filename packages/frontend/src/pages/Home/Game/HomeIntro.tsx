@@ -19,14 +19,14 @@ export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
         <>
             <Typography
                 style={{marginTop: 32}}
-                variant="h4" component="p" color="inherit">Get your personal up&nbsp;to</Typography>
+                variant="h4" component="div" color="inherit">Get your personal up&nbsp;to</Typography>
             <Button
                 component={Link}
                 to="discount"
                 style={{marginTop: 8}}
                 variant="contained"
                 color="secondary">
-                <Typography variant="h6" component="p" color="inherit">{`${max} % discount `}</Typography>
+                <Typography variant="h6" component="div" color="inherit">{`${max} % discount `}</Typography>
             </Button>
             <Typography
                 style={{marginTop: 8}}

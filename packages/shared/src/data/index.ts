@@ -4,3 +4,4 @@ export * from './sort';
 export * from './constants';
 export * from './percentage';
 export * from './subscription';
+export * from './social';
