@@ -7,7 +7,7 @@ import {gql, useLazyQuery} from "@apollo/client";
 
 export interface IOption {
     id: string;
-    name: string;
+    [key: string]: any;
 }
 
 export type IOptions = IOption | IOption[];
@@ -15,6 +15,7 @@ export type IOptions = IOption | IOption[];
 interface IProps extends SelectProps {
     multiple: boolean;
     query: IQuery;
+    path: string;
     label?: string;
     value: IOptions;
     readOnly?: boolean;
@@ -27,11 +28,11 @@ export interface IQuery {
     fields?: string[];
 }
 
-const buildQuery = (query: IQuery) => gql`
+const buildQuery = (query: IQuery, path: string) => gql`
     query ${query.name} {
         ${query.name} {
         id
-        name
+        ${path}
         ${(query.fields || []).map(f => `${f} { id }`)}
     }
     }
@@ -61,13 +62,14 @@ const filter = (record: Record<string, any>, data: any, query: IQuery) => {
 export const SelectFieldAsync: React.FC<IProps> = (props) => {
     const {
         query,
+        path,
         readOnly = false,
         multiple = false,
         onChangeEvent,
         value,
         record,
     } = props;
-    const [lazy, {data, loading}] = useLazyQuery(buildQuery(query));
+    const [lazy, {data, loading}] = useLazyQuery(buildQuery(query, path));
     const {state, setAndBubbleState} = useEventState(value, onChangeEvent);
 
     const missing = (query.fields || [])
@@ -90,7 +92,7 @@ export const SelectFieldAsync: React.FC<IProps> = (props) => {
             onChange={(_, newValue: any) => setAndBubbleState(newValue)}
             getOptionSelected={(option, value) => option.id === value.id}
             options={filtered}
-            getOptionLabel={(option: IOption) => option.name}
+            getOptionLabel={(option: IOption) => option[path]}
             fullWidth
             renderInput={(params) =>
                 <TextField {...params} variant="outlined"

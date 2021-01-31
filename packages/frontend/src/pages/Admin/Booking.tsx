@@ -38,6 +38,7 @@ export const AdminBooking: React.FC = () => {
     });
 
     const user = new CLink({
+        path: "email",
         key: "user",
         label: "user",
         query: {
