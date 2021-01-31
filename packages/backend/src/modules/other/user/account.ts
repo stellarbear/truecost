@@ -1,19 +1,20 @@
-import {Arg, Ctx, Mutation, Query, Resolver} from "type-graphql";
-import {UserEntity} from "../../crud/user/user.entity";
-import {DI} from "../../../orm";
-import {v4} from "uuid";
-import {assert} from "../../../helpers/assert";
-import {wrap} from "@mikro-orm/core";
-import {pbkdf2} from "../../../helpers/pbkdf2";
-import {redis} from "../../../redis";
-import {RoleType, subscription, validate} from "@truecost/shared";
-import {composeEmail} from "../../../mail/compose";
-import {verificationEmail} from "../../../mail/samples/verification";
-import {forgetEmail} from "../../../mail/samples/forget";
-import {Context} from "../../../server";
-import {SubscriptionEntity} from "../../crud/subscription/subscription.entity";
-import {domain} from "../../../helpers/route";
-import {remail} from "./helper";
+import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { UserEntity } from "../../crud/user/user.entity";
+import { DI } from "../../../orm";
+import { v4 } from "uuid";
+import { assert } from "../../../helpers/assert";
+import { wrap } from "@mikro-orm/core";
+import { pbkdf2 } from "../../../helpers/pbkdf2";
+import { redis } from "../../../redis";
+import { RoleType, subscription, validate } from "@truecost/shared";
+import { composeEmail } from "../../../mail/compose";
+import { verificationEmail } from "../../../mail/samples/verification";
+import { forgetEmail } from "../../../mail/samples/forget";
+import { Context } from "../../../server";
+import { SubscriptionEntity } from "../../crud/subscription/subscription.entity";
+import { domain } from "../../../helpers/route";
+import { remail } from "./helper";
+import { slack } from "../../../helpers/slack";
 
 @Resolver(() => UserEntity)
 export class AccountResolver {
@@ -23,22 +24,22 @@ export class AccountResolver {
     async UserCreate(
         @Arg("email") email: string,
         @Arg("password") password: string,
-        @Arg("name", {nullable: true}) name?: string,
+        @Arg("name", { nullable: true }) name?: string,
     ) {
         const username = (name || email).trim();
         assert(!["root", "mod", "admin", "truecost"].some(s => username.includes(s)), "bad name", ["name"]);
-        const count = await this.userRepo.count({name: username});
+        const count = await this.userRepo.count({ name: username });
         assert(count == 0, "name already in use");
 
         assert(validate("email").test(email), "Does not look like email (:", ["email"]);
 
-        let user = await this.userRepo.findOne({email: remail(email)});
+        let user = await this.userRepo.findOne({ email: remail(email) });
         if (user) {
             assert(!user.verified, "user already verified");
             assert(!user.active, "account is disabled");
         }
 
-        const {hash, salt} = await pbkdf2.generate(password);
+        const { hash, salt } = await pbkdf2.generate(password);
         user = user ?? this.userRepo.create({});
 
         wrap(user).assign({
@@ -63,6 +64,12 @@ export class AccountResolver {
                 text: `Verification link: ${domain}/register/verify/${verify}/${user.id}`,
             });
             await redis.client.set(`verify-${verify}`, user.id, "ex", redis.duration.day);
+
+            slack([
+                "<<< new user >>>",
+                user.email,
+            ]);
+
         } catch (e) {
             await this.userRepo.removeAndFlush(user);
             assert(false, e);
@@ -80,7 +87,7 @@ export class AccountResolver {
         assert(userId, "key not found");
         assert(userId === value, "key not found");
 
-        const user = await this.userRepo.findOne({id: userId});
+        const user = await this.userRepo.findOne({ id: userId });
         assert(user, "user not found");
 
         user.verified = true;
@@ -94,7 +101,7 @@ export class AccountResolver {
     async PasswordForget(
         @Arg("email") email: string,
     ) {
-        const user = await this.userRepo.findOne({email: remail(email)});
+        const user = await this.userRepo.findOne({ email: remail(email) });
         assert(user, "user not found");
 
         try {
@@ -124,10 +131,10 @@ export class AccountResolver {
         assert(userId, "key not found");
         assert(userId === value, "key not found");
 
-        const user = await this.userRepo.findOne({id: userId});
+        const user = await this.userRepo.findOne({ id: userId });
         assert(user, "user not found");
 
-        const {hash, salt} = await pbkdf2.generate(password);
+        const { hash, salt } = await pbkdf2.generate(password);
         user.password = hash;
         user.salt = salt;
 
@@ -141,14 +148,14 @@ export class AccountResolver {
     async UserUpdateInfo(
         @Ctx() ctx: Context,
         @Arg("oldPassword") oldPassword: string,
-        @Arg("newPassword", {nullable: true}) newPassword?: string,
-        @Arg("name", {nullable: true}) name?: string,
+        @Arg("newPassword", { nullable: true }) newPassword?: string,
+        @Arg("name", { nullable: true }) name?: string,
     ) {
         assert(ctx.req.session, "user not found");
         const userId = await redis.client.get(`session-${ctx.req.session.id}`);
         assert(userId, "user not found");
 
-        const user = await this.userRepo.findOne({id: userId});
+        const user = await this.userRepo.findOne({ id: userId });
         assert(user, "user not found");
         assert(user.verified, "user not yet verified");
         assert(user.active, "account disabled");
@@ -160,7 +167,7 @@ export class AccountResolver {
             const username = name.trim();
             assert(username.length > 3, "at least 3 chars for name");
             assert(!["root", "mod", "admin", "truecost"].some(s => username.includes(s)), "bad name", ["name"]);
-            const count = await this.userRepo.count({name: username, id: {$ne: userId}});
+            const count = await this.userRepo.count({ name: username, id: { $ne: userId } });
             assert(count == 0, "name already in use");
 
             user.name = username;
@@ -169,7 +176,7 @@ export class AccountResolver {
         if (newPassword) {
             assert(newPassword.length > 3, "at least 3 chars for password");
 
-            const {hash, salt} = await pbkdf2.generate(newPassword);
+            const { hash, salt } = await pbkdf2.generate(newPassword);
 
             user.password = hash;
             user.salt = salt;
@@ -179,11 +186,11 @@ export class AccountResolver {
         return user;
     }
 
-    @Query(() => SubscriptionEntity, {nullable: true})
+    @Query(() => SubscriptionEntity, { nullable: true })
     async UserGetSubscription(
         @Arg("email") email: string,
     ) {
-        const user = await this.userRepo.findOne({email: remail(email)}, {populate: true});
+        const user = await this.userRepo.findOne({ email: remail(email) }, { populate: true });
         if (!user || !user.subscription) {
             return;
         }
