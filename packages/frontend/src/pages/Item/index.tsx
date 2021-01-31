@@ -1,19 +1,31 @@
-import React, {useContext} from "react";
-import {Redirect, useParams, useLocation} from "react-router-dom";
-import {DataContext} from "pages/Data/Wrapper";
+import React from "react";
+import {Redirect, useParams, useLocation, RouteComponentProps} from "react-router-dom";
+import {useStore} from "pages/Data/Wrapper";
 import {ItemLanding} from "./ItemLanding";
 import {Meta} from "pages/Base/Meta";
 import {backend, frontend} from "auxiliary/route";
+import { extractGame } from "pages/Data/useGame";
 
-export const Item: React.FC = () => {
+type IProps = RouteComponentProps;
+
+export const Item: React.FC<IProps> = ({staticContext}) => {
     const location = useLocation();
+    const {games, config, current: {shop, game}, update: {setGame}} = useStore();
     const {url: itemUrl} = useParams<{url: string}>();
-    const {current: {shop, game}} = useContext(DataContext);
     const {items} = shop();
 
     if (itemUrl === undefined || !(itemUrl in items.url)) {
-        console.log(itemUrl, Object.keys(items.url));
-        return <Redirect to="/404" />;
+        const redirects = config.redirect ?? {};
+        if (location.pathname in redirects) {
+            const to = redirects[location.pathname];
+            if (staticContext){
+                staticContext.statusCode = 301;
+            }
+            setGame(extractGame(to, games));
+            return <Redirect to={to} />;
+        } else {
+            return <Redirect to="/404" />;
+        }
     }
 
     const itemId = items.url[itemUrl];

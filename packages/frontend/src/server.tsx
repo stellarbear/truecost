@@ -55,6 +55,7 @@ server
                 </StaticRouter>
             </ApolloProvider>
         );
+
         getDataFromTree(sheets.collect(app)).then(() => {
             const content = renderToString(app);
             const initialState = client.extract();
@@ -66,9 +67,13 @@ server
                 content={content}
                 state={initialState} />;
 
-            res.status(context.statusCode || 200);
-            res.send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
-            res.end();
+            if (context.statusCode === 301)  {
+                res.redirect(301, context.url || '/');
+            } else {
+                res.status(context.statusCode || 200);
+                res.send(`<!doctype html>\n${renderToStaticMarkup(html)}`);
+                res.end();
+            }
         }).catch(console.log);
     });
 
