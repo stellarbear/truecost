@@ -15,7 +15,7 @@ export const AdminBooking: React.FC = () => {
 
             status
 
-            user { id name }
+            user { id email }
 
             currency
             total
