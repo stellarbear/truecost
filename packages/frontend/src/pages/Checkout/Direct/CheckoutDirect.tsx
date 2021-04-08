@@ -10,6 +10,7 @@ import { OrderDetails } from './OrderDetails';
 import { OrderPrice } from './OrderPrice';
 import {loadStripe} from '@stripe/stripe-js';
 import { useStore } from 'pages/Data/Wrapper';
+import { Currencies, CurrencyKey } from '@truecost/shared';
 
 const GET_BY_ID = gql`
     query BookingGetById($id: String!) {
@@ -37,7 +38,7 @@ export const CheckoutDirect: React.FC = () => {
     const {payment: {stripe: stripeKey}} = store;
 
     const { loading: queryLoading, error: queryError, data: queryData } = useQuery(GET_BY_ID, { variables: { id } });
-    const [method, setMethod] = React.useState(PaymentMethod.Stripe);
+    const [method, setMethod] = React.useState(PaymentMethod.PayPal);
     const [mutation, { error: mutationError, loading: mutationLoading }] = useMutation(MAKE_BOOKING);
 
     if (queryLoading) {
@@ -56,7 +57,12 @@ export const CheckoutDirect: React.FC = () => {
             if (result.data?.BookingMakeById) {
                 switch (method) {
                     case PaymentMethod.PayPal:
-                        window.location = result.data?.BookingMakeById as any;
+                        const price = +queryData?.BookingGetById?.total;
+                        const currency = queryData?.BookingGetById?.currency as any;
+                        const currencyRecord = Currencies[currency as CurrencyKey];
+
+                        const link = result.data?.BookingMakeById + price + currencyRecord.id;
+                        window.location = link as any;
                         return;
                     case PaymentMethod.Stripe:
                         const stripe = await loadStripe(stripeKey);

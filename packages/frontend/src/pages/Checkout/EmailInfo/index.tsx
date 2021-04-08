@@ -11,6 +11,7 @@ import {gql, useMutation} from '@apollo/client';
 import {EmailMethod, PaymentMethod} from './EmailMethod';
 import {calcTotal} from '../helper';
 import {loadStripe} from '@stripe/stripe-js';
+import { CalcPrice } from '@truecost/shared';
 
 interface IProps {
     info: Record<string, any>;
@@ -29,7 +30,7 @@ const MAKE_BOOKING = gql`
 
 export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {setLoading} = useLoading();
-    const [method, setMethod] = useState(PaymentMethod.Stripe);
+    const [method, setMethod] = useState(PaymentMethod.PayPal);
 
     const store = useStore();
     const {current: {user, game, cart}, payment: {stripe: stripeKey}, currency} = store;
@@ -72,7 +73,13 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
             if (result.data?.BookingMake) {
                 switch (method) {
                     case PaymentMethod.PayPal:
-                        window.location = result.data?.BookingMake as any;
+                        let {price} = total;
+                        if (input.coupon === "SUBS") {
+                            price = CalcPrice.percentage(price, 90);
+                        }
+    
+                        const link = result.data?.BookingMake + price + currency.id;
+                        window.location = link as any;
                         return;
                     case PaymentMethod.Stripe:
                         const stripe = await loadStripe(stripeKey);
@@ -94,11 +101,6 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     return (
         <form onSubmit={handleSubmit(bookingSubmit)}>
             <Col s={16}>
-                <EmailSubscription
-                    current={currentSubscription}
-                    selected={selectedSubscription}
-                    setSelected={setSelectedSubscription}
-                />
                 <EmailFields
                     form={form}
                     setCurrent={setCurrentSubscription}
