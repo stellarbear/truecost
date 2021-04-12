@@ -18,7 +18,6 @@ export const Checkout: React.FC = () => {
         platform: [],
         text: "",
     });
-    console.log(info);
 
     const updateInfo = (key: string, value: any) => {
         if (value !== undefined) {
