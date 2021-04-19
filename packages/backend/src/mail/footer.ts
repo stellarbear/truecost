@@ -11,7 +11,7 @@ export const footer = () => {
         `<mj-social-element href="${value}" background-color="#A1A0A0" src="${iconUri(key)}"></mj-social-element>`)}
             </mj-social>
             <mj-text color="#445566" font-size="11px" align="center" line-height="16px">
-            2885 Sanford Ave SW #46305 Grandville, MI 49418
+            30 N Gould St Ste R Sheridan, WY 82801
             <br/> &copy; TrueCost Inc., All Rights Reserved.
             </mj-text>
         </mj-column>
