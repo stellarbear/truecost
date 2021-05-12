@@ -63,9 +63,8 @@ const FooterAbout: React.FC = () => (
         <Grid item xs={12} sm={1} md={3} />
         <Grid item xs={12} sm={6} md={6}>
             <Col s={8} p={8} style={{marginTop: 8}}>
-                <Typography variant="body2" color="inherit" align="center">© Truecost 2019-2020</Typography>
-                <Typography variant="body2" color="inherit" align="center">2885 Sanford
-                        Ave SW #46305 Grandville, MI 49418</Typography>
+                <Typography variant="body2" color="inherit" align="center">© TrueCost Inc 2020-2021</Typography>
+                <Typography variant="body2" color="inherit" align="center">30 N Gould St Ste R Sheridan, WY 82801</Typography>
                 <Row justify="center" wrap>
                     {
                         social.map((item, index) => (

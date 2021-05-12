@@ -18,7 +18,7 @@ export const FooterAbout: React.FC = () => (
         <Grid item xs={12} sm={1} md={3} />
         <Grid item xs={12} sm={6} md={6}>
             <Col s={8} p={8} style={{marginTop: 8}}>
-                <Typography variant="body2" color="inherit" align="center">© TrueCost Inc 2019-2021</Typography>
+                <Typography variant="body2" color="inherit" align="center">© TrueCost Inc 2020-2021</Typography>
                 <Typography variant="body2" color="inherit" align="center">30 N Gould St Ste R Sheridan, WY 82801</Typography>
                 <Row justify="center" wrap>
                     {
