@@ -21,37 +21,37 @@ const scalePayPal = {
 };
 
 const options = [
-    // {
-    //     method: PaymentMethod.Stripe, icon: (
-    //         <>
-    //             <Hidden smUp>
-    //                 <Col align="center" style={{marginTop: -11}}>
-    //                     <Row>
-    //                         <Visa style={scaleStripe} />
-    //                         <MasterCard style={scaleStripe} />
-    //                     </Row>
-    //                     <Typography
-    //                         style={{marginTop: -11}}
-    //                         variant="caption">And other cards</Typography>
-    //                 </Col>
-    //             </Hidden>
-    //             <Hidden xsDown>
-    //                 <Row align="center">
-    //                     <Row>
-    //                         <Visa style={scaleStripe} />
-    //                         <MasterCard style={scaleStripe} />
-    //                     </Row>
-    //                     <Typography
-    //                         style={{
-    //                             marginTop: -4,
-    //                             marginLeft: 40,
-    //                         }}
-    //                         variant="caption">And other cards</Typography>
-    //                 </Row>
-    //             </Hidden>
-    //         </>
-    //     ),
-    // },
+    {
+        method: PaymentMethod.Stripe, icon: (
+            <>
+                <Hidden smUp>
+                    <Col align="center" style={{marginTop: -11}}>
+                        <Row>
+                            <Visa style={scaleStripe} />
+                            <MasterCard style={scaleStripe} />
+                        </Row>
+                        <Typography
+                            style={{marginTop: -11}}
+                            variant="caption">And other cards</Typography>
+                    </Col>
+                </Hidden>
+                <Hidden xsDown>
+                    <Row align="center">
+                        <Row>
+                            <Visa style={scaleStripe} />
+                            <MasterCard style={scaleStripe} />
+                        </Row>
+                        <Typography
+                            style={{
+                                marginTop: -4,
+                                marginLeft: 40,
+                            }}
+                            variant="caption">And other cards</Typography>
+                    </Row>
+                </Hidden>
+            </>
+        ),
+    },
     {
         method: PaymentMethod.PayPal, icon: (
             <PayPal style={scalePayPal} />
@@ -79,11 +79,11 @@ export const EmailMethod: React.FC<IProps> = (props) => {
                             ...((current === method)
                                 ? {
                                     color: "#fff",
-                                    backgroundColor: "#fff"//colors.primaryColor,
+                                    backgroundColor: colors.primaryColor,
                                 } : {}),
                         }}
-                        //onMouseEnter={() => setHovered(method)}
-                        //onMouseLeave={() => setHovered(null)}
+                        onMouseEnter={() => setHovered(method)}
+                        onMouseLeave={() => setHovered(null)}
                         onClick={() => setMethod(method)}>
                         <Col p={[8, 16]} align="center">
                             {icon}
