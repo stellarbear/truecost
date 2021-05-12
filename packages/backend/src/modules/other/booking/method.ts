@@ -46,60 +46,58 @@ export const payWithPaypal = async (
     currency: string,
     items: IItemShape[],
 ) => {
+    const {id: pid, secret} = creds("paypal");
+    const environment = new paypal.core.LiveEnvironment(pid, secret);
+    const client = new paypal.core.PayPalHttpClient(environment);
 
-    return 'https://www.paypal.com/paypalme/truecostgg/';
-    // const {id: pid, secret} = creds("paypal");
-    // const environment = new paypal.core.LiveEnvironment(pid, secret);
-    // const client = new paypal.core.PayPalHttpClient(environment);
-
-    // const request = new paypal.orders.OrdersCreateRequest();
+    const request = new paypal.orders.OrdersCreateRequest();
     
-    // request.requestBody({
-    //     "intent": "CAPTURE",
-    //     "purchase_units": [
-    //         {
-    //             "amount": {
-    //                 "currency_code": currency,
-    //                 "value": total.discounted,
-    //                 "breakdown": {
-    //                     "item_total": {
-    //                         "value": total.total,
-    //                         "currency_code": currency,
-    //                     },
-    //                     ...total.discount ? {
-    //                         "discount": {
-    //                             "currency_code": currency,
-    //                             "value": total.discount,
-    //                         },
-    //                     } : {},
-    //                 },
-    //             },
-    //             "invoice_id": id,
-    //             "items":
-    //                 items.map(({name, quantity, amount, currency}) => ({
-    //                     name,
-    //                     unit_amount: {
-    //                         "currency_code": currency,
-    //                         "value": amount,
-    //                     },
-    //                     quantity,
-    //                 })),
-    //         },
-    //     ],
-    //     "application_context": {
-    //         locale: "en-US",
-    //         landing_page: "BILLING",
-    //         brand_name: "TrueCostGG",
-    //         user_action: "PAY_NOW",
-    //         shipping_preference: "NO_SHIPPING",
-    //         return_url: `${frontend.uri}/${url}checkout/paypal`,
-    //         cancel_url: `${frontend.uri}/${url}checkout`,
-    //     },
-    // });
+    request.requestBody({
+        "intent": "CAPTURE",
+        "purchase_units": [
+            {
+                "amount": {
+                    "currency_code": currency,
+                    "value": total.discounted,
+                    "breakdown": {
+                        "item_total": {
+                            "value": total.total,
+                            "currency_code": currency,
+                        },
+                        ...total.discount ? {
+                            "discount": {
+                                "currency_code": currency,
+                                "value": total.discount,
+                            },
+                        } : {},
+                    },
+                },
+                "invoice_id": id,
+                "items":
+                    items.map(({name, quantity, amount, currency}) => ({
+                        name,
+                        unit_amount: {
+                            "currency_code": currency,
+                            "value": amount,
+                        },
+                        quantity,
+                    })),
+            },
+        ],
+        "application_context": {
+            locale: "en-US",
+            landing_page: "BILLING",
+            brand_name: "TrueCostGG",
+            user_action: "PAY_NOW",
+            shipping_preference: "NO_SHIPPING",
+            return_url: `${frontend.uri}/${url}checkout/paypal`,
+            cancel_url: `${frontend.uri}/${url}checkout`,
+        },
+    });
 
-    // const response = await client.execute(request);
+    const response = await client.execute(request);
 
-    // const approval = response.result.links.filter((link: any) => link.rel === 'approve');
-    // assert(approval.length === 1, "paypal order failure (code: no approval)");
-    // return approval[0].href;
+    const approval = response.result.links.filter((link: any) => link.rel === 'approve');
+    assert(approval.length === 1, "paypal order failure (code: no approval)");
+    return approval[0].href;
 };
