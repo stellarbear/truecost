@@ -9,6 +9,8 @@ export class ItemInput extends BaseInput {
 
     @Field({nullable: true})
     link?: string;
+    @Field({nullable: true})
+    youtube?: string;
     @Field(() => [UploadScalar], {nullable: true})
     images: UploadType[] = [];
 

@@ -18,6 +18,7 @@ export const AdminItem: React.FC = () => {
         ${game.fragment}
         url
             link
+            youtube
 			images
 
             rate
@@ -47,6 +48,11 @@ export const AdminItem: React.FC = () => {
     const link = new CString({
         key: "link",
         label: "link",
+    });
+
+    const youtube = new CString({
+        key: "youtube",
+        label: "youtube",
     });
 
     const images = new CImage({
@@ -161,7 +167,7 @@ export const AdminItem: React.FC = () => {
         component: <EditorRange/>,
     });
 
-    const fields = [url, link, images, price, buy, rate, eta, range, discount, limit, obtain,
+    const fields = [url, link, youtube, images, price, buy, rate, eta, range, discount, limit, obtain,
         requirements, direct, isTopOffer, item, tag, option];
 
     return (

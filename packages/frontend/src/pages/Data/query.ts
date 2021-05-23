@@ -56,6 +56,7 @@ ItemAll {
     range
     topOffer
     direct
+    youtube
 
     rate
     buy

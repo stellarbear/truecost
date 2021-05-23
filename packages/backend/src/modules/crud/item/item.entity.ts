@@ -18,6 +18,9 @@ export class ItemEntity extends BaseEntity /*implements IItem */ {
     @Field()
     @Property()
     link: string = "";
+    @Field({nullable: true})
+    @Property({nullable: true})
+    youtube: string = "";
 
     @Field(() => [String])
     @Property()

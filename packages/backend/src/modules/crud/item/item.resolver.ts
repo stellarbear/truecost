@@ -21,7 +21,7 @@ export class ItemCRUDResolver extends BaseResolver
         resultRef: ItemResponse,
         get: {
             set: ["topOffer", "direct"],
-            like: ["obtain", "requirements", "link", "url"],
+            like: ["obtain", "requirements", "link", "url", "youtube"],
             between: ["price", "discount", "limit", "eta"],
             filter: ["game", "tag", "option", "item"],
         },

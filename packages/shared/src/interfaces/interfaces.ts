@@ -60,6 +60,7 @@ export interface IRange {
 export interface IItem extends IBase, IBaseGame {
     url: string;
     link: string;
+    youtube?: string;
     images: string[];
     eta: number;
     buy: number;
