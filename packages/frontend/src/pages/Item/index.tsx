@@ -40,22 +40,41 @@ export const Item: React.FC<IProps> = ({staticContext}) => {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": `${item.name}`,
-        "image": `${`${backend.uri}/${item.id}/${item.images[0]}/u.webp`}`,
-        "description": `You will obtain: ${item.obtain?.replace("\n", ", ")}`,
-        "brand": `${game.name}`,
-        "offers": {
-            "@type": "Offer",
-            "url": `${frontend.uri}${location.pathname}`,
-            "priceCurrency": "USD",
-            "price": `${item.price}`,
-            "priceValidUntil": `${date}`,
-            "availability": "https://schema.org/InStock",
-            "itemCondition": "https://schema.org/NewCondition",
+        "image": [`${`${backend.uri}/${item.id}/${item.images[0]}/u.webp`}`],
+        "description": `If you are looking to buy ${item.name?.replace("\n", ", ")}, you're at the right place ✓ 5/5 Score on Trustpilot - Years of experience ✓ The customer is always right.`,
+        "brand": {
+            "@type": "Brand",
+            "name": "TrueCost.gg"
+        },
+        "review": {
+            "@type": "Review",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5"
+            },
+            "author": {
+                "@type": "Organization",
+                "name": "TrueCost.com"
+            }
         },
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": `${rating}`,
             "reviewCount": `${buy}`,
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": `${frontend.uri}${location.pathname}`,
+            "priceCurrency": "USD",
+            "price": `${item.price}`,
+            "priceValidUntil": "2029-12-31", 
+            "itemCondition": "https://schema.org/UsedCondition",
+            "availability": "https://schema.org/InStock",
+            "seller": {
+                "@type": "Organization",
+                "name": "TrueCost.com"
+            }
         },
     };
 
