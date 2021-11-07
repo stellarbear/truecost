@@ -39,6 +39,11 @@ export const HomeLanding: React.FC = () => {
                     color: "#000",
                 }}>
                 <Grid item xs={12} >
+                    <Typography variant="h4" component="h1">
+                        Boosting Service by TrueCost
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} >
                     {info(`Select game`)}
                 </Grid>
                 <Grid item xs={12} >

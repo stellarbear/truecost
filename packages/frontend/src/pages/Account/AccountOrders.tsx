@@ -7,6 +7,7 @@ import {Col} from 'pages/Base/Grid';
 import {BookingCard} from 'pages/Track/BookingCard';
 import {gql, useQuery} from '@apollo/client';
 import {InfoCard} from 'pages/Base/InfoCard';
+import {Meta} from "pages/Base/Meta";
 
 const GET_BOOKING = gql`
     query UserGetBooking {
@@ -50,19 +51,22 @@ export const AccountOrder: React.FC = () => {
     }
 
     return (
-        <Container maxWidth="sm">
-            <Col s={16}>
-                {
-                    orders.map((raw: any, index: number) =>
-                        <div key={index} >
-                            <BookingCard raw={raw}/>
-                        </div>,
-                    )
-                }
-            </Col>
-            <Box mt={2}>
-                {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
-            </Box>
-        </Container>
+        <>
+            <Meta noIndex />
+            <Container maxWidth="sm">
+                <Col s={16}>
+                    {
+                        orders.map((raw: any, index: number) =>
+                            <div key={index} >
+                                <BookingCard raw={raw} />
+                            </div>,
+                        )
+                    }
+                </Col>
+                <Box mt={2}>
+                    {error && <Alert severity="error">{parseApolloError(error).asString()}</Alert>}
+                </Box>
+            </Container>
+        </>
     );
 };

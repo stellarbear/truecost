@@ -37,7 +37,7 @@ export const Track: React.FC = () => {
 
     return (
         <>
-            <Meta />
+            <Meta noIndex/>
             <Container maxWidth="sm">
                 {fetched && data?.BookingGetByCode
                     ? (

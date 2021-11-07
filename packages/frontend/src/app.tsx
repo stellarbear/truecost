@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import AuthRoute from "pages/Admin/AuthRoute";
 import { DataContext, DataWrapper } from "pages/Data/Wrapper";
 import Shop from "pages/Shop/Shop";
@@ -21,7 +21,7 @@ import { Track } from "pages/Track";
 import { Account } from "pages/Account";
 import { useScript } from "auxiliary/useScript";
 import { google, tawk, yandex } from "scripts";
-import { About, Contact, Policy, TOS } from "pages";
+import { Contact, Policy, TOS } from "pages";
 import NotFound from "pages/NotFound";
 import { NavigationWrapper } from "pages/Navigation";
 import { NotifyWrapper } from "components/wrappers/NotifyWrapper";
@@ -88,8 +88,17 @@ const App = () => {
             <Route sensitive exact path={`/discount`} component={Discount} />
             <Route sensitive exact path={`/contact`} component={Contact} />
             <Route sensitive exact path={`/policy`} component={Policy} />
-            <Route sensitive exact path={`/about`} component={About} />
             <Route sensitive exact path={`/tos`} component={TOS} />
+
+            <Route
+                render={({ staticContext }) => {
+                    if (staticContext) {
+                        staticContext.statusCode = 301;
+                    }
+                    return <Redirect from={`/about`} to={"/"} />;
+                }}
+            />
+
             <Route
                 render={({ staticContext }) => {
                     if (staticContext) {

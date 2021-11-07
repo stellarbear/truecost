@@ -49,7 +49,7 @@ export const Checkout: React.FC = () => {
 
     return (
         <>
-            <Meta entity={game} />
+            <Meta entity={game} noIndex/>
             <NoSsr>
                 <Container maxWidth="sm" style={{padding: 0}}>
                     <Col fullWidth s={16}>

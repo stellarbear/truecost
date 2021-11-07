@@ -16,7 +16,7 @@ interface IProps {
 
 export const ItemImage: React.FC<IProps> = (props) => {
     const {item, url} = props;
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = React.useState(false);
 
     const {current: {shop}} = useStore();
     const {items} = shop();
@@ -60,7 +60,7 @@ export const ItemImage: React.FC<IProps> = (props) => {
                         style={{
                             maxWidth: 600,
                             minWidth: 600,
-                            aspectRatio: "16/9"
+                            aspectRatio: "16/9",
                         }}
                         className="optanon-category-3" frameBorder="0"
                         allowFullScreen={true} allow="encrypted-media" title="YouTube video player" width="100%"

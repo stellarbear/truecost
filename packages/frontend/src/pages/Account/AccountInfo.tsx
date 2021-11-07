@@ -5,6 +5,7 @@ import {Button, Container, Paper, Typography} from '@material-ui/core';
 import {Col} from 'pages/Base/Grid';
 import {AccountUpdate} from './AccountUpdate';
 import {subscription} from '@truecost/shared';
+import {Meta} from "pages/Base/Meta";
 
 export const AccountInfo: React.FC = () => {
     const {current: {user, discount}} = useStore();
@@ -25,29 +26,32 @@ export const AccountInfo: React.FC = () => {
     }
 
     return (
-        <Container maxWidth="sm">
-            <Col fullWidth s={16}>
-                <Paper>
-                    <Col p={16} s={8}>
-                        <Col>
-                            <Typography variant="caption">Email:</Typography>
-                            <Typography>{user.email}</Typography>
+        <>
+            <Meta noIndex />
+            <Container maxWidth="sm">
+                <Col fullWidth s={16}>
+                    <Paper>
+                        <Col p={16} s={8}>
+                            <Col>
+                                <Typography variant="caption">Email:</Typography>
+                                <Typography>{user.email}</Typography>
+                            </Col>
+                            <Col>
+                                <Typography variant="caption">Username:</Typography>
+                                <Typography>{user.name}</Typography>
+                            </Col>
+                            {subscriptionInfo()}
                         </Col>
-                        <Col>
-                            <Typography variant="caption">Username:</Typography>
-                            <Typography>{user.name}</Typography>
-                        </Col>
-                        {subscriptionInfo()}
-                    </Col>
-                </Paper>
-                <Button fullWidth
-                        onClick={() => setShowUpdate(!showUpdate)}>
-                    Change info
-                </Button>
-                {showUpdate &&
-                <AccountUpdate
-                    onUpdate={() => setShowUpdate(false)}/>}
-            </Col>
-        </Container>
+                    </Paper>
+                    <Button fullWidth
+                            onClick={() => setShowUpdate(!showUpdate)}>
+                        Change info
+                    </Button>
+                    {showUpdate &&
+                    <AccountUpdate
+                        onUpdate={() => setShowUpdate(false)}/>}
+                </Col>
+            </Container>
+        </>
     );
 };

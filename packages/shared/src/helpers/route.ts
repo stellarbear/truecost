@@ -8,7 +8,7 @@ export const getRoutes = (environment = 'development') => {
     const prod = ['https', `api.${domain}`, `${domain}`];
 
     const [protocol, server, client] =
-        environment === "production"
+        (environment === "production" || process.env.RAZZLE_APP_REMOTE === "true")
             ? prod
             : dev;
 
@@ -17,12 +17,13 @@ export const getRoutes = (environment = 'development') => {
         port: clientPort,
     };
 
+    
     const backend = {
         uri: `${protocol}://${server}`,
         port: serverPort,
         endpoint: `${protocol}://${server}/${endpoint}`,
     };
-
+    
     return ({
         frontend, backend, environment, domain,
     });

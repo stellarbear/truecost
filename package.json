@@ -12,6 +12,7 @@
     "watch:shared": "yarn workspace @truecost/shared watch",
     "watch:backend": "yarn workspace @truecost/backend watch",
     "watch:frontend": "yarn workspace @truecost/frontend start:watch",
+    "watch:remote": "yarn workspace @truecost/frontend remote:watch",
     "build": "yarn workspace @truecost/shared build && yarn workspace @truecost/backend build && yarn workspace @truecost/frontend build"
   },
   "devDependencies": {

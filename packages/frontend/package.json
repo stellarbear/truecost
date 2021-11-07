@@ -13,6 +13,7 @@
 		"build:watch": "yarn -v",
 		"start": "node build/server",
 		"start:watch": "razzle start",
+		"remote:watch": "RAZZLE_APP_REMOTE=true yarn start:watch",
 		"analyze": "BUNDLE_ANALYZE=true razzle build"
 	},
 	"private": true,

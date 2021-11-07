@@ -5,7 +5,7 @@ export const TOS: React.FC = () => (
     <>
         <Meta />
         <div style={{
-            fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
+            fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
         }}>
             <h1>Website Terms and Conditions of Use</h1>
 

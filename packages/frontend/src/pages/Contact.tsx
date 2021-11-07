@@ -5,6 +5,7 @@ import {text} from "assets/text";
 import {social} from "auxiliary/social";
 import TextCard from "./Base/TextCard";
 import SocialDialog from "./Base/SocialDialog";
+import {TrustPanel} from "./Base/TrustPanel";
 import {Meta} from "./Base/Meta";
 
 export const Contact: React.FC = () => {
@@ -66,6 +67,9 @@ export const Contact: React.FC = () => {
                     </div>
                 </React.Fragment>
             </TextCard>
+            <TextCard title="About us"
+                data={Object.keys(text.about).map(key => ({title: key, text: (text as any).about[key]}))} />
+            <TrustPanel style={{marginTop: 24}} />
         </>
     );
 };

@@ -67,7 +67,7 @@ export const Login: React.FC = () => {
 
     return (
         <>
-            <Meta />
+            <Meta noIndex/>
             <Container maxWidth="xs">
                 <form style={{margin: theme.spacing(1)}} onSubmit={handleSubmit(logInSubmit)}>
                     <Paper>

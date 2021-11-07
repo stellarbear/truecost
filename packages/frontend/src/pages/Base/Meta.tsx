@@ -7,6 +7,7 @@ import {IMeta} from 'pages/Data/useMeta';
 import {frontend} from 'auxiliary/route';
 
 interface IProps {
+    noIndex?: boolean;
     path?: string;
     entity?: Dict<any>;
 }
@@ -70,6 +71,7 @@ export const Meta: React.FC<IProps> = (props) => {
         children,
         path = url,
         entity = {},
+        noIndex = false,
     } = props;
 
     const tags = getMetaTags(meta, path);
@@ -88,6 +90,9 @@ export const Meta: React.FC<IProps> = (props) => {
                 ))
             }
             <link rel="canonical" href={`${frontend.uri}${browserUrl}`} />
+            {noIndex && (
+                <meta name="robots" content="noindex" />
+            )}
             {children}
         </Helmet>
     );

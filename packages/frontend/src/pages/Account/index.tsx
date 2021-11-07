@@ -5,7 +5,7 @@ import {Meta} from 'pages/Base/Meta';
 
 export const Account = () => (
     <>
-        <Meta/>
+        <Meta noIndex />
         <InnerHeader
             prefix="account"
             routes={account.routes}

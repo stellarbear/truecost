@@ -44,19 +44,19 @@ export const Item: React.FC<IProps> = ({staticContext}) => {
         "description": `If you are looking to buy ${item.name?.replace("\n", ", ")}, you're at the right place ✓ 5/5 Score on Trustpilot - Years of experience ✓ The customer is always right.`,
         "brand": {
             "@type": "Brand",
-            "name": "TrueCost.gg"
+            "name": "TrueCost.gg",
         },
         "review": {
             "@type": "Review",
             "reviewRating": {
                 "@type": "Rating",
                 "ratingValue": "5",
-                "bestRating": "5"
+                "bestRating": "5",
             },
             "author": {
                 "@type": "Organization",
-                "name": "TrueCost.com"
-            }
+                "name": "TrueCost.com",
+            },
         },
         "aggregateRating": {
             "@type": "AggregateRating",
@@ -73,8 +73,8 @@ export const Item: React.FC<IProps> = ({staticContext}) => {
             "availability": "https://schema.org/InStock",
             "seller": {
                 "@type": "Organization",
-                "name": "TrueCost.com"
-            }
+                "name": "TrueCost.com",
+            },
         },
     };
 
