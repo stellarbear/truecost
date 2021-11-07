@@ -19,6 +19,7 @@ import {PersonalDiscount} from 'pages/Base/PersonalDiscount';
 import {ItemOrdered} from './ItemOrdered';
 import {TrustPanel} from 'pages/Base/TrustPanel';
 import {EmailPromoCode} from 'pages/Base/EmailPromocode';
+import {BreadCrumbs} from "components";
 
 interface IProps {
     item: IItem;
@@ -27,7 +28,7 @@ interface IProps {
 
 export const ItemLanding: React.FC<IProps> = (props) => {
     const {item, rating} = props;
-    const {current: {shop, game: {url}}, currency} = useStore();
+    const {current: {shop, game}, currency} = useStore();
     const {options} = shop();
 
     const [chunk, setChunk] = React.useState<[number, number]>(item.range.d.length > 0
@@ -40,11 +41,20 @@ export const ItemLanding: React.FC<IProps> = (props) => {
     return (
         <div>
             <Grid container spacing={4}>
-                <Grid item xs={12} md={6}>
-                    <ItemImage item={item} url={url} />
+                <Grid item xs={12}>
+                    <BreadCrumbs
+                        options={[
+                            [`/${game.url}/`, game.name],
+                            [`/${game.url}/shop`, `Shop ${game.name}`],
+                            [`/${game.url}/item/${item.url}`, item.name],
+                        ]}
+                    />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <ItemDescription item={item} rating={rating}/>
+                    <ItemImage item={item} />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <ItemDescription item={item} rating={rating} />
                     <ItemOrdered item={item} />
                     <ItemChildren item={item} />
                     <ItemObtain item={item} />
@@ -55,7 +65,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                         onChange={(val: string[]) => setSelectedOptions(val)} />
                     <ItemEta item={item} chunk={chunk} />
                     <ItemAddToCard
-                        url={url}
+                        url={game.url}
                         price={totalPrice} item={item} chunk={chunk}
                         options={selectedOptions}
                     />

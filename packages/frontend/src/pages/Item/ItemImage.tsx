@@ -3,19 +3,16 @@ import {IItem} from "@truecost/shared";
 import {useStore} from 'pages/Data/Wrapper';
 import {Carousel} from 'components/Carousel';
 import {backend} from 'auxiliary/route';
-import {Button, Dialog, IconButton} from '@material-ui/core';
+import {Dialog, IconButton} from '@material-ui/core';
 import {Col} from 'pages/Base/Grid';
-import ArrowBack from '@material-ui/icons/ArrowBack';
-import {Link} from 'react-router-dom';
-import { Youtube } from 'mdi-material-ui';
+import {Youtube} from 'mdi-material-ui';
 
 interface IProps {
     item: IItem;
-    url: string;
 }
 
 export const ItemImage: React.FC<IProps> = (props) => {
-    const {item, url} = props;
+    const {item} = props;
     const [open, setOpen] = React.useState(false);
 
     const {current: {shop}} = useStore();
@@ -26,13 +23,6 @@ export const ItemImage: React.FC<IProps> = (props) => {
     return (
         <div style={{position: "sticky", top: 70}}>
             <Col align="flex-start">
-                <Button
-                    component={Link}
-                    to={`/${url}/shop`}
-                    startIcon={< ArrowBack />}
-                >
-                    To the shop
-                </Button>
                 <div style={{position: "relative"}}>
                     <Carousel alt={`${item.name}`}>
                         {[
@@ -64,7 +54,7 @@ export const ItemImage: React.FC<IProps> = (props) => {
                         }}
                         className="optanon-category-3" frameBorder="0"
                         allowFullScreen={true} allow="encrypted-media" title="YouTube video player" width="100%"
-                        height="100%" src={item.youtube}/>
+                        height="100%" src={item.youtube} />
                 </Dialog>
             </Col>
         </div>

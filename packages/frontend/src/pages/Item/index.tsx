@@ -34,14 +34,31 @@ export const Item: React.FC<IProps> = ({staticContext}) => {
     const rate = item.rate || 0;
     const buy = item.buy || 0;
     const rating = Math.min(5, Math.max(0, rate / (buy || 1)));
-    const date = new Date(new Date().getFullYear() + 1, 0, 1).toJSON().slice(0, 10);
+    //const date = new Date(new Date().getFullYear() + 1, 0, 1).toJSON().slice(0, 10);
+    const name = item.name.replace("\n", ", ");
 
     const schema = {
         "@context": "https://schema.org/",
         "@type": "Product",
-        "name": `${item.name}`,
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": game.name,
+          "item": `${frontend.uri}/${game.url}/`,
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": `Shop ${game.name}`,
+          "item": `${frontend.uri}/${game.url}/shop`,
+        },{
+          "@type": "ListItem",
+          "position": 3,
+          "name": name,
+        }],
+        "name": name,
         "image": [`${`${backend.uri}/${item.id}/${item.images[0]}/u.webp`}`],
-        "description": `If you are looking to buy ${item.name?.replace("\n", ", ")}, you're at the right place ✓ 5/5 Score on Trustpilot - Years of experience ✓ The customer is always right.`,
+        "description": `If you are looking to buy ${name}, ` + 
+            `you're at the right place ✓ 5/5 Score on Trustpilot - Years of experience ✓ The customer is always right.`,
         "brand": {
             "@type": "Brand",
             "name": "TrueCost.gg",

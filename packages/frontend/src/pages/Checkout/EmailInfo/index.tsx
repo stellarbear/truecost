@@ -34,7 +34,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
     const {current: {user, game, cart}, payment: {stripe: stripeKey}, currency} = store;
     const [mutation, {error, loading}] = useMutation(MAKE_BOOKING);
 
-    const [selectedSubscription, setSelectedSubscription] = useState<string | undefined>();
+    const [selectedSubscription] = useState<string | undefined>();
     const [currentSubscription, setCurrentSubscription] = useState<string | undefined>(user?.subscription?.id);
 
     const form = useForm<BookingSubmit>({

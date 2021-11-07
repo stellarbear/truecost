@@ -12,6 +12,7 @@ import {Meta} from "pages/Base/Meta";
 import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 import {HowToUse} from "pages/Base/HowToUse";
 import {TrustBox} from "pages/Base/TrustBox";
+import {BreadCrumbs} from "components";
 
 const empty = "default";
 
@@ -188,6 +189,12 @@ const Shop: React.FC = () => {
             <Meta entity={game} />
             <Container fixed style={{padding: 0}}>
                 <Col s={16}>
+                    <BreadCrumbs
+                        options={[
+                            [`/${game.url}/`, game.name],
+                            [`/${game.url}/shop`, `Shop ${game.name}`],
+                        ]}
+                    />
                     {filterNames()}
                     {filterTags()}
                     {filterData()}
