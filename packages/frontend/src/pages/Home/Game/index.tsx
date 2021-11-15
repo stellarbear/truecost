@@ -47,7 +47,6 @@ export const HomeGame: React.FC = () => {
             "@type": "ListItem",
             "position": 2,
             "name": `${game.name}`,
-            "item": `https://truecost.gg/${game.url}`,
         }],
     };
 

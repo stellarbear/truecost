@@ -37,9 +37,9 @@ export const Item: React.FC<IProps> = ({staticContext}) => {
     //const date = new Date(new Date().getFullYear() + 1, 0, 1).toJSON().slice(0, 10);
     const name = item.name.replace("\n", ", ");
 
-    const schema = {
+    const schemaBreadCrumbs = {
         "@context": "https://schema.org/",
-        "@type": "Product",
+        "@type": "BreadcrumbList",
         "itemListElement": [{
           "@type": "ListItem",
           "position": 1,
@@ -55,6 +55,11 @@ export const Item: React.FC<IProps> = ({staticContext}) => {
           "position": 3,
           "name": name,
         }],
+    };
+
+    const schemaBase = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
         "name": name,
         "image": [`${`${backend.uri}/${item.id}/${item.images[0]}/u.webp`}`],
         "description": `If you are looking to buy ${name}, ` + 
@@ -99,7 +104,10 @@ export const Item: React.FC<IProps> = ({staticContext}) => {
         <>
             <Meta entity={item}>
                 <script type="application/ld+json">
-                    {JSON.stringify(schema)}
+                    {JSON.stringify(schemaBreadCrumbs)}
+                </script>
+                <script type="application/ld+json">
+                    {JSON.stringify(schemaBase)}
                 </script>
             </Meta>
             <ItemLanding item={item} rating={rating}/>

@@ -40,7 +40,7 @@ export const TrustPanel: React.FC<IProps> = ({style = {}}) => {
                             <img height={32} src="/tp/logo.svg" alt="Trustpilot" />
                             <p style={{
                                 paddingTop: 17,
-                            }}>TrustScore <strong>4.8 / 5</strong></p>
+                            }}>TrustScore <strong>5 / 5</strong></p>
                         </Row>
                         <Hidden smDown>
                             <Row align="center" style={{
