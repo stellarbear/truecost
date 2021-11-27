@@ -49,7 +49,7 @@ export const AutoCompleteCustom: React.FC<IProps> = (props) => {
                 if (params.inputValue !== '') {
                     filtered.push({
                         custom: true,
-                        id: `custom order: "${params.inputValue}"`,
+                        id: params.inputValue,
                     });
                 }
 

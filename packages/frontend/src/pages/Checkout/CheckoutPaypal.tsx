@@ -31,9 +31,10 @@ export const CheckoutPaypal: React.FC = () => {
     React.useEffect(() => {
         if (data) {
             setLoading(false);
+            const code = data?.BookingPaypalAccept;
 
-            if (data?.BookingPaypalAccept) {
-                history.push(`/${game.url}/checkout/success`);
+            if (code) {
+                history.push(`/${game.url}/checkout/success/${code}`);
             }
         }
         if (error) {

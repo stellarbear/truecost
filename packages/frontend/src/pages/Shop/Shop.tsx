@@ -66,6 +66,7 @@ const Shop: React.FC = () => {
         const current = state.tags[0] ?? null;
         const url = Object.keys(tags.url).find(e => tags.url[e] === current) ?? null;
         const newUrl = `/${game.url}/shop${url ? `/${url}` : ""}`;
+        
         if (newUrl !== history.location.pathname) {
             history.replace({pathname: newUrl});
         }

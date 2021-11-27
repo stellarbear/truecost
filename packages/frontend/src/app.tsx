@@ -54,7 +54,7 @@ const App = () => {
                 component={CheckoutStripe} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/paypal')}
                 component={CheckoutPaypal} />
-            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/success')}
+            <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/success/:code?')}
                 component={CheckoutSuccess} />
             <Route sensitive exact path={urls.map(u => '/' + u + '/checkout/:step?')}
                 component={Checkout} />

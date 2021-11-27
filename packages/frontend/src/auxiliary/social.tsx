@@ -9,13 +9,7 @@ import Telegram from "@material-ui/icons/Telegram";
 import WhatsApp from "@material-ui/icons/WhatsApp";
 import {social as urls} from '@truecost/shared';
 
-export const social = [
-    {
-        valid: true,
-        icon: <Email/>,
-        title: "Email",
-        url: urls.email,
-    },
+export const contact = [
     {
         valid: true,
         icon: <WhatsApp/>,
@@ -41,16 +35,26 @@ export const social = [
         url: urls.instagram,
     },
     {
-        valid: true,
-        icon: <Twitch/>,
-        title: "Twitch",
-        url: urls.twitch,
-    },
-    {
         valid: false,
         icon: <Discord/>,
         title: "Discord",
         url: urls.discord,
+    },
+];
+
+export const social = [
+    ...contact,
+    {
+        valid: true,
+        icon: <Email/>,
+        title: "Email",
+        url: urls.email,
+    },
+    {
+        valid: true,
+        icon: <Twitch/>,
+        title: "Twitch",
+        url: urls.twitch,
     },
     {
         valid: true,

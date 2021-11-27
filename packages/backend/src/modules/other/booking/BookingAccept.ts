@@ -7,7 +7,7 @@ import {createOrder} from "../webhook";
 @Resolver()
 export class BookingAcceptResolver {
 
-    @Query(() => Boolean)
+    @Query(() => String)
     async BookingPaypalAccept(
         @Ctx() ctx: Context,
         @Arg("token") token: string,
@@ -26,18 +26,18 @@ export class BookingAcceptResolver {
         assert(bookingId,
             "booking id missing. contact us.");
 
-        await createOrder(bookingId, 'paypal');
+        const order = await createOrder(bookingId, 'paypal');
 
-        return true;
+        return order.code;
     }
 
-    @Query(() => Boolean)
+    @Query(() => String)
     async BookingStripeAccept(
         @Ctx() ctx: Context,
         @Arg("token") token: string,
     ) {
-        await createOrder(token, 'stripe');
+        const order = await createOrder(token, 'stripe');
 
-        return true;
+        return order.code;
     }
 }

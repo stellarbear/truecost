@@ -6,7 +6,7 @@ import {backend, frontend} from 'auxiliary/route';
 import {SafeImage} from 'components/SafeImage';
 
 interface IProps {
-    text: string[];
+    text: (JSX.Element | string)[];
     actions?: React.ReactElement[];
 }
 
@@ -31,7 +31,7 @@ export const InfoCard: React.FC<IProps> = ({text, actions = []}) => {
                         variant="body2" key={index}>{sentence}</Typography>)}
                 <Row s={8} m={8} wrap justify="center">
                     {React.Children.map(actions, (action, index) =>
-                        <div key={index}>{action}</div>)}
+                        <div key={index} style={{width: "100%"}}>{action}</div>)}
                 </Row>
             </Col>
         </Row>

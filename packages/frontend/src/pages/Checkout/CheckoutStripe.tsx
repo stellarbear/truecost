@@ -31,9 +31,10 @@ export const CheckoutStripe: React.FC = () => {
     React.useEffect(() => {
         if (data) {
             setLoading(false);
+            const code = data?.BookingStripeAccept;
 
-            if (data?.BookingStripeAccept) {
-                history.push(`/${game.url}/checkout/success`);
+            if (code) {
+                history.push(`/${game.url}/checkout/success/${code}`);
             }
         }
         if (error) {
