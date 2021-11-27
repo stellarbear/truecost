@@ -31,35 +31,37 @@ export const CheckoutSuccess: React.FC = () => {
                 text={[
                     <div key="0">Your order has been paid successfully</div>,
                     <div key="1">Here is your tracking number: <b>{code}</b></div>,
-                    <br  key="2"/>,
+                    <br key="2" />,
                     <div key="3">Text it to any messenger below</div>,
                     <div key="4">so we can have a chat with you</div>,
                 ]} actions={[
                     <Col key="shop" s={8}>
-                        <Alert icon={false} variant="filled" severity="info">
-                            <Row justify="space-evenly" wrap>
-                                {
-                                    contact.map((item, index) => (
-                                        <SocialDialog key={`social-${index}`} button={
-                                            (
-                                                <IconButton
-                                                    style={{padding: "0 0.5rem"}}
-                                                    aria-label={item.title}
-                                                    color="inherit" size="small">
-                                                    {React.cloneElement(item.icon, {style: 
-                                                        {color: "white"}})}
-                                                </IconButton>
-                                            )
-                                        } {...item} />
-                                    ))
-                                }
-                            </Row>
-                        </Alert>
+                        <Row justify="space-evenly" wrap>
+                            {
+                                contact.map((item, index) => (
+                                    <SocialDialog key={`social-${index}`} button={
+                                        (
+                                            <div
+                                                style={{padding: "0.5rem"}}>
+                                                <Alert icon={false} variant="filled" severity="info">
+                                                    <IconButton
+                                                        aria-label={item.title}
+                                                        style={{margin: "-0.5rem"}}
+                                                        color="inherit" size="small">
+                                                        {React.cloneElement(item.icon)}
+                                                    </IconButton>
+                                                </Alert>
+                                            </div>
+                                        )
+                                    } {...item} />
+                                ))
+                            }
+                        </Row>
 
                         <Button
-                            variant="outlined" color="primary" 
+                            variant="outlined" color="primary"
                             onClick={() => LiveChatWidget?.call('maximize')}>
-                                Send us a message
+                            send us a message via live chat
                         </Button>
                     </Col>,
                 ]}
