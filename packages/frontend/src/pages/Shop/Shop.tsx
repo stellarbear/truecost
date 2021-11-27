@@ -13,6 +13,7 @@ import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 import {HowToUse} from "pages/Base/HowToUse";
 import {TrustBox} from "pages/Base/TrustBox";
 import {BreadCrumbs} from "components";
+import {useHistory, useParams} from "react-router";
 
 const empty = "default";
 
@@ -32,8 +33,15 @@ export const defaultState: IShopState = {
 
 declare let LiveChatWidget: any;
 
+interface IParams {
+    tag?: string;
+}
+
 const Shop: React.FC = () => {
+    const {tag: urlTag} = useParams<IParams>();
     const {notify} = useNotification();
+    const history = useHistory();
+
     const {current: {shop, game}} = useStore();
 
     const {tags, items} = shop();
@@ -42,12 +50,26 @@ const Shop: React.FC = () => {
 
     const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => {
         const result = {...defaultState, ...state};
+        
+        if (urlTag && urlTag in tags.url) {
+            result.tags = [tags.url[urlTag]];
+        } else {
+            result.tags = result.tags.filter(n => tagIds.includes(n));
+        }
 
-        result.tags = result.tags.filter(n => tagIds.includes(n));
         result.names = result.names.filter(n => itemIds.includes(n));
 
         return result;
     });
+
+    React.useEffect(() => {
+        const current = state.tags[0] ?? null;
+        const url = Object.keys(tags.url).find(e => tags.url[e] === current) ?? null;
+        const newUrl = `/${game.url}/shop${url ? `/${url}` : ""}`;
+        if (newUrl !== history.location.pathname) {
+            history.replace({pathname: newUrl});
+        }
+    }, [state.tags[0], game.url]);
 
     const nameSet = useMemo(() => new Set(state.names), [state.names]);
     const tagSet = useMemo(() => new Set(

@@ -1,6 +1,7 @@
 import {IGame, IItem, IOption, ISubscription, ITag, rangeBase} from "../interfaces";
 import {arrayToDict, dictSortMap, ICartItem, OptionArea, OptionMerge, SafeJSON} from "..";
 import {CalcPrice, CalcResult, ICurrency} from "../math";
+import {convertTagNameToUrl} from "./tag";
 
 export type Dict<T> = Record<string, T>;
 
@@ -193,7 +194,8 @@ export const parseShop = (
         const {game: {id: gameId}, id, active, name} = tag;
 
         if (active && gameId in shopDict.data) {
-            shopDict.data[gameId].tags.url[name] = id;
+            const url = convertTagNameToUrl(name);
+            shopDict.data[gameId].tags.url[url] = id;
             shopDict.data[gameId].tags.id[id] = {
                 ...tag,
                 children: map(tag.children),
