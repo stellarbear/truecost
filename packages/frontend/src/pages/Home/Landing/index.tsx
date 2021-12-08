@@ -6,7 +6,6 @@ import {HomeGameSelector} from "./HomeGameSelector";
 import {GameTopOffers} from "../Shared/GameTopOffers";
 import {GameInfo} from "../Shared/GameInfo";
 import {HomeTrustPilot} from "./HomeTrustPilot";
-import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 import {Row} from "pages/Base/Grid";
 import {text} from "./data";
 import {SeoText} from "pages/Shop/ShopSeo";
@@ -48,9 +47,6 @@ export const HomeLanding: React.FC = () => {
                 </Grid>
                 <Grid item xs={12} >
                     <HomeGameSelector games={games} />
-                </Grid>
-                <Grid item xs={12}>
-                    <PersonalDiscount />
                 </Grid>
                 {
                     ids.map(gameId => (

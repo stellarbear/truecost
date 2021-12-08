@@ -15,7 +15,6 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import {useStore} from 'pages/Data/Wrapper';
 import {ItemEta} from './ItemEta';
 import {HowToUse} from 'pages/Base/HowToUse';
-import {PersonalDiscount} from 'pages/Base/PersonalDiscount';
 import {ItemOrdered} from './ItemOrdered';
 import {TrustPanel} from 'pages/Base/TrustPanel';
 import {EmailPromoCode} from 'pages/Base/EmailPromocode';
@@ -79,7 +78,6 @@ export const ItemLanding: React.FC<IProps> = (props) => {
             </Button>
             <ItemRelated item={item} />
             <TrustPanel style={{marginBottom: 16, marginTop: 16}} />
-            <PersonalDiscount />
             <Button startIcon={< ArrowDownward />} style={{marginTop: 16}}>
                 How to use our service
             </Button>

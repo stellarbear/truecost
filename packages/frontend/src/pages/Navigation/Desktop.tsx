@@ -38,10 +38,6 @@ export const Desktop: React.FC<IDesktop> = (props) => {
                 color="inherit" style={animate}>
                 <Typography variant="h6">TRACK</Typography>
             </Button>
-            <Button component={Link} to={'/discount'}
-                color="inherit" style={animate}>
-                <Typography variant="h6">MEMBERSHIP</Typography>
-            </Button>
             <Button component={Link} to={'/blog'}
                 color="inherit" style={animate}>
                 <Typography variant="h6">BLOG</Typography>

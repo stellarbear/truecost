@@ -4,7 +4,6 @@ import AuthRoute from "pages/Admin/AuthRoute";
 import { DataContext, DataWrapper } from "pages/Data/Wrapper";
 import Shop from "pages/Shop/Shop";
 import { Login } from "pages/User";
-import { Discount } from "pages/Discount";
 import { Item } from "pages/Item";
 import { LoadingWrapper } from "components/wrappers/LoadingWrapper";
 import { Register } from "pages/User/Register/Register";
@@ -85,7 +84,6 @@ const App = () => {
             <Route sensitive exact path={`/blog`} component={Blog} />
             <Route sensitive exact path={`/post/:id`} component={BlogPost} />
             <Route sensitive exact path={`/track`} component={Track} />
-            <Route sensitive exact path={`/discount`} component={Discount} />
             <Route sensitive exact path={`/contact`} component={Contact} />
             <Route sensitive exact path={`/policy`} component={Policy} />
             <Route sensitive exact path={`/tos`} component={TOS} />

@@ -9,7 +9,6 @@ import {InfoCard} from "pages/Base/InfoCard";
 import {useNotification} from "components/wrappers/NotifyWrapper";
 import {AutoCompleteCustom} from "components/AutoCompleteCustom";
 import {Meta} from "pages/Base/Meta";
-import {PersonalDiscount} from "pages/Base/PersonalDiscount";
 import {HowToUse} from "pages/Base/HowToUse";
 import {TrustBox} from "pages/Base/TrustBox";
 import {BreadCrumbs} from "components";
@@ -221,7 +220,6 @@ const Shop: React.FC = () => {
                     {filterNames()}
                     {filterTags()}
                     {filterData()}
-                    <PersonalDiscount />
                     {howto()}
                 </Col>
             </Container>
