@@ -31,13 +31,11 @@ export const NavigationBar: React.FC = () => {
     return (
         <ElevationScroll>
             <AppBar style={{
-                backgroundColor: isOnTop
-                    ? pathname === "/"
-                        ? "black"
-                        : "transparent"
+                backgroundColor: isOnTop && pathname === "/"
+                    ? "black"
                     : "white",
                 transition: "all 250ms ease 0s",
-                color: 'black',
+                color: isOnTop && pathname === "/" ? 'white' : 'black',
             }}>
                 <Toolbar style={{padding: 0}}>
                     <Hidden lgUp>
