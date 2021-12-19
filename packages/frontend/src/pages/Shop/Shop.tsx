@@ -13,6 +13,7 @@ import {HowToUse} from "pages/Base/HowToUse";
 import {TrustBox} from "pages/Base/TrustBox";
 import {BreadCrumbs} from "components";
 import {useHistory, useParams} from "react-router";
+import {Link} from "react-router-dom";
 
 const empty = "default";
 
@@ -138,6 +139,7 @@ const Shop: React.FC = () => {
 
     const tag = (tagId: string, depth = 0) => {
         const active = state.tags.includes(tagId);
+        const url = Object.keys(tags.url).find(key => tags.url[key] === tags.id[tagId].id);
 
         const onClick = () => {
             const index = state.tags.indexOf(tagId);
@@ -152,6 +154,8 @@ const Shop: React.FC = () => {
 
         return (
             <Chip
+                to={url ?? ""}
+                component={Link}
                 style={{marginBottom: 4, marginRight: 8}}
                 key={tagId}
                 label={tags.id[tagId].name}
