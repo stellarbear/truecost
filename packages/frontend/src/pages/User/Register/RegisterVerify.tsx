@@ -67,7 +67,7 @@ export const RegisterVerify: React.FC = () => {
                 'You account is verified!',
                 'We have automatically logged you in.',
             ]} actions={[
-                <Button key="shop" variant="outlined" component={Link} to="/shop">To the shop!</Button>,
+                <Button key="shop" variant="outlined" component={Link} to="/">To the shop!</Button>,
             ]}/>
         </>
     );

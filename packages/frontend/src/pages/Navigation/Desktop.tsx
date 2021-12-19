@@ -23,7 +23,7 @@ export const Desktop: React.FC<IDesktop> = (props) => {
 
     const navigation = () => (
         <Row justify="center" style={{transform: "all 0.5s"}}>
-            <Button component={Link} to={url + '/shop'}
+            <Button component={Link} to={url}
                 style={{
                     ...animate,
                     ...(pathname === "/" ? ({

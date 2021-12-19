@@ -48,7 +48,7 @@ export const Mobile: React.FC<IProps> = (props) => {
 
     const navigation = () => (
         <Col>
-            {pathname !== "/" && button(url + '/shop', "Shop")}
+            {pathname !== "/" && button(url, "Shop")}
             {button(url + '/checkout', "Checkout")}
             {button("/track", "Track")}
             <Divider />

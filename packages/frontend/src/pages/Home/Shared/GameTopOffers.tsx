@@ -54,7 +54,7 @@ export const GameTopOffers: React.FC<IProps> = (props) => {
             <Button fullWidth
                 variant="contained"
                 onClick={() => setGame(game.id)}
-                component={Link} to={url + "/shop"}
+                component={Link} to={url}
                 style={{
                     backgroundColor: "#fafafa",
                     margin: "0px 0px 16px 0px",

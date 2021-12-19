@@ -37,6 +37,9 @@ server
         res.write(generateSiteMap(games, blogs, items));
         res.end();
     })
+    .get("/*/shop", async (req: express.Request, res: express.Response): Promise<void> => {
+        res.redirect(301, req.path.replace("/shop", ""));
+    })
     .get("/*", async (req: express.Request, res: express.Response): Promise<void> => {
         const context: StaticRouterContext = {statusCode: 200, url: req.url};
 

@@ -43,16 +43,11 @@ export const Item: React.FC<IProps> = ({staticContext}) => {
         "itemListElement": [{
           "@type": "ListItem",
           "position": 1,
-          "name": game.name,
+          "name": `Shop ${game.name}`,
           "item": `${frontend.uri}/${game.url}/`,
         },{
           "@type": "ListItem",
           "position": 2,
-          "name": `Shop ${game.name}`,
-          "item": `${frontend.uri}/${game.url}/shop`,
-        },{
-          "@type": "ListItem",
-          "position": 3,
           "name": name,
         }],
     };

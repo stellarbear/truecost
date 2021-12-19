@@ -30,6 +30,7 @@ export const Html: React.FC<IProps> = ({ helmet, content, state, css }) => (
             {trustpilot()}
             <style id="jss-server-side">{css}</style>
             <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-160874000-1"></script>
+            <meta name="facebook-domain-verification" content="833oe8e4ohzcr0hem8crwpky4fsxp5" />
         </head>
         <body style={{ margin: 0 }}>
             {gtmNoScript()}

@@ -20,7 +20,7 @@ export const HomeIntro: React.FC<IProps> = ({style = {}}) => {
             <Button
                 component={Link}
                 endIcon={<ShoppingBasket />}
-                to={url + "/shop"}
+                to={url}
                 style={{marginTop: 32}}
                 variant="contained"
                 color="secondary">

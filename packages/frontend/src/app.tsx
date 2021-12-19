@@ -42,9 +42,9 @@ const App = () => {
         <NavigationWrapper>
             <Route sensitive exact path={"/"} component={HomeLanding} />
 
-            <Route sensitive exact
-                path={urls.map(u => '/' + u)} component={HomeGame} />
-            <Route sensitive exact path={urls.map(u => '/' + u + '/shop/:tag?')} component={Shop} />
+            {/* <Route sensitive exact
+                path={urls.map(u => '/' + u)} component={HomeGame} /> */}
+            <Route sensitive exact path={urls.map(u => '/' + u + '/:tag?')} component={Shop} />
 
             <Route sensitive exact path={`/checkout/direct/:id`} component={CheckoutDirect} />
             <Route sensitive exact path={`/checkout/paypal`} component={CheckoutPaypal} />

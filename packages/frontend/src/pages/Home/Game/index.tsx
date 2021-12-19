@@ -81,7 +81,7 @@ export const HomeGame: React.FC = () => {
                             {info(`Top deals`,
                                 <IconButton
                                     aria-label="go to shop"
-                                    component={Link} to={url + "/shop"}>
+                                    component={Link} to={url}>
                                     <ShoppingBasket />
                                 </IconButton>,
                             )}

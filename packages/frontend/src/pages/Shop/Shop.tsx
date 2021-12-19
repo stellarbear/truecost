@@ -65,7 +65,7 @@ const Shop: React.FC = () => {
     React.useEffect(() => {
         const current = state.tags[0] ?? null;
         const url = Object.keys(tags.url).find(e => tags.url[e] === current) ?? null;
-        const newUrl = `/${game.url}/shop${url ? `/${url}` : ""}`;
+        const newUrl = `/${game.url}${url ? `/${url}` : ""}`;
         
         if (newUrl !== history.location.pathname) {
             history.replace({pathname: newUrl});
@@ -217,8 +217,7 @@ const Shop: React.FC = () => {
                 <Col s={16}>
                     <BreadCrumbs
                         options={[
-                            [`/${game.url}/`, game.name],
-                            [`/${game.url}/shop`, `Shop ${game.name}`],
+                            [`/${game.url}/`, `Shop ${game.name}`],
                         ]}
                     />
                     {filterNames()}

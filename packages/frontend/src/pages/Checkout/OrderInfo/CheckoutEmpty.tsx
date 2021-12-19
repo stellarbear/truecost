@@ -15,7 +15,7 @@ export const CheckoutEmpty: React.FC = () => {
                 <Typography variant="body2">Order some goods first!</Typography>
             </Col>
             <Button variant="contained" color="primary"
-                component={Link} to={url + '/shop'} style={{textAlign: "center"}}>
+                component={Link} to={url} style={{textAlign: "center"}}>
                 To the shop!
             </Button>,
         </Row>

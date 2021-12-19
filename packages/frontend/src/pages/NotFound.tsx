@@ -27,7 +27,7 @@ const NotFound: React.FC<IProps> = ({staticContext}) => {
                 'Unfortunately, page is not found',
                 'Try next time, may be you will find something interesting!',
             ]} actions={[
-                <Button key="shop" variant="outlined" component={Link} to={url + '/shop'}>To the shop!</Button>,
+                <Button key="shop" variant="outlined" component={Link} to={url}>To the shop!</Button>,
             ]}/>
         </>
     );

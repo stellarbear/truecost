@@ -43,8 +43,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                 <Grid item xs={12}>
                     <BreadCrumbs
                         options={[
-                            [`/${game.url}/`, game.name],
-                            [`/${game.url}/shop`, `Shop ${game.name}`],
+                            [`/${game.url}/`, `Shop ${game.name}`],
                             [`/${game.url}/item/${item.url}`, item.name],
                         ]}
                     />

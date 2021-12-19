@@ -37,7 +37,7 @@ export const NavigationBar: React.FC = () => {
                         : "transparent"
                     : "white",
                 transition: "all 250ms ease 0s",
-                color: isOnTop ? 'white' : 'black',
+                color: 'black',
             }}>
                 <Toolbar style={{padding: 0}}>
                     <Hidden lgUp>
