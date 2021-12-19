@@ -22,6 +22,6 @@ export const notify = (
         '--------',
         JSON.stringify(items.map(i => ({name: i.name, desc: i.description}))),
         '--------',
-        info,
+        // info,
     ]);
 };

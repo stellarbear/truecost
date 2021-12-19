@@ -55,7 +55,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
         try {
             clearErrors();
             setLoading(true);
-            const {platform, text, cross, id, messenger} = info;
+            // const {platform, text, cross, id, messenger} = info;
 
             const variables = {
                 ...input,
@@ -64,7 +64,7 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
                 currency: currency.id,
                 subscription: selectedSubscription,
                 booking: JSON.stringify(cartItems),
-                info: JSON.stringify({platform, text, cross, id, messenger}),
+                info: JSON.stringify({}),
             };
 
             const result = await mutation({variables: {input: variables}});

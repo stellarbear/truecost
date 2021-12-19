@@ -32,7 +32,7 @@ export const Checkout: React.FC = () => {
     const panels = () => (
         <Col s={16}>
             <OrderInfo />
-            <Col s={8}>
+            {/* <Col s={8}>
                 <Typography variant="caption">Information</Typography>
                 <AuxInfo
                     value={info}
@@ -41,7 +41,7 @@ export const Checkout: React.FC = () => {
                     value={info}
                     setValue={(k: string, v: any) => updateInfo(k, v)} />
 
-            </Col>
+            </Col> */}
             <EmalInfo info={info} />
         </Col>
     );
