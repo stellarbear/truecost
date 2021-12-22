@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import {useStore} from "pages/Data/Wrapper";
-import {Chip, Container, Divider, Hidden, NoSsr, Paper, Typography} from "@material-ui/core";
+import {Chip, Container, Divider, Grid, Hidden, NoSsr, Paper, Typography} from "@material-ui/core";
 import {useStorage} from "auxiliary/useStorage";
 import {Col, Row, RowGrid} from "pages/Base/Grid";
 import {ArraySlice} from "components/generic/components/ArraySlice";
@@ -14,6 +14,7 @@ import {TrustBox} from "pages/Base/TrustBox";
 import {BreadCrumbs} from "components";
 import {useHistory, useParams} from "react-router";
 import {Link} from "react-router-dom";
+import {ShopSeo} from "./ShopSeo";
 
 const empty = "default";
 
@@ -50,7 +51,7 @@ const Shop: React.FC = () => {
 
     const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => {
         const result = {...defaultState, ...state};
-        
+
         if (urlTag && urlTag in tags.url) {
             result.tags = [tags.url[urlTag]];
         } else {
@@ -66,7 +67,7 @@ const Shop: React.FC = () => {
         const current = state.tags[0] ?? null;
         const url = Object.keys(tags.url).find(e => tags.url[e] === current) ?? null;
         const newUrl = `/${game.url}${url ? `/${url}` : ""}`;
-        
+
         if (newUrl !== history.location.pathname) {
             history.replace({pathname: newUrl});
         }
@@ -141,7 +142,10 @@ const Shop: React.FC = () => {
         const active = state.tags.includes(tagId);
         const url = Object.keys(tags.url).find(key => tags.url[key] === tags.id[tagId].id);
 
-        const onClick = () => {
+        const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+            e.stopPropagation();
+            e.preventDefault();
+
             const index = state.tags.indexOf(tagId);
 
             setState({
@@ -154,7 +158,7 @@ const Shop: React.FC = () => {
 
         return (
             <Chip
-                to={url ?? ""}
+                to={url ? `/${game.url}/${url}` : ""}
                 component={Link}
                 style={{marginBottom: 4, marginRight: 8}}
                 key={tagId}
@@ -210,6 +214,18 @@ const Shop: React.FC = () => {
         </Col>
     );
 
+    const seo = () => game.seo && game.seo.length > 0 && (
+        <Col s={16} style={{marginTop: 16}}>
+            <Typography variant="h4" noWrap style={{
+                minWidth: "fit-content",
+                fontWeight: 300,
+            }}>
+                {`Frequently asked questions`}
+            </Typography>
+            <ShopSeo game={game} />
+        </Col>
+    );
+
     return (
         <>
             <Meta entity={game} />
@@ -224,6 +240,7 @@ const Shop: React.FC = () => {
                     {filterTags()}
                     {filterData()}
                     {howto()}
+                    {seo()}
                 </Col>
             </Container>
         </>
