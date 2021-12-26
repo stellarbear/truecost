@@ -26,16 +26,16 @@ export const NavigationBar: React.FC = () => {
     useEffect(() => setIsOnTop(calcState()), [pathname]);
 
     const headerColorChange = () => setIsOnTop(calcState());
-    const logo = isOnTop ? "/logo-white.png" : "/logo-black.png";
+    const logo =  (isOnTop && pathname === "/") ? "/logo-white.png" : "/logo-black.png";
 
     return (
         <ElevationScroll>
             <AppBar style={{
-                backgroundColor: isOnTop && pathname === "/"
+                backgroundColor: (isOnTop && pathname === "/")
                     ? "black"
                     : "white",
                 transition: "all 250ms ease 0s",
-                color: isOnTop && pathname === "/" ? 'white' : 'black',
+                color: (isOnTop && pathname === "/") ? 'white' : 'black',
             }}>
                 <Toolbar style={{padding: 0}}>
                     <Hidden lgUp>
