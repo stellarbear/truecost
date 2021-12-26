@@ -63,20 +63,22 @@ const Shop: React.FC = () => {
         return result;
     });
 
+    const currentTags = state.tags.filter(tagId => tagId in tags.id);
+
     React.useEffect(() => {
-        const current = state.tags[0] ?? null;
+        const current = currentTags[0] ?? null;
         const url = Object.keys(tags.url).find(e => tags.url[e] === current) ?? null;
         const newUrl = `/${game.url}${url ? `/${url}` : ""}`;
 
         if (newUrl !== history.location.pathname) {
             history.replace({pathname: newUrl});
         }
-    }, [state.tags[0], game.url]);
+    }, [currentTags[0], game.url]);
 
     const nameSet = useMemo(() => new Set(state.names), [state.names]);
     const tagSet = useMemo(() => new Set(
-        state.tags.length > 0 ? shop().getTagDeps(state.tags[state.tags.length - 1]) : [],
-    ), [state.tags]);
+        currentTags.length > 0 ? shop().getTagDeps(currentTags[currentTags.length - 1]) : [],
+    ), [currentTags]);
 
     //  TODO: make readale
     const filterItems = () => itemIds
@@ -85,7 +87,7 @@ const Shop: React.FC = () => {
             nameSet.has(itemId) ||
             items.id[itemId].item.some(i => nameSet.has(i))
         ) && (
-                state.tags.length === 0 ||
+                currentTags.length === 0 ||
                 items.id[itemId].tag.some(t => tagSet.has(t))));
 
     const renderMock = () => (
@@ -139,20 +141,20 @@ const Shop: React.FC = () => {
     );
 
     const tag = (tagId: string, depth = 0) => {
-        const active = state.tags.includes(tagId);
+        const active = currentTags.includes(tagId);
         const url = Object.keys(tags.url).find(key => tags.url[key] === tags.id[tagId].id);
 
         const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
             e.stopPropagation();
             e.preventDefault();
 
-            const index = state.tags.indexOf(tagId);
+            const index = currentTags.indexOf(tagId);
 
             setState({
                 ...state,
                 tags: index === -1
-                    ? [...state.tags.slice(0, depth), tagId]
-                    : state.tags.slice(0, index),
+                    ? [...currentTags.slice(0, depth), tagId]
+                    : currentTags.slice(0, index),
             });
         };
 
@@ -179,14 +181,15 @@ const Shop: React.FC = () => {
                         <Row p={[2, 8]} wrap>
                             {tags.base.map(tagId => tag(tagId))}
                         </Row>
-                        {state.tags.map((tagId, index) => tags.id[tagId].children.length > 0 && (
-                            <Col s={8} p={8} key={tagId}>
-                                <Divider />
-                                <Row p={[2, 0]} wrap>
-                                    {tags.id[tagId].children.map(tagId => tag(tagId, index + 1))}
-                                </Row>
-                            </Col>
-                        ))}
+                        {currentTags
+                            .map((tagId, index) => tags.id[tagId].children.length > 0 && (
+                                <Col s={8} p={8} key={tagId}>
+                                    <Divider />
+                                    <Row p={[2, 0]} wrap>
+                                        {tags.id[tagId].children.map(tagId => tag(tagId, index + 1))}
+                                    </Row>
+                                </Col>
+                            ))}
                     </Col>
                 </Paper>
 
