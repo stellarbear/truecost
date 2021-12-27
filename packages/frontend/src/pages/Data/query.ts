@@ -63,6 +63,7 @@ ItemAll {
     eta
     obtain
     requirements
+    description
 
     tag  { id }
     option  { id }

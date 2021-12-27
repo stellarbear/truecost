@@ -31,6 +31,7 @@ export const AdminItem: React.FC = () => {
 
 			obtain
 			requirements
+            description
             topOffer
             direct
 
@@ -111,6 +112,13 @@ export const AdminItem: React.FC = () => {
         component: <EditorPost/>,
     });
 
+    const description = new CCustom({
+        base: "",
+        key: "description",
+        label: "description",
+        component: <EditorPost/>,
+    });
+
     const requirements = new CCustom({
         base: "",
         key: "requirements",
@@ -168,7 +176,7 @@ export const AdminItem: React.FC = () => {
     });
 
     const fields = [url, link, youtube, images, price, buy, rate, eta, range, discount, limit, obtain,
-        requirements, direct, isTopOffer, item, tag, option];
+        requirements, description, direct, isTopOffer, item, tag, option];
 
     return (
         <CRUD

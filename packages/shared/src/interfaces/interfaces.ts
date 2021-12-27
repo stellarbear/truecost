@@ -74,6 +74,7 @@ export interface IItem extends IBase, IBaseGame {
 
     obtain?: string;
     requirements?: string;
+    description?: string;
 
     tag: string[];
     option: string[];

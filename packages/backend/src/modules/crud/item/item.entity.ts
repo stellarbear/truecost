@@ -54,7 +54,9 @@ export class ItemEntity extends BaseEntity /*implements IItem */ {
     @Field()
     @Property()
     obtain: string = "";
-
+    @Field({defaultValue: ""})
+    @Property({default: ""})
+    description: string = "";
     @Field()
     @Property()
     requirements: string = "";

@@ -35,6 +35,8 @@ export class ItemInput extends BaseInput {
     @Field({nullable: true})
     requirements?: string;
     @Field({nullable: true})
+    description?: string;
+    @Field({nullable: true})
     topOffer?: boolean;
     @Field({nullable: true})
     direct?: boolean;

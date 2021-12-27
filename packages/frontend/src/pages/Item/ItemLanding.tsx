@@ -2,9 +2,10 @@ import * as React from 'react';
 import {IItem, CalcPrice} from "@truecost/shared";
 import {Button, Grid} from '@material-ui/core';
 import {ItemImage} from './ItemImage';
-import {ItemDescription} from './ItemDescription';
+import {ItemTags} from './ItemTags';
 import {ItemChildren} from './ItemChildren';
 import {ItemObtain} from './ItemObtain';
+import {ItemDescription} from './ItemDescription';
 import {ItemRange} from './ItemRange';
 import {ItemRequirements} from './ItemRequirements';
 import {ItemOption} from './ItemOption';
@@ -52,9 +53,10 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     <ItemImage item={item} />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <ItemDescription item={item} rating={rating} />
+                    <ItemTags item={item} rating={rating} />
                     <ItemOrdered item={item} />
                     <ItemChildren item={item} />
+                    <ItemDescription item={item} />
                     <ItemObtain item={item} />
                     <ItemRequirements item={item} />
                     <ItemRange item={item} chunk={chunk} onChange={setChunk} />
