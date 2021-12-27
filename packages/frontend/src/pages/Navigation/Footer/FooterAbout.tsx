@@ -21,6 +21,7 @@ export const FooterAbout: React.FC = () => {
                     <Button color="inherit" component={Link} to={"/policy"}>Privacy policy</Button>
                     <Button color="inherit" component={Link} to={"/tos"}>Terms of Service</Button>
                     <Button color="inherit" component={Link} to={"/blog"}>Our blog</Button>
+                    <Button color="inherit" component={Link} to={"/sitemap"}>Sitemap</Button>
                 </Col>
             </Grid>
             <Grid item xs={12} sm={5} md={3}>

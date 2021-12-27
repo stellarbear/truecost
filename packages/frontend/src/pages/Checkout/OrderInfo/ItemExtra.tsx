@@ -36,7 +36,7 @@ export const ItemExtra: React.FC<IProps> = (props) => {
 
     return (
         <div>
-            <Accordion elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
+            <Accordion expanded elevation={3} TransitionProps={{unmountOnExit: true}} style={{}}>
                 <AccordionSummary
                     expandIcon={<ExpandMore />}>
                     <Row fullWidth
