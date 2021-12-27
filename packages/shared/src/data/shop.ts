@@ -44,6 +44,12 @@ export interface IGameContext {
     };
 }
 
+export interface ITagContext {
+    data: {
+        gameId: Record<string, (ITag & {url: string})[]>;
+    };
+}
+
 export interface IShopContext {
     data: Dict<IShop>;
     subs: Dict<ISubscription>;
@@ -61,12 +67,26 @@ export const parseShop = (
 ) => {
     const gameDict: IGameContext = {data: {id: {}, url: {}}};
     const shopDict: IShopContext = {data: {}, subs: {}};
+    const tagDict: ITagContext = {data: {gameId: {}}};
 
     for (const game of GameAll) {
         const {id: gameId, active, url} = game;
         if (active) {
             gameDict.data.id[gameId] = game;
             gameDict.data.url[url] = gameId;
+        }
+    }
+
+    for (const tag of TagAll) {
+        const {game: {id: gameId}, active} = tag;
+        if (active) {
+            if (!(gameId in tagDict.data.gameId)) {
+                tagDict.data.gameId[gameId] = [];
+            }
+            tagDict.data.gameId[gameId].push({
+                ...tag,
+                url: convertTagNameToUrl(tag.name),
+            });
         }
     }
 
@@ -228,5 +248,6 @@ export const parseShop = (
     return ({
         shop: shopDict,
         game: gameDict,
+        tag: tagDict,
     });
 };

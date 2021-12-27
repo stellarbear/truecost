@@ -1,4 +1,4 @@
-import {IGameContext, IInfo, IShopContext, IUser, parseShop} from '@truecost/shared';
+import {IGameContext, IInfo, IShopContext, ITagContext, IUser, parseShop} from '@truecost/shared';
 import {mock} from './defaults';
 
 export interface IUserContext {
@@ -14,6 +14,7 @@ export interface IStore {
     info: IInfoContext;
     shop: IShopContext;
     game: IGameContext;
+    tag: ITagContext;
 }
 
 export interface IStoreContext {
@@ -24,7 +25,7 @@ export interface IStoreContext {
 export function useData(data: any): IStore {
     const {GameAll, ItemAll, TagAll, OptionAll, SubscriptionAll, UserWhoAmI, InfoAll} = data;
 
-    const {shop, game} = parseShop(
+    const {shop, game, tag} = parseShop(
         GameAll, ItemAll, TagAll, OptionAll, SubscriptionAll,
     );
 
@@ -35,5 +36,6 @@ export function useData(data: any): IStore {
         info: {data: InfoAll},
         shop,
         game,
+        tag,
     });
 }

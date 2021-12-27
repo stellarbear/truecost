@@ -18,6 +18,7 @@ import { PasswordMessage } from "pages/User/Password/PasswordMessage";
 import { CheckoutSuccess } from "pages/Checkout/CheckoutSuccess";
 import { Track } from "pages/Track";
 import { Account } from "pages/Account";
+import { Sitemap } from "pages/Sitemap";
 import { useScript } from "auxiliary/useScript";
 import { google, tawk, yandex } from "scripts";
 import { Contact, Policy, TOS } from "pages";
@@ -86,6 +87,7 @@ const App = () => {
             <Route sensitive exact path={`/post/:id`} component={BlogPost} />
             <Route sensitive exact path={`/track`} component={Track} />
             <Route sensitive exact path={`/contact`} component={Contact} />
+            <Route sensitive exact path={`/sitemap`} component={Sitemap} />
             <Route sensitive exact path={`/policy`} component={Policy} />
             <Route sensitive exact path={`/tos`} component={TOS} />
 

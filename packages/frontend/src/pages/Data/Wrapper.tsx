@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useState} from "react";
 import {
     CurrencyKey, Dict, ICart, ICurrency, IGame, IGameContext, IShop,
-    ISubscription, IUser, subscription,
+    ISubscription, IUser, subscription, ITagContext,
 } from "@truecost/shared";
 import {useData, IInfoContext} from "./useData";
 import {useGame} from "./useGame";
@@ -25,6 +25,7 @@ export interface IDataContext {
     currency: ICurrency;
     config: Dict<any>;
     games: IGameContext["data"];
+    tags: ITagContext["data"];
     infos: IInfoContext["data"];
     subs: Dict<ISubscription>;
     current: {
@@ -99,6 +100,7 @@ const Data: React.FC = ({children}) => {
             config,
             subs: store.shop.subs,
             games: store.game.data,
+            tags: store.tag.data,
             infos: store.info.data,
             current: {
                 discount: subscription.validate(user),
