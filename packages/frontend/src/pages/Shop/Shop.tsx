@@ -14,7 +14,7 @@ import {TrustBox} from "pages/Base/TrustBox";
 import {BreadCrumbs} from "components";
 import {useHistory, useParams} from "react-router";
 import {Link} from "react-router-dom";
-import {ShopSeo} from "./ShopSeo";
+import {SeoText, ShopSeo} from "./ShopSeo";
 
 const empty = "default";
 
@@ -217,7 +217,19 @@ const Shop: React.FC = () => {
         </Col>
     );
 
-    const seo = () => game.seo && game.seo.length > 0 && (
+    const seoTag = () => currentTags.length > 0 && tags.id[currentTags[0]].seo.length > 0 && (
+        <Col s={16} style={{marginTop: 16}}>
+            <Typography variant="h4" noWrap style={{
+                minWidth: "fit-content",
+                fontWeight: 300,
+            }}>
+                {`Frequently asked questions`}
+            </Typography>
+            <SeoText text={tags.id[currentTags[0]].seo} />
+        </Col>
+    );
+
+    const seoGame = () => game.seo && game.seo.length > 0 && (
         <Col s={16} style={{marginTop: 16}}>
             <Typography variant="h4" noWrap style={{
                 minWidth: "fit-content",
@@ -241,9 +253,10 @@ const Shop: React.FC = () => {
                     />
                     {filterNames()}
                     {filterTags()}
+                    {seoTag()}
                     {filterData()}
                     {howto()}
-                    {seo()}
+                    {seoGame()}
                 </Col>
             </Container>
         </>

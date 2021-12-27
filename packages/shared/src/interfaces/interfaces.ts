@@ -100,6 +100,7 @@ export interface IInfo extends IBase, IBaseGame {
 
 
 export interface ITag extends IBase, IBaseGame {
+    seo: string;
     color: string;
     children: string[];
 }

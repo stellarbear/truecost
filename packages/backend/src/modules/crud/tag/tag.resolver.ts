@@ -21,7 +21,7 @@ export class TagCRUDResolver extends BaseResolver
         resultRef: TagResponse,
         get: {
             set: [],
-            like: [],
+            like: ["seo"],
             filter: ["game", "item", "children"],
         },
         upsert: {

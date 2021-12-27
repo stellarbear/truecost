@@ -4,6 +4,9 @@ import {BaseInput} from "../base/base.input";
 @InputType()
 export class TagInput extends BaseInput {
     @Field({nullable: true})
+    seo?: string;
+
+    @Field({nullable: true})
     color?: string;
 
     @Field({nullable: true})

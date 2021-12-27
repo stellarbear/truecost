@@ -11,6 +11,10 @@ export class TagEntity extends BaseEntity /*implements ITag*/ {
     @Property({default: ""})
     color: string = "";
 
+    @Field({defaultValue: ""})
+    @Property({default: ""})
+    seo: string = "";
+
     @Field(() => GameEntity)
     @ManyToOne(() => GameEntity)
     game!: GameEntity;

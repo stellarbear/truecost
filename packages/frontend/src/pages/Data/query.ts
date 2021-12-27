@@ -82,6 +82,7 @@ TagAll {
     ${base.fragment}
     ${game.fragment}
 
+    seo
     color
     children { id }
 }
