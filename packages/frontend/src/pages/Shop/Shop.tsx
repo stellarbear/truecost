@@ -15,6 +15,7 @@ import {BreadCrumbs} from "components";
 import {useHistory, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {SeoText, ShopSeo} from "./ShopSeo";
+import {Markdown} from 'components/Markdown';
 
 const empty = "default";
 
@@ -217,15 +218,11 @@ const Shop: React.FC = () => {
         </Col>
     );
 
-    const seoTag = () => currentTags.length > 0 && tags.id[currentTags[0]].seo.length > 0 && (
+    const seoTag = () => currentTags.length > 0 && tags.id[currentTags[0]].seo?.length > 0 && (
         <Col s={16} style={{marginTop: 16}}>
-            <Typography variant="h4" noWrap style={{
-                minWidth: "fit-content",
-                fontWeight: 300,
-            }}>
-                {`Frequently asked questions`}
-            </Typography>
-            <SeoText text={tags.id[currentTags[0]].seo} />
+            <Markdown style={{opacity: 0.7}}>
+                {tags.id[currentTags[0]].seo}
+            </Markdown>
         </Col>
     );
 
