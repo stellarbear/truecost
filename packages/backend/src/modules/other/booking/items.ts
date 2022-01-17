@@ -162,9 +162,10 @@ export const totalItems = (
         quantity,
     }) => acc + amount * quantity, 0);
 
-    const discounted = (coupon === "SUBS")
-        ? CalcPrice.percentage(total, 90)
-        : total;
+    const discounted =
+        (coupon === "SUBS") ? CalcPrice.percentage(total, 90)
+            : (coupon === "HENRISOMAD") ? CalcPrice.percentage(total, 88)
+                : total;
 
     const discount = total - discounted;
 

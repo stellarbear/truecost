@@ -55,6 +55,8 @@ export const EmalInfo: React.FC<IProps> = ({info}) => {
         try {
             clearErrors();
             setLoading(true);
+
+            debugger;
             // const {platform, text, cross, id, messenger} = info;
 
             const variables = {
