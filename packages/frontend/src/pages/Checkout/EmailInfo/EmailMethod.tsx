@@ -1,10 +1,12 @@
 import * as React from 'react';
-import {Card, Hidden, Typography} from '@material-ui/core';
+import {Card, Hidden, Typography, Button} from '@material-ui/core';
 import {Visa, MasterCard, PayPal} from 'assets/cards';
 import {Col, Row} from 'pages/Base/Grid';
+import {ModalDialog} from 'components/ModalDialog';
 import {colors} from 'theme';
 
 export enum PaymentMethod {Stripe = "stripe", PayPal = "paypal"}
+declare let LiveChatWidget: any;
 
 interface IProps {
     method: PaymentMethod;
@@ -68,6 +70,31 @@ export const EmailMethod: React.FC<IProps> = (props) => {
             <Row>
                 <Typography variant="caption">Payment method</Typography>
             </Row>
+            <ModalDialog
+                button={
+                    <Typography variant="caption" style={{textDecoration: "underline", cursor: "pointer"}}>
+                        You can pay half now and half after 50%
+                    </Typography>
+                }
+                content={
+                    [
+                        <Col key="0" s={8}>
+                            <div/>
+                            <Typography>
+                                For orders <b>over $300</b> 
+                                <br/>
+                                You can pay <b>half the amount</b> up front and 50% when the pro-player reaches 50% progress on the order
+                                <br/>
+                            </Typography>
+                            <Button
+                                variant="outlined" color="primary"
+                                onClick={() => LiveChatWidget?.call('maximize')}>
+                                send us a message via live chat
+                            </Button>
+                        </Col>
+                    ]
+                }
+            />
             <Row s={16} >
                 {options.map(({method, icon}) => (
                     <Card

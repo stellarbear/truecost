@@ -218,25 +218,35 @@ const Shop: React.FC = () => {
         </Col>
     );
 
-    const seoTag = () => currentTags.length > 0 && tags.id[currentTags[0]].seo?.length > 0 && (
-        <Col s={16} style={{marginTop: 16}}>
-            <Markdown style={{opacity: 0.7}}>
-                {tags.id[currentTags[0]].seo}
-            </Markdown>
-        </Col>
-    );
+    const seoGame = () => {
+        if (currentTags.length > 0 && tags.id[currentTags[0]].seo?.length > 0) {
+            return (
+                <Col s={16} style={{marginTop: 16}}>
+                    <Typography variant="h4" noWrap style={{
+                        minWidth: "fit-content",
+                        fontWeight: 300,
+                    }}>
+                        {tags.id[currentTags[0]].name}
+                    </Typography>
+                    <Markdown style={{opacity: 0.7}}>
+                        {tags.id[currentTags[0]].seo}
+                    </Markdown>
+                </Col>
+            );
+        }
 
-    const seoGame = () => game.seo && game.seo.length > 0 && (
-        <Col s={16} style={{marginTop: 16}}>
-            <Typography variant="h4" noWrap style={{
-                minWidth: "fit-content",
-                fontWeight: 300,
-            }}>
-                {`Frequently asked questions`}
-            </Typography>
-            <ShopSeo game={game} />
-        </Col>
-    );
+        return game.seo && game.seo.length > 0 && (
+            <Col s={16} style={{marginTop: 16}}>
+                <Typography variant="h4" noWrap style={{
+                    minWidth: "fit-content",
+                    fontWeight: 300,
+                }}>
+                    {`Frequently asked questions`}
+                </Typography>
+                <ShopSeo game={game} />
+            </Col>
+        );
+    };
 
     return (
         <>
@@ -250,7 +260,6 @@ const Shop: React.FC = () => {
                     />
                     {filterNames()}
                     {filterTags()}
-                    {seoTag()}
                     {filterData()}
                     {howto()}
                     {seoGame()}

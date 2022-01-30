@@ -28,5 +28,5 @@ export function useGame(props: IProps) {
             ? props.data.id[currentGame]
             : mock.defaultGame);
 
-    return { state, setState };
+    return { state: currentGame ? props.data.id[currentGame] : state, setState };
 }

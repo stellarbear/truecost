@@ -43,7 +43,6 @@ export const ItemExtra: React.FC<IProps> = (props) => {
                         justify="space-between" align="center">
                         <Col>
                             <Typography >Extra options</Typography>
-                            <Typography variant="caption">Expand for live stream and other options</Typography>
                         </Col>
                         <PriceTypography price={totalOptionsPrice} />
                     </Row>

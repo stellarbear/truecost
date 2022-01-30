@@ -56,7 +56,7 @@ const getMetaTags = (meta: Dict<IMeta>, path: string): Dict<any> => {
 };
 
 export const Meta: React.FC<IProps> = (props) => {
-    const {current: {game: {url: gameUrl}}, meta} = useStore();
+    const {current: {game: {url: gameUrl}, user}, meta} = useStore();
     const history = useHistory();
     const {location: {pathname: browserUrl}} = history;
 
@@ -89,6 +89,9 @@ export const Meta: React.FC<IProps> = (props) => {
                         : <meta key={path} name={path} content={value} />
                 ))
             }
+            {user !== null && (
+                <title>{user.email}</title>
+            )}
             <link rel="canonical" href={`${frontend.uri}${browserUrl}`} />
             {noIndex && (
                 <meta name="robots" content="noindex" />

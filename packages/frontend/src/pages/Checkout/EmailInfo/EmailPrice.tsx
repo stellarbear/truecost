@@ -15,8 +15,6 @@ interface IProps {
     total: ITotalResult;
 }
 
-declare let LiveChatWidget: any;
-
 export const EmailPrice: React.FC<IProps> = (props) => {
     const {loading, total, error} = props;
     const {currency} = useStore();
@@ -30,31 +28,6 @@ export const EmailPrice: React.FC<IProps> = (props) => {
 
     return (
         <Col s={8} align="center" fullWidth>
-            <ModalDialog
-                button={
-                    <Typography variant="caption" style={{textDecoration: "underline", cursor: "pointer"}}>
-                        You can pay half now and half after 50%
-                    </Typography>
-                }
-                content={
-                    [
-                        <Col key="0" s={8}>
-                            <div/>
-                            <Typography>
-                                For orders <b>over $300</b> 
-                                <br/>
-                                You can pay <b>half the amount</b> up front and 50% when the pro-player reaches 50% progress on the order
-                                <br/>
-                            </Typography>
-                            <Button
-                                variant="outlined" color="primary"
-                                onClick={() => LiveChatWidget?.call('maximize')}>
-                                send us a message via live chat
-                            </Button>
-                        </Col>
-                    ]
-                }
-            />
             <Button
                 disabled={price === 0}
                 style={{minHeight: 60}}
