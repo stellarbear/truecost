@@ -218,11 +218,11 @@ const Shop: React.FC = () => {
         </Col>
     );
 
-    const hasTag = currentTags.length > 0 && tags.id[currentTags[0]].seo?.length > 0;
+    const hasTag = currentTags.length > 0;
     const hasSeo = game.seo && game.seo.length > 0;
 
     const seoGame = () => {
-        if (hasTag) {
+        if (hasTag && tags.id[currentTags[0]].seo?.length > 0) {
             return (
                 <Col s={16} style={{marginTop: 16}}>
                     <Typography variant="h4" noWrap style={{
