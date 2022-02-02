@@ -218,8 +218,11 @@ const Shop: React.FC = () => {
         </Col>
     );
 
+    const hasTag = currentTags.length > 0 && tags.id[currentTags[0]].seo?.length > 0;
+    const hasSeo = game.seo && game.seo.length > 0;
+
     const seoGame = () => {
-        if (currentTags.length > 0 && tags.id[currentTags[0]].seo?.length > 0) {
+        if (hasTag) {
             return (
                 <Col s={16} style={{marginTop: 16}}>
                     <Typography variant="h4" noWrap style={{
@@ -235,7 +238,7 @@ const Shop: React.FC = () => {
             );
         }
 
-        return game.seo && game.seo.length > 0 && (
+        return hasSeo && (
             <Col s={16} style={{marginTop: 16}}>
                 <Typography variant="h4" noWrap style={{
                     minWidth: "fit-content",
@@ -248,9 +251,15 @@ const Shop: React.FC = () => {
         );
     };
 
+    const entity = hasTag ? {
+        title: `${tags.id[currentTags[0]].name} on ${game.name} - Boosting Service by TrueCost`,
+        description: `Choose TrueCost, the #1 ${game.name} ${tags.id[currentTags[0]].name} boosting service. ` +
+            `Top-tier players will carry your operator and help you get the kills and wins you need!`,
+    } : game;
+
     return (
         <>
-            <Meta entity={game} />
+            <Meta entity={entity} />
             <Container fixed style={{padding: 0}}>
                 <Col s={16}>
                     <BreadCrumbs
@@ -260,6 +269,11 @@ const Shop: React.FC = () => {
                     />
                     {filterNames()}
                     {filterTags()}
+                    {hasTag && (
+                        <Typography variant="h6" component="h1">
+                            {tags.id[currentTags[0]].name}
+                        </Typography>
+                    )}
                     {filterData()}
                     {howto()}
                     {seoGame()}
