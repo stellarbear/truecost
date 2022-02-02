@@ -50,7 +50,6 @@ export const ItemExtra: React.FC<IProps> = (props) => {
                 <AccordionDetails>
                     <Col fullWidth>
                         {Object.keys(options).map((optionId) => {
-                            console.log(total);
                             const option = CalcPrice.fromOption(total, currency, options[optionId]);
                             const value = `${option.value >= 0 ? '+' : '-'} ${currency.label}${Math.abs(option.value)}`;
                             return (

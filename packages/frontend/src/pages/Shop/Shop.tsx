@@ -251,15 +251,19 @@ const Shop: React.FC = () => {
         );
     };
 
-    const entity = hasTag ? {
-        title: `${tags.id[currentTags[0]].name} on ${game.name} - Boosting Service by TrueCost`,
-        description: `Choose TrueCost, the #1 ${game.name} ${tags.id[currentTags[0]].name} boosting service. ` +
-            `Top-tier players will carry your operator and help you get the kills and wins you need!`,
-    } : game;
-
     return (
         <>
-            <Meta entity={entity} />
+            {hasTag ? (
+                <Meta silent>
+                    <title>
+                        {`${tags.id[currentTags[0]].name} on ${game.name} - Boosting Service by TrueCost`}
+                    </title>
+                    <meta name="description" content={
+                        `Choose TrueCost, the #1 ${game.name} ${tags.id[currentTags[0]].name} boosting service. ` +
+                        `Top-tier players will carry your operator and help you get the kills and wins you need!`
+                    } />
+                </Meta>
+            ) : <Meta entity={game} />}
             <Container fixed style={{padding: 0}}>
                 <Col s={16}>
                     <BreadCrumbs

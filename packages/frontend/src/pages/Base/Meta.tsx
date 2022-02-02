@@ -8,6 +8,7 @@ import {frontend} from 'auxiliary/route';
 
 interface IProps {
     noIndex?: boolean;
+    silent?: boolean;
     path?: string;
     entity?: Dict<any>;
 }
@@ -72,6 +73,7 @@ export const Meta: React.FC<IProps> = (props) => {
         path = url,
         entity = {},
         noIndex = false,
+        silent = false,
     } = props;
 
     const tags = getMetaTags(meta, path);
@@ -83,7 +85,7 @@ export const Meta: React.FC<IProps> = (props) => {
     return (
         <Helmet>
             {
-                data.map(({path, value}) => (
+                !silent && data.map(({path, value}) => (
                     path === "title"
                         ? <title key={path}>{value}</title>
                         : <meta key={path} name={path} content={value} />

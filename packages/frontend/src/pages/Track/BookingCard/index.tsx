@@ -22,8 +22,6 @@ export const BookingCard: React.FC<IProps> = ({raw}) => {
     const infoParsed = SafeJSON.parse<Dict<any>>(info, {});
     const dataParsed = SafeJSON.parse<any[]>(data, []);
 
-    console.log(dataParsed);
-
     return (
         <Accordion>
             <AccordionSummary
