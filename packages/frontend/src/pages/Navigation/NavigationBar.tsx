@@ -6,6 +6,7 @@ import {Mobile} from './Mobile';
 import {Desktop} from './Desktop';
 import {useLocation} from 'react-router';
 import {useStore} from 'pages/Data/Wrapper';
+import {OnlyDesktop, OnlyMobile} from "components/Only";
 
 const height = 200;
 
@@ -38,12 +39,12 @@ export const NavigationBar: React.FC = () => {
                 color: (isOnTop && pathname === "/") ? 'white' : 'black',
             }}>
                 <Toolbar style={{padding: 0}}>
-                    <Hidden lgUp>
+                    <OnlyMobile>
                         <Mobile logo={logo} />
-                    </Hidden>
-                    <Hidden mdDown>
+                    </OnlyMobile>
+                    <OnlyDesktop>
                         <Desktop logo={logo} />
-                    </Hidden>
+                    </OnlyDesktop>
                 </Toolbar>
             </AppBar>
         </ElevationScroll>

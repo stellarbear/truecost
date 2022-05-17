@@ -1,5 +1,5 @@
 export const social = {
-    email: "truecostgg@gmail.com",
+    email: "info@truecost.gg",
     whatsapp: "https://wa.me/13133273063",
     telegram: "https://telegram.me/TrueCostGG",
     facebook: "https://m.me/SupportTrueCost",

@@ -49,12 +49,6 @@ export const Mobile: React.FC<IProps> = (props) => {
     const navigation = () => (
         <Col>
             {pathname !== "/" && button(url, "Shop")}
-            {button(url + '/checkout', "Checkout")}
-            {button("/track", "Track")}
-            <Divider />
-            {button("/contact", "Contact")}
-            {button("/about", "About")}
-            {button("/blog", "Blog")}
             <Divider />
             {Object.keys(games.id).map((gameId) => (
                 <Button
@@ -69,6 +63,11 @@ export const Mobile: React.FC<IProps> = (props) => {
                 </Button>
             ))}
             <Divider />
+            {button("/blog", "Blog")}
+            {button("/contact", "Contact")}
+            {button("/policy", "Policy")}
+            {button(url + '/checkout', "Checkout")}
+            {button("/track", "Track")}
         </Col>
     );
 
@@ -112,7 +111,7 @@ export const Mobile: React.FC<IProps> = (props) => {
             open={open}
             onClose={() => setOpen(false)}
             anchor={"left"}>
-            <Col style={{minWidth: 240}} >
+            <Col style={{minWidth: 240, overflow: "auto"}} >
                 <Row justify="space-between">
                     <IconButton onClick={() => setOpen(!open)} style={{margin: "8px"}}>
                         <Clear />

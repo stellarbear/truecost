@@ -11,7 +11,7 @@ interface IProps {
 export const ItemOrdered: React.FC<IProps> = (props) => {
     const {item: {buy}} = props;
     const text = buy
-        ? `Alrerady ordered ${buy} times`
+        ? `Already ordered ${buy} times`
         : 'Be the first to order this item!';
 
     return (

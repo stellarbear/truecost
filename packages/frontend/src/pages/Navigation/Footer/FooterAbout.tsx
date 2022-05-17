@@ -15,18 +15,6 @@ export const FooterAbout: React.FC = () => {
             <Grid item xs={12} sm={5} md={3}>
                 <Col p={8} align="center">
                     <Typography variant="h5">
-                        <b>About us</b>
-                    </Typography>
-                    <Button color="inherit" component={Link} to={"/contact"}>Contact us</Button>
-                    <Button color="inherit" component={Link} to={"/policy"}>Privacy policy</Button>
-                    <Button color="inherit" component={Link} to={"/tos"}>Terms of Service</Button>
-                    <Button color="inherit" component={Link} to={"/blog"}>Our blog</Button>
-                    <Button color="inherit" component={Link} to={"/sitemap"}>Sitemap</Button>
-                </Col>
-            </Grid>
-            <Grid item xs={12} sm={5} md={3}>
-                <Col p={8} align="center">
-                    <Typography variant="h5">
                         <b>Services</b>
                     </Typography>
                     {ids.map(gameId => (
@@ -41,6 +29,19 @@ export const FooterAbout: React.FC = () => {
                 </Col>
             </Grid>
 
+            <Grid item xs={12} sm={5} md={3}>
+                <Col p={8} align="center">
+                    <Typography variant="h5">
+                        <b>About us</b>
+                    </Typography>
+                    <Button color="inherit" component={Link} to={"/contact"}>Contact us</Button>
+                    <Button color="inherit" component={Link} to={"/policy"}>Privacy policy</Button>
+                    <Button color="inherit" component={Link} to={"/tos"}>Terms of Service</Button>
+                    <Button color="inherit" component={Link} to={"/blog"}>Our blog</Button>
+                    <Button color="inherit" component={Link} to={"/sitemap"}>Sitemap</Button>
+                </Col>
+            </Grid>
+            
             <Grid item xs={12} sm={6} md={6}>
                 <Col s={8} p={8} style={{marginTop: 8}}>
                     <Typography variant="body2" color="inherit" align="center">

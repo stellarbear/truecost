@@ -7,6 +7,7 @@ export const Policy: React.FC = () => (
         <div
             style={{
                 fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+                wordBreak: "break-all",
             }}
         >
             <h1>Privacy Policy</h1>
@@ -424,7 +425,7 @@ export const Policy: React.FC = () => (
             <p>If you have any questions about this Privacy Policy, You can contact us:</p>
             <ul>
                 <li>
-                    <p>By email: truecostgg@gmail.com</p>
+                    <p>By email: info@truecost.gg</p>
                 </li>
                 <li>
                     <p>

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Divider, IconButton, Typography} from "@material-ui/core";
+import {Button, Divider, IconButton, Typography} from "@material-ui/core";
 import colors from "theme/colors";
 import {text} from "assets/text";
 import {social} from "auxiliary/social";
@@ -45,15 +45,15 @@ export const Contact: React.FC = () => {
                                     onMouseLeave={() => setHovered("")}>
                                     <SocialDialog key={`social-${index}`} button={
                                         (
-                                            <IconButton color="inherit" size="medium">
+                                            <Button variant="contained" size="medium">
                                                 {React.cloneElement(item.icon, {
                                                     style: {
                                                         color: hovered === item.title ? colors.primaryColor : "black",
-                                                        transform: "scale(2)", margin: 32,
+                                                        transform: "scale(2)", padding: 24,
                                                         transition: "all 0.2s linear",
                                                     },
                                                 })}
-                                            </IconButton>
+                                            </Button>
                                         )
                                     } {...item} />
 
