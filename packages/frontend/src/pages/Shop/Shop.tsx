@@ -1,22 +1,21 @@
-import React, { useMemo } from "react";
-import { useStore } from "pages/Data/Wrapper";
-import { Chip, Container, Divider, Grid, Hidden, NoSsr, Paper, Typography } from "@material-ui/core";
-import { useStorage } from "auxiliary/useStorage";
-import { Col, Row, RowGrid } from "pages/Base/Grid";
-import { ArraySlice } from "components/generic/components/ArraySlice";
+import {Chip, Container, Divider, NoSsr, Paper, Typography} from "@material-ui/core";
+import {useStorage} from "auxiliary/useStorage";
+import {BreadCrumbs} from "components";
+import {AutoCompleteCustom} from "components/AutoCompleteCustom";
+import {ArraySlice} from "components/generic/components/ArraySlice";
+import {Markdown} from 'components/Markdown';
+import {useNotification} from "components/wrappers/NotifyWrapper";
+import {Col, Row, RowGrid} from "pages/Base/Grid";
+import {HowToUse} from "pages/Base/HowToUse";
+import {InfoCard} from "pages/Base/InfoCard";
+import {Meta} from "pages/Base/Meta";
+import {TrustBox} from "pages/Base/TrustBox";
+import {useStore} from "pages/Data/Wrapper";
+import React, {useMemo} from "react";
+import {useHistory, useParams} from "react-router";
+import {Link} from "react-router-dom";
 import ItemCard from "./ItemCard";
-import { InfoCard } from "pages/Base/InfoCard";
-import { useNotification } from "components/wrappers/NotifyWrapper";
-import { AutoCompleteCustom } from "components/AutoCompleteCustom";
-import { Meta } from "pages/Base/Meta";
-import { HowToUse } from "pages/Base/HowToUse";
-import { TrustBox } from "pages/Base/TrustBox";
-import { BreadCrumbs } from "components";
-import { useHistory, useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { SeoText, ShopSeo } from "./ShopSeo";
-import { Markdown } from 'components/Markdown';
-import { HomeTrustPilot } from "pages/Home/Landing/HomeTrustPilot";
+import {ShopSeo} from "./ShopSeo";
 
 const empty = "default";
 
@@ -41,18 +40,18 @@ interface IParams {
 }
 
 const Shop: React.FC = () => {
-    const { tag: urlTag } = useParams<IParams>();
-    const { notify } = useNotification();
+    const {tag: urlTag} = useParams<IParams>();
+    const {notify} = useNotification();
     const history = useHistory();
 
-    const { current: { shop, game } } = useStore();
+    const {current: {shop, game}} = useStore();
 
-    const { tags, items } = shop();
+    const {tags, items} = shop();
     const itemIds = Object.keys(items.id).filter(t => !items.id[t].direct);
     const tagIds = Object.keys(tags.id);
 
     const [state, setState] = useStorage<IShopState>('shop', defaultState, (state) => {
-        const result = { ...defaultState, ...state };
+        const result = {...defaultState, ...state};
 
         if (urlTag && urlTag in tags.url) {
             result.tags = [tags.url[urlTag]];
@@ -73,7 +72,7 @@ const Shop: React.FC = () => {
         const newUrl = `/${game.url}${url ? `/${url}` : ""}`;
 
         if (newUrl !== history.location.pathname) {
-            history.replace({ pathname: newUrl });
+            history.replace({pathname: newUrl});
         }
     }, [currentTags[0], game.url]);
 
@@ -164,7 +163,7 @@ const Shop: React.FC = () => {
             <Chip
                 to={url ? `/${game.url}/${url}` : ""}
                 component={Link}
-                style={{ marginBottom: 4, marginRight: 8 }}
+                style={{marginBottom: 4, marginRight: 8}}
                 key={tagId}
                 label={tags.id[tagId].name}
                 clickable
@@ -177,38 +176,27 @@ const Shop: React.FC = () => {
 
     const filterTags = () => Object.keys(tags.base).length > 0 && (
         <NoSsr>
-            <Row justify="space-between">
-                <Paper style={{ width: "100%" }}>
-                    <Col p={8}>
-                        <Row p={[2, 8]} wrap>
-                            {tags.base.map(tagId => tag(tagId))}
-                        </Row>
-                        {currentTags
-                            .map((tagId, index) => tags.id[tagId].children.length > 0 && (
-                                <Col s={8} p={8} key={tagId}>
-                                    <Divider />
-                                    <Row p={[2, 0]} wrap>
-                                        {tags.id[tagId].children.map(tagId => tag(tagId, index + 1))}
-                                    </Row>
-                                </Col>
-                            ))}
-                    </Col>
-                </Paper>
-
-                <Hidden mdDown>
-                    <Paper elevation={2} style={{
-                        minWidth: 320,
-                        marginLeft: 16,
-                    }}>
-                        <TrustBox size="mikro" />
-                    </Paper>
-                </Hidden>
-            </Row>
+            <Paper style={{width: "100%"}}>
+                <Col p={8}>
+                    <Row p={[2, 8]} wrap>
+                        {tags.base.map(tagId => tag(tagId))}
+                    </Row>
+                    {currentTags
+                        .map((tagId, index) => tags.id[tagId].children.length > 0 && (
+                            <Col s={8} p={8} key={tagId}>
+                                <Divider />
+                                <Row p={[2, 0]} wrap>
+                                    {tags.id[tagId].children.map(tagId => tag(tagId, index + 1))}
+                                </Row>
+                            </Col>
+                        ))}
+                </Col>
+            </Paper>
         </NoSsr>
     );
 
     const howto = () => (
-        <Col s={16} style={{ marginTop: 16 }}>
+        <Col s={16} style={{marginTop: 16}}>
             <Typography variant="h4" noWrap style={{
                 minWidth: "fit-content",
                 fontWeight: 300,
@@ -225,14 +213,14 @@ const Shop: React.FC = () => {
     const seoGame = () => {
         if (hasTag && tags.id[currentTags[0]].seo?.length > 0) {
             return (
-                <Col s={16} style={{ marginTop: 16 }}>
+                <Col s={16} style={{marginTop: 16}}>
                     <Typography variant="h4" noWrap style={{
                         minWidth: "fit-content",
                         fontWeight: 300,
                     }}>
                         {tags.id[currentTags[0]].name}
                     </Typography>
-                    <Markdown style={{ opacity: 0.7 }}>
+                    <Markdown style={{opacity: 0.7}}>
                         {tags.id[currentTags[0]].seo}
                     </Markdown>
                 </Col>
@@ -240,7 +228,7 @@ const Shop: React.FC = () => {
         }
 
         return hasSeo && (
-            <Col s={16} style={{ marginTop: 16 }}>
+            <Col s={16} style={{marginTop: 16}}>
                 <Typography variant="h4" noWrap style={{
                     minWidth: "fit-content",
                     fontWeight: 300,
@@ -265,7 +253,7 @@ const Shop: React.FC = () => {
                     } />
                 </Meta>
             ) : <Meta entity={game} />}
-            <Container fixed style={{ padding: 0 }}>
+            <Container fixed style={{padding: 0}}>
                 <Col s={16}>
                     <BreadCrumbs
                         options={[
