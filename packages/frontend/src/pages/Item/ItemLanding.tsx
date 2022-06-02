@@ -56,7 +56,6 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     <ItemTags item={item} rating={rating} />
                     <ItemOrdered item={item} />
                     <ItemChildren item={item} />
-                    <ItemDescription item={item} />
                     <ItemObtain item={item} />
                     <ItemRequirements item={item} />
                     <ItemRange item={item} chunk={chunk} onChange={setChunk} />
@@ -71,6 +70,7 @@ export const ItemLanding: React.FC<IProps> = (props) => {
                     />
                     <EmailPromoCode
                         code="SUBS" />
+                    <ItemDescription item={item} />
                 </Grid>
             </Grid>
             <Button startIcon={< ArrowDownward />}
