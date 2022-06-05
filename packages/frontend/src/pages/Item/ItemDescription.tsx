@@ -11,7 +11,6 @@ interface IProps {
 
 export const ItemDescription: React.FC<IProps> = (props) => {
     const {item} = props;
-    const itemId = item.id;
 
     if (!item.description || item.description.length === 0) {
         return null;
@@ -21,15 +20,11 @@ export const ItemDescription: React.FC<IProps> = (props) => {
         <>
             <Col>
                 <Typography variant="body1">Description:</Typography>
-                {
-                    item.description.split('\n').map((o, i) => (
-                        <Markdown key={`${itemId}-description-${i}`}>
-                            {`• ${o}`}
-                        </Markdown>
-                    ))
-                }
+                <Markdown>
+                    {item.description}
+                </Markdown>
             </Col>
-            <ItemDivider condition={item.description.length > 0}/>
+            <ItemDivider condition={item.description.length > 0} />
         </>
     );
 };
