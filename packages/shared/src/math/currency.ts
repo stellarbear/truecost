@@ -8,5 +8,5 @@ export interface ICurrency {
 
 export const Currencies: Record<CurrencyKey, ICurrency> = {
     usd: {val: 1.0, label: '$', id: 'usd'},
-    eur: {val: 0.8, label: '€', id: 'eur'},
+    eur: {val: 1.0, label: '€', id: 'eur'},
 };
