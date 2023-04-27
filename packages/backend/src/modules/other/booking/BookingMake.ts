@@ -113,22 +113,24 @@ export class BookingMakeResolver {
             coupon,
         );
 
-        if (method === "stripe") {
-            return await payWithStripe(
-                bookingEntity.id,
-                `${gameEntity.url}/`,
-                email,
-                items,
-                coupon,
-            );
-        } else {
-            return await payWithPaypal(
-                bookingEntity.id,
-                `${gameEntity.url}/`,
-                total,
-                currencyRecord.id,
-                items,
-            );
-        }
+        return "null";
+
+        // if (method === "stripe") {
+        //     return await payWithStripe(
+        //         bookingEntity.id,
+        //         `${gameEntity.url}/`,
+        //         email,
+        //         items,
+        //         coupon,
+        //     );
+        // } else {
+        //     return await payWithPaypal(
+        //         bookingEntity.id,
+        //         `${gameEntity.url}/`,
+        //         total,
+        //         currencyRecord.id,
+        //         items,
+        //     );
+        // }
     }
 }

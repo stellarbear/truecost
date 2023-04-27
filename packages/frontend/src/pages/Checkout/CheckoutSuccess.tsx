@@ -13,7 +13,7 @@ interface IParams {
     code?: string;
 }
 
-declare let LiveChatWidget: any;
+declare let Tawk_API: any;
 
 export const CheckoutSuccess: React.FC = () => {
     const {current: {game}, update: {cart: {wipe}}} = useStore();
@@ -60,7 +60,7 @@ export const CheckoutSuccess: React.FC = () => {
 
                         <Button
                             variant="outlined" color="primary"
-                            onClick={() => LiveChatWidget?.call('maximize')}>
+                            onClick={() => Tawk_API?.maximize()}>
                             send us a message via live chat
                         </Button>
                     </Col>,

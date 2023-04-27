@@ -4,9 +4,12 @@ import {Visa, MasterCard, PayPal} from 'assets/cards';
 import {Col, Row} from 'pages/Base/Grid';
 import {ModalDialog} from 'components/ModalDialog';
 import {colors} from 'theme';
+import {social} from "auxiliary/social";
+import SocialDialog from "pages/Base/SocialDialog";
 
 export enum PaymentMethod {Stripe = "stripe", PayPal = "paypal"}
-declare let LiveChatWidget: any;
+
+declare let Tawk_API: any;
 
 interface IProps {
     method: PaymentMethod;
@@ -72,52 +75,52 @@ export const EmailMethod: React.FC<IProps> = (props) => {
             </Row>
             <ModalDialog
                 button={
-                    <Typography variant="caption" style={{textDecoration: "underline", cursor: "pointer"}}>
-                        You can pay half now and half after 50%
+                    <Typography variant="h6" style={{textDecoration: "underline", cursor: "pointer", color: "red"}}>
+                        To place an order, please contact us in any way convenient for you.
                     </Typography>
                 }
                 content={
                     [
                         <Col key="0" s={8}>
-                            <div/>
-                            <Typography>
-                                For orders <b>over $300</b> 
-                                <br/>
-                                You can pay <b>half the amount</b> up front and 50% when the pro-player reaches 50% progress on the order
-                                <br/>
-                            </Typography>
+                            <div />
+                            <Typography>To place an order, please contact us in any way convenient for you.</Typography>
+                            <div style={{
+                                display: "flex", flexWrap: "wrap", justifyContent: "space-evenly",
+                            }}>
+                                {
+                                    social.map((item, index) => (
+                                        <div key={`social-${index}`} style={{
+                                            display: "flex", flexDirection: "column", alignItems: "center",
+                                        }}>
+                                            <SocialDialog key={`social-${index}`} button={
+                                                (
+                                                    <Button variant="contained" size="medium">
+                                                        {React.cloneElement(item.icon, {
+                                                            style: { padding: "8px 0",
+                                                                transition: "all 0.2s linear",
+                                                            },
+                                                        })}
+                                                    </Button>
+                                                )
+                                            } {...item} />
+
+                                            <Typography style={{
+                                                color: hovered === item.title ? colors.primaryColor : "black",
+                                                transition: "all 0.2s linear",
+                                            }}>{item.title}</Typography>
+                                        </div>
+                                    ))
+                                }
+                            </div>
                             <Button
-                                variant="outlined" color="primary"
-                                onClick={() => LiveChatWidget?.call('maximize')}>
+                                variant="contained" color="primary"
+                                onClick={() => Tawk_API?.maximize()}>
                                 send us a message via live chat
                             </Button>
                         </Col>
                     ]
                 }
             />
-            <Row s={16} >
-                {options.map(({method, icon}) => (
-                    <Card
-                        key={method}
-                        raised={hovered === method}
-                        style={{
-                            height: 68,
-                            width: 300, cursor: "pointer",
-                            ...((current === method)
-                                ? {
-                                    color: "#fff",
-                                    backgroundColor: colors.primaryColor,
-                                } : {}),
-                        }}
-                        onMouseEnter={() => setHovered(method)}
-                        onMouseLeave={() => setHovered(null)}
-                        onClick={() => setMethod(method)}>
-                        <Col p={[8, 16]} align="center">
-                            {icon}
-                        </Col>
-                    </Card>
-                ))}
-            </Row>
         </>
     );
 };

@@ -33,7 +33,8 @@ export const defaultState: IShopState = {
     order: "asc",
 };
 
-declare let LiveChatWidget: any;
+
+declare let Tawk_API: any;
 
 interface IParams {
     tag?: string;
@@ -133,7 +134,7 @@ const Shop: React.FC = () => {
                     })
                 }
                 onCustom={() => {
-                    LiveChatWidget?.call('maximize');
+                    () => Tawk_API?.maximize();
                     notify("Ask us for the custom order, we will serve it to you!");
                 }}
                 getLabel={(itemId) => itemId in items.id ? items.id[itemId].name : "unknown"}
